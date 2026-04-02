@@ -23,29 +23,23 @@
 
             <div class="flex flex-1 items-center justify-end md:justify-between">
                 <nav aria-label="Global" class="hidden md:block">
-                    <ul class="flex items-center gap-6 text-sm">
-                        <li>
-                            <a class="text-gray-500 transition hover:text-gray-500/75" href="#"> About </a>
-                        </li>
 
+                    <ul class="flex items-center gap-6 text-xl">
                         <li>
-                            <a class="text-gray-500 transition hover:text-gray-500/75" href="#"> Careers </a>
+                            <x-nav-link class="text-gray-500 transition hover:text-gray-500/75" href="/"
+                                :active="request()->is('/')"> Home </x-nav-link>
                         </li>
-
                         <li>
-                            <a class="text-gray-500 transition hover:text-gray-500/75" href="#"> History </a>
+                            <x-nav-link class="text-gray-500 transition hover:text-gray-500/75" href="/about"
+                                :active="request()->is('about')"> About </x-nav-link>
                         </li>
-
                         <li>
-                            <a class="text-gray-500 transition hover:text-gray-500/75" href="#"> Services </a>
+                            <x-nav-link class="text-gray-500 transition hover:text-gray-500/75" href="/contact"
+                                :active="request()->is('contact')"> Contact </x-nav-link>
                         </li>
-
                         <li>
-                            <a class="text-gray-500 transition hover:text-gray-500/75" href="#"> Projects </a>
-                        </li>
-
-                        <li>
-                            <a class="text-gray-500 transition hover:text-gray-500/75" href="#"> Blog </a>
+                            <x-nav-link class="text-gray-500 transition hover:text-gray-500/75" href="/siswa"
+                                :active="request()->is('siswa')"> Daftar Siswa </x-nav-link>
                         </li>
                     </ul>
                 </nav>
@@ -75,19 +69,21 @@
             </div>
         </div>
     </header>
-
-    <nav>
+    <<<<<<< HEAD <nav>
         <x-nav-link href="/">Home</x-nav-link>
         <x-nav-link href="/about">About</x-nav-link>
         <x-nav-link href="/contact">Contact</x-nav-link>
         <x-nav-link href="/siswa">Daftar Siswa</x-nav-link>
-    </nav>
-    <main>
-        {{ $slot }}
-    </main>
-    <footer>
-        Ini footer dari page <span>{{ $footer }}</span>
-    </footer>
+        </nav>
+        <main>
+            =======
+            <main class="py-10 px-10 md:px-25">
+                >>>>>>> 5c24bf1a0999db87ecbee7f7a904e879d1f896db
+                {{ $slot }}
+            </main>
+            <footer class="py-10 px-10 md:px-25">
+                Ini footer dari page <span>{{ $footer }}</span>
+            </footer>
 </body>
 
 </html>
