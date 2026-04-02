@@ -69,21 +69,13 @@
             </div>
         </div>
     </header>
-    <<<<<<< HEAD <nav>
-        <x-nav-link href="/">Home</x-nav-link>
-        <x-nav-link href="/about">About</x-nav-link>
-        <x-nav-link href="/contact">Contact</x-nav-link>
-        <x-nav-link href="/siswa">Daftar Siswa</x-nav-link>
-        </nav>
-        <main>
-            =======
-            <main class="py-10 px-10 md:px-25">
-                >>>>>>> 5c24bf1a0999db87ecbee7f7a904e879d1f896db
-                {{ $slot }}
-            </main>
-            <footer class="py-10 px-10 md:px-25">
-                Ini footer dari page <span>{{ $footer }}</span>
-            </footer>
+    <main>
+        <main class="py-10 px-10 md:px-25">
+            {{ $slot }}
+        </main>
+        <footer class="py-10 px-10 md:px-25">
+            Ini footer dari page <span>{{ $footer }}</span>
+        </footer>
 </body>
 
 </html>
