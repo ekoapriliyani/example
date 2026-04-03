@@ -23,4 +23,7 @@ Route::get('/contact', function(){
 
 Route::get('/siswa', [SiswaController::class, 'index'])->name('siswa.index');
 
+Route::get('/siswa/create', [SiswaController::class, 'create'])->name('siswa.create');
+
 Route::get('/siswa/{id}', [SiswaController::class, 'show'])->name('siswa.show');
+

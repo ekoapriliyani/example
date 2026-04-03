@@ -2,17 +2,17 @@
 
 namespace Database\Seeders;
 
-use App\Models\Siswa;
+use App\Models\Mentor;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
-class SiswaSeeder extends Seeder
+class MentorSeeder extends Seeder
 {
     /**
      * Run the database seeds.
      */
     public function run(): void
     {
-        Siswa::factory()->count(50)->create();
+        Mentor::factory()->count(10)->create();
     }
 }

@@ -39,7 +39,11 @@
                         </li>
                         <li>
                             <x-nav-link class="text-gray-500 transition hover:text-gray-500/75"
-                                href="{{ route('siswa.index') }}" :active="request()->is('siswa')"> Daftar Siswa </x-nav-link>
+                                href="{{ route('siswa.create') }}" :active="request()->routeIs('siswa.create')"> Create Siswa </x-nav-link>
+                        </li>
+                        <li>
+                            <x-nav-link class="text-gray-500 transition hover:text-gray-500/75"
+                                href="{{ route('siswa.index') }}" :active="request()->routeIs('siswa.index')"> Siswa </x-nav-link>
                         </li>
                     </ul>
                 </nav>
@@ -70,10 +74,10 @@
         </div>
     </header>
     <main>
-        <main class="py-10 px-10 md:px-25">
+        <main class="mx-auto max-w-7xl items-center gap-8 px-4 sm:px-6 lg:px-8 my-10">
             {{ $slot }}
         </main>
-        <footer class="py-10 px-10 md:px-25">
+        <footer class="mx-auto max-w-7xl items-center gap-8 px-4 sm:px-6 lg:px-8 my-10">
             Ini footer dari page <span>{{ $footer }}</span>
         </footer>
 </body>

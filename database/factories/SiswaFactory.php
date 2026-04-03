@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Mentor;
 use App\Models\Siswa;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -23,7 +24,8 @@ class SiswaFactory extends Factory
             'jurusan' => fake()->randomElement([
                 'Teknik Informatika', 'Teknik Industri', 'Teknik Mesin', 'Teknik Lingkungan'
             ]),
-            'nilai' => fake()->numberBetween(70, 100)
+            'nilai' => fake()->numberBetween(70, 100),
+            'mentor_id' => Mentor::inRandomOrder()->first()->id
         ];
     }
 }
