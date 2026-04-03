@@ -15,12 +15,12 @@ Route::get('/about', function(){
     return view('about')
                 ->with('nama', 'Eko Apriliyani')
                 ->with('umur', 36);
-});
+})->name('about');
 
 Route::get('/contact', function(){
     return view('contact');
-});
+})->name('contact');
 
-Route::get('/siswa', [SiswaController::class, 'index']);
+Route::get('/siswa', [SiswaController::class, 'index'])->name('siswa.index');
 
-Route::get('/siswa/{id}', [SiswaController::class, 'show']);
+Route::get('/siswa/{id}', [SiswaController::class, 'show'])->name('siswa.show');

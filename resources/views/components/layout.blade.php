@@ -30,16 +30,16 @@
                                 :active="request()->is('/')"> Home </x-nav-link>
                         </li>
                         <li>
-                            <x-nav-link class="text-gray-500 transition hover:text-gray-500/75" href="/about"
-                                :active="request()->is('about')"> About </x-nav-link>
+                            <x-nav-link class="text-gray-500 transition hover:text-gray-500/75"
+                                href="{{ route('about') }}" :active="request()->is('about')"> About </x-nav-link>
                         </li>
                         <li>
-                            <x-nav-link class="text-gray-500 transition hover:text-gray-500/75" href="/contact"
-                                :active="request()->is('contact')"> Contact </x-nav-link>
+                            <x-nav-link class="text-gray-500 transition hover:text-gray-500/75"
+                                href="{{ route('contact') }}" :active="request()->is('contact')"> Contact </x-nav-link>
                         </li>
                         <li>
-                            <x-nav-link class="text-gray-500 transition hover:text-gray-500/75" href="/siswa"
-                                :active="request()->is('siswa')"> Daftar Siswa </x-nav-link>
+                            <x-nav-link class="text-gray-500 transition hover:text-gray-500/75"
+                                href="{{ route('siswa.index') }}" :active="request()->is('siswa')"> Daftar Siswa </x-nav-link>
                         </li>
                     </ul>
                 </nav>
