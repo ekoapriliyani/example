@@ -37,17 +37,36 @@
             Edit
         </a>
 
-        <form action="{{ route('siswa.destroy', $siswa->id) }}" method="POST"
-            onsubmit="return confirm('Apakah Anda yakin ingin menghapus data ini?')">
+        <form id="delete-form-{{ $siswa->id }}" action="{{ route('siswa.destroy', $siswa->id) }}" method="POST">
             @csrf
             @method('DELETE')
-            <button type="submit"
-                class="text-white text-sm bg-red-500 px-4 py-2 rounded cursor-pointer hover:bg-red-600">
+            <button type="button" onclick="confirmDelete({{ $siswa->id }})"
+                class="text-white text-sm bg-red-500 px-4 py-2 rounded hover:bg-red-600">
                 Delete
             </button>
         </form>
+        <script>
+            function confirmDelete(id) {
+                Swal.fire({
+                    title: 'Yakin mau hapus?',
+                    text: "Data yang dihapus tidak bisa dikembalikan!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#d33',
+                    cancelButtonColor: '#3085d6',
+                    confirmButtonText: 'Ya, Hapus!',
+                    cancelButtonText: 'Batal'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        document.getElementById('delete-form-' + id).submit();
+                    }
+                })
+            }
+        </script>
     </div>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <x-slot:footer>
         <strong>Siswa Detail Page</strong>
     </x-slot:footer>
+
 </x-layout>

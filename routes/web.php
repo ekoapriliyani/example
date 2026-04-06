@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\MaterialController;
+use App\Http\Controllers\MesinController;
 use App\Http\Controllers\SiswaController;
 use Illuminate\Support\Facades\Route;
 
@@ -35,3 +36,7 @@ Route::post('/material', [MaterialController::class, 'store'])->name('material.s
 Route::get('/material/create', [MaterialController::class, 'create'])->name('material.create');
 Route::get('/material/{id}', [MaterialController::class, 'show'])->name('material.show');
 
+Route::get('/mesin', [MesinController::class, 'index'])->name('mesin.index');
+Route::post('/mesin', [MesinController::class, 'store'])->name('mesin.store');
+Route::get('/mesin/create', [MesinController::class, 'create'])->name('mesin.create');
+Route::get('/mesin/{mesin}', [MesinController::class, 'show'])->name('mesin.show');
