@@ -40,3 +40,6 @@ Route::get('/mesin', [MesinController::class, 'index'])->name('mesin.index');
 Route::post('/mesin', [MesinController::class, 'store'])->name('mesin.store');
 Route::get('/mesin/create', [MesinController::class, 'create'])->name('mesin.create');
 Route::get('/mesin/{mesin}', [MesinController::class, 'show'])->name('mesin.show');
+Route::get('/mesin/{mesin}/edit', [MesinController::class, 'edit'])->name('mesin.edit');
+Route::put('/mesin/{mesin}', [MesinController::class, 'update'])->name('mesin.update');
+Route::delete('/mesin/{mesin}', [MesinController::class, 'destroy'])->name('mesin.destroy');

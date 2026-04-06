@@ -92,12 +92,6 @@
                             </ul>
                         </details>
                     </li>
-                    <li>
-                        <x-nav-link href="{{ route('about') }}" :active="request()->is('about')"
-                            class="block rounded-lg px-4 py-2 text-sm font-medium hover:bg-gray-100">
-                            About
-                        </x-nav-link>
-                    </li>
                 </ul>
             </div>
 

@@ -38,7 +38,7 @@ class MesinController extends Controller
             'id_mesin' => $validated['id_mesin'],
             'nama_mesin' => $validated['nama_mesin']
         ]);
-        return redirect()->route('mesin.index');
+        return redirect()->route('mesin.index')->with('success', 'Data mesin berhasil disimpan');
     }
 
     /**
@@ -52,24 +52,31 @@ class MesinController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Mesin $mesin)
     {
-        //
+        return view('mesin.edit', compact('mesin'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, Mesin $mesin)
     {
-        //
+        $validated = request()->validate([
+            'id_mesin' => 'required',
+            'nama_mesin' => 'required'
+        ]);
+
+        $mesin->update($validated);
+        return redirect()->route('mesin.index')->with('success', 'data mesin berhasil diperbarui');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Mesin $mesin)
     {
-        //
+        $mesin->delete();
+        return redirect()->route('mesin.index')->with('success', 'data mesin berhasil dihapus');
     }
 }
