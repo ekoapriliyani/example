@@ -48,41 +48,51 @@ class SiswaController extends Controller
             'mentor_id' => $validated['mentor_id']
         ]);
 
-        return redirect()->route('siswa.index');
+        return redirect()->route('siswa.index')->with('success', 'data berhasil ditambahkan');
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Siswa $siswa)
     {
-        $siswa = Siswa::with('mentor')->findOrFail($id);
+        $siswa->load('mentor');
         return view('siswa.show', ['siswa' => $siswa]);
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
-    {
-        //
+    public function edit(Siswa $siswa)
+    {   
+        $mentors = Mentor::all();
+        return view('siswa.edit', compact('siswa', 'mentors'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, Siswa $siswa)
     {
-        //
+        // validasi data
+        $validated = $request->validate([
+            'nama' => 'required|string|min:3',
+            'tanggal_lahir' => 'required|date',
+            'jurusan' => 'required|string|min:3',
+            'nilai' => 'required|numeric|min:0|max:100',
+            'mentor_id' => 'required|exists:mentors,id',
+        ]);
+        // update data secara langsung dari intance model
+        $siswa->update($validated);
+        return redirect()->route('siswa.index')->with('success', 'data siswa berhasil diperbarui');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Siswa $siswa)
     {
-        $siswa = Siswa::findOrFail($id);
         $siswa->delete();
-        return redirect()->route('siswa.index');
+        return redirect()->route('siswa.index')->with('success', 'data siswa berhasil dihapus');
     }
 }

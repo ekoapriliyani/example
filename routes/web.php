@@ -25,9 +25,10 @@ Route::get('/contact', function(){
 Route::get('/siswa', [SiswaController::class, 'index'])->name('siswa.index');
 Route::post('/siswa', [SiswaController::class, 'store'])->name('siswa.store');
 Route::get('/siswa/create', [SiswaController::class, 'create'])->name('siswa.create');
-Route::get('/siswa/{id}', [SiswaController::class, 'show'])->name('siswa.show');
-Route::delete('/siswa/{id}', [SiswaController::class, 'destroy'])->name('siswa.destroy');
-
+Route::get('/siswa/{siswa}', [SiswaController::class, 'show'])->name('siswa.show');
+Route::delete('/siswa/{siswa}', [SiswaController::class, 'destroy'])->name('siswa.destroy');
+Route::get('/siswa/{siswa}/edit', [SiswaController::class, 'edit'])->name('siswa.edit');
+Route::put('/siswa/{siswa}', [SiswaController::class, 'update'])->name('siswa.update');
 
 Route::get('/material', [MaterialController::class, 'index'])->name('material.index');
 Route::post('/material', [MaterialController::class, 'store'])->name('material.store');

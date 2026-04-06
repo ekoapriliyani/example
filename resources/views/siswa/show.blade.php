@@ -31,13 +31,22 @@
             </div>
         </dl>
     </div>
-    <form action="{{ route('siswa.destroy', $siswa->id) }}" method="POST">
-        @csrf
-        @method('DELETE')
-        <button type="submit" class="text-white text-sm bg-teal-500 my-8 px-4 py-2 rounded cursor-pointer">
-            Delete
-        </button>
-    </form>
+    <div class="flex items-center gap-2 my-8">
+        <a href="{{ route('siswa.edit', $siswa->id) }}"
+            class="text-white text-sm bg-blue-600 px-4 py-2 rounded hover:bg-blue-700">
+            Edit
+        </a>
+
+        <form action="{{ route('siswa.destroy', $siswa->id) }}" method="POST"
+            onsubmit="return confirm('Apakah Anda yakin ingin menghapus data ini?')">
+            @csrf
+            @method('DELETE')
+            <button type="submit"
+                class="text-white text-sm bg-red-500 px-4 py-2 rounded cursor-pointer hover:bg-red-600">
+                Delete
+            </button>
+        </form>
+    </div>
     <x-slot:footer>
         <strong>Siswa Detail Page</strong>
     </x-slot:footer>
