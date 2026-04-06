@@ -31,6 +31,13 @@
             </div>
         </dl>
     </div>
+    <form action="{{ route('siswa.destroy', $siswa->id) }}" method="POST">
+        @csrf
+        @method('DELETE')
+        <button type="submit" class="text-white text-sm bg-teal-500 my-8 px-4 py-2 rounded cursor-pointer">
+            Delete
+        </button>
+    </form>
     <x-slot:footer>
         <strong>Siswa Detail Page</strong>
     </x-slot:footer>

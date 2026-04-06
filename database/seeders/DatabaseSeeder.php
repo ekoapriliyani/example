@@ -25,7 +25,8 @@ class DatabaseSeeder extends Seeder
         $this->call([
             MentorSeeder::class,
             SiswaSeeder::class,
-            FlightSeeder::class
+            FlightSeeder::class,
+            MaterialSeeder::class
         ]);
     }
 }

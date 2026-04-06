@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\MaterialController;
 use App\Http\Controllers\SiswaController;
 use Illuminate\Support\Facades\Route;
 
@@ -22,8 +23,14 @@ Route::get('/contact', function(){
 })->name('contact');
 
 Route::get('/siswa', [SiswaController::class, 'index'])->name('siswa.index');
-
+Route::post('/siswa', [SiswaController::class, 'store'])->name('siswa.store');
 Route::get('/siswa/create', [SiswaController::class, 'create'])->name('siswa.create');
-
 Route::get('/siswa/{id}', [SiswaController::class, 'show'])->name('siswa.show');
+Route::delete('/siswa/{id}', [SiswaController::class, 'destroy'])->name('siswa.destroy');
+
+
+Route::get('/material', [MaterialController::class, 'index'])->name('material.index');
+Route::post('/material', [MaterialController::class, 'store'])->name('material.store');
+Route::get('/material/create', [MaterialController::class, 'create'])->name('material.create');
+Route::get('/material/{id}', [MaterialController::class, 'show'])->name('material.show');
 
