@@ -14,7 +14,7 @@
                 <div>
                     <label for="id_mesin" class="block text-xs font-medium text-gray-700">ID Mesin</label>
                     <input type="text" name="id_mesin" id="id_mesin"
-                        class="mt-1 w-full rounded-md border-gray-200 shadow-sm sm:text-sm focus:border-teal-500 focus:ring-teal-500 @error('id_mesin') border-red-500 @enderror"
+                        class="mt-1 w-full rounded-md shadow-sm sm:text-sm focus:border-teal-500 focus:ring-teal-500 @error('id_mesin') border-red-500 @enderror"
                         value="{{ old('id_mesin') }}" placeholder="Contoh: MSN-001">
 
                     @error('id_mesin')
@@ -25,28 +25,13 @@
                 <div>
                     <label for="nama_mesin" class="block text-xs font-medium text-gray-700">Nama Mesin</label>
                     <input type="text" name="nama_mesin" id="nama_mesin"
-                        class="mt-1 w-full rounded-md border-gray-200 shadow-sm sm:text-sm focus:border-teal-500 focus:ring-teal-500 @error('nama_mesin') border-red-500 @enderror"
+                        class="mt-1 w-full rounded-md shadow-sm sm:text-sm focus:border-teal-500 focus:ring-teal-500 @error('nama_mesin') border-red-500 @enderror"
                         value="{{ old('nama_mesin') }}" placeholder="Contoh: High Speed Milling">
 
                     @error('nama_mesin')
                         <p class="mt-1 text-xs text-red-500 font-medium">{{ $message }}</p>
                     @enderror
                 </div>
-
-                @if ($errors->any())
-                    <div class="rounded-md bg-red-50 p-4">
-                        <div class="flex">
-                            <div class="ml-3">
-                                <h3 class="text-sm font-medium text-red-800">Terdapat kesalahan input:</h3>
-                                <ul class="mt-2 list-disc list-inside text-xs text-red-700">
-                                    @foreach ($errors->all() as $error)
-                                        <li>{{ $error }}</li>
-                                    @endforeach
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                @endif
 
                 <div class="flex items-center justify-end gap-3 pt-4 border-t border-gray-100">
                     <a href="{{ route('mesin.index') }}"
