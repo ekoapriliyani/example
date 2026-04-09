@@ -54,24 +54,31 @@ class MaterialController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Material $material)
     {
-        //
+        return view('material.edit', compact('material'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, Material $material)
     {
-        //
+        $validated = $request->validate([
+            'item_id' => 'required',
+            'description' => 'required'
+        ]);
+        
+        $material->update($validated);
+        return redirect()->route('material.index')->with('success', 'Material berhasil diperbarui');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Material $material)
     {
-        //
+        $material->delete();
+        return redirect()->route('material.index')->with('success', 'material berhasil dihapus');
     }
 }

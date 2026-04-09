@@ -33,7 +33,10 @@ Route::put('/siswa/{siswa}', [SiswaController::class, 'update'])->name('siswa.up
 Route::get('/material', [MaterialController::class, 'index'])->name('material.index');
 Route::post('/material', [MaterialController::class, 'store'])->name('material.store');
 Route::get('/material/create', [MaterialController::class, 'create'])->name('material.create');
-Route::get('/material/{id}', [MaterialController::class, 'show'])->name('material.show');
+Route::get('/material/{material}', [MaterialController::class, 'show'])->name('material.show');
+Route::get('/material/{material}/edit', [MaterialController::class, 'edit'])->name('material.edit');
+Route::put('/material/{material}', [MaterialController::class, 'update'])->name('material.update');
+Route::delete('/material/{material}', [MaterialController::class, 'destroy'])->name('material.destroy');
 
 Route::get('/mesin', [MesinController::class, 'index'])->name('mesin.index');
 Route::post('/mesin', [MesinController::class, 'store'])->name('mesin.store');

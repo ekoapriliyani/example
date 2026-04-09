@@ -16,7 +16,7 @@
                     </svg>
                     Kembali
                 </a>
-                <a href=""
+                <a href="{{ route('material.edit', $material->id) }}"
                     class="inline-flex items-center gap-2 rounded bg-indigo-600 px-4 py-2 text-white hover:bg-indigo-700 transition text-sm font-medium">
                     <svg xmlns="http://www.w3.org/2000/svg" class="size-4" fill="none" viewBox="0 0 24 24"
                         stroke="currentColor">
@@ -63,22 +63,44 @@
         <div class="mt-8 rounded-lg border border-red-100 bg-red-50 p-4">
             <div class="flex items-center justify-between">
                 <div>
-                    <h3 class="text-sm font-medium text-red-800">Hapus Material</h3>
-                    <p class="text-xs text-red-600 mt-1">Aksi ini permanen dan akan menghapus data dari sistem
-                        inventori.</p>
+                    <h3 class="text-sm font-medium text-red-800">Zona Berbahaya</h3>
+                    <p class="text-xs text-red-600 mt-1">Berhati-hatilah, data material ini akan dihapus secara
+                        permanen.
+                    </p>
                 </div>
-                <form action="" method="POST"
-                    onsubmit="return confirm('Apakah Anda yakin ingin menghapus material {{ $material->item_id }}?')">
+
+                <form id="delete-form-{{ $material->id }}" action="{{ route('material.destroy', $material->id) }}"
+                    method="POST">
                     @csrf
                     @method('DELETE')
-                    <button type="submit"
-                        class="rounded bg-red-600 px-4 py-2 text-xs font-bold text-white hover:bg-red-700 transition">
+                    <button type="button" onclick="confirmDelete({{ $material->id }}, '{{ $material->item_id }}')"
+                        class="rounded bg-red-600 px-4 py-2 text-xs font-bold text-white hover:bg-red-700 transition shadow-sm">
                         Hapus Permanen
                     </button>
                 </form>
             </div>
         </div>
     </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        function confirmDelete(id, name) {
+            Swal.fire({
+                title: 'Hapus material?',
+                text: "Material " + name + " akan dihapus secara permanen!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#d33',
+                cancelButtonColor: '#3085d6',
+                confirmButtonText: 'Ya, Hapus!',
+                cancelButtonText: 'Batal'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    document.getElementById('delete-form-' + id).submit();
+                }
+            })
+        }
+    </script>
 
     <x-slot:footer>
         <strong>Material Detail Page</strong>
