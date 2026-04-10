@@ -3,25 +3,26 @@
 namespace App\Http\Controllers;
 
 use App\Models\InspeksiWm;
+use App\Models\InspeksiWmWip;
 use Illuminate\Http\Request;
 
-class InspeksiWmController extends Controller
+class InspeksiWmWipController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $data = InspeksiWm::all();
-        return view('inspeksi_wm.index', ['data' => $data]);
+        //
     }
 
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create(string $id)
     {
-        return view('inspeksi_wm.create');
+        $inspeksiWm = InspeksiWm::findOrFail($id);
+        return view('inspeksi_wm.wip', ['inspeksi_wm' => $inspeksiWm]);
     }
 
     /**
@@ -30,23 +31,27 @@ class InspeksiWmController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'nomor_inspeksi' => 'required',
-            'tanggal' => 'required'
+            'inspeksi_wm_id' => 'required|exists:inspeksi_wms,id',
+            'no_material' => 'required',
+            'nama_operator' => 'required'
         ]);
+        InspeksiWmWip::create([
+            'inspeksi_wm_id' => $validated['inspeksi_wm_id'],
+            'user_id' => 2,
+            'no_material' => $validated['no_material'],
+            'nama_operator' => $validated['nama_operator']
+        ]);
+        return redirect()->route('inspeksi_wm.show', $request->inspeksi_wm_id)
+    ->with('success', 'Data WIP berhasil disimpan');
 
-        InspeksiWm::create([
-            'nomor_inspeksi' => $validated['nomor_inspeksi'],
-            'tanggal' => $validated['tanggal']
-        ]);
-        return redirect()->route('inspeksi_wm.index')->with('success', 'inspeksi berhasil disimpan');
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(InspeksiWm $inspeksi_wm)
+    public function show(string $id)
     {
-        return view('inspeksi_wm.show', ['inspeksi_wm' => $inspeksi_wm]);
+        //
     }
 
     /**
@@ -68,9 +73,8 @@ class InspeksiWmController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(InspeksiWm $inspeksiWm)
+    public function destroy(string $id)
     {
-        $inspeksiWm->delete();
-        return redirect()->route('inspeksi_wm.index')->with('success', 'inspeksi berhasil dihapus');
+        //
     }
 }

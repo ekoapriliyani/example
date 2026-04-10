@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\InspeksiWmController;
+use App\Http\Controllers\InspeksiWmFgController;
+use App\Http\Controllers\InspeksiWmWipController;
 use App\Http\Controllers\MaterialController;
 use App\Http\Controllers\MesinController;
 use App\Http\Controllers\SiswaController;
@@ -53,3 +55,10 @@ Route::post('/inspeksi_wm', [InspeksiWmController::class, 'store'])->name('inspe
 Route::get('/inspeksi_wm/{inspeksi_wm}', [InspeksiWmController::class, 'show'])->name('inspeksi_wm.show');
 Route::get('/inspeksi_wm/{inspeksi_wm}/edit', [InspeksiWmController::class, 'edit'])->name('inspeksi_wm.edit');
 Route::delete('/inspeksi_wm/{inspeksi_wm}', [InspeksiWmController::class, 'destroy'])->name('inspeksi_wm.destroy');
+
+// Route::post('/inspeksi_wip', [InspeksiWmWipController::class, 'store'])->name('inspeksi_wip.store');
+// Route::post('/inspeksi_fg', [InspeksiWmFgController::class, 'store'])->name('inspeksi_fg.store');
+
+Route::get('/inspeksi_wm/{inspeksi_wm}/wip', [InspeksiWmWipController::class, 'create'])->name('inspeksi_wm.wip');
+Route::post('/inspeksi_wm/wip', [InspeksiWmWipController::class, 'store'])->name('inspeksi_wm_wip.store');
+Route::get('/inspeksi_wm/{inspeksi_wm}/fg', [InspeksiWmFgController::class, 'create'])->name('inspeksi_wm.fg');

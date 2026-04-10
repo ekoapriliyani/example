@@ -17,13 +17,13 @@ return new class extends Migration
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
             $table->integer('no_material');
             $table->string('nama_operator');
-            $table->decimal('d_kawat_act', 8,2);
-            $table->decimal('p_product_act', 8,2);
-            $table->decimal('l_product_act', 8,2);
-            $table->decimal('p_mesh_act', 8,2);
-            $table->decimal('l_mesh_act', 8,2);
-            $table->decimal('selisih_diagonal', 8,2);
-            $table->string('status_dimensi');
+            $table->decimal('d_kawat_act', 8,2)->nullable();
+            $table->decimal('p_product_act', 8,2)->nullable();
+            $table->decimal('l_product_act', 8,2)->nullable();
+            $table->decimal('p_mesh_act', 8,2)->nullable();
+            $table->decimal('l_mesh_act', 8,2)->nullable();
+            $table->decimal('selisih_diagonal', 8,2)->nullable();
+            $table->string('status_dimensi')->nullable();
             $table->timestamps();
         });
     }
