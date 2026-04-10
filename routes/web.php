@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\InspeksiWmController;
 use App\Http\Controllers\MaterialController;
 use App\Http\Controllers\MesinController;
 use App\Http\Controllers\SiswaController;
@@ -45,3 +46,10 @@ Route::get('/mesin/{mesin}', [MesinController::class, 'show'])->name('mesin.show
 Route::get('/mesin/{mesin}/edit', [MesinController::class, 'edit'])->name('mesin.edit');
 Route::put('/mesin/{mesin}', [MesinController::class, 'update'])->name('mesin.update');
 Route::delete('/mesin/{mesin}', [MesinController::class, 'destroy'])->name('mesin.destroy');
+
+Route::get('/inspeksi_wm', [InspeksiWmController::class, 'index'])->name('inspeksi_wm.index');
+Route::get('/inspeksi_wm/create', [InspeksiWmController::class, 'create'])->name('inspeksi_wm.create');
+Route::post('/inspeksi_wm', [InspeksiWmController::class, 'store'])->name('inspeksi_wm.store');
+Route::get('/inspeksi_wm/{inspeksi_wm}', [InspeksiWmController::class, 'show'])->name('inspeksi_wm.show');
+Route::get('/inspeksi_wm/{inspeksi_wm}/edit', [InspeksiWmController::class, 'edit'])->name('inspeksi_wm.edit');
+Route::delete('/inspeksi_wm/{inspeksi_wm}', [InspeksiWmController::class, 'destroy'])->name('inspeksi_wm.destroy');

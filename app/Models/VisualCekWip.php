@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class MataKuliah extends Model
+class VisualCekWip extends Model
 {
     //
 }
