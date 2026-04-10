@@ -2,17 +2,31 @@
 
 namespace App\Http\Controllers;
 
+use App\Imports\MaterialImport;
 use App\Models\Material;
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
 
 class MaterialController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request) // Tambahkan parameter Request
     {
-        $data = Material::orderBy('item_id', 'desc')->paginate(10);
+        // 1. Ambil kata kunci dari input search
+        $search = $request->input('search');
+
+        // 2. Query data dengan kondisi pencarian
+        $data = Material::when($search, function ($query, $search) {
+                return $query->where('item_id', 'like', "%{$search}%")
+                            ->orWhere('description', 'like', "%{$search}%");
+            })
+            ->orderBy('item_id', 'desc') // Tetap pakai order by punyamu
+            ->paginate(10)
+            ->withQueryString(); // Agar saat pindah halaman, hasil search tidak hilang
+
+        // 3. Return ke view
         return view('material.index', ['data' => $data]);
     }
 
@@ -39,7 +53,7 @@ class MaterialController extends Controller
             'description' => $validated['description']
         ]);
 
-        return redirect()->route('material.index');
+        return redirect()->route('material.index')->with('success', 'Material berhasil disimpan');
     }
 
     /**
@@ -81,4 +95,20 @@ class MaterialController extends Controller
         $material->delete();
         return redirect()->route('material.index')->with('success', 'material berhasil dihapus');
     }
+
+    public function import(Request $request) 
+    {
+        // Validasi file harus excel/csv
+        $request->validate([
+            'file' => 'required|mimes:xlsx,xls,csv'
+        ]);
+
+        try {
+            Excel::import(new MaterialImport, $request->file('file'));
+            return redirect()->route('material.index')->with('success', 'Data material berhasil diimpor!');
+        } catch (\Exception $e) {
+            return redirect()->route('material.index')->with('error', 'Gagal impor data: ' . $e->getMessage());
+        }
+    }
+
 }

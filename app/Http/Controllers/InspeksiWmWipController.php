@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\InspeksiWm;
 use App\Models\InspeksiWmWip;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class InspeksiWmWipController extends Controller
 {
@@ -30,20 +31,29 @@ class InspeksiWmWipController extends Controller
      */
     public function store(Request $request)
     {
-        $validated = $request->validate([
+        $request->validate([
             'inspeksi_wm_id' => 'required|exists:inspeksi_wms,id',
-            'no_material' => 'required',
-            'nama_operator' => 'required'
+            'no_material'    => 'required',
+            'nama_operator'  => 'required',
+            // Tambahkan validasi lain jika ada
         ]);
-        InspeksiWmWip::create([
-            'inspeksi_wm_id' => $validated['inspeksi_wm_id'],
-            'user_id' => 2,
-            'no_material' => $validated['no_material'],
-            'nama_operator' => $validated['nama_operator']
-        ]);
-        return redirect()->route('inspeksi_wm.show', $request->inspeksi_wm_id)
-    ->with('success', 'Data WIP berhasil disimpan');
 
+        // Pastikan user sudah login
+        if (!Auth::check()) {
+            return redirect()->back()->with('error', 'Sesi login berakhir. Silakan login kembali.');
+        }
+
+        // Simpan data
+        InspeksiWmWip::create([
+            'inspeksi_wm_id' => $request->inspeksi_wm_id,
+            'user_id'        => Auth::id(), // Mengambil ID dari user yang sedang login
+            'no_material'    => $request->no_material,
+            'nama_operator'  => $request->nama_operator,
+            // 'd_kawat_act' => $request->d_kawat_act, // Jika ada field ini
+        ]);
+
+        return redirect()->route('inspeksi_wm.show', $request->inspeksi_wm_id)
+                        ->with('success', 'Data WIP berhasil ditambahkan!');
     }
 
     /**

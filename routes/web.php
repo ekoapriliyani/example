@@ -1,64 +1,56 @@
 <?php
 
-use App\Http\Controllers\HomeController;
 use App\Http\Controllers\InspeksiWmController;
 use App\Http\Controllers\InspeksiWmFgController;
 use App\Http\Controllers\InspeksiWmWipController;
 use App\Http\Controllers\MaterialController;
 use App\Http\Controllers\MesinController;
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SiswaController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', [HomeController::class, 'index'])->name('home');
+// Route::get('/', function () {
+//     return view('welcome');
+// });
 
-Route::get('/about', function(){
-    $nama = "Eko";
-    $umur = 28;
-    // return view('about', ['nama' => $nama, 'umur' => 28]);
-    // return view('about', compact('nama', 'umur'));
-    return view('about')
-                ->with('nama', 'Eko Apriliyani')
-                ->with('umur', 36);
-})->name('about');
+Route::get('/', function () {
+    return view('dashboard');
+})->middleware(['auth', 'verified'])->name('dashboard');
 
-Route::get('/contact', function(){
-    return view('contact');
-})->name('contact');
+Route::middleware('auth')->group(function () {
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+});
 
-Route::get('/siswa', [SiswaController::class, 'index'])->name('siswa.index');
-Route::post('/siswa', [SiswaController::class, 'store'])->name('siswa.store');
-Route::get('/siswa/create', [SiswaController::class, 'create'])->name('siswa.create');
-Route::get('/siswa/{siswa}', [SiswaController::class, 'show'])->name('siswa.show');
-Route::delete('/siswa/{siswa}', [SiswaController::class, 'destroy'])->name('siswa.destroy');
-Route::get('/siswa/{siswa}/edit', [SiswaController::class, 'edit'])->name('siswa.edit');
-Route::put('/siswa/{siswa}', [SiswaController::class, 'update'])->name('siswa.update');
+// Bungkus semua route inspeksi QC kamu di dalam middleware auth
+Route::middleware('auth')->group(function () {
+    
+    // Route Profile (Bawaan Breeze)
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
-Route::get('/material', [MaterialController::class, 'index'])->name('material.index');
-Route::post('/material', [MaterialController::class, 'store'])->name('material.store');
-Route::get('/material/create', [MaterialController::class, 'create'])->name('material.create');
-Route::get('/material/{material}', [MaterialController::class, 'show'])->name('material.show');
-Route::get('/material/{material}/edit', [MaterialController::class, 'edit'])->name('material.edit');
-Route::put('/material/{material}', [MaterialController::class, 'update'])->name('material.update');
-Route::delete('/material/{material}', [MaterialController::class, 'destroy'])->name('material.destroy');
+    // Route Fitur QC Kamu
+    Route::resource('siswa', SiswaController::class);
+    Route::resource('material', MaterialController::class);
+    Route::post('material/import', [MaterialController::class, 'import'])->name('material.import');
+    Route::resource('mesin', MesinController::class);
+    
+    // Route Inspeksi WM
+    Route::get('/inspeksi_wm', [InspeksiWmController::class, 'index'])->name('inspeksi_wm.index');
+    Route::get('/inspeksi_wm/create', [InspeksiWmController::class, 'create'])->name('inspeksi_wm.create');
+    Route::post('/inspeksi_wm', [InspeksiWmController::class, 'store'])->name('inspeksi_wm.store');
+    Route::get('/inspeksi_wm/{inspeksi_wm}', [InspeksiWmController::class, 'show'])->name('inspeksi_wm.show');
+    Route::get('/inspeksi_wm/{inspeksi_wm}/edit', [InspeksiWmController::class, 'edit'])->name('inspeksi_wm.edit');
+    Route::delete('/inspeksi_wm/{inspeksi_wm}', [InspeksiWmController::class, 'destroy'])->name('inspeksi_wm.destroy');
 
-Route::get('/mesin', [MesinController::class, 'index'])->name('mesin.index');
-Route::post('/mesin', [MesinController::class, 'store'])->name('mesin.store');
-Route::get('/mesin/create', [MesinController::class, 'create'])->name('mesin.create');
-Route::get('/mesin/{mesin}', [MesinController::class, 'show'])->name('mesin.show');
-Route::get('/mesin/{mesin}/edit', [MesinController::class, 'edit'])->name('mesin.edit');
-Route::put('/mesin/{mesin}', [MesinController::class, 'update'])->name('mesin.update');
-Route::delete('/mesin/{mesin}', [MesinController::class, 'destroy'])->name('mesin.destroy');
+    // Route WIP & FG
+    Route::get('/inspeksi_wm/{inspeksi_wm}/wip', [InspeksiWmWipController::class, 'create'])->name('inspeksi_wm.wip');
+    Route::post('/inspeksi_wm/wip', [InspeksiWmWipController::class, 'store'])->name('inspeksi_wm_wip.store');
+    Route::get('/inspeksi_wm/{inspeksi_wm}/fg', [InspeksiWmFgController::class, 'create'])->name('inspeksi_wm.fg');
 
-Route::get('/inspeksi_wm', [InspeksiWmController::class, 'index'])->name('inspeksi_wm.index');
-Route::get('/inspeksi_wm/create', [InspeksiWmController::class, 'create'])->name('inspeksi_wm.create');
-Route::post('/inspeksi_wm', [InspeksiWmController::class, 'store'])->name('inspeksi_wm.store');
-Route::get('/inspeksi_wm/{inspeksi_wm}', [InspeksiWmController::class, 'show'])->name('inspeksi_wm.show');
-Route::get('/inspeksi_wm/{inspeksi_wm}/edit', [InspeksiWmController::class, 'edit'])->name('inspeksi_wm.edit');
-Route::delete('/inspeksi_wm/{inspeksi_wm}', [InspeksiWmController::class, 'destroy'])->name('inspeksi_wm.destroy');
 
-// Route::post('/inspeksi_wip', [InspeksiWmWipController::class, 'store'])->name('inspeksi_wip.store');
-// Route::post('/inspeksi_fg', [InspeksiWmFgController::class, 'store'])->name('inspeksi_fg.store');
+});
 
-Route::get('/inspeksi_wm/{inspeksi_wm}/wip', [InspeksiWmWipController::class, 'create'])->name('inspeksi_wm.wip');
-Route::post('/inspeksi_wm/wip', [InspeksiWmWipController::class, 'store'])->name('inspeksi_wm_wip.store');
-Route::get('/inspeksi_wm/{inspeksi_wm}/fg', [InspeksiWmFgController::class, 'create'])->name('inspeksi_wm.fg');
+require __DIR__.'/auth.php';

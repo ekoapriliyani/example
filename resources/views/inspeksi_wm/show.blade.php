@@ -1,113 +1,155 @@
-<x-layout>
-    <div class="max-w-4xl mx-auto">
-        <!-- Tombol tambah data -->
-        <div class="mb-6 flex gap-3">
-            <a href="{{ route('inspeksi_wm.wip', $inspeksi_wm->id) }}"
-                class="py-2 px-4 rounded bg-blue-600 text-white text-sm font-semibold hover:bg-blue-700 transition">
-                Tambahkan WIP
-            </a>
-            <a href="{{ route('inspeksi_wm.fg', $inspeksi_wm->id) }}"
-                class="py-2 px-4 rounded bg-green-600 text-white text-sm font-semibold hover:bg-green-700 transition">
-                Tambahkan FG
-            </a>
-        </div>
-
-        <!-- Header detail inspeksi -->
-        <div class="overflow-hidden rounded-xl border border-gray-200 bg-white shadow-sm">
-            <div class="p-6 sm:p-8">
-                <dl class="-my-3 divide-y divide-gray-100 text-sm">
-                    <div class="grid grid-cols-1 gap-1 py-4 sm:grid-cols-3 sm:gap-4">
-                        <dt class="font-semibold text-gray-900">Nomor Inspeksi</dt>
-                        <dd class="text-gray-700 sm:col-span-2">
-                            <span
-                                class="inline-flex items-center justify-center rounded-full bg-teal-100 px-2.5 py-0.5 text-teal-700">
-                                {{ $inspeksi_wm->nomor_inspeksi }}
-                            </span>
-                        </dd>
-                    </div>
-
-                    <div class="grid grid-cols-1 gap-1 py-4 sm:grid-cols-3 sm:gap-4">
-                        <dt class="font-semibold text-gray-900">Tanggal</dt>
-                        <dd class="text-gray-700 text-base sm:col-span-2">
-                            {{ $inspeksi_wm->tanggal }}
-                        </dd>
-                    </div>
-                </dl>
+<x-app-layout>
+    <x-slot name="header">
+        <div class="flex items-center justify-between">
+            <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+                {{ __('Detail Inspeksi WM') }}
+            </h2>
+            <div class="flex gap-2">
+                <a href="{{ route('inspeksi_wm.index') }}"
+                    class="inline-flex items-center px-4 py-2 bg-white border border-gray-300 rounded-md font-semibold text-xs text-gray-700 uppercase tracking-widest shadow-sm hover:bg-gray-50 transition ease-in-out duration-150">
+                    Kembali
+                </a>
+                <a href="{{ route('inspeksi_wm.wip', $inspeksi_wm->id) }}"
+                    class="inline-flex items-center gap-2 rounded-md bg-blue-600 px-4 py-2 text-sm font-semibold text-white hover:bg-blue-700 transition shadow-sm">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="size-4" fill="none" viewBox="0 0 24 24"
+                        stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+                    </svg>
+                    Tambah WIP
+                </a>
+                <a href="{{ route('inspeksi_wm.fg', $inspeksi_wm->id) }}"
+                    class="inline-flex items-center gap-2 rounded-md bg-green-600 px-4 py-2 text-sm font-semibold text-white hover:bg-green-700 transition shadow-sm">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="size-4" fill="none" viewBox="0 0 24 24"
+                        stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+                    </svg>
+                    Tambah FG
+                </a>
             </div>
         </div>
+    </x-slot>
 
-        <!-- Tombol hapus -->
-        <div class="mt-8 rounded-lg border border-red-100 bg-red-50 p-4">
-            <form id="delete-form-{{ $inspeksi_wm->id }}" action="{{ route('inspeksi_wm.destroy', $inspeksi_wm->id) }}"
-                method="POST" class="flex justify-end">
-                @csrf
-                @method('DELETE')
-                <button type="button"
-                    onclick="confirmDelete({{ $inspeksi_wm->id }}, '{{ $inspeksi_wm->nomor_inspeksi }}')"
-                    class="rounded bg-red-600 px-4 py-2 text-xs font-bold text-white hover:bg-red-700 transition shadow-sm">
-                    Hapus
-                </button>
-            </form>
-        </div>
+    <div class="py-12">
+        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-8">
 
-        <!-- Tabel hasil WIP -->
-        <div class="mt-8">
-            <h3 class="font-bold mb-2">Hasil Inspeksi WIP Wiremesh</h3>
-            <div class="overflow-x-auto rounded-lg border border-gray-200">
-                <table class="min-w-full divide-y divide-gray-200 text-sm">
-                    <thead class="bg-gray-100">
-                        <tr>
-                            <th class="px-4 py-2 text-left font-semibold text-gray-700">No</th>
-                            <th class="px-4 py-2 text-left font-semibold text-gray-700">Inspektor</th>
-                            <th class="px-4 py-2 text-left font-semibold text-gray-700">No Material</th>
-                            <th class="px-4 py-2 text-left font-semibold text-gray-700">Operator</th>
-                        </tr>
-                    </thead>
-                    <tbody class="divide-y divide-gray-100">
-                        @forelse ($inspeksi_wm->inspeksiWmWip as $wip)
-                            <tr class="hover:bg-gray-50">
-                                <td class="px-4 py-2">{{ $loop->iteration }}</td>
-                                <td class="px-4 py-2">{{ $wip->user_id }}</td>
-                                <td class="px-4 py-2">{{ $wip->no_material }}</td>
-                                <td class="px-4 py-2">{{ $wip->nama_operator }}</td>
-                            </tr>
-                        @empty
-                            <tr>
-                                <td colspan="3" class="px-4 py-4 text-center text-gray-500 italic">
-                                    Belum ada data WIP.
-                                </td>
-                            </tr>
-                        @endforelse
-                    </tbody>
-                </table>
+            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg border border-gray-200">
+                <div class="p-6 sm:p-8">
+                    <div class="flex justify-between items-start">
+                        <dl class="grid grid-cols-1 gap-x-8 gap-y-4 sm:grid-cols-2">
+                            <div>
+                                <dt class="text-sm font-medium text-gray-500 italic">Nomor Inspeksi</dt>
+                                <dd class="text-lg font-bold text-indigo-600">{{ $inspeksi_wm->nomor_inspeksi }}</dd>
+                            </div>
+                            <div>
+                                <dt class="text-sm font-medium text-gray-500 italic">Tanggal Pemeriksaan</dt>
+                                <dd class="text-lg font-semibold text-gray-900">
+                                    {{ \Carbon\Carbon::parse($inspeksi_wm->tanggal)->format('d F Y') }}
+                                </dd>
+                            </div>
+                        </dl>
+
+                        <form id="delete-form-{{ $inspeksi_wm->id }}"
+                            action="{{ route('inspeksi_wm.destroy', $inspeksi_wm->id) }}" method="POST">
+                            @csrf
+                            @method('DELETE')
+                            <button type="button"
+                                onclick="confirmDelete({{ $inspeksi_wm->id }}, '{{ $inspeksi_wm->nomor_inspeksi }}')"
+                                class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-red-700 bg-red-50 hover:bg-red-100 focus:outline-none transition ease-in-out duration-150">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="size-4 mr-1" fill="none"
+                                    viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                                </svg>
+                                Hapus Record Utama
+                            </button>
+                        </form>
+                    </div>
+                </div>
             </div>
-        </div>
 
-        <!-- Tabel hasil FG -->
-        <div class="mt-8">
-            <h3 class="font-bold mb-2">Data FG</h3>
-            <table class="w-full border text-sm">
-                <thead class="bg-gray-100">
-                    <tr>
-                        <th class="px-3 py-2 text-left">Batch</th>
-                        <th class="px-3 py-2 text-left">Qty</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @forelse ($inspeksi_wm->inspeksiWmFg as $fg)
-                        <tr class="border-t">
-                            <td class="px-3 py-2">{{ $fg->batch_number }}</td>
-                            <td class="px-3 py-2">{{ $fg->qty }}</td>
-                        </tr>
-                    @empty
-                        <tr>
-                            <td colspan="2" class="px-3 py-4 text-center text-gray-500 italic">
-                                Belum ada data FG.
-                            </td>
-                        </tr>
-                    @endforelse
-                </tbody>
-            </table>
+            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg border border-gray-200">
+                <div class="p-6">
+                    <div class="flex items-center gap-2 mb-4">
+                        <div class="p-2 bg-blue-100 rounded-lg text-blue-600">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="size-5" fill="none" viewBox="0 0 24 24"
+                                stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
+                            </svg>
+                        </div>
+                        <h3 class="text-lg font-bold text-gray-800">Hasil Inspeksi WIP Wiremesh</h3>
+                    </div>
+
+                    <div class="overflow-hidden rounded-lg border border-gray-200">
+                        <table class="min-w-full divide-y divide-gray-200 text-sm text-left">
+                            <thead class="bg-gray-50">
+                                <tr>
+                                    <th class="px-4 py-3 font-semibold text-gray-900">No</th>
+                                    <th class="px-4 py-3 font-semibold text-gray-900">Inspektor</th>
+                                    <th class="px-4 py-3 font-semibold text-gray-900">No. Material</th>
+                                    <th class="px-4 py-3 font-semibold text-gray-900">Operator</th>
+                                    <th class="px-4 py-3 font-semibold text-gray-900 text-center">D. Kawat Act</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-gray-200">
+                                @forelse ($inspeksi_wm->inspeksiWmWip as $wip)
+                                    <tr class="hover:bg-gray-50 transition-colors">
+                                        <td class="px-4 py-3">{{ $loop->iteration }}</td>
+                                        <td class="px-4 py-3">{{ $wip->user->name ?? 'N/A' }}</td>
+                                        <td class="px-4 py-3 font-medium">{{ $wip->no_material }}</td>
+                                        <td class="px-4 py-3">{{ $wip->nama_operator }}</td>
+                                        <td class="px-4 py-3 text-center bg-blue-50/30">{{ $wip->d_kawat_act }}</td>
+                                    </tr>
+                                @empty
+                                    <tr>
+                                        <td colspan="5" class="px-4 py-8 text-center text-gray-400 italic">Belum ada
+                                            data WIP untuk inspeksi ini.</td>
+                                    </tr>
+                                @endforelse
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg border border-gray-200">
+                <div class="p-6">
+                    <div class="flex items-center gap-2 mb-4">
+                        <div class="p-2 bg-green-100 rounded-lg text-green-600">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="size-5" fill="none" viewBox="0 0 24 24"
+                                stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                            </svg>
+                        </div>
+                        <h3 class="text-lg font-bold text-gray-800">Data Finished Goods (FG)</h3>
+                    </div>
+
+                    <div class="overflow-hidden rounded-lg border border-gray-200">
+                        <table class="min-w-full divide-y divide-gray-200 text-sm text-left">
+                            <thead class="bg-gray-50">
+                                <tr>
+                                    <th class="px-4 py-3 font-semibold text-gray-900">Batch Number</th>
+                                    <th class="px-4 py-3 font-semibold text-gray-900">Quantity</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-gray-200">
+                                @forelse ($inspeksi_wm->inspeksiWmFg as $fg)
+                                    <tr class="hover:bg-gray-50 transition-colors">
+                                        <td class="px-4 py-3 font-medium">{{ $fg->batch_number }}</td>
+                                        <td class="px-4 py-3">{{ $fg->qty }} Unit</td>
+                                    </tr>
+                                @empty
+                                    <tr>
+                                        <td colspan="2" class="px-4 py-8 text-center text-gray-400 italic">Belum
+                                            ada data FG untuk inspeksi ini.</td>
+                                    </tr>
+                                @endforelse
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -115,14 +157,15 @@
     <script>
         function confirmDelete(id, name) {
             Swal.fire({
-                title: 'Hapus inspeksi?',
-                text: "Inspeksi " + name + " akan dihapus secara permanen!",
+                title: 'Hapus seluruh record?',
+                text: "Semua data WIP dan FG terkait " + name + " akan ikut terhapus!",
                 icon: 'warning',
                 showCancelButton: true,
-                confirmButtonColor: '#d33',
-                cancelButtonColor: '#3085d6',
-                confirmButtonText: 'Ya, Hapus!',
-                cancelButtonText: 'Batal'
+                confirmButtonColor: '#dc2626',
+                cancelButtonColor: '#4f46e5',
+                confirmButtonText: 'Ya, Hapus Semua!',
+                cancelButtonText: 'Batal',
+                reverseButtons: true
             }).then((result) => {
                 if (result.isConfirmed) {
                     document.getElementById('delete-form-' + id).submit();
@@ -130,8 +173,4 @@
             })
         }
     </script>
-
-    <x-slot:footer>
-        <strong>Inspeksi WM Detail Page</strong>
-    </x-slot:footer>
-</x-layout>
+</x-app-layout>

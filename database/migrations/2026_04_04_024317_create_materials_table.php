@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('materials', function (Blueprint $table) {
             $table->id();
-            $table->integer('item_id');
+            $table->bigInteger('item_id');
             $table->string('description');
             $table->timestamps();
         });

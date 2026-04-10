@@ -1,29 +1,87 @@
-<x-layout>
+<x-app-layout>
+    <x-slot name="header">
+        <div class="flex items-center justify-between">
+            <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+                {{ __('Input Hasil Inspeksi WIP') }}
+            </h2>
+            <p class="text-sm text-gray-500">
+                Ref: <span class="font-mono font-bold text-indigo-600">{{ $inspeksi_wm->nomor_inspeksi }}</span>
+            </p>
+        </div>
+    </x-slot>
 
+    <div class="py-12">
+        <div class="max-w-3xl mx-auto sm:px-6 lg:px-8">
+            <div class="mb-6 bg-blue-50 border-l-4 border-blue-400 p-4 rounded-r-lg shadow-sm">
+                <div class="flex">
+                    <div class="flex-shrink-0">
+                        <svg class="h-5 w-5 text-blue-400" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd"
+                                d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z"
+                                clip-rule="evenodd" />
+                        </svg>
+                    </div>
+                    <div class="ml-3">
+                        <p class="text-sm text-blue-700">
+                            Sedang menginput data WIP untuk transaksi tanggal
+                            <strong>{{ \Carbon\Carbon::parse($inspeksi_wm->tanggal)->format('d/m/Y') }}</strong>.
+                        </p>
+                    </div>
+                </div>
+            </div>
 
-    <!-- Form Inspeksi WIP -->
-    <a href="{{ route('inspeksi_wm.show', $inspeksi_wm->id) }}" class="px-2 py-2 rounded bg-amber-500">Kembali</a>
-    <div class="mt-8 rounded-lg border border-gray-200 bg-white p-6">
-        <h2 class="text-lg font-bold mb-4">Form Inspeksi WIP</h2>
-        <form action="{{ route('inspeksi_wm_wip.store') }}" method="POST">
-            @csrf
-            <input type="hidden" name="inspeksi_wm_id" value="{{ $inspeksi_wm->id }}">
-            <div class="mb-3">
-                <label class="block text-sm font-medium">No Material</label>
-                <input type="number" name="no_material" class="w-full border rounded px-2 py-1">
-            </div>
-            <div class="mb-3">
-                <label class="block text-sm font-medium">Nama Operator</label>
-                <input type="text" name="nama_operator" class="w-full border rounded px-2 py-1">
-            </div>
-            <!-- Tambahkan field lain sesuai kebutuhan -->
+            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg border border-gray-200">
+                <div class="p-8">
+                    <form action="{{ route('inspeksi_wm_wip.store') }}" method="POST" class="space-y-6">
+                        @csrf
+                        <input type="hidden" name="inspeksi_wm_id" value="{{ $inspeksi_wm->id }}">
 
-            <div class="flex justify-end gap-2">
-                <button type="submit" class="px-3 py-1 rounded bg-teal-600 text-white">Simpan</button>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div>
+                                <x-input-label for="no_material" :value="__('Nomor Material')" />
+                                <x-text-input id="no_material" name="no_material" type="text"
+                                    class="mt-1 block w-full" :value="old('no_material')" required
+                                    placeholder="Masukkan kode material" />
+                                <x-input-error class="mt-2" :messages="$errors->get('no_material')" />
+                            </div>
+
+                            <div>
+                                <x-input-label for="nama_operator" :value="__('Nama Operator')" />
+                                <x-text-input id="nama_operator" name="nama_operator" type="text"
+                                    class="mt-1 block w-full" :value="old('nama_operator')" required
+                                    placeholder="Nama operator mesin" />
+                                <x-input-error class="mt-2" :messages="$errors->get('nama_operator')" />
+                            </div>
+
+                            <div>
+                                <x-input-label for="d_kawat_act" :value="__('Diameter Kawat (Actual)')" />
+                                <div class="relative mt-1">
+                                    <x-text-input id="d_kawat_act" name="d_kawat_act" type="number" step="0.01"
+                                        class="block w-full pr-12" :value="old('d_kawat_act')" required placeholder="0.00" />
+                                    <div
+                                        class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none text-gray-400 text-sm">
+                                        mm
+                                    </div>
+                                </div>
+                                <x-input-error class="mt-2" :messages="$errors->get('d_kawat_act')" />
+                            </div>
+
+                            <input type="hidden" name="user_id" value="{{ auth()->id() }}">
+                        </div>
+
+                        <div class="flex items-center justify-end gap-4 pt-6 border-t border-gray-100">
+                            <a href="{{ route('inspeksi_wm.show', $inspeksi_wm->id) }}"
+                                class="inline-flex items-center px-4 py-2 bg-white border border-gray-300 rounded-md font-semibold text-xs text-gray-700 uppercase tracking-widest shadow-sm hover:bg-gray-50 transition ease-in-out duration-150">
+                                {{ __('Batal') }}
+                            </a>
+
+                            <x-primary-button class="bg-indigo-600 hover:bg-indigo-700">
+                                {{ __('Simpan Data WIP') }}
+                            </x-primary-button>
+                        </div>
+                    </form>
+                </div>
             </div>
-        </form>
+        </div>
     </div>
-    <x-slot:footer>
-        <strong>Inspeksi WM WIP Page</strong>
-    </x-slot:footer>
-</x-layout>
+</x-app-layout>

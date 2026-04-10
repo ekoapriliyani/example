@@ -10,10 +10,19 @@ class InspeksiWmController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $data = InspeksiWm::all();
-        return view('inspeksi_wm.index', ['data' => $data]);
+        $search = $request->input('search');
+
+        $data = InspeksiWm::when($search, function ($query, $search) {
+                return $query->where('nomor_inspeksi', 'like', "%{$search}%")
+                            ->orWhere('tanggal', 'like', "%{$search}%");
+            })
+            ->latest()
+            ->paginate(10) // Ini yang menghasilkan objek Paginator
+            ->withQueryString();
+
+        return view('inspeksi_wm.index', compact('data'));
     }
 
     /**
