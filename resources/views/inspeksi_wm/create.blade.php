@@ -19,18 +19,68 @@
                         @csrf
 
                         <div>
-                            <x-input-label for="nomor_inspeksi" :value="__('Nomor Inspeksi')" />
+                            <x-input-label for="nomor_inspeksi" :value="__('Nomor Inspeksi (Otomatis)')" />
                             <x-text-input id="nomor_inspeksi" name="nomor_inspeksi" type="text"
-                                class="mt-1 block w-full" :value="old('nomor_inspeksi')" required autofocus
-                                placeholder="Contoh: INSP-WM-2026-001" />
-                            <x-input-error class="mt-2" :messages="$errors->get('nomor_inspeksi')" />
+                                class="mt-1 block w-full bg-gray-100" value="{{ $nextNomor }}" readonly />
                         </div>
 
                         <div>
-                            <x-input-label for="tanggal" :value="__('Tanggal Inspeksi')" />
+                            <x-input-label for="trno" :value="__('PRO Number')" />
+                            <select id="trno" name="trno"
+                                class="mt-1 block w-full border-gray-300 rounded-md shadow-sm">
+                                <option value="">-- Pilih PRO --</option>
+                                {{-- <option value="SNI" {{ old('grade') == 'SNI' ? 'selected' : '' }}>....</option> --}}
+                            </select>
+                            <x-input-error class="mt-2" :messages="$errors->get('grade')" />
+                        </div>
+
+                        <div>
+                            <x-input-label for="tanggal" :value="__('Inspection Date')" />
                             <x-text-input id="tanggal" name="tanggal" type="date" class="mt-1 block w-full"
                                 :value="old('tanggal', date('Y-m-d'))" required />
                             <x-input-error class="mt-2" :messages="$errors->get('tanggal')" />
+                        </div>
+
+                        <div>
+                            <x-input-label for="shift" :value="__('Shift')" />
+                            <select id="shift" name="shift"
+                                class="mt-1 block w-full border-gray-300 rounded-md shadow-sm" required>
+                                <option value="">-- Pilih Shift --</option>
+                                <option value="shift1" {{ old('shift') == 'shift1' ? 'selected' : '' }}>Shift 1</option>
+                                <option value="shift2" {{ old('shift') == 'shift2' ? 'selected' : '' }}>Shift 2</option>
+                                <option value="shift3" {{ old('shift') == 'shift3' ? 'selected' : '' }}>Shift 3</option>
+                            </select>
+                            <x-input-error class="mt-2" :messages="$errors->get('shift')" />
+                        </div>
+
+                        <div>
+                            <x-input-label for="grade" :value="__('Grade')" />
+                            <select id="grade" name="grade"
+                                class="mt-1 block w-full border-gray-300 rounded-md shadow-sm" required>
+                                <option value="">-- Pilih Grade --</option>
+                                <option value="SNI" {{ old('grade') == 'SNI' ? 'selected' : '' }}>SNI</option>
+                                <option value="NON SNI" {{ old('grade') == 'NON SNI' ? 'selected' : '' }}>NON SNI
+                                </option>
+                            </select>
+                            <x-input-error class="mt-2" :messages="$errors->get('grade')" />
+                        </div>
+
+                        <div>
+                            <x-input-label for="type_coating" :value="__('Type Coating')" />
+                            <select id="type_coating" name="type_coating"
+                                class="mt-1 block w-full border-gray-300 rounded-md shadow-sm" required>
+                                <option value="">-- Pilih Type Coating --</option>
+                                <option value="LG" {{ old('type_coating') == 'LG' ? 'selected' : '' }}>LG</option>
+                                <option value="HG" {{ old('type_coating') == 'HG' ? 'selected' : '' }}>HG</option>
+                                <option value="ZN-AL" {{ old('type_coating') == 'ZN-AL' ? 'selected' : '' }}>ZN-AL
+                                </option>
+                                <option value="ULTRA" {{ old('type_coating') == 'ULTRA' ? 'selected' : '' }}>ULTRA
+                                </option>
+                                <option value="BLACK" {{ old('type_coating') == 'BLACK' ? 'selected' : '' }}>BLACK
+                                </option>
+                                <option value="EP" {{ old('type_coating') == 'EP' ? 'selected' : '' }}>EP</option>
+                            </select>
+                            <x-input-error class="mt-2" :messages="$errors->get('type_coating')" />
                         </div>
 
                         <div class="flex items-center justify-end gap-4 pt-4 border-t border-gray-100">

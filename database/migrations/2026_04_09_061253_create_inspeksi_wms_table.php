@@ -15,6 +15,9 @@ return new class extends Migration
             $table->id();
             $table->string('nomor_inspeksi');
             $table->date('tanggal');
+            $table->string('shift');
+            $table->string('grade');
+            $table->string('type_coating');
             $table->timestamps();
         });
 

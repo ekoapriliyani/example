@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\InspeksiWm;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class InspeksiWmController extends Controller
@@ -30,7 +31,21 @@ class InspeksiWmController extends Controller
      */
     public function create()
     {
-        return view('inspeksi_wm.create');
+        $tahunBulan = Carbon::now()->format('Ym');
+        
+        $lastRecord = InspeksiWm::where('nomor_inspeksi', 'like', "INSWM{$tahunBulan}%")
+            ->orderBy('nomor_inspeksi', 'desc')
+            ->first();
+
+        $nextNumber = 1;
+        if ($lastRecord) {
+            $lastNumberStr = str_replace("INSWM{$tahunBulan}", "", $lastRecord->nomor_inspeksi);
+            $nextNumber = (int)$lastNumberStr + 1;
+        }
+
+        $nextNomor = "INSWM{$tahunBulan}{$nextNumber}";
+
+        return view('inspeksi_wm.create', compact('nextNomor'));
     }
 
     /**
@@ -38,16 +53,38 @@ class InspeksiWmController extends Controller
      */
     public function store(Request $request)
     {
-        $validated = $request->validate([
-            'nomor_inspeksi' => 'required',
-            'tanggal' => 'required'
+        $request->validate([
+            'tanggal' => 'required|date'
         ]);
 
+        // 1. Ambil Tahun dan Bulan dari tanggal yang diinput (atau tanggal hari ini)
+        $tanggalInput = Carbon::parse($request->tanggal);
+        $tahunBulan = $tanggalInput->format('Ym'); // Hasilnya: 202604
+
+        // 2. Cari nomor terakhir yang punya prefix tahun-bulan tersebut
+        $lastRecord = InspeksiWm::where('nomor_inspeksi', 'like', "INSWM{$tahunBulan}%")
+            ->orderBy('nomor_inspeksi', 'desc')
+            ->first();
+
+        if (!$lastRecord) {
+            // Jika belum ada data di bulan ini, mulai dari 1
+            $nextNumber = 1;
+        } else {
+            // Ambil nomor_inspeksi terakhir (misal INSWM2026045), 
+            // buang teks "INSWM202604", sisanya adalah angka urut
+            $lastNumberStr = str_replace("INSWM{$tahunBulan}", "", $lastRecord->nomor_inspeksi);
+            $nextNumber = (int)$lastNumberStr + 1;
+        }
+
+        // 3. Gabungkan semuanya: INSWM + 202604 + 1
+        $nomorOtomatis = "INSWM{$tahunBulan}{$nextNumber}";
+
         InspeksiWm::create([
-            'nomor_inspeksi' => $validated['nomor_inspeksi'],
-            'tanggal' => $validated['tanggal']
+            'nomor_inspeksi' => $nomorOtomatis,
+            'tanggal' => $request->tanggal
         ]);
-        return redirect()->route('inspeksi_wm.index')->with('success', 'inspeksi berhasil disimpan');
+
+        return redirect()->route('inspeksi_wm.index')->with('success', "Inspeksi $nomorOtomatis berhasil disimpan");
     }
 
     /**

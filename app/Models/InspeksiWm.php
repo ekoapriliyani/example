@@ -10,7 +10,7 @@ class InspeksiWm extends Model
 {
     /** @use HasFactory<\Database\Factories\InspeksiWmFactory> */
     use HasFactory;
-    protected $fillable = ['nomor_inspeksi', 'tanggal'];
+    protected $fillable = ['nomor_inspeksi', 'tanggal', 'shift', 'grade', 'type_coating'];
 
     public function inspeksiWmWip() {
         return $this->hasMany(InspeksiWmWip::class);
