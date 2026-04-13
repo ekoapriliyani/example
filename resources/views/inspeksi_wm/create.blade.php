@@ -29,17 +29,21 @@
                             <select id="trno" name="trno"
                                 class="mt-1 block w-full border-gray-300 rounded-md shadow-sm">
                                 <option value="">-- Pilih PRO --</option>
-                                {{-- <option value="SNI" {{ old('grade') == 'SNI' ? 'selected' : '' }}>....</option> --}}
+                                <option value="1" {{ old('trno') == '1' ? 'selected' : '' }}>1</option>
                             </select>
-                            <x-input-error class="mt-2" :messages="$errors->get('grade')" />
+                            <x-input-error class="mt-2" :messages="$errors->get('trno')" />
+                        </div>
+                        <div>
+                            <x-input-label for="description" :value="__('Description')" />
+                            <select id="description" name="description"
+                                class="mt-1 block w-full border-gray-300 rounded-md shadow-sm">
+                                <option value="">-- Pilih Description --</option>
+                                <option value="1" {{ old('description') == '1' ? 'selected' : '' }}>1</option>
+                            </select>
+                            <x-input-error class="mt-2" :messages="$errors->get('description')" />
                         </div>
 
-                        <div>
-                            <x-input-label for="tanggal" :value="__('Inspection Date')" />
-                            <x-text-input id="tanggal" name="tanggal" type="date" class="mt-1 block w-full"
-                                :value="old('tanggal', date('Y-m-d'))" required />
-                            <x-input-error class="mt-2" :messages="$errors->get('tanggal')" />
-                        </div>
+
 
                         <div>
                             <x-input-label for="shift" :value="__('Shift')" />
@@ -81,6 +85,19 @@
                                 <option value="EP" {{ old('type_coating') == 'EP' ? 'selected' : '' }}>EP</option>
                             </select>
                             <x-input-error class="mt-2" :messages="$errors->get('type_coating')" />
+                        </div>
+
+                        <div>
+                            <x-input-label for="shear_strength" :value="__('Shear Strength')" />
+                            <div class="relative mt-1">
+                                <x-text-input id="shear_strength" name="shear_strength" type="number" step="1"
+                                    class="block w-full pr-12" :value="old('shear_strength')" required placeholder="0.00" />
+                                <div
+                                    class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none text-gray-400 text-sm">
+                                    mm
+                                </div>
+                            </div>
+                            <x-input-error class="mt-2" :messages="$errors->get('shear_strength')" />
                         </div>
 
                         <div class="flex items-center justify-end gap-4 pt-4 border-t border-gray-100">

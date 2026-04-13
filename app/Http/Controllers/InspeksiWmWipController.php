@@ -31,7 +31,7 @@ class InspeksiWmWipController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
+        $validated = $request->validate([
             'inspeksi_wm_id' => 'required|exists:inspeksi_wms,id',
             'no_material'    => 'required',
             'nama_operator'  => 'required',
@@ -45,11 +45,11 @@ class InspeksiWmWipController extends Controller
 
         // Simpan data
         InspeksiWmWip::create([
-            'inspeksi_wm_id' => $request->inspeksi_wm_id,
+            'inspeksi_wm_id' => $validated['inspeksi_wm_id'],
             'user_id'        => Auth::id(), // Mengambil ID dari user yang sedang login
-            'no_material'    => $request->no_material,
-            'nama_operator'  => $request->nama_operator,
-            // 'd_kawat_act' => $request->d_kawat_act, // Jika ada field ini
+            'no_material'    => $validated['no_material'],
+            'nama_operator'  => $validated['nama_operator'],
+            'd_kawat_act' => $validated['d_kawat_act'],
         ]);
 
         return redirect()->route('inspeksi_wm.show', $request->inspeksi_wm_id)

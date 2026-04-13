@@ -14,10 +14,12 @@ return new class extends Migration
         Schema::create('inspeksi_wms', function (Blueprint $table) {
             $table->id();
             $table->string('nomor_inspeksi');
-            $table->date('tanggal');
+            $table->string('trno');
+            $table->string('description');
             $table->string('shift');
             $table->string('grade');
             $table->string('type_coating');
+            $table->decimal('shear_strength', 8,2)->nullable();
             $table->timestamps();
         });
 

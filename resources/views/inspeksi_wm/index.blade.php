@@ -55,7 +55,9 @@
                                     <tr>
                                         <th class="px-4 py-3 font-semibold text-gray-900 text-left w-16">No</th>
                                         <th class="px-4 py-3 font-semibold text-gray-900 text-left">Nomor Inspeksi</th>
-                                        <th class="px-4 py-3 font-semibold text-gray-900 text-left">Tanggal</th>
+                                        <th class="px-4 py-3 font-semibold text-gray-900 text-left">PRO Number</th>
+                                        <th class="px-4 py-3 font-semibold text-gray-900 text-left">Description</th>
+                                        <th class="px-4 py-3 font-semibold text-gray-900 text-left">Created At</th>
                                         <th class="px-4 py-3 font-semibold text-gray-900 text-right">Aksi</th>
                                     </tr>
                                 </thead>
@@ -67,8 +69,13 @@
                                                 {{ $loop->iteration + ($data->firstItem() - 1) }}</td>
                                             <td class="px-4 py-3 font-medium text-gray-900">{{ $item->nomor_inspeksi }}
                                             </td>
-                                            <td class="px-4 py-3 text-gray-700">
-                                                {{ \Carbon\Carbon::parse($item->tanggal)->format('d M Y') }}</td>
+                                            <td class="px-4 py-3 font-medium text-gray-900">{{ $item->trno }}
+                                            </td>
+                                            <td class="px-4 py-3 font-medium text-gray-900">{{ $item->description }}
+                                            </td>
+                                            <td class="px-4 py-3 font-medium text-gray-900">{{ $item->created_at }}
+                                            </td>
+
                                             <td class="px-4 py-3 text-right whitespace-nowrap space-x-2">
                                                 <a href="{{ route('inspeksi_wm.show', $item->id) }}"
                                                     class="inline-block rounded bg-indigo-50 px-3 py-1.5 text-xs font-bold text-indigo-700 hover:bg-indigo-100 transition">

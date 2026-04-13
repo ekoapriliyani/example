@@ -23,8 +23,8 @@
                     </div>
                     <div class="ml-3">
                         <p class="text-sm text-blue-700">
-                            Sedang menginput data WIP untuk transaksi tanggal
-                            <strong>{{ \Carbon\Carbon::parse($inspeksi_wm->tanggal)->format('d/m/Y') }}</strong>.
+                            Sedang menginput data WIP untuk transaksi
+                            <strong>{{ $inspeksi_wm->nomor_inspeksi }}</strong>.
                         </p>
                     </div>
                 </div>
@@ -52,7 +52,8 @@
                                     placeholder="Nama operator mesin" />
                                 <x-input-error class="mt-2" :messages="$errors->get('nama_operator')" />
                             </div>
-
+                        </div>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                             <div>
                                 <x-input-label for="d_kawat_act" :value="__('Diameter Kawat (Actual)')" />
                                 <div class="relative mt-1">
@@ -65,6 +66,94 @@
                                 </div>
                                 <x-input-error class="mt-2" :messages="$errors->get('d_kawat_act')" />
                             </div>
+                            <div>
+                                <x-input-label for="selisih_diag" :value="__('Selisih Diagonal (Actual)')" />
+                                <div class="relative mt-1">
+                                    <x-text-input id="selisih_diag" name="selisih_diag" type="number" step="1"
+                                        class="block w-full pr-12" :value="old('selisih_diag')" required placeholder="0.00" />
+                                    <div
+                                        class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none text-gray-400 text-sm">
+                                        mm
+                                    </div>
+                                </div>
+                                <x-input-error class="mt-2" :messages="$errors->get('selisih_diag')" />
+                            </div>
+                        </div>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div>
+                                <x-input-label for="p_produk" :value="__('Panjang Produk (Actual)')" />
+                                <div class="relative mt-1">
+                                    <x-text-input id="p_produk" name="p_produk" type="number" step="1"
+                                        class="block w-full pr-12" :value="old('p_produk')" required placeholder="0.00" />
+                                    <div
+                                        class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none text-gray-400 text-sm">
+                                        mm
+                                    </div>
+                                </div>
+                                <x-input-error class="mt-2" :messages="$errors->get('p_produk')" />
+                            </div>
+
+                            <div>
+                                <x-input-label for="l_produk" :value="__('Lebar Produk (Actual)')" />
+                                <div class="relative mt-1">
+                                    <x-text-input id="l_produk" name="l_produk" type="number" step="1"
+                                        class="block w-full pr-12" :value="old('l_produk')" required placeholder="0.00" />
+                                    <div
+                                        class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none text-gray-400 text-sm">
+                                        mm
+                                    </div>
+                                </div>
+                                <x-input-error class="mt-2" :messages="$errors->get('l_produk')" />
+                            </div>
+
+                            <div>
+                                <x-input-label for="p_mesh" :value="__('Panjang Mesh (Actual)')" />
+                                <div class="relative mt-1">
+                                    <x-text-input id="p_mesh" name="p_mesh" type="number" step="1"
+                                        class="block w-full pr-12" :value="old('p_mesh')" required placeholder="0.00" />
+                                    <div
+                                        class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none text-gray-400 text-sm">
+                                        mm
+                                    </div>
+                                </div>
+                                <x-input-error class="mt-2" :messages="$errors->get('p_mesh')" />
+                            </div>
+
+                            <div>
+                                <x-input-label for="l_mesh" :value="__('Lebar Mesh (Actual)')" />
+                                <div class="relative mt-1">
+                                    <x-text-input id="l_mesh" name="l_mesh" type="number" step="1"
+                                        class="block w-full pr-12" :value="old('l_mesh')" required placeholder="0.00" />
+                                    <div
+                                        class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none text-gray-400 text-sm">
+                                        mm
+                                    </div>
+                                </div>
+                                <x-input-error class="mt-2" :messages="$errors->get('l_mesh')" />
+                            </div>
+                            <div>
+                                <x-input-label for="torsi_strength" :value="__('Torsi Strength')" />
+                                <div class="relative mt-1">
+                                    <select id="torsi_strength" name="torsi_strength"
+                                        class="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
+                                        <option value="OK">OK</option>
+                                        <option value="NG">NG</option>
+                                    </select>
+                                </div>
+                                <x-input-error class="mt-2" :messages="$errors->get('torsi_strength')" />
+                            </div>
+                            <div>
+                                <x-input-label for="dimensi" :value="__('Dimensi')" />
+                                <div class="relative mt-1">
+                                    <select id="dimensi" name="dimensi"
+                                        class="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
+                                        <option value="OK">OK</option>
+                                        <option value="NG">NG</option>
+                                    </select>
+                                </div>
+                                <x-input-error class="mt-2" :messages="$errors->get('dimensi')" />
+                            </div>
+
 
                             <input type="hidden" name="user_id" value="{{ auth()->id() }}">
                         </div>

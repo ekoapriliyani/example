@@ -89,6 +89,7 @@
                                     <th class="px-4 py-3 font-semibold text-gray-900">No. Material</th>
                                     <th class="px-4 py-3 font-semibold text-gray-900">Operator</th>
                                     <th class="px-4 py-3 font-semibold text-gray-900 text-center">D. Kawat Act</th>
+                                    <th class="px-4 py-3 font-semibold text-gray-900 text-center">Created At</th>
                                 </tr>
                             </thead>
                             <tbody class="divide-y divide-gray-200">
@@ -99,6 +100,7 @@
                                         <td class="px-4 py-3 font-medium">{{ $wip->no_material }}</td>
                                         <td class="px-4 py-3">{{ $wip->nama_operator }}</td>
                                         <td class="px-4 py-3 text-center bg-blue-50/30">{{ $wip->d_kawat_act }}</td>
+                                        <td class="px-4 py-3 text-center bg-blue-50/30">{{ $wip->created_at }}</td>
                                     </tr>
                                 @empty
                                     <tr>
@@ -154,6 +156,21 @@
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <script>
+        // Notifikasi Sukses
+        @if (session('success'))
+            Swal.fire({
+                icon: 'success',
+                title: 'Berhasil!',
+                text: "{{ session('success') }}",
+                showConfirmButton: false,
+                timer: 2000,
+                timerProgressBar: true,
+            });
+        @endif
+    </script>
+
     <script>
         function confirmDelete(id, name) {
             Swal.fire({
