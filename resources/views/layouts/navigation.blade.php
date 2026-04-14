@@ -32,6 +32,7 @@
                             <x-slot name="content">
                                 <x-dropdown-link :href="route('mesin.index')">Mesin</x-dropdown-link>
                                 <x-dropdown-link :href="route('material.index')">Material</x-dropdown-link>
+                                <x-dropdown-link :href="route('subkon.index')">Subkon</x-dropdown-link>
                                 {{-- <x-dropdown-link :href="route('user.index')">User</x-dropdown-link> --}}
                             </x-slot>
                         </x-dropdown>
@@ -135,6 +136,7 @@
                 <div class="px-4 font-semibold text-xs text-gray-400 uppercase">Master</div>
                 <x-responsive-nav-link :href="route('mesin.index')">Mesin</x-responsive-nav-link>
                 <x-responsive-nav-link :href="route('material.index')">Material</x-responsive-nav-link>
+                <x-responsive-nav-link :href="route('subkon.index')">Subkon</x-responsive-nav-link>
                 {{-- <x-responsive-nav-link :href="route('user.index')">User</x-responsive-nav-link> --}}
             </div>
 
