@@ -67,69 +67,70 @@
                                 <x-input-error class="mt-2" :messages="$errors->get('d_kawat_act')" />
                             </div>
                             <div>
-                                <x-input-label for="selisih_diag" :value="__('Selisih Diagonal (Actual)')" />
+                                <x-input-label for="selisih_diagonal" :value="__('Selisih Diagonal (Actual)')" />
                                 <div class="relative mt-1">
-                                    <x-text-input id="selisih_diag" name="selisih_diag" type="number" step="1"
-                                        class="block w-full pr-12" :value="old('selisih_diag')" required placeholder="0.00" />
+                                    <x-text-input id="selisih_diagonal" name="selisih_diagonal" type="number"
+                                        step="1" class="block w-full pr-12" :value="old('selisih_diagonal')" required
+                                        placeholder="0.00" />
                                     <div
                                         class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none text-gray-400 text-sm">
                                         mm
                                     </div>
                                 </div>
-                                <x-input-error class="mt-2" :messages="$errors->get('selisih_diag')" />
+                                <x-input-error class="mt-2" :messages="$errors->get('selisih_diagonal')" />
                             </div>
                         </div>
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                             <div>
-                                <x-input-label for="p_produk" :value="__('Panjang Produk (Actual)')" />
+                                <x-input-label for="p_product_act" :value="__('Panjang Produk (Actual)')" />
                                 <div class="relative mt-1">
-                                    <x-text-input id="p_produk" name="p_produk" type="number" step="1"
-                                        class="block w-full pr-12" :value="old('p_produk')" required placeholder="0.00" />
+                                    <x-text-input id="p_product_act" name="p_product_act" type="number" step="1"
+                                        class="block w-full pr-12" :value="old('p_product_act')" required placeholder="0.00" />
                                     <div
                                         class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none text-gray-400 text-sm">
                                         mm
                                     </div>
                                 </div>
-                                <x-input-error class="mt-2" :messages="$errors->get('p_produk')" />
+                                <x-input-error class="mt-2" :messages="$errors->get('p_product_act')" />
                             </div>
 
                             <div>
-                                <x-input-label for="l_produk" :value="__('Lebar Produk (Actual)')" />
+                                <x-input-label for="l_product_act" :value="__('Lebar Produk (Actual)')" />
                                 <div class="relative mt-1">
-                                    <x-text-input id="l_produk" name="l_produk" type="number" step="1"
-                                        class="block w-full pr-12" :value="old('l_produk')" required placeholder="0.00" />
+                                    <x-text-input id="l_product_act" name="l_product_act" type="number" step="1"
+                                        class="block w-full pr-12" :value="old('l_product_act')" required placeholder="0.00" />
                                     <div
                                         class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none text-gray-400 text-sm">
                                         mm
                                     </div>
                                 </div>
-                                <x-input-error class="mt-2" :messages="$errors->get('l_produk')" />
+                                <x-input-error class="mt-2" :messages="$errors->get('l_product_act')" />
                             </div>
 
                             <div>
-                                <x-input-label for="p_mesh" :value="__('Panjang Mesh (Actual)')" />
+                                <x-input-label for="p_mesh_act" :value="__('Panjang Mesh (Actual)')" />
                                 <div class="relative mt-1">
-                                    <x-text-input id="p_mesh" name="p_mesh" type="number" step="1"
-                                        class="block w-full pr-12" :value="old('p_mesh')" required placeholder="0.00" />
+                                    <x-text-input id="p_mesh_act" name="p_mesh_act" type="number" step="1"
+                                        class="block w-full pr-12" :value="old('p_mesh_act')" required placeholder="0.00" />
                                     <div
                                         class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none text-gray-400 text-sm">
                                         mm
                                     </div>
                                 </div>
-                                <x-input-error class="mt-2" :messages="$errors->get('p_mesh')" />
+                                <x-input-error class="mt-2" :messages="$errors->get('p_mesh_act')" />
                             </div>
 
                             <div>
-                                <x-input-label for="l_mesh" :value="__('Lebar Mesh (Actual)')" />
+                                <x-input-label for="l_mesh_act" :value="__('Lebar Mesh (Actual)')" />
                                 <div class="relative mt-1">
-                                    <x-text-input id="l_mesh" name="l_mesh" type="number" step="1"
-                                        class="block w-full pr-12" :value="old('l_mesh')" required placeholder="0.00" />
+                                    <x-text-input id="l_mesh_act" name="l_mesh_act" type="number" step="1"
+                                        class="block w-full pr-12" :value="old('l_mesh_act')" required placeholder="0.00" />
                                     <div
                                         class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none text-gray-400 text-sm">
                                         mm
                                     </div>
                                 </div>
-                                <x-input-error class="mt-2" :messages="$errors->get('l_mesh')" />
+                                <x-input-error class="mt-2" :messages="$errors->get('l_mesh_act')" />
                             </div>
                             <div>
                                 <x-input-label for="torsi_strength" :value="__('Torsi Strength')" />
@@ -143,15 +144,15 @@
                                 <x-input-error class="mt-2" :messages="$errors->get('torsi_strength')" />
                             </div>
                             <div>
-                                <x-input-label for="dimensi" :value="__('Dimensi')" />
+                                <x-input-label for="status_dimensi" :value="__('Dimensi')" />
                                 <div class="relative mt-1">
-                                    <select id="dimensi" name="dimensi"
+                                    <select id="status_dimensi" name="status_dimensi"
                                         class="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
                                         <option value="OK">OK</option>
                                         <option value="NG">NG</option>
                                     </select>
                                 </div>
-                                <x-input-error class="mt-2" :messages="$errors->get('dimensi')" />
+                                <x-input-error class="mt-2" :messages="$errors->get('status_dimensi')" />
                             </div>
 
 

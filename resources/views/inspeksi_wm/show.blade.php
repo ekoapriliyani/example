@@ -88,7 +88,14 @@
                                     <th class="px-4 py-3 font-semibold text-gray-900">Inspektor</th>
                                     <th class="px-4 py-3 font-semibold text-gray-900">No. Material</th>
                                     <th class="px-4 py-3 font-semibold text-gray-900">Operator</th>
-                                    <th class="px-4 py-3 font-semibold text-gray-900 text-center">D. Kawat Act</th>
+                                    <th class="px-4 py-3 font-semibold text-gray-900">D. Kawat Act</th>
+                                    <th class="px-4 py-3 font-semibold text-gray-900">Selisih Diagonal</th>
+                                    <th class="px-4 py-3 font-semibold text-gray-900">P Produk</th>
+                                    <th class="px-4 py-3 font-semibold text-gray-900">L Produk</th>
+                                    <th class="px-4 py-3 font-semibold text-gray-900">P Mesh</th>
+                                    <th class="px-4 py-3 font-semibold text-gray-900">L Mesh</th>
+                                    <th class="px-4 py-3 font-semibold text-gray-900">Torsi Strength</th>
+                                    <th class="px-4 py-3 font-semibold text-gray-900">Dimensi</th>
                                     <th class="px-4 py-3 font-semibold text-gray-900 text-center">Created At</th>
                                 </tr>
                             </thead>
@@ -100,6 +107,14 @@
                                         <td class="px-4 py-3 font-medium">{{ $wip->no_material }}</td>
                                         <td class="px-4 py-3">{{ $wip->nama_operator }}</td>
                                         <td class="px-4 py-3 text-center bg-blue-50/30">{{ $wip->d_kawat_act }}</td>
+                                        <td class="px-4 py-3 text-center bg-blue-50/30">{{ $wip->selisih_diagonal }}
+                                        </td>
+                                        <td class="px-4 py-3 text-center bg-blue-50/30">{{ $wip->p_product_act }}</td>
+                                        <td class="px-4 py-3 text-center bg-blue-50/30">{{ $wip->l_product_act }}</td>
+                                        <td class="px-4 py-3 text-center bg-blue-50/30">{{ $wip->p_mesh_act }}</td>
+                                        <td class="px-4 py-3 text-center bg-blue-50/30">{{ $wip->l_mesh_act }}</td>
+                                        <td class="px-4 py-3 text-center bg-blue-50/30">{{ $wip->torsi_strength }}</td>
+                                        <td class="px-4 py-3 text-center bg-blue-50/30">{{ $wip->status_dimensi }}</td>
                                         <td class="px-4 py-3 text-center bg-blue-50/30">{{ $wip->created_at }}</td>
                                     </tr>
                                 @empty
@@ -118,8 +133,8 @@
                 <div class="p-6">
                     <div class="flex items-center gap-2 mb-4">
                         <div class="p-2 bg-green-100 rounded-lg text-green-600">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="size-5" fill="none" viewBox="0 0 24 24"
-                                stroke="currentColor">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="size-5" fill="none"
+                                viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                     d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                             </svg>
@@ -131,15 +146,23 @@
                         <table class="min-w-full divide-y divide-gray-200 text-sm text-left">
                             <thead class="bg-gray-50">
                                 <tr>
+                                    <th class="px-4 py-3 font-semibold text-gray-900">No</th>
+                                    <th class="px-4 py-3 font-semibold text-gray-900">Inspektor</th>
                                     <th class="px-4 py-3 font-semibold text-gray-900">Batch Number</th>
+                                    <th class="px-4 py-3 font-semibold text-gray-900">Status</th>
                                     <th class="px-4 py-3 font-semibold text-gray-900">Quantity</th>
+                                    <th class="px-4 py-3 font-semibold text-gray-900">Created At</th>
                                 </tr>
                             </thead>
                             <tbody class="divide-y divide-gray-200">
                                 @forelse ($inspeksi_wm->inspeksiWmFg as $fg)
                                     <tr class="hover:bg-gray-50 transition-colors">
+                                        <td class="px-4 py-3 font-medium">{{ $loop->iteration }}</td>
+                                        <td class="px-4 py-3 font-medium">{{ $fg->user->name }}</td>
                                         <td class="px-4 py-3 font-medium">{{ $fg->batch_number }}</td>
-                                        <td class="px-4 py-3">{{ $fg->qty }} Unit</td>
+                                        <td class="px-4 py-3 font-medium">{{ $fg->status }}</td>
+                                        <td class="px-4 py-3">{{ $fg->qty }}</td>
+                                        <td class="px-4 py-3">{{ $fg->created_at }}</td>
                                     </tr>
                                 @empty
                                     <tr>

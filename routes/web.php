@@ -48,6 +48,7 @@ Route::middleware('auth')->group(function () {
     // Route WIP & FG
     Route::get('/inspeksi_wm/{inspeksi_wm}/wip', [InspeksiWmWipController::class, 'create'])->name('inspeksi_wm.wip');
     Route::post('/inspeksi_wm/wip', [InspeksiWmWipController::class, 'store'])->name('inspeksi_wm_wip.store');
+    Route::post('/inspeksi_wm/fg', [InspeksiWmFgController::class, 'store'])->name('inspeksi_wm_fg.store');
     Route::get('/inspeksi_wm/{inspeksi_wm}/fg', [InspeksiWmFgController::class, 'create'])->name('inspeksi_wm.fg');
 
 

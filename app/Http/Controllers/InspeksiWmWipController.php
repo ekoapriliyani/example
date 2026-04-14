@@ -35,7 +35,14 @@ class InspeksiWmWipController extends Controller
             'inspeksi_wm_id' => 'required|exists:inspeksi_wms,id',
             'no_material'    => 'required',
             'nama_operator'  => 'required',
-            // Tambahkan validasi lain jika ada
+            'd_kawat_act'  => 'required',
+            'selisih_diagonal'  => 'required',
+            'p_product_act'  => 'required',
+            'l_product_act'  => 'required',
+            'p_mesh_act'  => 'required',
+            'l_mesh_act'  => 'required',
+            'torsi_strength'  => 'required',
+            'status_dimensi'  => 'required',
         ]);
 
         // Pastikan user sudah login
@@ -50,6 +57,13 @@ class InspeksiWmWipController extends Controller
             'no_material'    => $validated['no_material'],
             'nama_operator'  => $validated['nama_operator'],
             'd_kawat_act' => $validated['d_kawat_act'],
+            'selisih_diagonal' => $validated['selisih_diagonal'],
+            'p_product_act' => $validated['p_product_act'],
+            'l_product_act' => $validated['l_product_act'],
+            'p_mesh_act' => $validated['p_mesh_act'],
+            'l_mesh_act' => $validated['l_mesh_act'],
+            'torsi_strength' => $validated['torsi_strength'],
+            'status_dimensi' => $validated['status_dimensi'],
         ]);
 
         return redirect()->route('inspeksi_wm.show', $request->inspeksi_wm_id)

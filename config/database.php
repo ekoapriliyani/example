@@ -114,6 +114,14 @@ return [
             // 'trust_server_certificate' => env('DB_TRUST_SERVER_CERTIFICATE', 'false'),
         ],
 
+        'odbc' => [
+            'driver' => 'odbc',
+            'dsn' => 'Driver={Adaptive Server Enterprise};server='.env('DB_HOST_SYBASE').';port='.env('DB_PORT_SYBASE').';db='.env('DB_DATABASE_SYBASE'),
+            'database' => env('DB_DATABASE_SYBASE'),
+            'username' => env('DB_USERNAME_SYBASE'),
+            'password' => env('DB_PASSWORD_SYBASE'),
+        ],
+
     ],
 
     /*

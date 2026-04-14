@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('inspeksi_wm_fgs', function (Blueprint $table) {
             $table->id();
             $table->foreignId('inspeksi_wm_id')->constrained('inspeksi_wms')->onDelete('cascade'); // relasi ke header
+            $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
             $table->string('batch_number');
             $table->string('status');
             $table->integer('qty');
