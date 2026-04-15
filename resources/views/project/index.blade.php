@@ -2,17 +2,17 @@
     <x-slot name="header">
         <div class="flex items-center justify-between">
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-                {{ __('Daftar Subkon') }}
+                {{ __('Daftar Project') }}
             </h2>
 
             <div class="flex gap-2">
-                <a href="{{ route('subkon.create') }}"
+                <a href="{{ route('project.create') }}"
                     class="inline-flex items-center gap-2 rounded-md bg-indigo-600 px-4 py-2 text-sm font-semibold text-white hover:bg-indigo-700 transition shadow-sm">
                     <svg xmlns="http://www.w3.org/2000/svg" class="size-4" fill="none" viewBox="0 0 24 24"
                         stroke="currentColor" stroke-width="3">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
                     </svg>
-                    Tambah Subkon
+                    Tambah Project
                 </a>
             </div>
         </div>
@@ -29,10 +29,10 @@
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                 d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
                         </svg>
-                        Import Subkon via Excel
+                        Import Project via Excel
                     </h3>
 
-                    <form action="{{ route('subkon.import') }}" method="POST" enctype="multipart/form-data"
+                    <form action="{{ route('project.import') }}" method="POST" enctype="multipart/form-data"
                         class="flex items-end gap-4">
                         @csrf
                         <div class="flex-1">
@@ -52,7 +52,7 @@
             </div>
 
             <div class="mb-4">
-                <form action="{{ route('subkon.index') }}" method="GET" class="flex gap-2">
+                <form action="{{ route('project.index') }}" method="GET" class="flex gap-2">
                     <div class="relative flex-1 max-w-md">
                         <span class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
                             <svg class="w-4 h-4 text-gray-400" xmlns="http://www.w3.org/2000/svg" fill="none"
@@ -63,14 +63,14 @@
                         </span>
                         <input type="text" name="search" value="{{ request('search') }}"
                             class="block w-full pl-10 pr-3 py-2 border border-gray-300 rounded-md leading-5 bg-white placeholder-gray-500 focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                            placeholder="Cari berdasarkan Subkon ID atau Nama Subkon...">
+                            placeholder="Cari berdasarkan project ID atau Nama project...">
                     </div>
                     <button type="submit"
                         class="inline-flex items-center px-4 py-2 bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 active:bg-gray-900 transition ease-in-out duration-150">
                         Cari
                     </button>
                     @if (request('search'))
-                        <a href="{{ route('subkon.index') }}"
+                        <a href="{{ route('project.index') }}"
                             class="inline-flex items-center px-4 py-2 bg-white border border-gray-300 rounded-md font-semibold text-xs text-gray-700 uppercase tracking-widest shadow-sm hover:bg-gray-50 transition ease-in-out duration-150">
                             Reset
                         </a>
@@ -88,8 +88,10 @@
                                         <th class="px-4 py-3 font-semibold text-gray-900 whitespace-nowrap text-left">
                                             No</th>
                                         <th class="px-4 py-3 font-semibold text-gray-900 whitespace-nowrap text-left">
-                                            Subkon ID</th>
-                                        <th class="px-4 py-3 font-semibold text-gray-900 text-left">Name</th>
+                                            ID Project</th>
+                                        <th class="px-4 py-3 font-semibold text-gray-900 text-left">Nama Project</th>
+                                        <th class="px-4 py-3 font-semibold text-gray-900 text-left">Nomor PRO</th>
+                                        <th class="px-4 py-3 font-semibold text-gray-900 text-left">QTY</th>
                                         <th class="px-4 py-3 font-semibold text-gray-900 text-right whitespace-nowrap">
                                             Action</th>
                                     </tr>
@@ -101,21 +103,23 @@
                                             <td class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap">
                                                 {{ $loop->iteration }}</td>
                                             <td class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap">
-                                                {{ $item->subkon_id }}</td>
+                                                {{ $item->id_project }}</td>
                                             <td class="px-4 py-3 text-gray-700">{{ $item->name }}</td>
+                                            <td class="px-4 py-3 text-gray-700">{{ $item->no_pro }}</td>
+                                            <td class="px-4 py-3 text-gray-700">{{ $item->qty }}</td>
                                             <td class="px-4 py-3 text-right whitespace-nowrap space-x-2">
-                                                <a href="{{ route('subkon.show', $item->id) }}"
+                                                <a href="{{ route('project.show', $item->id) }}"
                                                     class="inline-block rounded bg-indigo-50 px-3 py-1.5 text-xs font-bold text-indigo-700 hover:bg-indigo-100 transition">
                                                     View Details
                                                 </a>
                                                 <button type="button"
-                                                    onclick="confirmDelete({{ $item->id }}, '{{ $item->subkon_id }}')"
+                                                    onclick="confirmDelete({{ $item->id }}, '{{ $item->id_project }}')"
                                                     class="rounded bg-red-50 px-3 py-1.5 text-xs font-bold text-red-700 hover:bg-red-100 transition">
                                                     Delete
                                                 </button>
 
                                                 <form id="delete-form-{{ $item->id }}"
-                                                    action="{{ route('material.destroy', $item->id) }}" method="POST"
+                                                    action="{{ route('project.destroy', $item->id) }}" method="POST"
                                                     class="hidden">
                                                     @csrf
                                                     @method('DELETE')
@@ -125,7 +129,7 @@
                                     @empty
                                         <tr>
                                             <td colspan="3" class="px-4 py-8 text-center text-gray-500 italic">Belum
-                                                ada data subkon.</td>
+                                                ada data project.</td>
                                         </tr>
                                     @endforelse
                                 </tbody>
@@ -163,8 +167,8 @@
 
         function confirmDelete(id, name) {
             Swal.fire({
-                title: 'Hapus subkon?',
-                text: "Subkon " + name + " akan dihapus permanen!",
+                title: 'Hapus project?',
+                text: "project " + name + " akan dihapus permanen!",
                 icon: 'warning',
                 showCancelButton: true,
                 confirmButtonColor: '#dc2626',

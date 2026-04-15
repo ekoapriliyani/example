@@ -6,6 +6,7 @@ use App\Http\Controllers\InspeksiWmWipController;
 use App\Http\Controllers\MaterialController;
 use App\Http\Controllers\MesinController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\SiswaController;
 use App\Http\Controllers\SubkonController;
 use Illuminate\Support\Facades\Route;
@@ -41,6 +42,10 @@ Route::middleware('auth')->group(function () {
      // Route Subkon
     Route::resource('subkon', SubkonController::class);
     Route::post('subkon/import', [SubkonController::class, 'import'])->name('subkon.import');
+
+    // Route Project
+    Route::resource('project', ProjectController::class);
+    Route::post('project/import', [ProjectController::class, 'import'])->name('project.import');
     
     // Route Inspeksi WM
     Route::get('/inspeksi_wm', [InspeksiWmController::class, 'index'])->name('inspeksi_wm.index');

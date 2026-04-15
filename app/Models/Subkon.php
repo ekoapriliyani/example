@@ -6,5 +6,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class Subkon extends Model
 {
-    protected $fillable = ['subkon_id', 'name'];
+    protected $fillable = ['subkon_id', 'subkon_id', 'name'];
+
+    public function projects()
+    {
+        return $this->hasMany(Project::class);
+    }
 }
