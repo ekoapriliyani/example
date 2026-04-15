@@ -103,7 +103,7 @@
                                             <td class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap">
                                                 {{ $loop->iteration }}</td>
                                             <td class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap">
-                                                {{ $item->id_project }}</td>
+                                                {{ $item->project_id }}</td>
                                             <td class="px-4 py-3 text-gray-700">{{ $item->name }}</td>
                                             <td class="px-4 py-3 text-gray-700">{{ $item->no_pro }}</td>
                                             <td class="px-4 py-3 text-gray-700">{{ $item->qty }}</td>
@@ -113,7 +113,7 @@
                                                     View Details
                                                 </a>
                                                 <button type="button"
-                                                    onclick="confirmDelete({{ $item->id }}, '{{ $item->id_project }}')"
+                                                    onclick="confirmDelete({{ $item->id }}, '{{ $item->project_id }}')"
                                                     class="rounded bg-red-50 px-3 py-1.5 text-xs font-bold text-red-700 hover:bg-red-100 transition">
                                                     Delete
                                                 </button>

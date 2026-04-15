@@ -36,10 +36,10 @@
                         </div>
 
                         <div>
-                            <x-input-label for="id_project" :value="__('Project ID')" />
-                            <x-text-input id="id_project" name="id_project" type="text" class="mt-1 block w-full"
-                                :value="old('id_project')" placeholder="Contoh: PRJ-001" required autofocus />
-                            <x-input-error class="mt-2" :messages="$errors->get('id_project')" />
+                            <x-input-label for="project_id" :value="__('Project ID')" />
+                            <x-text-input id="project_id" name="project_id" type="text" class="mt-1 block w-full"
+                                :value="old('project_id')" placeholder="Contoh: PRJ-001" required autofocus />
+                            <x-input-error class="mt-2" :messages="$errors->get('project_id')" />
                         </div>
 
                         <div>

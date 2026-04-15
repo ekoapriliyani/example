@@ -21,10 +21,10 @@
                         @method('PUT')
 
                         <div>
-                            <x-input-label for="id_mesin" :value="__('ID Mesin')" />
-                            <x-text-input id="id_mesin" name="id_mesin" type="text" class="mt-1 block w-full"
-                                :value="old('id_mesin', $mesin->id_mesin)" required autofocus />
-                            <x-input-error class="mt-2" :messages="$errors->get('id_mesin')" />
+                            <x-input-label for="mesin_id" :value="__('ID Mesin')" />
+                            <x-text-input id="mesin_id" name="mesin_id" type="text" class="mt-1 block w-full"
+                                :value="old('mesin_id', $mesin->mesin_id)" required autofocus />
+                            <x-input-error class="mt-2" :messages="$errors->get('mesin_id')" />
                         </div>
 
                         <div>

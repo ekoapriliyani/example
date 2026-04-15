@@ -13,6 +13,6 @@ class MaterialSeeder extends Seeder
      */
     public function run(): void
     {
-        Material::factory()->count(10)->create();
+        // Material::factory()->count(10)->create();
     }
 }

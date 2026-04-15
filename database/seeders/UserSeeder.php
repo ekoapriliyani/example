@@ -2,17 +2,21 @@
 
 namespace Database\Seeders;
 
-use App\Models\Mentor;
+use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
-class MentorSeeder extends Seeder
+class UserSeeder extends Seeder
 {
     /**
      * Run the database seeds.
      */
     public function run(): void
-    {
-        Mentor::factory()->count(10)->create();
-    }
+{
+    // User random
+    User::factory()->count(10)->create();
+
+    // User khusus Yanto (dibuat sekali saja)
+    User::factory()->yanto()->create();
+}
 }

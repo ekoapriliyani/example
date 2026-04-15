@@ -18,10 +18,10 @@ class ProjectController extends Controller
 
         // 2. Query data dengan kondisi pencarian
         $data = Project::when($search, function ($query, $search) {
-                return $query->where('id_project', 'like', "%{$search}%")
+                return $query->where('project_id', 'like', "%{$search}%")
                             ->orWhere('name', 'like', "%{$search}%");
             })
-            ->orderBy('id_project', 'desc') // Tetap pakai order by punyamu
+            ->orderBy('project_id', 'desc') // Tetap pakai order by punyamu
             ->paginate(10)
             ->withQueryString(); // Agar saat pindah halaman, hasil search tidak hilang
 
@@ -44,7 +44,7 @@ class ProjectController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'id_project' => 'required|unique:projects',
+            'project_id' => 'required|unique:projects',
             'subkon_id'  => 'required|exists:subkons,id',
             'name'       => 'required',
             'no_pro'     => 'required',

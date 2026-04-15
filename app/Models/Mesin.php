@@ -9,6 +9,6 @@ class Mesin extends Model
 {
     /** @use HasFactory<\Database\Factories\MesinFactory> */
     use HasFactory;
-    protected $fillable = ['id_mesin', 'nama_mesin'];
+    protected $fillable = ['mesin_id', 'nama_mesin'];
     
 }

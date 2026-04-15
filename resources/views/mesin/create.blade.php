@@ -19,10 +19,10 @@
                         @csrf
 
                         <div>
-                            <x-input-label for="id_mesin" :value="__('ID Mesin')" />
-                            <x-text-input id="id_mesin" name="id_mesin" type="text" class="mt-1 block w-full"
-                                :value="old('id_mesin')" placeholder="Contoh: MSN-001" required autofocus />
-                            <x-input-error class="mt-2" :messages="$errors->get('id_mesin')" />
+                            <x-input-label for="mesin_id" :value="__('ID Mesin')" />
+                            <x-text-input id="mesin_id" name="mesin_id" type="text" class="mt-1 block w-full"
+                                :value="old('mesin_id')" placeholder="Contoh: MSN-001" required autofocus />
+                            <x-input-error class="mt-2" :messages="$errors->get('mesin_id')" />
                         </div>
 
                         <div>

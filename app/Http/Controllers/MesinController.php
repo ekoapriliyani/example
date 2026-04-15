@@ -30,12 +30,12 @@ class MesinController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'id_mesin' => 'required',
+            'mesin_id' => 'required',
             'nama_mesin' => 'required'
         ]);
 
         Mesin::create([
-            'id_mesin' => $validated['id_mesin'],
+            'mesin_id' => $validated['mesin_id'],
             'nama_mesin' => $validated['nama_mesin']
         ]);
         return redirect()->route('mesin.index')->with('success', 'Data mesin berhasil disimpan');
@@ -63,7 +63,7 @@ class MesinController extends Controller
     public function update(Request $request, Mesin $mesin)
     {
         $validated = request()->validate([
-            'id_mesin' => 'required',
+            'mesin_id' => 'required',
             'nama_mesin' => 'required'
         ]);
 

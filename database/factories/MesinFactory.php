@@ -18,7 +18,7 @@ class MesinFactory extends Factory
     public function definition(): array
     {
         return [
-            'id_mesin' => fake()->numberBetween(10000, 9999)
+            'mesin_id' => fake()->numberBetween(10000, 9999)
             
         ];
     }
