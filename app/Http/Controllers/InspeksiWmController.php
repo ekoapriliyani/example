@@ -109,9 +109,9 @@ class InspeksiWmController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(InspeksiWm $inspeksi_wm)
     {
-        //
+        return view('inspeksi_wm.edit', ['inspeksi_wm' => $inspeksi_wm]);
     }
 
     /**

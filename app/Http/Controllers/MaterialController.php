@@ -59,9 +59,9 @@ class MaterialController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Material $material)
     {
-        $material = Material::findOrFail($id);
+        // $material = Material::findOrFail($id);
         return view('material.show', ['material' => $material]);
     }
 

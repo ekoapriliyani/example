@@ -57,6 +57,9 @@
                                         <th class="px-4 py-3 font-semibold text-gray-900 text-left">Nomor Inspeksi</th>
                                         <th class="px-4 py-3 font-semibold text-gray-900 text-left">PRO Number</th>
                                         <th class="px-4 py-3 font-semibold text-gray-900 text-left">Description</th>
+                                        <th class="px-4 py-3 font-semibold text-gray-900 text-left">Shift</th>
+                                        <th class="px-4 py-3 font-semibold text-gray-900 text-left">Grade</th>
+                                        <th class="px-4 py-3 font-semibold text-gray-900 text-left">Type Coating</th>
                                         <th class="px-4 py-3 font-semibold text-gray-900 text-left">Created At</th>
                                         <th class="px-4 py-3 font-semibold text-gray-900 text-right">Aksi</th>
                                     </tr>
@@ -72,6 +75,9 @@
                                             <td class="px-4 py-3 font-medium text-gray-900">{{ $item->trno }}
                                             </td>
                                             <td class="px-4 py-3 font-medium text-gray-900">{{ $item->description }}
+                                            <td class="px-4 py-3 font-medium text-gray-900">{{ $item->shift }}
+                                            <td class="px-4 py-3 font-medium text-gray-900">{{ $item->grade }}
+                                            <td class="px-4 py-3 font-medium text-gray-900">{{ $item->type_coating }}
                                             </td>
                                             <td class="px-4 py-3 font-medium text-gray-900">{{ $item->created_at }}
                                             </td>
@@ -80,6 +86,10 @@
                                                 <a href="{{ route('inspeksi_wm.show', $item->id) }}"
                                                     class="inline-block rounded bg-indigo-50 px-3 py-1.5 text-xs font-bold text-indigo-700 hover:bg-indigo-100 transition">
                                                     View Details
+                                                </a>
+                                                <a href="{{ route('inspeksi_wm.edit', $item->id) }}"
+                                                    class="inline-block rounded bg-yellow-50 px-3 py-1.5 text-xs font-bold text-indigo-700 hover:bg-yellow-100 transition">
+                                                    Edit
                                                 </a>
                                                 <button type="button"
                                                     onclick="confirmDelete({{ $item->id }}, '{{ $item->nomor_inspeksi }}')"

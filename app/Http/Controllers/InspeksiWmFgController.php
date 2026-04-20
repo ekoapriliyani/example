@@ -33,22 +33,49 @@ class InspeksiWmFgController extends Controller
     {
         $validated = $request->validate([
             'inspeksi_wm_id' => 'required|exists:inspeksi_wms,id',
-            'batch_number' => 'required',
-            'status' => 'required',
-            'qty' => 'required'
+            'batch_number'   => 'required',
+            'status'         => 'required',
+            'qty'            => 'required',
+            'weight'         => 'required',
+            'files.*'        => 'file|mimes:jpg,jpeg,png,pdf|max:2048',
         ]);
-        // Pastikan user sudah login
+
         if (!Auth::check()) {
             return redirect()->back()->with('error', 'Sesi login berakhir. Silakan login kembali.');
         }
-        InspeksiWmFg::create([
+
+        // simpan FG utama
+        $fg = InspeksiWmFg::create([
             'inspeksi_wm_id' => $validated['inspeksi_wm_id'],
-            'user_id' => Auth::id(),
-            'batch_number' => $validated['batch_number'],
-            'status' => $validated['status'],
-            'qty' => $validated['qty'],
+            'user_id'        => Auth::id(),
+            'batch_number'   => $validated['batch_number'],
+            'status'         => $validated['status'],
+            'qty'            => $validated['qty'],
+            'weight'         => $validated['weight'],
         ]);
-        return redirect()->route('inspeksi_wm.show', $request->inspeksi_wm_id)->with('success', 'Data FG berhasil ditambahkan');
+
+        // simpan file multiple ke kolom JSON
+        if ($request->hasFile('files')) {
+            $paths = [];
+            foreach ($request->file('files') as $file) {
+                $paths[] = $file->store('uploads/inspeksi_fg', 'public');
+            }
+            $fg->update(['files' => $paths]);
+        }
+
+        // simpan detail multiple (array)
+        $names        = $request->input('detail_name', []);
+        $descriptions = $request->input('detail_description', []);
+
+        foreach ($names as $i => $name) {
+            $fg->details()->create([
+                'name'        => $name,
+                'description' => $descriptions[$i] ?? null,
+            ]);
+        }
+
+        return redirect()->route('inspeksi_wm.show', $request->inspeksi_wm_id)
+                        ->with('success', 'Data FG, detail, dan file berhasil ditambahkan');
     }
 
     /**

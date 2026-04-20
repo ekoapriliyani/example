@@ -16,7 +16,13 @@ class InspeksiWmFg extends Model
         'batch_number',
         'status',
         'qty',
+        'weight',
+        'files',
     ];
+    protected $casts = [
+        'files' => 'array', // otomatis decode JSON ke array
+    ];
+
 
     public function inspeksiWm() {
         return $this->belongsTo(InspeksiWm::class);
@@ -26,4 +32,10 @@ class InspeksiWmFg extends Model
     {
         return $this->belongsTo(User::class, 'user_id');
     }
+
+    public function details()
+    {
+        return $this->hasMany(InspeksiWmFgDetail::class);
+    }
+
 }

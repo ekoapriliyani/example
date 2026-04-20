@@ -34,7 +34,7 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
     // Route Fitur QC Kamu
-    Route::resource('siswa', SiswaController::class);
+    // Route::resource('siswa', SiswaController::class); tidak dipakai
     Route::resource('material', MaterialController::class);
     Route::post('material/import', [MaterialController::class, 'import'])->name('material.import');
     Route::resource('mesin', MesinController::class);
@@ -48,12 +48,14 @@ Route::middleware('auth')->group(function () {
     Route::post('project/import', [ProjectController::class, 'import'])->name('project.import');
     
     // Route Inspeksi WM
-    Route::get('/inspeksi_wm', [InspeksiWmController::class, 'index'])->name('inspeksi_wm.index');
-    Route::get('/inspeksi_wm/create', [InspeksiWmController::class, 'create'])->name('inspeksi_wm.create');
-    Route::post('/inspeksi_wm', [InspeksiWmController::class, 'store'])->name('inspeksi_wm.store');
-    Route::get('/inspeksi_wm/{inspeksi_wm}', [InspeksiWmController::class, 'show'])->name('inspeksi_wm.show');
-    Route::get('/inspeksi_wm/{inspeksi_wm}/edit', [InspeksiWmController::class, 'edit'])->name('inspeksi_wm.edit');
-    Route::delete('/inspeksi_wm/{inspeksi_wm}', [InspeksiWmController::class, 'destroy'])->name('inspeksi_wm.destroy');
+    // Route::get('/inspeksi_wm', [InspeksiWmController::class, 'index'])->name('inspeksi_wm.index');
+    // Route::get('/inspeksi_wm/create', [InspeksiWmController::class, 'create'])->name('inspeksi_wm.create');
+    // Route::post('/inspeksi_wm', [InspeksiWmController::class, 'store'])->name('inspeksi_wm.store');
+    // Route::get('/inspeksi_wm/{inspeksi_wm}', [InspeksiWmController::class, 'show'])->name('inspeksi_wm.show');
+    // Route::get('/inspeksi_wm/{inspeksi_wm}/edit', [InspeksiWmController::class, 'edit'])->name('inspeksi_wm.edit');
+    // Route::delete('/inspeksi_wm/{inspeksi_wm}', [InspeksiWmController::class, 'destroy'])->name('inspeksi_wm.destroy');
+
+    Route::resource('inspeksi_wm', InspeksiWmController::class);
 
     // Route WIP & FG
     Route::get('/inspeksi_wm/{inspeksi_wm}/wip', [InspeksiWmWipController::class, 'create'])->name('inspeksi_wm.wip');

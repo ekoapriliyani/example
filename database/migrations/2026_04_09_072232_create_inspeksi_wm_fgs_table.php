@@ -18,6 +18,8 @@ return new class extends Migration
             $table->string('batch_number');
             $table->string('status');
             $table->integer('qty');
+            $table->decimal('weight', 8,2)->nullable();
+            $table->json('files')->nullable(); // simpan array path file upload
             $table->timestamps();
         });
     }

@@ -86,6 +86,8 @@
                                 <thead class="bg-gray-50">
                                     <tr>
                                         <th class="px-4 py-3 font-semibold text-gray-900 whitespace-nowrap text-left">
+                                            No</th>
+                                        <th class="px-4 py-3 font-semibold text-gray-900 whitespace-nowrap text-left">
                                             Item ID</th>
                                         <th class="px-4 py-3 font-semibold text-gray-900 text-left">Description</th>
                                         <th class="px-4 py-3 font-semibold text-gray-900 text-right whitespace-nowrap">
@@ -96,6 +98,8 @@
                                 <tbody class="divide-y divide-gray-200">
                                     @forelse ($data as $item)
                                         <tr class="hover:bg-gray-50 transition-colors">
+                                            <td class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap">
+                                                {{ $loop->iteration }}</td>
                                             <td class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap">
                                                 {{ $item->item_id }}</td>
                                             <td class="px-4 py-3 text-gray-700">{{ $item->description }}</td>
