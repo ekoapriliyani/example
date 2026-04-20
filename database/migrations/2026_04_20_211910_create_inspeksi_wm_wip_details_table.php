@@ -11,15 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('inspeksi_wm_fg_details', function (Blueprint $table) {
+        Schema::create('inspeksi_wm_wip_details', function (Blueprint $table) {
             $table->id();
             // relasi ke tabel utama
-            $table->foreignId('inspeksi_wm_fg_id')->constrained('inspeksi_wm_fgs')->onDelete('cascade');
+            $table->foreignId('inspeksi_wm_wip_id')->constrained('inspeksi_wm_wips')->onDelete('cascade');
             // field detail
             $table->string('name');          // misalnya "Tipis", "Melepuh"
             $table->text('description')->nullable(); // remark tambahan
             $table->timestamps();
-
         });
     }
 
@@ -28,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('inspeksi_wm_fg_details');
+        Schema::dropIfExists('inspeksi_wm_wip_details');
     }
 };

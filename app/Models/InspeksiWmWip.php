@@ -24,7 +24,12 @@ class InspeksiWmWip extends Model
             'selisih_diagonal',
             'torsi_strength',
             'status_dimensi',
+            'files',
         ];
+    
+    protected $casts = [
+        'files' => 'array',
+    ];
 
     public function inspeksiWm() {
         return $this->belongsTo(InspeksiWm::class);
@@ -33,5 +38,10 @@ class InspeksiWmWip extends Model
     public function user()
     {
         return $this->belongsTo(User::class, 'user_id');
+    }
+
+    public function details()
+    {
+        return $this->hasMany(InspeksiWmWipDetail::class);
     }
 }

@@ -25,6 +25,7 @@ return new class extends Migration
             $table->decimal('selisih_diagonal', 8,2)->nullable();
             $table->string('status_dimensi')->nullable();
             $table->string('torsi_strength')->nullable();
+            $table->json('files')->nullable();
             $table->timestamps();
         });
     }

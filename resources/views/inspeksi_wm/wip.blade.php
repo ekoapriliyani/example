@@ -11,7 +11,7 @@
     </x-slot>
 
     <div class="py-12">
-        <div class="max-w-3xl mx-auto sm:px-6 lg:px-8">
+        <div class="max-w-4xl mx-auto sm:px-6 lg:px-8">
             <div class="mb-6 bg-blue-50 border-l-4 border-blue-400 p-4 rounded-r-lg shadow-sm">
                 <div class="flex">
                     <div class="flex-shrink-0">
@@ -32,9 +32,11 @@
 
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg border border-gray-200">
                 <div class="p-8">
-                    <form action="{{ route('inspeksi_wm_wip.store') }}" method="POST" class="space-y-6">
+                    <form action="{{ route('inspeksi_wm_wip.store') }}" method="POST" enctype="multipart/form-data"
+                        class="space-y-6">
                         @csrf
                         <input type="hidden" name="inspeksi_wm_id" value="{{ $inspeksi_wm->id }}">
+                        <input type="hidden" name="user_id" value="{{ auth()->id() }}">
 
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                             <div>
@@ -53,6 +55,7 @@
                                 <x-input-error class="mt-2" :messages="$errors->get('nama_operator')" />
                             </div>
                         </div>
+
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                             <div>
                                 <x-input-label for="d_kawat_act" :value="__('Diameter Kawat (Actual)')" />
@@ -66,6 +69,7 @@
                                 </div>
                                 <x-input-error class="mt-2" :messages="$errors->get('d_kawat_act')" />
                             </div>
+
                             <div>
                                 <x-input-label for="selisih_diagonal" :value="__('Selisih Diagonal (Actual)')" />
                                 <div class="relative mt-1">
@@ -80,6 +84,7 @@
                                 <x-input-error class="mt-2" :messages="$errors->get('selisih_diagonal')" />
                             </div>
                         </div>
+
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                             <div>
                                 <x-input-label for="p_product_act" :value="__('Panjang Produk (Actual)')" />
@@ -132,31 +137,103 @@
                                 </div>
                                 <x-input-error class="mt-2" :messages="$errors->get('l_mesh_act')" />
                             </div>
+
                             <div>
                                 <x-input-label for="torsi_strength" :value="__('Torsi Strength')" />
                                 <div class="relative mt-1">
                                     <select id="torsi_strength" name="torsi_strength"
                                         class="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
-                                        <option value="OK">OK</option>
-                                        <option value="NG">NG</option>
+                                        <option value="OK" {{ old('torsi_strength') == 'OK' ? 'selected' : '' }}>OK
+                                        </option>
+                                        <option value="NG" {{ old('torsi_strength') == 'NG' ? 'selected' : '' }}>NG
+                                        </option>
                                     </select>
                                 </div>
                                 <x-input-error class="mt-2" :messages="$errors->get('torsi_strength')" />
                             </div>
+
                             <div>
                                 <x-input-label for="status_dimensi" :value="__('Dimensi')" />
                                 <div class="relative mt-1">
                                     <select id="status_dimensi" name="status_dimensi"
                                         class="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
-                                        <option value="OK">OK</option>
-                                        <option value="NG">NG</option>
+                                        <option value="OK" {{ old('status_dimensi') == 'OK' ? 'selected' : '' }}>OK
+                                        </option>
+                                        <option value="NG" {{ old('status_dimensi') == 'NG' ? 'selected' : '' }}>NG
+                                        </option>
                                     </select>
                                 </div>
                                 <x-input-error class="mt-2" :messages="$errors->get('status_dimensi')" />
                             </div>
+                        </div>
 
+                        <div class="md:col-span-2 border-t border-gray-200 pt-6">
+                            <h3 class="font-semibold text-gray-700 mb-4">Detail Inspeksi</h3>
 
-                            <input type="hidden" name="user_id" value="{{ auth()->id() }}">
+                            <div id="detail-wrapper" class="space-y-4">
+                                @if (old('detail_name'))
+                                    @foreach (old('detail_name') as $index => $detailName)
+                                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 detail-item">
+                                            <div>
+                                                <x-input-label :for="'detail_name_' . $index" :value="__('Name')" />
+                                                <select id="detail_name_{{ $index }}" name="detail_name[]"
+                                                    class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
+                                                    <option value="">-- Pilih Detail --</option>
+                                                    <option value="OK"
+                                                        {{ $detailName == 'OK' ? 'selected' : '' }}>OK</option>
+                                                    <option value="Karat"
+                                                        {{ $detailName == 'Karat' ? 'selected' : '' }}>Karat</option>
+                                                    <option value="Trimming"
+                                                        {{ $detailName == 'Trimming' ? 'selected' : '' }}>Trimming
+                                                    </option>
+                                                </select>
+                                            </div>
+                                            <div>
+                                                <x-input-label :for="'detail_description_' . $index" :value="__('Description')" />
+                                                <x-text-input id="detail_description_{{ $index }}"
+                                                    name="detail_description[]" type="text"
+                                                    class="mt-1 block w-full" :value="old('detail_description.' . $index)"
+                                                    placeholder="Deskripsi detail" />
+                                            </div>
+                                        </div>
+                                    @endforeach
+                                @else
+                                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 detail-item">
+                                        <div>
+                                            <x-input-label for="detail_name_0" :value="__('Name')" />
+                                            <select id="detail_name_0" name="detail_name[]"
+                                                class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
+                                                <option value="">-- Pilih Detail --</option>
+                                                <option value="OK">OK</option>
+                                                <option value="Karat">Karat</option>
+                                                <option value="Trimming">Trimming</option>
+                                            </select>
+                                        </div>
+                                        <div>
+                                            <x-input-label for="detail_description_0" :value="__('Description')" />
+                                            <x-text-input id="detail_description_0" name="detail_description[]"
+                                                type="text" class="mt-1 block w-full"
+                                                placeholder="Deskripsi detail" />
+                                        </div>
+                                    </div>
+                                @endif
+                            </div>
+
+                            <div class="mt-4">
+                                <button type="button" id="add-detail"
+                                    class="px-3 py-1 bg-indigo-600 text-white rounded-md text-sm hover:bg-indigo-700">
+                                    + Tambah Detail
+                                </button>
+                            </div>
+
+                            <div class="mt-4">
+                                <x-input-label for="files" :value="__('Upload Gambar / File')" />
+                                <input id="files" name="files[]" type="file"
+                                    class="mt-1 block w-full border-gray-300 rounded-md shadow-sm" multiple
+                                    accept="image/*,.pdf,.doc,.docx,.xls,.xlsx">
+                                <x-input-error class="mt-2" :messages="$errors->get('files')" />
+                                <x-input-error class="mt-2" :messages="$errors->get('files.*')" />
+                            </div>
                         </div>
 
                         <div class="flex items-center justify-end gap-4 pt-6 border-t border-gray-100">
@@ -174,4 +251,40 @@
             </div>
         </div>
     </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const addDetailButton = document.getElementById('add-detail');
+            const wrapper = document.getElementById('detail-wrapper');
+
+            if (addDetailButton && wrapper) {
+                addDetailButton.addEventListener('click', function() {
+                    let index = wrapper.querySelectorAll('.detail-item').length;
+
+                    let newDetail = `
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 detail-item">
+                            <div>
+                                <label for="detail_name_${index}" class="block text-sm font-medium text-gray-700">Name</label>
+                                <select id="detail_name_${index}" name="detail_name[]"
+                                    class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
+                                    <option value="">-- Pilih Detail --</option>
+                                    <option value="OK">OK</option>
+                                    <option value="Karat">Karat</option>
+                                    <option value="Trimming">Trimming</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label for="detail_description_${index}" class="block text-sm font-medium text-gray-700">Description</label>
+                                <input id="detail_description_${index}" name="detail_description[]" type="text"
+                                    class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+                                    placeholder="Deskripsi detail" />
+                            </div>
+                        </div>
+                    `;
+
+                    wrapper.insertAdjacentHTML('beforeend', newDetail);
+                });
+            }
+        });
+    </script>
 </x-app-layout>

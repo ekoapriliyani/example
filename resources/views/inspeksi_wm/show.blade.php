@@ -103,6 +103,8 @@
                                     <th class="px-4 py-3 font-semibold text-gray-900">L Mesh</th>
                                     <th class="px-4 py-3 font-semibold text-gray-900">Torsi Strength</th>
                                     <th class="px-4 py-3 font-semibold text-gray-900">Dimensi</th>
+                                    <th class="px-4 py-3 font-semibold text-gray-900">Detail</th>
+                                    <th class="px-4 py-3 font-semibold text-gray-900">Gambar</th>
                                     <th class="px-4 py-3 font-semibold text-gray-900 text-center">Created At</th>
                                 </tr>
                             </thead>
@@ -123,6 +125,18 @@
                                         <td class="px-4 py-3 text-center bg-blue-50/30">{{ $wip->torsi_strength }}</td>
                                         <td class="px-4 py-3 text-center bg-blue-50/30">{{ $wip->status_dimensi }}
                                         </td>
+                                        <td class="px-4 py-3">
+                                            <button type="button" class="text-sm text-indigo-600 hover:underline"
+                                                onclick="toggleDetail2({{ $wip->id }})">
+                                                Lihat Detail
+                                            </button>
+                                        </td>
+                                        <td class="px-4 py-3">
+                                            <button type="button" class="text-sm text-indigo-600 hover:underline"
+                                                onclick="toggleImage2({{ $wip->id }})">
+                                                Lihat Gambar
+                                            </button>
+                                        </td>
                                         <td class="px-4 py-3 text-center bg-blue-50/30">{{ $wip->created_at }}</td>
                                     </tr>
                                 @empty
@@ -142,8 +156,8 @@
                 <div class="p-6">
                     <div class="flex items-center gap-2 mb-4">
                         <div class="p-2 bg-green-100 rounded-lg text-green-600">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="size-5" fill="none" viewBox="0 0 24 24"
-                                stroke="currentColor">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="size-5" fill="none"
+                                viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                     d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                             </svg>
@@ -215,7 +229,7 @@
                                 @endforelse
                             </tbody>
                         </table>
-                        {{-- modal detail --}}
+                        {{-- modal detail fg --}}
                         @foreach ($inspeksi_wm->inspeksiWmFg as $fg)
                             <div id="detail-{{ $fg->id }}"
                                 class="hidden fixed inset-0 bg-gray-900 bg-opacity-50 flex items-center justify-center">
@@ -256,7 +270,49 @@
                             </div>
                         @endforeach
 
-                        {{-- modal gambar --}}
+
+                        {{-- modal detail wip --}}
+                        @foreach ($inspeksi_wm->inspeksiWmWip as $wip)
+                            <div id="detail2-{{ $wip->id }}"
+                                class="hidden fixed inset-0 bg-gray-900 bg-opacity-50 flex items-center justify-center">
+                                <div class="bg-white rounded-lg shadow-lg w-1/2 p-6">
+                                    {{-- <h3 class="text-lg font-semibold mb-4">Detail FG: {{ $wip->batch_number }}</h3> --}}
+                                    <table class="min-w-full divide-y divide-gray-200 text-sm">
+                                        <thead class="bg-gray-50">
+                                            <tr>
+                                                <th class="px-4 py-2">No</th>
+                                                <th class="px-4 py-2">Name</th>
+                                                <th class="px-4 py-2">Description</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody class="divide-y divide-gray-200">
+                                            @forelse ($wip->details as $detail)
+                                                <tr>
+                                                    <td class="px-4 py-2">{{ $loop->iteration }}</td>
+                                                    <td class="px-4 py-2">{{ $detail->name }}</td>
+                                                    <td class="px-4 py-2">{{ $detail->description }}</td>
+                                                </tr>
+                                            @empty
+                                                <tr>
+                                                    <td colspan="3"
+                                                        class="px-4 py-4 text-center text-gray-400 italic">
+                                                        Belum ada detail untuk WIP ini.
+                                                    </td>
+                                                </tr>
+                                            @endforelse
+                                        </tbody>
+                                    </table>
+                                    <div class="mt-4 text-right">
+                                        <button onclick="toggleDetail2({{ $wip->id }})"
+                                            class="px-4 py-2 bg-gray-200 rounded hover:bg-gray-300">
+                                            Tutup
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        @endforeach
+
+                        {{-- modal gambar fg --}}
                         @foreach ($inspeksi_wm->inspeksiWmFg as $fg)
                             <div id="image-{{ $fg->id }}"
                                 class="hidden fixed inset-0 bg-gray-900 bg-opacity-50 flex items-center justify-center">
@@ -292,6 +348,43 @@
                                 </div>
                             </div>
                         @endforeach
+
+                        {{-- modal gambar wip --}}
+                        @foreach ($inspeksi_wm->inspeksiWmWip as $wip)
+                            <div id="image2-{{ $wip->id }}"
+                                class="hidden fixed inset-0 bg-gray-900 bg-opacity-50 flex items-center justify-center">
+                                <div class="bg-white rounded-lg shadow-lg w-3/4 p-6 max-h-[80vh] overflow-y-auto">
+                                    {{-- <h3 class="text-lg font-semibold mb-4">Gambar WIP: {{ $wip->batch_number }}</h3> --}}
+
+                                    @if ($wip->files)
+                                        <div class="space-y-4">
+                                            @foreach ($wip->files as $file)
+                                                @php $ext = pathinfo($file, PATHINFO_EXTENSION); @endphp
+
+                                                @if (in_array($ext, ['jpg', 'jpeg', 'png']))
+                                                    <img src="{{ asset('storage/' . $file) }}" alt="Wip Image"
+                                                        class="w-full max-h-64 object-contain rounded border" />
+                                                @else
+                                                    <a href="{{ asset('storage/' . $file) }}" target="_blank"
+                                                        class="block text-blue-600 hover:underline">
+                                                        Lihat File ({{ strtoupper($ext) }})
+                                                    </a>
+                                                @endif
+                                            @endforeach
+                                        </div>
+                                    @else
+                                        <p class="text-gray-400 italic">Tidak ada gambar diupload.</p>
+                                    @endif
+
+                                    <div class="mt-4 text-right">
+                                        <button onclick="toggleImage2({{ $wip->id }})"
+                                            class="px-4 py-2 bg-gray-200 rounded hover:bg-gray-300">
+                                            Tutup
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        @endforeach
                     </div>
                 </div>
             </div>
@@ -304,8 +397,20 @@
         }
     </script>
     <script>
+        function toggleDetail2(id) {
+            const modal = document.getElementById('detail2-' + id);
+            modal.classList.toggle('hidden');
+        }
+    </script>
+    <script>
         function toggleImage(id) {
             const modal = document.getElementById('image-' + id);
+            modal.classList.toggle('hidden');
+        }
+    </script>
+    <script>
+        function toggleImage2(id) {
+            const modal = document.getElementById('image2-' + id);
             modal.classList.toggle('hidden');
         }
     </script>

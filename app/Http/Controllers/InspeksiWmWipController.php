@@ -32,42 +32,76 @@ class InspeksiWmWipController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'inspeksi_wm_id' => 'required|exists:inspeksi_wms,id',
-            'no_material'    => 'required',
-            'nama_operator'  => 'required',
-            'd_kawat_act'  => 'required',
-            'selisih_diagonal'  => 'required',
-            'p_product_act'  => 'required',
-            'l_product_act'  => 'required',
-            'p_mesh_act'  => 'required',
-            'l_mesh_act'  => 'required',
-            'torsi_strength'  => 'required',
-            'status_dimensi'  => 'required',
+            'inspeksi_wm_id'    => 'required|exists:inspeksi_wms,id',
+            'no_material'       => 'required|string|max:255',
+            'nama_operator'     => 'required|string|max:255',
+            'd_kawat_act'       => 'required|numeric',
+            'selisih_diagonal'  => 'required|numeric',
+            'p_product_act'     => 'required|numeric',
+            'l_product_act'     => 'required|numeric',
+            'p_mesh_act'        => 'required|numeric',
+            'l_mesh_act'        => 'required|numeric',
+            'torsi_strength'    => 'required|in:OK,NG',
+            'status_dimensi'    => 'required|in:OK,NG',
+
+            'detail_name'       => 'nullable|array',
+            'detail_name.*'     => 'nullable|string|max:255',
+            'detail_description'   => 'nullable|array',
+            'detail_description.*' => 'nullable|string|max:1000',
+
+            'files'             => 'nullable|array',
+            'files.*'           => 'nullable|file|mimes:jpg,jpeg,png,pdf|max:2048',
         ]);
 
-        // Pastikan user sudah login
         if (!Auth::check()) {
             return redirect()->back()->with('error', 'Sesi login berakhir. Silakan login kembali.');
         }
 
-        // Simpan data
-        InspeksiWmWip::create([
-            'inspeksi_wm_id' => $validated['inspeksi_wm_id'],
-            'user_id'        => Auth::id(), // Mengambil ID dari user yang sedang login
-            'no_material'    => $validated['no_material'],
-            'nama_operator'  => $validated['nama_operator'],
-            'd_kawat_act' => $validated['d_kawat_act'],
+        // simpan WIP utama
+        $wip = InspeksiWmWip::create([
+            'inspeksi_wm_id'   => $validated['inspeksi_wm_id'],
+            'user_id'          => Auth::id(),
+            'no_material'      => $validated['no_material'],
+            'nama_operator'    => $validated['nama_operator'],
+            'd_kawat_act'      => $validated['d_kawat_act'],
             'selisih_diagonal' => $validated['selisih_diagonal'],
-            'p_product_act' => $validated['p_product_act'],
-            'l_product_act' => $validated['l_product_act'],
-            'p_mesh_act' => $validated['p_mesh_act'],
-            'l_mesh_act' => $validated['l_mesh_act'],
-            'torsi_strength' => $validated['torsi_strength'],
-            'status_dimensi' => $validated['status_dimensi'],
+            'p_product_act'    => $validated['p_product_act'],
+            'l_product_act'    => $validated['l_product_act'],
+            'p_mesh_act'       => $validated['p_mesh_act'],
+            'l_mesh_act'       => $validated['l_mesh_act'],
+            'torsi_strength'   => $validated['torsi_strength'],
+            'status_dimensi'   => $validated['status_dimensi'],
         ]);
 
-        return redirect()->route('inspeksi_wm.show', $request->inspeksi_wm_id)
-                        ->with('success', 'Data WIP berhasil ditambahkan!');
+        // simpan file multiple ke kolom JSON
+        if ($request->hasFile('files')) {
+            $paths = [];
+
+            foreach ($request->file('files') as $file) {
+                $paths[] = $file->store('uploads/inspeksi_wip', 'public');
+            }
+
+            $wip->update([
+                'files' => $paths
+            ]);
+        }
+
+        // simpan detail multiple
+        $names = $request->input('detail_name', []);
+        $descriptions = $request->input('detail_description', []);
+
+        foreach ($names as $i => $name) {
+            if (!empty($name) || !empty($descriptions[$i] ?? null)) {
+                $wip->details()->create([
+                    'name'        => $name,
+                    'description' => $descriptions[$i] ?? null,
+                ]);
+            }
+        }
+
+        return redirect()
+            ->route('inspeksi_wm.show', $request->inspeksi_wm_id)
+            ->with('success', 'Data WIP, detail, dan file berhasil ditambahkan');
     }
 
     /**
