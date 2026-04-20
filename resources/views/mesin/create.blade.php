@@ -11,7 +11,7 @@
                 <div class="p-8 text-gray-900">
                     <div class="mb-6">
                         <p class="text-sm text-gray-600">
-                            Daftarkan aset mesin baru ke dalam sistem inventori produksi.
+                            Daftarkan aset mesin baru.
                         </p>
                     </div>
 
