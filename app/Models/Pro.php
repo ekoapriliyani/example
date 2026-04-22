@@ -11,4 +11,9 @@ class Pro extends Model
         'description',
         'qty'
     ];
+
+    public function inspeksiWms()
+    {
+        return $this->hasMany(InspeksiWm::class);
+    }
 }

@@ -74,9 +74,10 @@
                                                 {{ $loop->iteration + ($data->firstItem() - 1) }}</td>
                                             <td class="px-4 py-3 font-medium text-gray-900">{{ $item->nomor_inspeksi }}
                                             </td>
-                                            <td class="px-4 py-3 font-medium text-gray-900">{{ $item->trno }}
+                                            <td class="px-4 py-3 font-medium text-gray-900">{{ $item->pro->pro_id }}
                                             </td>
-                                            <td class="px-4 py-3 font-medium text-gray-900">{{ $item->description }}
+                                            <td class="px-4 py-3 font-medium text-gray-900">
+                                                {{ $item->pro->description }}
                                             <td class="px-4 py-3 font-medium text-gray-900">{{ $item->shift }}
                                             <td class="px-4 py-3 font-medium text-gray-900">{{ $item->grade }}
                                             <td class="px-4 py-3 font-medium text-gray-900">{{ $item->type_coating }}

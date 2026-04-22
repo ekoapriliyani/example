@@ -25,22 +25,21 @@
                         </div>
 
                         <div>
-                            <x-input-label for="trno" :value="__('PRO Number')" />
-                            <select id="trno" name="trno"
-                                class="mt-1 block w-full border-gray-300 rounded-md shadow-sm">
+                            <select id="pro_id" name="pro_id"
+                                class="mt-1 block w-full border-gray-300 rounded-md shadow-sm" required>
                                 <option value="">-- Pilih PRO --</option>
-                                <option value="1" {{ old('trno') == '1' ? 'selected' : '' }}>1</option>
+                                @foreach ($pros as $pro)
+                                    <option value="{{ $pro->id }}" data-description="{{ $pro->description }}">
+                                        {{ $pro->pro_id }}
+                                    </option>
+                                @endforeach
                             </select>
-                            <x-input-error class="mt-2" :messages="$errors->get('trno')" />
                         </div>
+
                         <div>
                             <x-input-label for="description" :value="__('Description')" />
-                            <select id="description" name="description"
-                                class="mt-1 block w-full border-gray-300 rounded-md shadow-sm">
-                                <option value="">-- Pilih Description --</option>
-                                <option value="1" {{ old('description') == '1' ? 'selected' : '' }}>1</option>
-                            </select>
-                            <x-input-error class="mt-2" :messages="$errors->get('description')" />
+                            <x-text-input id="description" name="description" type="text"
+                                class="mt-1 block w-full bg-gray-100" readonly />
                         </div>
 
 
@@ -139,6 +138,32 @@
                 placeholder: '-- Pilih Mesin --',
                 allowClear: true,
                 width: '100%'
+            });
+        });
+    </script>
+    <script>
+        $(document).ready(function() {
+            $('#pro_id').select2({
+                placeholder: '-- Pilih PRO --',
+                allowClear: true,
+                width: '100%'
+            });
+        });
+    </script>
+    {{-- Auto isi description (tetap jalan) --}}
+    <script>
+        $(document).ready(function() {
+            $('#pro_id').select2({
+                placeholder: '-- Pilih PRO --',
+                allowClear: true,
+                width: '100%'
+            });
+
+            $('#pro_id').on('change', function() {
+                let selected = $(this).find(':selected');
+                let desc = selected.data('description');
+
+                $('#description').val(desc ?? '');
             });
         });
     </script>

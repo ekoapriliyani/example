@@ -27,25 +27,24 @@
                         </div>
 
                         <div>
-                            <x-input-label for="trno" :value="__('PRO Number')" />
-                            <select id="trno" name="trno"
-                                class="mt-1 block w-full border-gray-300 rounded-md shadow-sm">
+                            <x-input-label for="pro_id" :value="__('PRO Number')" />
+                            <select id="pro_id" name="pro_id"
+                                class="mt-1 block w-full border-gray-300 rounded-md shadow-sm" required>
                                 <option value="">-- Pilih PRO --</option>
-                                <option value="1" {{ old('trno', $inspeksi_wm->trno) == '1' ? 'selected' : '' }}>1
-                                </option>
+                                @foreach ($pros as $pro)
+                                    <option value="{{ $pro->id }}" data-description="{{ $pro->description }}"
+                                        {{ old('pro_id', $inspeksi_wm->pro_id) == $pro->id ? 'selected' : '' }}>
+                                        {{ $pro->pro_id }} - {{ $pro->description }}
+                                    </option>
+                                @endforeach
                             </select>
-                            <x-input-error class="mt-2" :messages="$errors->get('trno')" />
+                            <x-input-error class="mt-2" :messages="$errors->get('pro_id')" />
                         </div>
+
                         <div>
                             <x-input-label for="description" :value="__('Description')" />
-                            <select id="description" name="description"
-                                class="mt-1 block w-full border-gray-300 rounded-md shadow-sm">
-                                <option value="">-- Pilih Description --</option>
-                                <option value="1"
-                                    {{ old('description', $inspeksi_wm->description) == '1' ? 'selected' : '' }}>1
-                                </option>
-                            </select>
-                            <x-input-error class="mt-2" :messages="$errors->get('description')" />
+                            <x-text-input id="description" type="text" class="mt-1 block w-full bg-gray-100"
+                                :value="old('description', optional($inspeksi_wm->pro)->description)" readonly />
                         </div>
 
                         <div>
@@ -118,10 +117,24 @@
                                     class="block w-full pr-12" :value="old('shear_strength', $inspeksi_wm->shear_strength)" required placeholder="0.00" />
                                 <div
                                     class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none text-gray-400 text-sm">
-                                    mm
+                                    mpa
                                 </div>
                             </div>
                             <x-input-error class="mt-2" :messages="$errors->get('shear_strength')" />
+                        </div>
+                        <div>
+                            <x-input-label for="mesin_id" :value="__('Mesin')" />
+                            <select id="mesin_id" name="mesin_id"
+                                class="mt-1 block w-full border-gray-300 rounded-md shadow-sm" required>
+                                <option value="">-- Pilih Mesin --</option>
+                                @foreach ($mesins as $mesin)
+                                    <option value="{{ $mesin->id }}"
+                                        {{ old('mesin_id', $inspeksi_wm->mesin_id) == $mesin->id ? 'selected' : '' }}>
+                                        {{ $mesin->nama_mesin }}
+                                    </option>
+                                @endforeach
+                            </select>
+                            <x-input-error class="mt-2" :messages="$errors->get('mesin_id')" />
                         </div>
 
                         <div class="flex items-center justify-end gap-4 pt-4 border-t border-gray-100">
@@ -139,4 +152,39 @@
             </div>
         </div>
     </div>
+
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            $('#pro_id').select2({
+                placeholder: '-- Pilih PRO --',
+                allowClear: true,
+                width: '100%'
+            });
+
+            function updateDescription() {
+                let selected = $('#pro_id').find(':selected');
+                let desc = selected.data('description') || '';
+                $('#description').val(desc);
+            }
+
+            updateDescription();
+
+            $('#pro_id').on('change', function() {
+                updateDescription();
+            });
+        });
+    </script>
+
+    {{-- mesin --}}
+    <script>
+        $('#mesin_id').select2({
+            placeholder: '-- Pilih Mesin --',
+            allowClear: true,
+            width: '100%'
+        });
+    </script>
 </x-app-layout>

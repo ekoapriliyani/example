@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\InspeksiWm;
 use App\Models\Mesin;
+use App\Models\Pro;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 
@@ -46,8 +47,9 @@ class InspeksiWmController extends Controller
 
         $nextNomor = "INSWM{$tahunBulan}{$nextNumber}";
         $mesins = Mesin::orderBy('nama_mesin')->get();
+        $pros = Pro::orderBy('pro_id')->get();
 
-        return view('inspeksi_wm.create', compact('nextNomor', 'mesins'));
+        return view('inspeksi_wm.create', compact('nextNomor', 'mesins', 'pros'));
     }
 
     /**
@@ -56,12 +58,11 @@ class InspeksiWmController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'trno' => 'required',
-            'description' => 'required',
+            'pro_id' => 'required|exists:pros,id',
             'shift' => 'required',
             'grade' => 'required',
             'type_coating' => 'required',
-            'shear_strength' => 'required',
+            'shear_strength' => 'required|numeric',
             'mesin_id' => 'required|exists:mesins,id',
         ]);
 
@@ -87,11 +88,10 @@ class InspeksiWmController extends Controller
         // 3. Gabungkan semuanya: INSWM + 202604 + 1
         $nomorOtomatis = "INSWM{$tahunBulan}{$nextNumber}";
 
+        $pro = Pro::findOrFail($validated['pro_id']);
         InspeksiWm::create([
             'nomor_inspeksi' => $nomorOtomatis,
-            'trno' => $validated['trno'],
-            'description' => $validated['description'],
-            'grade' => $validated['grade'],
+            'pro_id' => $validated['pro_id'],
             'shift' => $validated['shift'],
             'grade' => $validated['grade'],
             'type_coating' => $validated['type_coating'],
@@ -115,15 +115,36 @@ class InspeksiWmController extends Controller
      */
     public function edit(InspeksiWm $inspeksi_wm)
     {
-        return view('inspeksi_wm.edit', ['inspeksi_wm' => $inspeksi_wm]);
+        $pros = Pro::orderBy('pro_id')->get();
+        $mesins = Mesin::orderBy('nama_mesin')->get();
+        return view('inspeksi_wm.edit', compact('inspeksi_wm', 'pros', 'mesins'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, InspeksiWm $inspeksi_wm)
     {
-        //
+        $validated = $request->validate([
+            'pro_id' => 'required|exists:pros,id',
+            'shift' => 'required',
+            'grade' => 'required',
+            'type_coating' => 'required',
+            'shear_strength' => 'required|numeric',
+            'mesin_id' => 'required|exists:mesins,id',
+        ]);
+
+        $inspeksi_wm->update([
+            'pro_id' => $validated['pro_id'],
+            'shift' => $validated['shift'],
+            'grade' => $validated['grade'],
+            'type_coating' => $validated['type_coating'],
+            'shear_strength' => $validated['shear_strength'],
+            'mesin_id' => $validated['mesin_id'],
+        ]);
+
+        return redirect()->route('inspeksi_wm.index')
+            ->with('success', 'Data inspeksi berhasil diperbarui');
     }
 
     /**
