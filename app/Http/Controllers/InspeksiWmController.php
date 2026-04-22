@@ -18,12 +18,12 @@ class InspeksiWmController extends Controller
     {
         $search = $request->input('search');
 
-        $data = InspeksiWm::when($search, function ($query, $search) {
+        $data = InspeksiWm::with(['pro', 'mesin', 'productWm'])
+            ->when($search, function ($query, $search) {
                 return $query->where('nomor_inspeksi', 'like', "%{$search}%");
-                            // ->orWhere('tanggal', 'like', "%{$search}%");
             })
             ->latest()
-            ->paginate(10) // Ini yang menghasilkan objek Paginator
+            ->paginate(10)
             ->withQueryString();
 
         return view('inspeksi_wm.index', compact('data'));
@@ -35,7 +35,7 @@ class InspeksiWmController extends Controller
     public function create()
     {
         $tahunBulan = Carbon::now()->format('Ym');
-        
+
         $lastRecord = InspeksiWm::where('nomor_inspeksi', 'like', "INSWM{$tahunBulan}%")
             ->orderBy('nomor_inspeksi', 'desc')
             ->first();
@@ -43,10 +43,11 @@ class InspeksiWmController extends Controller
         $nextNumber = 1;
         if ($lastRecord) {
             $lastNumberStr = str_replace("INSWM{$tahunBulan}", "", $lastRecord->nomor_inspeksi);
-            $nextNumber = (int)$lastNumberStr + 1;
+            $nextNumber = (int) $lastNumberStr + 1;
         }
 
         $nextNomor = "INSWM{$tahunBulan}{$nextNumber}";
+
         $mesins = Mesin::orderBy('nama_mesin')->get();
         $pros = Pro::orderBy('pro_id')->get();
         $productWms = ProductWm::orderBy('product_wm_id')->get();
@@ -61,50 +62,44 @@ class InspeksiWmController extends Controller
     {
         $validated = $request->validate([
             'pro_id' => 'required|exists:pros,id',
-            'product_wm_ref_id' => 'required|exists:product_wms,id',
+            'product_wm_ref_id' => 'nullable|exists:product_wms,id',
             'shift' => 'required',
             'grade' => 'required',
             'type_coating' => 'required',
-            'shear_strength' => 'required|numeric',
-            'mesin_id' => 'required|exists:mesins,id',
+            'shear_strength' => 'nullable|numeric',
+            'mesin_id' => 'nullable|exists:mesins,id',
         ]);
 
-
-        // 1. Ambil Tahun dan Bulan dari tanggal yang diinput (atau tanggal hari ini)
         $tanggalInput = Carbon::now();
-        $tahunBulan = $tanggalInput->format('Ym'); // Hasilnya: 202604
+        $tahunBulan = $tanggalInput->format('Ym');
 
-        // 2. Cari nomor terakhir yang punya prefix tahun-bulan tersebut
         $lastRecord = InspeksiWm::where('nomor_inspeksi', 'like', "INSWM{$tahunBulan}%")
             ->orderBy('nomor_inspeksi', 'desc')
             ->first();
 
         if (!$lastRecord) {
-            // Jika belum ada data di bulan ini, mulai dari 1
             $nextNumber = 1;
         } else {
-            // Ambil nomor_inspeksi terakhir (misal INSWM2026045), 
-            // buang teks "INSWM202604", sisanya adalah angka urut
             $lastNumberStr = str_replace("INSWM{$tahunBulan}", "", $lastRecord->nomor_inspeksi);
-            $nextNumber = (int)$lastNumberStr + 1;
+            $nextNumber = (int) $lastNumberStr + 1;
         }
 
-        // 3. Gabungkan semuanya: INSWM + 202604 + 1
         $nomorOtomatis = "INSWM{$tahunBulan}{$nextNumber}";
 
-        $pro = Pro::findOrFail($validated['pro_id']);
         InspeksiWm::create([
             'nomor_inspeksi' => $nomorOtomatis,
-            'pro_id' => $validated['pro_id'],
-            'product_wm_ref_id' => $validated['product_wm_ref_id'],
+            'pro_id' => $validated['pro_id'], // ini FK ke pros.id
+            'product_wm_ref_id' => $validated['product_wm_ref_id'] ?? null,
             'shift' => $validated['shift'],
             'grade' => $validated['grade'],
             'type_coating' => $validated['type_coating'],
-            'shear_strength' => $validated['shear_strength'],
-            'mesin_id' => $validated['mesin_id'],
+            'shear_strength' => $validated['shear_strength'] ?? null,
+            'mesin_id' => $validated['mesin_id'] ?? null,
         ]);
 
-        return redirect()->route('inspeksi_wm.index')->with('success', "Inspeksi $nomorOtomatis berhasil disimpan");
+        return redirect()
+            ->route('inspeksi_wm.index')
+            ->with('success', "Inspeksi {$nomorOtomatis} berhasil disimpan");
     }
 
     /**
@@ -112,6 +107,8 @@ class InspeksiWmController extends Controller
      */
     public function show(InspeksiWm $inspeksi_wm)
     {
+        $inspeksi_wm->load(['pro', 'mesin', 'productWm', 'inspeksiWmWip', 'inspeksiWmFg']);
+
         return view('inspeksi_wm.show', ['inspeksi_wm' => $inspeksi_wm]);
     }
 
@@ -123,6 +120,7 @@ class InspeksiWmController extends Controller
         $pros = Pro::orderBy('pro_id')->get();
         $mesins = Mesin::orderBy('nama_mesin')->get();
         $productWms = ProductWm::orderBy('product_wm_id')->get();
+
         return view('inspeksi_wm.edit', compact('inspeksi_wm', 'pros', 'mesins', 'productWms'));
     }
 
@@ -133,24 +131,26 @@ class InspeksiWmController extends Controller
     {
         $validated = $request->validate([
             'pro_id' => 'required|exists:pros,id',
-            'product_wm_ref_id' => 'required|exists:product_wms,id',
+            'product_wm_ref_id' => 'nullable|exists:product_wms,id',
             'shift' => 'required',
             'grade' => 'required',
             'type_coating' => 'required',
-            'shear_strength' => 'required|numeric',
-            'mesin_id' => 'required|exists:mesins,id',
+            'shear_strength' => 'nullable|numeric',
+            'mesin_id' => 'nullable|exists:mesins,id',
         ]);
 
         $inspeksi_wm->update([
             'pro_id' => $validated['pro_id'],
-            'product_wm_ref_id' => $validated['product_wm_ref_id'],
+            'product_wm_ref_id' => $validated['product_wm_ref_id'] ?? null,
             'shift' => $validated['shift'],
             'grade' => $validated['grade'],
             'type_coating' => $validated['type_coating'],
-            'shear_strength' => $validated['shear_strength'],
-            'mesin_id' => $validated['mesin_id'],
+            'shear_strength' => $validated['shear_strength'] ?? null,
+            'mesin_id' => $validated['mesin_id'] ?? null,
         ]);
-        return redirect()->route('inspeksi_wm.index')
+
+        return redirect()
+            ->route('inspeksi_wm.index')
             ->with('success', 'Data inspeksi berhasil diperbarui');
     }
 
@@ -160,6 +160,30 @@ class InspeksiWmController extends Controller
     public function destroy(InspeksiWm $inspeksiWm)
     {
         $inspeksiWm->delete();
-        return redirect()->route('inspeksi_wm.index')->with('success', 'inspeksi berhasil dihapus');
+
+        return redirect()
+            ->route('inspeksi_wm.index')
+            ->with('success', 'Inspeksi berhasil dihapus');
+    }
+
+    /**
+     * Get PRO detail for AJAX.
+     */
+    public function getProDetail($id)
+    {
+        $pro = Pro::find($id);
+
+        if (!$pro) {
+            return response()->json([
+                'message' => 'PRO tidak ditemukan',
+            ], 404);
+        }
+
+        return response()->json([
+            'id' => $pro->id,
+            'pro_id' => $pro->pro_id, // kode PRO dari Sybase
+            'description' => $pro->description,
+            'qty' => $pro->qty,
+        ]);
     }
 }

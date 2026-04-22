@@ -13,9 +13,9 @@ return new class extends Migration
     {
         Schema::create('pros', function (Blueprint $table) {
             $table->id();
-            $table->string('pro_id');
-            $table->string('description');
-            $table->integer('qty');
+            $table->string('pro_id')->unique();
+            $table->text('description')->nullable();
+            $table->decimal('qty', 12, 2)->nullable();
             $table->timestamps();
         });
     }

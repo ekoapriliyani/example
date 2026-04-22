@@ -61,6 +61,7 @@ Route::middleware('auth')->group(function () {
     // Route::delete('/inspeksi_wm/{inspeksi_wm}', [InspeksiWmController::class, 'destroy'])->name('inspeksi_wm.destroy');
 
     Route::resource('inspeksi_wm', InspeksiWmController::class);
+    Route::get('/pro/{id}/detail', [InspeksiWmController::class, 'getProDetail'])->name('pros.detail');
 
     // Route WIP & FG
     Route::get('/inspeksi_wm/{inspeksi_wm}/wip', [InspeksiWmWipController::class, 'create'])->name('inspeksi_wm.wip');

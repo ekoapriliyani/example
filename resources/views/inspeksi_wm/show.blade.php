@@ -52,6 +52,12 @@
                                 </dd>
                             </div>
                             <div>
+                                <dt class="text-sm font-medium text-gray-500 italic">QTY Ordered</dt>
+                                <dd class="text-lg font-semibold text-gray-900">
+                                    {{ $inspeksi_wm->pro->qty }}
+                                </dd>
+                            </div>
+                            <div>
                                 <dt class="text-sm font-medium text-gray-500 italic">Shift</dt>
                                 <dd class="text-lg font-semibold text-gray-900">
                                     {{ $inspeksi_wm->shift }}

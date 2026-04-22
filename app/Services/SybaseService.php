@@ -19,22 +19,22 @@ class SybaseService
         );
     }
 
-    public function getProReferences(): array
+    public function getAllProData(): array
     {
         $pdo = $this->connect();
 
         $sql = "
-            SELECT DISTINCT trno, description
-            FROM Beva_vProBI
+            SELECT DISTINCT
+                trno,
+                description,
+                Qty_ordered
+            FROM DBA.Beva_vProBI
             WHERE trno IS NOT NULL
-              AND description IS NOT NULL
-              AND TRIM(trno) <> ''
-              AND TRIM(description) <> ''
+            AND description IS NOT NULL
+            AND Status = 'Open'
             ORDER BY trno
         ";
 
-        $stmt = $pdo->query($sql);
-
-        return $stmt->fetchAll();
+        return $pdo->query($sql)->fetchAll();
     }
 }

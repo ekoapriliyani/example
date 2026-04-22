@@ -9,7 +9,7 @@ class Pro extends Model
     protected $fillable = [
         'pro_id',
         'description',
-        'qty'
+        'qty',
     ];
 
     public function inspeksiWms()

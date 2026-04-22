@@ -25,33 +25,41 @@
                         </div>
 
                         <div>
+                            <x-input-label for="pro_id" :value="__('PRO Number')" />
                             <select id="pro_id" name="pro_id"
                                 class="mt-1 block w-full border-gray-300 rounded-md shadow-sm" required>
                                 <option value="">-- Pilih PRO --</option>
                                 @foreach ($pros as $pro)
-                                    <option value="{{ $pro->id }}" data-description="{{ $pro->description }}">
+                                    <option value="{{ $pro->id }}"
+                                        {{ old('pro_id') == $pro->id ? 'selected' : '' }}>
                                         {{ $pro->pro_id }}
                                     </option>
                                 @endforeach
                             </select>
+                            <x-input-error class="mt-2" :messages="$errors->get('pro_id')" />
                         </div>
 
                         <div>
-                            <x-input-label for="description" :value="__('Description')" />
-                            <x-text-input id="description" name="description" type="text"
-                                class="mt-1 block w-full bg-gray-100" readonly />
+                            <x-input-label for="pro_description" :value="__('Description')" />
+                            <x-text-input id="pro_description" type="text" class="mt-1 block w-full bg-gray-100"
+                                value="{{ old('pro_description') }}" readonly />
                         </div>
+
+                        <div>
+                            <x-input-label for="pro_qty" :value="__('Qty Ordered')" />
+                            <x-text-input id="pro_qty" type="text" class="mt-1 block w-full bg-gray-100"
+                                value="{{ old('pro_qty') }}" readonly />
+                        </div>
+
                         <div>
                             <x-input-label for="product_wm_ref_id" :value="__('Product WM')" />
                             <select id="product_wm_ref_id" name="product_wm_ref_id"
-                                class="mt-1 block w-full border-gray-300 rounded-md shadow-sm" required>
+                                class="mt-1 block w-full border-gray-300 rounded-md shadow-sm">
                                 <option value="">-- Pilih Product WM --</option>
                                 @foreach ($productWms as $product)
                                     <option value="{{ $product->id }}"
-                                        {{ old('product_wm_ref_id', $inspeksi_wm->product_wm_ref_id ?? '') == $product->id ? 'selected' : '' }}>
-
+                                        {{ old('product_wm_ref_id') == $product->id ? 'selected' : '' }}>
                                         {{ $product->product_wm_id }} - {{ $product->description }}
-
                                     </option>
                                 @endforeach
                             </select>
@@ -102,11 +110,12 @@
                             </select>
                             <x-input-error class="mt-2" :messages="$errors->get('type_coating')" />
                         </div>
+
                         <div>
                             <x-input-label for="shear_strength" :value="__('Shear Strength')" />
                             <div class="relative mt-1">
-                                <x-text-input id="shear_strength" name="shear_strength" type="number" step="1"
-                                    class="block w-full pr-12" :value="old('shear_strength')" required placeholder="0.00" />
+                                <x-text-input id="shear_strength" name="shear_strength" type="number" step="0.01"
+                                    class="block w-full pr-12" :value="old('shear_strength')" placeholder="0.00" />
                                 <div
                                     class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none text-gray-400 text-sm">
                                     mpa
@@ -118,7 +127,7 @@
                         <div>
                             <x-input-label for="mesin_id" :value="__('Mesin')" />
                             <select id="mesin_id" name="mesin_id"
-                                class="mt-1 block w-full border-gray-300 rounded-md shadow-sm" required>
+                                class="mt-1 block w-full border-gray-300 rounded-md shadow-sm">
                                 <option value="">-- Pilih Mesin --</option>
                                 @foreach ($mesins as $mesin)
                                     <option value="{{ $mesin->id }}"
@@ -145,51 +154,59 @@
             </div>
         </div>
     </div>
+
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
     <script>
         $(document).ready(function() {
+            $('#pro_id').select2({
+                placeholder: '-- Pilih PRO --',
+                allowClear: true,
+                width: '100%'
+            });
+
+            $('#product_wm_ref_id').select2({
+                placeholder: '-- Pilih Product WM --',
+                allowClear: true,
+                width: '100%'
+            });
+
             $('#mesin_id').select2({
                 placeholder: '-- Pilih Mesin --',
                 allowClear: true,
                 width: '100%'
             });
-        });
-    </script>
-    <script>
-        $(document).ready(function() {
-            $('#pro_id').select2({
-                placeholder: '-- Pilih PRO --',
-                allowClear: true,
-                width: '100%'
-            });
-        });
-    </script>
-    {{-- Auto isi description (tetap jalan) --}}
-    <script>
-        $(document).ready(function() {
-            $('#pro_id').select2({
-                placeholder: '-- Pilih PRO --',
-                allowClear: true,
-                width: '100%'
-            });
+
+            async function loadProDetail(proId) {
+                const descriptionInput = document.getElementById('pro_description');
+                const qtyInput = document.getElementById('pro_qty');
+
+                descriptionInput.value = '';
+                qtyInput.value = '';
+
+                if (!proId) return;
+
+                try {
+                    const response = await fetch(`/pro/${proId}/detail`);
+                    const data = await response.json();
+
+                    descriptionInput.value = data.description ?? '';
+                    qtyInput.value = data.qty ?? '';
+                } catch (error) {
+                    console.error('Gagal mengambil detail PRO:', error);
+                }
+            }
 
             $('#pro_id').on('change', function() {
-                let selected = $(this).find(':selected');
-                let desc = selected.data('description');
-
-                $('#description').val(desc ?? '');
+                loadProDetail($(this).val());
             });
-        });
-    </script>
-    {{-- pilih product wm --}}
-    <script>
-        $('#product_wm_ref_id').select2({
-            placeholder: '-- Pilih Product WM --',
-            allowClear: true,
-            width: '100%'
+
+            @if (old('pro_id'))
+                loadProDetail("{{ old('pro_id') }}");
+            @endif
         });
     </script>
 </x-app-layout>

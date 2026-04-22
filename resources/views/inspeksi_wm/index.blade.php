@@ -57,6 +57,7 @@
                                         <th class="px-4 py-3 font-semibold text-gray-900 text-left">Nomor Inspeksi</th>
                                         <th class="px-4 py-3 font-semibold text-gray-900 text-left">PRO Number</th>
                                         <th class="px-4 py-3 font-semibold text-gray-900 text-left">Description</th>
+                                        <th class="px-4 py-3 font-semibold text-gray-900 text-left">QTY Ordered</th>
                                         <th class="px-4 py-3 font-semibold text-gray-900 text-left">Shift</th>
                                         <th class="px-4 py-3 font-semibold text-gray-900 text-left">Grade</th>
                                         <th class="px-4 py-3 font-semibold text-gray-900 text-left">Type Coating</th>
@@ -78,6 +79,8 @@
                                             </td>
                                             <td class="px-4 py-3 font-medium text-gray-900">
                                                 {{ $item->pro->description }}
+                                            </td>
+                                            <td class="px-4 py-3 font-medium text-gray-900">{{ $item->pro->qty }}
                                             <td class="px-4 py-3 font-medium text-gray-900">{{ $item->shift }}
                                             <td class="px-4 py-3 font-medium text-gray-900">{{ $item->grade }}
                                             <td class="px-4 py-3 font-medium text-gray-900">{{ $item->type_coating }}
