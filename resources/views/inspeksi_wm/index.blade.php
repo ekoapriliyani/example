@@ -60,6 +60,8 @@
                                         <th class="px-4 py-3 font-semibold text-gray-900 text-left">Shift</th>
                                         <th class="px-4 py-3 font-semibold text-gray-900 text-left">Grade</th>
                                         <th class="px-4 py-3 font-semibold text-gray-900 text-left">Type Coating</th>
+                                        <th class="px-4 py-3 font-semibold text-gray-900 text-left">Shear Strength</th>
+                                        <th class="px-4 py-3 font-semibold text-gray-900 text-left">Mesin</th>
                                         <th class="px-4 py-3 font-semibold text-gray-900 text-left">Created At</th>
                                         <th class="px-4 py-3 font-semibold text-gray-900 text-right">Aksi</th>
                                     </tr>
@@ -78,6 +80,11 @@
                                             <td class="px-4 py-3 font-medium text-gray-900">{{ $item->shift }}
                                             <td class="px-4 py-3 font-medium text-gray-900">{{ $item->grade }}
                                             <td class="px-4 py-3 font-medium text-gray-900">{{ $item->type_coating }}
+                                            </td>
+                                            <td class="px-4 py-3 font-medium text-gray-900">{{ $item->shear_strength }}
+                                            </td>
+                                            <td class="px-4 py-3 font-medium text-gray-900">
+                                                {{ $item->mesin->nama_mesin }}
                                             </td>
                                             <td class="px-4 py-3 font-medium text-gray-900">{{ $item->created_at }}
                                             </td>

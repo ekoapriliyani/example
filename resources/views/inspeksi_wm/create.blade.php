@@ -86,7 +86,6 @@
                             </select>
                             <x-input-error class="mt-2" :messages="$errors->get('type_coating')" />
                         </div>
-
                         <div>
                             <x-input-label for="shear_strength" :value="__('Shear Strength')" />
                             <div class="relative mt-1">
@@ -94,10 +93,25 @@
                                     class="block w-full pr-12" :value="old('shear_strength')" required placeholder="0.00" />
                                 <div
                                     class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none text-gray-400 text-sm">
-                                    mm
+                                    mpa
                                 </div>
                             </div>
                             <x-input-error class="mt-2" :messages="$errors->get('shear_strength')" />
+                        </div>
+
+                        <div>
+                            <x-input-label for="mesin_id" :value="__('Mesin')" />
+                            <select id="mesin_id" name="mesin_id"
+                                class="mt-1 block w-full border-gray-300 rounded-md shadow-sm" required>
+                                <option value="">-- Pilih Mesin --</option>
+                                @foreach ($mesins as $mesin)
+                                    <option value="{{ $mesin->id }}"
+                                        {{ old('mesin_id') == $mesin->id ? 'selected' : '' }}>
+                                        {{ $mesin->nama_mesin }}
+                                    </option>
+                                @endforeach
+                            </select>
+                            <x-input-error class="mt-2" :messages="$errors->get('mesin_id')" />
                         </div>
 
                         <div class="flex items-center justify-end gap-4 pt-4 border-t border-gray-100">
@@ -115,4 +129,17 @@
             </div>
         </div>
     </div>
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('#mesin_id').select2({
+                placeholder: '-- Pilih Mesin --',
+                allowClear: true,
+                width: '100%'
+            });
+        });
+    </script>
 </x-app-layout>

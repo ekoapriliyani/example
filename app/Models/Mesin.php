@@ -11,4 +11,8 @@ class Mesin extends Model
     use HasFactory;
     protected $fillable = ['mesin_id', 'nama_mesin'];
     
+    public function inspeksiWms()
+    {
+        return $this->hasMany(InspeksiWm::class);
+    }
 }

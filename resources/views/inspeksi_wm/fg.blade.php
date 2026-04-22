@@ -22,7 +22,7 @@
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                             <div>
                                 <x-input-label for="batch_number" :value="__('Batch Number')" />
-                                <x-text-input id="batch_number" name="batch_number" type="text"
+                                <x-text-input id="batch_number" name="batch_number" type="number"
                                     class="mt-1 block w-full" required placeholder="Contoh: B-2024-001" />
                                 <x-input-error class="mt-2" :messages="$errors->get('batch_number')" />
                             </div>

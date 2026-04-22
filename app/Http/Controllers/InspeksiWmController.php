@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\InspeksiWm;
+use App\Models\Mesin;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 
@@ -44,8 +45,9 @@ class InspeksiWmController extends Controller
         }
 
         $nextNomor = "INSWM{$tahunBulan}{$nextNumber}";
+        $mesins = Mesin::orderBy('nama_mesin')->get();
 
-        return view('inspeksi_wm.create', compact('nextNomor'));
+        return view('inspeksi_wm.create', compact('nextNomor', 'mesins'));
     }
 
     /**
@@ -60,6 +62,7 @@ class InspeksiWmController extends Controller
             'grade' => 'required',
             'type_coating' => 'required',
             'shear_strength' => 'required',
+            'mesin_id' => 'required|exists:mesins,id',
         ]);
 
         // 1. Ambil Tahun dan Bulan dari tanggal yang diinput (atau tanggal hari ini)
@@ -93,6 +96,7 @@ class InspeksiWmController extends Controller
             'grade' => $validated['grade'],
             'type_coating' => $validated['type_coating'],
             'shear_strength' => $validated['shear_strength'],
+            'mesin_id' => $validated['mesin_id'],
         ]);
 
         return redirect()->route('inspeksi_wm.index')->with('success', "Inspeksi $nomorOtomatis berhasil disimpan");

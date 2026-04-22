@@ -69,6 +69,18 @@
                                     {{ $inspeksi_wm->type_coating }}
                                 </dd>
                             </div>
+                            <div>
+                                <dt class="text-sm font-medium text-gray-500 italic">Shear Strength</dt>
+                                <dd class="text-lg font-semibold text-gray-900">
+                                    {{ $inspeksi_wm->shear_strength }}
+                                </dd>
+                            </div>
+                            <div>
+                                <dt class="text-sm font-medium text-gray-500 italic">Mesin</dt>
+                                <dd class="text-lg font-semibold text-gray-900">
+                                    {{ $inspeksi_wm->mesin->nama_mesin }}
+                                </dd>
+                            </div>
                         </dl>
                     </div>
                 </div>
