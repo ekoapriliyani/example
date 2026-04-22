@@ -83,7 +83,7 @@
                                 <x-input-label for="files" :value="__('Upload File')" />
                                 <input id="files" name="files[]" type="file"
                                     class="mt-1 block w-full border-gray-300 rounded-md shadow-sm" multiple>
-                                <x-input-error class="mt-2" :messages="$errors->get('files')" />
+                                <x-input-error class="mt-2" :messages="$errors->get('files.*')" />
                             </div>
                         </div>
 
@@ -94,8 +94,6 @@
                                 {{ __('Simpan Data FG') }}
                             </x-primary-button>
                         </div>
-
-
                     </form>
                 </div>
             </div>

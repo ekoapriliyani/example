@@ -114,13 +114,18 @@ return [
             // 'trust_server_certificate' => env('DB_TRUST_SERVER_CERTIFICATE', 'false'),
         ],
 
-        'odbc' => [
-            'driver' => 'odbc',
-            'dsn' => 'Driver={Adaptive Server Enterprise};server='.env('DB_HOST_SYBASE').';port='.env('DB_PORT_SYBASE').';db='.env('DB_DATABASE_SYBASE'),
-            'database' => env('DB_DATABASE_SYBASE'),
-            'username' => env('DB_USERNAME_SYBASE'),
-            'password' => env('DB_PASSWORD_SYBASE'),
-        ],
+        'sybase' => [
+        'driver' => 'odbc',
+        'dsn' => env('SYBASE_DSN', ''),
+        'host' => env('DB_HOST_SYBASE', '127.0.0.1'),
+        'port' => env('DB_PORT_SYBASE', '2638'),
+        'database' => env('DB_DATABASE_SYBASE', ''),
+        'username' => env('DB_USERNAME_SYBASE', ''),
+        'password' => env('DB_PASSWORD_SYBASE', ''),
+        'charset' => env('DB_CHARSET_SYBASE', 'utf8'),
+        'prefix' => '',
+        'prefix_indexes' => true,
+    ],
 
     ],
 

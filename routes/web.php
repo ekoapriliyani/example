@@ -5,6 +5,8 @@ use App\Http\Controllers\InspeksiWmFgController;
 use App\Http\Controllers\InspeksiWmWipController;
 use App\Http\Controllers\MaterialController;
 use App\Http\Controllers\MesinController;
+use App\Http\Controllers\ProController;
+use App\Http\Controllers\ProductWmController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\SiswaController;
@@ -38,6 +40,9 @@ Route::middleware('auth')->group(function () {
     Route::resource('material', MaterialController::class);
     Route::post('material/import', [MaterialController::class, 'import'])->name('material.import');
     Route::resource('mesin', MesinController::class);
+    Route::resource('productwm', ProductWmController::class);
+    Route::resource('pro',ProController::class);
+    Route::post('pro/import', [ProController::class, 'import'])->name('pro.import');
 
      // Route Subkon
     Route::resource('subkon', SubkonController::class);
