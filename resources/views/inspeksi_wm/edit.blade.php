@@ -48,6 +48,23 @@
                         </div>
 
                         <div>
+                            <x-input-label for="product_wm_ref_id" :value="__('Product WM')" />
+                            <select id="product_wm_ref_id" name="product_wm_ref_id"
+                                class="mt-1 block w-full border-gray-300 rounded-md shadow-sm" required>
+                                <option value="">-- Pilih Product WM --</option>
+                                @foreach ($productWms as $product)
+                                    <option value="{{ $product->id }}"
+                                        {{ old('product_wm_ref_id', $inspeksi_wm->product_wm_ref_id ?? '') == $product->id ? 'selected' : '' }}>
+
+                                        {{ $product->product_wm_id }} - {{ $product->description }}
+
+                                    </option>
+                                @endforeach
+                            </select>
+                            <x-input-error class="mt-2" :messages="$errors->get('product_wm_ref_id')" />
+                        </div>
+
+                        <div>
                             <x-input-label for="shift" :value="__('Shift')" />
                             <select id="shift" name="shift"
                                 class="mt-1 block w-full border-gray-300 rounded-md shadow-sm" required>
@@ -183,6 +200,15 @@
     <script>
         $('#mesin_id').select2({
             placeholder: '-- Pilih Mesin --',
+            allowClear: true,
+            width: '100%'
+        });
+    </script>
+
+    {{--  --}}
+    <script>
+        $('#product_wm_ref_id').select2({
+            placeholder: '-- Pilih Product WM --',
             allowClear: true,
             width: '100%'
         });

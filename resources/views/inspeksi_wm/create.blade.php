@@ -41,17 +41,34 @@
                             <x-text-input id="description" name="description" type="text"
                                 class="mt-1 block w-full bg-gray-100" readonly />
                         </div>
+                        <div>
+                            <x-input-label for="product_wm_ref_id" :value="__('Product WM')" />
+                            <select id="product_wm_ref_id" name="product_wm_ref_id"
+                                class="mt-1 block w-full border-gray-300 rounded-md shadow-sm" required>
+                                <option value="">-- Pilih Product WM --</option>
+                                @foreach ($productWms as $product)
+                                    <option value="{{ $product->id }}"
+                                        {{ old('product_wm_ref_id', $inspeksi_wm->product_wm_ref_id ?? '') == $product->id ? 'selected' : '' }}>
 
+                                        {{ $product->product_wm_id }} - {{ $product->description }}
 
+                                    </option>
+                                @endforeach
+                            </select>
+                            <x-input-error class="mt-2" :messages="$errors->get('product_wm_ref_id')" />
+                        </div>
 
                         <div>
                             <x-input-label for="shift" :value="__('Shift')" />
                             <select id="shift" name="shift"
                                 class="mt-1 block w-full border-gray-300 rounded-md shadow-sm" required>
                                 <option value="">-- Pilih Shift --</option>
-                                <option value="shift1" {{ old('shift') == 'shift1' ? 'selected' : '' }}>Shift 1</option>
-                                <option value="shift2" {{ old('shift') == 'shift2' ? 'selected' : '' }}>Shift 2</option>
-                                <option value="shift3" {{ old('shift') == 'shift3' ? 'selected' : '' }}>Shift 3</option>
+                                <option value="shift1" {{ old('shift') == 'shift1' ? 'selected' : '' }}>Shift 1
+                                </option>
+                                <option value="shift2" {{ old('shift') == 'shift2' ? 'selected' : '' }}>Shift 2
+                                </option>
+                                <option value="shift3" {{ old('shift') == 'shift3' ? 'selected' : '' }}>Shift 3
+                                </option>
                             </select>
                             <x-input-error class="mt-2" :messages="$errors->get('shift')" />
                         </div>
@@ -165,6 +182,14 @@
 
                 $('#description').val(desc ?? '');
             });
+        });
+    </script>
+    {{-- pilih product wm --}}
+    <script>
+        $('#product_wm_ref_id').select2({
+            placeholder: '-- Pilih Product WM --',
+            allowClear: true,
+            width: '100%'
         });
     </script>
 </x-app-layout>

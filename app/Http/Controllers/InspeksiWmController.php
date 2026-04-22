@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\InspeksiWm;
 use App\Models\Mesin;
 use App\Models\Pro;
+use App\Models\ProductWm;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 
@@ -48,8 +49,9 @@ class InspeksiWmController extends Controller
         $nextNomor = "INSWM{$tahunBulan}{$nextNumber}";
         $mesins = Mesin::orderBy('nama_mesin')->get();
         $pros = Pro::orderBy('pro_id')->get();
+        $productWms = ProductWm::orderBy('product_wm_id')->get();
 
-        return view('inspeksi_wm.create', compact('nextNomor', 'mesins', 'pros'));
+        return view('inspeksi_wm.create', compact('nextNomor', 'pros', 'mesins', 'productWms'));
     }
 
     /**
@@ -59,12 +61,14 @@ class InspeksiWmController extends Controller
     {
         $validated = $request->validate([
             'pro_id' => 'required|exists:pros,id',
+            'product_wm_ref_id' => 'required|exists:product_wms,id',
             'shift' => 'required',
             'grade' => 'required',
             'type_coating' => 'required',
             'shear_strength' => 'required|numeric',
             'mesin_id' => 'required|exists:mesins,id',
         ]);
+
 
         // 1. Ambil Tahun dan Bulan dari tanggal yang diinput (atau tanggal hari ini)
         $tanggalInput = Carbon::now();
@@ -92,6 +96,7 @@ class InspeksiWmController extends Controller
         InspeksiWm::create([
             'nomor_inspeksi' => $nomorOtomatis,
             'pro_id' => $validated['pro_id'],
+            'product_wm_ref_id' => $validated['product_wm_ref_id'],
             'shift' => $validated['shift'],
             'grade' => $validated['grade'],
             'type_coating' => $validated['type_coating'],
@@ -117,7 +122,8 @@ class InspeksiWmController extends Controller
     {
         $pros = Pro::orderBy('pro_id')->get();
         $mesins = Mesin::orderBy('nama_mesin')->get();
-        return view('inspeksi_wm.edit', compact('inspeksi_wm', 'pros', 'mesins'));
+        $productWms = ProductWm::orderBy('product_wm_id')->get();
+        return view('inspeksi_wm.edit', compact('inspeksi_wm', 'pros', 'mesins', 'productWms'));
     }
 
     /**
@@ -127,6 +133,7 @@ class InspeksiWmController extends Controller
     {
         $validated = $request->validate([
             'pro_id' => 'required|exists:pros,id',
+            'product_wm_ref_id' => 'required|exists:product_wms,id',
             'shift' => 'required',
             'grade' => 'required',
             'type_coating' => 'required',
@@ -136,13 +143,13 @@ class InspeksiWmController extends Controller
 
         $inspeksi_wm->update([
             'pro_id' => $validated['pro_id'],
+            'product_wm_ref_id' => $validated['product_wm_ref_id'],
             'shift' => $validated['shift'],
             'grade' => $validated['grade'],
             'type_coating' => $validated['type_coating'],
             'shear_strength' => $validated['shear_strength'],
             'mesin_id' => $validated['mesin_id'],
         ]);
-
         return redirect()->route('inspeksi_wm.index')
             ->with('success', 'Data inspeksi berhasil diperbarui');
     }

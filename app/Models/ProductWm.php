@@ -19,4 +19,9 @@ class ProductWm extends Model
         'l_mesh',
         'tol_mesh',
     ];
+
+    public function inspeksiWms()
+    {
+        return $this->hasMany(InspeksiWm::class, 'product_wm_ref_id');
+    }
 }
