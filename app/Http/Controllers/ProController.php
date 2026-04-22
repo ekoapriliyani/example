@@ -54,17 +54,22 @@ class ProController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Pro $pro)
     {
-        //
+        return view('pro.edit', compact('pro'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, Pro $pro)
     {
-        //
+        $validated = $request->validate([
+            'pro_id' => 'required',
+            'description' => 'required',
+        ]);
+        $pro->update($validated);
+        return redirect()->route('pro.index')->with('success', 'data berhasil diubah');
     }
 
     /**
