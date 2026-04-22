@@ -70,8 +70,9 @@ class ProController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Pro $pro)
     {
-        //
+        $pro->delete();
+        return redirect()->route('pro.index')->with('success', 'PRO berhasil dihapus');
     }
 }
