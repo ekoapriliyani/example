@@ -11,7 +11,9 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\SiswaController;
 use App\Http\Controllers\SubkonController;
+use App\Http\Controllers\SupplierController;
 use Illuminate\Support\Facades\Route;
+
 
 // Route::get('/', function () {
 //     return view('welcome');
@@ -42,6 +44,7 @@ Route::middleware('auth')->group(function () {
     Route::resource('mesin', MesinController::class);
     Route::resource('productwm', ProductWmController::class);
     Route::resource('pro',ProController::class);
+    Route::resource('supplier', SupplierController::class);
     Route::post('pro/import', [ProController::class, 'import'])->name('pro.import');
 
      // Route Subkon
