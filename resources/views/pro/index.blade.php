@@ -21,7 +21,7 @@
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
 
-            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg border border-gray-200">
+            {{-- <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg border border-gray-200">
                 <div class="p-6">
                     <h3 class="text-sm font-bold text-gray-700 uppercase mb-4 flex items-center gap-2">
                         <svg xmlns="http://www.w3.org/2000/svg" class="size-5 text-green-600" fill="none"
@@ -49,7 +49,7 @@
                     <p class="mt-2 text-xs text-gray-400 font-medium">* Format kolom: <span
                             class="text-indigo-600 italic">pro_id, description</span> (ID akan dibuat otomatis)</p>
                 </div>
-            </div>
+            </div> --}}
 
             <div class="mb-4">
                 <form action="{{ route('pro.index') }}" method="GET" class="flex gap-2">
@@ -102,7 +102,8 @@
                                     @forelse ($data as $pro)
                                         <tr class="hover:bg-gray-50 transition-colors">
                                             <td class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap">
-                                                {{ $loop->iteration }}</td>
+                                                {{ ($data->currentPage() - 1) * $data->perPage() + $loop->iteration }}
+                                            </td>
                                             <td class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap">
                                                 {{ $pro->pro_id }}</td>
                                             <td class="px-4 py-3 text-gray-700">{{ $pro->description }}</td>
@@ -134,9 +135,20 @@
                                     @endforelse
                                 </tbody>
                             </table>
-                            {{-- <div class="mt-4 px-4 py-3 border-t border-gray-100">
-                                {{ $data->links() }}
-                            </div> --}}
+                            <div class="flex items-center justify-between mt-4 px-4 py-3 border-t border-gray-100">
+                                {{-- <div class="text-sm text-gray-600">
+                                    Menampilkan
+                                    <span class="font-semibold">{{ $data->firstItem() }}</span>
+                                    sampai
+                                    <span class="font-semibold">{{ $data->lastItem() }}</span>
+                                    dari
+                                    <span class="font-semibold">{{ $data->total() }}</span>
+                                    data
+                                </div> --}}
+                                <div>
+                                    {{ $data->links() }}
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>

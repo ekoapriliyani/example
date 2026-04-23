@@ -10,10 +10,19 @@ class ProController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $data = Pro::all();
-        return view('pro.index', ['data' => $data]);
+        $search = $request->input('search');
+
+        $data = Pro::when($search, function ($query, $search) {
+                $query->where('pro_id', 'like', "%{$search}%")
+                    ->orWhere('description', 'like', "%{$search}%");
+            })
+            ->orderBy('pro_id')
+            ->paginate(25)
+            ->withQueryString();
+
+        return view('pro.index', compact('data'));
     }
 
     /**
