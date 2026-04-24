@@ -35,6 +35,18 @@
                                 <dd class="text-lg font-bold text-indigo-600">{{ $inspeksi_wm->nomor_inspeksi }}</dd>
                             </div> --}}
                             <div>
+                                <dt class="text-sm font-medium text-gray-500 italic">Tanggal</dt>
+                                <dd class="text-lg font-semibold text-gray-900">
+                                    {{ $incomingbahanbaku->tanggal }}
+                                </dd>
+                            </div>
+                            <div>
+                                <dt class="text-sm font-medium text-gray-500 italic">Supplier</dt>
+                                <dd class="text-lg font-semibold text-gray-900">
+                                    {{ $incomingbahanbaku->supplier->nama }}
+                                </dd>
+                            </div>
+                            <div>
                                 <dt class="text-sm font-medium text-gray-500 italic">No PO</dt>
                                 <dd class="text-lg font-semibold text-gray-900">
                                     {{ $incomingbahanbaku->no_po }}
@@ -94,7 +106,6 @@
                                 <tr>
                                     <th class="px-4 py-3 font-semibold text-gray-900">No</th>
                                     <th class="px-4 py-3 font-semibold text-gray-900">Inspektor</th>
-                                    <th class="px-4 py-3 font-semibold text-gray-900">Diameter</th>
                                     <th class="px-4 py-3 font-semibold text-gray-900">No Koil</th>
                                     <th class="px-4 py-3 font-semibold text-gray-900">D1</th>
                                     <th class="px-4 py-3 font-semibold text-gray-900">D2</th>
@@ -111,7 +122,6 @@
                                     <tr class="hover:bg-gray-50 transition-colors">
                                         <td class="px-4 py-3">{{ $loop->iteration }}</td>
                                         <td class="px-4 py-3">{{ $inc->user->name ?? 'N/A' }}</td>
-                                        <td class="px-4 py-3 font-medium">{{ $inc->diameter }}</td>
                                         <td class="px-4 py-3">{{ $inc->no_koil }}</td>
                                         <td class="px-4 py-3">{{ $inc->d1 }}</td>
                                         <td class="px-4 py-3">{{ $inc->d2 }}</td>

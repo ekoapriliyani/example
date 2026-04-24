@@ -16,13 +16,7 @@
                     <!-- No Koil -->
                     <div class="mb-4">
                         <label>No Koil</label>
-                        <input type="text" name="no_koil" class="w-full border rounded px-3 py-2" required>
-                    </div>
-
-                    <!-- Diameter -->
-                    <div class="mb-4">
-                        <label>Diameter</label>
-                        <input type="number" step="0.01" name="diameter" class="w-full border rounded px-3 py-2">
+                        <input type="text" name="no_koil" class="w-full border rounded px-3 py-2" required autofocus>
                     </div>
 
                     <!-- D1 D2 D3 -->
