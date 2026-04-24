@@ -165,6 +165,19 @@
                                 </div>
                                 <x-input-error class="mt-2" :messages="$errors->get('status_dimensi')" />
                             </div>
+                            <div>
+                                <x-input-label for="visual" :value="__('Visual')" />
+                                <div class="relative mt-1">
+                                    <select id="visual" name="visual"
+                                        class="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
+                                        <option value="OK" {{ old('visual') == 'OK' ? 'selected' : '' }}>OK
+                                        </option>
+                                        <option value="NG" {{ old('visual') == 'NG' ? 'selected' : '' }}>NG
+                                        </option>
+                                    </select>
+                                </div>
+                                <x-input-error class="mt-2" :messages="$errors->get('visual')" />
+                            </div>
                         </div>
 
                         <div class="md:col-span-2 border-t border-gray-200 pt-6">

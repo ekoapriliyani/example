@@ -24,6 +24,7 @@ return new class extends Migration
             $table->decimal('l_mesh_act', 8,2)->nullable();
             $table->decimal('selisih_diagonal', 8,2)->nullable();
             $table->string('status_dimensi')->nullable();
+            $table->string('visual')->nullable();
             $table->string('torsi_strength')->nullable();
             $table->json('files')->nullable();
             $table->timestamps();

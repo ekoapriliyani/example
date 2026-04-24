@@ -24,6 +24,7 @@ class InspeksiWmWip extends Model
             'selisih_diagonal',
             'torsi_strength',
             'status_dimensi',
+            'visual',
             'files',
         ];
     

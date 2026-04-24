@@ -121,6 +121,7 @@
                                     <th class="px-4 py-3 font-semibold text-gray-900">L Mesh</th>
                                     <th class="px-4 py-3 font-semibold text-gray-900">Torsi Strength</th>
                                     <th class="px-4 py-3 font-semibold text-gray-900">Dimensi</th>
+                                    <th class="px-4 py-3 font-semibold text-gray-900">Visual</th>
                                     <th class="px-4 py-3 font-semibold text-gray-900">Detail</th>
                                     <th class="px-4 py-3 font-semibold text-gray-900">Gambar</th>
                                     <th class="px-4 py-3 font-semibold text-gray-900 text-center">Created At</th>
@@ -142,6 +143,7 @@
                                         <td class="px-4 py-3 text-center bg-blue-50/30">{{ $wip->l_mesh_act }}</td>
                                         <td class="px-4 py-3 text-center bg-blue-50/30">{{ $wip->torsi_strength }}</td>
                                         <td class="px-4 py-3 text-center bg-blue-50/30">{{ $wip->status_dimensi }}
+                                        <td class="px-4 py-3 text-center bg-blue-50/30">{{ $wip->visual }}
                                         </td>
                                         <td class="px-4 py-3">
                                             <button type="button" class="text-sm text-indigo-600 hover:underline"
