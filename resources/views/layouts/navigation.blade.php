@@ -57,6 +57,7 @@
                             </x-slot>
                             <x-slot name="content">
                                 <x-dropdown-link :href="route('pro.index')">PRO</x-dropdown-link>
+                                <x-dropdown-link :href="route('lab.index')">LAB</x-dropdown-link>
                                 {{-- <x-dropdown-link :href="route('user.index')">User</x-dropdown-link> --}}
                             </x-slot>
                         </x-dropdown>

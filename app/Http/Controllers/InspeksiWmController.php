@@ -35,7 +35,6 @@ class InspeksiWmController extends Controller
     public function create()
     {
         $tahunBulan = Carbon::now()->format('Ym');
-
         $lastRecord = InspeksiWm::where('nomor_inspeksi', 'like', "INSWM{$tahunBulan}%")
             ->orderBy('nomor_inspeksi', 'desc')
             ->first();

@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('incoming_bahan_bakus', function (Blueprint $table) {
             $table->id();
             $table->date('tanggal');
+            $table->string('nomor_inspeksi');
             $table->foreignId('supplier_id')->constrained('suppliers')->onDelete('cascade');
             $table->string('no_po');
             $table->string('no_sj');

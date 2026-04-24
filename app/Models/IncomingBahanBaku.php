@@ -9,6 +9,7 @@ class IncomingBahanBaku extends Model
 {
     protected $fillable = [
         'tanggal',
+        'nomor_inspeksi',
         'supplier_id',
         'no_po',
         'no_sj',

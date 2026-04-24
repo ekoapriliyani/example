@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\IncomingBahanBaku;
 use App\Models\IncomingBahanBakuInspeksi;
 use App\Models\Supplier;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -24,8 +25,20 @@ class IncomingBahanBakuController extends Controller
      */
     public function create()
     {
+        $tahunBulan = Carbon::now()->format('Ym');
+        $lastRecord = IncomingBahanBaku::where('nomor_inspeksi', 'like', "INBB{$tahunBulan}%")
+            ->orderBy('nomor_inspeksi', 'desc')
+            ->first();
+
+        $nextNumber = 1;
+        if ($lastRecord) {
+            $lastNumberStr = str_replace("INBB{$tahunBulan}", "", $lastRecord->nomor_inspeksi);
+            $nextNumber = (int) $lastNumberStr + 1;
+        }
+
+        $nextNomor = "INBB{$tahunBulan}{$nextNumber}";
         $suppliers = Supplier::orderBy('supplier_code')->get();
-        return view('incomingbahanbaku.create', compact('suppliers'));
+        return view('incomingbahanbaku.create', compact('nextNomor','suppliers'));
     }
 
     public function inspeksi()
@@ -48,8 +61,27 @@ class IncomingBahanBakuController extends Controller
             'tol' => 'required',
             'jenis_kawat' => 'required',
         ]);
+
+        $tanggalInput = Carbon::now();
+        $tahunBulan = $tanggalInput->format('Ym');
+
+        $lastRecord = IncomingBahanBaku::where('nomor_inspeksi', 'like', "INBB{$tahunBulan}%")
+            ->orderBy('nomor_inspeksi', 'desc')
+            ->first();
+
+        if (!$lastRecord) {
+            $nextNumber = 1;
+        } else {
+            $lastNumberStr = str_replace("INBB{$tahunBulan}", "", $lastRecord->nomor_inspeksi);
+            $nextNumber = (int) $lastNumberStr + 1;
+        }
+
+        $nomorOtomatis = "INBB{$tahunBulan}{$nextNumber}";
+
+
         IncomingBahanBaku::create([
             'tanggal' => $validated['tanggal'],
+            'nomor_inspeksi' => $nomorOtomatis,
             'supplier_id' => $validated['supplier_id'],
             'no_po' => $validated['no_po'],
             'no_sj' => $validated['no_sj'],

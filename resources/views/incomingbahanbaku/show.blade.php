@@ -30,10 +30,10 @@
                 <div class="p-6 sm:p-8">
                     <div class="flex justify-between items-start">
                         <dl class="grid grid-cols-1 gap-x-8 gap-y-4 sm:grid-cols-4">
-                            {{-- <div>
+                            <div>
                                 <dt class="text-sm font-medium text-gray-500 italic">Nomor Inspeksi</dt>
-                                <dd class="text-lg font-bold text-indigo-600">{{ $inspeksi_wm->nomor_inspeksi }}</dd>
-                            </div> --}}
+                                <dd class="text-lg font-bold text-indigo-600">{{ $incomingbahanbaku->nomor_inspeksi }}</dd>
+                            </div>
                             <div>
                                 <dt class="text-sm font-medium text-gray-500 italic">Tanggal</dt>
                                 <dd class="text-lg font-semibold text-gray-900">

@@ -17,6 +17,11 @@
 
                     <form action="{{ route('incomingbahanbaku.store') }}" method="POST" class="space-y-6">
                         @csrf
+                        <div>
+                            <x-input-label for="nomor_inspeksi" :value="__('Nomor Inspeksi (Otomatis)')" />
+                            <x-text-input id="nomor_inspeksi" name="nomor_inspeksi" type="text"
+                                class="mt-1 block w-full bg-gray-100" value="{{ $nextNomor }}" readonly />
+                        </div>
                         <div class="">
                             <x-input-label for="tanggal" :value="__('Tanggal')" />
                             <input type="date" name="tanggal">

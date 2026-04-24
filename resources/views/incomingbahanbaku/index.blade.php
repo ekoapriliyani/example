@@ -55,6 +55,7 @@
                                     <tr>
                                         <th class="px-4 py-3 font-semibold text-gray-900 text-left w-16">No</th>
                                         <th class="px-4 py-3 font-semibold text-gray-900 text-left">Tanggal</th>
+                                        <th class="px-4 py-3 font-semibold text-gray-900 text-left">Nomor Inspeksi</th>
                                         <th class="px-4 py-3 font-semibold text-gray-900 text-left">Supplier</th>
                                         <th class="px-4 py-3 font-semibold text-gray-900 text-left">No PO</th>
                                         <th class="px-4 py-3 font-semibold text-gray-900 text-left">No SJ</th>
@@ -73,6 +74,8 @@
                                             <td class="px-4 py-3 font-medium text-gray-900">
                                                 {{ $loop->iteration }}</td>
                                             <td class="px-4 py-3 font-medium text-gray-900">{{ $item->tanggal }}
+                                            </td>
+                                            <td class="px-4 py-3 font-medium text-gray-900">{{ $item->nomor_inspeksi }}
                                             </td>
                                             <td class="px-4 py-3 font-medium text-gray-900">{{ $item->supplier->nama }}
                                             </td>

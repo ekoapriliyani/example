@@ -4,17 +4,19 @@ use App\Http\Controllers\IncomingBahanBakuController;
 use App\Http\Controllers\InspeksiWmController;
 use App\Http\Controllers\InspeksiWmFgController;
 use App\Http\Controllers\InspeksiWmWipController;
+use App\Http\Controllers\LabController;
 use App\Http\Controllers\MaterialController;
 use App\Http\Controllers\MesinController;
 use App\Http\Controllers\ProController;
 use App\Http\Controllers\ProductWmController;
 use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\ProjectController;
 // use App\Http\Controllers\SiswaController;
+use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\SubkonController;
 use App\Http\Controllers\SupplierController;
-use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Artisan;
+use Illuminate\Support\Facades\Route;
+
 
 Route::post('/sync-pro-reference', function () {
     Artisan::call('sync:pro-reference');
@@ -54,6 +56,7 @@ Route::middleware('auth')->group(function () {
     Route::resource('pro',ProController::class);
     Route::resource('supplier', SupplierController::class);
     Route::resource('incomingbahanbaku', IncomingBahanBakuController::class);
+    Route::resource('lab', LabController::class);
     Route::post('pro/import', [ProController::class, 'import'])->name('pro.import');
 
      // Route Subkon
@@ -64,13 +67,6 @@ Route::middleware('auth')->group(function () {
     Route::resource('project', ProjectController::class);
     Route::post('project/import', [ProjectController::class, 'import'])->name('project.import');
 
-    // Route Inspeksi WM
-    // Route::get('/inspeksi_wm', [InspeksiWmController::class, 'index'])->name('inspeksi_wm.index');
-    // Route::get('/inspeksi_wm/create', [InspeksiWmController::class, 'create'])->name('inspeksi_wm.create');
-    // Route::post('/inspeksi_wm', [InspeksiWmController::class, 'store'])->name('inspeksi_wm.store');
-    // Route::get('/inspeksi_wm/{inspeksi_wm}', [InspeksiWmController::class, 'show'])->name('inspeksi_wm.show');
-    // Route::get('/inspeksi_wm/{inspeksi_wm}/edit', [InspeksiWmController::class, 'edit'])->name('inspeksi_wm.edit');
-    // Route::delete('/inspeksi_wm/{inspeksi_wm}', [InspeksiWmController::class, 'destroy'])->name('inspeksi_wm.destroy');
 
     Route::resource('inspeksi_wm', InspeksiWmController::class);
     Route::get('/pro/{id}/detail', [InspeksiWmController::class, 'getProDetail'])->name('pros.detail');
