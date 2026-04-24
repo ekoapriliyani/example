@@ -41,7 +41,7 @@
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                             <div>
                                 <x-input-label for="no_material" :value="__('Nomor Material')" />
-                                <x-text-input id="no_material" name="no_material" type="text"
+                                <x-text-input id="no_material" name="no_material" type="number"
                                     class="mt-1 block w-full" :value="old('no_material')" required
                                     placeholder="Masukkan kode material" />
                                 <x-input-error class="mt-2" :messages="$errors->get('no_material')" />
