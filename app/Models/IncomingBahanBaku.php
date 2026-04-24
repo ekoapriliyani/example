@@ -10,17 +10,19 @@ class IncomingBahanBaku extends Model
     protected $fillable = [
         'tanggal',
         'supplier_id',
-        'no_pro',
+        'no_po',
         'no_sj',
         'jml_koil',
         'd_kawat',
         'tol',
         'jenis_kawat',
-        'mulai',
-        'selesai',
     ];
 
     public function supplier(){
         return $this->belongsTo(Supplier::class);
+    }
+
+    public function incomingbahanbakuinspeksi() {
+        return $this->hasMany(IncomingBahanBakuInspeksi::class);
     }
 }

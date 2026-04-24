@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\IncomingBahanBakuController;
 use App\Http\Controllers\InspeksiWmController;
 use App\Http\Controllers\InspeksiWmFgController;
 use App\Http\Controllers\InspeksiWmWipController;
@@ -12,7 +13,6 @@ use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\SiswaController;
 use App\Http\Controllers\SubkonController;
 use App\Http\Controllers\SupplierController;
-use App\Models\IncomingBahanBaku;
 use Illuminate\Support\Facades\Route;
 
 
@@ -47,7 +47,7 @@ Route::middleware('auth')->group(function () {
     Route::resource('productwm', ProductWmController::class);
     Route::resource('pro',ProController::class);
     Route::resource('supplier', SupplierController::class);
-    Route::resource('incomingbahanbaku', IncomingBahanBaku::class);
+    Route::resource('incomingbahanbaku', IncomingBahanBakuController::class);
     Route::post('pro/import', [ProController::class, 'import'])->name('pro.import');
 
      // Route Subkon
@@ -75,6 +75,8 @@ Route::middleware('auth')->group(function () {
     Route::post('/inspeksi_wm/fg', [InspeksiWmFgController::class, 'store'])->name('inspeksi_wm_fg.store');
     Route::get('/inspeksi_wm/{inspeksi_wm}/fg', [InspeksiWmFgController::class, 'create'])->name('inspeksi_wm.fg');
 
+    // Route Incoming Bahan Baku
+    Route::get('/incomingbahanbaku/{incomingbahanbaku}/inspeksi', [IncomingBahanBakuController::class, 'inspeksi'])->name('incomingbahanbaku.inspeksi');
 
 
 

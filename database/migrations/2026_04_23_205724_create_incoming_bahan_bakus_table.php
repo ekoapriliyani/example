@@ -21,8 +21,6 @@ return new class extends Migration
             $table->decimal('d_kawat', 8,2)->nullable();
             $table->decimal('tol', 8,2)->nullable();
             $table->string('jenis_kawat');
-            $table->time('mulai');
-            $table->time('selesai');
             $table->timestamps();
         });
     }

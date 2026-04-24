@@ -80,6 +80,7 @@
                             </x-slot>
                             <x-slot name="content">
                                 <x-dropdown-link :href="route('inspeksi_wm.index')">Wiremesh (WM)</x-dropdown-link>
+                                <x-dropdown-link :href="route('incomingbahanbaku.index')">Incoming Bahan Baku</x-dropdown-link>
                                 {{-- <x-dropdown-link :href="route('inspeksi_kd.index')">Kawat Duri (KD)</x-dropdown-link> --}}
                             </x-slot>
                         </x-dropdown>
@@ -169,6 +170,7 @@
             <div class="border-t border-gray-200 pt-2">
                 <div class="px-4 font-semibold text-xs text-gray-400 uppercase">Inspeksi Reguler</div>
                 <x-responsive-nav-link :href="route('inspeksi_wm.index')">Wiremesh (WM)</x-responsive-nav-link>
+                <x-responsive-nav-link :href="route('incomingbahanbaku.index')">Icoming Bahan Baku</x-responsive-nav-link>
                 {{-- <x-responsive-nav-link :href="route('inspeksi_kd.index')">Kawat Duri (KD)</x-responsive-nav-link> --}}
             </div>
 
