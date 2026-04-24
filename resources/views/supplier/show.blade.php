@@ -43,7 +43,7 @@
                             <dd class="text-gray-700 sm:col-span-2">
                                 <span
                                     class="inline-flex items-center justify-center rounded-full bg-indigo-100 px-2.5 py-0.5 text-indigo-700 font-medium">
-                                    {{ $supplier->supplier_id }}
+                                    {{ $supplier->supplier_code }}
                                 </span>
                             </dd>
                         </div>

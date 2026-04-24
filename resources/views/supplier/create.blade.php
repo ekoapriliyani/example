@@ -19,10 +19,10 @@
                         @csrf
 
                         <div>
-                            <x-input-label for="supplier_id" :value="__('Supplier ID')" />
-                            <x-text-input id="supplier_id" name="supplier_id" type="text" class="mt-1 block w-full"
-                                :value="old('supplier_id')" placeholder="" required autofocus />
-                            <x-input-error class="mt-2" :messages="$errors->get('supplier_id')" />
+                            <x-input-label for="supplier_code" :value="__('Supplier ID')" />
+                            <x-text-input id="supplier_code" name="supplier_code" type="text" class="mt-1 block w-full"
+                                :value="old('supplier_code')" placeholder="" required autofocus />
+                            <x-input-error class="mt-2" :messages="$errors->get('supplier_code')" />
                         </div>
 
                         <div>

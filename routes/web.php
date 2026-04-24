@@ -12,7 +12,9 @@ use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\SiswaController;
 use App\Http\Controllers\SubkonController;
 use App\Http\Controllers\SupplierController;
+use App\Models\IncomingBahanBaku;
 use Illuminate\Support\Facades\Route;
+
 
 
 // Route::get('/', function () {
@@ -31,20 +33,21 @@ Route::middleware('auth')->group(function () {
 
 // Bungkus semua route inspeksi QC kamu di dalam middleware auth
 Route::middleware('auth')->group(function () {
-    
+
     // Route Profile (Bawaan Breeze)
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
     // Route Fitur QC Kamu
-    // Route::resource('siswa', SiswaController::class); tidak dipakai
+
     Route::resource('material', MaterialController::class);
     Route::post('material/import', [MaterialController::class, 'import'])->name('material.import');
     Route::resource('mesin', MesinController::class);
     Route::resource('productwm', ProductWmController::class);
     Route::resource('pro',ProController::class);
     Route::resource('supplier', SupplierController::class);
+    Route::resource('incomingbahanbaku', IncomingBahanBaku::class);
     Route::post('pro/import', [ProController::class, 'import'])->name('pro.import');
 
      // Route Subkon
@@ -54,7 +57,7 @@ Route::middleware('auth')->group(function () {
     // Route Project
     Route::resource('project', ProjectController::class);
     Route::post('project/import', [ProjectController::class, 'import'])->name('project.import');
-    
+
     // Route Inspeksi WM
     // Route::get('/inspeksi_wm', [InspeksiWmController::class, 'index'])->name('inspeksi_wm.index');
     // Route::get('/inspeksi_wm/create', [InspeksiWmController::class, 'create'])->name('inspeksi_wm.create');
@@ -72,7 +75,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/inspeksi_wm/fg', [InspeksiWmFgController::class, 'store'])->name('inspeksi_wm_fg.store');
     Route::get('/inspeksi_wm/{inspeksi_wm}/fg', [InspeksiWmFgController::class, 'create'])->name('inspeksi_wm.fg');
 
-   
+
 
 
 });

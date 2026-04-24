@@ -30,11 +30,11 @@ class SupplierController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'supplier_id' => 'required',
+            'supplier_code' => 'required',
             'nama' => 'required',
         ]);
         Supplier::create([
-            'supplier_id' => $validated['supplier_id'],
+            'supplier_code' => $validated['supplier_code'],
             'nama' => $validated['nama'],
         ]);
         return redirect()->route('supplier.index')->with('success', 'Data Supplier berhasil ditambahkan');
@@ -62,7 +62,7 @@ class SupplierController extends Controller
     public function update(Request $request, Supplier $supplier)
     {
         $validated = $request->validate([
-            'supplier_id' => 'required',
+            'supplier_code' => 'required',
             'nama' => 'required',
         ]);
         $supplier->update($validated);
