@@ -2,16 +2,104 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 
 class MesinSeeder extends Seeder
 {
-    /**
-     * Run the database seeds.
-     */
     public function run(): void
     {
-        //
+        $data = [
+            ['mesin_id' => 'PVC001', 'nama_mesin' => 'MESIN COATED PVC 01'],
+            ['mesin_id' => 'PVC002', 'nama_mesin' => 'MESIN COATED PVC 02'],
+            ['mesin_id' => 'PVC003', 'nama_mesin' => 'MESIN COATED PVC 03'],
+            ['mesin_id' => 'CHA001', 'nama_mesin' => 'MESIN HARMONIKA AUTOMATIS 01'],
+            ['mesin_id' => 'CHA002', 'nama_mesin' => 'MESIN HARMONIKA AUTOMATIS 02'],
+            ['mesin_id' => 'CHM001', 'nama_mesin' => 'MESIN HARMONIKA MANUAL 01'],
+            ['mesin_id' => 'CHM002', 'nama_mesin' => 'MESIN HARMONIKA MANUAL 02'],
+            ['mesin_id' => 'CHM003', 'nama_mesin' => 'MESIN HARMONIKA MANUAL 03'],
+            ['mesin_id' => 'CHM004', 'nama_mesin' => 'MESIN HARMONIKA MANUAL 04'],
+            ['mesin_id' => 'CHM005', 'nama_mesin' => 'MESIN HARMONIKA MANUAL 05'],
+            ['mesin_id' => 'CHM006', 'nama_mesin' => 'MESIN HARMONIKA MANUAL 06'],
+            ['mesin_id' => 'CHM007', 'nama_mesin' => 'MESIN HARMONIKA MANUAL 07'],
+            ['mesin_id' => 'KD001', 'nama_mesin' => 'MESIN KAWAT DURI 01'],
+            ['mesin_id' => 'KD002', 'nama_mesin' => 'MESIN KAWAT DURI 02'],
+            ['mesin_id' => 'KD003', 'nama_mesin' => 'MESIN KAWAT DURI 03'],
+            ['mesin_id' => 'KRZ001', 'nama_mesin' => 'Klip Razor'],
+            ['mesin_id' => 'RZ001', 'nama_mesin' => 'MESIN RAZOR WIRE 01'],
+            ['mesin_id' => 'RZ002', 'nama_mesin' => 'MESIN RAZOR WIRE 02'],
+            ['mesin_id' => 'RZ003', 'nama_mesin' => 'MESIN RAZOR WIRE 03'],
+            ['mesin_id' => 'SL001', 'nama_mesin' => 'MESIN SLITTING PLATE RAZOR-01'],
+            ['mesin_id' => 'SL002', 'nama_mesin' => 'MESIN SLITTING PLATE RAZOR-02'],
+            ['mesin_id' => 'WF001', 'nama_mesin' => 'MESIN WS 01 Wafios 01'],
+            ['mesin_id' => 'WF002', 'nama_mesin' => 'MESIN WS 02 Wafios 02'],
+            ['mesin_id' => 'WF003', 'nama_mesin' => 'MESIN WS 03 Wafios 03'],
+            ['mesin_id' => 'WF004', 'nama_mesin' => 'MESIN WS 04 Wafios 04'],
+            ['mesin_id' => 'WF005', 'nama_mesin' => 'MESIN WS 05 Wafios 05'],
+            ['mesin_id' => 'WF006', 'nama_mesin' => 'MESIN WS 06 Wafios 06'],
+            ['mesin_id' => 'EVG001', 'nama_mesin' => 'MESIN WS 07 EVG 01'],
+            ['mesin_id' => 'EVG002', 'nama_mesin' => 'MESIN WS 08 EVG 02'],
+            ['mesin_id' => 'WM001', 'nama_mesin' => 'MESIN WIRE MESH 01 SCHLATTER 01'],
+            ['mesin_id' => 'WM002', 'nama_mesin' => 'MESIN WIRE MESH 02 SCHLATTER 02'],
+            ['mesin_id' => 'WM003', 'nama_mesin' => 'MESIN WIRE MESH 03 SCHLATTER 03'],
+            ['mesin_id' => 'WM004', 'nama_mesin' => 'MESIN WIRE MESH 04 Golden Spot 01'],
+            ['mesin_id' => 'WM005', 'nama_mesin' => 'MESIN WIRE MESH 05 SCHLATTER 04'],
+            ['mesin_id' => 'WM006', 'nama_mesin' => 'MESIN WIRE MESH 06 SCHLATTER 05'],
+            ['mesin_id' => 'BD001', 'nama_mesin' => 'MESIN BENDING 01 KABEL TRAY'],
+            ['mesin_id' => 'BD002', 'nama_mesin' => 'MESIN BENDING 02 PAGAR PAS'],
+            ['mesin_id' => 'KBW001', 'nama_mesin' => 'Klip'],
+            ['mesin_id' => 'TRT001', 'nama_mesin' => 'Mesin TRT-01'],
+            ['mesin_id' => 'TRT003', 'nama_mesin' => '2TR3 - Mesin TRT-03'],
+            ['mesin_id' => 'TRT004', 'nama_mesin' => 'Mesin TRT-04'],
+            ['mesin_id' => 'SH001', 'nama_mesin' => 'Mesin Shearing-01'],
+            ['mesin_id' => 'SH002', 'nama_mesin' => 'Mesin Shearing-02'],
+            ['mesin_id' => 'NR001', 'nama_mesin' => 'MESIN NR2-S'],
+            ['mesin_id' => 'TGM001', 'nama_mesin' => 'Frame Manual-01'],
+            ['mesin_id' => 'TGM002', 'nama_mesin' => 'Frame Manual-02'],
+            ['mesin_id' => 'TGA001', 'nama_mesin' => 'MESIN TG4-01'],
+            ['mesin_id' => 'TGA002', 'nama_mesin' => 'MESIN TG4-02'],
+            ['mesin_id' => 'RKM001', 'nama_mesin' => 'Rakit Manual-01'],
+            ['mesin_id' => 'RKM002', 'nama_mesin' => 'Rakit Manual-02'],
+            ['mesin_id' => 'PRS001', 'nama_mesin' => 'MESIN PRESS 01'],
+            ['mesin_id' => 'PRS002', 'nama_mesin' => 'MESIN PRESS 02'],
+            ['mesin_id' => 'PRS003', 'nama_mesin' => 'PACKING MANUAL'],
+            ['mesin_id' => 'SPR001', 'nama_mesin' => 'MESIN SPIRAL 01'],
+            ['mesin_id' => 'VIT001', 'nama_mesin' => 'MESIN WS 09 Vitari 01'],
+            ['mesin_id' => 'VIT002', 'nama_mesin' => 'MESIN WS 10 Vitari 02'],
+            ['mesin_id' => 'HD001', 'nama_mesin' => 'Mesin Hot Dip Lazuardi'],
+            ['mesin_id' => 'HD002', 'nama_mesin' => 'Mesih Hot Dip Bapi'],
+            ['mesin_id' => 'HD003', 'nama_mesin' => 'Mesin Hot Dip GBK'],
+            ['mesin_id' => 'HD004', 'nama_mesin' => 'Mesin Hot Dip Galvindo'],
+            ['mesin_id' => 'HD005', 'nama_mesin' => 'Mesin Hot Dip Alfa Prima Galvanize'],
+            ['mesin_id' => 'HD006', 'nama_mesin' => 'Mesin Hot Dip Galvanis Tri Lestari'],
+            ['mesin_id' => 'HD007', 'nama_mesin' => 'Mesin Hot Dip Optima Adhi Jaya'],
+            ['mesin_id' => 'PC001', 'nama_mesin' => 'Mesin Powder Coating Warna Alam'],
+            ['mesin_id' => 'PC002', 'nama_mesin' => 'Mesin Powder Coating Mulan Kencana'],
+            ['mesin_id' => 'PC003', 'nama_mesin' => 'Mesin Powder Coating Pratama Bangun Lestari'],
+            ['mesin_id' => 'PC004', 'nama_mesin' => 'Mesin Powder Coating Nusantara Barutama Abadi'],
+            ['mesin_id' => 'PC005', 'nama_mesin' => 'Mesin Powder Coating Karya Utama Selaras'],
+            ['mesin_id' => 'PC006', 'nama_mesin' => 'Mesin Powder Coating PT Citra Mandiri Andaru'],
+            ['mesin_id' => 'PB001', 'nama_mesin' => 'Mesin Pabrikasi Aditera'],
+            ['mesin_id' => 'PB002', 'nama_mesin' => 'Mesin Pabrikasi Afasindo'],
+            ['mesin_id' => 'PB003', 'nama_mesin' => 'Mesin Pabrikasi Wiparo'],
+            ['mesin_id' => 'PB004', 'nama_mesin' => 'Mesin Pabrikasi Lintas Buana'],
+            ['mesin_id' => 'PB005', 'nama_mesin' => 'Mesin Pabrikasi Pratama Bangun Lestari'],
+            ['mesin_id' => 'PB006', 'nama_mesin' => 'Mesin Pabrikasi Just Metal Manufacture'],
+            ['mesin_id' => 'PB007', 'nama_mesin' => 'Mesin Pabrikasi Aneka Teknik'],
+            ['mesin_id' => 'PB008', 'nama_mesin' => 'Mesin Pabrikasi CV Swa Karya Manunggal'],
+            ['mesin_id' => 'PB009', 'nama_mesin' => 'Mesin Pabrikasi Karya Abadi Perkasa'],
+            ['mesin_id' => 'TL001', 'nama_mesin' => 'Mesin Tooling Bumi Kaya'],
+            ['mesin_id' => 'TL002', 'nama_mesin' => 'Mesin Tooling Inti Roda Makmur'],
+            ['mesin_id' => 'TL003', 'nama_mesin' => 'Mesin Tooling Gunung Raja Paksi'],
+            ['mesin_id' => 'TL004', 'nama_mesin' => 'Mesin Tooling Valen'],
+            ['mesin_id' => 'TL005', 'nama_mesin' => 'Mesin Tooling Beka Wire'],
+            ['mesin_id' => 'WM007', 'nama_mesin' => 'MESIN WIRE MESH 07 SCHLATTER 06'],
+            ['mesin_id' => 'WM008', 'nama_mesin' => 'MESIN WIRE MESH 08 SCHLATTER 07'],
+            ['mesin_id' => 'KD004', 'nama_mesin' => 'MESIN KAWAT DURI 04'],
+            ['mesin_id' => 'KD005', 'nama_mesin' => 'MESIN KAWAT DURI 05'],
+            ['mesin_id' => 'TRT005', 'nama_mesin' => '2TR5 - Mesin TRT-05'],
+        ];
+
+        DB::table('mesins')->insert($data);
     }
 }

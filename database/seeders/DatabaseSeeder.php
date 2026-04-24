@@ -28,31 +28,13 @@ class DatabaseSeeder extends Seeder
         // ]);
 
         $this->call([
-            // SiswaSeeder::class,
-            // FlightSeeder::class,
             // MaterialSeeder::class,
-            UserSeeder::class
+            UserSeeder::class,
+            MesinSeeder::class,
+            SupplierSeeder::class,
         ]);
 
 
-        // // Buat 5 dosen
-        // $dosen = Dosen::factory(5)->create();
-
-        // // Buat 10 mata kuliah, masing-masing terkait dosen
-        // $mataKuliah = MataKuliah::factory(10)->create();
-
-        // // Buat 6 kelas
-        // $kelas = Kelas::factory(6)->create();
-
-        // // Buat 20 mahasiswa
-        // $mahasiswa = Mahasiswa::factory(20)->create();
-
-        // Assign mahasiswa ke kelas (pivot)
-        // $kelas->each(function ($k) use ($mahasiswa) {
-        //     $k->mahasiswa()->attach(
-        //         $mahasiswa->random(5)->pluck('id')->toArray()
-        //     );
-        // });
 
     }
 }

@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\IncomingBahanBaku;
+use App\Models\IncomingBahanBakuInspeksi;
 use App\Models\Supplier;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class IncomingBahanBakuController extends Controller
 {
@@ -108,5 +110,49 @@ class IncomingBahanBakuController extends Controller
     public function destroy(string $id)
     {
         //
+    }
+
+    public function createInspeksi($id)
+    {
+        $incomingbahanbaku = IncomingBahanBaku::findOrFail($id);
+
+        return view('incomingbahanbaku.inspeksi_create', compact('incomingbahanbaku'));
+    }
+
+    public function storeInspeksi(Request $request, $id)
+    {
+        $validated = $request->validate([
+            'no_koil' => 'required',
+            'd1' => 'nullable|numeric',
+            'd2' => 'nullable|numeric',
+            'd3' => 'nullable|numeric',
+            'dimensi' => 'nullable|string',
+            'visual' => 'nullable|string',
+            'keterangan' => 'nullable|string',
+        ]);
+
+        // hitung rata-rata
+        $rata_rata = collect([
+            $validated['d1'],
+            $validated['d2'],
+            $validated['d3']
+        ])->filter()->avg();
+
+        IncomingBahanBakuInspeksi::create([
+            'incoming_bahan_baku_id' => $id,
+            'user_id' => Auth::id(), // pastikan ada kolom ini
+            'no_koil' => $validated['no_koil'],
+            'd1' => $validated['d1'],
+            'd2' => $validated['d2'],
+            'd3' => $validated['d3'],
+            'rata_rata' => $rata_rata,
+            'dimensi' => $validated['dimensi'],
+            'visual' => $validated['visual'],
+            'keterangan' => $validated['keterangan'],
+        ]);
+
+        return redirect()
+            ->route('incomingbahanbaku.show', $id)
+            ->with('success', 'Data inspeksi berhasil ditambahkan');
     }
 }

@@ -76,8 +76,13 @@ Route::middleware('auth')->group(function () {
     Route::get('/inspeksi_wm/{inspeksi_wm}/fg', [InspeksiWmFgController::class, 'create'])->name('inspeksi_wm.fg');
 
     // Route Incoming Bahan Baku
-    Route::get('/incomingbahanbaku/{incomingbahanbaku}/inspeksi', [IncomingBahanBakuController::class, 'inspeksi'])->name('incomingbahanbaku.inspeksi');
+    //Route::get('/incomingbahanbaku/{incomingbahanbaku}/inspeksi', [IncomingBahanBakuController::class, 'inspeksi'])->name('incomingbahanbaku.inspeksi');
+    
+    Route::get('incomingbahanbaku/{id}/inspeksi', [IncomingBahanBakuController::class, 'createInspeksi'])
+    ->name('incomingbahanbaku.inspeksi');
 
+    Route::post('incomingbahanbaku/{id}/inspeksi', [IncomingBahanBakuController::class, 'storeInspeksi'])
+        ->name('incomingbahanbaku.inspeksi.store');
 
 
 });

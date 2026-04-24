@@ -15,7 +15,6 @@ return new class extends Migration
             $table->id();
             $table->foreignId('incoming_bahan_baku_id')->constrained('incoming_bahan_bakus')->onDelete('cascade');
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
-            $table->decimal('diameter', 8,2)->nullable();
             $table->string('no_koil');
             $table->decimal('d1', 8,2)->nullable();
             $table->decimal('d2', 8,2)->nullable();

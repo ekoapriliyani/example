@@ -17,6 +17,9 @@
                     </svg>
                     Tambah Inspeksi
                 </a>
+                <a href=""
+                    class="inline-flex items-center gap-2 rounded-md bg-green-700 px-4 py-2 text-sm font-semibold text-white">Mechanical
+                    Test</a>
             </div>
         </div>
     </x-slot>

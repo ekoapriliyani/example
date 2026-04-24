@@ -9,7 +9,6 @@ class IncomingBahanBakuInspeksi extends Model
     protected $fillable = [
         'incoming_bahan_baku_id',
         'user_id',
-        'diameter',
         'no_koil',
         'd1',
         'd2',
