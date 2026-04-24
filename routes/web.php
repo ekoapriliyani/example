@@ -10,11 +10,17 @@ use App\Http\Controllers\ProController;
 use App\Http\Controllers\ProductWmController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProjectController;
-use App\Http\Controllers\SiswaController;
+// use App\Http\Controllers\SiswaController;
 use App\Http\Controllers\SubkonController;
 use App\Http\Controllers\SupplierController;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Artisan;
 
+Route::post('/sync-pro-reference', function () {
+    Artisan::call('sync:pro-reference');
+
+    return back()->with('success', Artisan::output());
+})->middleware(['auth'])->name('sync.pro.reference');
 
 
 // Route::get('/', function () {
@@ -77,7 +83,7 @@ Route::middleware('auth')->group(function () {
 
     // Route Incoming Bahan Baku
     //Route::get('/incomingbahanbaku/{incomingbahanbaku}/inspeksi', [IncomingBahanBakuController::class, 'inspeksi'])->name('incomingbahanbaku.inspeksi');
-    
+
     Route::get('incomingbahanbaku/{id}/inspeksi', [IncomingBahanBakuController::class, 'createInspeksi'])
     ->name('incomingbahanbaku.inspeksi');
 
