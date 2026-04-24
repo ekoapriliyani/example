@@ -9,6 +9,8 @@ class MesinSeeder extends Seeder
 {
     public function run(): void
     {
+        $now = now();
+
         $data = [
             ['mesin_id' => 'PVC001', 'nama_mesin' => 'MESIN COATED PVC 01'],
             ['mesin_id' => 'PVC002', 'nama_mesin' => 'MESIN COATED PVC 02'],
@@ -100,6 +102,13 @@ class MesinSeeder extends Seeder
             ['mesin_id' => 'TRT005', 'nama_mesin' => '2TR5 - Mesin TRT-05'],
         ];
 
+        $data = array_map(function ($item) use ($now) {
+            return array_merge($item, [
+                'created_at' => $now,
+                'updated_at' => $now,
+            ]);
+        }, $data);
+
         DB::table('mesins')->insert($data);
-    }
+        }
 }
