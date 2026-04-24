@@ -8,11 +8,13 @@ class IncomingBahanBakuInspeksi extends Model
 {
     protected $fillable = [
         'incoming_bahan_baku_id',
+        'user_id',
         'diameter',
         'no_koil',
         'd1',
         'd2',
         'd3',
+        'rata_rata',
         'dimensi',
         'visual',
         'keterangan',
@@ -20,5 +22,9 @@ class IncomingBahanBakuInspeksi extends Model
 
     public function incomingbahanbaku() {
         return $this->belongsTo(IncomingBahanBaku::class);
+    }
+
+    public function user(){
+        return $this->belongsTo(User::class);
     }
 }

@@ -91,50 +91,43 @@
                                 <tr>
                                     <th class="px-4 py-3 font-semibold text-gray-900">No</th>
                                     <th class="px-4 py-3 font-semibold text-gray-900">Inspektor</th>
-                                    <th class="px-4 py-3 font-semibold text-gray-900">No. Material</th>
-                                    <th class="px-4 py-3 font-semibold text-gray-900">Operator</th>
-                                    <th class="px-4 py-3 font-semibold text-gray-900">D. Kawat Act</th>
-                                    <th class="px-4 py-3 font-semibold text-gray-900">Selisih Diagonal</th>
-                                    <th class="px-4 py-3 font-semibold text-gray-900">P Produk</th>
-                                    <th class="px-4 py-3 font-semibold text-gray-900">L Produk</th>
-                                    <th class="px-4 py-3 font-semibold text-gray-900">P Mesh</th>
-                                    <th class="px-4 py-3 font-semibold text-gray-900">L Mesh</th>
-                                    <th class="px-4 py-3 font-semibold text-gray-900">Torsi Strength</th>
+                                    <th class="px-4 py-3 font-semibold text-gray-900">Diameter</th>
+                                    <th class="px-4 py-3 font-semibold text-gray-900">No Koil</th>
+                                    <th class="px-4 py-3 font-semibold text-gray-900">D1</th>
+                                    <th class="px-4 py-3 font-semibold text-gray-900">D2</th>
+                                    <th class="px-4 py-3 font-semibold text-gray-900">D3</th>
+                                    <th class="px-4 py-3 font-semibold text-gray-900">Rata Rata</th>
                                     <th class="px-4 py-3 font-semibold text-gray-900">Dimensi</th>
                                     <th class="px-4 py-3 font-semibold text-gray-900">Visual</th>
-                                    <th class="px-4 py-3 font-semibold text-gray-900">Detail</th>
-                                    <th class="px-4 py-3 font-semibold text-gray-900">Gambar</th>
+                                    <th class="px-4 py-3 font-semibold text-gray-900">Keterangan</th>
                                     <th class="px-4 py-3 font-semibold text-gray-900 text-center">Created At</th>
                                 </tr>
                             </thead>
-                            {{-- <tbody class="divide-y divide-gray-200">
-                                @forelse ($inspeksi_wm->inspeksiWmWip as $wip)
+                            <tbody class="divide-y divide-gray-200">
+                                @forelse ($incomingbahanbaku->incomingbahanbakuinspeksi as $inc)
                                     <tr class="hover:bg-gray-50 transition-colors">
                                         <td class="px-4 py-3">{{ $loop->iteration }}</td>
-                                        <td class="px-4 py-3">{{ $wip->user->name ?? 'N/A' }}</td>
-                                        <td class="px-4 py-3 font-medium">{{ $wip->no_material }}</td>
-                                        <td class="px-4 py-3">{{ $wip->nama_operator }}</td>
-                                        <td class="px-4 py-3 text-center bg-blue-50/30">{{ $wip->d_kawat_act }}</td>
-                                        <td class="px-4 py-3 text-center bg-blue-50/30">{{ $wip->selisih_diagonal }}
-                                        </td>
-                                        <td class="px-4 py-3 text-center bg-blue-50/30">{{ $wip->p_product_act }}</td>
-                                        <td class="px-4 py-3 text-center bg-blue-50/30">{{ $wip->l_product_act }}</td>
-                                        <td class="px-4 py-3 text-center bg-blue-50/30">{{ $wip->p_mesh_act }}</td>
-                                        <td class="px-4 py-3 text-center bg-blue-50/30">{{ $wip->l_mesh_act }}</td>
-                                        <td class="px-4 py-3 text-center bg-blue-50/30">{{ $wip->torsi_strength }}</td>
-                                        <td class="px-4 py-3 text-center bg-blue-50/30">{{ $wip->status_dimensi }}
-                                        <td class="px-4 py-3 text-center bg-blue-50/30">{{ $wip->visual }}
-                                        </td>
-                                        <td class="px-4 py-3 text-center bg-blue-50/30">{{ $wip->created_at }}</td>
+                                        <td class="px-4 py-3">{{ $inc->user->name ?? 'N/A' }}</td>
+                                        <td class="px-4 py-3 font-medium">{{ $inc->diameter }}</td>
+                                        <td class="px-4 py-3">{{ $inc->no_koil }}</td>
+                                        <td class="px-4 py-3">{{ $inc->d1 }}</td>
+                                        <td class="px-4 py-3">{{ $inc->d2 }}</td>
+                                        <td class="px-4 py-3">{{ $inc->d3 }}</td>
+                                        <td class="px-4 py-3">{{ $inc->rata_rata }}</td>
+                                        <td class="px-4 py-3">{{ $inc->dimensi }}</td>
+                                        <td class="px-4 py-3">{{ $inc->visual }}</td>
+                                        <td class="px-4 py-3">{{ $inc->keterangan }}</td>
+
+                                        <td class="px-4 py-3 text-center bg-blue-50/30">{{ $inc->created_at }}</td>
                                     </tr>
                                 @empty
                                     <tr>
                                         <td colspan="5" class="px-4 py-8 text-center text-gray-400 italic">Belum
                                             ada
-                                            data WIP untuk inspeksi ini.</td>
+                                            data Inspeksi Incoming Bahan Baku.</td>
                                     </tr>
                                 @endforelse
-                            </tbody> --}}
+                            </tbody>
                         </table>
                     </div>
                 </div>

@@ -29,4 +29,8 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+    public function incomingbahanbakuinspeksi(){
+        return $this->hasMany(IncomingBahanBakuInspeksi::class);
+    }
 }
