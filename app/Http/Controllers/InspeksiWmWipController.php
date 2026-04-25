@@ -51,7 +51,7 @@ class InspeksiWmWipController extends Controller
             'detail_description.*' => 'nullable|string|max:1000',
 
             'files'             => 'nullable|array',
-            'files.*'           => 'nullable|file|mimes:jpg,jpeg,png,pdf|max:2048',
+            'files.*'           => 'nullable|file|mimes:jpg,jpeg,png,pdf|max:10240',
         ]);
 
         if (!Auth::check()) {

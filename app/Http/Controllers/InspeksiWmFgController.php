@@ -37,7 +37,7 @@ class InspeksiWmFgController extends Controller
             'status'         => 'required',
             'qty'            => 'required',
             'weight'         => 'required',
-            'files.*'        => 'file|mimes:jpg,jpeg,png,pdf|max:2048',
+            'files.*'        => 'file|mimes:jpg,jpeg,png,pdf|max:10240',
         ]);
 
         if (!Auth::check()) {
