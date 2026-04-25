@@ -320,7 +320,19 @@
                                     class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
                                     placeholder="Deskripsi detail" />
                             </div>
-                        </div>
+                        </div><option value="OK">OK</option>
+                                                <option value="Crack">Crack</option>
+                                                <option value="Karat">Karat</option>
+                                                <option value="Las (Lepas/Tidak ngelas)">Las (Lepas/Tidak ngelas)
+                                                </option>
+                                                <option value="CW-LW (Pendek/Bengkok/Putus)">CW-LW
+                                                    (Pendek/Bengkok/Putus)</option>
+                                                <option value="Triming">Triming</option>
+                                                <option value="Mesh Out">Mesh Out</option>
+                                                <option value="Handling">Handling</option>
+                                                <option value="Panjang Out">Panjang Out</option>
+                                                <option value="Lebar Out">Lebar Out</option>
+                                                <option value="Diagonal Out">Diagonal Out</option>
                     `;
 
                     wrapper.insertAdjacentHTML('beforeend', newDetail);

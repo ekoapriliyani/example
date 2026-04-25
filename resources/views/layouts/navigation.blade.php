@@ -82,7 +82,8 @@
                             <x-slot name="content">
                                 <x-dropdown-link :href="route('inspeksi_wm.index')">Wiremesh (WM)</x-dropdown-link>
                                 <x-dropdown-link :href="route('incomingbahanbaku.index')">Incoming Bahan Baku</x-dropdown-link>
-                                {{-- <x-dropdown-link :href="route('inspeksi_kd.index')">Kawat Duri (KD)</x-dropdown-link> --}}
+                                <x-dropdown-link :href="route('incomingbahanbaku.index')">Sheet Galvanized</x-dropdown-link>
+                                <x-dropdown-link :href="route('incomingbahanbaku.index')">HDPE/PVC</x-dropdown-link>
                             </x-slot>
                         </x-dropdown>
                     </div>
