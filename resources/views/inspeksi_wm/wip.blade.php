@@ -218,8 +218,17 @@
                                                 class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
                                                 <option value="">-- Pilih Detail --</option>
                                                 <option value="OK">OK</option>
+                                                <option value="Crack">Crack</option>
                                                 <option value="Karat">Karat</option>
-                                                <option value="Trimming">Trimming</option>
+                                                <option value="Las (Lepas/Tidak ngelas)">Las (Lepas/Tidak ngelas)
+                                                </option>
+                                                <option value="CW-LW (Pendek/Bengkok/Putus)">CW-LW
+                                                    (Pendek/Bengkok/Putus)</option>
+                                                <option value="Triming">Triming</option>
+                                                <option value="Mesh">Mesh</option>
+                                                <option value="Handling">Handling</option>
+                                                <option value="Panjang-Lebar">Panjang-Lebar</option>
+                                                <option value="Diagonal">Diagonal</option>
                                             </select>
                                         </div>
                                         <div>
