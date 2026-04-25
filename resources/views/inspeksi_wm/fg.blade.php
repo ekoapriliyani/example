@@ -83,7 +83,14 @@
                                 <x-input-label for="files" :value="__('Upload File')" />
                                 <input id="files" name="files[]" type="file"
                                     class="mt-1 block w-full border-gray-300 rounded-md shadow-sm" multiple>
-                                <x-input-error class="mt-2" :messages="$errors->get('files.*')" />
+                                {{-- <x-input-error class="mt-2" :messages="$errors->get('files.*')" /> --}}
+                                @error('files')
+                                    <div class="text-red-500 text-sm mt-2">{{ $message }}</div>
+                                @enderror
+
+                                @error('files.*')
+                                    <div class="text-red-500 text-sm mt-2">{{ $message }}</div>
+                                @enderror
                             </div>
                         </div>
 
