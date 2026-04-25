@@ -29,10 +29,11 @@
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg border border-gray-200">
                 <div class="p-6 sm:p-8">
                     <div class="flex justify-between items-start">
-                        <dl class="grid grid-cols-1 gap-x-8 gap-y-4 sm:grid-cols-4">
+                        <dl class="grid grid-cols-3 gap-x-8 gap-y-4 sm:grid-cols-4">
                             <div>
                                 <dt class="text-sm font-medium text-gray-500 italic">Nomor Inspeksi</dt>
-                                <dd class="text-lg font-bold text-indigo-600">{{ $incomingbahanbaku->nomor_inspeksi }}</dd>
+                                <dd class="text-lg font-bold text-indigo-600">{{ $incomingbahanbaku->nomor_inspeksi }}
+                                </dd>
                             </div>
                             <div>
                                 <dt class="text-sm font-medium text-gray-500 italic">Tanggal</dt>

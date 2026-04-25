@@ -53,6 +53,21 @@
                         <textarea name="keterangan" class="w-full border rounded px-3 py-2"></textarea>
                     </div>
 
+                    <div class="mt-4">
+                        <x-input-label for="files" :value="__('Upload File')" />
+                        <input id="files" name="files[]" type="file"
+                            class="mt-1 block w-full border-gray-300 rounded-md shadow-sm" multiple>
+                        @error('files')
+                            <div class="text-red-500 text-sm mt-2">{{ $message }}</div>
+                        @enderror
+
+                        @error('files.*')
+                            <div class="text-red-500 text-sm mt-2">{{ $message }}</div>
+                        @enderror
+                    </div>
+
+
+
                     <div class="flex justify-end gap-2">
                         <a href="{{ route('incomingbahanbaku.show', $incomingbahanbaku->id) }}"
                             class="px-4 py-2 bg-gray-300 rounded">

@@ -23,6 +23,7 @@ return new class extends Migration
             $table->string('dimensi');
             $table->string('visual');
             $table->string('keterangan');
+            $table->json('files')->nullable(); // simpan array path file upload
             $table->timestamps();
         });
     }
