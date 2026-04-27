@@ -13,9 +13,10 @@ return new class extends Migration
     {
         Schema::create('sheet_galvanizes', function (Blueprint $table) {
             $table->id();
-            $table->string('no_ipm');
-            $table->string('coating');
-            $table->string('visual');
+            $table->string('nomor_inspeksi');
+            $table->date('tanggal');
+            $table->foreignId('supplier_id')->constrained('suppliers')->onDelete('cascade');
+            $table->string('no_po');
             $table->timestamps();
         });
     }

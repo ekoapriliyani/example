@@ -10,8 +10,8 @@ use App\Http\Controllers\MesinController;
 use App\Http\Controllers\ProController;
 use App\Http\Controllers\ProductWmController;
 use App\Http\Controllers\ProfileController;
-// use App\Http\Controllers\SiswaController;
 use App\Http\Controllers\ProjectController;
+use App\Http\Controllers\SheetGalvanizeController;
 use App\Http\Controllers\SubkonController;
 use App\Http\Controllers\SupplierController;
 use Illuminate\Support\Facades\Artisan;
@@ -56,6 +56,7 @@ Route::middleware('auth')->group(function () {
     Route::resource('pro',ProController::class);
     Route::resource('supplier', SupplierController::class);
     Route::resource('incomingbahanbaku', IncomingBahanBakuController::class);
+    Route::resource('sheetgalvanize', SheetGalvanizeController::class);
     Route::resource('lab', LabController::class);
     Route::post('pro/import', [ProController::class, 'import'])->name('pro.import');
 
@@ -85,6 +86,9 @@ Route::middleware('auth')->group(function () {
 
     Route::post('incomingbahanbaku/{id}/inspeksi', [IncomingBahanBakuController::class, 'storeInspeksi'])
         ->name('incomingbahanbaku.inspeksi.store');
+    
+    Route::get('sheetgalvanize/{id}/inspeksi', [SheetGalvanizeController::class, 'createInspeksi'])
+        ->name('sheetgalvanize.inspeksi');
 
 
 });

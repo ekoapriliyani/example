@@ -14,4 +14,8 @@ class Supplier extends Model
     public function incomingBahanBakus() {
         return $this->hasMany(IncomingBahanBaku::class);
     }
+
+    public function sheetgalvanize() {
+        return $this->hasMany(SheetGalvanize::class);
+    }
 }
