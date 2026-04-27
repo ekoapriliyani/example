@@ -89,6 +89,9 @@ Route::middleware('auth')->group(function () {
     
     Route::get('sheetgalvanize/{id}/inspeksi', [SheetGalvanizeController::class, 'createInspeksi'])
         ->name('sheetgalvanize.inspeksi');
+        
+    Route::post('sheetgalvanize/{id}/inspeksi', [SheetGalvanizeController::class, 'storeInspeksi'])
+        ->name('sheetgalvanize.inspeksi.store');
 
 
 });

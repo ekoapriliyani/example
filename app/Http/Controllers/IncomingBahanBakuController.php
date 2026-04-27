@@ -161,6 +161,7 @@ class IncomingBahanBakuController extends Controller
             'dimensi' => 'nullable|string',
             'visual' => 'nullable|string',
             'keterangan' => 'nullable|string',
+            'files.*' => 'file|mimes:jpg,jpeg,png,pdf|max:10240',
         ]);
 
         // hitung rata-rata
@@ -170,7 +171,11 @@ class IncomingBahanBakuController extends Controller
             $validated['d3']
         ])->filter()->avg();
 
-        IncomingBahanBakuInspeksi::create([
+        if (!Auth::check()) {
+            return redirect()->back()->with('error', 'Sesi login berakhir. Silakan login kembali.');
+        }
+
+        $insbb = IncomingBahanBakuInspeksi::create([
             'incoming_bahan_baku_id' => $id,
             'user_id' => Auth::id(), // pastikan ada kolom ini
             'no_koil' => $validated['no_koil'],
@@ -182,6 +187,15 @@ class IncomingBahanBakuController extends Controller
             'visual' => $validated['visual'],
             'keterangan' => $validated['keterangan'],
         ]);
+
+        // simpan file multiple ke kolom JSON
+        if ($request->hasFile('files')) {
+            $paths = [];
+            foreach ($request->file('files') as $file) {
+                $paths[] = $file->store('uploads/inspeksi_bb', 'public');
+            }
+            $insbb->update(['files' => $paths]);
+        }
 
         return redirect()
             ->route('incomingbahanbaku.show', $id)

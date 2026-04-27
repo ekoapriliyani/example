@@ -115,6 +115,7 @@
                                     <th class="px-4 py-3 font-semibold text-gray-900">Dimensi</th>
                                     <th class="px-4 py-3 font-semibold text-gray-900">Visual</th>
                                     <th class="px-4 py-3 font-semibold text-gray-900">Keterangan</th>
+                                    <th class="px-4 py-3 font-semibold text-gray-900">Gambar</th>
                                     <th class="px-4 py-3 font-semibold text-gray-900 text-center">Created At</th>
                                 </tr>
                             </thead>
@@ -131,6 +132,12 @@
                                         <td class="px-4 py-3">{{ $inc->dimensi }}</td>
                                         <td class="px-4 py-3">{{ $inc->visual }}</td>
                                         <td class="px-4 py-3">{{ $inc->keterangan }}</td>
+                                        <td class="px-4 py-3">
+                                            <button type="button" class="text-sm text-indigo-600 hover:underline"
+                                                onclick="toggleImage({{ $inc->id }})">
+                                                Lihat Gambar
+                                            </button>
+                                        </td>
 
                                         <td class="px-4 py-3 text-center bg-blue-50/30">{{ $inc->created_at }}</td>
                                     </tr>
@@ -145,10 +152,53 @@
                         </table>
                     </div>
                 </div>
+
+                {{-- modal gambar inc --}}
+                @foreach ($incomingbahanbaku->incomingbahanbakuinspeksi as $inc)
+                    <div id="image-{{ $inc->id }}"
+                        class="hidden fixed inset-0 bg-gray-900 bg-opacity-50 flex items-center justify-center">
+                        <div class="bg-white rounded-lg shadow-lg w-3/4 p-6 max-h-[80vh] overflow-y-auto">
+                            <h3 class="text-lg font-semibold mb-4">Gambar inc: {{ $inc->batch_number }}</h3>
+
+                            @if ($inc->files)
+                                <div class="space-y-4">
+                                    @foreach ($inc->files as $file)
+                                        @php $ext = pathinfo($file, PATHINFO_EXTENSION); @endphp
+
+                                        @if (in_array($ext, ['jpg', 'jpeg', 'png']))
+                                            <img src="{{ asset('storage/' . $file) }}" alt="inc Image"
+                                                class="w-full max-h-64 object-contain rounded border" />
+                                        @else
+                                            <a href="{{ asset('storage/' . $file) }}" target="_blank"
+                                                class="block text-blue-600 hover:underline">
+                                                Lihat File ({{ strtoupper($ext) }})
+                                            </a>
+                                        @endif
+                                    @endforeach
+                                </div>
+                            @else
+                                <p class="text-gray-400 italic">Tidak ada gambar diupload.</p>
+                            @endif
+
+                            <div class="mt-4 text-right">
+                                <button onclick="toggleImage({{ $inc->id }})"
+                                    class="px-4 py-2 bg-gray-200 rounded hover:bg-gray-300">
+                                    Tutup
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                @endforeach
+
             </div>
         </div>
     </div>
-
+    <script>
+        function toggleImage(id) {
+            const modal = document.getElementById('image-' + id);
+            modal.classList.toggle('hidden');
+        }
+    </script>
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
@@ -170,7 +220,7 @@
         function confirmDelete(id, name) {
             Swal.fire({
                 title: 'Hapus seluruh record?',
-                text: "Semua data WIP dan FG terkait " + name + " akan ikut terhapus!",
+                text: "Semua data WIP dan inc terkait " + name + " akan ikut terhapus!",
                 icon: 'warning',
                 showCancelButton: true,
                 confirmButtonColor: '#dc2626',

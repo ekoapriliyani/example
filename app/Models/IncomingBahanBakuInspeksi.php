@@ -17,6 +17,11 @@ class IncomingBahanBakuInspeksi extends Model
         'dimensi',
         'visual',
         'keterangan',
+        'files',
+    ];
+    
+    protected $casts = [
+        'files' => 'array', // otomatis decode JSON ke array
     ];
 
     public function incomingbahanbaku() {

@@ -39,6 +39,12 @@ class SheetGalvanizeController extends Controller
         return view('sheetgalvanize.create', compact('nextNomor','suppliers'));
     }
 
+    public function createInspeksi($id){
+        $sheetgalvanize = SheetGalvanize::findOrFail($id);
+
+        return view('sheetgalvanize.inspeksi', compact('sheetgalvanize'));
+    }
+
     /**
      * Store a newly created resource in storage.
      */

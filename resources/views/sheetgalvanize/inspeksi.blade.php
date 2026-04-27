@@ -10,36 +10,20 @@
 
             <div class="bg-white p-6 rounded shadow">
 
-                <form action="{{ route('incomingbahanbaku.inspeksi.store', $incomingbahanbaku->id) }}" method="POST"
-                    enctype="multipart/form-data">
+                <form action="{{ route('sheetgalvanize.inspeksi.store', $sheetgalvanize->id) }}" method="POST">
                     @csrf
 
-                    <!-- No Koil -->
+                    <!-- Tebal -->
                     <div class="mb-4">
-                        <label>No Koil</label>
-                        <input type="text" name="no_koil" class="w-full border rounded px-3 py-2" required autofocus>
+                        <label>Tebal</label>
+                        <input type="text" name="tebal" class="w-full border rounded px-3 py-2" required autofocus>
                     </div>
 
-                    <!-- D1 D2 D3 -->
-                    <div class="grid grid-cols-3 gap-4 mb-4">
-                        <div>
-                            <label>D1</label>
-                            <input type="number" step="0.01" name="d1" class="w-full border rounded px-3 py-2">
-                        </div>
-                        <div>
-                            <label>D2</label>
-                            <input type="number" step="0.01" name="d2" class="w-full border rounded px-3 py-2">
-                        </div>
-                        <div>
-                            <label>D3</label>
-                            <input type="number" step="0.01" name="d3" class="w-full border rounded px-3 py-2">
-                        </div>
-                    </div>
 
-                    <!-- Dimensi -->
+                    <!-- Coating -->
                     <div class="mb-4">
-                        <label>Dimensi</label>
-                        <input type="text" name="dimensi" class="w-full border rounded px-3 py-2">
+                        <label>Coating</label>
+                        <input type="text" name="coating" class="w-full border rounded px-3 py-2">
                     </div>
 
                     <!-- Visual -->
@@ -48,13 +32,6 @@
                         <input type="text" name="visual" class="w-full border rounded px-3 py-2">
                     </div>
 
-                    <!-- Keterangan -->
-                    <div class="mb-4">
-                        <label>Keterangan</label>
-                        <textarea name="keterangan" class="w-full border rounded px-3 py-2"></textarea>
-                    </div>
-
-                    {{-- upload file --}}
                     <div class="mt-4">
                         <x-input-label for="files" :value="__('Upload File')" />
                         <input id="files" name="files[]" type="file"
@@ -68,10 +45,8 @@
                         @enderror
                     </div>
 
-
-
                     <div class="flex justify-end gap-2">
-                        <a href="{{ route('incomingbahanbaku.show', $incomingbahanbaku->id) }}"
+                        <a href="{{ route('sheetgalvanize.show', $sheetgalvanize->id) }}"
                             class="px-4 py-2 bg-gray-300 rounded">
                             Batal
                         </a>
