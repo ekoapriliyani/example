@@ -57,8 +57,8 @@
                             <div id="detail-wrapper" class="space-y-4">
                                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                                     <div>
-                                        <x-input-label for="detail_name_0" :value="__('Name')" />
-                                        <select id="detail_name_0" name="detail_name[]"
+                                        <x-input-label for="detail_description_0" :value="__('Description')" />
+                                        <select id="detail_description_0" name="detail_description[]"
                                             class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
                                             <option value="">-- Pilih Detail --</option>
                                             <option value="OK">OK</option>
@@ -67,9 +67,9 @@
                                         </select>
                                     </div>
                                     <div>
-                                        <x-input-label for="detail_description_0" :value="__('Description')" />
-                                        <x-text-input id="detail_description_0" name="detail_description[]"
-                                            type="text" class="mt-1 block w-full" placeholder="Deskripsi detail" />
+                                        <x-input-label for="detail_qty_0" :value="__('Qty')" />
+                                        <x-text-input id="detail_qty_0" name="detail_qty[]"
+                                            type="number" class="mt-1 block w-full" placeholder="QTY" />
                                     </div>
                                 </div>
                             </div>
@@ -113,8 +113,8 @@
             let newDetail = `
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
-                <label for="detail_name_${index}" class="block text-sm font-medium text-gray-700">Name</label>
-                <select id="detail_name_${index}" name="detail_name[]"
+                <label for="detail_description_${index}" class="block text-sm font-medium text-gray-700">Description</label>
+                <select id="detail_description_${index}" name="detail_description[]"
                     class="mt-1 block w-full border-gray-300 rounded-md shadow-sm">
                     <option value="">-- Pilih Detail --</option>
                     <option value="OK">OK</option>
@@ -123,8 +123,8 @@
                 </select>
             </div>
             <div>
-                <label for="detail_description_${index}" class="block text-sm font-medium text-gray-700">Description</label>
-                <input id="detail_description_${index}" name="detail_description[]" type="text"
+                <label for="detail_qty_${index}" class="block text-sm font-medium text-gray-700">Qty</label>
+                <input id="detail_qty_${index}" name="detail_qty[]" type="number"
                     class="mt-1 block w-full border-gray-300 rounded-md shadow-sm" placeholder="Deskripsi detail" />
             </div>
         </div>`;

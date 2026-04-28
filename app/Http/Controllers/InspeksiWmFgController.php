@@ -64,14 +64,16 @@ class InspeksiWmFgController extends Controller
         }
 
         // simpan detail multiple (array)
-        $names        = $request->input('detail_name', []);
         $descriptions = $request->input('detail_description', []);
+        $qty = $request->input('detail_qty', []);
 
-        foreach ($names as $i => $name) {
-            $fg->details()->create([
-                'name'        => $name,
-                'description' => $descriptions[$i] ?? null,
-            ]);
+        foreach ($descriptions as $i => $description) {
+            if (!empty($description)) {
+                $fg->details()->create([
+                    'description' => $description,
+                    'qty' => $qty[$i] ?? null,
+                ]);
+            }
         }
 
         return redirect()->route('inspeksi_wm.show', $request->inspeksi_wm_id)

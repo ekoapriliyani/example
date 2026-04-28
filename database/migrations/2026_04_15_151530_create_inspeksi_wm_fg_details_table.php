@@ -16,8 +16,8 @@ return new class extends Migration
             // relasi ke tabel utama
             $table->foreignId('inspeksi_wm_fg_id')->constrained('inspeksi_wm_fgs')->onDelete('cascade');
             // field detail
-            $table->string('name');          // misalnya "Tipis", "Melepuh"
-            $table->text('description')->nullable(); // remark tambahan
+            $table->string('description')->nullable();
+            $table->integer('qty')->nullable(); // remark tambahan
             $table->timestamps();
 
         });

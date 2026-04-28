@@ -259,16 +259,16 @@
                                         <thead class="bg-gray-50">
                                             <tr>
                                                 <th class="px-4 py-2">No</th>
-                                                <th class="px-4 py-2">Name</th>
                                                 <th class="px-4 py-2">Description</th>
+                                                <th class="px-4 py-2">QTY</th>
                                             </tr>
                                         </thead>
                                         <tbody class="divide-y divide-gray-200">
                                             @forelse ($fg->details as $detail)
                                                 <tr>
                                                     <td class="px-4 py-2">{{ $loop->iteration }}</td>
-                                                    <td class="px-4 py-2">{{ $detail->name }}</td>
                                                     <td class="px-4 py-2">{{ $detail->description }}</td>
+                                                    <td class="px-4 py-2">{{ $detail->qty }}</td>
                                                 </tr>
                                             @empty
                                                 <tr>
