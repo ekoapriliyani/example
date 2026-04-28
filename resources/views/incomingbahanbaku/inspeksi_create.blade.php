@@ -38,15 +38,24 @@
 
                     <!-- Dimensi -->
                     <div class="mb-4">
-                        <label>Dimensi</label>
-                        <input type="text" name="dimensi" class="w-full border rounded px-3 py-2">
+                        <label for="dimensi">Dimensi</label>
+                        <select id="dimensi" name="dimensi" class="w-full border rounded px-3 py-2">
+                            <option value="">-- Pilih Status --</option>
+                            <option value="OK" {{ old('dimensi') == 'OK' ? 'selected' : '' }}>OK</option>
+                            <option value="NG" {{ old('dimensi') == 'NG' ? 'selected' : '' }}>NG</option>
+                        </select>
                     </div>
 
                     <!-- Visual -->
                     <div class="mb-4">
-                        <label>Visual</label>
-                        <input type="text" name="visual" class="w-full border rounded px-3 py-2">
+                        <label for="visual">Visual</label>
+                        <select id="visual" name="visual" class="w-full border rounded px-3 py-2">
+                            <option value="">-- Pilih Status --</option>
+                            <option value="OK" {{ old('visual') == 'OK' ? 'selected' : '' }}>OK</option>
+                            <option value="NG" {{ old('visual') == 'NG' ? 'selected' : '' }}>NG</option>
+                        </select>
                     </div>
+
 
                     <!-- Keterangan -->
                     <div class="mb-4">
