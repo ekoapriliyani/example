@@ -17,8 +17,7 @@ return new class extends Migration
             $table->string('product_wm_id');
             $table->string('description');
             $table->decimal('d_kawat', 8,2)->nullable();
-            $table->decimal('tol_min_d', 8,2)->nullable();
-            $table->decimal('tol_max_d', 8,2)->nullable();
+            $table->decimal('tol_d', 8,2)->nullable();
             $table->decimal('p_product', 8,2)->nullable();
             $table->decimal('l_product', 8,2)->nullable();
             $table->decimal('p_mesh', 8,2)->nullable();

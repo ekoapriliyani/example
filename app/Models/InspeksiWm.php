@@ -17,7 +17,6 @@ class InspeksiWm extends Model
         'shift',
         'grade',
         'type_coating',
-        'shear_strength',
         'mesin_id',
     ];
 

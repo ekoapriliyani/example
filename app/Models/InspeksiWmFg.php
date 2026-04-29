@@ -13,7 +13,6 @@ class InspeksiWmFg extends Model
     protected $fillable = [
         'inspeksi_wm_id',
         'user_id',
-        'batch_number',
         'status',
         'qty',
         'weight',

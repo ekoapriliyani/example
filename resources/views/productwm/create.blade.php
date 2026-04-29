@@ -31,7 +31,8 @@
                                 required>
                                 <option value="">-- Pilih Jenis --</option>
                                 <option value="Roll" {{ old('jenis_wm') == 'Roll' ? 'selected' : '' }}>Roll</option>
-                                <option value="Lembaran" {{ old('jenis_wm') == 'Lembaran' ? 'selected' : '' }}>Lembaran
+                                <option value="Lembar" {{ old('jenis_wm') == 'Lembar' ? 'selected' : '' }}>Lembar
+                                <option value="Unit" {{ old('jenis_wm') == 'Unit' ? 'selected' : '' }}>Unit
                                 </option>
                             </select>
                             <x-input-error class="mt-2" :messages="$errors->get('jenis_wm')" />
@@ -44,50 +45,45 @@
                         </div>
                         <div>
                             <x-input-label for="d_kawat" :value="__('Diameter Kawat')" />
-                            <x-text-input id="d_kawat" name="d_kawat" type="number" step="0.01" class="mt-1 block w-full"
-                                :value="old('d_kawat')" placeholder="" required />
+                            <x-text-input id="d_kawat" name="d_kawat" type="number" step="0.01"
+                                class="mt-1 block w-full" :value="old('d_kawat')" placeholder="" required />
                             <x-input-error class="mt-2" :messages="$errors->get('d_kawat')" />
                         </div>
                         <div>
-                            <x-input-label for="tol_min_d" :value="__('Tol Min D')" />
-                            <x-text-input id="tol_min_d" name="tol_min_d" type="number" step="0.01" class="mt-1 block w-full"
-                                :value="old('tol_min_d')" placeholder="" required />
-                            <x-input-error class="mt-2" :messages="$errors->get('tol_min_d')" />
+                            <x-input-label for="tol_d" :value="__('Toleransi D (-/+)')" />
+                            <x-text-input id="tol_d" name="tol_d" type="number" step="0.01"
+                                class="mt-1 block w-full" :value="old('tol_d')" placeholder="" required />
+                            <x-input-error class="mt-2" :messages="$errors->get('tol_d')" />
                         </div>
-                        <div>
-                            <x-input-label for="tol_max_d" :value="__('Tol Max D')" />
-                            <x-text-input id="tol_max_d" name="tol_max_d" type="number" step="0.01" class="mt-1 block w-full"
-                                :value="old('tol_max_d')" placeholder="" required />
-                            <x-input-error class="mt-2" :messages="$errors->get('tol_max_d')" />
-                        </div>
+
                         <div>
                             <x-input-label for="p_product" :value="__('Panjang Product')" />
-                            <x-text-input id="p_product" name="p_product" type="number" step="0.01" class="mt-1 block w-full"
-                                :value="old('p_product')" placeholder="" required />
+                            <x-text-input id="p_product" name="p_product" type="number" step="0.01"
+                                class="mt-1 block w-full" :value="old('p_product')" placeholder="" required />
                             <x-input-error class="mt-2" :messages="$errors->get('p_product')" />
                         </div>
                         <div>
                             <x-input-label for="l_product" :value="__('Lebar Product')" />
-                            <x-text-input id="l_product" name="l_product" type="number" step="0.01" class="mt-1 block w-full"
-                                :value="old('l_product')" placeholder="" required />
+                            <x-text-input id="l_product" name="l_product" type="number" step="0.01"
+                                class="mt-1 block w-full" :value="old('l_product')" placeholder="" required />
                             <x-input-error class="mt-2" :messages="$errors->get('l_product')" />
                         </div>
                         <div>
                             <x-input-label for="p_mesh" :value="__('Panjang Mesh')" />
-                            <x-text-input id="p_mesh" name="p_mesh" type="number" step="0.01" class="mt-1 block w-full"
-                                :value="old('p_mesh')" placeholder="" required />
+                            <x-text-input id="p_mesh" name="p_mesh" type="number" step="0.01"
+                                class="mt-1 block w-full" :value="old('p_mesh')" placeholder="" required />
                             <x-input-error class="mt-2" :messages="$errors->get('p_mesh')" />
                         </div>
                         <div>
                             <x-input-label for="l_mesh" :value="__('Lebar Mesh')" />
-                            <x-text-input id="l_mesh" name="l_mesh" type="number" step="0.01" class="mt-1 block w-full"
-                                :value="old('l_mesh')" placeholder="" required />
+                            <x-text-input id="l_mesh" name="l_mesh" type="number" step="0.01"
+                                class="mt-1 block w-full" :value="old('l_mesh')" placeholder="" required />
                             <x-input-error class="mt-2" :messages="$errors->get('l_mesh')" />
                         </div>
                         <div>
                             <x-input-label for="tol_mesh" :value="__('Tol Mesh')" />
-                            <x-text-input id="tol_mesh" name="tol_mesh" type="number" step="0.01" class="mt-1 block w-full"
-                                :value="old('tol_mesh')" placeholder="" required />
+                            <x-text-input id="tol_mesh" name="tol_mesh" type="number" step="0.01"
+                                class="mt-1 block w-full" :value="old('tol_mesh')" placeholder="" required />
                             <x-input-error class="mt-2" :messages="$errors->get('tol_mesh')" />
                         </div>
 

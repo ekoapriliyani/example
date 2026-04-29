@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class InspeksiWmWipDetail extends Model
 {
-    protected $fillable = ['inspeksi_wm_wip_id','name','description'];
+    protected $fillable = ['inspeksi_wm_wip_id', 'description', 'qty'];
     
     public function inspeksiWmWip()
     {

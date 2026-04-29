@@ -20,20 +20,6 @@
                         <input type="hidden" name="inspeksi_wm_id" value="{{ $inspeksi_wm->id }}">
 
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                            <div>
-                                <x-input-label for="batch_number" :value="__('Batch Number')" />
-                                <x-text-input id="batch_number" name="batch_number" type="number"
-                                    class="mt-1 block w-full" required placeholder="Contoh: B-2024-001" />
-                                <x-input-error class="mt-2" :messages="$errors->get('batch_number')" />
-                            </div>
-
-                            <div>
-                                <x-input-label for="qty" :value="__('Quantity (Unit)')" />
-                                <x-text-input id="qty" name="qty" type="number" class="mt-1 block w-full"
-                                    required placeholder="0" />
-                                <x-input-error class="mt-2" :messages="$errors->get('qty')" />
-                            </div>
-
                             <div class="md:col-span-2">
                                 <x-input-label for="status" :value="__('Status')" />
                                 <select id="status" name="status"
@@ -43,6 +29,12 @@
                                     <option value="REJECT">REJECT</option>
                                 </select>
                                 <x-input-error class="mt-2" :messages="$errors->get('status')" />
+                            </div>
+                            <div>
+                                <x-input-label for="qty" :value="__('Quantity (Unit)')" />
+                                <x-text-input id="qty" name="qty" type="number" class="mt-1 block w-full"
+                                    required placeholder="0" />
+                                <x-input-error class="mt-2" :messages="$errors->get('qty')" />
                             </div>
                             <div>
                                 <x-input-label for="weight" :value="__('Weight')" />
@@ -55,21 +47,77 @@
                         <div class="md:col-span-2 border-t border-gray-200 pt-6">
                             <h3 class="font-semibold text-gray-700 mb-4">Detail Inspeksi</h3>
                             <div id="detail-wrapper" class="space-y-4">
-                                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
                                     <div>
                                         <x-input-label for="detail_description_0" :value="__('Description')" />
                                         <select id="detail_description_0" name="detail_description[]"
                                             class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
                                             <option value="">-- Pilih Detail --</option>
                                             <option value="OK">OK</option>
-                                            <option value="Karat">Karat</option>
-                                            <option value="Trimming">Trimming</option>
+                                            <option value="LAS (LEPAS/TIDAK NGELAS)">LAS (LEPAS/TIDAK NGELAS)
+                                            </option>
+                                            <option value="DIAMETER OUT">DIAMETER OUT</option>
+                                            <option value="TEBAL OUT">TEBAL OUT</option>
+                                            <option value="PANJANG OUT">PANJANG OUT</option>
+                                            <option value="LEBAR OUT">LEBAR OUT</option>
+                                            <option value="TINGGI OUT">TINGGI OUT</option>
+                                            <option value="DIAGONAL OUT">DIAGONAL OUT</option>
+                                            <option value="CW/LW PENDEK">CW/LW PENDEK</option>
+                                            <option value="MESH OUT / TIDAK SIMETRIS">MESH OUT / TIDAK SIMETRIS
+                                            </option>
+                                            <option value="OVERHANG OUT">OVERHANG OUT</option>
+                                            <option value="KARAT">KARAT</option>
+                                            <option value="WHITE RUST">WHITE RUST</option>
+                                            <option value="TRIMING">TRIMING</option>
+                                            <option value="CRACK">CRACK</option>
+                                            <option value="PENYOK/RUSAK">PENYOK/RUSAK</option>
+                                            <option value="PVC/HDPE PECAH/SOBEK">PVC/HDPE PECAH/SOBEK</option>
+                                            <option value="PVC/HDPE MIRING">PVC/HDPE MIRING</option>
+                                            <option value="PVC/HDPE KASAR">PVC/HDPE KASAR</option>
+                                            <option value="JARAK DURI/BLADE">JARAK DURI/BLADE</option>
+                                            <option value="BLADE PECAH/SOBEK">BLADE PECAH/SOBEK</option>
+                                            <option value="PISAU POUNCH TUMPUL">PISAU POUNCH TUMPUL</option>
+                                            <option value="BENDING TIDAK PRESS">BENDING TIDAK PRESS</option>
+                                            <option value="KLIP TIDAK RAPAT">KLIP TIDAK RAPAT</option>
                                         </select>
                                     </div>
                                     <div>
-                                        <x-input-label for="detail_qty_0" :value="__('Qty')" />
-                                        <x-text-input id="detail_qty_0" name="detail_qty[]"
-                                            type="number" class="mt-1 block w-full" placeholder="QTY" />
+                                        <x-input-label for="detail_description2_0" :value="__('Description 2')" />
+                                        <select id="detail_description2_0" name="detail_description2[]"
+                                            class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
+                                            <option value="">-- Pilih Detail --</option>
+                                            <option value="OK">OK</option>
+                                            <option value="LAS (LEPAS/TIDAK NGELAS)">LAS (LEPAS/TIDAK NGELAS)
+                                            </option>
+                                            <option value="DIAMETER OUT">DIAMETER OUT</option>
+                                            <option value="TEBAL OUT">TEBAL OUT</option>
+                                            <option value="PANJANG OUT">PANJANG OUT</option>
+                                            <option value="LEBAR OUT">LEBAR OUT</option>
+                                            <option value="TINGGI OUT">TINGGI OUT</option>
+                                            <option value="DIAGONAL OUT">DIAGONAL OUT</option>
+                                            <option value="CW/LW PENDEK">CW/LW PENDEK</option>
+                                            <option value="MESH OUT / TIDAK SIMETRIS">MESH OUT / TIDAK SIMETRIS
+                                            </option>
+                                            <option value="OVERHANG OUT">OVERHANG OUT</option>
+                                            <option value="KARAT">KARAT</option>
+                                            <option value="WHITE RUST">WHITE RUST</option>
+                                            <option value="TRIMING">TRIMING</option>
+                                            <option value="CRACK">CRACK</option>
+                                            <option value="PENYOK/RUSAK">PENYOK/RUSAK</option>
+                                            <option value="PVC/HDPE PECAH/SOBEK">PVC/HDPE PECAH/SOBEK</option>
+                                            <option value="PVC/HDPE MIRING">PVC/HDPE MIRING</option>
+                                            <option value="PVC/HDPE KASAR">PVC/HDPE KASAR</option>
+                                            <option value="JARAK DURI/BLADE">JARAK DURI/BLADE</option>
+                                            <option value="BLADE PECAH/SOBEK">BLADE PECAH/SOBEK</option>
+                                            <option value="PISAU POUNCH TUMPUL">PISAU POUNCH TUMPUL</option>
+                                            <option value="BENDING TIDAK PRESS">BENDING TIDAK PRESS</option>
+                                            <option value="KLIP TIDAK RAPAT">KLIP TIDAK RAPAT</option>
+                                        </select>
+                                    </div>
+                                    <div>
+                                        <x-input-label for="detail_qty_0" :value="__('QTY')" />
+                                        <x-text-input id="detail_qty_0" name="detail_qty[]" type="number"
+                                            class="mt-1 block w-full" placeholder="QTY" />
                                     </div>
                                 </div>
                             </div>
@@ -111,21 +159,75 @@
             let wrapper = document.getElementById('detail-wrapper');
             let index = wrapper.children.length;
             let newDetail = `
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
             <div>
                 <label for="detail_description_${index}" class="block text-sm font-medium text-gray-700">Description</label>
                 <select id="detail_description_${index}" name="detail_description[]"
                     class="mt-1 block w-full border-gray-300 rounded-md shadow-sm">
                     <option value="">-- Pilih Detail --</option>
                     <option value="OK">OK</option>
-                    <option value="Karat">Karat</option>
-                    <option value="Trimming">Trimming</option>
+                    <option value="LAS (LEPAS/TIDAK NGELAS)">LAS (LEPAS/TIDAK NGELAS)</option>
+                    <option value="DIAMETER OUT">DIAMETER OUT</option>
+                    <option value="TEBAL OUT">TEBAL OUT</option>
+                    <option value="PANJANG OUT">PANJANG OUT</option>
+                    <option value="LEBAR OUT">LEBAR OUT</option>
+                    <option value="TINGGI OUT">TINGGI OUT</option>
+                    <option value="DIAGONAL OUT">DIAGONAL OUT</option>
+                    <option value="CW/LW PENDEK">CW/LW PENDEK</option>
+                    <option value="MESH OUT / TIDAK SIMETRIS">MESH OUT / TIDAK SIMETRIS
+                    </option>
+                    <option value="OVERHANG OUT">OVERHANG OUT</option>
+                    <option value="KARAT">KARAT</option>
+                    <option value="WHITE RUST">WHITE RUST</option>
+                    <option value="TRIMING">TRIMING</option>
+                    <option value="CRACK">CRACK</option>
+                    <option value="PENYOK/RUSAK">PENYOK/RUSAK</option>
+                    <option value="PVC/HDPE PECAH/SOBEK">PVC/HDPE PECAH/SOBEK</option>
+                    <option value="PVC/HDPE MIRING">PVC/HDPE MIRING</option>
+                    <option value="PVC/HDPE KASAR">PVC/HDPE KASAR</option>
+                    <option value="JARAK DURI/BLADE">JARAK DURI/BLADE</option>
+                    <option value="BLADE PECAH/SOBEK">BLADE PECAH/SOBEK</option>
+                    <option value="PISAU POUNCH TUMPUL">PISAU POUNCH TUMPUL</option>
+                    <option value="BENDING TIDAK PRESS">BENDING TIDAK PRESS</option>
+                    <option value="KLIP TIDAK RAPAT">KLIP TIDAK RAPAT</option>
                 </select>
             </div>
             <div>
-                <label for="detail_qty_${index}" class="block text-sm font-medium text-gray-700">Qty</label>
+                <label for="detail_description2_${index}" class="block text-sm font-medium text-gray-700">Description 2</label>
+                <select id="detail_description2_${index}" name="detail_description2[]"
+                    class="mt-1 block w-full border-gray-300 rounded-md shadow-sm">
+                    <option value="">-- Pilih Detail --</option>
+                    <option value="OK">OK</option>
+                    <option value="LAS (LEPAS/TIDAK NGELAS)">LAS (LEPAS/TIDAK NGELAS)</option>
+                    <option value="DIAMETER OUT">DIAMETER OUT</option>
+                    <option value="TEBAL OUT">TEBAL OUT</option>
+                    <option value="PANJANG OUT">PANJANG OUT</option>
+                    <option value="LEBAR OUT">LEBAR OUT</option>
+                    <option value="TINGGI OUT">TINGGI OUT</option>
+                    <option value="DIAGONAL OUT">DIAGONAL OUT</option>
+                    <option value="CW/LW PENDEK">CW/LW PENDEK</option>
+                    <option value="MESH OUT / TIDAK SIMETRIS">MESH OUT / TIDAK SIMETRIS
+                    </option>
+                    <option value="OVERHANG OUT">OVERHANG OUT</option>
+                    <option value="KARAT">KARAT</option>
+                    <option value="WHITE RUST">WHITE RUST</option>
+                    <option value="TRIMING">TRIMING</option>
+                    <option value="CRACK">CRACK</option>
+                    <option value="PENYOK/RUSAK">PENYOK/RUSAK</option>
+                    <option value="PVC/HDPE PECAH/SOBEK">PVC/HDPE PECAH/SOBEK</option>
+                    <option value="PVC/HDPE MIRING">PVC/HDPE MIRING</option>
+                    <option value="PVC/HDPE KASAR">PVC/HDPE KASAR</option>
+                    <option value="JARAK DURI/BLADE">JARAK DURI/BLADE</option>
+                    <option value="BLADE PECAH/SOBEK">BLADE PECAH/SOBEK</option>
+                    <option value="PISAU POUNCH TUMPUL">PISAU POUNCH TUMPUL</option>
+                    <option value="BENDING TIDAK PRESS">BENDING TIDAK PRESS</option>
+                    <option value="KLIP TIDAK RAPAT">KLIP TIDAK RAPAT</option>
+                </select>
+            </div>
+            <div>
+                <label for="detail_qty_${index}" class="block text-sm font-medium text-gray-700">QTY</label>
                 <input id="detail_qty_${index}" name="detail_qty[]" type="number"
-                    class="mt-1 block w-full border-gray-300 rounded-md shadow-sm" placeholder="Deskripsi detail" />
+                    class="mt-1 block w-full border-gray-300 rounded-md shadow-sm" placeholder="QTY" />
             </div>
         </div>`;
             wrapper.insertAdjacentHTML('beforeend', newDetail);

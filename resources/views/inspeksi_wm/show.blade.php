@@ -76,12 +76,6 @@
                                 </dd>
                             </div>
                             <div>
-                                <dt class="text-sm font-medium text-gray-500 italic">Shear Strength</dt>
-                                <dd class="text-lg font-semibold text-gray-900">
-                                    {{ $inspeksi_wm->shear_strength }}
-                                </dd>
-                            </div>
-                            <div>
                                 <dt class="text-sm font-medium text-gray-500 italic">Mesin</dt>
                                 <dd class="text-lg font-semibold text-gray-900">
                                     {{ $inspeksi_wm->mesin->nama_mesin }}
@@ -191,7 +185,6 @@
                                 <tr>
                                     <th class="px-4 py-3 font-semibold text-gray-900">No</th>
                                     <th class="px-4 py-3 font-semibold text-gray-900">Inspektor</th>
-                                    <th class="px-4 py-3 font-semibold text-gray-900">Batch Number</th>
                                     <th class="px-4 py-3 font-semibold text-gray-900">Status</th>
                                     <th class="px-4 py-3 font-semibold text-gray-900">Quantity</th>
                                     <th class="px-4 py-3 font-semibold text-gray-900">Weight</th>
@@ -205,7 +198,6 @@
                                     <tr class="hover:bg-gray-50 transition-colors">
                                         <td class="px-4 py-3 font-medium">{{ $loop->iteration }}</td>
                                         <td class="px-4 py-3 font-medium">{{ $fg->user->name }}</td>
-                                        <td class="px-4 py-3 font-medium">{{ $fg->batch_number }}</td>
                                         <td class="px-4 py-3 font-medium">
                                             @if ($fg->status === 'OK')
                                                 <span class="px-2 py-1 rounded bg-green-100 text-green-800">
@@ -260,6 +252,7 @@
                                             <tr>
                                                 <th class="px-4 py-2">No</th>
                                                 <th class="px-4 py-2">Description</th>
+                                                <th class="px-4 py-2">Description 2</th>
                                                 <th class="px-4 py-2">QTY</th>
                                             </tr>
                                         </thead>
@@ -268,6 +261,7 @@
                                                 <tr>
                                                     <td class="px-4 py-2">{{ $loop->iteration }}</td>
                                                     <td class="px-4 py-2">{{ $detail->description }}</td>
+                                                    <td class="px-4 py-2">{{ $detail->description2 }}</td>
                                                     <td class="px-4 py-2">{{ $detail->qty }}</td>
                                                 </tr>
                                             @empty
@@ -301,16 +295,16 @@
                                         <thead class="bg-gray-50">
                                             <tr>
                                                 <th class="px-4 py-2">No</th>
-                                                <th class="px-4 py-2">Name</th>
                                                 <th class="px-4 py-2">Description</th>
+                                                <th class="px-4 py-2">QTY</th>
                                             </tr>
                                         </thead>
                                         <tbody class="divide-y divide-gray-200">
                                             @forelse ($wip->details as $detail)
                                                 <tr>
                                                     <td class="px-4 py-2">{{ $loop->iteration }}</td>
-                                                    <td class="px-4 py-2">{{ $detail->name }}</td>
                                                     <td class="px-4 py-2">{{ $detail->description }}</td>
+                                                    <td class="px-4 py-2">{{ $detail->qty }}</td>
                                                 </tr>
                                             @empty
                                                 <tr>
@@ -337,7 +331,7 @@
                             <div id="image-{{ $fg->id }}"
                                 class="hidden fixed inset-0 bg-gray-900 bg-opacity-50 flex items-center justify-center">
                                 <div class="bg-white rounded-lg shadow-lg w-3/4 p-6 max-h-[80vh] overflow-y-auto">
-                                    <h3 class="text-lg font-semibold mb-4">Gambar FG: {{ $fg->batch_number }}</h3>
+                                    {{-- <h3 class="text-lg font-semibold mb-4">Gambar FG: {{ $fg->batch_number }}</h3> --}}
 
                                     @if ($fg->files)
                                         <div class="space-y-4">

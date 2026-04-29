@@ -41,7 +41,7 @@ class InspeksiWmController extends Controller
 
         $nextNumber = 1;
         if ($lastRecord) {
-            $lastNumberStr = str_replace("INSWM{$tahunBulan}", "", $lastRecord->nomor_inspeksi);
+            $lastNumberStr = str_replace("INSWM{$tahunBulan}", '', $lastRecord->nomor_inspeksi);
             $nextNumber = (int) $lastNumberStr + 1;
         }
 
@@ -65,7 +65,6 @@ class InspeksiWmController extends Controller
             'shift' => 'required',
             'grade' => 'required',
             'type_coating' => 'required',
-            'shear_strength' => 'nullable|numeric',
             'mesin_id' => 'nullable|exists:mesins,id',
         ]);
 
@@ -76,10 +75,10 @@ class InspeksiWmController extends Controller
             ->orderBy('nomor_inspeksi', 'desc')
             ->first();
 
-        if (!$lastRecord) {
+        if (! $lastRecord) {
             $nextNumber = 1;
         } else {
-            $lastNumberStr = str_replace("INSWM{$tahunBulan}", "", $lastRecord->nomor_inspeksi);
+            $lastNumberStr = str_replace("INSWM{$tahunBulan}", '', $lastRecord->nomor_inspeksi);
             $nextNumber = (int) $lastNumberStr + 1;
         }
 
@@ -92,7 +91,6 @@ class InspeksiWmController extends Controller
             'shift' => $validated['shift'],
             'grade' => $validated['grade'],
             'type_coating' => $validated['type_coating'],
-            'shear_strength' => $validated['shear_strength'] ?? null,
             'mesin_id' => $validated['mesin_id'] ?? null,
         ]);
 
@@ -172,7 +170,7 @@ class InspeksiWmController extends Controller
     {
         $pro = Pro::find($id);
 
-        if (!$pro) {
+        if (! $pro) {
             return response()->json([
                 'message' => 'PRO tidak ditemukan',
             ], 404);

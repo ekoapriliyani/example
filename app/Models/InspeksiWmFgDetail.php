@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class InspeksiWmFgDetail extends Model
 {
-    protected $fillable = ['inspeksi_wm_fg_id', 'description', 'qty'];
+    protected $fillable = ['inspeksi_wm_fg_id', 'description', 'description2', 'qty'];
 
     public function inspeksiWmFg()
     {

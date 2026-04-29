@@ -33,8 +33,8 @@
                                         <th class="px-4 py-3 font-semibold text-gray-900 text-left">Product WM ID</th>
                                         <th class="px-4 py-3 font-semibold text-gray-900 text-left">Description</th>
                                         <th class="px-4 py-3 font-semibold text-gray-900 text-left">D Kawat</th>
-                                        <th class="px-4 py-3 font-semibold text-gray-900 text-left">Tol Min D</th>
-                                        <th class="px-4 py-3 font-semibold text-gray-900 text-left">Tol Max D</th>
+                                        <th class="px-4 py-3 font-semibold text-gray-900 text-left">Toleransi D (-/+)
+                                        </th>
                                         <th class="px-4 py-3 font-semibold text-gray-900 text-left">P Product</th>
                                         <th class="px-4 py-3 font-semibold text-gray-900 text-left">L Product</th>
                                         <th class="px-4 py-3 font-semibold text-gray-900 text-left">P Mesh</th>
@@ -64,10 +64,7 @@
                                                 {{ $item->d_kawat }}
                                             </td>
                                             <td class="px-4 py-3 text-gray-700 min-w-50">
-                                                {{ $item->tol_min_d }}
-                                            </td>
-                                            <td class="px-4 py-3 text-gray-700 min-w-50">
-                                                {{ $item->tol_max_d }}
+                                                {{ $item->tol_d }}
                                             </td>
                                             <td class="px-4 py-3 text-gray-700 min-w-50">
                                                 {{ $item->p_product }}

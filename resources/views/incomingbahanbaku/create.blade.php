@@ -81,6 +81,7 @@
                             </div>
                             <x-input-error class="mt-2" :messages="$errors->get('tol')" />
                         </div>
+
                         <div>
                             <x-input-label for="jenis_kawat" :value="__('Jenis Kawat')" />
                             <select id="jenis_kawat" name="jenis_kawat"

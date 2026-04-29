@@ -19,7 +19,6 @@ return new class extends Migration
             $table->string('shift');
             $table->string('grade');
             $table->string('type_coating');
-            $table->decimal('shear_strength', 8, 2)->nullable();
             $table->foreignId('mesin_id')->nullable()->constrained('mesins');
             $table->timestamps();
         });

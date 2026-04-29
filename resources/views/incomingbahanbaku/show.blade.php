@@ -129,8 +129,33 @@
                                         <td class="px-4 py-3">{{ $inc->d2 }}</td>
                                         <td class="px-4 py-3">{{ $inc->d3 }}</td>
                                         <td class="px-4 py-3">{{ $inc->rata_rata }}</td>
-                                        <td class="px-4 py-3">{{ $inc->dimensi }}</td>
-                                        <td class="px-4 py-3">{{ $inc->visual }}</td>
+                                        <td class="px-4 py-3">
+                                            @if ($inc->dimensi === 'OK')
+                                                <span
+                                                    class="inline-flex items-center px-2 py-1 text-xs font-semibold text-green-800 bg-green-200 rounded-full">
+                                                    OK
+                                                </span>
+                                            @elseif($inc->dimensi === 'NG')
+                                                <span
+                                                    class="inline-flex items-center px-2 py-1 text-xs font-semibold text-yellow-800 bg-yellow-200 rounded-full">
+                                                    NG
+                                                </span>
+                                            @endif
+                                        </td>
+                                        <td class="px-4 py-3">
+                                            @if ($inc->visual === 'OK')
+                                                <span
+                                                    class="inline-flex items-center px-2 py-1 text-xs font-semibold text-green-800 bg-green-200 rounded-full">
+                                                    OK
+                                                </span>
+                                            @elseif($inc->visual === 'NG')
+                                                <span
+                                                    class="inline-flex items-center px-2 py-1 text-xs font-semibold text-yellow-800 bg-yellow-200 rounded-full">
+                                                    NG
+                                                </span>
+                                            @endif
+                                        </td>
+
                                         <td class="px-4 py-3">{{ $inc->keterangan }}</td>
                                         <td class="px-4 py-3">
                                             <button type="button" class="text-sm text-indigo-600 hover:underline"

@@ -33,7 +33,6 @@ class InspeksiWmFgController extends Controller
     {
         $validated = $request->validate([
             'inspeksi_wm_id' => 'required|exists:inspeksi_wms,id',
-            'batch_number'   => 'required',
             'status'         => 'required',
             'qty'            => 'required',
             'weight'         => 'required',
@@ -48,7 +47,6 @@ class InspeksiWmFgController extends Controller
         $fg = InspeksiWmFg::create([
             'inspeksi_wm_id' => $validated['inspeksi_wm_id'],
             'user_id'        => Auth::id(),
-            'batch_number'   => $validated['batch_number'],
             'status'         => $validated['status'],
             'qty'            => $validated['qty'],
             'weight'         => $validated['weight'],
@@ -64,17 +62,21 @@ class InspeksiWmFgController extends Controller
         }
 
         // simpan detail multiple (array)
-        $descriptions = $request->input('detail_description', []);
-        $qty = $request->input('detail_qty', []);
+        // ambil semua array dari request
+        $descriptions  = $request->input('detail_description', []);
+        $descriptions2 = $request->input('detail_description2', []);
+        $qty           = $request->input('detail_qty', []);
 
         foreach ($descriptions as $i => $description) {
             if (!empty($description)) {
                 $fg->details()->create([
-                    'description' => $description,
-                    'qty' => $qty[$i] ?? null,
+                    'description'  => $description,
+                    'description2' => $descriptions2[$i] ?? null,
+                    'qty'          => $qty[$i] ?? null,
                 ]);
             }
         }
+
 
         return redirect()->route('inspeksi_wm.show', $request->inspeksi_wm_id)
                         ->with('success', 'Data FG, detail, dan file berhasil ditambahkan');
