@@ -12,26 +12,21 @@
 
                 <form action="{{ route('sheetgalvanize.inspeksi.store', $sheetgalvanize->id) }}" method="POST">
                     @csrf
-
                     <!-- Tebal -->
                     <div class="mb-4">
                         <label>Tebal</label>
                         <input type="text" name="tebal" class="w-full border rounded px-3 py-2" required autofocus>
                     </div>
-
-
                     <!-- Coating -->
                     <div class="mb-4">
                         <label>Coating</label>
                         <input type="text" name="coating" class="w-full border rounded px-3 py-2">
                     </div>
-
                     <!-- Visual -->
                     <div class="mb-4">
                         <label>Visual</label>
                         <input type="text" name="visual" class="w-full border rounded px-3 py-2">
                     </div>
-
                     <div class="mt-4">
                         <x-input-label for="files" :value="__('Upload File')" />
                         <input id="files" name="files[]" type="file"
@@ -44,7 +39,6 @@
                             <div class="text-red-500 text-sm mt-2">{{ $message }}</div>
                         @enderror
                     </div>
-
                     <div class="flex justify-end gap-2">
                         <a href="{{ route('sheetgalvanize.show', $sheetgalvanize->id) }}"
                             class="px-4 py-2 bg-gray-300 rounded">

@@ -296,6 +296,7 @@
                                             <tr>
                                                 <th class="px-4 py-2">No</th>
                                                 <th class="px-4 py-2">Description</th>
+                                                <th class="px-4 py-2">Description 2</th>
                                                 <th class="px-4 py-2">QTY</th>
                                             </tr>
                                         </thead>
@@ -304,6 +305,7 @@
                                                 <tr>
                                                     <td class="px-4 py-2">{{ $loop->iteration }}</td>
                                                     <td class="px-4 py-2">{{ $detail->description }}</td>
+                                                    <td class="px-4 py-2">{{ $detail->description2 }}</td>
                                                     <td class="px-4 py-2">{{ $detail->qty }}</td>
                                                 </tr>
                                             @empty

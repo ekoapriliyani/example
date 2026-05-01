@@ -17,6 +17,7 @@ return new class extends Migration
             $table->foreignId('inspeksi_wm_wip_id')->constrained('inspeksi_wm_wips')->onDelete('cascade');
             // field detail
             $table->string('description')->nullable();
+            $table->string('description2')->nullable();
             $table->integer('qty')->nullable();
             $table->timestamps();
         });

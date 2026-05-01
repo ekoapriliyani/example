@@ -89,14 +89,17 @@ class InspeksiWmWipController extends Controller
         }
 
         // simpan detail multiple (array)
-        $descriptions = $request->input('detail_description', []);
-        $qty = $request->input('detail_qty', []);
+        // ambil semua array dari request
+        $descriptions  = $request->input('detail_description', []);
+        $descriptions2 = $request->input('detail_description2', []);
+        $qty           = $request->input('detail_qty', []);
 
         foreach ($descriptions as $i => $description) {
             if (!empty($description)) {
                 $wip->details()->create([
-                    'description' => $description,
-                    'qty' => $qty[$i] ?? null,
+                    'description'  => $description,
+                    'description2' => $descriptions2[$i] ?? null,
+                    'qty'          => $qty[$i] ?? null,
                 ]);
             }
         }
