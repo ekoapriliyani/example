@@ -21,7 +21,8 @@ class SheetGalvanize extends Model
         return $this->belongsTo(Supplier::class);
     }
 
-    public function inspeksisheetgalvanize(){
-        return $this->hasMany(InspeksiSheetGalvanize::class);
+    public function inspeksiSheetGalvanizes()
+    {
+        return $this->hasMany(InspeksiSheetGalvanize::class, 'sheet_galvanize_id');
     }
 }

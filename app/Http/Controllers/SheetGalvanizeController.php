@@ -83,7 +83,7 @@ class SheetGalvanizeController extends Controller
             return redirect()->back()->with('error', 'Sesi login berakhir. Silakan login kembali.');
         }
 
-        $insbb = InspeksiSheetGalvanize::create([
+        $insg = InspeksiSheetGalvanize::create([
             'sheet_galvanize_id' => $id,
             'user_id' => Auth::id(), // pastikan ada kolom ini
             'tebal' => $validated['tebal'],
@@ -95,9 +95,9 @@ class SheetGalvanizeController extends Controller
         if ($request->hasFile('files')) {
             $paths = [];
             foreach ($request->file('files') as $file) {
-                $paths[] = $file->store('uploads/inspeksi_bb', 'public');
+                $paths[] = $file->store('uploads/inspeksi_sg', 'public');
             }
-            $insbb->update(['files' => $paths]);
+            $insg->update(['files' => $paths]);
         }
 
         return redirect()

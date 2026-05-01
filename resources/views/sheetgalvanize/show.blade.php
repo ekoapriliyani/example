@@ -65,52 +65,41 @@
                                     d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
                             </svg>
                         </div>
-                        <h3 class="text-lg font-bold text-gray-800">Hasil Inspeksi Icoming Sheet Galvanized</h3>
+                        <h3 class="text-lg font-bold text-gray-800">Hasil Inspeksi Incoming Sheet Galvanized</h3>
                     </div>
 
-                    {{-- <div class="overflow-x-auto rounded-lg border border-gray-200">
+                    <div class="overflow-x-auto rounded-lg border border-gray-200">
                         <table class="min-w-full divide-y divide-gray-200 text-sm text-left">
                             <thead class="bg-gray-50">
                                 <tr>
                                     <th class="px-4 py-3 font-semibold text-gray-900">No</th>
                                     <th class="px-4 py-3 font-semibold text-gray-900">Inspektor</th>
-                                    <th class="px-4 py-3 font-semibold text-gray-900">No Koil</th>
-                                    <th class="px-4 py-3 font-semibold text-gray-900">D1</th>
-                                    <th class="px-4 py-3 font-semibold text-gray-900">D2</th>
-                                    <th class="px-4 py-3 font-semibold text-gray-900">D3</th>
-                                    <th class="px-4 py-3 font-semibold text-gray-900">Rata Rata</th>
-                                    <th class="px-4 py-3 font-semibold text-gray-900">Dimensi</th>
+                                    <th class="px-4 py-3 font-semibold text-gray-900">Tebal</th>
+                                    <th class="px-4 py-3 font-semibold text-gray-900">Coating</th>
                                     <th class="px-4 py-3 font-semibold text-gray-900">Visual</th>
-                                    <th class="px-4 py-3 font-semibold text-gray-900">Keterangan</th>
                                     <th class="px-4 py-3 font-semibold text-gray-900 text-center">Created At</th>
                                 </tr>
                             </thead>
                             <tbody class="divide-y divide-gray-200">
-                                @forelse ($sheetgalvanize as $sg)
+                                @forelse ($sheetgalvanize->inspeksiSheetGalvanizes as $sg)
                                     <tr class="hover:bg-gray-50 transition-colors">
                                         <td class="px-4 py-3">{{ $loop->iteration }}</td>
-                                        <td class="px-4 py-3">{{ $inc->user->name ?? 'N/A' }}</td>
-                                        <td class="px-4 py-3">{{ $inc->no_koil }}</td>
-                                        <td class="px-4 py-3">{{ $inc->d1 }}</td>
-                                        <td class="px-4 py-3">{{ $inc->d2 }}</td>
-                                        <td class="px-4 py-3">{{ $inc->d3 }}</td>
-                                        <td class="px-4 py-3">{{ $inc->rata_rata }}</td>
-                                        <td class="px-4 py-3">{{ $inc->dimensi }}</td>
-                                        <td class="px-4 py-3">{{ $inc->visual }}</td>
-                                        <td class="px-4 py-3">{{ $inc->keterangan }}</td>
-
-                                        <td class="px-4 py-3 text-center bg-blue-50/30">{{ $inc->created_at }}</td>
+                                        <td class="px-4 py-3">{{ $sg->user->name ?? 'N/A' }}</td>
+                                        <td class="px-4 py-3">{{ $sg->tebal }}</td>
+                                        <td class="px-4 py-3">{{ $sg->coating }}</td>
+                                        <td class="px-4 py-3">{{ $sg->visual }}</td>
+                                        <td class="px-4 py-3 text-center bg-blue-50/30">{{ $sg->created_at }}</td>
                                     </tr>
                                 @empty
                                     <tr>
-                                        <td colspan="5" class="px-4 py-8 text-center text-gray-400 italic">Belum
-                                            ada
-                                            data Inspeksi Incoming Bahan Baku.</td>
+                                        <td colspan="6" class="px-4 py-8 text-center text-gray-400 italic">
+                                            Belum ada data Inspeksi Incoming Sheet Galvanized.
+                                        </td>
                                     </tr>
                                 @endforelse
                             </tbody>
                         </table>
-                    </div> --}}
+                    </div>
                 </div>
             </div>
         </div>
