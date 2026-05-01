@@ -10,7 +10,7 @@
 
             <div class="bg-white p-6 rounded shadow">
 
-                <form action="{{ route('sheetgalvanize.inspeksi.store', $sheetgalvanize->id) }}" method="POST">
+                <form action="{{ route('sheetgalvanize.inspeksi.store', $sheetgalvanize->id) }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     <!-- Tebal -->
                     <div class="mb-4">

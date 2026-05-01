@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\InspeksiSheetGalvanize;
 use App\Models\SheetGalvanize;
 use App\Models\Supplier;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class SheetGalvanizeController extends Controller
 {
@@ -64,6 +66,46 @@ class SheetGalvanizeController extends Controller
         ]);
         return redirect()->route('sheetgalvanize.index')->with('success', 'inspeksi galvanize berhasil disimpan');
     }
+
+
+
+    public function storeInspeksi(Request $request, $id)
+    {
+        $validated = $request->validate([
+            'tebal' => 'required',
+            'coating' => 'required',
+            'visual' => 'required',
+            'files.*' => 'file|mimes:jpg,jpeg,png,pdf|max:10240',
+        ]);
+
+
+        if (!Auth::check()) {
+            return redirect()->back()->with('error', 'Sesi login berakhir. Silakan login kembali.');
+        }
+
+        $insbb = InspeksiSheetGalvanize::create([
+            'sheet_galvanize_id' => $id,
+            'user_id' => Auth::id(), // pastikan ada kolom ini
+            'tebal' => $validated['tebal'],
+            'coating' => $validated['coating'],
+            'visual' => $validated['visual'],
+        ]);
+
+        // simpan file multiple ke kolom JSON
+        if ($request->hasFile('files')) {
+            $paths = [];
+            foreach ($request->file('files') as $file) {
+                $paths[] = $file->store('uploads/inspeksi_bb', 'public');
+            }
+            $insbb->update(['files' => $paths]);
+        }
+
+        return redirect()
+            ->route('sheetgalvanize.show', $id)
+            ->with('success', 'Data inspeksi sheet galvanized berhasil ditambahkan');
+    }
+
+
 
     /**
      * Display the specified resource.

@@ -13,11 +13,12 @@ return new class extends Migration
     {
         Schema::create('inspeksi_sheet_galvanizes', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('inspeksi_sheet_galvanize_id')->constrained('sheet_galvanizes')->onDelete('cascade');
+            $table->foreignId('sheet_galvanize_id')->constrained('sheet_galvanizes')->onDelete('cascade');
             $table->string('tebal');
             $table->string('coating');
             $table->string('visual');
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
+            $table->json('files')->nullable();
             $table->timestamps();
         });
     }

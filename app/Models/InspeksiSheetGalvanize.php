@@ -7,17 +7,20 @@ use Illuminate\Database\Eloquent\Model;
 class InspeksiSheetGalvanize extends Model
 {
     protected $fillable = [
+        'sheet_galvanize_id',
         'tebal',
         'coating',
         'visual',
         'user_id',
-    ];    
+        'files',
+    ];
 
     public function user(){
         return $this->belongsTo(User::class);
     }
 
-    public function sheetgalvanize(){
-        return $this->belongsTo(SheetGalvanize::class);
+    public function sheetgalvanize()
+    {
+        return $this->belongsTo(SheetGalvanize::class, 'sheet_galvanize_id');
     }
 }
