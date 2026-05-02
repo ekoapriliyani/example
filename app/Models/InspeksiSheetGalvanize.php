@@ -15,6 +15,10 @@ class InspeksiSheetGalvanize extends Model
         'files',
     ];
 
+    protected $casts = [
+        'files' => 'array', // otomatis decode JSON ke array
+    ];
+
     public function user(){
         return $this->belongsTo(User::class);
     }

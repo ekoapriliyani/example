@@ -77,6 +77,7 @@
                                     <th class="px-4 py-3 font-semibold text-gray-900">Tebal</th>
                                     <th class="px-4 py-3 font-semibold text-gray-900">Coating</th>
                                     <th class="px-4 py-3 font-semibold text-gray-900">Visual</th>
+                                    <th class="px-4 py-3 font-semibold text-gray-900">Gambar</th>
                                     <th class="px-4 py-3 font-semibold text-gray-900 text-center">Created At</th>
                                 </tr>
                             </thead>
@@ -88,6 +89,12 @@
                                         <td class="px-4 py-3">{{ $sg->tebal }}</td>
                                         <td class="px-4 py-3">{{ $sg->coating }}</td>
                                         <td class="px-4 py-3">{{ $sg->visual }}</td>
+                                        <td class="px-4 py-3">
+                                            <button type="button" class="text-sm text-indigo-600 hover:underline"
+                                                onclick="toggleImage({{ $sg->id }})">
+                                                Lihat Gambar
+                                            </button>
+                                        </td>
                                         <td class="px-4 py-3 text-center bg-blue-50/30">{{ $sg->created_at }}</td>
                                     </tr>
                                 @empty
@@ -101,12 +108,56 @@
                         </table>
                     </div>
                 </div>
+
+                {{-- modal gambar inc --}}
+                @foreach ($sheetgalvanize->inspeksiSheetGalvanizes as $sg)
+                    <div id="image-{{ $sg->id }}"
+                        class="hidden fixed inset-0 bg-gray-900 bg-opacity-50 flex items-center justify-center">
+                        <div class="bg-white rounded-lg shadow-lg w-3/4 p-6 max-h-[80vh] overflow-y-auto">
+                            {{-- <h3 class="text-lg font-semibold mb-4">Gambar sg: {{ $sg->batch_number }}</h3> --}}
+
+                            @if ($sg->files)
+                                <div class="space-y-4">
+                                    @foreach ($sg->files as $file)
+                                        @php $ext = pathinfo($file, PATHINFO_EXTENSION); @endphp
+
+                                        @if (in_array($ext, ['jpg', 'jpeg', 'png']))
+                                            <img src="{{ asset('storage/' . $file) }}" alt="sg Image"
+                                                class="w-full max-h-64 object-contain rounded border" />
+                                        @else
+                                            <a href="{{ asset('storage/' . $file) }}" target="_blank"
+                                                class="block text-blue-600 hover:underline">
+                                                Lihat File ({{ strtoupper($ext) }})
+                                            </a>
+                                        @endif
+                                    @endforeach
+                                </div>
+                            @else
+                                <p class="text-gray-400 italic">Tidak ada gambar diupload.</p>
+                            @endif
+
+                            <div class="mt-4 text-right">
+                                <button onclick="toggleImage({{ $sg->id }})"
+                                    class="px-4 py-2 bg-gray-200 rounded hover:bg-gray-300">
+                                    Tutup
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                @endforeach
+
             </div>
         </div>
     </div>
 
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        function toggleImage(id) {
+            const modal = document.getElementById('image-' + id);
+            modal.classList.toggle('hidden');
+        }
+    </script>
 
     <script>
         // Notifikasi Sukses
