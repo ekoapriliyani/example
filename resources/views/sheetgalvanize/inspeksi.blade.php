@@ -10,22 +10,27 @@
 
             <div class="bg-white p-6 rounded shadow">
 
-                <form action="{{ route('sheetgalvanize.inspeksi.store', $sheetgalvanize->id) }}" method="POST" enctype="multipart/form-data">
+                <form action="{{ route('sheetgalvanize.inspeksi.store', $sheetgalvanize->id) }}" method="POST"
+                    enctype="multipart/form-data">
                     @csrf
                     <!-- Tebal -->
                     <div class="mb-4">
                         <label>Tebal</label>
-                        <input type="text" name="tebal" class="w-full border rounded px-3 py-2" required autofocus>
+                        <input type="number" name="tebal" class="w-full border rounded px-3 py-2" required autofocus>
                     </div>
                     <!-- Coating -->
                     <div class="mb-4">
                         <label>Coating</label>
-                        <input type="text" name="coating" class="w-full border rounded px-3 py-2">
+                        <input type="number" name="coating" class="w-full border rounded px-3 py-2">
                     </div>
                     <!-- Visual -->
                     <div class="mb-4">
-                        <label>Visual</label>
-                        <input type="text" name="visual" class="w-full border rounded px-3 py-2">
+                        <label for="visual" class="block mb-1">Visual</label>
+                        <select name="visual" id="visual" class="w-full border rounded px-3 py-2">
+                            <option value="">-- Pilih Visual --</option>
+                            <option value="OK" {{ old('visual') == 'OK' ? 'selected' : '' }}>OK</option>
+                            <option value="NG" {{ old('visual') == 'NG' ? 'selected' : '' }}>NG</option>
+                        </select>
                     </div>
                     <div class="mt-4">
                         <x-input-label for="files" :value="__('Upload File')" />
