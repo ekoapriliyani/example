@@ -35,7 +35,8 @@
                     <div class="mt-4">
                         <x-input-label for="files" :value="__('Upload File')" />
                         <input id="files" name="files[]" type="file" accept="image/*" capture="environment"
-                            class="mt-1 block w-full border-gray-300 rounded-md shadow-sm" multiple>
+                            class="mt-1 block w-full border-gray-300 rounded-md shadow-sm" multiple
+                            onchange="previewFiles(this)">
                         @error('files')
                             <div class="text-red-500 text-sm mt-2">{{ $message }}</div>
                         @enderror
