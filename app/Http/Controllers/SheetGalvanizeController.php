@@ -72,9 +72,12 @@ class SheetGalvanizeController extends Controller
     public function storeInspeksi(Request $request, $id)
     {
         dd([
-            'hasFile' => $request->hasFile('files'),
-            'files' => $request->file('files'),
-            'all' => $request->all(),
+            'upload_max_filesize' => ini_get('upload_max_filesize'),
+            'post_max_size' => ini_get('post_max_size'),
+            'max_file_uploads' => ini_get('max_file_uploads'),
+            'memory_limit' => ini_get('memory_limit'),
+            'upload_tmp_dir' => ini_get('upload_tmp_dir'),
+            'temp_dir' => sys_get_temp_dir(),
         ]);
         $validated = $request->validate([
             'tebal'   => 'required',
