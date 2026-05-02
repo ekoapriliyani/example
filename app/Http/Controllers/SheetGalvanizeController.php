@@ -71,6 +71,11 @@ class SheetGalvanizeController extends Controller
 
     public function storeInspeksi(Request $request, $id)
     {
+        dd([
+            'hasFile' => $request->hasFile('files'),
+            'files' => $request->file('files'),
+            'all' => $request->all(),
+        ]);
         $validated = $request->validate([
             'tebal'   => 'required',
             'coating' => 'required',
