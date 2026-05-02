@@ -75,7 +75,7 @@ class SheetGalvanizeController extends Controller
             'tebal' => 'required',
             'coating' => 'required',
             'visual' => 'required',
-            'files.*' => 'file|mimes:jpg,jpeg,png,pdf|max:10240',
+            'files.*' => 'mimes:jpg,jpeg,png,webp,heic,heif,pdf|max:10240',
         ]);
 
 
