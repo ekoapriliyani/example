@@ -52,6 +52,7 @@ Route::middleware('auth')->group(function () {
     Route::resource('material', MaterialController::class);
     Route::post('material/import', [MaterialController::class, 'import'])->name('material.import');
     Route::resource('mesin', MesinController::class);
+    Route::post('/mesin/import', [MesinController::class, 'import'])->name('mesin.import');
     Route::resource('productwm', ProductWmController::class);
     Route::resource('pro',ProController::class);
     Route::resource('supplier', SupplierController::class);
@@ -86,12 +87,14 @@ Route::middleware('auth')->group(function () {
 
     Route::post('incomingbahanbaku/{id}/inspeksi', [IncomingBahanBakuController::class, 'storeInspeksi'])
         ->name('incomingbahanbaku.inspeksi.store');
-    
+
     Route::get('sheetgalvanize/{id}/inspeksi', [SheetGalvanizeController::class, 'createInspeksi'])
         ->name('sheetgalvanize.inspeksi');
-        
+
     Route::post('sheetgalvanize/{id}/inspeksi', [SheetGalvanizeController::class, 'storeInspeksi'])
         ->name('sheetgalvanize.inspeksi.store');
+    Route::delete('/sheetgalvanize/inspeksi/{id}', [SheetGalvanizeController::class, 'destroyInspeksi'])
+    ->name('sheetgalvanize.inspeksi.destroy');
 
 
 });

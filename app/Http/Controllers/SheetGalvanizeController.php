@@ -8,6 +8,7 @@ use App\Models\Supplier;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class SheetGalvanizeController extends Controller
 {
@@ -121,9 +122,12 @@ class SheetGalvanizeController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(String $id)
+    public function edit($id)
     {
-        //
+        $sheetgalvanize = SheetGalvanize::findOrFail($id);
+        $suppliers = Supplier::all();
+
+        return view('sheetgalvanize.edit', compact('sheetgalvanize', 'suppliers'));
     }
 
     /**
@@ -140,5 +144,24 @@ class SheetGalvanizeController extends Controller
     public function destroy(string $id)
     {
         //
+    }
+
+    public function destroyInspeksi($id)
+    {
+        $inspeksi = InspeksiSheetGalvanize::findOrFail($id);
+
+        $sheetGalvanizeId = $inspeksi->sheet_galvanize_id;
+
+        if ($inspeksi->files) {
+            foreach ($inspeksi->files as $file) {
+                Storage::disk('public')->delete($file);
+            }
+        }
+
+        $inspeksi->delete();
+
+        return redirect()
+            ->route('sheetgalvanize.show', $sheetGalvanizeId)
+            ->with('success', 'Data inspeksi berhasil dihapus.');
     }
 }

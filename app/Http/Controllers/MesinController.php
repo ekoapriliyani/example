@@ -10,9 +10,21 @@ class MesinController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $data = Mesin::all();
+        // 1. Ambil keyword
+        $search = $request->input('search');
+
+        // 2. Query + search + paginate
+        $data = Mesin::when($search, function ($query, $search) {
+                return $query->where('mesin_id', 'like', "%{$search}%")
+                            ->orWhere('nama_mesin', 'like', "%{$search}%");
+            })
+            ->orderBy('mesin_id', 'desc')
+            ->paginate(10)
+            ->withQueryString();
+
+        // 3. Return view
         return view('mesin.index', ['data' => $data]);
     }
 

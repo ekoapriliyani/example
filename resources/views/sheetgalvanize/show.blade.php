@@ -79,6 +79,7 @@
                                     <th class="px-4 py-3 font-semibold text-gray-900">Visual</th>
                                     <th class="px-4 py-3 font-semibold text-gray-900">Gambar</th>
                                     <th class="px-4 py-3 font-semibold text-gray-900 text-center">Created At</th>
+                                    <th class="px-4 py-3 font-semibold text-gray-900 text-center">Action</th>
                                 </tr>
                             </thead>
                             <tbody class="divide-y divide-gray-200">
@@ -88,14 +89,52 @@
                                         <td class="px-4 py-3">{{ $sg->user->name ?? 'N/A' }}</td>
                                         <td class="px-4 py-3">{{ $sg->tebal }}</td>
                                         <td class="px-4 py-3">{{ $sg->coating }}</td>
-                                        <td class="px-4 py-3">{{ $sg->visual }}</td>
+                                        <td class="px-4 py-3">
+                                            @if($sg->visual === 'OK')
+                                                <span class="bg-green-500 text-white text-xs font-semibold px-2 py-1 rounded">
+                                                    {{ $sg->visual }}
+                                                </span>
+                                            @elseif($sg->visual === 'NG')
+                                                <span class="bg-yellow-500 text-black text-xs font-semibold px-2 py-1 rounded">
+                                                    {{ $sg->visual }}
+                                                </span>
+                                            @else
+                                                <span class="bg-gray-300 text-black text-xs font-semibold px-2 py-1 rounded">
+                                                    {{ $sg->visual }}
+                                                </span>
+                                            @endif
+                                        </td>
+
                                         <td class="px-4 py-3">
                                             <button type="button" class="text-sm text-indigo-600 hover:underline"
                                                 onclick="toggleImage({{ $sg->id }})">
                                                 Lihat Gambar
                                             </button>
                                         </td>
-                                        <td class="px-4 py-3 text-center bg-blue-50/30">{{ $sg->created_at }}</td>
+                                        <td class="px-4 py-3 text-center bg-blue-50/30">
+                                            {{ $sg->created_at }}
+                                        </td>
+
+                                        <td class="px-4 py-3 text-center">
+                                            <button type="button"
+                                                onclick="confirmDelete({{ $sg->id }}, '{{ $sg->user->name ?? 'N/A' }}')"
+                                                class="inline-flex items-center justify-center rounded bg-red-50 px-3 py-1.5 text-xs font-bold text-red-700 hover:bg-red-100 transition"
+                                                title="Delete">
+                                                <svg xmlns="http://www.w3.org/2000/svg" class="size-4" fill="none"
+                                                    viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                                        d="M6 7h12M9 7V5a1 1 0 011-1h4a1 1 0 011 1v2m2 0v12a2 2 0 01-2 2H8a2 2 0 01-2-2V7h12z" />
+                                                </svg>
+                                            </button>
+
+                                            <form id="delete-form-{{ $sg->id }}"
+                                                action="{{ route('sheetgalvanize.inspeksi.destroy', $sg->id) }}"
+                                                method="POST"
+                                                class="hidden">
+                                                @csrf
+                                                @method('DELETE')
+                                            </form>
+                                        </td>
                                     </tr>
                                 @empty
                                     <tr>
@@ -176,13 +215,13 @@
     <script>
         function confirmDelete(id, name) {
             Swal.fire({
-                title: 'Hapus seluruh record?',
-                text: "Semua data WIP dan FG terkait " + name + " akan ikut terhapus!",
+                title: 'Hapus data inspeksi?',
+                text: "Data inspeksi oleh " + name + " akan dihapus permanen!",
                 icon: 'warning',
                 showCancelButton: true,
                 confirmButtonColor: '#dc2626',
                 cancelButtonColor: '#4f46e5',
-                confirmButtonText: 'Ya, Hapus Semua!',
+                confirmButtonText: 'Ya, Hapus!',
                 cancelButtonText: 'Batal',
                 reverseButtons: true
             }).then((result) => {

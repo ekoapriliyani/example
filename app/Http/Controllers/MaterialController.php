@@ -82,7 +82,7 @@ class MaterialController extends Controller
             'item_id' => 'required',
             'description' => 'required'
         ]);
-        
+
         $material->update($validated);
         return redirect()->route('material.index')->with('success', 'Material berhasil diperbarui');
     }
@@ -96,7 +96,7 @@ class MaterialController extends Controller
         return redirect()->route('material.index')->with('success', 'material berhasil dihapus');
     }
 
-    public function import(Request $request) 
+    public function import(Request $request)
     {
         // Validasi file harus excel/csv
         $request->validate([
