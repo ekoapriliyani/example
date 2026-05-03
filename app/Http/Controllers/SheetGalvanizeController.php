@@ -135,7 +135,19 @@ class SheetGalvanizeController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $validated = $request->validate([
+            'nomor_inspeksi' => 'required',
+            'tanggal' => 'required',
+            'supplier_id' => 'required',
+            'no_po' => 'required',
+        ]);
+
+        $item = SheetGalvanize::findOrFail($id);
+
+        $item->update($validated);
+
+        return redirect()->route('sheetgalvanize.index')
+            ->with('success', 'Data berhasil diupdate');
     }
 
     /**
