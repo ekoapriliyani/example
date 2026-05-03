@@ -14,6 +14,10 @@ class IncomingPvcHdpeInspeksi extends Model
         'files',
     ];
 
+    protected $casts = [
+        'files' => 'array', // otomatis decode JSON ke array
+    ];
+
     public function incomingPvcHdpe()
     {
         return $this->belongsTo(IncomingPvcHdpe::class);

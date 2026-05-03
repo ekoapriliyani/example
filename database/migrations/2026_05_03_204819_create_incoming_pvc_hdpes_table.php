@@ -16,8 +16,8 @@ return new class extends Migration
             $table->string('nomor_inspeksi');
             $table->date('tanggal');
             $table->foreignId('supplier_id')->constrained('suppliers')->onDelete('cascade');
-            $table->string('no_po')->nullable();
-            $table->string('no_sj');
+            $table->string('no_po');
+            $table->string('no_sj')->nullable();
             $table->timestamps();
         });
     }

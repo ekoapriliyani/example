@@ -18,4 +18,9 @@ class IncomingPvcHdpe extends Model
     {
         return $this->belongsTo(Supplier::class);
     }
+
+    public function incomingPvcHdpeInspeksi()
+    {
+        return $this->hasMany(IncomingPvcHdpeInspeksi::class);
+    }
 }

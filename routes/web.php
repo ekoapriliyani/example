@@ -82,12 +82,26 @@ Route::middleware('auth')->group(function () {
     Route::post('/inspeksi_wm/fg', [InspeksiWmFgController::class, 'store'])->name('inspeksi_wm_fg.store');
     Route::get('/inspeksi_wm/{inspeksi_wm}/fg', [InspeksiWmFgController::class, 'create'])->name('inspeksi_wm.fg');
 
-
+    // incoming bahan baku
     Route::get('incomingbahanbaku/{id}/inspeksi', [IncomingBahanBakuController::class, 'createInspeksi'])
     ->name('incomingbahanbaku.inspeksi');
 
     Route::post('incomingbahanbaku/{id}/inspeksi', [IncomingBahanBakuController::class, 'storeInspeksi'])
         ->name('incomingbahanbaku.inspeksi.store');
+
+
+
+    // incoming PVC HDPE
+    Route::get('incomingpvchdpe/{id}/inspeksi', [IncomingPvcHdpeController::class, 'createInspeksi'])
+    ->name('incomingpvchdpe.inspeksi');
+
+    Route::post('incomingpvchdpe/{id}/inspeksi', [IncomingPvcHdpeController::class, 'storeInspeksi'])
+        ->name('incomingpvchdpe.inspeksi.store');
+
+
+
+
+
 
     Route::get('sheetgalvanize/{id}/inspeksi', [SheetGalvanizeController::class, 'createInspeksi'])
         ->name('sheetgalvanize.inspeksi');

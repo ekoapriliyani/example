@@ -5,7 +5,7 @@
                 Daftar Pengecekan Lab
             </h2>
 
-            <a href="{{ route('mesin.create') }}"
+            <a href="{{ route('lab.create') }}"
                 class="inline-flex items-center gap-2 rounded-md bg-indigo-600 px-4 py-2 text-sm font-semibold text-white hover:bg-indigo-700 transition shadow-sm">
                 <svg xmlns="http://www.w3.org/2000/svg" class="size-4" fill="none" viewBox="0 0 24 24"
                     stroke="currentColor" stroke-width="3">
@@ -31,7 +31,7 @@
                                         <th class="px-4 py-3 font-semibold text-gray-900 whitespace-nowrap text-left">Tanggal</th>
                                         <th class="px-4 py-3 font-semibold text-gray-900 whitespace-nowrap text-left">Inspektor</th>
                                         <th class="px-4 py-3 font-semibold text-gray-900 whitespace-nowrap text-left">Nomor PRO</th>
-                                        <th class="px-4 py-3 font-semibold text-gray-900 text-left">Nama Mesin</th>
+                                        <th class="px-4 py-3 font-semibold text-gray-900 text-left">Nama lab</th>
                                         <th class="px-4 py-3 font-semibold text-gray-900 text-right whitespace-nowrap">
                                             Action</th>
                                     </tr>
@@ -44,19 +44,19 @@
                                                 {{ $loop->iteration }}
                                             </td>
                                             <td class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap">
-                                                {{ $item->mesin_id }}
+                                                {{ $item->lab_id }}
                                             </td>
                                             <td class="px-4 py-3 text-gray-700 min-w-50">
-                                                {{ $item->nama_mesin }}
+                                                {{ $item->nama_lab }}
                                             </td>
                                             <td class="px-4 py-3 text-right whitespace-nowrap space-x-2">
-                                                <a href="{{ route('mesin.show', $item->id) }}"
+                                                <a href="{{ route('lab.show', $item->id) }}"
                                                     class="inline-block rounded bg-indigo-50 px-3 py-1.5 text-xs font-bold text-indigo-700 hover:bg-indigo-100 transition">
                                                     View Details
                                                 </a>
 
                                                 <form id="delete-form-{{ $item->id }}"
-                                                    action="{{ route('mesin.destroy', $item->id) }}" method="POST"
+                                                    action="{{ route('lab.destroy', $item->id) }}" method="POST"
                                                     class="hidden">
                                                     @csrf
                                                     @method('DELETE')
@@ -66,7 +66,7 @@
                                     @empty
                                         <tr>
                                             <td colspan="3" class="px-4 py-8 text-center text-gray-500 italic">
-                                                Belum ada data mesin. Silakan tambah mesin baru.
+                                                Belum ada data pengecekan lab.
                                             </td>
                                         </tr>
                                     @endforelse
@@ -98,8 +98,8 @@
         // 2. Konfirmasi Hapus (Tetap dipertahankan)
         function confirmDelete(id, name) {
             Swal.fire({
-                title: 'Hapus mesin?',
-                text: "Mesin " + name + " akan dihapus secara permanen!",
+                title: 'Hapus lab?',
+                text: "lab " + name + " akan dihapus secara permanen!",
                 icon: 'warning',
                 showCancelButton: true,
                 confirmButtonColor: '#dc2626',
