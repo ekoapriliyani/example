@@ -7,16 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 class Project extends Model
 {
     protected $fillable = [
-        'project_id', 
-        'subkon_id',  
         'name',
-        'no_pro',
-        'qty',
     ];
-
-    // relasi ke subkon
-    public function subkon()
-    {
-        return $this->belongsTo(Subkon::class);
-    }
 }

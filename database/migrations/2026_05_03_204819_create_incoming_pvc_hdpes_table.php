@@ -11,9 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('projects', function (Blueprint $table) {
+        Schema::create('incoming_pvc_hdpes', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
+            $table->string('nomor_inspeksi');
+            $table->date('tanggal');
+            $table->foreignId('supplier_id')->constrained('suppliers')->onDelete('cascade');
+            $table->string('no_po')->nullable();
+            $table->string('no_sj');
             $table->timestamps();
         });
     }
@@ -23,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('projects');
+        Schema::dropIfExists('incoming_pvc_hdpes');
     }
 };

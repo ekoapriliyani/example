@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Pro;
 use App\Models\Project;
 use App\Models\Subkon;
 use Illuminate\Http\Request;
@@ -18,10 +19,9 @@ class ProjectController extends Controller
 
         // 2. Query data dengan kondisi pencarian
         $data = Project::when($search, function ($query, $search) {
-                return $query->where('project_id', 'like', "%{$search}%")
-                            ->orWhere('name', 'like', "%{$search}%");
+                return $query->where('name', 'like', "%{$search}%");
             })
-            ->orderBy('project_id', 'desc') // Tetap pakai order by punyamu
+            ->orderBy('created_at', 'desc') // Tetap pakai order by punyamu
             ->paginate(10)
             ->withQueryString(); // Agar saat pindah halaman, hasil search tidak hilang
 
@@ -35,7 +35,8 @@ class ProjectController extends Controller
     public function create()
     {
         $subkons = Subkon::all(); // Ambil semua data subkon
-        return view('project.create', compact('subkons'));
+        $pros = Pro::orderBy('pro_id')->get();
+        return view('project.create', compact('subkons', 'pros'));
     }
 
     /**
@@ -44,11 +45,7 @@ class ProjectController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'project_id' => 'required|unique:projects',
-            'subkon_id'  => 'required|exists:subkons,id',
             'name'       => 'required',
-            'no_pro'     => 'required',
-            'qty'        => 'required|numeric',
         ]);
         Project::create($validated);
         return redirect()->route('project.index')->with('success', 'Data Project berhasil disimpan');
@@ -57,17 +54,17 @@ class ProjectController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Project $project)
     {
-        //
+        return view('project.show', ['project' => $project]);
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Project $project)
     {
-        //
+        return view('project.edit', compact('project'));
     }
 
     /**
@@ -75,7 +72,14 @@ class ProjectController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $validated = $request->validate([
+            'name' => 'required',
+        ]);
+
+        $project = Project::findOrFail($id);
+        $project->update($validated);
+
+        return redirect()->route('project.index')->with('success', 'Data Project berhasil diperbarui');
     }
 
     /**
@@ -83,7 +87,10 @@ class ProjectController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $project = Project::findOrFail($id);
+        $project->delete();
+
+        return redirect()->route('project.index')->with('success', 'Data Project berhasil dihapus');
     }
 
     public function import()

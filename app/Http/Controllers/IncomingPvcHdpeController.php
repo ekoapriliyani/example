@@ -2,16 +2,18 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\IncomingPvcHdpe;
 use Illuminate\Http\Request;
 
-class IncomingBahanBakuInspeksiController extends Controller
+class IncomingPvcHdpeController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        //
+        $data = IncomingPvcHdpe::all();
+        return view('incomingpvchdpe.index', ['data' => $data]);
     }
 
     /**

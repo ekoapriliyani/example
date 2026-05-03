@@ -20,49 +20,10 @@
                         @csrf
 
                         <div>
-                            <x-input-label for="subkon_id" :value="__('Pilih Subkon')" />
-                            <select id="subkon_id" name="subkon_id"
-                                class="mt-1 block w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm"
-                                required>
-                                <option value="" disabled selected>-- Pilih Subkon --</option>
-                                @foreach ($subkons as $subkon)
-                                    <option value="{{ $subkon->id }}"
-                                        {{ old('subkon_id') == $subkon->id ? 'selected' : '' }}>
-                                        {{ $subkon->name }} ({{ $subkon->subkon_id }})
-                                    </option>
-                                @endforeach
-                            </select>
-                            <x-input-error class="mt-2" :messages="$errors->get('subkon_id')" />
-                        </div>
-
-                        <div>
-                            <x-input-label for="project_id" :value="__('Project ID')" />
-                            <x-text-input id="project_id" name="project_id" type="text" class="mt-1 block w-full"
-                                :value="old('project_id')" placeholder="Contoh: PRJ-001" required autofocus />
-                            <x-input-error class="mt-2" :messages="$errors->get('project_id')" />
-                        </div>
-
-                        <div>
                             <x-input-label for="name" :value="__('Nama Project')" />
                             <x-text-input id="name" name="name" type="text" class="mt-1 block w-full"
                                 :value="old('name')" placeholder="Masukkan nama project" required />
                             <x-input-error class="mt-2" :messages="$errors->get('name')" />
-                        </div>
-
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                            <div>
-                                <x-input-label for="no_pro" :value="__('Nomor PRO')" />
-                                <x-text-input id="no_pro" name="no_pro" type="text" class="mt-1 block w-full"
-                                    :value="old('no_pro')" placeholder="No. Produksi" required />
-                                <x-input-error class="mt-2" :messages="$errors->get('no_pro')" />
-                            </div>
-
-                            <div>
-                                <x-input-label for="qty" :value="__('Quantity (QTY)')" />
-                                <x-text-input id="qty" name="qty" type="number" class="mt-1 block w-full"
-                                    :value="old('qty')" placeholder="0" required />
-                                <x-input-error class="mt-2" :messages="$errors->get('qty')" />
-                            </div>
                         </div>
 
                         <div class="flex items-center justify-end gap-4 pt-4 border-t border-gray-100">

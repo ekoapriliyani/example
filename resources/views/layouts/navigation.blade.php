@@ -63,6 +63,32 @@
                         </x-dropdown>
                     </div>
 
+                    {{-- incoming --}}
+                    <div class="hidden sm:flex sm:items-center sm:ms-4">
+                        <x-dropdown align="left" width="48">
+                            <x-slot name="trigger">
+                                <button
+                                    class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none transition ease-in-out duration-150">
+                                    <div>Inspeksi Incoming</div>
+                                    <div class="ms-1">
+                                        <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg"
+                                            viewBox="0 0 20 20">
+                                            <path fill-rule="evenodd"
+                                                d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                                                clip-rule="evenodd" />
+                                        </svg>
+                                    </div>
+                                </button>
+                            </x-slot>
+                            <x-slot name="content">
+                                <x-dropdown-link :href="route('incomingbahanbaku.index')">Bahan Baku</x-dropdown-link>
+                                <x-dropdown-link :href="route('sheetgalvanize.index')">Sheet Galvanized</x-dropdown-link>
+                                <x-dropdown-link :href="route('incomingpvchdpe.index')">PVC HDPE</x-dropdown-link>
+                            </x-slot>
+                        </x-dropdown>
+                    </div>
+
+
                     <div class="hidden sm:flex sm:items-center sm:ms-4">
                         <x-dropdown align="left" width="48">
                             <x-slot name="trigger">
@@ -81,9 +107,6 @@
                             </x-slot>
                             <x-slot name="content">
                                 <x-dropdown-link :href="route('inspeksi_wm.index')">Wiremesh (WM)</x-dropdown-link>
-                                <x-dropdown-link :href="route('incomingbahanbaku.index')">Incoming Bahan Baku</x-dropdown-link>
-                                <x-dropdown-link :href="route('sheetgalvanize.index')">Sheet Galvanized</x-dropdown-link>
-                                {{-- <x-dropdown-link :href="route('incomingbahanbaku.index')">HDPE/PVC</x-dropdown-link> --}}
                             </x-slot>
                         </x-dropdown>
                     </div>
@@ -105,8 +128,7 @@
                                 </button>
                             </x-slot>
                             <x-slot name="content">
-                                {{-- <x-dropdown-link :href="route('fabrication.index')">Fabrication</x-dropdown-link>
-                                <x-dropdown-link :href="route('coating.index')">Coating</x-dropdown-link> --}}
+                                <x-dropdown-link :href="route('project.index')">Project</x-dropdown-link>
                             </x-slot>
                         </x-dropdown>
                     </div>
@@ -166,20 +188,23 @@
                 <x-responsive-nav-link :href="route('subkon.index')">Subkon</x-responsive-nav-link>
                 <x-responsive-nav-link :href="route('supplier.index')">Supplier</x-responsive-nav-link>
                 <x-responsive-nav-link :href="route('productwm.index')">Product WM</x-responsive-nav-link>
-                {{-- <x-responsive-nav-link :href="route('user.index')">User</x-responsive-nav-link> --}}
+            </div>
+
+            <div class="border-t border-gray-200 pt-2">
+                <div class="px-4 font-semibold text-xs text-gray-400 uppercase">Inspeksi Incoming</div>
+                <x-responsive-nav-link :href="route('incomingbahanbaku.index')">Bahan Baku</x-responsive-nav-link>
+                <x-responsive-nav-link :href="route('sheetgalvanize.index')">Sheet Galvanize</x-responsive-nav-link>
+                <x-responsive-nav-link :href="route('incomingpvchdpe.index')">PVC HDPE</x-responsive-nav-link>
             </div>
 
             <div class="border-t border-gray-200 pt-2">
                 <div class="px-4 font-semibold text-xs text-gray-400 uppercase">Inspeksi Reguler</div>
                 <x-responsive-nav-link :href="route('inspeksi_wm.index')">Wiremesh (WM)</x-responsive-nav-link>
-                <x-responsive-nav-link :href="route('incomingbahanbaku.index')">Icoming Bahan Baku</x-responsive-nav-link>
-                {{-- <x-responsive-nav-link :href="route('inspeksi_kd.index')">Kawat Duri (KD)</x-responsive-nav-link> --}}
             </div>
 
             <div class="border-t border-gray-200 pt-2">
                 <div class="px-4 font-semibold text-xs text-gray-400 uppercase">Inspeksi Project</div>
-                {{-- <x-responsive-nav-link :href="route('fabrication.index')">Fabrication</x-responsive-nav-link>
-                <x-responsive-nav-link :href="route('coating.index')">Coating</x-responsive-nav-link> --}}
+                <x-responsive-nav-link :href="route('project.index')">Project</x-responsive-nav-link>
             </div>
         </div>
     </div>

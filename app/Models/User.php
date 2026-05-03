@@ -37,4 +37,8 @@ class User extends Authenticatable
     public function inspeksisheetgalvalize(){
         return $this->hasMany(InspeksiSheetGalvanize::class);
     }
+
+    public function incomingpvchdpeinspeksi(){
+        return $this->hasMany(IncomingPvcHdpeInspeksi::class);
+    }
 }
