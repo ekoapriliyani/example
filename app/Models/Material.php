@@ -10,4 +10,9 @@ class Material extends Model
     /** @use HasFactory<\Database\Factories\MaterialFactory> */
     use HasFactory;
     protected $fillable = ['item_id', 'description'];
+
+    public function incomingprojectinspeksi()
+    {
+        return $this->hasMany(IncomingProjectInspeksi::class);
+    }
 }

@@ -35,6 +35,7 @@
                                 <x-dropdown-link :href="route('subkon.index')">Subkon</x-dropdown-link>
                                 <x-dropdown-link :href="route('supplier.index')">Supllier</x-dropdown-link>
                                 <x-dropdown-link :href="route('productwm.index')">Product Wiremesh</x-dropdown-link>
+                                <x-dropdown-link :href="route('project.index')">Project</x-dropdown-link>
                                 {{-- <x-dropdown-link :href="route('user.index')">User</x-dropdown-link> --}}
                             </x-slot>
                         </x-dropdown>
@@ -84,6 +85,7 @@
                                 <x-dropdown-link :href="route('incomingbahanbaku.index')">Bahan Baku</x-dropdown-link>
                                 <x-dropdown-link :href="route('sheetgalvanize.index')">Sheet Galvanized</x-dropdown-link>
                                 <x-dropdown-link :href="route('incomingpvchdpe.index')">PVC HDPE</x-dropdown-link>
+                                <x-dropdown-link :href="route('incomingproject.index')">Incoming Project</x-dropdown-link>
                             </x-slot>
                         </x-dropdown>
                     </div>
@@ -128,7 +130,7 @@
                                 </button>
                             </x-slot>
                             <x-slot name="content">
-                                <x-dropdown-link :href="route('project.index')">Project</x-dropdown-link>
+                                {{-- <x-dropdown-link :href="route('project.index')">Project</x-dropdown-link> --}}
                             </x-slot>
                         </x-dropdown>
                     </div>
@@ -188,6 +190,7 @@
                 <x-responsive-nav-link :href="route('subkon.index')">Subkon</x-responsive-nav-link>
                 <x-responsive-nav-link :href="route('supplier.index')">Supplier</x-responsive-nav-link>
                 <x-responsive-nav-link :href="route('productwm.index')">Product WM</x-responsive-nav-link>
+                <x-responsive-nav-link :href="route('project.index')">Project</x-responsive-nav-link>
             </div>
 
             <div class="border-t border-gray-200 pt-2">
@@ -195,6 +198,7 @@
                 <x-responsive-nav-link :href="route('incomingbahanbaku.index')">Bahan Baku</x-responsive-nav-link>
                 <x-responsive-nav-link :href="route('sheetgalvanize.index')">Sheet Galvanize</x-responsive-nav-link>
                 <x-responsive-nav-link :href="route('incomingpvchdpe.index')">PVC HDPE</x-responsive-nav-link>
+                <x-responsive-nav-link :href="route('incomingproject.index')">Incoming Project</x-responsive-nav-link>
             </div>
 
             <div class="border-t border-gray-200 pt-2">
@@ -204,7 +208,7 @@
 
             <div class="border-t border-gray-200 pt-2">
                 <div class="px-4 font-semibold text-xs text-gray-400 uppercase">Inspeksi Project</div>
-                <x-responsive-nav-link :href="route('project.index')">Project</x-responsive-nav-link>
+                {{-- <x-responsive-nav-link :href="route('project.index')">Project</x-responsive-nav-link> --}}
             </div>
         </div>
     </div>

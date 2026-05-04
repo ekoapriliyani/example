@@ -72,7 +72,8 @@ class ProductWmController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $productwm = ProductWm::findOrFail($id);
+        return view('productwm.edit', ['productwm' => $productwm]);
     }
 
     /**
@@ -80,7 +81,34 @@ class ProductWmController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $validated = $request->validate([
+            'jenis_wm' => 'required',
+            'product_wm_id' => 'required',
+            'description' => 'required',
+            'd_kawat' => 'required',
+            'tol_d' => 'required',
+            'p_product' => 'required',
+            'l_product' => 'required',
+            'p_mesh' => 'required',
+            'l_mesh' => 'required',
+            'tol_mesh' => 'required',
+        ]);
+
+        $productwm = ProductWm::findOrFail($id);
+        $productwm->update([
+            'jenis_wm' => $validated['jenis_wm'],
+            'product_wm_id' => $validated['product_wm_id'],
+            'description' => $validated['description'],
+            'd_kawat' => $validated['d_kawat'],
+            'tol_d' => $validated['tol_d'],
+            'p_product' => $validated['p_product'],
+            'l_product' => $validated['l_product'],
+            'p_mesh' => $validated['p_mesh'],
+            'l_mesh' => $validated['l_mesh'],
+            'tol_mesh' => $validated['tol_mesh'],
+        ]);
+
+        return redirect()->route('productwm.index')->with('success', 'data produk WM berhasil diupdate');
     }
 
     /**

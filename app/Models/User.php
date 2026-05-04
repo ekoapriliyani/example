@@ -92,4 +92,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(IncomingPvcHdpeInspeksi::class);
     }
+
+    public function incomingprojectinspeksi()
+    {
+        return $this->hasMany(IncomingProjectInspeksi::class);
+    }
 }

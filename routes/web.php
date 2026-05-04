@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\IncomingBahanBakuController;
+use App\Http\Controllers\IncomingProjectController;
 use App\Http\Controllers\IncomingPvcHdpeController;
 use App\Http\Controllers\InspeksiWmController;
 use App\Http\Controllers\InspeksiWmFgController;
@@ -36,7 +37,6 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-// Bungkus semua route inspeksi QC kamu di dalam middleware auth
 Route::middleware(['auth'])->group(function () {
 
     // Route Profile (Bawaan Breeze)
@@ -44,25 +44,14 @@ Route::middleware(['auth'])->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
-    // Route Fitur QC Kamu
-
-    //Route::resource('material', MaterialController::class);
-    //Route::post('material/import', [MaterialController::class, 'import'])->name('material.import');
-    //Route::post('productwm/import', [ProductWmController::class, 'import'])->name('productwm.import');
-    //Route::resource('mesin', MesinController::class);
-    //Route::post('/mesin/import', [MesinController::class, 'import'])->name('mesin.import');
     Route::resource('productwm', ProductWmController::class);
     Route::resource('pro',ProController::class);
-    //Route::resource('supplier', SupplierController::class);
     Route::resource('incomingbahanbaku', IncomingBahanBakuController::class);
     Route::resource('incomingpvchdpe', IncomingPvcHdpeController::class);
+    Route::resource('incomingproject', IncomingProjectController::class);
     Route::resource('sheetgalvanize', SheetGalvanizeController::class);
     Route::resource('lab', LabController::class);
     Route::post('pro/import', [ProController::class, 'import'])->name('pro.import');
-
-     // Route Subkon
-    //Route::resource('subkon', SubkonController::class);
-    //Route::post('subkon/import', [SubkonController::class, 'import'])->name('subkon.import');
 
     // Route Project
     Route::resource('project', ProjectController::class);
@@ -92,6 +81,15 @@ Route::middleware(['auth'])->group(function () {
     Route::post('incomingpvchdpe/{id}/inspeksi', [IncomingPvcHdpeController::class, 'storeInspeksi'])
         ->name('incomingpvchdpe.inspeksi.store');
 
+    // incoming project
+    Route::get('incomingproject/{id}/inspeksi', [IncomingProjectController::class, 'createInspeksi'])
+    ->name('incomingproject.inspeksi');
+
+    Route::post('incomingproject/{id}/inspeksi', [IncomingProjectController::class, 'storeInspeksi'])
+        ->name('incomingproject.inspeksi.store');
+
+
+    // sheet galvanize
     Route::get('sheetgalvanize/{id}/inspeksi', [SheetGalvanizeController::class, 'createInspeksi'])
         ->name('sheetgalvanize.inspeksi');
 

@@ -18,4 +18,8 @@ class Supplier extends Model
     public function sheetgalvanize() {
         return $this->hasMany(SheetGalvanize::class);
     }
+
+    public function incomingProjects() {
+        return $this->hasMany(IncomingProject::class);
+    }
 }
