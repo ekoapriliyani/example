@@ -24,7 +24,9 @@
                         </div>
                         <div class="">
                             <x-input-label for="tanggal" :value="__('Tanggal')" />
-                            <input type="date" name="tanggal">
+                            <input type="date" name="tanggal"
+                                class="mt-1 block w-full border-gray-300 rounded-md shadow-sm"
+                                value="{{ old('tanggal') }}" required>
                             <x-input-error class="mt-2" :messages="$errors->get('tanggal')" />
                         </div>
                         <div>
@@ -70,5 +72,16 @@
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 
+
+    <script>
+        $(document).ready(function() {
+
+            $('#supplier_id').select2({
+                placeholder: '-- Pilih Supplier --',
+                allowClear: true,
+                width: '100%'
+            });
+        });
+    </script>
 
 </x-app-layout>

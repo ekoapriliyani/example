@@ -13,15 +13,6 @@
                 <form action="{{ route('incomingproject.inspeksi.store', $incomingproject->id) }}" method="POST"
                     enctype="multipart/form-data">
                     @csrf
-                    <!-- Visual -->
-                    <div class="mb-4">
-                        <label for="visual" class="block mb-1">Visual</label>
-                        <select name="visual" id="visual" class="w-full border rounded px-3 py-2">
-                            <option value="">-- Pilih Visual --</option>
-                            <option value="OK" {{ old('visual') == 'OK' ? 'selected' : '' }}>OK</option>
-                            <option value="NG" {{ old('visual') == 'NG' ? 'selected' : '' }}>NG</option>
-                        </select>
-                    </div>
                     {{-- material --}}
                     <div>
                         <x-input-label for="material_id" :value="__('Pilih Material')" />
@@ -38,6 +29,15 @@
                         <x-input-error class="mt-2" :messages="$errors->get('material_id')" />
                     </div>
 
+                    <!-- Visual -->
+                    <div class="mb-4">
+                        <label for="visual" class="block mb-1">Visual</label>
+                        <select name="visual" id="visual" class="w-full border rounded px-3 py-2">
+                            <option value="">-- Pilih Visual --</option>
+                            <option value="OK" {{ old('visual') == 'OK' ? 'selected' : '' }}>OK</option>
+                            <option value="NG" {{ old('visual') == 'NG' ? 'selected' : '' }}>NG</option>
+                        </select>
+                    </div>
 
                     {{-- File Upload --}}
                     <div class="mt-4">
@@ -70,4 +70,20 @@
             </div>
         </div>
     </div>
+
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
+    <script>
+        $(document).ready(function() {
+
+            $('#material_id').select2({
+                placeholder: '-- Pilih Material --',
+                allowClear: true,
+                width: '100%'
+            });
+        });
+    </script>
 </x-app-layout>
