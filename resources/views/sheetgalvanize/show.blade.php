@@ -90,17 +90,15 @@
                                         <td class="px-4 py-3">{{ $sg->tebal }}</td>
                                         <td class="px-4 py-3">{{ $sg->coating }}</td>
                                         <td class="px-4 py-3">
-                                            @if($sg->visual === 'OK')
-                                                <span class="bg-green-500 text-white text-xs font-semibold px-2 py-1 rounded">
-                                                    {{ $sg->visual }}
+                                            @if ($sg->visual === 'OK')
+                                                <span
+                                                    class="inline-flex items-center px-2 py-1 text-xs font-semibold text-green-800 bg-green-200 rounded-full">
+                                                    OK
                                                 </span>
                                             @elseif($sg->visual === 'NG')
-                                                <span class="bg-yellow-500 text-black text-xs font-semibold px-2 py-1 rounded">
-                                                    {{ $sg->visual }}
-                                                </span>
-                                            @else
-                                                <span class="bg-gray-300 text-black text-xs font-semibold px-2 py-1 rounded">
-                                                    {{ $sg->visual }}
+                                                <span
+                                                    class="inline-flex items-center px-2 py-1 text-xs font-semibold text-yellow-800 bg-yellow-200 rounded-full">
+                                                    NG
                                                 </span>
                                             @endif
                                         </td>
@@ -129,8 +127,7 @@
 
                                             <form id="delete-form-{{ $sg->id }}"
                                                 action="{{ route('sheetgalvanize.inspeksi.destroy', $sg->id) }}"
-                                                method="POST"
-                                                class="hidden">
+                                                method="POST" class="hidden">
                                                 @csrf
                                                 @method('DELETE')
                                             </form>
