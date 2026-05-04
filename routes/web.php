@@ -120,6 +120,9 @@ Route::middleware([
     Route::resource('subkon', SubkonController::class);
     Route::post('subkon/import', [SubkonController::class, 'import'])
         ->name('subkon.import');
+
+    Route::patch('/inspeksi-wm/{id}/toggle-approval', [InspeksiWmController::class, 'toggleApproval'])
+    ->name('inspeksi-wm.toggle');
 });
 
 require __DIR__.'/auth.php';

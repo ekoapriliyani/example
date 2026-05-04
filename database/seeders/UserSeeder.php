@@ -18,5 +18,6 @@ class UserSeeder extends Seeder
         // User khusus Admin (dibuat sekali saja)
         User::factory()->admin()->create();
         User::factory()->yanto()->create();
+        User::factory()->didik()->create();
     }
 }

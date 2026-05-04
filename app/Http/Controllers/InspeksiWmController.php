@@ -154,13 +154,21 @@ class InspeksiWmController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(InspeksiWm $inspeksiWm)
+    public function destroy($id)
     {
-        $inspeksiWm->delete();
+        if (! in_array(auth()->user()->role, ['supervisor', 'manager', 'administrator'])) {
+            abort(403, 'Tidak punya akses hapus.');
+        }
 
-        return redirect()
-            ->route('inspeksi_wm.index')
-            ->with('success', 'Inspeksi berhasil dihapus');
+        $data = InspeksiWm::findOrFail($id);
+
+        if ($data->isApproved()) {
+            return back()->with('error', 'Data sudah di-approve, tidak bisa dihapus.');
+        }
+
+        $data->delete();
+
+        return back()->with('success', 'Data berhasil dihapus.');
     }
 
     /**
@@ -182,5 +190,37 @@ class InspeksiWmController extends Controller
             'description' => $pro->description,
             'qty' => $pro->qty,
         ]);
+    }
+
+
+    public function toggleApproval($id)
+    {
+        if (! in_array(auth()->user()->role, ['supervisor', 'manager', 'administrator'])) {
+            abort(403, 'Tidak punya akses.');
+        }
+
+        $inspeksi = InspeksiWm::findOrFail($id);
+
+        if ($inspeksi->isApproved()) {
+            // UNAPPROVE
+            $inspeksi->update([
+                'approval_status' => 'PENDING',
+                'approved_by' => null,
+                'approved_at' => null,
+            ]);
+
+            $message = 'Approval dibatalkan.';
+        } else {
+            // APPROVE
+            $inspeksi->update([
+                'approval_status' => 'APPROVED',
+                'approved_by' => auth()->id(),
+                'approved_at' => now(),
+            ]);
+
+            $message = 'Data berhasil di-approve.';
+        }
+
+        return back()->with('success', $message);
     }
 }

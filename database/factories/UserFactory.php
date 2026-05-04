@@ -33,7 +33,7 @@ class UserFactory extends Factory
         'role' => User::INSPECTOR,
     ];
     }
-    
+
     public function admin(): static
     {
         return $this->state(fn (array $attributes) => [
@@ -51,6 +51,16 @@ class UserFactory extends Factory
             'email' => 'yanto@gmail.com',
             'role' => User::INSPECTOR,
             'password' => Hash::make('12345678'),
+        ]);
+    }
+
+    public function didik(): static
+    {
+        return $this->state(fn (array $attributes) => [
+            'name' => 'Didik',
+            'email' => 'didik@gmail.com',
+            'role' => User::MANAGER,
+            'password' => Hash::make('Beva2095'),
         ]);
     }
 

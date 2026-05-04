@@ -20,6 +20,12 @@ return new class extends Migration
             $table->string('grade');
             $table->string('type_coating');
             $table->foreignId('mesin_id')->nullable()->constrained('mesins');
+
+            // Approval
+            $table->string('approval_status')->default('PENDING');
+            $table->foreignId('approved_by')->nullable()->constrained('users')->nullOnDelete();
+            $table->timestamp('approved_at')->nullable();
+
             $table->timestamps();
         });
     }
