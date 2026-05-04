@@ -12,11 +12,11 @@ class UserSeeder extends Seeder
      * Run the database seeds.
      */
     public function run(): void
-{
-    // User random
-    User::factory()->count(10)->create();
-
-    // User khusus Admin (dibuat sekali saja)
-    User::factory()->admin()->create();
-}
+    {
+        // User random
+        // User::factory()->count(2)->create();
+        // User khusus Admin (dibuat sekali saja)
+        User::factory()->admin()->create();
+        User::factory()->yanto()->create();
+    }
 }

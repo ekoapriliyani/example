@@ -19,17 +19,12 @@ use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
 
 
-
 Route::post('/sync-pro-reference', function () {
     Artisan::call('sync:pro-reference');
 
     return back()->with('success', Artisan::output());
 })->middleware(['auth'])->name('sync.pro.reference');
 
-
-// Route::get('/', function () {
-//     return view('welcome');
-// });
 
 Route::get('/', function () {
     return view('dashboard');
@@ -42,7 +37,7 @@ Route::middleware('auth')->group(function () {
 });
 
 // Bungkus semua route inspeksi QC kamu di dalam middleware auth
-Route::middleware('auth')->group(function () {
+Route::middleware(['auth'])->group(function () {
 
     // Route Profile (Bawaan Breeze)
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -51,14 +46,14 @@ Route::middleware('auth')->group(function () {
 
     // Route Fitur QC Kamu
 
-    Route::resource('material', MaterialController::class);
-    Route::post('material/import', [MaterialController::class, 'import'])->name('material.import');
-    Route::post('productwm/import', [ProductWmController::class, 'import'])->name('productwm.import');
-    Route::resource('mesin', MesinController::class);
-    Route::post('/mesin/import', [MesinController::class, 'import'])->name('mesin.import');
+    //Route::resource('material', MaterialController::class);
+    //Route::post('material/import', [MaterialController::class, 'import'])->name('material.import');
+    //Route::post('productwm/import', [ProductWmController::class, 'import'])->name('productwm.import');
+    //Route::resource('mesin', MesinController::class);
+    //Route::post('/mesin/import', [MesinController::class, 'import'])->name('mesin.import');
     Route::resource('productwm', ProductWmController::class);
     Route::resource('pro',ProController::class);
-    Route::resource('supplier', SupplierController::class);
+    //Route::resource('supplier', SupplierController::class);
     Route::resource('incomingbahanbaku', IncomingBahanBakuController::class);
     Route::resource('incomingpvchdpe', IncomingPvcHdpeController::class);
     Route::resource('sheetgalvanize', SheetGalvanizeController::class);
@@ -66,8 +61,8 @@ Route::middleware('auth')->group(function () {
     Route::post('pro/import', [ProController::class, 'import'])->name('pro.import');
 
      // Route Subkon
-    Route::resource('subkon', SubkonController::class);
-    Route::post('subkon/import', [SubkonController::class, 'import'])->name('subkon.import');
+    //Route::resource('subkon', SubkonController::class);
+    //Route::post('subkon/import', [SubkonController::class, 'import'])->name('subkon.import');
 
     // Route Project
     Route::resource('project', ProjectController::class);
@@ -90,19 +85,12 @@ Route::middleware('auth')->group(function () {
     Route::post('incomingbahanbaku/{id}/inspeksi', [IncomingBahanBakuController::class, 'storeInspeksi'])
         ->name('incomingbahanbaku.inspeksi.store');
 
-
-
     // incoming PVC HDPE
     Route::get('incomingpvchdpe/{id}/inspeksi', [IncomingPvcHdpeController::class, 'createInspeksi'])
     ->name('incomingpvchdpe.inspeksi');
 
     Route::post('incomingpvchdpe/{id}/inspeksi', [IncomingPvcHdpeController::class, 'storeInspeksi'])
         ->name('incomingpvchdpe.inspeksi.store');
-
-
-
-
-
 
     Route::get('sheetgalvanize/{id}/inspeksi', [SheetGalvanizeController::class, 'createInspeksi'])
         ->name('sheetgalvanize.inspeksi');
@@ -112,7 +100,28 @@ Route::middleware('auth')->group(function () {
     Route::delete('/sheetgalvanize/inspeksi/{id}', [SheetGalvanizeController::class, 'destroyInspeksi'])
     ->name('sheetgalvanize.inspeksi.destroy');
 
+});
 
+Route::middleware([
+    'role:supervisor,manager,administrator'
+])->group(function () {
+    Route::resource('material', MaterialController::class);
+    Route::post('material/import', [MaterialController::class, 'import'])
+        ->name('material.import');
+
+    Route::resource('mesin', MesinController::class);
+    Route::post('mesin/import', [MesinController::class, 'import'])
+        ->name('mesin.import');
+
+    Route::resource('productwm', ProductWmController::class);
+    Route::post('productwm/import', [ProductWmController::class, 'import'])
+        ->name('productwm.import');
+
+    Route::resource('supplier', SupplierController::class);
+
+    Route::resource('subkon', SubkonController::class);
+    Route::post('subkon/import', [SubkonController::class, 'import'])
+        ->name('subkon.import');
 });
 
 require __DIR__.'/auth.php';
