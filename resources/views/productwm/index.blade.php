@@ -30,7 +30,7 @@
                         Import Product WM via Excel
                     </h3>
 
-                    <form action="{{ route('material.import') }}" method="POST" enctype="multipart/form-data"
+                    <form action="{{ route('productwm.import') }}" method="POST" enctype="multipart/form-data"
                         class="flex items-end gap-4">
                         @csrf
                         <div class="flex-1">

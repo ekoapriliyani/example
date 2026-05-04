@@ -33,12 +33,12 @@ class UserFactory extends Factory
     ];
     }
     
-    public function yanto(): static
+    public function admin(): static
     {
         return $this->state(fn (array $attributes) => [
-            'name' => 'Yanto',
-            'email' => 'yanto@gmail.com',
-            'password' => Hash::make('12345678'),
+            'name' => 'Admin',
+            'email' => 'admin@gmail.com',
+            'password' => Hash::make('Beva2095'),
         ]);
     }
 

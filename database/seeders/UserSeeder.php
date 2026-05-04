@@ -16,7 +16,7 @@ class UserSeeder extends Seeder
     // User random
     User::factory()->count(10)->create();
 
-    // User khusus Yanto (dibuat sekali saja)
-    User::factory()->yanto()->create();
+    // User khusus Admin (dibuat sekali saja)
+    User::factory()->admin()->create();
 }
 }

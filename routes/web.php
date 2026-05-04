@@ -53,6 +53,7 @@ Route::middleware('auth')->group(function () {
 
     Route::resource('material', MaterialController::class);
     Route::post('material/import', [MaterialController::class, 'import'])->name('material.import');
+    Route::post('productwm/import', [ProductWmController::class, 'import'])->name('productwm.import');
     Route::resource('mesin', MesinController::class);
     Route::post('/mesin/import', [MesinController::class, 'import'])->name('mesin.import');
     Route::resource('productwm', ProductWmController::class);

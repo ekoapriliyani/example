@@ -13,6 +13,11 @@ return new class extends Migration
     {
         Schema::create('fabrications', function (Blueprint $table) {
             $table->id();
+            $table->date('tanggal');
+            $table->foreignId('project_id')->constrained('projects')->onDelete('cascade');
+            $table->foreignId('subkon_id')->constrained('subkons')->onDelete('cascade');
+            $table->string('report_no');
+            $table->string('drawing_no');
             $table->timestamps();
         });
     }
