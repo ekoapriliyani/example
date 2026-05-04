@@ -32,6 +32,7 @@ class DatabaseSeeder extends Seeder
             UserSeeder::class,
             MesinSeeder::class,
             SupplierSeeder::class,
+            ProductWmSeeder::class,
         ]);
 
 

@@ -18,6 +18,37 @@
 
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+
+            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg border border-gray-200">
+                <div class="p-6">
+                    <h3 class="text-sm font-bold text-gray-700 uppercase mb-4 flex items-center gap-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="size-5 text-green-600" fill="none"
+                            viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                        </svg>
+                        Import Product WM via Excel
+                    </h3>
+
+                    <form action="{{ route('material.import') }}" method="POST" enctype="multipart/form-data"
+                        class="flex items-end gap-4">
+                        @csrf
+                        <div class="flex-1">
+                            <label class="block text-xs font-medium text-gray-500 mb-1">Pilih File (.xlsx /
+                                .csv)</label>
+                            <input type="file" name="file" accept=".xlsx, .xls, .csv" required
+                                class="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-indigo-50 file:text-indigo-700 hover:file:bg-indigo-100 border border-gray-300 rounded-md focus:outline-none" />
+                        </div>
+                        <button type="submit"
+                            class="inline-flex items-center px-4 py-2 bg-green-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-green-700 active:bg-green-900 transition ease-in-out duration-150">
+                            Upload & Proses
+                        </button>
+                    </form>
+                    <p class="mt-2 text-xs text-gray-400 font-medium">* Format kolom: <span
+                            class="text-indigo-600 italic">......</span> (ID akan dibuat otomatis)</p>
+                </div>
+            </div>
+
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900">
 

@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Imports\ProductWmImport;
 use App\Models\ProductWm;
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
 
 class ProductWmController extends Controller
 {
@@ -88,5 +90,21 @@ class ProductWmController extends Controller
     {
         $productwm->delete();
         return redirect()->route('productwm.index')->with('success', 'data produk wm berhasil dihapus');
+    }
+
+    public function import(Request $request)
+    {
+        $request->validate([
+            'file' => 'required|mimes:xlsx,xls,csv'
+        ]);
+
+        Excel::import(
+            new ProductWmImport(),
+            $request->file('file')
+        );
+
+        return redirect()
+            ->back()
+            ->with('success', 'Data Product WM berhasil diimport');
     }
 }

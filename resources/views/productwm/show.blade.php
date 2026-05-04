@@ -56,12 +56,8 @@
                             <dd class="text-gray-700 text-base sm:col-span-2">{{ $productwm->d_kawat }}</dd>
                         </div>
                         <div class="grid grid-cols-1 gap-1 py-4 sm:grid-cols-3 sm:gap-4">
-                            <dt class="font-semibold text-gray-900">Tol Min D</dt>
-                            <dd class="text-gray-700 text-base sm:col-span-2">{{ $productwm->tol_min_d }}</dd>
-                        </div>
-                        <div class="grid grid-cols-1 gap-1 py-4 sm:grid-cols-3 sm:gap-4">
-                            <dt class="font-semibold text-gray-900">Tol Max D</dt>
-                            <dd class="text-gray-700 text-base sm:col-span-2">{{ $productwm->tol_max_d }}</dd>
+                            <dt class="font-semibold text-gray-900">Tol -/+ D</dt>
+                            <dd class="text-gray-700 text-base sm:col-span-2">{{ $productwm->tol_d }}</dd>
                         </div>
                         <div class="grid grid-cols-1 gap-1 py-4 sm:grid-cols-3 sm:gap-4">
                             <dt class="font-semibold text-gray-900">Panjang Product</dt>
