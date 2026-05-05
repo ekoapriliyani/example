@@ -24,7 +24,9 @@
                         </div>
                         <div class="">
                             <x-input-label for="tanggal" :value="__('Tanggal')" />
-                            <input type="date" name="tanggal">
+                            <input type="date" name="tanggal"
+                                class="mt-1 block w-full border-gray-300 rounded-md shadow-sm"
+                                value="{{ old('tanggal') }}" required>
                             <x-input-error class="mt-2" :messages="$errors->get('tanggal')" />
                         </div>
                         <div>
@@ -68,11 +70,21 @@
                         <div>
                             <x-input-label for="d_kawat" :value="__('D Kawat')" />
                             <div class="relative mt-1">
-                                <x-text-input id="d_kawat" name="d_kawat" type="number" step="0.01"
-                                    class="block w-full pr-12" :value="old('d_kawat')" />
+                                <select id="d_kawat" name="d_kawat" class="block w-full border rounded px-3 py-2">
+                                    <option value="">-- Pilih Diameter --</option>
+                                    <option value="1.6">1.6</option>
+                                    <option value="2">2</option>
+                                    <option value="2.7">2.7</option>
+                                    <option value="3">3</option>
+                                    <option value="3.4">3.4</option>
+                                    <option value="4">4</option>
+                                    <option value="5.6">5.6</option>
+                                    <option value="8">8</option>
+                                </select>
                             </div>
                             <x-input-error class="mt-2" :messages="$errors->get('d_kawat')" />
                         </div>
+
                         <div>
                             <x-input-label for="tol" :value="__('Toleransi')" />
                             <div class="relative mt-1">
@@ -117,5 +129,20 @@
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 
+    <script>
+        $(document).ready(function() {
 
+            $('#supplier_id').select2({
+                placeholder: '-- Pilih Supplier --',
+                allowClear: true,
+                width: '100%'
+            });
+
+            $('#d_kawat').select2({
+                placeholder: '-- Pilih Diameter Kawat --',
+                allowClear: true,
+                width: '100%'
+            });
+        });
+    </script>
 </x-app-layout>
