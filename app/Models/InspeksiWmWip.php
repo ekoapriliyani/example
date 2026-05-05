@@ -25,6 +25,8 @@ class InspeksiWmWip extends Model
             'torsi_strength',
             'status_dimensi',
             'visual',
+            'shear_strength',
+            'weight',
             'files',
         ];
     

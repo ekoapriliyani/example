@@ -44,6 +44,8 @@ class InspeksiWmWipController extends Controller
             'torsi_strength'    => 'required|in:OK,NG',
             'status_dimensi'    => 'required|in:OK,NG',
             'visual'    => 'required|in:OK,NG',
+            'shear_strength'    => 'required',
+            'weight'    => 'required',
 
             'detail_name'       => 'nullable|array',
             'detail_name.*'     => 'nullable|string|max:255',
@@ -73,6 +75,8 @@ class InspeksiWmWipController extends Controller
             'torsi_strength'   => $validated['torsi_strength'],
             'status_dimensi'   => $validated['status_dimensi'],
             'visual'   => $validated['visual'],
+            'shear_strength'   => $validated['shear_strength'],
+            'weight'   => $validated['weight'],
         ]);
 
         // simpan file multiple ke kolom JSON
