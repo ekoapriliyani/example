@@ -137,12 +137,6 @@
                 allowClear: true,
                 width: '100%'
             });
-
-            $('#d_kawat').select2({
-                placeholder: '-- Pilih Diameter Kawat --',
-                allowClear: true,
-                width: '100%'
-            });
         });
     </script>
 </x-app-layout>
