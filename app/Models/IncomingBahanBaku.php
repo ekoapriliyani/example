@@ -26,4 +26,9 @@ class IncomingBahanBaku extends Model
     public function incomingbahanbakuinspeksi() {
         return $this->hasMany(IncomingBahanBakuInspeksi::class);
     }
+
+    public function tensiles()
+    {
+        return $this->hasMany(Tensile::class);
+    }
 }

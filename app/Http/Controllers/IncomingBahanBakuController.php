@@ -201,4 +201,11 @@ class IncomingBahanBakuController extends Controller
             ->route('incomingbahanbaku.show', $id)
             ->with('success', 'Data inspeksi berhasil ditambahkan');
     }
+
+    public function createTensile($id)
+    {
+        $incomingbahanbaku = IncomingBahanBaku::findOrFail($id);
+
+        return view('incomingbahanbaku.tensile_create', compact('incomingbahanbaku'));
+    }
 }
