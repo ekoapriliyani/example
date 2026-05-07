@@ -11,11 +11,15 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('tensiles', function (Blueprint $table) {
+        Schema::create('mechanical_tests', function (Blueprint $table) {
             $table->id();
+            $table->string('nomor_koil')->nullable();
             $table->foreignId('incoming_bahan_baku_id')->constrained('incoming_bahan_bakus')->onDelete('cascade');
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
-            $table->decimal('nilai_tensile', 8,2)->nullable();
+            $table->decimal('hasil_tensile', 8,2)->nullable();
+            $table->decimal('hasil_coatingweight', 8,2)->nullable();
+            $table->string('hasil_lilit')->nullable();
+            $table->string('hasil_puntir')->nullable();
             $table->timestamps();
         });
     }
@@ -25,6 +29,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('tensiles');
+        Schema::dropIfExists('mechanical_tests');
     }
 };

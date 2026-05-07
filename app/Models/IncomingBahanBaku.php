@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Models\Supplier;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\MechanicalTest;
 
 class IncomingBahanBaku extends Model
 {
@@ -27,8 +28,8 @@ class IncomingBahanBaku extends Model
         return $this->hasMany(IncomingBahanBakuInspeksi::class);
     }
 
-    public function tensiles()
+    public function mechanicalTests()
     {
-        return $this->hasMany(Tensile::class);
+        return $this->hasMany(MechanicalTest::class, 'incoming_bahan_baku_id');
     }
 }

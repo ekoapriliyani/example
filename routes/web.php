@@ -70,9 +70,13 @@ Route::middleware(['auth'])->group(function () {
     // incoming bahan baku
     Route::get('incomingbahanbaku/{id}/inspeksi', [IncomingBahanBakuController::class, 'createInspeksi'])
     ->name('incomingbahanbaku.inspeksi');
+    Route::get('incomingbahanbaku/{id}/mechanicaltest', [IncomingBahanBakuController::class, 'createMechanicalTest'])
+    ->name('incomingbahanbaku.mechanicaltest');
 
     Route::post('incomingbahanbaku/{id}/inspeksi', [IncomingBahanBakuController::class, 'storeInspeksi'])
         ->name('incomingbahanbaku.inspeksi.store');
+    Route::post('incomingbahanbaku/{id}/mechanicaltest', [IncomingBahanBakuController::class, 'storeMechanicalTest'])
+        ->name('incomingbahanbaku.mechanical_test.store');
 
     // incoming PVC HDPE
     Route::get('incomingpvchdpe/{id}/inspeksi', [IncomingPvcHdpeController::class, 'createInspeksi'])

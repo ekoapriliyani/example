@@ -17,7 +17,7 @@
                     </svg>
                     Tambah Inspeksi
                 </a>
-                <a href=""
+                <a href="{{ route('incomingbahanbaku.mechanicaltest', $incomingbahanbaku->id) }}"
                     class="inline-flex items-center gap-2 rounded-md bg-green-700 px-4 py-2 text-sm font-semibold text-white">Mechanical
                     Test</a>
             </div>
@@ -214,7 +214,71 @@
                         </div>
                     </div>
                 @endforeach
+            </div>
 
+            {{-- mechanical test --}}
+            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg border border-gray-200">
+                <div class="p-6">
+                    <div class="flex items-center gap-2 mb-4">
+                        <div class="p-2 bg-blue-100 rounded-lg text-blue-600">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="size-5" fill="none"
+                                viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
+                            </svg>
+                        </div>
+                        <h3 class="text-lg font-bold text-gray-800">Hasil Mechanical Test</h3>
+                    </div>
+
+                    <div class="overflow-x-auto rounded-lg border border-gray-200">
+                        <table class="min-w-full divide-y divide-gray-200 text-sm text-left">
+                            <thead class="bg-gray-50">
+                                <tr>
+                                    <th class="px-4 py-3 font-semibold text-gray-900">No</th>
+                                    <th class="px-4 py-3 font-semibold text-gray-900">Inspektor</th>
+                                    <th class="px-4 py-3 font-semibold text-gray-900">No Koil</th>
+                                    <th class="px-4 py-3 font-semibold text-gray-900">Hasil Tensile</th>
+                                    <th class="px-4 py-3 font-semibold text-gray-900">Hasil Coating Weight</th>
+                                    <th class="px-4 py-3 font-semibold text-gray-900">Hasil Lilit</th>
+                                    <th class="px-4 py-3 font-semibold text-gray-900">Hasil Puntir</th>
+                                    <th class="px-4 py-3 font-semibold text-gray-900 text-center">Created At</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-gray-200">
+                                @forelse ($incomingbahanbaku->mechanicalTests as $test)
+                                    <tr class="hover:bg-gray-50 transition-colors">
+                                        <td class="px-4 py-3">{{ $loop->iteration }}</td>
+                                        <td class="px-4 py-3">{{ $test->user->name ?? 'N/A' }}</td>
+                                        <td class="px-4 py-3">{{ $test->nomor_koil }}</td>
+                                        <td class="px-4 py-3">{{ $test->hasil_tensile }} Mpa</td>
+                                        <td class="px-4 py-3">{{ $test->hasil_coatingweight }} g/m<sup>2</sup></td>
+                                        <td class="px-4 py-3">
+                                            @if ($test->hasil_lilit === 'OK')
+                                                <span
+                                                    class="inline-flex items-center px-2 py-1 text-xs font-semibold text-green-800 bg-green-200 rounded-full">
+                                                    OK
+                                                </span>
+                                            @elseif($test->hasil_lilit === 'CRACK')
+                                                <span
+                                                    class="inline-flex items-center px-2 py-1 text-xs font-semibold text-red-800 bg-red-200 rounded-full">
+                                                    CRACK
+                                                </span>
+                                            @endif
+                                        </td>
+                                        <td class="px-4 py-3">{{ $test->hasil_puntir }} kali</td>
+                                        <td class="px-4 py-3 text-center bg-blue-50/30">{{ $test->created_at }}</td>
+                                    </tr>
+                                @empty
+                                    <tr>
+                                        <td colspan="5" class="px-4 py-8 text-center text-gray-400 italic">Belum
+                                            ada
+                                            data Inspeksi Incoming Bahan Baku.</td>
+                                    </tr>
+                                @endforelse
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

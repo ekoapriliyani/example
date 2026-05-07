@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\IncomingBahanBaku;
 use App\Models\IncomingBahanBakuInspeksi;
+use App\Models\MechanicalTest;
 use App\Models\Supplier;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -98,6 +99,8 @@ class IncomingBahanBakuController extends Controller
      */
     public function show(IncomingBahanBaku $incomingbahanbaku)
     {
+        $incomingbahanbaku->load('mechanicalTests');
+
         return view('incomingbahanbaku.show', compact('incomingbahanbaku'));
     }
 
@@ -202,10 +205,39 @@ class IncomingBahanBakuController extends Controller
             ->with('success', 'Data inspeksi berhasil ditambahkan');
     }
 
-    public function createTensile($id)
+    public function createMechanicalTest($id)
     {
         $incomingbahanbaku = IncomingBahanBaku::findOrFail($id);
+        
+        return view('incomingbahanbaku.mechanical_test_create', compact('incomingbahanbaku'));
+    }
 
-        return view('incomingbahanbaku.tensile_create', compact('incomingbahanbaku'));
+    public function storeMechanicalTest(Request $request, $id)
+    {
+        $validated = $request->validate([
+            'nomor_koil' => 'required',
+            'hasil_tensile' => 'required',
+            'hasil_coatingweight' => 'required',
+            'hasil_lilit' => 'required',
+            'hasil_puntir' => 'required',
+        ]);
+
+        if (!Auth::check()) {
+            return redirect()->back()->with('error', 'Sesi login berakhir. Silakan login kembali.');
+        }
+
+        $mechanicalTest = MechanicalTest::create([
+            'incoming_bahan_baku_id' => $id,
+            'user_id' => Auth::id(),
+            'nomor_koil' => $validated['nomor_koil'],
+            'hasil_tensile' => $validated['hasil_tensile'],
+            'hasil_coatingweight' => $validated['hasil_coatingweight'],
+            'hasil_lilit' => $validated['hasil_lilit'],
+            'hasil_puntir' => $validated['hasil_puntir'],
+        ]);
+
+        return redirect()
+            ->route('incomingbahanbaku.show', $id)
+            ->with('success', 'Data mechanical test berhasil ditambahkan');
     }
 }
