@@ -63,8 +63,8 @@
                                         <th class="px-4 py-3 font-semibold text-gray-900 text-left">D Kawat</th>
                                         <th class="px-4 py-3 font-semibold text-gray-900 text-left">Tol Kawat</th>
                                         <th class="px-4 py-3 font-semibold text-gray-900 text-left">Jenis Kawat</th>
-                                        <th class="px-4 py-3 font-semibold text-gray-900 text-left">Created At</th>
                                         <th class="px-4 py-3 font-semibold text-gray-900 text-right">Aksi</th>
+                                        <th class="px-4 py-3 font-semibold text-gray-900 text-left">Created At</th>
                                     </tr>
                                 </thead>
 
@@ -88,29 +88,53 @@
                                             <td class="px-4 py-3 font-medium text-gray-900">{{ $item->tol }}
                                             <td class="px-4 py-3 font-medium text-gray-900">{{ $item->jenis_kawat }}
                                             </td>
-                                            <td class="px-4 py-3 font-medium text-gray-900">{{ $item->created_at }}
+                                            <td class="px-4 py-3 whitespace-nowrap">
+                                                <div class="flex justify-end items-center gap-2">
+                                                    <!-- Detail -->
+                                                    <a href="{{ route('incomingbahanbaku.show', $item->id) }}"
+                                                        class="flex items-center justify-center rounded bg-indigo-50 p-2 text-indigo-700 hover:bg-indigo-100 transition">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4"
+                                                            fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                            <path stroke-linecap="round" stroke-linejoin="round"
+                                                                stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                                                            <path stroke-linecap="round" stroke-linejoin="round"
+                                                                stroke-width="2"
+                                                                d="M2.458 12C3.732 7.943 7.523 5 12 5c4.477 0 8.268 2.943 9.542 7-1.274 4.057-5.065 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                                                        </svg>
+                                                    </a>
+                                                    <!-- Edit -->
+                                                    <a href="{{ route('incomingbahanbaku.edit', $item->id) }}"
+                                                        class="flex items-center justify-center rounded bg-yellow-50 p-2 text-yellow-700 hover:bg-yellow-100 transition">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4"
+                                                            fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                            <path stroke-linecap="round" stroke-linejoin="round"
+                                                                stroke-width="2"
+                                                                d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5" />
+                                                            <path stroke-linecap="round" stroke-linejoin="round"
+                                                                stroke-width="2"
+                                                                d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z" />
+                                                        </svg>
+                                                    </a>
+                                                    <!-- Delete -->
+                                                    <button type="button"
+                                                        onclick="confirmDelete({{ $item->id }}, '{{ $item->nomor_inspeksi }}')"
+                                                        class="flex items-center justify-center rounded bg-red-50 p-2 text-red-700 hover:bg-red-100 transition">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4"
+                                                            fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                            <path stroke-linecap="round" stroke-linejoin="round"
+                                                                stroke-width="2"
+                                                                d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3" />
+                                                        </svg>
+                                                    </button>
+                                                    <form id="delete-form-{{ $item->id }}"
+                                                        action="{{ route('incomingbahanbaku.destroy', $item->id) }}"
+                                                        method="POST" class="hidden">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                    </form>
+                                                </div>
                                             </td>
-
-                                            <td class="px-4 py-3 text-right whitespace-nowrap space-x-2">
-                                                <a href="{{ route('incomingbahanbaku.show', $item->id) }}"
-                                                    class="inline-block rounded bg-indigo-50 px-3 py-1.5 text-xs font-bold text-indigo-700 hover:bg-indigo-100 transition">
-                                                    View Details
-                                                </a>
-                                                <a href="{{ route('incomingbahanbaku.edit', $item->id) }}"
-                                                    class="inline-block rounded bg-yellow-50 px-3 py-1.5 text-xs font-bold text-indigo-700 hover:bg-yellow-100 transition">
-                                                    Edit
-                                                </a>
-                                                <button type="button"
-                                                    onclick="confirmDelete({{ $item->id }}, '{{ $item->nomor_inspeksi }}')"
-                                                    class="inline-block rounded bg-red-50 px-3 py-1.5 text-xs font-bold text-red-700 hover:bg-red-100 transition">
-                                                    Delete
-                                                </button>
-                                                <form id="delete-form-{{ $item->id }}"
-                                                    action="{{ route('incomingbahanbaku.destroy', $item->id) }}"
-                                                    method="POST" class="hidden">
-                                                    @csrf
-                                                    @method('DELETE')
-                                                </form>
+                                            <td class="px-4 py-3 font-medium text-gray-900">{{ $item->created_at }}
                                             </td>
                                         </tr>
                                     @empty

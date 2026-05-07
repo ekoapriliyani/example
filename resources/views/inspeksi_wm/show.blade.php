@@ -408,8 +408,78 @@
                     </div>
                 </div>
             </div>
+
+            {{-- section approval --}}
+            <div class="overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-sm">
+                <div class="p-6">
+                    <div class="flex flex-col gap-5 md:flex-row md:items-center md:justify-between">
+                        <!-- Left -->
+                        <div class="flex items-start gap-4">
+                            <div
+                                class="flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-br from-green-100 to-emerald-50 text-green-600 shadow-sm">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7" fill="none"
+                                    viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                </svg>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-bold text-gray-900">
+                                    Approval Inspeksi WM
+                                </h3>
+                                <p class="mt-1 text-sm text-gray-500">
+                                    Review data inspeksi sebelum melakukan approval.
+                                </p>
+                            </div>
+                        </div>
+                        <!-- Middle + Right -->
+                        <div class="flex items-center gap-4">
+                            <!-- Status -->
+                            @if ($inspeksi_wm->isApproved())
+                                <span
+                                    class="inline-flex items-center gap-2 rounded-full border border-green-200 bg-green-50 px-4 py-2 text-sm font-semibold text-green-700">
+                                    <span class="h-2.5 w-2.5 rounded-full bg-green-500"></span>
+                                    Approved
+                                </span>
+                            @else
+                                <span
+                                    class="inline-flex items-center gap-2 rounded-full border border-yellow-200 bg-yellow-50 px-4 py-2 text-sm font-semibold text-yellow-700">
+                                    <span class="h-2.5 w-2.5 rounded-full bg-yellow-500"></span>
+                                    Waiting Approval
+                                </span>
+                            @endif
+                            <!-- Button -->
+                            @if (in_array(auth()->user()->role, ['supervisor', 'manager', 'administrator']))
+                                <form id="approval-form-{{ $inspeksi_wm->id }}"
+                                    action="{{ route('inspeksi-wm.toggle', $inspeksi_wm->id) }}" method="POST"
+                                    class="hidden">
+                                    @csrf
+                                    @method('PATCH')
+                                </form>
+                                <button type="button"
+                                    onclick="confirmApproval({{ $inspeksi_wm->id }}, '{{ $inspeksi_wm->isApproved() ? 'unapprove' : 'approve' }}')"
+                                    class="inline-flex items-center gap-2 rounded-xl px-5 py-2.5 text-sm font-semibold shadow-sm transition
+                        {{ $inspeksi_wm->isApproved()
+                            ? 'bg-orange-500 text-white hover:bg-orange-600'
+                            : 'bg-green-600 text-white hover:bg-green-700' }}">
+                                    @if ($inspeksi_wm->isApproved())
+                                        <span class="text-base">↺</span>
+                                        Unapprove
+                                    @else
+                                        <span class="text-base">✓</span>
+                                        Approve
+                                    @endif
+                                </button>
+                            @endif
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
+    </div>
+
+
     <script>
         function toggleDetail(id) {
             const modal = document.getElementById('detail-' + id);
@@ -466,6 +536,27 @@
             }).then((result) => {
                 if (result.isConfirmed) {
                     document.getElementById('delete-form-' + id).submit();
+                }
+            })
+        }
+
+        function confirmApproval(id, type) {
+            let isUnapprove = type === 'unapprove';
+
+            Swal.fire({
+                title: isUnapprove ? 'Batalkan approval?' : 'Approve data?',
+                text: isUnapprove ?
+                    "Status akan kembali ke Pending." : "Data akan disetujui.",
+                icon: isUnapprove ? 'warning' : 'question',
+                showCancelButton: true,
+                confirmButtonColor: isUnapprove ? '#f97316' : '#16a34a',
+                cancelButtonColor: '#4f46e5',
+                confirmButtonText: isUnapprove ? 'Ya, Unapprove!' : 'Ya, Approve!',
+                cancelButtonText: 'Batal',
+                reverseButtons: true
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    document.getElementById('approval-form-' + id).submit();
                 }
             })
         }

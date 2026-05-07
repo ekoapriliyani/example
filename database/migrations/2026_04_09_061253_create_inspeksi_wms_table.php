@@ -14,6 +14,7 @@ return new class extends Migration
             Schema::create('inspeksi_wms', function (Blueprint $table) {
             $table->id();
             $table->string('nomor_inspeksi');
+            $table->date('tanggal');
             $table->foreignId('pro_id')->constrained('pros');
             $table->foreignId('product_wm_ref_id')->nullable()->constrained('product_wms');
             $table->string('shift');

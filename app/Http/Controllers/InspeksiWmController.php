@@ -60,6 +60,7 @@ class InspeksiWmController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
+            'tanggal' => 'required|date',
             'pro_id' => 'required|exists:pros,id',
             'product_wm_ref_id' => 'nullable|exists:product_wms,id',
             'shift' => 'required',
@@ -86,6 +87,7 @@ class InspeksiWmController extends Controller
 
         InspeksiWm::create([
             'nomor_inspeksi' => $nomorOtomatis,
+            'tanggal' => $validated['tanggal'],
             'pro_id' => $validated['pro_id'], // ini FK ke pros.id
             'product_wm_ref_id' => $validated['product_wm_ref_id'] ?? null,
             'shift' => $validated['shift'],
@@ -127,6 +129,7 @@ class InspeksiWmController extends Controller
     public function update(Request $request, InspeksiWm $inspeksi_wm)
     {
         $validated = $request->validate([
+            'tanggal' => 'required|date',
             'pro_id' => 'required|exists:pros,id',
             'product_wm_ref_id' => 'nullable|exists:product_wms,id',
             'shift' => 'required',
@@ -137,6 +140,7 @@ class InspeksiWmController extends Controller
         ]);
 
         $inspeksi_wm->update([
+            'tanggal' => $validated['tanggal'],
             'pro_id' => $validated['pro_id'],
             'product_wm_ref_id' => $validated['product_wm_ref_id'] ?? null,
             'shift' => $validated['shift'],

@@ -100,7 +100,6 @@
                         </div>
                         <h3 class="text-lg font-bold text-gray-800">Hasil Inspeksi Icoming Bahan Baku</h3>
                     </div>
-
                     <div class="overflow-x-auto rounded-lg border border-gray-200">
                         <table class="min-w-full divide-y divide-gray-200 text-sm text-left">
                             <thead class="bg-gray-50">
@@ -117,6 +116,7 @@
                                     <th class="px-4 py-3 font-semibold text-gray-900">Keterangan</th>
                                     <th class="px-4 py-3 font-semibold text-gray-900">Gambar</th>
                                     <th class="px-4 py-3 font-semibold text-gray-900 text-center">Created At</th>
+                                    <th class="px-4 py-3 font-semibold text-gray-900 text-center">Aksi</th>
                                 </tr>
                             </thead>
                             <tbody class="divide-y divide-gray-200">
@@ -155,7 +155,6 @@
                                                 </span>
                                             @endif
                                         </td>
-
                                         <td class="px-4 py-3">{{ $inc->keterangan }}</td>
                                         <td class="px-4 py-3">
                                             <button type="button" class="text-sm text-indigo-600 hover:underline"
@@ -163,8 +162,56 @@
                                                 Lihat Gambar
                                             </button>
                                         </td>
-
                                         <td class="px-4 py-3 text-center bg-blue-50/30">{{ $inc->created_at }}</td>
+                                        <td class="px-4 py-3">
+                                            <div class="flex items-center justify-center gap-2">
+
+                                                <!-- Edit -->
+                                                <a href="{{ route('incomingbahanbaku.inspeksi.edit', [
+                                                    'incomingbahanbaku' => $incomingbahanbaku->id,
+                                                    'inspeksi' => $inc->id,
+                                                ]) }}"
+                                                    class="flex items-center justify-center rounded bg-yellow-50 p-2 text-yellow-700 hover:bg-yellow-100 transition">
+
+                                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4"
+                                                        fill="none" viewBox="0 0 24 24" stroke="currentColor">
+
+                                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                                            stroke-width="2"
+                                                            d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5" />
+
+                                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                                            stroke-width="2"
+                                                            d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z" />
+                                                    </svg>
+
+                                                </a>
+
+                                                <!-- Delete -->
+                                                <form
+                                                    action="{{ route('incomingbahanbaku.inspeksi.destroy', $inc->id) }}"
+                                                    method="POST" class="form-delete inline">
+
+                                                    @csrf
+                                                    @method('DELETE')
+
+                                                    <button type="submit"
+                                                        class="flex items-center justify-center rounded bg-red-50 p-2 text-red-700 hover:bg-red-100 transition">
+
+                                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4"
+                                                            fill="none" viewBox="0 0 24 24" stroke="currentColor">
+
+                                                            <path stroke-linecap="round" stroke-linejoin="round"
+                                                                stroke-width="2"
+                                                                d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3" />
+                                                        </svg>
+
+                                                    </button>
+
+                                                </form>
+
+                                            </div>
+                                        </td>
                                     </tr>
                                 @empty
                                     <tr>
@@ -242,6 +289,7 @@
                                     <th class="px-4 py-3 font-semibold text-gray-900">Hasil Lilit</th>
                                     <th class="px-4 py-3 font-semibold text-gray-900">Hasil Puntir</th>
                                     <th class="px-4 py-3 font-semibold text-gray-900 text-center">Created At</th>
+                                    <th class="px-4 py-3 font-semibold text-gray-900">Actions</th>
                                 </tr>
                             </thead>
                             <tbody class="divide-y divide-gray-200">
@@ -267,12 +315,44 @@
                                         </td>
                                         <td class="px-4 py-3">{{ $test->hasil_puntir }} kali</td>
                                         <td class="px-4 py-3 text-center bg-blue-50/30">{{ $test->created_at }}</td>
+                                        <td class="px-4 py-3">
+                                            <div class="flex items-center justify-center gap-2">
+                                                <!-- Edit -->
+                                                <a href="{{ route('incomingbahanbaku.mechanical_test.edit', ['incomingbahanbaku' => $incomingbahanbaku->id, 'mechanicalTest' => $test->id]) }}"
+                                                    class="flex items-center justify-center rounded bg-yellow-50 p-2 text-yellow-700 hover:bg-yellow-100 transition">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4"
+                                                        fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                                            stroke-width="2"
+                                                            d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5" />
+                                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                                            stroke-width="2"
+                                                            d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z" />
+                                                    </svg>
+                                                </a>
+                                                <!-- Delete -->
+                                                <form
+                                                    action="{{ route('incomingbahanbaku.mechanical_test.destroy', $test->id) }}"
+                                                    method="POST" class="form-delete inline">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button type="submit"
+                                                        class="flex items-center justify-center rounded bg-red-50 p-2 text-red-700 hover:bg-red-100 transition">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4"
+                                                            fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                            <path stroke-linecap="round" stroke-linejoin="round"
+                                                                stroke-width="2"
+                                                                d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3" />
+                                                        </svg>
+                                                    </button>
+                                                </form>
+                                            </div>
+                                        </td>
                                     </tr>
                                 @empty
                                     <tr>
                                         <td colspan="5" class="px-4 py-8 text-center text-gray-400 italic">Belum
-                                            ada
-                                            data Inspeksi Incoming Bahan Baku.</td>
+                                            ada data Mechanical Test.</td>
                                     </tr>
                                 @endforelse
                             </tbody>
@@ -308,13 +388,13 @@
     <script>
         function confirmDelete(id, name) {
             Swal.fire({
-                title: 'Hapus seluruh record?',
-                text: "Semua data WIP dan inc terkait " + name + " akan ikut terhapus!",
+                title: 'Hapus Pengetesan?',
+                text: "Data  " + name + " akan ikut terhapus!",
                 icon: 'warning',
                 showCancelButton: true,
                 confirmButtonColor: '#dc2626',
                 cancelButtonColor: '#4f46e5',
-                confirmButtonText: 'Ya, Hapus Semua!',
+                confirmButtonText: 'Ya, Lanjut Hapus!',
                 cancelButtonText: 'Batal',
                 reverseButtons: true
             }).then((result) => {
@@ -323,5 +403,35 @@
                 }
             })
         }
+    </script>
+
+
+    <script>
+        document.querySelectorAll('.form-delete').forEach(form => {
+
+            form.addEventListener('submit', function(e) {
+
+                e.preventDefault();
+
+                Swal.fire({
+                    title: 'Yakin hapus data?',
+                    text: "Data tidak bisa dikembalikan!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#d33',
+                    cancelButtonColor: '#6b7280',
+                    confirmButtonText: 'Ya, Hapus!',
+                    cancelButtonText: 'Batal'
+                }).then((result) => {
+
+                    if (result.isConfirmed) {
+                        form.submit();
+                    }
+
+                });
+
+            });
+
+        });
     </script>
 </x-app-layout>

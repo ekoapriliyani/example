@@ -45,7 +45,8 @@
                     <!-- Hasil Puntir -->
                     <div class="mb-4">
                         <label>Hasil Puntir</label>
-                        <input type="number" name="hasil_puntir" class="w-full border rounded px-3 py-2" required>
+                        <input type="number" step="0.01" name="hasil_puntir" class="w-full border rounded px-3 py-2"
+                            required>
                     </div>
 
                     <div class="flex justify-end gap-2">

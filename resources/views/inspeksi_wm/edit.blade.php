@@ -25,6 +25,12 @@
                                 class="mt-1 block w-full bg-gray-100"
                                 value="{{ old('nomor_inspeksi', $inspeksi_wm->nomor_inspeksi) }}" readonly />
                         </div>
+                        <div>
+                            <x-input-label for="tanggal" :value="__('Tanggal Inspeksi')" />
+                            <x-text-input id="tanggal" name="tanggal" type="date"
+                                class="mt-1 block w-full bg-gray-100"
+                                value="{{ old('tanggal', $inspeksi_wm->tanggal) }}" />
+                        </div>
 
                         <div>
                             <x-input-label for="pro_id" :value="__('PRO Number')" />

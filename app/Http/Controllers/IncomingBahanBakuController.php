@@ -9,6 +9,7 @@ use App\Models\Supplier;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class IncomingBahanBakuController extends Controller
 {
@@ -205,6 +206,77 @@ class IncomingBahanBakuController extends Controller
             ->with('success', 'Data inspeksi berhasil ditambahkan');
     }
 
+    public function editInspeksi(
+        IncomingBahanBaku $incomingbahanbaku,
+        IncomingBahanBakuInspeksi $inspeksi) 
+    {
+        return view(
+            'incomingbahanbaku.inspeksi.edit',
+            compact('incomingbahanbaku', 'inspeksi')
+        );
+    }
+
+    public function updateInspeksi(
+        Request $request,
+        IncomingBahanBaku $incomingbahanbaku,
+        IncomingBahanBakuInspeksi $inspeksi) 
+    {
+        $validated = $request->validate([
+            'no_koil' => 'required',
+            'd1' => 'required|numeric',
+            'd2' => 'required|numeric',
+            'd3' => 'required|numeric',
+            'dimensi' => 'required',
+            'visual' => 'required',
+            'keterangan' => 'nullable',
+            'files.*' => 'image|mimes:jpg,jpeg,png|max:2048',
+        ]);
+
+        $validated['rata_rata'] = (
+            $validated['d1'] +
+            $validated['d2'] +
+            $validated['d3']
+        ) / 3;
+
+        if ($request->hasFile('files')) {
+            // hapus file lama
+            if ($inspeksi->files) {
+                foreach ($inspeksi->files as $oldFile) {
+                    Storage::disk('public')->delete($oldFile);
+                }
+            }
+            $uploadedFiles = [];
+            foreach ($request->file('files') as $file) {
+                $path = $file->store(
+                    'incoming_bahan_baku_inspeksi',
+                    'public'
+                );
+                $uploadedFiles[] = $path;
+            }
+            $validated['files'] = $uploadedFiles;
+        }
+
+        $inspeksi->update($validated);
+
+        return redirect()
+            ->route('incomingbahanbaku.show', $incomingbahanbaku->id)
+            ->with('success', 'Data inspeksi berhasil diupdate');
+    }
+
+
+    public function destroyInspeksi(IncomingBahanBakuInspeksi $inspeksi)
+    {
+        $incomingId = $inspeksi->incoming_bahan_baku_id;
+
+        $inspeksi->delete();
+
+        return redirect()
+            ->route('incomingbahanbaku.show', $incomingId)
+            ->with('success', 'Data inspeksi berhasil dihapus');
+    }
+
+
+
     public function createMechanicalTest($id)
     {
         $incomingbahanbaku = IncomingBahanBaku::findOrFail($id);
@@ -240,4 +312,37 @@ class IncomingBahanBakuController extends Controller
             ->route('incomingbahanbaku.show', $id)
             ->with('success', 'Data mechanical test berhasil ditambahkan');
     }
+
+    public function editMechanicalTest(MechanicalTest $mechanicalTest)
+    {
+        return view('incomingbahanbaku.mechanicaltest.edit', compact('mechanicalTest'));
+    }
+
+    public function updateMechanicalTest(Request $request, MechanicalTest $mechanicalTest)
+    {
+        $validated = $request->validate([
+            'nomor_koil' => 'required',
+            'hasil_tensile' => 'required',
+            'hasil_coatingweight' => 'required',
+            'hasil_lilit' => 'required',
+            'hasil_puntir' => 'required',
+        ]);
+
+        $mechanicalTest->update($validated);
+
+        return redirect()
+            ->route('incomingbahanbaku.show', $mechanicalTest->incoming_bahan_baku_id)
+            ->with('success', 'Data mechanical test berhasil diupdate');
+    }
+
+    public function destroyMechanicalTest(MechanicalTest $mechanicalTest)
+{
+    $incomingId = $mechanicalTest->incoming_bahan_baku_id;
+
+    $mechanicalTest->delete();
+
+    return redirect()
+        ->route('incomingbahanbaku.show', $incomingId)
+        ->with('success', 'Mechanical test berhasil dihapus');
+}
 }

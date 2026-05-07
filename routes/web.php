@@ -70,13 +70,50 @@ Route::middleware(['auth'])->group(function () {
     // incoming bahan baku
     Route::get('incomingbahanbaku/{id}/inspeksi', [IncomingBahanBakuController::class, 'createInspeksi'])
     ->name('incomingbahanbaku.inspeksi');
-    Route::get('incomingbahanbaku/{id}/mechanicaltest', [IncomingBahanBakuController::class, 'createMechanicalTest'])
-    ->name('incomingbahanbaku.mechanicaltest');
+   
 
     Route::post('incomingbahanbaku/{id}/inspeksi', [IncomingBahanBakuController::class, 'storeInspeksi'])
         ->name('incomingbahanbaku.inspeksi.store');
+    
+
+
+    Route::get(
+        'incomingbahanbaku/{incomingbahanbaku}/inspeksi/{inspeksi}/edit',
+        [IncomingBahanBakuController::class, 'editInspeksi']
+    )->name('incomingbahanbaku.inspeksi.edit');
+
+    Route::put(
+        'incomingbahanbaku/{incomingbahanbaku}/inspeksi/{inspeksi}',
+        [IncomingBahanBakuController::class, 'updateInspeksi']
+    )->name('incomingbahanbaku.inspeksi.update');
+
+    Route::delete(
+        'incomingbahanbaku/inspeksi/{inspeksi}',
+        [IncomingBahanBakuController::class, 'destroyInspeksi']
+    )->name('incomingbahanbaku.inspeksi.destroy');
+
+
+
+    
+    // mechanical test
+    Route::get('incomingbahanbaku/{id}/mechanicaltest', [IncomingBahanBakuController::class, 'createMechanicalTest'])
+    ->name('incomingbahanbaku.mechanicaltest');
+
     Route::post('incomingbahanbaku/{id}/mechanicaltest', [IncomingBahanBakuController::class, 'storeMechanicalTest'])
         ->name('incomingbahanbaku.mechanical_test.store');
+        
+    Route::get('incomingbahanbaku/mechanicaltest/{mechanicalTest}/edit',
+        [IncomingBahanBakuController::class, 'editMechanicalTest'])
+        ->name('incomingbahanbaku.mechanical_test.edit');
+
+    Route::put('incomingbahanbaku/mechanicaltest/{mechanicalTest}',
+        [IncomingBahanBakuController::class, 'updateMechanicalTest'])
+        ->name('incomingbahanbaku.mechanical_test.update');
+
+    Route::delete(
+        'incomingbahanbaku/mechanicaltest/{mechanicalTest}',
+        [IncomingBahanBakuController::class, 'destroyMechanicalTest'])
+        ->name('incomingbahanbaku.mechanical_test.destroy');
 
     // incoming PVC HDPE
     Route::get('incomingpvchdpe/{id}/inspeksi', [IncomingPvcHdpeController::class, 'createInspeksi'])

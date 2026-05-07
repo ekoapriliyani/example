@@ -12,6 +12,7 @@ class InspeksiWm extends Model
     use HasFactory;
     protected $fillable = [
         'nomor_inspeksi',
+        'tanggal',
         'pro_id',
         'product_wm_ref_id',
         'shift',

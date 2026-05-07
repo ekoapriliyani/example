@@ -55,10 +55,11 @@
                                     <tr>
                                         <th class="px-4 py-3 font-semibold text-gray-900 text-left w-16">No</th>
                                         <th class="px-4 py-3 font-semibold text-gray-900 text-left">Nomor Inspeksi</th>
+                                        <th class="px-4 py-3 font-semibold text-gray-900 text-left">Tanggal</th>
+                                        <th class="px-4 py-3 font-semibold text-gray-900 text-left">Shift</th>
                                         <th class="px-4 py-3 font-semibold text-gray-900 text-left">PRO Number</th>
                                         <th class="px-4 py-3 font-semibold text-gray-900 text-left">Description</th>
                                         <th class="px-4 py-3 font-semibold text-gray-900 text-left">QTY Ordered</th>
-                                        <th class="px-4 py-3 font-semibold text-gray-900 text-left">Shift</th>
                                         <th class="px-4 py-3 font-semibold text-gray-900 text-left">Grade</th>
                                         <th class="px-4 py-3 font-semibold text-gray-900 text-left">Type Coating</th>
                                         <th class="px-4 py-3 font-semibold text-gray-900 text-left">Mesin</th>
@@ -75,14 +76,20 @@
                                                 {{ $loop->iteration + ($data->firstItem() - 1) }}</td>
                                             <td class="px-4 py-3 font-medium text-gray-900">{{ $item->nomor_inspeksi }}
                                             </td>
+                                            <td class="px-4 py-3 font-medium text-gray-900">
+                                                {{ $item->tanggal }}
+                                            </td>
+                                            <td class="px-4 py-3 font-medium text-gray-900">{{ $item->shift }}
+                                            </td>
                                             <td class="px-4 py-3 font-medium text-gray-900">{{ $item->pro->pro_id }}
                                             </td>
                                             <td class="px-4 py-3 font-medium text-gray-900">
                                                 {{ $item->pro->description }}
                                             </td>
                                             <td class="px-4 py-3 font-medium text-gray-900">{{ $item->pro->qty }}
-                                            <td class="px-4 py-3 font-medium text-gray-900">{{ $item->shift }}
+                                            </td>
                                             <td class="px-4 py-3 font-medium text-gray-900">{{ $item->grade }}
+                                            </td>
                                             <td class="px-4 py-3 font-medium text-gray-900">{{ $item->type_coating }}
                                             </td>
                                             <td class="px-4 py-3 font-medium text-gray-900">
@@ -92,11 +99,13 @@
                                             </td>
                                             <td class="px-4 py-3 font-medium text-gray-900">
                                                 @if ($item->isApproved())
-                                                    <span class="inline-block rounded bg-green-100 px-3 py-1 text-xs font-semibold text-green-700">
+                                                    <span
+                                                        class="inline-block rounded bg-green-100 px-3 py-1 text-xs font-semibold text-green-700">
                                                         Approved
                                                     </span>
                                                 @else
-                                                    <span class="inline-block rounded bg-yellow-100 px-3 py-1 text-xs font-semibold text-yellow-700">
+                                                    <span
+                                                        class="inline-block rounded bg-yellow-100 px-3 py-1 text-xs font-semibold text-yellow-700">
                                                         Pending
                                                     </span>
                                                 @endif
@@ -104,74 +113,78 @@
 
                                             <td class="px-4 py-3">
                                                 <div class="flex items-center justify-end gap-2">
+
+                                                    <!-- View (selalu tampil) -->
                                                     <a href="{{ route('inspeksi_wm.show', $item->id) }}"
                                                         class="inline-flex h-8 w-8 items-center justify-center rounded bg-indigo-50 text-indigo-700 hover:bg-indigo-100 transition"
                                                         title="View Details">
+
                                                         <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4"
                                                             fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                                d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+
+                                                            <path stroke-linecap="round" stroke-linejoin="round"
+                                                                stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+
+                                                            <path stroke-linecap="round" stroke-linejoin="round"
+                                                                stroke-width="2"
                                                                 d="M2.458 12C3.732 7.943 7.523 5 12 5c4.477 0 8.268 2.943 9.542 7-1.274 4.057-5.065 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
                                                         </svg>
                                                     </a>
 
-                                                    @if (in_array(auth()->user()->role, ['supervisor', 'manager', 'administrator']))
-                                                        <form id="approval-form-{{ $item->id }}"
-                                                            action="{{ route('inspeksi-wm.toggle', $item->id) }}"
+                                                    @if (!$item->isApproved())
+                                                        <!-- Edit -->
+                                                        <a href="{{ route('inspeksi_wm.edit', $item->id) }}"
+                                                            class="inline-flex h-8 w-8 items-center justify-center rounded bg-yellow-50 text-yellow-700 hover:bg-yellow-100 transition"
+                                                            title="Edit">
+
+                                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4"
+                                                                fill="none" viewBox="0 0 24 24"
+                                                                stroke="currentColor">
+
+                                                                <path stroke-linecap="round" stroke-linejoin="round"
+                                                                    stroke-width="2"
+                                                                    d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5" />
+
+                                                                <path stroke-linecap="round" stroke-linejoin="round"
+                                                                    stroke-width="2"
+                                                                    d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z" />
+                                                            </svg>
+                                                        </a>
+
+                                                        <!-- Delete -->
+                                                        <button type="button"
+                                                            onclick="confirmDelete({{ $item->id }}, '{{ $item->nomor_inspeksi }}')"
+                                                            class="inline-flex h-8 w-8 items-center justify-center rounded bg-red-50 text-red-700 hover:bg-red-100 transition"
+                                                            title="Delete">
+
+                                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4"
+                                                                fill="none" viewBox="0 0 24 24"
+                                                                stroke="currentColor">
+
+                                                                <path stroke-linecap="round" stroke-linejoin="round"
+                                                                    stroke-width="2"
+                                                                    d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3" />
+                                                            </svg>
+                                                        </button>
+
+                                                        <form id="delete-form-{{ $item->id }}"
+                                                            action="{{ route('inspeksi_wm.destroy', $item->id) }}"
                                                             method="POST" class="hidden">
                                                             @csrf
-                                                            @method('PATCH')
+                                                            @method('DELETE')
                                                         </form>
+                                                    @else
+                                                        <!-- Lock badge -->
+                                                        <span
+                                                            class="inline-flex items-center gap-1 rounded-full bg-gray-100 px-3 py-1 text-xs font-semibold text-gray-500"
+                                                            title="Data terkunci karena sudah approved">
 
-                                                        <button type="button"
-                                                            onclick="confirmApproval({{ $item->id }}, '{{ $item->isApproved() ? 'unapprove' : 'approve' }}')"
-                                                            class="inline-flex h-8 w-8 items-center justify-center rounded
-                                                                {{ $item->isApproved() ? 'bg-orange-50 text-orange-700 hover:bg-orange-100' : 'bg-green-50 text-green-700 hover:bg-green-100' }}
-                                                                transition"
-                                                            title="{{ $item->isApproved() ? 'Unapprove' : 'Approve' }}">
-                                                            @if($item->isApproved())
-                                                                ↺
-                                                            @else
-                                                                ✓
-                                                            @endif
-                                                        </button>
+                                                            🔒 Locked
+                                                        </span>
                                                     @endif
 
-                                                    <a href="{{ route('inspeksi_wm.edit', $item->id) }}"
-                                                        class="inline-flex h-8 w-8 items-center justify-center rounded bg-yellow-50 text-yellow-700 hover:bg-yellow-100 transition"
-                                                        title="Edit">
-                                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4"
-                                                            fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                                d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5" />
-                                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                                d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z" />
-                                                        </svg>
-                                                    </a>
-
-                                                    <button type="button"
-                                                        onclick="confirmDelete({{ $item->id }}, '{{ $item->nomor_inspeksi }}')"
-                                                        class="inline-flex h-8 w-8 items-center justify-center rounded bg-red-50 text-red-700 hover:bg-red-100 transition"
-                                                        title="Delete">
-                                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4"
-                                                            fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                                d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3" />
-                                                        </svg>
-                                                    </button>
                                                 </div>
-
-                                                @if (in_array(auth()->user()->role, ['supervisor', 'manager', 'administrator']) && !$item->isApproved())
-                                                    <form id="delete-form-{{ $item->id }}"
-                                                        action="{{ route('inspeksi_wm.destroy', $item->id) }}"
-                                                        method="POST" class="hidden">
-                                                        @csrf
-                                                        @method('DELETE')
-                                                    </form>
-                                                @endif
                                             </td>
-
                                         </tr>
                                     @empty
                                         <tr>
@@ -222,28 +235,6 @@
             }).then((result) => {
                 if (result.isConfirmed) {
                     document.getElementById('delete-form-' + id).submit();
-                }
-            })
-        }
-
-        function confirmApproval(id, type) {
-            let isUnapprove = type === 'unapprove';
-
-            Swal.fire({
-                title: isUnapprove ? 'Batalkan approval?' : 'Approve data?',
-                text: isUnapprove
-                    ? "Status akan kembali ke Pending."
-                    : "Data akan disetujui.",
-                icon: isUnapprove ? 'warning' : 'question',
-                showCancelButton: true,
-                confirmButtonColor: isUnapprove ? '#f97316' : '#16a34a',
-                cancelButtonColor: '#4f46e5',
-                confirmButtonText: isUnapprove ? 'Ya, Unapprove!' : 'Ya, Approve!',
-                cancelButtonText: 'Batal',
-                reverseButtons: true
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    document.getElementById('approval-form-' + id).submit();
                 }
             })
         }

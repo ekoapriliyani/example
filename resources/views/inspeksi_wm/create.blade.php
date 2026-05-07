@@ -23,7 +23,12 @@
                             <x-text-input id="nomor_inspeksi" name="nomor_inspeksi" type="text"
                                 class="mt-1 block w-full bg-gray-100" value="{{ $nextNomor }}" readonly />
                         </div>
-
+                        <div>
+                            <x-input-label for="tanggal" :value="__('Tanggal')" />
+                            <x-text-input id="tanggal" name="tanggal" type="date" class="mt-1 block w-full"
+                                value="{{ old('tanggal') }}" required />
+                            <x-input-error class="mt-2" :messages="$errors->get('tanggal')" />
+                        </div>
                         <div>
                             <x-input-label for="pro_id" :value="__('PRO Number')" />
                             <select id="pro_id" name="pro_id"
