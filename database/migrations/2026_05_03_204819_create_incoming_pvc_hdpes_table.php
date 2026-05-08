@@ -18,6 +18,8 @@ return new class extends Migration
             $table->foreignId('supplier_id')->constrained('suppliers')->onDelete('cascade');
             $table->string('no_po');
             $table->string('no_sj')->nullable();
+            $table->string('certificate')->nullable();
+            $table->json('files')->nullable();
             $table->timestamps();
         });
     }

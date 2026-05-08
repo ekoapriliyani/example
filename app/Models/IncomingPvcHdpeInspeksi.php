@@ -9,8 +9,8 @@ class IncomingPvcHdpeInspeksi extends Model
     protected $fillable = [
         'incoming_pvc_hdpe_id',
         'user_id',
-        'visual',
-        'certificate',
+        'warna',
+        'keterangan',
         'files',
     ];
 

@@ -15,7 +15,8 @@
                         </p>
                     </div>
 
-                    <form action="{{ route('incomingpvchdpe.store') }}" method="POST" class="space-y-6">
+                    <form action="{{ route('incomingpvchdpe.store') }}" method="POST" class="space-y-6"
+                        enctype="multipart/form-data">
                         @csrf
                         <div>
                             <x-input-label for="nomor_inspeksi" :value="__('Nomor Inspeksi (Otomatis)')" />
@@ -59,7 +60,28 @@
                             </div>
                             <x-input-error class="mt-2" :messages="$errors->get('no_sj')" />
                         </div>
+                        <div>
+                            <x-input-label for="certificate" :value="__('Certificate')" />
+                            <div class="relative mt-1">
+                                <x-text-input id="certificate" name="certificate" type="text"
+                                    class="block w-full pr-12" :value="old('certificate')" />
+                            </div>
+                            <x-input-error class="mt-2" :messages="$errors->get('certificate')" />
+                        </div>
+                        <div class="mt-4">
+                            <x-input-label for="files" :value="__('Upload File')" />
 
+                            <input id="files" name="files[]" type="file" accept="image/*,.pdf"
+                                class="mt-1 block w-full border-gray-300 rounded-md shadow-sm" multiple>
+
+                            @error('files')
+                                <div class="text-red-500 text-sm mt-2">{{ $message }}</div>
+                            @enderror
+
+                            @error('files.*')
+                                <div class="text-red-500 text-sm mt-2">{{ $message }}</div>
+                            @enderror
+                        </div>
                         <div class="flex items-center justify-end gap-4 pt-4 border-t border-gray-100">
                             <a href="{{ route('incomingpvchdpe.index') }}"
                                 class="inline-flex items-center px-4 py-2 bg-white border border-gray-300 rounded-md font-semibold text-xs text-gray-700 uppercase tracking-widest shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 disabled:opacity-25 transition ease-in-out duration-150">

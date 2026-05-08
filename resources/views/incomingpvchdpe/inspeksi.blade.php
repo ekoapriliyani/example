@@ -13,19 +13,19 @@
                 <form action="{{ route('incomingpvchdpe.inspeksi.store', $incomingpvchdpe->id) }}" method="POST"
                     enctype="multipart/form-data">
                     @csrf
-                    <!-- Visual -->
+                    <!-- Warna -->
                     <div class="mb-4">
-                        <label for="visual" class="block mb-1">Visual</label>
-                        <select name="visual" id="visual" class="w-full border rounded px-3 py-2">
-                            <option value="">-- Pilih Visual --</option>
-                            <option value="OK" {{ old('visual') == 'OK' ? 'selected' : '' }}>OK</option>
-                            <option value="NG" {{ old('visual') == 'NG' ? 'selected' : '' }}>NG</option>
+                        <label for="warna" class="block mb-1">Warna</label>
+                        <select name="warna" id="warna" class="w-full border rounded px-3 py-2">
+                            <option value="">-- Pilih Warna --</option>
+                            <option value="OK" {{ old('warna') == 'OK' ? 'selected' : '' }}>OK</option>
+                            <option value="NG" {{ old('warna') == 'NG' ? 'selected' : '' }}>NG</option>
                         </select>
                     </div>
-                    <!-- No Certificate -->
+                    <!-- Keterangan -->
                     <div class="mb-4">
-                        <label for="certificate" class="block mb-1">No Certificate</label>
-                        <input type="text" name="certificate" id="certificate" class="w-full border rounded px-3 py-2" value="{{ old('certificate') }}">
+                        <label for="keterangan" class="block mb-1">Keterangan</label>
+                        <textarea name="keterangan" id="keterangan" class="w-full border rounded px-3 py-2">{{ old('keterangan') }}</textarea>
                     </div>
                     <div class="mt-4">
                         <x-input-label for="files" :value="__('Upload File')" />

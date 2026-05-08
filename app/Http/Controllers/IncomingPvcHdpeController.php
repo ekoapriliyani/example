@@ -60,7 +60,10 @@ class IncomingPvcHdpeController extends Controller
             'tanggal' => 'required',
             'supplier_id' => 'required',
             'no_po' => 'required',
-            'no_sj' => '',
+            'no_sj' => 'nullable|string',
+            'certificate' => 'nullable|string',
+            'files' => 'nullable|array',
+            'files.*' => 'nullable|image|max:20480',
         ]);
 
         $tanggalInput = Carbon::now();
@@ -80,13 +83,28 @@ class IncomingPvcHdpeController extends Controller
         $nomorOtomatis = "INPVCHDPE{$tahunBulan}{$nextNumber}";
 
 
-        IncomingPvcHdpe::create([
+        $inpvchdpe = IncomingPvcHdpe::create([
             'tanggal' => $validated['tanggal'],
             'nomor_inspeksi' => $nomorOtomatis,
             'supplier_id' => $validated['supplier_id'],
             'no_po' => $validated['no_po'],
             'no_sj' => $validated['no_sj'],
+            'certificate' => $validated['certificate'],
         ]);
+        if ($request->hasFile('files')) {
+            $paths = [];
+            foreach ($request->file('files') as $file) {
+                $name = time().'_'.uniqid().'.'.$file->getClientOriginalExtension();
+                $paths[] = $file->storeAs(
+                    'uploads/incomingpvchdpe',
+                    $name,
+                    'public'
+                );
+            }
+            $inpvchdpe->update([
+                'files' => $paths
+            ]);
+        }
         return redirect()->route('incomingpvchdpe.index')->with('success', 'data incoming berhasil disimpan');
     }
 
@@ -96,8 +114,8 @@ class IncomingPvcHdpeController extends Controller
     public function storeInspeksi(Request $request, $id)
     {
         $validated = $request->validate([
-            'visual'  => 'required|in:OK,NG',
-            'certificate' => 'nullable|string',
+            'warna'  => 'required|in:OK,NG',
+            'keterangan' => 'nullable|string',
             'files'   => 'nullable|array',
             'files.*' => 'nullable|image|max:20480',
         ]);
@@ -105,8 +123,8 @@ class IncomingPvcHdpeController extends Controller
         $inpvchdpe = IncomingPvcHdpeInspeksi::create([
             'incoming_pvc_hdpe_id' => $id,
             'user_id' => Auth::id(),
-            'visual' => $validated['visual'],
-            'certificate' => $validated['certificate'],
+            'warna' => $validated['warna'],
+            'keterangan' => $validated['keterangan'],
         ]);
 
         if ($request->hasFile('files')) {

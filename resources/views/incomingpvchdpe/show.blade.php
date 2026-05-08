@@ -56,6 +56,12 @@
                                     {{ $incomingpvchdpe->no_sj }}
                                 </dd>
                             </div>
+                            <div>
+                                <dt class="text-sm font-medium text-gray-500 italic">Certificate</dt>
+                                <dd class="text-lg font-semibold text-gray-900">
+                                    {{ $incomingpvchdpe->certificate }}
+                                </dd>
+                            </div>
                         </dl>
                     </div>
                 </div>
@@ -80,8 +86,8 @@
                                 <tr>
                                     <th class="px-4 py-3 font-semibold text-gray-900">No</th>
                                     <th class="px-4 py-3 font-semibold text-gray-900">Inspektor</th>
-                                    <th class="px-4 py-3 font-semibold text-gray-900">Visual</th>
-                                    <th class="px-4 py-3 font-semibold text-gray-900">No Certificate</th>
+                                    <th class="px-4 py-3 font-semibold text-gray-900">Warna</th>
+                                    <th class="px-4 py-3 font-semibold text-gray-900">Keterangan</th>
                                     <th class="px-4 py-3 font-semibold text-gray-900">Gambar</th>
                                     <th class="px-4 py-3 font-semibold text-gray-900 text-center">Created At</th>
                                 </tr>
@@ -92,19 +98,19 @@
                                         <td class="px-4 py-3">{{ $loop->iteration }}</td>
                                         <td class="px-4 py-3">{{ $inc->user->name ?? 'N/A' }}</td>
                                         <td class="px-4 py-3">
-                                            @if ($inc->visual === 'OK')
+                                            @if ($inc->warna === 'OK')
                                                 <span
                                                     class="inline-flex items-center px-2 py-1 text-xs font-semibold text-green-800 bg-green-200 rounded-full">
                                                     OK
                                                 </span>
-                                            @elseif($inc->visual === 'NG')
+                                            @elseif($inc->warna === 'NG')
                                                 <span
                                                     class="inline-flex items-center px-2 py-1 text-xs font-semibold text-yellow-800 bg-yellow-200 rounded-full">
                                                     NG
                                                 </span>
                                             @endif
                                         </td>
-                                        <td class="px-4 py-3">{{ $inc->certificate }}</td>
+                                        <td class="px-4 py-3">{{ $inc->keterangan ?? 'N/A' }}</td>
                                         <td class="px-4 py-3">
                                             <button type="button" class="text-sm text-indigo-600 hover:underline"
                                                 onclick="toggleImage({{ $inc->id }})">
@@ -118,7 +124,7 @@
                                     <tr>
                                         <td colspan="5" class="px-4 py-8 text-center text-gray-400 italic">Belum
                                             ada
-                                            data Inspeksi Incoming PPVC / HDPE.</td>
+                                            data Inspeksi Incoming PVC / HDPE.</td>
                                     </tr>
                                 @endforelse
                             </tbody>

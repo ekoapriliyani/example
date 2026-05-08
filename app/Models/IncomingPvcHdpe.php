@@ -12,6 +12,12 @@ class IncomingPvcHdpe extends Model
         'supplier_id',
         'no_po',
         'no_sj',
+        'certificate',
+        'files',
+    ];
+
+    protected $casts = [
+        'files' => 'array', // otomatis decode JSON ke array
     ];
 
     public function supplier()
