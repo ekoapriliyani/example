@@ -10,11 +10,12 @@ class SheetGalvanize extends Model
         'nomor_inspeksi',
         'tanggal',
         'no_po',
+        'no_sj',
         'supplier_id',
         'user_id',
-        'tebal',
-        'coating',
-        'visual',
+        // 'tebal',
+        // 'coating',
+        // 'visual',
     ];
 
     public function supplier(){

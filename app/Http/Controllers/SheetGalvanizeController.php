@@ -58,12 +58,14 @@ class SheetGalvanizeController extends Controller
             'tanggal' => 'required',
             'supplier_id' => 'required',
             'no_po' => 'required',
+            'no_sj' => 'required',
         ]);
         SheetGalvanize::create([
             'nomor_inspeksi' => $validated['nomor_inspeksi'],
             'tanggal' => $validated['tanggal'],
             'supplier_id' => $validated['supplier_id'],
             'no_po' => $validated['no_po'],
+            'no_sj' => $validated['no_sj'],
         ]);
         return redirect()->route('sheetgalvanize.index')->with('success', 'inspeksi galvanize berhasil disimpan');
     }
@@ -140,6 +142,7 @@ class SheetGalvanizeController extends Controller
             'tanggal' => 'required',
             'supplier_id' => 'required',
             'no_po' => 'required',
+            'no_sj' => 'required',
         ]);
 
         $item = SheetGalvanize::findOrFail($id);

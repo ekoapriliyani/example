@@ -51,6 +51,14 @@
                             </div>
                             <x-input-error class="mt-2" :messages="$errors->get('no_po')" />
                         </div>
+                        <div>
+                            <x-input-label for="no_sj" :value="__('No SJ')" />
+                            <div class="relative mt-1">
+                                <x-text-input id="no_sj" name="no_sj" type="text" class="block w-full pr-12"
+                                    :value="old('no_sj')" />
+                            </div>
+                            <x-input-error class="mt-2" :messages="$errors->get('no_sj')" />
+                        </div>
                         <div class="flex items-center justify-end gap-4 pt-4 border-t border-gray-100">
                             <a href="{{ route('sheetgalvanize.index') }}"
                                 class="inline-flex items-center px-4 py-2 bg-white border border-gray-300 rounded-md font-semibold text-xs text-gray-700 uppercase tracking-widest shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 disabled:opacity-25 transition ease-in-out duration-150">

@@ -58,6 +58,7 @@
                                         <th class="px-4 py-3 font-semibold text-gray-900 text-left">Nomor Inspeksi</th>
                                         <th class="px-4 py-3 font-semibold text-gray-900 text-left">Supplier</th>
                                         <th class="px-4 py-3 font-semibold text-gray-900 text-left">No PO</th>
+                                        <th class="px-4 py-3 font-semibold text-gray-900 text-left">No SJ</th>
                                         <th class="px-4 py-3 font-semibold text-gray-900 text-left">Created At</th>
                                         <th class="px-4 py-3 font-semibold text-gray-900 text-right">Aksi</th>
                                     </tr>
@@ -76,6 +77,9 @@
                                             </td>
                                             <td class="px-4 py-3 font-medium text-gray-900">
                                                 {{ $item->no_po }}
+                                            </td>
+                                            <td class="px-4 py-3 font-medium text-gray-900">
+                                                {{ $item->no_sj }}
                                             </td>
                                             <td class="px-4 py-3 font-medium text-gray-900">{{ $item->created_at }}
                                             </td>
