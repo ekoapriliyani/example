@@ -59,7 +59,8 @@
                                         <th class="px-4 py-3 font-semibold text-gray-900 text-left">Supplier</th>
                                         <th class="px-4 py-3 font-semibold text-gray-900 text-left">No PO</th>
                                         <th class="px-4 py-3 font-semibold text-gray-900 text-left">No SJ</th>
-                                        <th class="px-4 py-3 font-semibold text-gray-900 text-left">Created At</th>
+                                        <th class="px-4 py-3 font-semibold text-gray-900 text-left">Certificate</th>
+                                        <th class="px-4 py-3 font-semibold text-gray-900 text-left">Gambar</th>
                                         <th class="px-4 py-3 font-semibold text-gray-900 text-right">Aksi</th>
                                     </tr>
                                 </thead>
@@ -81,29 +82,117 @@
                                             <td class="px-4 py-3 font-medium text-gray-900">
                                                 {{ $item->no_sj }}
                                             </td>
-                                            <td class="px-4 py-3 font-medium text-gray-900">{{ $item->created_at }}
+                                            <td class="px-4 py-3 font-medium text-gray-900">
+                                                {{ $item->certificate }}
+                                            </td>
+                                            <td class="px-4 py-3">
+                                                <button type="button" class="text-sm text-indigo-600 hover:underline"
+                                                    onclick="toggleImage({{ $item->id }})">
+                                                    Lihat Gambar
+                                                </button>
                                             </td>
 
-                                            <td class="px-4 py-3 text-right whitespace-nowrap space-x-2">
-                                                <a href="{{ route('sheetgalvanize.show', $item->id) }}"
-                                                    class="inline-block rounded bg-indigo-50 px-3 py-1.5 text-xs font-bold text-indigo-700 hover:bg-indigo-100 transition">
-                                                    View Details
-                                                </a>
-                                                <a href="{{ route('sheetgalvanize.edit', $item->id) }}"
-                                                    class="inline-block rounded bg-yellow-50 px-3 py-1.5 text-xs font-bold text-indigo-700 hover:bg-yellow-100 transition">
-                                                    Edit
-                                                </a>
-                                                <button type="button"
-                                                    onclick="confirmDelete({{ $item->id }}, '{{ $item->nomor_inspeksi }}')"
-                                                    class="inline-block rounded bg-red-50 px-3 py-1.5 text-xs font-bold text-red-700 hover:bg-red-100 transition">
-                                                    Delete
-                                                </button>
-                                                <form id="delete-form-{{ $item->id }}"
-                                                    action="{{ route('sheetgalvanize.destroy', $item->id) }}"
-                                                    method="POST" class="hidden">
-                                                    @csrf
-                                                    @method('DELETE')
-                                                </form>
+                                            <!-- Modal -->
+                                            <div id="image-{{ $item->id }}"
+                                                class="hidden fixed inset-0 bg-gray-900 bg-opacity-50 flex items-center justify-center z-50">
+                                                <div
+                                                    class="bg-white rounded-lg shadow-lg w-3/4 p-6 max-h-[80vh] overflow-y-auto">
+                                                    <h3 class="text-lg font-semibold mb-4">File Inspeksi:
+                                                        {{ $item->certificate }}</h3>
+
+                                                    @if ($item->files)
+                                                        <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+                                                            @foreach ($item->files as $file)
+                                                                @php $ext = pathinfo($file, PATHINFO_EXTENSION); @endphp
+
+                                                                @if (in_array($ext, ['jpg', 'jpeg', 'png']))
+                                                                    <img src="{{ asset('storage/' . $file) }}"
+                                                                        alt="File Image"
+                                                                        class="w-full h-40 object-cover rounded border cursor-pointer"
+                                                                        onclick="previewImage('{{ asset('storage/' . $file) }}')" />
+                                                                @else
+                                                                    <a href="{{ asset('storage/' . $file) }}"
+                                                                        target="_blank"
+                                                                        class="block text-blue-600 hover:underline">
+                                                                        Lihat File ({{ strtoupper($ext) }})
+                                                                    </a>
+                                                                @endif
+                                                            @endforeach
+                                                        </div>
+                                                    @else
+                                                        <p class="text-gray-400 italic">Tidak ada file diupload.</p>
+                                                    @endif
+
+                                                    <div class="mt-4 text-right">
+                                                        <button onclick="toggleImage({{ $item->id }})"
+                                                            class="px-4 py-2 bg-gray-200 rounded hover:bg-gray-300">
+                                                            Tutup
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <td class="px-4 py-3">
+                                                <div class="flex items-center justify-end gap-2">
+
+                                                    <!-- View -->
+                                                    <a href="{{ route('sheetgalvanize.show', $item->id) }}"
+                                                        class="inline-flex h-8 w-8 items-center justify-center rounded bg-indigo-50 text-indigo-700 hover:bg-indigo-100 transition"
+                                                        title="View Details">
+
+                                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4"
+                                                            fill="none" viewBox="0 0 24 24" stroke="currentColor">
+
+                                                            <path stroke-linecap="round" stroke-linejoin="round"
+                                                                stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+
+                                                            <path stroke-linecap="round" stroke-linejoin="round"
+                                                                stroke-width="2"
+                                                                d="M2.458 12C3.732 7.943 7.523 5 12 5c4.477 0 8.268 2.943 9.542 7-1.274 4.057-5.065 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                                                        </svg>
+                                                    </a>
+
+                                                    <!-- Edit -->
+                                                    <a href="{{ route('sheetgalvanize.edit', $item->id) }}"
+                                                        class="inline-flex h-8 w-8 items-center justify-center rounded bg-yellow-50 text-yellow-700 hover:bg-yellow-100 transition"
+                                                        title="Edit">
+
+                                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4"
+                                                            fill="none" viewBox="0 0 24 24" stroke="currentColor">
+
+                                                            <path stroke-linecap="round" stroke-linejoin="round"
+                                                                stroke-width="2"
+                                                                d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5" />
+
+                                                            <path stroke-linecap="round" stroke-linejoin="round"
+                                                                stroke-width="2"
+                                                                d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z" />
+                                                        </svg>
+                                                    </a>
+
+                                                    <!-- Delete -->
+                                                    <button type="button"
+                                                        onclick="confirmDelete({{ $item->id }}, '{{ $item->nomor_inspeksi }}')"
+                                                        class="inline-flex h-8 w-8 items-center justify-center rounded bg-red-50 text-red-700 hover:bg-red-100 transition"
+                                                        title="Delete">
+
+                                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4"
+                                                            fill="none" viewBox="0 0 24 24" stroke="currentColor">
+
+                                                            <path stroke-linecap="round" stroke-linejoin="round"
+                                                                stroke-width="2"
+                                                                d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3" />
+                                                        </svg>
+                                                    </button>
+
+                                                    <form id="delete-form-{{ $item->id }}"
+                                                        action="{{ route('sheetgalvanize.destroy', $item->id) }}"
+                                                        method="POST" class="hidden">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                    </form>
+
+                                                </div>
                                             </td>
                                         </tr>
                                     @empty
@@ -157,6 +246,23 @@
                     document.getElementById('delete-form-' + id).submit();
                 }
             })
+        }
+    </script>
+    <script>
+        function toggleImage(id) {
+            const modal = document.getElementById('image-' + id);
+            modal.classList.toggle('hidden');
+        }
+
+        function previewImage(src) {
+            const preview = document.createElement('div');
+            preview.className = "fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50";
+            preview.innerHTML = `
+        <img src="${src}" class="max-h-[90vh] max-w-[90vw] rounded shadow-lg" />
+        <button onclick="this.parentElement.remove()" 
+            class="absolute top-4 right-4 bg-white px-3 py-1 rounded">Close</button>
+    `;
+            document.body.appendChild(preview);
         }
     </script>
 </x-app-layout>

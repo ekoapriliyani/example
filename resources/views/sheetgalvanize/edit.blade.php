@@ -77,12 +77,36 @@
                                 <label class="block text-sm font-medium text-gray-700 mb-1">
                                     No PO
                                 </label>
-                                <input type="text" name="no_po"
-                                    value="{{ old('no_po', $sheetgalvanize->no_po) }}"
+                                <input type="text" name="no_po" value="{{ old('no_po', $sheetgalvanize->no_po) }}"
                                     class="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                                     required>
 
                                 @error('no_po')
+                                    <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                                @enderror
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-1">
+                                    No SJ
+                                </label>
+                                <input type="text" name="no_sj" value="{{ old('no_sj', $sheetgalvanize->no_sj) }}"
+                                    class="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                                    required>
+
+                                @error('no_sj')
+                                    <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                                @enderror
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-1">
+                                    Certificate
+                                </label>
+                                <input type="text" name="certificate"
+                                    value="{{ old('certificate', $sheetgalvanize->certificate) }}"
+                                    class="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                                    required>
+
+                                @error('certificate')
                                     <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                                 @enderror
                             </div>

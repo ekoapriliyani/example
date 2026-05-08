@@ -59,14 +59,33 @@ class SheetGalvanizeController extends Controller
             'supplier_id' => 'required',
             'no_po' => 'required',
             'no_sj' => 'required',
+            'certificate' => 'required',
+            'files'   => 'nullable|array',
+            'files.*' => 'nullable|image|max:20480',
         ]);
-        SheetGalvanize::create([
+        $insg = SheetGalvanize::create([
             'nomor_inspeksi' => $validated['nomor_inspeksi'],
             'tanggal' => $validated['tanggal'],
             'supplier_id' => $validated['supplier_id'],
             'no_po' => $validated['no_po'],
             'no_sj' => $validated['no_sj'],
+            'certificate' => $validated['certificate'],
         ]);
+
+        if ($request->hasFile('files')) {
+            $paths = [];
+            foreach ($request->file('files') as $file) {
+                $name = time().'_'.uniqid().'.'.$file->getClientOriginalExtension();
+                $paths[] = $file->storeAs(
+                    'uploads/inspeksi_sg',
+                    $name,
+                    'public'
+                );
+            }
+            $insg->update([
+                'files' => $paths
+            ]);
+        }
         return redirect()->route('sheetgalvanize.index')->with('success', 'inspeksi galvanize berhasil disimpan');
     }
 
@@ -76,23 +95,92 @@ class SheetGalvanizeController extends Controller
     {
         $validated = $request->validate([
             'tebal'   => 'required',
-            'coating' => 'required',
-            'visual'  => 'required|in:OK,NG',
+            'coating1' => 'required',
+            'coating2' => 'required',
+            'coating3' => 'required',
+            'lebar' => 'required',
+            'weight' => 'required',
+            'visual'  => 'required',
             'files'   => 'nullable|array',
             'files.*' => 'nullable|image|max:20480',
         ]);
+
+        $validated['rata_rata'] = (
+            $validated['coating1'] +
+            $validated['coating2'] +
+            $validated['coating3']
+        ) / 3;
 
         $insg = InspeksiSheetGalvanize::create([
             'sheet_galvanize_id' => $id,
             'user_id' => Auth::id(),
             'tebal' => $validated['tebal'],
-            'coating' => $validated['coating'],
+            'coating1' => $validated['coating1'],
+            'coating2' => $validated['coating2'],
+            'coating3' => $validated['coating3'],
+            'rata_rata' => $validated['rata_rata'],
+            'lebar' => $validated['lebar'],
+            'weight' => $validated['weight'],
             'visual' => $validated['visual'],
         ]);
 
         if ($request->hasFile('files')) {
             $paths = [];
+            foreach ($request->file('files') as $file) {
+                $name = time().'_'.uniqid().'.'.$file->getClientOriginalExtension();
+                $paths[] = $file->storeAs(
+                    'uploads/inspeksi_sg',
+                    $name,
+                    'public'
+                );
+            }
+            $insg->update([
+                'files' => $paths
+            ]);
+        }
+        return redirect()
+            ->route('sheetgalvanize.show', $id)
+            ->with('success', 'Data inspeksi berhasil ditambahkan');
+    }
 
+    public function editInspeksi($id)
+    {
+        $inspeksi = InspeksiSheetGalvanize::findOrFail($id);
+        return view('sheetgalvanize/inspeksi.edit', compact('inspeksi'));
+    }
+
+    public function updateInspeksi(Request $request, $id)
+    {
+        $validated = $request->validate([
+            'tebal'   => 'required',
+            'coating1' => 'required',
+            'coating2' => 'required',
+            'coating3' => 'required',
+            'lebar' => 'required',
+            'weight' => 'required',
+            'visual'  => 'required',
+            'files'   => 'nullable|array',
+            'files.*' => 'nullable|image|max:20480',
+        ]);
+
+        $validated['rata_rata'] = (
+            $validated['coating1'] +
+            $validated['coating2'] +
+            $validated['coating3']
+        ) / 3;
+
+        $inspeksi = InspeksiSheetGalvanize::findOrFail($id);
+
+        $inspeksi->update($validated);
+
+        if ($request->hasFile('files')) {
+            if ($inspeksi->files) {
+                foreach ($inspeksi->files as $file) {
+                    Storage::disk('public')->delete($file);
+                }
+            }
+
+            $paths = [];
             foreach ($request->file('files') as $file) {
                 $name = time().'_'.uniqid().'.'.$file->getClientOriginalExtension();
 
@@ -103,14 +191,14 @@ class SheetGalvanizeController extends Controller
                 );
             }
 
-            $insg->update([
+            $inspeksi->update([
                 'files' => $paths
             ]);
         }
 
         return redirect()
-            ->route('sheetgalvanize.show', $id)
-            ->with('success', 'Data inspeksi berhasil ditambahkan');
+            ->route('sheetgalvanize.show', $inspeksi->sheet_galvanize_id)
+            ->with('success', 'Data inspeksi berhasil diperbarui');
     }
 
     /**
@@ -143,6 +231,7 @@ class SheetGalvanizeController extends Controller
             'supplier_id' => 'required',
             'no_po' => 'required',
             'no_sj' => 'required',
+            'certificate' => 'required',
         ]);
 
         $item = SheetGalvanize::findOrFail($id);

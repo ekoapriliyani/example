@@ -94,7 +94,7 @@ Route::middleware(['auth'])->group(function () {
 
 
 
-    
+
     // mechanical test
     Route::get('incomingbahanbaku/{id}/mechanicaltest', [IncomingBahanBakuController::class, 'createMechanicalTest'])
     ->name('incomingbahanbaku.mechanicaltest');
@@ -138,6 +138,14 @@ Route::middleware(['auth'])->group(function () {
         ->name('sheetgalvanize.inspeksi.store');
     Route::delete('/sheetgalvanize/inspeksi/{id}', [SheetGalvanizeController::class, 'destroyInspeksi'])
     ->name('sheetgalvanize.inspeksi.destroy');
+
+    Route::get('sheetgalvanize/inspeksi/{inspeksi}/edit',
+        [SheetGalvanizeController::class, 'editInspeksi'])
+        ->name('sheetgalvanize.inspeksi.edit');
+
+    Route::put('sheetgalvanize/inspeksi/{inspeksi}',
+        [SheetGalvanizeController::class, 'updateInspeksi'])
+        ->name('sheetgalvanize.inspeksi.update');
 
 });
 

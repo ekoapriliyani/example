@@ -15,7 +15,12 @@ return new class extends Migration
             $table->id();
             $table->foreignId('sheet_galvanize_id')->constrained('sheet_galvanizes')->onDelete('cascade');
             $table->string('tebal');
-            $table->string('coating');
+            $table->decimal('coating1', 8,2)->nullable();
+            $table->decimal('coating2', 8,2)->nullable();
+            $table->decimal('coating3', 8,2)->nullable();
+            $table->decimal('rata_rata', 8,2)->nullable();
+            $table->string('lebar');
+            $table->string('weight');
             $table->string('visual');
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
             $table->json('files')->nullable();

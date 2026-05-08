@@ -9,7 +9,12 @@ class InspeksiSheetGalvanize extends Model
     protected $fillable = [
         'sheet_galvanize_id',
         'tebal',
-        'coating',
+        'coating1',
+        'coating2',
+        'coating3',
+        'rata_rata',
+        'lebar',
+        'weight',
         'visual',
         'user_id',
         'files',

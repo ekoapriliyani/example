@@ -26,7 +26,7 @@
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg border border-gray-200">
                 <div class="p-6 sm:p-8">
                     <div class="flex justify-between items-start">
-                        <dl class="grid grid-cols-3 gap-x-8 gap-y-4 sm:grid-cols-4">
+                        <dl class="grid grid-cols-3 gap-x-8 gap-y-4 sm:grid-cols-5">
                             <div>
                                 <dt class="text-sm font-medium text-gray-500 italic">Nomor Inspeksi</dt>
                                 <dd class="text-lg font-bold text-indigo-600">{{ $sheetgalvanize->nomor_inspeksi }}
@@ -48,6 +48,12 @@
                                 <dt class="text-sm font-medium text-gray-500 italic">No PO</dt>
                                 <dd class="text-lg font-semibold text-gray-900">
                                     {{ $sheetgalvanize->no_po }}
+                                </dd>
+                            </div>
+                            <div>
+                                <dt class="text-sm font-medium text-gray-500 italic">Certificate</dt>
+                                <dd class="text-lg font-semibold text-gray-900">
+                                    {{ $sheetgalvanize->certificate }}
                                 </dd>
                             </div>
                         </dl>
@@ -75,7 +81,12 @@
                                     <th class="px-4 py-3 font-semibold text-gray-900">No</th>
                                     <th class="px-4 py-3 font-semibold text-gray-900">Inspektor</th>
                                     <th class="px-4 py-3 font-semibold text-gray-900">Tebal</th>
-                                    <th class="px-4 py-3 font-semibold text-gray-900">Coating</th>
+                                    <th class="px-4 py-3 font-semibold text-gray-900">Coating 1</th>
+                                    <th class="px-4 py-3 font-semibold text-gray-900">Coating 2</th>
+                                    <th class="px-4 py-3 font-semibold text-gray-900">Coating 3</th>
+                                    <th class="px-4 py-3 font-semibold text-gray-900">Rata-rata</th>
+                                    <th class="px-4 py-3 font-semibold text-gray-900">Lebar</th>
+                                    <th class="px-4 py-3 font-semibold text-gray-900">Weight</th>
                                     <th class="px-4 py-3 font-semibold text-gray-900">Visual</th>
                                     <th class="px-4 py-3 font-semibold text-gray-900">Gambar</th>
                                     <th class="px-4 py-3 font-semibold text-gray-900 text-center">Created At</th>
@@ -88,7 +99,12 @@
                                         <td class="px-4 py-3">{{ $loop->iteration }}</td>
                                         <td class="px-4 py-3">{{ $sg->user->name ?? 'N/A' }}</td>
                                         <td class="px-4 py-3">{{ $sg->tebal }}</td>
-                                        <td class="px-4 py-3">{{ $sg->coating }}</td>
+                                        <td class="px-4 py-3">{{ $sg->coating1 }}</td>
+                                        <td class="px-4 py-3">{{ $sg->coating2 }}</td>
+                                        <td class="px-4 py-3">{{ $sg->coating3 }}</td>
+                                        <td class="px-4 py-3">{{ $sg->rata_rata }}</td>
+                                        <td class="px-4 py-3">{{ $sg->lebar }}</td>
+                                        <td class="px-4 py-3">{{ $sg->weight }}</td>
                                         <td class="px-4 py-3">
                                             @if ($sg->visual === 'OK')
                                                 <span
@@ -114,16 +130,42 @@
                                         </td>
 
                                         <td class="px-4 py-3 text-center">
-                                            <button type="button"
-                                                onclick="confirmDelete({{ $sg->id }}, '{{ $sg->user->name ?? 'N/A' }}')"
-                                                class="inline-flex items-center justify-center rounded bg-red-50 px-3 py-1.5 text-xs font-bold text-red-700 hover:bg-red-100 transition"
-                                                title="Delete">
-                                                <svg xmlns="http://www.w3.org/2000/svg" class="size-4" fill="none"
-                                                    viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                                                    <path stroke-linecap="round" stroke-linejoin="round"
-                                                        d="M6 7h12M9 7V5a1 1 0 011-1h4a1 1 0 011 1v2m2 0v12a2 2 0 01-2 2H8a2 2 0 01-2-2V7h12z" />
-                                                </svg>
-                                            </button>
+                                            <div class="flex items-center justify-center gap-2">
+
+                                                <!-- Edit -->
+                                                <a href="{{ route('sheetgalvanize.inspeksi.edit', $sg->id) }}"
+                                                    class="inline-flex h-8 w-8 items-center justify-center rounded bg-yellow-50 text-yellow-700 hover:bg-yellow-100 transition"
+                                                    title="Edit">
+
+                                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4"
+                                                        fill="none" viewBox="0 0 24 24" stroke="currentColor">
+
+                                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                                            stroke-width="2"
+                                                            d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5" />
+
+                                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                                            stroke-width="2"
+                                                            d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z" />
+                                                    </svg>
+                                                </a>
+
+                                                <!-- Delete -->
+                                                <button type="button"
+                                                    onclick="confirmDelete({{ $sg->id }}, '{{ $sg->user->name ?? 'N/A' }}')"
+                                                    class="inline-flex h-8 w-8 items-center justify-center rounded bg-red-50 text-red-700 hover:bg-red-100 transition"
+                                                    title="Delete">
+
+                                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4"
+                                                        fill="none" viewBox="0 0 24 24" stroke="currentColor">
+
+                                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                                            stroke-width="2"
+                                                            d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3" />
+                                                    </svg>
+                                                </button>
+
+                                            </div>
 
                                             <form id="delete-form-{{ $sg->id }}"
                                                 action="{{ route('sheetgalvanize.inspeksi.destroy', $sg->id) }}"
@@ -132,6 +174,8 @@
                                                 @method('DELETE')
                                             </form>
                                         </td>
+
+
                                     </tr>
                                 @empty
                                     <tr>

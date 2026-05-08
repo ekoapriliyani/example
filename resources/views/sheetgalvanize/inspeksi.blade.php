@@ -13,24 +13,47 @@
                 <form action="{{ route('sheetgalvanize.inspeksi.store', $sheetgalvanize->id) }}" method="POST"
                     enctype="multipart/form-data">
                     @csrf
-                    <!-- Tebal -->
-                    <div class="mb-4">
-                        <label>Tebal</label>
-                        <input type="number" name="tebal" class="w-full border rounded px-3 py-2" required autofocus>
-                    </div>
                     <!-- Coating -->
-                    <div class="mb-4">
-                        <label>Coating</label>
-                        <input type="number" name="coating" class="w-full border rounded px-3 py-2">
+                    <div class="grid grid-cols-3 gap-4 mb-4">
+                        <div>
+                            <label>Coating 1</label>
+                            <input type="number" name="coating1" class="w-full border rounded px-3 py-2">
+                        </div>
+                        <div>
+                            <label>Coating 2</label>
+                            <input type="number" name="coating2" class="w-full border rounded px-3 py-2">
+                        </div>
+                        <div>
+                            <label>Coating 3</label>
+                            <input type="number" name="coating3" class="w-full border rounded px-3 py-2">
+                        </div>
                     </div>
-                    <!-- Visual -->
-                    <div class="mb-4">
-                        <label for="visual" class="block mb-1">Visual</label>
-                        <select name="visual" id="visual" class="w-full border rounded px-3 py-2">
-                            <option value="">-- Pilih Visual --</option>
-                            <option value="OK" {{ old('visual') == 'OK' ? 'selected' : '' }}>OK</option>
-                            <option value="NG" {{ old('visual') == 'NG' ? 'selected' : '' }}>NG</option>
-                        </select>
+
+                    <div class="grid grid-cols-2 gap-4 mb-4">
+                        <div>
+                            <label>Lebar</label>
+                            <input type="number" name="lebar" class="w-full border rounded px-3 py-2">
+                        </div>
+                        <div>
+                            <label>Weight</label>
+                            <input type="number" name="weight" class="w-full border rounded px-3 py-2">
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-2 gap-4 mb-4">
+                        <!-- Tebal -->
+                        <div class="mb-4">
+                            <label>Tebal</label>
+                            <input type="number" name="tebal" class="w-full border rounded px-3 py-2" required>
+                        </div>
+                        <!-- Visual -->
+                        <div class="mb-4">
+                            <label for="visual" class="block mb-1">Visual</label>
+                            <select name="visual" id="visual" class="w-full border rounded px-3 py-2">
+                                <option value="">-- Pilih Visual --</option>
+                                <option value="OK" {{ old('visual') == 'OK' ? 'selected' : '' }}>OK</option>
+                                <option value="NG" {{ old('visual') == 'NG' ? 'selected' : '' }}>NG</option>
+                            </select>
+                        </div>
                     </div>
                     <div class="mt-4">
                         <x-input-label for="files" :value="__('Upload File')" />

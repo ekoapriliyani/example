@@ -11,11 +11,13 @@ class SheetGalvanize extends Model
         'tanggal',
         'no_po',
         'no_sj',
+        'certificate',
+        'files',
         'supplier_id',
-        'user_id',
-        // 'tebal',
-        // 'coating',
-        // 'visual',
+    ];
+
+    protected $casts = [
+        'files' => 'array',
     ];
 
     public function supplier(){
