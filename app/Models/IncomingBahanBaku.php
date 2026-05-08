@@ -18,6 +18,11 @@ class IncomingBahanBaku extends Model
         'd_kawat',
         'tol',
         'jenis_kawat',
+        'certificate',
+        'files',
+    ];
+    protected $casts = [
+        'files' => 'array', // otomatis decode JSON ke array
     ];
 
     public function supplier(){

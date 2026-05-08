@@ -62,6 +62,9 @@ class IncomingBahanBakuController extends Controller
             'd_kawat' => 'required',
             'tol' => 'required',
             'jenis_kawat' => 'required',
+            'certificate' => 'nullable',
+            'files' => 'nullable|array',
+            'files.*' => 'nullable|image|max:20480',
         ]);
 
         $tanggalInput = Carbon::now();
@@ -81,7 +84,7 @@ class IncomingBahanBakuController extends Controller
         $nomorOtomatis = "INBB{$tahunBulan}{$nextNumber}";
 
 
-        IncomingBahanBaku::create([
+        $inc = IncomingBahanBaku::create([
             'tanggal' => $validated['tanggal'],
             'nomor_inspeksi' => $nomorOtomatis,
             'supplier_id' => $validated['supplier_id'],
@@ -91,7 +94,23 @@ class IncomingBahanBakuController extends Controller
             'd_kawat' => $validated['d_kawat'],
             'tol' => $validated['tol'],
             'jenis_kawat' => $validated['jenis_kawat'],
+            'certificate' => $validated['certificate'],
         ]);
+        if ($request->hasFile('files')) {
+            $paths = [];
+            foreach ($request->file('files') as $file) {
+                $name = time().'_'.uniqid().'.'.$file->getClientOriginalExtension();
+                $paths[] = $file->storeAs(
+                    'uploads/incomingbahanbaku',
+                    $name,
+                    'public'
+                );
+            }
+            $inc->update([
+                'files' => $paths
+            ]);
+        }
+
         return redirect()->route('incomingbahanbaku.index')->with('success', 'data incoming berhasil disimpan');
     }
 

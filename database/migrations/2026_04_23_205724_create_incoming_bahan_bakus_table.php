@@ -22,6 +22,8 @@ return new class extends Migration
             $table->decimal('d_kawat', 8,2)->nullable();
             $table->decimal('tol', 8,2)->nullable();
             $table->string('jenis_kawat');
+            $table->string('certificate')->nullable();
+            $table->json('files')->nullable();
             $table->timestamps();
         });
     }

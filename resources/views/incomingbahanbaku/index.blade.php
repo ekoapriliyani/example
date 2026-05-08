@@ -63,6 +63,8 @@
                                         <th class="px-4 py-3 font-semibold text-gray-900 text-left">D Kawat</th>
                                         <th class="px-4 py-3 font-semibold text-gray-900 text-left">Tol Kawat</th>
                                         <th class="px-4 py-3 font-semibold text-gray-900 text-left">Jenis Kawat</th>
+                                        <th class="px-4 py-3 font-semibold text-gray-900 text-left">Certificate</th>
+                                        <th class="px-4 py-3 font-semibold text-gray-900 text-left">Files</th>
                                         <th class="px-4 py-3 font-semibold text-gray-900 text-right">Aksi</th>
                                         <th class="px-4 py-3 font-semibold text-gray-900 text-left">Created At</th>
                                     </tr>
@@ -87,6 +89,28 @@
                                             <td class="px-4 py-3 font-medium text-gray-900">{{ $item->d_kawat }}
                                             <td class="px-4 py-3 font-medium text-gray-900">{{ $item->tol }}
                                             <td class="px-4 py-3 font-medium text-gray-900">{{ $item->jenis_kawat }}
+                                            </td>
+                                            <td class="px-4 py-3 font-medium text-gray-900">{{ $item->certificate }}
+                                            </td>
+                                            <td class="px-4 py-3 text-center">
+                                                @if ($item->files && count($item->files))
+                                                    <button type="button"
+                                                        onclick='openFileModal(@json($item->files))'
+                                                        class="inline-flex items-center gap-2 rounded-lg bg-indigo-50 px-3 py-2 text-sm font-medium text-indigo-700 hover:bg-indigo-100 transition">
+
+                                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4"
+                                                            fill="none" viewBox="0 0 24 24" stroke="currentColor">
+
+                                                            <path stroke-linecap="round" stroke-linejoin="round"
+                                                                stroke-width="2"
+                                                                d="M15 12H9m12 0A9 9 0 1112 3a9 9 0 019 9z" />
+                                                        </svg>
+
+                                                        Lihat File ({{ count($item->files) }})
+                                                    </button>
+                                                @else
+                                                    <span class="text-gray-400 italic">No files</span>
+                                                @endif
                                             </td>
                                             <td class="px-4 py-3 whitespace-nowrap">
                                                 <div class="flex justify-end items-center gap-2">
@@ -146,6 +170,32 @@
                                     @endforelse
                                 </tbody>
                             </table>
+                            {{-- modal gambar --}}
+                            <div id="fileModal"
+                                class="fixed inset-0 z-50 hidden items-center justify-center bg-black/70 p-6">
+
+                                <div
+                                    class="relative max-h-[90vh] w-full max-w-5xl overflow-auto rounded-2xl bg-white shadow-xl">
+
+                                    <!-- Header -->
+                                    <div
+                                        class="sticky top-0 flex items-center justify-between border-b bg-white px-6 py-4">
+                                        <h3 class="text-lg font-semibold text-gray-800">
+                                            Preview File
+                                        </h3>
+
+                                        <button onclick="closeFileModal()"
+                                            class="rounded-lg p-2 text-gray-500 hover:bg-gray-100">
+                                            ✕
+                                        </button>
+                                    </div>
+
+                                    <!-- Content -->
+                                    <div id="filePreviewContainer" class="space-y-6 p-6">
+                                    </div>
+
+                                </div>
+                            </div>
                         </div>
                     </div>
 
@@ -188,6 +238,53 @@
                     document.getElementById('delete-form-' + id).submit();
                 }
             })
+        }
+    </script>
+    <script>
+        function openFileModal(files) {
+            let modal = document.getElementById('fileModal');
+            let container = document.getElementById('filePreviewContainer');
+
+            container.innerHTML = '';
+
+            files.forEach(file => {
+                let url = '/storage/' + file;
+                let ext = file.split('.').pop().toLowerCase();
+
+                if (['jpg', 'jpeg', 'png', 'gif', 'webp'].includes(ext)) {
+                    container.innerHTML += `
+                    <div>
+                        <img src="${url}"
+                            class="w-full rounded-xl border shadow-sm">
+                    </div>
+                `;
+                } else if (ext === 'pdf') {
+                    container.innerHTML += `
+                    <iframe src="${url}"
+                        class="h-[700px] w-full rounded-xl border"></iframe>
+                `;
+                } else {
+                    container.innerHTML += `
+                    <div class="rounded-lg border bg-gray-50 p-4">
+                        <a href="${url}"
+                            target="_blank"
+                            class="text-blue-600 hover:underline">
+                            Download ${file.split('/').pop()}
+                        </a>
+                    </div>
+                `;
+                }
+            });
+
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+        }
+
+        function closeFileModal() {
+            let modal = document.getElementById('fileModal');
+
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
         }
     </script>
 </x-app-layout>
