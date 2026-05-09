@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Tambah Inspeksi Baru') }}
+            {{ __('Edit Inspeksi Kawat Duri') }}
         </h2>
     </x-slot>
 
@@ -11,24 +11,30 @@
                 <div class="p-8 text-gray-900">
                     <div class="mb-6">
                         <p class="text-sm text-gray-600">
-                            Silakan masukkan detail operasional untuk pencatatan inspeksi QC baru.
+                            Silakan ubah detail operasional inspeksi QC kawat duri.
                         </p>
                     </div>
 
-                    <form action="{{ route('inspeksi_wm.store') }}" method="POST" class="space-y-6">
+                    <form action="{{ route('inspeksi_kawat_duri.update', $inspeksiKawatDuri->id) }}" method="POST" class="space-y-6">
                         @csrf
+                        @method('PUT')
 
                         <div>
-                            <x-input-label for="nomor_inspeksi" :value="__('Nomor Inspeksi (Otomatis)')" />
+                            <x-input-label for="nomor_inspeksi" :value="__('Nomor Inspeksi')" />
                             <x-text-input id="nomor_inspeksi" name="nomor_inspeksi" type="text"
-                                class="mt-1 block w-full bg-gray-100" value="{{ $nextNomor }}" readonly />
+                                class="mt-1 block w-full bg-gray-100"
+                                value="{{ old('nomor_inspeksi', $inspeksiKawatDuri->nomor_inspeksi) }}"
+                                readonly />
+                            <x-input-error class="mt-2" :messages="$errors->get('nomor_inspeksi')" />
                         </div>
+
                         <div>
                             <x-input-label for="tanggal" :value="__('Tanggal')" />
                             <x-text-input id="tanggal" name="tanggal" type="date" class="mt-1 block w-full"
-                                value="{{ old('tanggal') }}" required />
+                                value="{{ old('tanggal', $inspeksiKawatDuri->tanggal) }}" required />
                             <x-input-error class="mt-2" :messages="$errors->get('tanggal')" />
                         </div>
+
                         <div>
                             <x-input-label for="pro_id" :value="__('PRO Number')" />
                             <select id="pro_id" name="pro_id"
@@ -36,38 +42,28 @@
                                 <option value="">-- Pilih PRO --</option>
                                 @foreach ($pros as $pro)
                                     <option value="{{ $pro->id }}"
-                                        {{ old('pro_id') == $pro->id ? 'selected' : '' }}>
+                                        {{ old('pro_id', $inspeksiKawatDuri->pro_id) == $pro->id ? 'selected' : '' }}>
                                         {{ $pro->pro_id }}
                                     </option>
                                 @endforeach
                             </select>
                             <x-input-error class="mt-2" :messages="$errors->get('pro_id')" />
                         </div>
+
                         <div>
                             <x-input-label for="pro_description" :value="__('Description')" />
-                            <x-text-input id="pro_description" type="text" class="mt-1 block w-full bg-gray-100"
-                                value="{{ old('pro_description') }}" readonly />
+                            <x-text-input id="pro_description" type="text"
+                                class="mt-1 block w-full bg-gray-100"
+                                value="{{ old('pro_description') }}"
+                                readonly />
                         </div>
 
                         <div>
                             <x-input-label for="pro_qty" :value="__('Qty Ordered')" />
-                            <x-text-input id="pro_qty" type="text" class="mt-1 block w-full bg-gray-100"
-                                value="{{ old('pro_qty') }}" readonly />
-                        </div>
-
-                        <div>
-                            <x-input-label for="product_wm_ref_id" :value="__('Product WM')" />
-                            <select id="product_wm_ref_id" name="product_wm_ref_id"
-                                class="mt-1 block w-full border-gray-300 rounded-md shadow-sm">
-                                <option value="">-- Pilih Product WM --</option>
-                                @foreach ($productWms as $product)
-                                    <option value="{{ $product->id }}"
-                                        {{ old('product_wm_ref_id') == $product->id ? 'selected' : '' }}>
-                                        {{ $product->product_wm_id }} - {{ $product->description }}
-                                    </option>
-                                @endforeach
-                            </select>
-                            <x-input-error class="mt-2" :messages="$errors->get('product_wm_ref_id')" />
+                            <x-text-input id="pro_qty" type="text"
+                                class="mt-1 block w-full bg-gray-100"
+                                value="{{ old('pro_qty') }}"
+                                readonly />
                         </div>
 
                         <div>
@@ -75,26 +71,17 @@
                             <select id="shift" name="shift"
                                 class="mt-1 block w-full border-gray-300 rounded-md shadow-sm" required>
                                 <option value="">-- Pilih Shift --</option>
-                                <option value="shift1" {{ old('shift') == 'shift1' ? 'selected' : '' }}>Shift 1
+                                <option value="shift1" {{ old('shift', $inspeksiKawatDuri->shift) == 'shift1' ? 'selected' : '' }}>
+                                    Shift 1
                                 </option>
-                                <option value="shift2" {{ old('shift') == 'shift2' ? 'selected' : '' }}>Shift 2
+                                <option value="shift2" {{ old('shift', $inspeksiKawatDuri->shift) == 'shift2' ? 'selected' : '' }}>
+                                    Shift 2
                                 </option>
-                                <option value="shift3" {{ old('shift') == 'shift3' ? 'selected' : '' }}>Shift 3
+                                <option value="shift3" {{ old('shift', $inspeksiKawatDuri->shift) == 'shift3' ? 'selected' : '' }}>
+                                    Shift 3
                                 </option>
                             </select>
                             <x-input-error class="mt-2" :messages="$errors->get('shift')" />
-                        </div>
-
-                        <div>
-                            <x-input-label for="grade" :value="__('Grade')" />
-                            <select id="grade" name="grade"
-                                class="mt-1 block w-full border-gray-300 rounded-md shadow-sm" required>
-                                <option value="">-- Pilih Grade --</option>
-                                <option value="SNI" {{ old('grade') == 'SNI' ? 'selected' : '' }}>SNI</option>
-                                <option value="NON SNI" {{ old('grade') == 'NON SNI' ? 'selected' : '' }}>NON SNI
-                                </option>
-                            </select>
-                            <x-input-error class="mt-2" :messages="$errors->get('grade')" />
                         </div>
 
                         <div>
@@ -102,15 +89,12 @@
                             <select id="type_coating" name="type_coating"
                                 class="mt-1 block w-full border-gray-300 rounded-md shadow-sm" required>
                                 <option value="">-- Pilih Type Coating --</option>
-                                <option value="LG" {{ old('type_coating') == 'LG' ? 'selected' : '' }}>LG</option>
-                                <option value="HG" {{ old('type_coating') == 'HG' ? 'selected' : '' }}>HG</option>
-                                <option value="ZN-AL" {{ old('type_coating') == 'ZN-AL' ? 'selected' : '' }}>ZN-AL
-                                </option>
-                                <option value="ULTRA" {{ old('type_coating') == 'ULTRA' ? 'selected' : '' }}>ULTRA
-                                </option>
-                                <option value="BLACK" {{ old('type_coating') == 'BLACK' ? 'selected' : '' }}>BLACK
-                                </option>
-                                <option value="EP" {{ old('type_coating') == 'EP' ? 'selected' : '' }}>EP</option>
+                                <option value="LG" {{ old('type_coating', $inspeksiKawatDuri->type_coating) == 'LG' ? 'selected' : '' }}>LG</option>
+                                <option value="HG" {{ old('type_coating', $inspeksiKawatDuri->type_coating) == 'HG' ? 'selected' : '' }}>HG</option>
+                                <option value="ZN-AL" {{ old('type_coating', $inspeksiKawatDuri->type_coating) == 'ZN-AL' ? 'selected' : '' }}>ZN-AL</option>
+                                <option value="ULTRA" {{ old('type_coating', $inspeksiKawatDuri->type_coating) == 'ULTRA' ? 'selected' : '' }}>ULTRA</option>
+                                <option value="BLACK" {{ old('type_coating', $inspeksiKawatDuri->type_coating) == 'BLACK' ? 'selected' : '' }}>BLACK</option>
+                                <option value="EP" {{ old('type_coating', $inspeksiKawatDuri->type_coating) == 'EP' ? 'selected' : '' }}>EP</option>
                             </select>
                             <x-input-error class="mt-2" :messages="$errors->get('type_coating')" />
                         </div>
@@ -122,7 +106,7 @@
                                 <option value="">-- Pilih Mesin --</option>
                                 @foreach ($mesins as $mesin)
                                     <option value="{{ $mesin->id }}"
-                                        {{ old('mesin_id') == $mesin->id ? 'selected' : '' }}>
+                                        {{ old('mesin_id', $inspeksiKawatDuri->mesin_id) == $mesin->id ? 'selected' : '' }}>
                                         {{ $mesin->mesin_id }}
                                     </option>
                                 @endforeach
@@ -131,13 +115,13 @@
                         </div>
 
                         <div class="flex items-center justify-end gap-4 pt-4 border-t border-gray-100">
-                            <a href="{{ route('inspeksi_wm.index') }}"
-                                class="inline-flex items-center px-4 py-2 bg-white border border-gray-300 rounded-md font-semibold text-xs text-gray-700 uppercase tracking-widest shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 disabled:opacity-25 transition ease-in-out duration-150">
+                            <a href="{{ route('inspeksi_kawat_duri.index') }}"
+                                class="inline-flex items-center px-4 py-2 bg-white border border-gray-300 rounded-md font-semibold text-xs text-gray-700 uppercase tracking-widest shadow-sm hover:bg-gray-50">
                                 {{ __('Batal') }}
                             </a>
 
                             <x-primary-button>
-                                {{ __('Simpan Inspeksi') }}
+                                {{ __('Update Inspeksi') }}
                             </x-primary-button>
                         </div>
                     </form>
@@ -159,12 +143,6 @@
                 width: '100%'
             });
 
-            $('#product_wm_ref_id').select2({
-                placeholder: '-- Pilih Product WM --',
-                allowClear: true,
-                width: '100%'
-            });
-
             $('#mesin_id').select2({
                 placeholder: '-- Pilih Mesin --',
                 allowClear: true,
@@ -182,6 +160,11 @@
 
                 try {
                     const response = await fetch(`/pro/${proId}/detail`);
+
+                    if (!response.ok) {
+                        throw new Error('HTTP error ' + response.status);
+                    }
+
                     const data = await response.json();
 
                     descriptionInput.value = data.description ?? '';
@@ -195,9 +178,11 @@
                 loadProDetail($(this).val());
             });
 
-            @if (old('pro_id'))
-                loadProDetail("{{ old('pro_id') }}");
-            @endif
+            const selectedProId = $('#pro_id').val();
+
+            if (selectedProId) {
+                loadProDetail(selectedProId);
+            }
         });
     </script>
 </x-app-layout>

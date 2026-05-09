@@ -2,14 +2,14 @@
     <x-slot name="header">
         <div class="flex items-center justify-between">
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-                {{ __('Detail Inspeksi WM') }}
+                {{ __('Detail Inspeksi Kawat Duri') }}
             </h2>
             <div class="flex gap-2">
-                <a href="{{ route('inspeksi_wm.index') }}"
+                <a href="{{ route('inspeksi_kawat_duri.index') }}"
                     class="inline-flex items-center px-4 py-2 bg-white border border-gray-300 rounded-md font-semibold text-xs text-gray-700 uppercase tracking-widest shadow-sm hover:bg-gray-50 transition ease-in-out duration-150">
                     Kembali
                 </a>
-                <a href="{{ route('inspeksi_wm.wip', $inspeksi_wm->id) }}"
+                <a href="{{ route('inspeksi_kawat_duri.wip', $inspeksi_kawat_duri->id) }}"
                     class="inline-flex items-center gap-2 rounded-md bg-blue-600 px-4 py-2 text-sm font-semibold text-white hover:bg-blue-700 transition shadow-sm">
                     <svg xmlns="http://www.w3.org/2000/svg" class="size-4" fill="none" viewBox="0 0 24 24"
                         stroke="currentColor" stroke-width="2">
@@ -17,7 +17,7 @@
                     </svg>
                     Tambah WIP
                 </a>
-                <a href="{{ route('inspeksi_wm.fg', $inspeksi_wm->id) }}"
+                <a href="{{ route('inspeksi_kawat_duri.fg', $inspeksi_kawat_duri->id) }}"
                     class="inline-flex items-center gap-2 rounded-md bg-green-600 px-4 py-2 text-sm font-semibold text-white hover:bg-green-700 transition shadow-sm">
                     <svg xmlns="http://www.w3.org/2000/svg" class="size-4" fill="none" viewBox="0 0 24 24"
                         stroke="currentColor" stroke-width="2">
@@ -37,54 +37,54 @@
                         <dl class="grid grid-cols-1 gap-x-8 gap-y-4 sm:grid-cols-4">
                             <div>
                                 <dt class="text-sm font-medium text-gray-500 italic">Nomor Inspeksi</dt>
-                                <dd class="text-lg font-bold text-indigo-600">{{ $inspeksi_wm->nomor_inspeksi }}</dd>
+                                <dd class="text-lg font-bold text-indigo-600">{{ $inspeksi_kawat_duri->nomor_inspeksi }}</dd>
                             </div>
                             <div>
                                 <dt class="text-sm font-medium text-gray-500 italic">PRO Number</dt>
                                 <dd class="text-lg font-semibold text-gray-900">
-                                    {{ $inspeksi_wm->pro->pro_id }}
+                                    {{ $inspeksi_kawat_duri->pro->pro_id }}
                                 </dd>
                             </div>
                             <div>
                                 <dt class="text-sm font-medium text-gray-500 italic">Description</dt>
                                 <dd class="text-lg font-semibold text-gray-900">
-                                    {{ $inspeksi_wm->pro->description }}
+                                    {{ $inspeksi_kawat_duri->pro->description }}
                                 </dd>
                             </div>
                             <div>
-                                <dt class="text-sm font-medium text-gray-500 italic">Product WM</dt>
+                                <dt class="text-sm font-medium text-gray-500 italic">Product Kawat Duri</dt>
                                 <dd class="text-lg font-semibold text-gray-900">
-                                    {{ $inspeksi_wm->productWm->description }}
+                                    {{ $inspeksi_kawat_duri->productKawatDuri->description }}
                                 </dd>
                             </div>
                             <div>
                                 <dt class="text-sm font-medium text-gray-500 italic">QTY Ordered</dt>
                                 <dd class="text-lg font-semibold text-gray-900">
-                                    {{ $inspeksi_wm->pro->qty }}
+                                    {{ $inspeksi_kawat_duri->pro->qty }}
                                 </dd>
                             </div>
                             <div>
                                 <dt class="text-sm font-medium text-gray-500 italic">Shift</dt>
                                 <dd class="text-lg font-semibold text-gray-900">
-                                    {{ $inspeksi_wm->shift }}
+                                    {{ $inspeksi_kawat_duri->shift }}
                                 </dd>
                             </div>
                             <div>
                                 <dt class="text-sm font-medium text-gray-500 italic">Grade</dt>
                                 <dd class="text-lg font-semibold text-gray-900">
-                                    {{ $inspeksi_wm->grade }}
+                                    {{ $inspeksi_kawat_duri->grade }}
                                 </dd>
                             </div>
                             <div>
                                 <dt class="text-sm font-medium text-gray-500 italic">Type Coating</dt>
                                 <dd class="text-lg font-semibold text-gray-900">
-                                    {{ $inspeksi_wm->type_coating }}
+                                    {{ $inspeksi_kawat_duri->type_coating }}
                                 </dd>
                             </div>
                             <div>
                                 <dt class="text-sm font-medium text-gray-500 italic">Mesin</dt>
                                 <dd class="text-lg font-semibold text-gray-900">
-                                    {{ $inspeksi_wm->mesin->nama_mesin }}
+                                    {{ $inspeksi_kawat_duri->mesin->nama_mesin }}
                                 </dd>
                             </div>
                         </dl>
@@ -130,7 +130,7 @@
                                 </tr>
                             </thead>
                             <tbody class="divide-y divide-gray-200">
-                                @forelse ($inspeksi_wm->inspeksiWmWip as $wip)
+                                @forelse ($inspeksi_kawat_duri->inspeksiKawatDuriWip as $wip)
                                     <tr class="hover:bg-gray-50 transition-colors">
                                         <td class="px-4 py-3">{{ $loop->iteration }}</td>
                                         <td class="px-4 py-3">{{ $wip->user->name ?? 'N/A' }}</td>
@@ -204,7 +204,7 @@
                                 </tr>
                             </thead>
                             <tbody class="divide-y divide-gray-200">
-                                @forelse ($inspeksi_wm->inspeksiWmFg as $fg)
+                                @forelse ($inspeksi_kawat_duri->inspeksiKawatDuriFg as $fg)
                                     <tr class="hover:bg-gray-50 transition-colors">
                                         <td class="px-4 py-3 font-medium">{{ $loop->iteration }}</td>
                                         <td class="px-4 py-3 font-medium">{{ $fg->user->name }}</td>
@@ -252,7 +252,7 @@
                             </tbody>
                         </table>
                         {{-- modal detail fg --}}
-                        @foreach ($inspeksi_wm->inspeksiWmFg as $fg)
+                        @foreach ($inspeksiKawatDuri->inspeksiKawatDuriFg as $fg)
                             <div id="detail-{{ $fg->id }}"
                                 class="hidden fixed inset-0 bg-gray-900 bg-opacity-50 flex items-center justify-center">
                                 <div class="bg-white rounded-lg shadow-lg w-1/2 p-6">
@@ -296,7 +296,7 @@
 
 
                         {{-- modal detail wip --}}
-                        @foreach ($inspeksi_wm->inspeksiWmWip as $wip)
+                        @foreach ($inspeksi_kawat_duri->inspeksiKawatDuriWip as $wip)
                             <div id="detail2-{{ $wip->id }}"
                                 class="hidden fixed inset-0 bg-gray-900 bg-opacity-50 flex items-center justify-center">
                                 <div class="bg-white rounded-lg shadow-lg w-1/2 p-6">
@@ -339,7 +339,7 @@
                         @endforeach
 
                         {{-- modal gambar fg --}}
-                        @foreach ($inspeksi_wm->inspeksiWmFg as $fg)
+                        @foreach ($inspeksi_kawat_duri->inspeksiKawatDuriFg as $fg)
                             <div id="image-{{ $fg->id }}"
                                 class="hidden fixed inset-0 bg-gray-900 bg-opacity-50 flex items-center justify-center">
                                 <div class="bg-white rounded-lg shadow-lg w-3/4 p-6 max-h-[80vh] overflow-y-auto">
@@ -376,7 +376,7 @@
                         @endforeach
 
                         {{-- modal gambar wip --}}
-                        @foreach ($inspeksi_wm->inspeksiWmWip as $wip)
+                        @foreach ($inspeksi_kawat_duri->inspeksiKawatDuriWip as $wip)
                             <div id="image2-{{ $wip->id }}"
                                 class="hidden fixed inset-0 bg-gray-900 bg-opacity-50 flex items-center justify-center">
                                 <div class="bg-white rounded-lg shadow-lg w-3/4 p-6 max-h-[80vh] overflow-y-auto">

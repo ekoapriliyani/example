@@ -17,33 +17,33 @@
                     <div class="grid grid-cols-3 gap-4 mb-4">
                         <div>
                             <label>Coating 1</label>
-                            <input type="number" name="coating1" class="w-full border rounded px-3 py-2">
+                            <input type="number" step="0.01" name="coating1" class="w-full border rounded px-3 py-2">
                         </div>
                         <div>
                             <label>Coating 2</label>
-                            <input type="number" name="coating2" class="w-full border rounded px-3 py-2">
+                            <input type="number" step="0.01" name="coating2" class="w-full border rounded px-3 py-2">
                         </div>
                         <div>
                             <label>Coating 3</label>
-                            <input type="number" name="coating3" class="w-full border rounded px-3 py-2">
+                            <input type="number" step="0.01" name="coating3" class="w-full border rounded px-3 py-2">
                         </div>
                     </div>
 
                     <div class="grid grid-cols-2 gap-4 mb-4">
                         <div>
                             <label>Lebar</label>
-                            <input type="number" name="lebar" class="w-full border rounded px-3 py-2">
+                            <input type="number" step="0.01" name="lebar" class="w-full border rounded px-3 py-2">
                         </div>
                         <div>
                             <label>Weight</label>
-                            <input type="number" name="weight" class="w-full border rounded px-3 py-2">
+                            <input type="number" step="0.01" name="weight" class="w-full border rounded px-3 py-2">
                         </div>
                     </div>
                     <div class="grid grid-cols-2 gap-4 mb-4">
                         <!-- Tebal -->
                         <div class="mb-4">
                             <label>Tebal</label>
-                            <input type="number" name="tebal" class="w-full border rounded px-3 py-2" required>
+                            <input type="number" step="0.01" name="tebal" class="w-full border rounded px-3 py-2" required>
                         </div>
                         <!-- Visual -->
                         <div class="mb-4">

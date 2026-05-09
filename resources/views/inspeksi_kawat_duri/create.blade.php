@@ -15,7 +15,7 @@
                         </p>
                     </div>
 
-                    <form action="{{ route('inspeksi_wm.store') }}" method="POST" class="space-y-6">
+                    <form action="{{ route('inspeksi_kawat_duri.store') }}" method="POST" class="space-y-6">
                         @csrf
 
                         <div>
@@ -43,6 +43,7 @@
                             </select>
                             <x-input-error class="mt-2" :messages="$errors->get('pro_id')" />
                         </div>
+
                         <div>
                             <x-input-label for="pro_description" :value="__('Description')" />
                             <x-text-input id="pro_description" type="text" class="mt-1 block w-full bg-gray-100"
@@ -53,21 +54,6 @@
                             <x-input-label for="pro_qty" :value="__('Qty Ordered')" />
                             <x-text-input id="pro_qty" type="text" class="mt-1 block w-full bg-gray-100"
                                 value="{{ old('pro_qty') }}" readonly />
-                        </div>
-
-                        <div>
-                            <x-input-label for="product_wm_ref_id" :value="__('Product WM')" />
-                            <select id="product_wm_ref_id" name="product_wm_ref_id"
-                                class="mt-1 block w-full border-gray-300 rounded-md shadow-sm">
-                                <option value="">-- Pilih Product WM --</option>
-                                @foreach ($productWms as $product)
-                                    <option value="{{ $product->id }}"
-                                        {{ old('product_wm_ref_id') == $product->id ? 'selected' : '' }}>
-                                        {{ $product->product_wm_id }} - {{ $product->description }}
-                                    </option>
-                                @endforeach
-                            </select>
-                            <x-input-error class="mt-2" :messages="$errors->get('product_wm_ref_id')" />
                         </div>
 
                         <div>
@@ -84,19 +70,6 @@
                             </select>
                             <x-input-error class="mt-2" :messages="$errors->get('shift')" />
                         </div>
-
-                        <div>
-                            <x-input-label for="grade" :value="__('Grade')" />
-                            <select id="grade" name="grade"
-                                class="mt-1 block w-full border-gray-300 rounded-md shadow-sm" required>
-                                <option value="">-- Pilih Grade --</option>
-                                <option value="SNI" {{ old('grade') == 'SNI' ? 'selected' : '' }}>SNI</option>
-                                <option value="NON SNI" {{ old('grade') == 'NON SNI' ? 'selected' : '' }}>NON SNI
-                                </option>
-                            </select>
-                            <x-input-error class="mt-2" :messages="$errors->get('grade')" />
-                        </div>
-
                         <div>
                             <x-input-label for="type_coating" :value="__('Type Coating')" />
                             <select id="type_coating" name="type_coating"
@@ -131,7 +104,7 @@
                         </div>
 
                         <div class="flex items-center justify-end gap-4 pt-4 border-t border-gray-100">
-                            <a href="{{ route('inspeksi_wm.index') }}"
+                            <a href="{{ route('inspeksi_kawat_duri.index') }}"
                                 class="inline-flex items-center px-4 py-2 bg-white border border-gray-300 rounded-md font-semibold text-xs text-gray-700 uppercase tracking-widest shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 disabled:opacity-25 transition ease-in-out duration-150">
                                 {{ __('Batal') }}
                             </a>
@@ -155,12 +128,6 @@
         $(document).ready(function() {
             $('#pro_id').select2({
                 placeholder: '-- Pilih PRO --',
-                allowClear: true,
-                width: '100%'
-            });
-
-            $('#product_wm_ref_id').select2({
-                placeholder: '-- Pilih Product WM --',
                 allowClear: true,
                 width: '100%'
             });

@@ -18,17 +18,17 @@
                     <div class="grid grid-cols-3 gap-4 mb-4">
                         <div>
                             <label>Coating 1</label>
-                            <input type="number" name="coating1" value="{{ old('coating1', $inspeksi->coating1) }}"
+                            <input type="number" step="0.01" name="coating1" value="{{ old('coating1', $inspeksi->coating1) }}"
                                 class="w-full border rounded px-3 py-2">
                         </div>
                         <div>
                             <label>Coating 2</label>
-                            <input type="number" name="coating2" value="{{ old('coating2', $inspeksi->coating2) }}"
+                            <input type="number" step="0.01" name="coating2" value="{{ old('coating2', $inspeksi->coating2) }}"
                                 class="w-full border rounded px-3 py-2">
                         </div>
                         <div>
                             <label>Coating 3</label>
-                            <input type="number" name="coating3" value="{{ old('coating3', $inspeksi->coating3) }}"
+                            <input type="number" step="0.01" name="coating3" value="{{ old('coating3', $inspeksi->coating3) }}"
                                 class="w-full border rounded px-3 py-2">
                         </div>
                     </div>
@@ -36,12 +36,12 @@
                     <div class="grid grid-cols-2 gap-4 mb-4">
                         <div>
                             <label>Lebar</label>
-                            <input type="number" name="lebar" value="{{ old('lebar', $inspeksi->lebar) }}"
+                            <input type="number" step="0.01" name="lebar" value="{{ old('lebar', $inspeksi->lebar) }}"
                                 class="w-full border rounded px-3 py-2">
                         </div>
                         <div>
                             <label>Weight</label>
-                            <input type="number" name="weight" value="{{ old('weight', $inspeksi->weight) }}"
+                            <input type="number" step="0.01" name="weight" value="{{ old('weight', $inspeksi->weight) }}"
                                 class="w-full border rounded px-3 py-2">
                         </div>
                     </div>
@@ -49,7 +49,7 @@
                     <div class="grid grid-cols-2 gap-4 mb-4">
                         <div class="mb-4">
                             <label>Tebal</label>
-                            <input type="number" name="tebal" value="{{ old('tebal', $inspeksi->tebal) }}"
+                            <input type="number" step="0.01" name="tebal" value="{{ old('tebal', $inspeksi->tebal) }}"
                                 class="w-full border rounded px-3 py-2" required>
                         </div>
                         <div class="mb-4">

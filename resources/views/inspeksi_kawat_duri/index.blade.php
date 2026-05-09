@@ -2,10 +2,10 @@
     <x-slot name="header">
         <div class="flex items-center justify-between">
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-                {{ __('Daftar Inspeksi WM') }}
+                {{ __('Daftar Inspeksi Kawat Duri') }}
             </h2>
 
-            <a href="{{ route('inspeksi_wm.create') }}"
+            <a href="{{ route('inspeksi_kawat_duri.create') }}"
                 class="inline-flex items-center gap-2 rounded-md bg-indigo-600 px-4 py-2 text-sm font-semibold text-white hover:bg-indigo-700 transition shadow-sm">
                 <svg xmlns="http://www.w3.org/2000/svg" class="size-4" fill="none" viewBox="0 0 24 24"
                     stroke="currentColor" stroke-width="3">
@@ -20,7 +20,7 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
 
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg border border-gray-200 p-6">
-                <form action="{{ route('inspeksi_wm.index') }}" method="GET" class="flex gap-2">
+                <form action="{{ route('inspeksi_kawat_duri.index') }}" method="GET" class="flex gap-2">
                     <div class="relative flex-1 max-w-md">
                         <span class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
                             <svg class="w-4 h-4 text-gray-400" xmlns="http://www.w3.org/2000/svg" fill="none"
@@ -38,7 +38,7 @@
                         Cari
                     </button>
                     @if (request('search'))
-                        <a href="{{ route('inspeksi_wm.index') }}"
+                        <a href="{{ route('inspeksi_kawat_duri.index') }}"
                             class="inline-flex items-center px-4 py-2 bg-white border border-gray-300 rounded-md font-semibold text-xs text-gray-700 uppercase tracking-widest shadow-sm hover:bg-gray-50 transition ease-in-out duration-150">
                             Reset
                         </a>
@@ -58,9 +58,8 @@
                                         <th class="px-4 py-3 font-semibold text-gray-900 text-left">Shift</th>
                                         <th class="px-4 py-3 font-semibold text-gray-900 text-left">PRO Number</th>
                                         <th class="px-4 py-3 font-semibold text-gray-900 text-left">Description</th>
-                                        <th class="px-4 py-3 font-semibold text-gray-900 text-left">Product WM</th>
+                                        {{-- <th class="px-4 py-3 font-semibold text-gray-900 text-left">Product Kawat Duri</th> --}}
                                         <th class="px-4 py-3 font-semibold text-gray-900 text-left">QTY Ordered</th>
-                                        <th class="px-4 py-3 font-semibold text-gray-900 text-left">Grade</th>
                                         <th class="px-4 py-3 font-semibold text-gray-900 text-left">Type Coating</th>
                                         <th class="px-4 py-3 font-semibold text-gray-900 text-left">Mesin</th>
                                         <th class="px-4 py-3 font-semibold text-gray-900 text-right">Aksi</th>
@@ -84,12 +83,10 @@
                                             <td class="px-4 py-3 font-medium text-gray-900">
                                                 {{ $item->pro->description }}
                                             </td>
-                                            <td class="px-4 py-3 font-medium text-gray-900">
-                                                {{ $item->productWm->description }}
-                                            </td>
+                                            {{-- <td class="px-4 py-3 font-medium text-gray-900">
+                                                {{ $item->productKawatDuri->description }}
+                                            </td> --}}
                                             <td class="px-4 py-3 font-medium text-gray-900">{{ $item->pro->qty }}
-                                            </td>
-                                            <td class="px-4 py-3 font-medium text-gray-900">{{ $item->grade }}
                                             </td>
                                             <td class="px-4 py-3 font-medium text-gray-900">{{ $item->type_coating }}
                                             </td>
@@ -99,7 +96,7 @@
                                             <td class="px-4 py-3">
                                                 <div class="flex items-center justify-end gap-2">
                                                     <!-- View (selalu tampil) -->
-                                                    <a href="{{ route('inspeksi_wm.show', $item->id) }}"
+                                                    <a href="{{ route('inspeksi_kawat_duri.show', $item->id) }}"
                                                         class="inline-flex h-8 w-8 items-center justify-center rounded bg-indigo-50 text-indigo-700 hover:bg-indigo-100 transition"
                                                         title="View Details">
                                                         <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4"
@@ -113,7 +110,7 @@
                                                     </a>
                                                     @if (!$item->isApproved())
                                                         <!-- Edit -->
-                                                        <a href="{{ route('inspeksi_wm.edit', $item->id) }}"
+                                                        <a href="{{ route('inspeksi_kawat_duri.edit', $item->id) }}"
                                                             class="inline-flex h-8 w-8 items-center justify-center rounded bg-yellow-50 text-yellow-700 hover:bg-yellow-100 transition"
                                                             title="Edit">
                                                             <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4"
@@ -141,7 +138,7 @@
                                                             </svg>
                                                         </button>
                                                         <form id="delete-form-{{ $item->id }}"
-                                                            action="{{ route('inspeksi_wm.destroy', $item->id) }}"
+                                                            action="{{ route('inspeksi_kawat_duri.destroy', $item->id) }}"
                                                             method="POST" class="hidden">
                                                             @csrf
                                                             @method('DELETE')

@@ -3,6 +3,9 @@
 use App\Http\Controllers\IncomingBahanBakuController;
 use App\Http\Controllers\IncomingProjectController;
 use App\Http\Controllers\IncomingPvcHdpeController;
+use App\Http\Controllers\InspeksiKawatDuriController;
+use App\Http\Controllers\InspeksiKawatDuriFgController;
+use App\Http\Controllers\InspeksiKawatDuriWipController;
 use App\Http\Controllers\InspeksiWmController;
 use App\Http\Controllers\InspeksiWmFgController;
 use App\Http\Controllers\InspeksiWmWipController;
@@ -18,6 +21,9 @@ use App\Http\Controllers\SubkonController;
 use App\Http\Controllers\SupplierController;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
+
+
+
 
 
 Route::post('/sync-pro-reference', function () {
@@ -59,22 +65,32 @@ Route::middleware(['auth'])->group(function () {
 
 
     Route::resource('inspeksi_wm', InspeksiWmController::class);
+    Route::resource('inspeksi_kawat_duri', InspeksiKawatDuriController::class);
+
     Route::get('/pro/{id}/detail', [InspeksiWmController::class, 'getProDetail'])->name('pros.detail');
 
     // Route WIP & FG
     Route::get('/inspeksi_wm/{inspeksi_wm}/wip', [InspeksiWmWipController::class, 'create'])->name('inspeksi_wm.wip');
     Route::post('/inspeksi_wm/wip', [InspeksiWmWipController::class, 'store'])->name('inspeksi_wm_wip.store');
-    Route::post('/inspeksi_wm/fg', [InspeksiWmFgController::class, 'store'])->name('inspeksi_wm_fg.store');
+
     Route::get('/inspeksi_wm/{inspeksi_wm}/fg', [InspeksiWmFgController::class, 'create'])->name('inspeksi_wm.fg');
+    Route::post('/inspeksi_wm/fg', [InspeksiWmFgController::class, 'store'])->name('inspeksi_wm_fg.store');
+
+    Route::get('/inspeksi_kawat_duri/{inspeksi_kawat_duri}/wip', [InspeksiKawatDuriWipController::class, 'create'])->name('inspeksi_kawat_duri.wip');
+    Route::post('/inspeksi_kawat_duri/wip', [InspeksiKawatDuriWipController::class, 'store'])->name('inspeksi_kawat_duri_wip.store');
+
+    Route::get('/inspeksi_kawat_duri/{inspeksi_kawat_duri}/fg', [InspeksiKawatDuriFgController::class, 'create'])->name('inspeksi_kawat_duri.fg');
+    Route::post('/inspeksi_kawat_duri/fg', [InspeksiKawatDuriFgController::class, 'store'])->name('inspeksi_kawat_duri_fg.store');
+
 
     // incoming bahan baku
     Route::get('incomingbahanbaku/{id}/inspeksi', [IncomingBahanBakuController::class, 'createInspeksi'])
     ->name('incomingbahanbaku.inspeksi');
-   
+
 
     Route::post('incomingbahanbaku/{id}/inspeksi', [IncomingBahanBakuController::class, 'storeInspeksi'])
         ->name('incomingbahanbaku.inspeksi.store');
-    
+
 
 
     Route::get(
@@ -101,7 +117,7 @@ Route::middleware(['auth'])->group(function () {
 
     Route::post('incomingbahanbaku/{id}/mechanicaltest', [IncomingBahanBakuController::class, 'storeMechanicalTest'])
         ->name('incomingbahanbaku.mechanical_test.store');
-        
+
     Route::get('incomingbahanbaku/mechanicaltest/{mechanicalTest}/edit',
         [IncomingBahanBakuController::class, 'editMechanicalTest'])
         ->name('incomingbahanbaku.mechanical_test.edit');
