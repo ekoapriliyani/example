@@ -30,7 +30,6 @@
                                     value="{{ old('nomor_inspeksi', $sheetgalvanize->nomor_inspeksi) }}"
                                     class="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                                     required>
-
                                 @error('nomor_inspeksi')
                                     <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                                 @enderror
@@ -43,7 +42,6 @@
                                     value="{{ old('tanggal', $sheetgalvanize->tanggal) }}"
                                     class="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                                     required>
-
                                 @error('tanggal')
                                     <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                                 @enderror

@@ -8,6 +8,7 @@ use App\Models\Supplier;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class IncomingPvcHdpeController extends Controller
 {
@@ -38,12 +39,13 @@ class IncomingPvcHdpeController extends Controller
 
         $nextNomor = "INPVCHDPE{$tahunBulan}{$nextNumber}";
         $suppliers = Supplier::orderBy('supplier_code')->get();
-        return view('incomingpvchdpe.create', compact('nextNomor','suppliers'));
+        return view('incomingpvchdpe.create', compact('nextNomor', 'suppliers'));
     }
 
 
 
-    public function createInspeksi($id){
+    public function createInspeksi($id)
+    {
         $incomingpvchdpe = IncomingPvcHdpe::findOrFail($id);
 
         return view('incomingpvchdpe.inspeksi', compact('incomingpvchdpe'));
@@ -94,7 +96,7 @@ class IncomingPvcHdpeController extends Controller
         if ($request->hasFile('files')) {
             $paths = [];
             foreach ($request->file('files') as $file) {
-                $name = time().'_'.uniqid().'.'.$file->getClientOriginalExtension();
+                $name = time() . '_' . uniqid() . '.' . $file->getClientOriginalExtension();
                 $paths[] = $file->storeAs(
                     'uploads/incomingpvchdpe',
                     $name,
@@ -131,7 +133,7 @@ class IncomingPvcHdpeController extends Controller
             $paths = [];
 
             foreach ($request->file('files') as $file) {
-                $name = time().'_'.uniqid().'.'.$file->getClientOriginalExtension();
+                $name = time() . '_' . uniqid() . '.' . $file->getClientOriginalExtension();
 
                 $paths[] = $file->storeAs(
                     'uploads/incomingpvchdpe',
@@ -185,6 +187,38 @@ class IncomingPvcHdpeController extends Controller
 
         $incomingPvcHdpe = IncomingPvcHdpe::findOrFail($id);
         $incomingPvcHdpe->update($validated);
+        if ($request->hasFile('files')) {
+            // hapus file lama
+            if (!empty($incomingPvcHdpe->files)) {
+                foreach ($incomingPvcHdpe->files as $oldFile) {
+
+                    if (is_array($oldFile)) {
+                        foreach ($oldFile as $filePath) {
+                            if (is_string($filePath) && Storage::disk('public')->exists($filePath)) {
+                                Storage::disk('public')->delete($filePath);
+                            }
+                        }
+                    } else {
+                        if (is_string($oldFile) && Storage::disk('public')->exists($oldFile)) {
+                            Storage::disk('public')->delete($oldFile);
+                        }
+                    }
+                }
+            }
+            // upload file baru
+            $paths = [];
+            foreach ($request->file('files') as $file) {
+                $name = time() . '_' . uniqid() . '.' . $file->getClientOriginalExtension();
+                $paths[] = $file->storeAs(
+                    'uploads/sheetgalvanize',
+                    $name,
+                    'public'
+                );
+            }
+            $incomingPvcHdpe->update([
+                'files' => $paths,
+            ]);
+        }
 
         return redirect()->route('incomingpvchdpe.index')->with('success', 'Data incoming berhasil diperbarui');
     }

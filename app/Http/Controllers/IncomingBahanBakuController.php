@@ -150,17 +150,23 @@ class IncomingBahanBakuController extends Controller
             'd_kawat' => 'required',
             'tol' => 'required',
             'jenis_kawat' => 'required',
+
             'files.*' => 'nullable|file|max:5120',
         ]);
+
         $item = IncomingBahanBaku::findOrFail($id);
+
         // update data utama
         $item->update($validated);
+
         /*
     |--------------------------------------------------------------------------
     | Replace File Lama Dengan File Baru
     |--------------------------------------------------------------------------
     */
+
         if ($request->hasFile('files')) {
+
             // hapus file lama
             if (!empty($item->files)) {
                 foreach ($item->files as $oldFile) {
