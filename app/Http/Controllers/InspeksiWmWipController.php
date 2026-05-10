@@ -6,6 +6,7 @@ use App\Models\InspeksiWm;
 use App\Models\InspeksiWmWip;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class InspeksiWmWipController extends Controller
 {
@@ -124,7 +125,12 @@ class InspeksiWmWipController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $wip = InspeksiWmWip::with(['details', 'inspeksiWm'])->findOrFail($id);
+
+        return view('inspeksi_wm.wip.edit', [
+            'inspeksi_wm' => $wip->inspeksiWm,
+            'wip' => $wip,
+        ]);
     }
 
     /**
@@ -132,14 +138,102 @@ class InspeksiWmWipController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $request->validate([
+            'no_material'       => 'required|string|max:255',
+            'nama_operator'     => 'required|string|max:255',
+            'd_kawat_act'       => 'required|numeric',
+            'selisih_diagonal'  => 'required|numeric',
+            'p_product_act'     => 'required|numeric',
+            'l_product_act'     => 'required|numeric',
+            'p_mesh_act'        => 'required|numeric',
+            'l_mesh_act'        => 'required|numeric',
+            'torsi_strength'    => 'required|in:OK,NG',
+            'status_dimensi'    => 'required|in:OK,NG',
+            'visual'    => 'required|in:OK,NG',
+            'shear_strength'    => 'required',
+            'weight'    => 'required',
+            'detail_name'       => 'nullable|array',
+            'detail_name.*'     => 'nullable|string|max:255',
+            'detail_description'   => 'nullable|array',
+            'detail_description.*' => 'nullable|string|max:1000',
+        ]);
+        $wip = InspeksiWmWip::findOrFail($id);
+        $wip->update([
+            'no_material' => $request->no_material,
+            'nama_operator' => $request->nama_operator,
+            'd_kawat_act' => $request->d_kawat_act,
+            'selisih_diagonal' => $request->selisih_diagonal,
+            'p_product_act' => $request->p_product_act,
+            'l_product_act' => $request->l_product_act,
+            'p_mesh_act' => $request->p_mesh_act,
+            'l_mesh_act' => $request->l_mesh_act,
+            'torsi_strength' => $request->torsi_strength,
+            'status_dimensi' => $request->status_dimensi,
+            'visual' => $request->visual,
+            'shear_strength' => $request->shear_strength,
+            'weight' => $request->weight,
+        ]);
+        if ($request->hasFile('files')) {
+            if (is_array($wip->files)) {
+                foreach ($wip->files as $oldFile) {
+                    if (Storage::disk('public')->exists($oldFile)) {
+                        Storage::disk('public')->delete($oldFile);
+                    }
+                }
+            }
+            $newFiles = [];
+            foreach ($request->file('files') as $file) {
+                $newFiles[] = $file->store('inspeksi_wm_wip', 'public');
+            }
+            $wip->update([
+                'files' => $newFiles,
+            ]);
+        }
+        $wip->details()->delete();
+        if ($request->detail_description) {
+            foreach ($request->detail_description as $index => $description) {
+                $description2 = $request->detail_description2[$index] ?? null;
+                $qty = $request->detail_qty[$index] ?? null;
+
+                if (empty($description) && empty($description2) && empty($qty)) {
+                    continue;
+                }
+
+                $wip->details()->create([
+                    'description' => $description,
+                    'description2' => $description2,
+                    'qty' => $qty,
+                ]);
+            }
+        }
+
+        return redirect()
+            ->route('inspeksi_wm.show', $wip->inspeksi_wm_id)
+            ->with('success', 'Data WIP berhasil diupdate.');
     }
+
 
     /**
      * Remove the specified resource from storage.
      */
     public function destroy(string $id)
     {
-        //
+        $wip = InspeksiWmWip::findOrFail($id);
+        $inspeksi_wm_id = $wip->inspeksi_wm_id;
+
+        // hapus file dari storage
+        if (is_array($wip->files)) {
+            foreach ($wip->files as $filePath) {
+                if (file_exists(storage_path('app/public/' . $filePath))) {
+                    unlink(storage_path('app/public/' . $filePath));
+                }
+            }
+        }
+
+        // hapus data WIP
+        $wip->delete();
+
+        return redirect()->route('inspeksi_wm.show', $inspeksi_wm_id)
+            ->with('success', 'Data WIP berhasil dihapus');
     }
 }

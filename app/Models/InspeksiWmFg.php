@@ -23,7 +23,8 @@ class InspeksiWmFg extends Model
     ];
 
 
-    public function inspeksiWm() {
+    public function inspeksiWm()
+    {
         return $this->belongsTo(InspeksiWm::class);
     }
 
@@ -36,5 +37,4 @@ class InspeksiWmFg extends Model
     {
         return $this->hasMany(InspeksiWmFgDetail::class);
     }
-
 }

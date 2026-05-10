@@ -6,6 +6,7 @@ use App\Models\InspeksiWm;
 use App\Models\InspeksiWmFg;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class InspeksiWmFgController extends Controller
 {
@@ -113,37 +114,42 @@ class InspeksiWmFgController extends Controller
             'qty' => 'required|integer',
             'weight' => 'required|numeric',
 
+            'files.*' => 'nullable|file|max:5120',
+
             'detail_description.*' => 'nullable|string',
             'detail_description2.*' => 'nullable|string',
             'detail_qty.*' => 'nullable|integer',
         ]);
 
         $fg = InspeksiWmFg::findOrFail($id);
-
-        // update data utama
         $fg->update([
             'status' => $request->status,
             'qty' => $request->qty,
             'weight' => $request->weight,
         ]);
-
-        // hapus detail lama
+        if ($request->hasFile('files')) {
+            if (is_array($fg->files)) {
+                foreach ($fg->files as $oldFile) {
+                    if (Storage::disk('public')->exists($oldFile)) {
+                        Storage::disk('public')->delete($oldFile);
+                    }
+                }
+            }
+            $newFiles = [];
+            foreach ($request->file('files') as $file) {
+                $newFiles[] = $file->store('inspeksi_wm_fg', 'public');
+            }
+            $fg->update([
+                'files' => $newFiles,
+            ]);
+        }
         $fg->details()->delete();
-
-        // simpan detail baru
         if ($request->detail_description) {
-
             foreach ($request->detail_description as $index => $description) {
-
                 $description2 = $request->detail_description2[$index] ?? null;
                 $qty = $request->detail_qty[$index] ?? null;
 
-                // skip kalau kosong semua
-                if (
-                    empty($description) &&
-                    empty($description2) &&
-                    empty($qty)
-                ) {
+                if (empty($description) && empty($description2) && empty($qty)) {
                     continue;
                 }
 
@@ -159,6 +165,7 @@ class InspeksiWmFgController extends Controller
             ->route('inspeksi_wm.show', $fg->inspeksi_wm_id)
             ->with('success', 'Data FG berhasil diupdate.');
     }
+
     /**
      * Remove the specified resource from storage.
      */

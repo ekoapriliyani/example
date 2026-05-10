@@ -75,8 +75,11 @@ Route::middleware(['auth'])->group(function () {
     // Route edit WIP & FG
     Route::get('insepeksi_wm/fg/{fg}/edit', [InspeksiWmFgController::class, 'edit'])->name('inspeksi_wm_fg.edit');
     Route::put('insepeksi_wm/fg/{fg}', [InspeksiWmFgController::class, 'update'])->name('inspeksi_wm_fg.update');
-
     Route::delete('insepeksi_wm/fg/{fg}', [InspeksiWmFgController::class, 'destroy'])->name('inspeksi_wm_fg.destroy');
+
+    Route::get('insepeksi_wm/wip/{wip}/edit', [InspeksiWmWipController::class, 'edit'])->name('inspeksi_wm_wip.edit');
+    Route::put('insepeksi_wm/wip/{wip}', [InspeksiWmWipController::class, 'update'])->name('inspeksi_wm_wip.update');
+    Route::delete('insepeksi_wm/wip/{wip}', [InspeksiWmWipController::class, 'destroy'])->name('inspeksi_wm_wip.destroy');
 
 
     Route::get('/inspeksi_kawat_duri/{inspeksi_kawat_duri}/wip', [InspeksiKawatDuriWipController::class, 'create'])->name('inspeksi_kawat_duri.wip');

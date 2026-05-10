@@ -2,7 +2,7 @@
     <x-slot name="header">
         <div class="flex items-center justify-between">
             <h2 class="text-xl font-semibold leading-tight text-gray-800">
-                {{ __('Edit Hasil Inspeksi WIP') }}
+                {{ __('Edit Hasil Inspeksi FG') }}
             </h2>
             <p class="text-sm text-gray-500">
                 Ref:
@@ -25,7 +25,6 @@
                         <input type="hidden" name="inspeksi_fg_id"
                             value="{{ old('inspeksi_wm_id', $fg->inspeksi_wm_id) }}">
                         <input type="hidden" name="user_id" value="{{ auth()->id() }}">
-
                         <div class="grid grid-cols-1 gap-6 md:grid-cols-2">
                             <div>
                                 <x-input-label for="status" :value="__('Status')" />
@@ -44,10 +43,8 @@
                                         REJECT
                                     </option>
                                 </select>
-
                                 <x-input-error class="mt-2" :messages="$errors->get('status')" />
                             </div>
-
                             <div>
                                 <x-input-label for="qty" :value="__('Quantity')" />
                                 <x-text-input id="qty" name="qty" type="number" class="mt-1 block w-full"
@@ -55,7 +52,6 @@
                                 <x-input-error class="mt-2" :messages="$errors->get('qty')" />
                             </div>
                         </div>
-
                         <div class="grid grid-cols-1 gap-6 md:grid-cols-2">
                             <div>
                                 <x-input-label for="weight" :value="__('Weight')" />
@@ -64,10 +60,65 @@
                                 <x-input-error class="mt-2" :messages="$errors->get('weight')" />
                             </div>
                         </div>
+                        <div class="border-t border-gray-200 pt-6">
+                            <h3 class="mb-4 font-semibold text-gray-700">Files</h3>
+
+                            {{-- File Lama --}}
+                            @if ($fg->files)
+                                <div class="grid grid-cols-1 gap-4 md:grid-cols-2">
+
+                                    @foreach ($fg->files as $file)
+                                        @php
+                                            $ext = pathinfo($file, PATHINFO_EXTENSION);
+                                        @endphp
+
+                                        <div class="rounded-lg border border-gray-200 bg-gray-50 p-3">
+
+                                            @if (in_array(strtolower($ext), ['jpg', 'jpeg', 'png']))
+                                                <img src="{{ asset('storage/' . $file) }}" alt="FG Image"
+                                                    class="mb-3 h-48 w-full rounded border object-contain" />
+                                            @else
+                                                <div
+                                                    class="mb-3 flex h-48 items-center justify-center rounded border bg-white text-gray-400">
+                                                    {{ strtoupper($ext) }} FILE
+                                                </div>
+                                            @endif
+
+                                            <div class="flex items-center justify-between">
+
+                                                <a href="{{ asset('storage/' . $file) }}" target="_blank"
+                                                    class="text-sm font-medium text-indigo-600 hover:underline">
+
+                                                    {{ basename($file) }}
+                                                </a>
+
+                                            </div>
+
+                                        </div>
+                                    @endforeach
+
+                                </div>
+                            @else
+                                <div
+                                    class="rounded-md border border-dashed border-gray-300 px-4 py-6 text-center text-sm text-gray-400">
+                                    Tidak ada file upload.
+                                </div>
+                            @endif
+
+                            {{-- Upload Baru --}}
+                            <div class="mt-6">
+                                <x-input-label for="files" :value="__('Upload File Baru')" />
+                                <input id="files" name="files[]" type="file" multiple
+                                    class="mt-1 block w-full rounded-md border border-gray-300 p-2 text-sm shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
+                                <p class="mt-1 text-xs text-gray-500">
+                                    Bisa upload multiple file (jpg, png, pdf, dll).
+                                </p>
+                                <x-input-error class="mt-2" :messages="$errors->get('files')" />
+                            </div>
+                        </div>
                         {{-- detail --}}
                         <div class="border-t border-gray-200 pt-6">
                             <h3 class="mb-4 font-semibold text-gray-700">Detail Inspeksi</h3>
-
                             <div id="detail-wrapper" class="space-y-4">
                                 @forelse ($fg->details as $detail)
                                     <div class="detail-row grid grid-cols-1 gap-4 md:grid-cols-3">
@@ -80,7 +131,6 @@
                                                 ])
                                             </select>
                                         </div>
-
                                         <div>
                                             <x-input-label :value="__('Description 2')" />
                                             <select name="detail_description2[]"
@@ -90,7 +140,6 @@
                                                 ])
                                             </select>
                                         </div>
-
                                         <div>
                                             <x-input-label :value="__('QTY')" />
                                             <x-text-input name="detail_qty[]" type="number" class="mt-1 block w-full"
@@ -109,7 +158,6 @@
                                                 ])
                                             </select>
                                         </div>
-
                                         <div>
                                             <x-input-label :value="__('Description 2')" />
                                             <select name="detail_description2[]"
@@ -119,7 +167,6 @@
                                                 ])
                                             </select>
                                         </div>
-
                                         <div>
                                             <x-input-label :value="__('QTY')" />
                                             <x-text-input name="detail_qty[]" type="number" class="mt-1 block w-full"
@@ -143,7 +190,7 @@
                             </a>
 
                             <x-primary-button class="bg-indigo-600 hover:bg-indigo-700">
-                                {{ __('Update Data WIP') }}
+                                {{ __('Update Data FG') }}
                             </x-primary-button>
                         </div>
                     </form>
