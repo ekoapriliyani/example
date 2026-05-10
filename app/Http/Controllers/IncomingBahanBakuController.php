@@ -40,7 +40,7 @@ class IncomingBahanBakuController extends Controller
 
         $nextNomor = "INBB{$tahunBulan}{$nextNumber}";
         $suppliers = Supplier::orderBy('supplier_code')->get();
-        return view('incomingbahanbaku.create', compact('nextNomor','suppliers'));
+        return view('incomingbahanbaku.create', compact('nextNomor', 'suppliers'));
     }
 
     public function inspeksi()
@@ -99,7 +99,7 @@ class IncomingBahanBakuController extends Controller
         if ($request->hasFile('files')) {
             $paths = [];
             foreach ($request->file('files') as $file) {
-                $name = time().'_'.uniqid().'.'.$file->getClientOriginalExtension();
+                $name = time() . '_' . uniqid() . '.' . $file->getClientOriginalExtension();
                 $paths[] = $file->storeAs(
                     'uploads/incomingbahanbaku',
                     $name,
@@ -138,33 +138,85 @@ class IncomingBahanBakuController extends Controller
     /**
      * Update the specified resource in storage.
      */
+
     public function update(Request $request, string $id)
     {
         $validated = $request->validate([
-        'tanggal' => 'required',
-        'supplier_id' => 'required',
-        'no_po' => 'required',
-        'no_sj' => 'required',
-        'jml_koil' => 'required',
-        'd_kawat' => 'required',
-        'tol' => 'required',
-        'jenis_kawat' => 'required',
+            'tanggal' => 'required',
+            'supplier_id' => 'required',
+            'no_po' => 'required',
+            'no_sj' => 'required',
+            'jml_koil' => 'required',
+            'd_kawat' => 'required',
+            'tol' => 'required',
+            'jenis_kawat' => 'required',
+            'files.*' => 'nullable|file|max:5120',
         ]);
-
         $item = IncomingBahanBaku::findOrFail($id);
-
+        // update data utama
         $item->update($validated);
+        /*
+    |--------------------------------------------------------------------------
+    | Replace File Lama Dengan File Baru
+    |--------------------------------------------------------------------------
+    */
+        if ($request->hasFile('files')) {
+            // hapus file lama
+            if (!empty($item->files)) {
+                foreach ($item->files as $oldFile) {
 
-        return redirect()->route('incomingbahanbaku.index')
-            ->with('success', 'Data berhasil diupdate');
+                    if (is_array($oldFile)) {
+                        foreach ($oldFile as $filePath) {
+                            if (is_string($filePath) && Storage::disk('public')->exists($filePath)) {
+                                Storage::disk('public')->delete($filePath);
+                            }
+                        }
+                    } else {
+                        if (is_string($oldFile) && Storage::disk('public')->exists($oldFile)) {
+                            Storage::disk('public')->delete($oldFile);
+                        }
+                    }
+                }
+            }
+            // upload file baru
+            $paths = [];
+            foreach ($request->file('files') as $file) {
+                $name = time() . '_' . uniqid() . '.' . $file->getClientOriginalExtension();
+                $paths[] = $file->storeAs(
+                    'uploads/incomingbahanbaku',
+                    $name,
+                    'public'
+                );
+            }
+            $item->update([
+                'files' => $paths,
+            ]);
         }
-
+        return redirect()
+            ->route('incomingbahanbaku.index')
+            ->with('success', 'Data berhasil diupdate');
+    }
     /**
      * Remove the specified resource from storage.
      */
     public function destroy(string $id)
     {
-        //
+        $item = IncomingBahanBaku::findOrFail($id);
+
+        // hapus file dari storage
+        if (!empty($item->files)) {
+            foreach ($item->files as $filePath) {
+                if (is_string($filePath) && Storage::disk('public')->exists($filePath)) {
+                    Storage::disk('public')->delete($filePath);
+                }
+            }
+        }
+        // hapus data
+        $item->delete();
+
+        return redirect()
+            ->route('incomingbahanbaku.index')
+            ->with('success', 'Data berhasil dihapus');
     }
 
     public function createInspeksi($id)
@@ -227,8 +279,8 @@ class IncomingBahanBakuController extends Controller
 
     public function editInspeksi(
         IncomingBahanBaku $incomingbahanbaku,
-        IncomingBahanBakuInspeksi $inspeksi) 
-    {
+        IncomingBahanBakuInspeksi $inspeksi
+    ) {
         return view(
             'incomingbahanbaku.inspeksi.edit',
             compact('incomingbahanbaku', 'inspeksi')
@@ -238,8 +290,8 @@ class IncomingBahanBakuController extends Controller
     public function updateInspeksi(
         Request $request,
         IncomingBahanBaku $incomingbahanbaku,
-        IncomingBahanBakuInspeksi $inspeksi) 
-    {
+        IncomingBahanBakuInspeksi $inspeksi
+    ) {
         $validated = $request->validate([
             'no_koil' => 'required',
             'd1' => 'required|numeric',
@@ -299,7 +351,7 @@ class IncomingBahanBakuController extends Controller
     public function createMechanicalTest($id)
     {
         $incomingbahanbaku = IncomingBahanBaku::findOrFail($id);
-        
+
         return view('incomingbahanbaku.mechanical_test_create', compact('incomingbahanbaku'));
     }
 
@@ -355,13 +407,13 @@ class IncomingBahanBakuController extends Controller
     }
 
     public function destroyMechanicalTest(MechanicalTest $mechanicalTest)
-{
-    $incomingId = $mechanicalTest->incoming_bahan_baku_id;
+    {
+        $incomingId = $mechanicalTest->incoming_bahan_baku_id;
 
-    $mechanicalTest->delete();
+        $mechanicalTest->delete();
 
-    return redirect()
-        ->route('incomingbahanbaku.show', $incomingId)
-        ->with('success', 'Mechanical test berhasil dihapus');
-}
+        return redirect()
+            ->route('incomingbahanbaku.show', $incomingId)
+            ->with('success', 'Mechanical test berhasil dihapus');
+    }
 }

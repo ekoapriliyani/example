@@ -39,10 +39,11 @@ class SheetGalvanizeController extends Controller
 
         $nextNomor = "INSG{$tahunBulan}{$nextNumber}";
         $suppliers = Supplier::orderBy('supplier_code')->get();
-        return view('sheetgalvanize.create', compact('nextNomor','suppliers'));
+        return view('sheetgalvanize.create', compact('nextNomor', 'suppliers'));
     }
 
-    public function createInspeksi($id){
+    public function createInspeksi($id)
+    {
         $sheetgalvanize = SheetGalvanize::findOrFail($id);
 
         return view('sheetgalvanize.inspeksi', compact('sheetgalvanize'));
@@ -75,7 +76,7 @@ class SheetGalvanizeController extends Controller
         if ($request->hasFile('files')) {
             $paths = [];
             foreach ($request->file('files') as $file) {
-                $name = time().'_'.uniqid().'.'.$file->getClientOriginalExtension();
+                $name = time() . '_' . uniqid() . '.' . $file->getClientOriginalExtension();
                 $paths[] = $file->storeAs(
                     'uploads/inspeksi_sg',
                     $name,
@@ -127,7 +128,7 @@ class SheetGalvanizeController extends Controller
         if ($request->hasFile('files')) {
             $paths = [];
             foreach ($request->file('files') as $file) {
-                $name = time().'_'.uniqid().'.'.$file->getClientOriginalExtension();
+                $name = time() . '_' . uniqid() . '.' . $file->getClientOriginalExtension();
                 $paths[] = $file->storeAs(
                     'uploads/inspeksi_sg',
                     $name,
@@ -182,7 +183,7 @@ class SheetGalvanizeController extends Controller
 
             $paths = [];
             foreach ($request->file('files') as $file) {
-                $name = time().'_'.uniqid().'.'.$file->getClientOriginalExtension();
+                $name = time() . '_' . uniqid() . '.' . $file->getClientOriginalExtension();
 
                 $paths[] = $file->storeAs(
                     'uploads/inspeksi_sg',
@@ -233,11 +234,41 @@ class SheetGalvanizeController extends Controller
             'no_sj' => 'required',
             'certificate' => 'required',
         ]);
-
         $item = SheetGalvanize::findOrFail($id);
-
         $item->update($validated);
 
+        if ($request->hasFile('files')) {
+            // hapus file lama
+            if (!empty($item->files)) {
+                foreach ($item->files as $oldFile) {
+
+                    if (is_array($oldFile)) {
+                        foreach ($oldFile as $filePath) {
+                            if (is_string($filePath) && Storage::disk('public')->exists($filePath)) {
+                                Storage::disk('public')->delete($filePath);
+                            }
+                        }
+                    } else {
+                        if (is_string($oldFile) && Storage::disk('public')->exists($oldFile)) {
+                            Storage::disk('public')->delete($oldFile);
+                        }
+                    }
+                }
+            }
+            // upload file baru
+            $paths = [];
+            foreach ($request->file('files') as $file) {
+                $name = time() . '_' . uniqid() . '.' . $file->getClientOriginalExtension();
+                $paths[] = $file->storeAs(
+                    'uploads/sheetgalvanize',
+                    $name,
+                    'public'
+                );
+            }
+            $item->update([
+                'files' => $paths,
+            ]);
+        }
         return redirect()->route('sheetgalvanize.index')
             ->with('success', 'Data berhasil diupdate');
     }
