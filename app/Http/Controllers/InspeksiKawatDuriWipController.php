@@ -6,16 +6,14 @@ use App\Models\InspeksiKawatDuri;
 use App\Models\InspeksiKawatDuriWip;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class InspeksiKawatDuriWipController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
-    {
-
-    }
+    public function index() {}
 
     /**
      * Show the form for creating a new resource.
@@ -98,7 +96,7 @@ class InspeksiKawatDuriWipController extends Controller
         }
 
         return redirect()->route('inspeksi_kawat_duri.show', $validated['inspeksi_kawat_duri_id'])
-                         ->with('success', 'Data WIP berhasil disimpan.');
+            ->with('success', 'Data WIP berhasil disimpan.');
     }
 
     /**
@@ -130,6 +128,23 @@ class InspeksiKawatDuriWipController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $wip = InspeksiKawatDuriWip::findOrFail($id);
+        $inspeksiKawatDuriId = $wip->inspeksi_kawat_duri_id;
+
+        // Hapus file terkait jika ada
+        if ($wip->files) {
+            foreach ($wip->files as $filePath) {
+                Storage::disk('public')->delete($filePath);
+            }
+        }
+
+        // Hapus detail terkait
+        $wip->inspeksiKdWipDetails()->delete();
+
+        // Hapus data WIP
+        $wip->delete();
+
+        return redirect()->route('inspeksi_kawat_duri.show', $inspeksiKawatDuriId)
+            ->with('success', 'Data WIP berhasil dihapus.');
     }
 }

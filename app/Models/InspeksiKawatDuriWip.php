@@ -19,7 +19,11 @@ class InspeksiKawatDuriWip extends Model
         'weight',
         'jml_counter',
         'status',
+        'files',
+    ];
 
+    protected $casts = [
+        'files' => 'array',
     ];
 
     public function inspeksiKawatDuri()

@@ -81,22 +81,18 @@ class InspeksiWmWipController extends Controller
         // simpan file multiple ke kolom JSON
         if ($request->hasFile('files')) {
             $paths = [];
-
             foreach ($request->file('files') as $file) {
                 $paths[] = $file->store('uploads/inspeksi_wip', 'public');
             }
-
             $wip->update([
                 'files' => $paths
             ]);
         }
-
         // simpan detail multiple (array)
         // ambil semua array dari request
         $descriptions  = $request->input('detail_description', []);
         $descriptions2 = $request->input('detail_description2', []);
         $qty           = $request->input('detail_qty', []);
-
         foreach ($descriptions as $i => $description) {
             if (!empty($description)) {
                 $wip->details()->create([
@@ -106,7 +102,6 @@ class InspeksiWmWipController extends Controller
                 ]);
             }
         }
-
         return redirect()
             ->route('inspeksi_wm.show', $request->inspeksi_wm_id)
             ->with('success', 'Data WIP, detail, dan file berhasil ditambahkan');
