@@ -9,7 +9,7 @@
                     class="inline-flex items-center px-4 py-2 bg-white border border-gray-300 rounded-md font-semibold text-xs text-gray-700 uppercase tracking-widest shadow-sm hover:bg-gray-50 transition ease-in-out duration-150">
                     Kembali
                 </a>
-                <a href="{{ route('inspeksi_kawat_duri.wip', $inspeksi_kawat_duri->id) }}"
+                <a href="{{ route('inspeksi_kawat_duri.wip', $inspeksiKawatDuri->id) }}"
                     class="inline-flex items-center gap-2 rounded-md bg-blue-600 px-4 py-2 text-sm font-semibold text-white hover:bg-blue-700 transition shadow-sm">
                     <svg xmlns="http://www.w3.org/2000/svg" class="size-4" fill="none" viewBox="0 0 24 24"
                         stroke="currentColor" stroke-width="2">
@@ -17,7 +17,7 @@
                     </svg>
                     Tambah WIP
                 </a>
-                <a href="{{ route('inspeksi_kawat_duri.fg', $inspeksi_kawat_duri->id) }}"
+                <a href="{{ route('inspeksi_kawat_duri.fg', $inspeksiKawatDuri->id) }}"
                     class="inline-flex items-center gap-2 rounded-md bg-green-600 px-4 py-2 text-sm font-semibold text-white hover:bg-green-700 transition shadow-sm">
                     <svg xmlns="http://www.w3.org/2000/svg" class="size-4" fill="none" viewBox="0 0 24 24"
                         stroke="currentColor" stroke-width="2">
@@ -37,54 +37,42 @@
                         <dl class="grid grid-cols-1 gap-x-8 gap-y-4 sm:grid-cols-4">
                             <div>
                                 <dt class="text-sm font-medium text-gray-500 italic">Nomor Inspeksi</dt>
-                                <dd class="text-lg font-bold text-indigo-600">{{ $inspeksi_kawat_duri->nomor_inspeksi }}</dd>
+                                <dd class="text-lg font-bold text-indigo-600">{{ $inspeksiKawatDuri->nomor_inspeksi }}</dd>
                             </div>
                             <div>
                                 <dt class="text-sm font-medium text-gray-500 italic">PRO Number</dt>
                                 <dd class="text-lg font-semibold text-gray-900">
-                                    {{ $inspeksi_kawat_duri->pro->pro_id }}
+                                    {{ $inspeksiKawatDuri->pro->pro_id }}
                                 </dd>
                             </div>
                             <div>
                                 <dt class="text-sm font-medium text-gray-500 italic">Description</dt>
                                 <dd class="text-lg font-semibold text-gray-900">
-                                    {{ $inspeksi_kawat_duri->pro->description }}
-                                </dd>
-                            </div>
-                            <div>
-                                <dt class="text-sm font-medium text-gray-500 italic">Product Kawat Duri</dt>
-                                <dd class="text-lg font-semibold text-gray-900">
-                                    {{ $inspeksi_kawat_duri->productKawatDuri->description }}
+                                    {{ $inspeksiKawatDuri->pro->description }}
                                 </dd>
                             </div>
                             <div>
                                 <dt class="text-sm font-medium text-gray-500 italic">QTY Ordered</dt>
                                 <dd class="text-lg font-semibold text-gray-900">
-                                    {{ $inspeksi_kawat_duri->pro->qty }}
+                                    {{ $inspeksiKawatDuri->pro->qty }}
                                 </dd>
                             </div>
                             <div>
                                 <dt class="text-sm font-medium text-gray-500 italic">Shift</dt>
                                 <dd class="text-lg font-semibold text-gray-900">
-                                    {{ $inspeksi_kawat_duri->shift }}
-                                </dd>
-                            </div>
-                            <div>
-                                <dt class="text-sm font-medium text-gray-500 italic">Grade</dt>
-                                <dd class="text-lg font-semibold text-gray-900">
-                                    {{ $inspeksi_kawat_duri->grade }}
+                                    {{ $inspeksiKawatDuri->shift }}
                                 </dd>
                             </div>
                             <div>
                                 <dt class="text-sm font-medium text-gray-500 italic">Type Coating</dt>
                                 <dd class="text-lg font-semibold text-gray-900">
-                                    {{ $inspeksi_kawat_duri->type_coating }}
+                                    {{ $inspeksiKawatDuri->type_coating }}
                                 </dd>
                             </div>
                             <div>
                                 <dt class="text-sm font-medium text-gray-500 italic">Mesin</dt>
                                 <dd class="text-lg font-semibold text-gray-900">
-                                    {{ $inspeksi_kawat_duri->mesin->nama_mesin }}
+                                    {{ $inspeksiKawatDuri->mesin->nama_mesin }}
                                 </dd>
                             </div>
                         </dl>
@@ -102,7 +90,7 @@
                                     d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
                             </svg>
                         </div>
-                        <h3 class="text-lg font-bold text-gray-800">Hasil Inspeksi WIP Wiremesh</h3>
+                        <h3 class="text-lg font-bold text-gray-800">Hasil Inspeksi WIP Kawat Duri</h3>
                     </div>
 
                     <div class="overflow-x-auto rounded-lg border border-gray-200">
@@ -114,41 +102,34 @@
                                     <th class="px-4 py-3 font-semibold text-gray-900">No. Material</th>
                                     <th class="px-4 py-3 font-semibold text-gray-900">Operator</th>
                                     <th class="px-4 py-3 font-semibold text-gray-900">D. Kawat Act</th>
-                                    <th class="px-4 py-3 font-semibold text-gray-900">Selisih Diagonal</th>
-                                    <th class="px-4 py-3 font-semibold text-gray-900">P Produk</th>
-                                    <th class="px-4 py-3 font-semibold text-gray-900">L Produk</th>
-                                    <th class="px-4 py-3 font-semibold text-gray-900">P Mesh</th>
-                                    <th class="px-4 py-3 font-semibold text-gray-900">L Mesh</th>
-                                    <th class="px-4 py-3 font-semibold text-gray-900">Torsi Strength</th>
-                                    <th class="px-4 py-3 font-semibold text-gray-900">Dimensi</th>
-                                    <th class="px-4 py-3 font-semibold text-gray-900">Visual</th>
-                                    <th class="px-4 py-3 font-semibold text-gray-900">Shear Strength</th>
+                                    <th class="px-4 py-3 font-semibold text-gray-900">Diameter Jalinan</th>
+                                    <th class="px-4 py-3 font-semibold text-gray-900">Jarak Duri</th>
+                                    <th class="px-4 py-3 font-semibold text-gray-900">Jumlah Jalinan Duri</th>
+                                    <th class="px-4 py-3 font-semibold text-gray-900">Sudut Ujung Duri</th>
                                     <th class="px-4 py-3 font-semibold text-gray-900">Weight</th>
+                                    <th class="px-4 py-3 font-semibold text-gray-900">Jumlah Counter</th>
+                                    <th class="px-4 py-3 font-semibold text-gray-900">Status</th>
                                     <th class="px-4 py-3 font-semibold text-gray-900">Detail</th>
                                     <th class="px-4 py-3 font-semibold text-gray-900">Gambar</th>
+                                    <th class="px-4 py-3 font-semibold text-gray-900">Aksi</th>
                                     <th class="px-4 py-3 font-semibold text-gray-900 text-center">Created At</th>
                                 </tr>
                             </thead>
                             <tbody class="divide-y divide-gray-200">
-                                @forelse ($inspeksi_kawat_duri->inspeksiKawatDuriWip as $wip)
+                                @forelse ($inspeksiKawatDuri->inspeksiKawatDuriWip as $wip)
                                     <tr class="hover:bg-gray-50 transition-colors">
                                         <td class="px-4 py-3">{{ $loop->iteration }}</td>
                                         <td class="px-4 py-3">{{ $wip->user->name ?? 'N/A' }}</td>
                                         <td class="px-4 py-3 font-medium">{{ $wip->no_material }}</td>
                                         <td class="px-4 py-3">{{ $wip->nama_operator }}</td>
                                         <td class="px-4 py-3 text-center bg-blue-50/30">{{ $wip->d_kawat_act }}</td>
-                                        <td class="px-4 py-3 text-center bg-blue-50/30">{{ $wip->selisih_diagonal }}
-                                        </td>
-                                        <td class="px-4 py-3 text-center bg-blue-50/30">{{ $wip->p_product_act }}</td>
-                                        <td class="px-4 py-3 text-center bg-blue-50/30">{{ $wip->l_product_act }}</td>
-                                        <td class="px-4 py-3 text-center bg-blue-50/30">{{ $wip->p_mesh_act }}</td>
-                                        <td class="px-4 py-3 text-center bg-blue-50/30">{{ $wip->l_mesh_act }}</td>
-                                        <td class="px-4 py-3 text-center bg-blue-50/30">{{ $wip->torsi_strength }}</td>
-                                        <td class="px-4 py-3 text-center bg-blue-50/30">{{ $wip->status_dimensi }}
-                                        <td class="px-4 py-3 text-center bg-blue-50/30">{{ $wip->visual }}
-                                        </td>
-                                        <td class="px-4 py-3 text-center bg-blue-50/30">{{ $wip->shear_strength }}</td>
+                                        <td class="px-4 py-3 text-center bg-blue-50/30">{{ $wip->d_kawat_jalinan_act }}</td>
+                                        <td class="px-4 py-3 text-center bg-blue-50/30">{{ $wip->jarak_duri }}</td>
+                                        <td class="px-4 py-3 text-center bg-blue-50/30">{{ $wip->jml_jalinan_duri }}</td>
+                                        <td class="px-4 py-3 text-center bg-blue-50/30">{{ $wip->sudut_ujung_duri }}</td>
                                         <td class="px-4 py-3 text-center bg-blue-50/30">{{ $wip->weight }}</td>
+                                        <td class="px-4 py-3 text-center bg-blue-50/30">{{ $wip->jml_counter }}</td>
+                                        <td class="px-4 py-3 text-center bg-blue-50/30">{{ $wip->status }}</td>
                                         <td class="px-4 py-3">
                                             <button type="button" class="text-sm text-indigo-600 hover:underline"
                                                 onclick="toggleDetail2({{ $wip->id }})">
@@ -161,6 +142,7 @@
                                                 Lihat Gambar
                                             </button>
                                         </td>
+                                        <td class="px-4 py-3 text-center bg-blue-50/30">EDIT DELETE</td>
                                         <td class="px-4 py-3 text-center bg-blue-50/30">{{ $wip->created_at }}</td>
                                     </tr>
                                 @empty
@@ -204,7 +186,7 @@
                                 </tr>
                             </thead>
                             <tbody class="divide-y divide-gray-200">
-                                @forelse ($inspeksi_kawat_duri->inspeksiKawatDuriFg as $fg)
+                                @forelse ($inspeksiKawatDuri->inspeksiKawatDuriFg as $fg)
                                     <tr class="hover:bg-gray-50 transition-colors">
                                         <td class="px-4 py-3 font-medium">{{ $loop->iteration }}</td>
                                         <td class="px-4 py-3 font-medium">{{ $fg->user->name }}</td>
@@ -296,7 +278,7 @@
 
 
                         {{-- modal detail wip --}}
-                        @foreach ($inspeksi_kawat_duri->inspeksiKawatDuriWip as $wip)
+                        @foreach ($inspeksiKawatDuri->inspeksiKawatDuriWip as $wip)
                             <div id="detail2-{{ $wip->id }}"
                                 class="hidden fixed inset-0 bg-gray-900 bg-opacity-50 flex items-center justify-center">
                                 <div class="bg-white rounded-lg shadow-lg w-1/2 p-6">
@@ -311,7 +293,7 @@
                                             </tr>
                                         </thead>
                                         <tbody class="divide-y divide-gray-200">
-                                            @forelse ($wip->details as $detail)
+                                            @forelse ($wip->inspeksiKdWipDetails as $detail)
                                                 <tr>
                                                     <td class="px-4 py-2">{{ $loop->iteration }}</td>
                                                     <td class="px-4 py-2">{{ $detail->description }}</td>
@@ -339,7 +321,7 @@
                         @endforeach
 
                         {{-- modal gambar fg --}}
-                        @foreach ($inspeksi_kawat_duri->inspeksiKawatDuriFg as $fg)
+                        @foreach ($inspeksiKawatDuri->inspeksiKawatDuriFg as $fg)
                             <div id="image-{{ $fg->id }}"
                                 class="hidden fixed inset-0 bg-gray-900 bg-opacity-50 flex items-center justify-center">
                                 <div class="bg-white rounded-lg shadow-lg w-3/4 p-6 max-h-[80vh] overflow-y-auto">
@@ -376,7 +358,7 @@
                         @endforeach
 
                         {{-- modal gambar wip --}}
-                        @foreach ($inspeksi_kawat_duri->inspeksiKawatDuriWip as $wip)
+                        @foreach ($inspeksiKawatDuri->inspeksiKawatDuriWip as $wip)
                             <div id="image2-{{ $wip->id }}"
                                 class="hidden fixed inset-0 bg-gray-900 bg-opacity-50 flex items-center justify-center">
                                 <div class="bg-white rounded-lg shadow-lg w-3/4 p-6 max-h-[80vh] overflow-y-auto">
@@ -431,7 +413,7 @@
                             </div>
                             <div>
                                 <h3 class="text-xl font-bold text-gray-900">
-                                    Approval Inspeksi WM
+                                    Approval Inspeksi Kawat Duri
                                 </h3>
                                 <p class="mt-1 text-sm text-gray-500">
                                     Review data inspeksi sebelum melakukan approval.
@@ -441,7 +423,7 @@
                         <!-- Middle + Right -->
                         <div class="flex items-center gap-4">
                             <!-- Status -->
-                            @if ($inspeksi_wm->isApproved())
+                            @if ($inspeksiKawatDuri->isApproved())
                                 <span
                                     class="inline-flex items-center gap-2 rounded-full border border-green-200 bg-green-50 px-4 py-2 text-sm font-semibold text-green-700">
                                     <span class="h-2.5 w-2.5 rounded-full bg-green-500"></span>
@@ -456,19 +438,19 @@
                             @endif
                             <!-- Button -->
                             @if (in_array(auth()->user()->role, ['supervisor', 'manager', 'administrator']))
-                                <form id="approval-form-{{ $inspeksi_wm->id }}"
-                                    action="{{ route('inspeksi-wm.toggle', $inspeksi_wm->id) }}" method="POST"
+                                <form id="approval-form-{{ $inspeksiKawatDuri->id }}"
+                                    action="{{ route('inspeksi-kawat-duri.toggle', $inspeksiKawatDuri->id) }}" method="POST"
                                     class="hidden">
                                     @csrf
                                     @method('PATCH')
                                 </form>
                                 <button type="button"
-                                    onclick="confirmApproval({{ $inspeksi_wm->id }}, '{{ $inspeksi_wm->isApproved() ? 'unapprove' : 'approve' }}')"
+                                    onclick="confirmApproval({{ $inspeksiKawatDuri->id }}, '{{ $inspeksiKawatDuri->isApproved() ? 'unapprove' : 'approve' }}')"
                                     class="inline-flex items-center gap-2 rounded-xl px-5 py-2.5 text-sm font-semibold shadow-sm transition
-                        {{ $inspeksi_wm->isApproved()
+                        {{ $inspeksiKawatDuri->isApproved()
                             ? 'bg-orange-500 text-white hover:bg-orange-600'
                             : 'bg-green-600 text-white hover:bg-green-700' }}">
-                                    @if ($inspeksi_wm->isApproved())
+                                    @if ($inspeksiKawatDuri->isApproved())
                                         <span class="text-base">↺</span>
                                         Unapprove
                                     @else

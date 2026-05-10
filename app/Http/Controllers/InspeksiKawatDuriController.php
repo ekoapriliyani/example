@@ -76,7 +76,7 @@ class InspeksiKawatDuriController extends Controller
      */
     public function show(InspeksiKawatDuri $inspeksiKawatDuri)
     {
-        $inspeksiKawatDuri->load(['pro', 'mesin']);
+        $inspeksiKawatDuri->load(['pro', 'mesin', 'inspeksiKawatDuriWip', 'inspeksiKawatDuriFg']);
         return view('inspeksi_kawat_duri.show', compact('inspeksiKawatDuri'));
     }
 

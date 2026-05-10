@@ -1,88 +1,121 @@
 <x-app-layout>
     <x-slot name="header">
         <div class="flex items-center justify-between">
-            <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+            <h2 class="text-xl font-semibold leading-tight text-gray-800">
                 {{ __('Detail Inspeksi WM') }}
             </h2>
             <div class="flex gap-2">
                 <a href="{{ route('inspeksi_wm.index') }}"
-                    class="inline-flex items-center px-4 py-2 bg-white border border-gray-300 rounded-md font-semibold text-xs text-gray-700 uppercase tracking-widest shadow-sm hover:bg-gray-50 transition ease-in-out duration-150">
+                    class="inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-xs font-semibold uppercase tracking-widest text-gray-700 shadow-sm transition duration-150 ease-in-out hover:bg-gray-50">
                     Kembali
                 </a>
-                <a href="{{ route('inspeksi_wm.wip', $inspeksi_wm->id) }}"
-                    class="inline-flex items-center gap-2 rounded-md bg-blue-600 px-4 py-2 text-sm font-semibold text-white hover:bg-blue-700 transition shadow-sm">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="size-4" fill="none" viewBox="0 0 24 24"
-                        stroke="currentColor" stroke-width="2">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
-                    </svg>
-                    Tambah WIP
-                </a>
-                <a href="{{ route('inspeksi_wm.fg', $inspeksi_wm->id) }}"
-                    class="inline-flex items-center gap-2 rounded-md bg-green-600 px-4 py-2 text-sm font-semibold text-white hover:bg-green-700 transition shadow-sm">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="size-4" fill="none" viewBox="0 0 24 24"
-                        stroke="currentColor" stroke-width="2">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
-                    </svg>
-                    Tambah FG
-                </a>
+                @php
+                    $isApproved = $inspeksi_wm->approval_status === 'APPROVED';
+                @endphp
+                <div class="flex items-center gap-2">
+                    {{-- Tambah WIP --}}
+                    @if ($isApproved)
+                        <button type="button" disabled
+                            class="inline-flex cursor-not-allowed items-center gap-2 rounded-md bg-gray-400 px-4 py-2 text-sm font-semibold text-white opacity-60 shadow-sm">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="size-4" fill="none" viewBox="0 0 24 24"
+                                stroke="currentColor" stroke-width="2">
+
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+                            </svg>
+                            Tambah WIP
+                        </button>
+                    @else
+                        <a href="{{ route('inspeksi_wm.wip', $inspeksi_wm->id) }}"
+                            class="inline-flex items-center gap-2 rounded-md bg-blue-600 px-4 py-2 text-sm font-semibold text-white shadow-sm transition hover:bg-blue-700">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="size-4" fill="none" viewBox="0 0 24 24"
+                                stroke="currentColor" stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+                            </svg>
+                            Tambah WIP
+                        </a>
+                    @endif
+
+                    {{-- Tambah FG --}}
+                    @if ($isApproved)
+                        <button type="button" disabled
+                            class="inline-flex cursor-not-allowed items-center gap-2 rounded-md bg-gray-400 px-4 py-2 text-sm font-semibold text-white opacity-60 shadow-sm">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="size-4" fill="none" viewBox="0 0 24 24"
+                                stroke="currentColor" stroke-width="2">
+
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+                            </svg>
+                            Tambah FG
+                        </button>
+                    @else
+                        <a href="{{ route('inspeksi_wm.fg', $inspeksi_wm->id) }}"
+                            class="inline-flex items-center gap-2 rounded-md bg-green-600 px-4 py-2 text-sm font-semibold text-white shadow-sm transition hover:bg-green-700">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="size-4" fill="none" viewBox="0 0 24 24"
+                                stroke="currentColor" stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+                            </svg>
+                            Tambah FG
+                        </a>
+                    @endif
+
+                </div>
             </div>
         </div>
     </x-slot>
 
     <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-8">
-            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg border border-gray-200">
+        <div class="mx-auto max-w-7xl space-y-8 sm:px-6 lg:px-8">
+            <div class="overflow-hidden border border-gray-200 bg-white shadow-sm sm:rounded-lg">
                 <div class="p-6 sm:p-8">
-                    <div class="flex justify-between items-start">
+                    <div class="flex items-start justify-between">
                         <dl class="grid grid-cols-1 gap-x-8 gap-y-4 sm:grid-cols-4">
                             <div>
-                                <dt class="text-sm font-medium text-gray-500 italic">Nomor Inspeksi</dt>
+                                <dt class="text-sm font-medium italic text-gray-500">Nomor Inspeksi</dt>
                                 <dd class="text-lg font-bold text-indigo-600">{{ $inspeksi_wm->nomor_inspeksi }}</dd>
                             </div>
                             <div>
-                                <dt class="text-sm font-medium text-gray-500 italic">PRO Number</dt>
+                                <dt class="text-sm font-medium italic text-gray-500">PRO Number</dt>
                                 <dd class="text-lg font-semibold text-gray-900">
                                     {{ $inspeksi_wm->pro->pro_id }}
                                 </dd>
                             </div>
                             <div>
-                                <dt class="text-sm font-medium text-gray-500 italic">Description</dt>
+                                <dt class="text-sm font-medium italic text-gray-500">Description</dt>
                                 <dd class="text-lg font-semibold text-gray-900">
                                     {{ $inspeksi_wm->pro->description }}
                                 </dd>
                             </div>
                             <div>
-                                <dt class="text-sm font-medium text-gray-500 italic">Product WM</dt>
+                                <dt class="text-sm font-medium italic text-gray-500">Product WM</dt>
                                 <dd class="text-lg font-semibold text-gray-900">
                                     {{ $inspeksi_wm->productWm->description }}
                                 </dd>
                             </div>
                             <div>
-                                <dt class="text-sm font-medium text-gray-500 italic">QTY Ordered</dt>
+                                <dt class="text-sm font-medium italic text-gray-500">QTY Ordered</dt>
                                 <dd class="text-lg font-semibold text-gray-900">
                                     {{ $inspeksi_wm->pro->qty }}
                                 </dd>
                             </div>
                             <div>
-                                <dt class="text-sm font-medium text-gray-500 italic">Shift</dt>
+                                <dt class="text-sm font-medium italic text-gray-500">Shift</dt>
                                 <dd class="text-lg font-semibold text-gray-900">
                                     {{ $inspeksi_wm->shift }}
                                 </dd>
                             </div>
                             <div>
-                                <dt class="text-sm font-medium text-gray-500 italic">Grade</dt>
+                                <dt class="text-sm font-medium italic text-gray-500">Grade</dt>
                                 <dd class="text-lg font-semibold text-gray-900">
                                     {{ $inspeksi_wm->grade }}
                                 </dd>
                             </div>
                             <div>
-                                <dt class="text-sm font-medium text-gray-500 italic">Type Coating</dt>
+                                <dt class="text-sm font-medium italic text-gray-500">Type Coating</dt>
                                 <dd class="text-lg font-semibold text-gray-900">
                                     {{ $inspeksi_wm->type_coating }}
                                 </dd>
                             </div>
                             <div>
-                                <dt class="text-sm font-medium text-gray-500 italic">Mesin</dt>
+                                <dt class="text-sm font-medium italic text-gray-500">Mesin</dt>
                                 <dd class="text-lg font-semibold text-gray-900">
                                     {{ $inspeksi_wm->mesin->nama_mesin }}
                                 </dd>
@@ -92,10 +125,10 @@
                 </div>
             </div>
 
-            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg border border-gray-200">
+            <div class="overflow-hidden border border-gray-200 bg-white shadow-sm sm:rounded-lg">
                 <div class="p-6">
-                    <div class="flex items-center gap-2 mb-4">
-                        <div class="p-2 bg-blue-100 rounded-lg text-blue-600">
+                    <div class="mb-4 flex items-center gap-2">
+                        <div class="rounded-lg bg-blue-100 p-2 text-blue-600">
                             <svg xmlns="http://www.w3.org/2000/svg" class="size-5" fill="none" viewBox="0 0 24 24"
                                 stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -106,7 +139,7 @@
                     </div>
 
                     <div class="overflow-x-auto rounded-lg border border-gray-200">
-                        <table class="min-w-full divide-y divide-gray-200 text-sm text-left">
+                        <table class="min-w-full divide-y divide-gray-200 text-left text-sm">
                             <thead class="bg-gray-50">
                                 <tr>
                                     <th class="px-4 py-3 font-semibold text-gray-900">No</th>
@@ -126,29 +159,33 @@
                                     <th class="px-4 py-3 font-semibold text-gray-900">Weight</th>
                                     <th class="px-4 py-3 font-semibold text-gray-900">Detail</th>
                                     <th class="px-4 py-3 font-semibold text-gray-900">Gambar</th>
-                                    <th class="px-4 py-3 font-semibold text-gray-900 text-center">Created At</th>
+
+                                    <th class="px-4 py-3 text-center font-semibold text-gray-900">Created At</th>
                                 </tr>
                             </thead>
                             <tbody class="divide-y divide-gray-200">
                                 @forelse ($inspeksi_wm->inspeksiWmWip as $wip)
-                                    <tr class="hover:bg-gray-50 transition-colors">
+                                    <tr class="transition-colors hover:bg-gray-50">
                                         <td class="px-4 py-3">{{ $loop->iteration }}</td>
                                         <td class="px-4 py-3">{{ $wip->user->name ?? 'N/A' }}</td>
                                         <td class="px-4 py-3 font-medium">{{ $wip->no_material }}</td>
                                         <td class="px-4 py-3">{{ $wip->nama_operator }}</td>
-                                        <td class="px-4 py-3 text-center bg-blue-50/30">{{ $wip->d_kawat_act }}</td>
-                                        <td class="px-4 py-3 text-center bg-blue-50/30">{{ $wip->selisih_diagonal }}
+                                        <td class="bg-blue-50/30 px-4 py-3 text-center">{{ $wip->d_kawat_act }}</td>
+                                        <td class="bg-blue-50/30 px-4 py-3 text-center">{{ $wip->selisih_diagonal }}
                                         </td>
-                                        <td class="px-4 py-3 text-center bg-blue-50/30">{{ $wip->p_product_act }}</td>
-                                        <td class="px-4 py-3 text-center bg-blue-50/30">{{ $wip->l_product_act }}</td>
-                                        <td class="px-4 py-3 text-center bg-blue-50/30">{{ $wip->p_mesh_act }}</td>
-                                        <td class="px-4 py-3 text-center bg-blue-50/30">{{ $wip->l_mesh_act }}</td>
-                                        <td class="px-4 py-3 text-center bg-blue-50/30">{{ $wip->torsi_strength }}</td>
-                                        <td class="px-4 py-3 text-center bg-blue-50/30">{{ $wip->status_dimensi }}
-                                        <td class="px-4 py-3 text-center bg-blue-50/30">{{ $wip->visual }}
+                                        <td class="bg-blue-50/30 px-4 py-3 text-center">{{ $wip->p_product_act }}</td>
+                                        <td class="bg-blue-50/30 px-4 py-3 text-center">{{ $wip->l_product_act }}</td>
+                                        <td class="bg-blue-50/30 px-4 py-3 text-center">{{ $wip->p_mesh_act }}</td>
+                                        <td class="bg-blue-50/30 px-4 py-3 text-center">{{ $wip->l_mesh_act }}</td>
+                                        <td class="bg-blue-50/30 px-4 py-3 text-center">{{ $wip->torsi_strength }}
                                         </td>
-                                        <td class="px-4 py-3 text-center bg-blue-50/30">{{ $wip->shear_strength }}</td>
-                                        <td class="px-4 py-3 text-center bg-blue-50/30">{{ $wip->weight }}</td>
+                                        <td class="bg-blue-50/30 px-4 py-3 text-center">{{ $wip->status_dimensi }}
+                                        </td>
+                                        <td class="bg-blue-50/30 px-4 py-3 text-center">{{ $wip->visual }}
+                                        </td>
+                                        <td class="bg-blue-50/30 px-4 py-3 text-center">{{ $wip->shear_strength }}
+                                        </td>
+                                        <td class="bg-blue-50/30 px-4 py-3 text-center">{{ $wip->weight }}</td>
                                         <td class="px-4 py-3">
                                             <button type="button" class="text-sm text-indigo-600 hover:underline"
                                                 onclick="toggleDetail2({{ $wip->id }})">
@@ -161,11 +198,11 @@
                                                 Lihat Gambar
                                             </button>
                                         </td>
-                                        <td class="px-4 py-3 text-center bg-blue-50/30">{{ $wip->created_at }}</td>
+                                        <td class="bg-blue-50/30 px-4 py-3 text-center">{{ $wip->created_at }}</td>
                                     </tr>
                                 @empty
                                     <tr>
-                                        <td colspan="5" class="px-4 py-8 text-center text-gray-400 italic">Belum
+                                        <td colspan="5" class="px-4 py-8 text-center italic text-gray-400">Belum
                                             ada
                                             data WIP untuk inspeksi ini.</td>
                                     </tr>
@@ -176,10 +213,10 @@
                 </div>
             </div>
 
-            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg border border-gray-200">
+            <div class="overflow-hidden border border-gray-200 bg-white shadow-sm sm:rounded-lg">
                 <div class="p-6">
-                    <div class="flex items-center gap-2 mb-4">
-                        <div class="p-2 bg-green-100 rounded-lg text-green-600">
+                    <div class="mb-4 flex items-center gap-2">
+                        <div class="rounded-lg bg-green-100 p-2 text-green-600">
                             <svg xmlns="http://www.w3.org/2000/svg" class="size-5" fill="none"
                                 viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -190,7 +227,7 @@
                     </div>
 
                     <div class="overflow-x-auto rounded-lg border border-gray-200">
-                        <table class="min-w-full divide-y divide-gray-200 text-sm text-left">
+                        <table class="min-w-full divide-y divide-gray-200 text-left text-sm">
                             <thead class="bg-gray-50">
                                 <tr>
                                     <th class="px-4 py-3 font-semibold text-gray-900">No</th>
@@ -200,29 +237,30 @@
                                     <th class="px-4 py-3 font-semibold text-gray-900">Weight</th>
                                     <th class="px-4 py-3 font-semibold text-gray-900">Detail</th>
                                     <th class="px-4 py-3 font-semibold text-gray-900">Gambar</th>
+                                    <th class="px-4 py-3 font-semibold text-gray-900">Aksi</th>
                                     <th class="px-4 py-3 font-semibold text-gray-900">Created At</th>
                                 </tr>
                             </thead>
                             <tbody class="divide-y divide-gray-200">
                                 @forelse ($inspeksi_wm->inspeksiWmFg as $fg)
-                                    <tr class="hover:bg-gray-50 transition-colors">
+                                    <tr class="transition-colors hover:bg-gray-50">
                                         <td class="px-4 py-3 font-medium">{{ $loop->iteration }}</td>
                                         <td class="px-4 py-3 font-medium">{{ $fg->user->name }}</td>
                                         <td class="px-4 py-3 font-medium">
                                             @if ($fg->status === 'OK')
-                                                <span class="px-2 py-1 rounded bg-green-100 text-green-800">
+                                                <span class="rounded bg-green-100 px-2 py-1 text-green-800">
                                                     {{ $fg->status }}
                                                 </span>
                                             @elseif($fg->status === 'NG')
-                                                <span class="px-2 py-1 rounded bg-yellow-100 text-yellow-800">
+                                                <span class="rounded bg-yellow-100 px-2 py-1 text-yellow-800">
                                                     {{ $fg->status }}
                                                 </span>
                                             @elseif($fg->status === 'REJECT')
-                                                <span class="px-2 py-1 rounded bg-red-100 text-red-800">
+                                                <span class="rounded bg-red-100 px-2 py-1 text-red-800">
                                                     {{ $fg->status }}
                                                 </span>
                                             @else
-                                                <span class="px-2 py-1 rounded bg-gray-100 text-gray-800">
+                                                <span class="rounded bg-gray-100 px-2 py-1 text-gray-800">
                                                     {{ $fg->status }}
                                                 </span>
                                             @endif
@@ -241,11 +279,85 @@
                                                 Lihat Gambar
                                             </button>
                                         </td>
+
+                                        <td class="px-4 py-3">
+                                            <div class="flex items-center gap-3">
+
+                                                {{-- Edit --}}
+                                                @if ($isApproved)
+                                                    <button type="button" disabled
+                                                        class="inline-flex cursor-not-allowed items-center rounded-md bg-gray-200 p-2 text-gray-400 opacity-70"
+                                                        title="Data sudah approved">
+
+                                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5"
+                                                            fill="none" viewBox="0 0 24 24" stroke="currentColor">
+
+                                                            <path stroke-linecap="round" stroke-linejoin="round"
+                                                                stroke-width="2"
+                                                                d="M11 5h2m-1-1v2m-6 9l-1 4 4-1 9-9a2.121 2.121 0 00-3-3l-9 9z" />
+                                                        </svg>
+                                                    </button>
+                                                @else
+                                                    <a href="{{ route('inspeksi_wm_fg.edit', $fg->id) }}"
+                                                        class="inline-flex items-center rounded-md bg-yellow-100 p-2 text-yellow-600 transition hover:bg-yellow-200"
+                                                        title="Edit">
+
+                                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5"
+                                                            fill="none" viewBox="0 0 24 24" stroke="currentColor">
+
+                                                            <path stroke-linecap="round" stroke-linejoin="round"
+                                                                stroke-width="2"
+                                                                d="M11 5h2m-1-1v2m-6 9l-1 4 4-1 9-9a2.121 2.121 0 00-3-3l-9 9z" />
+                                                        </svg>
+                                                    </a>
+                                                @endif
+
+
+                                                {{-- Delete --}}
+                                                @if ($isApproved)
+                                                    <button type="button" disabled
+                                                        class="inline-flex cursor-not-allowed items-center rounded-md bg-gray-200 p-2 text-gray-400 opacity-70"
+                                                        title="Data sudah approved">
+
+                                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5"
+                                                            fill="none" viewBox="0 0 24 24" stroke="currentColor">
+
+                                                            <path stroke-linecap="round" stroke-linejoin="round"
+                                                                stroke-width="2"
+                                                                d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6M9 7V4a1 1 0 011-1h4a1 1 0 011 1v3m-7 0h8" />
+                                                        </svg>
+                                                    </button>
+                                                @else
+                                                    <form action="{{ route('inspeksi_wm_fg.destroy', $fg->id) }}"
+                                                        method="POST" class="delete-form inline-block">
+
+                                                        @csrf
+                                                        @method('DELETE')
+
+                                                        <button type="submit"
+                                                            class="inline-flex items-center rounded-md bg-red-100 p-2 text-red-600 transition hover:bg-red-200"
+                                                            title="Hapus">
+
+                                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5"
+                                                                fill="none" viewBox="0 0 24 24"
+                                                                stroke="currentColor">
+
+                                                                <path stroke-linecap="round" stroke-linejoin="round"
+                                                                    stroke-width="2"
+                                                                    d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6M9 7V4a1 1 0 011-1h4a1 1 0 011 1v3m-7 0h8" />
+                                                            </svg>
+                                                        </button>
+                                                    </form>
+                                                @endif
+
+                                            </div>
+                                        </td>
+
                                         <td class="px-4 py-3">{{ $fg->created_at }}</td>
                                     </tr>
                                 @empty
                                     <tr>
-                                        <td colspan="2" class="px-4 py-8 text-center text-gray-400 italic">Belum
+                                        <td colspan="2" class="px-4 py-8 text-center italic text-gray-400">Belum
                                             ada data FG untuk inspeksi ini.</td>
                                     </tr>
                                 @endforelse
@@ -254,9 +366,9 @@
                         {{-- modal detail fg --}}
                         @foreach ($inspeksi_wm->inspeksiWmFg as $fg)
                             <div id="detail-{{ $fg->id }}"
-                                class="hidden fixed inset-0 bg-gray-900 bg-opacity-50 flex items-center justify-center">
-                                <div class="bg-white rounded-lg shadow-lg w-1/2 p-6">
-                                    <h3 class="text-lg font-semibold mb-4">Detail FG: {{ $fg->batch_number }}</h3>
+                                class="fixed inset-0 flex hidden items-center justify-center bg-gray-900 bg-opacity-50">
+                                <div class="w-1/2 rounded-lg bg-white p-6 shadow-lg">
+                                    <h3 class="mb-4 text-lg font-semibold">Detail FG: {{ $fg->batch_number }}</h3>
                                     <table class="min-w-full divide-y divide-gray-200 text-sm">
                                         <thead class="bg-gray-50">
                                             <tr>
@@ -277,7 +389,7 @@
                                             @empty
                                                 <tr>
                                                     <td colspan="3"
-                                                        class="px-4 py-4 text-center text-gray-400 italic">
+                                                        class="px-4 py-4 text-center italic text-gray-400">
                                                         Belum ada detail untuk FG ini.
                                                     </td>
                                                 </tr>
@@ -286,7 +398,7 @@
                                     </table>
                                     <div class="mt-4 text-right">
                                         <button onclick="toggleDetail({{ $fg->id }})"
-                                            class="px-4 py-2 bg-gray-200 rounded hover:bg-gray-300">
+                                            class="rounded bg-gray-200 px-4 py-2 hover:bg-gray-300">
                                             Tutup
                                         </button>
                                     </div>
@@ -298,8 +410,8 @@
                         {{-- modal detail wip --}}
                         @foreach ($inspeksi_wm->inspeksiWmWip as $wip)
                             <div id="detail2-{{ $wip->id }}"
-                                class="hidden fixed inset-0 bg-gray-900 bg-opacity-50 flex items-center justify-center">
-                                <div class="bg-white rounded-lg shadow-lg w-1/2 p-6">
+                                class="fixed inset-0 flex hidden items-center justify-center bg-gray-900 bg-opacity-50">
+                                <div class="w-1/2 rounded-lg bg-white p-6 shadow-lg">
                                     {{-- <h3 class="text-lg font-semibold mb-4">Detail FG: {{ $wip->batch_number }}</h3> --}}
                                     <table class="min-w-full divide-y divide-gray-200 text-sm">
                                         <thead class="bg-gray-50">
@@ -321,7 +433,7 @@
                                             @empty
                                                 <tr>
                                                     <td colspan="3"
-                                                        class="px-4 py-4 text-center text-gray-400 italic">
+                                                        class="px-4 py-4 text-center italic text-gray-400">
                                                         Belum ada detail untuk WIP ini.
                                                     </td>
                                                 </tr>
@@ -330,7 +442,7 @@
                                     </table>
                                     <div class="mt-4 text-right">
                                         <button onclick="toggleDetail2({{ $wip->id }})"
-                                            class="px-4 py-2 bg-gray-200 rounded hover:bg-gray-300">
+                                            class="rounded bg-gray-200 px-4 py-2 hover:bg-gray-300">
                                             Tutup
                                         </button>
                                     </div>
@@ -341,8 +453,8 @@
                         {{-- modal gambar fg --}}
                         @foreach ($inspeksi_wm->inspeksiWmFg as $fg)
                             <div id="image-{{ $fg->id }}"
-                                class="hidden fixed inset-0 bg-gray-900 bg-opacity-50 flex items-center justify-center">
-                                <div class="bg-white rounded-lg shadow-lg w-3/4 p-6 max-h-[80vh] overflow-y-auto">
+                                class="fixed inset-0 flex hidden items-center justify-center bg-gray-900 bg-opacity-50">
+                                <div class="max-h-[80vh] w-3/4 overflow-y-auto rounded-lg bg-white p-6 shadow-lg">
                                     {{-- <h3 class="text-lg font-semibold mb-4">Gambar FG: {{ $fg->batch_number }}</h3> --}}
 
                                     @if ($fg->files)
@@ -352,7 +464,7 @@
 
                                                 @if (in_array($ext, ['jpg', 'jpeg', 'png']))
                                                     <img src="{{ asset('storage/' . $file) }}" alt="FG Image"
-                                                        class="w-full max-h-64 object-contain rounded border" />
+                                                        class="max-h-64 w-full rounded border object-contain" />
                                                 @else
                                                     <a href="{{ asset('storage/' . $file) }}" target="_blank"
                                                         class="block text-blue-600 hover:underline">
@@ -362,12 +474,12 @@
                                             @endforeach
                                         </div>
                                     @else
-                                        <p class="text-gray-400 italic">Tidak ada gambar diupload.</p>
+                                        <p class="italic text-gray-400">Tidak ada gambar diupload.</p>
                                     @endif
 
                                     <div class="mt-4 text-right">
                                         <button onclick="toggleImage({{ $fg->id }})"
-                                            class="px-4 py-2 bg-gray-200 rounded hover:bg-gray-300">
+                                            class="rounded bg-gray-200 px-4 py-2 hover:bg-gray-300">
                                             Tutup
                                         </button>
                                     </div>
@@ -378,8 +490,8 @@
                         {{-- modal gambar wip --}}
                         @foreach ($inspeksi_wm->inspeksiWmWip as $wip)
                             <div id="image2-{{ $wip->id }}"
-                                class="hidden fixed inset-0 bg-gray-900 bg-opacity-50 flex items-center justify-center">
-                                <div class="bg-white rounded-lg shadow-lg w-3/4 p-6 max-h-[80vh] overflow-y-auto">
+                                class="fixed inset-0 flex hidden items-center justify-center bg-gray-900 bg-opacity-50">
+                                <div class="max-h-[80vh] w-3/4 overflow-y-auto rounded-lg bg-white p-6 shadow-lg">
                                     {{-- <h3 class="text-lg font-semibold mb-4">Gambar WIP: {{ $wip->batch_number }}</h3> --}}
 
                                     @if ($wip->files)
@@ -389,7 +501,7 @@
 
                                                 @if (in_array($ext, ['jpg', 'jpeg', 'png']))
                                                     <img src="{{ asset('storage/' . $file) }}" alt="Wip Image"
-                                                        class="w-full max-h-64 object-contain rounded border" />
+                                                        class="max-h-64 w-full rounded border object-contain" />
                                                 @else
                                                     <a href="{{ asset('storage/' . $file) }}" target="_blank"
                                                         class="block text-blue-600 hover:underline">
@@ -399,12 +511,12 @@
                                             @endforeach
                                         </div>
                                     @else
-                                        <p class="text-gray-400 italic">Tidak ada gambar diupload.</p>
+                                        <p class="italic text-gray-400">Tidak ada gambar diupload.</p>
                                     @endif
 
                                     <div class="mt-4 text-right">
                                         <button onclick="toggleImage2({{ $wip->id }})"
-                                            class="px-4 py-2 bg-gray-200 rounded hover:bg-gray-300">
+                                            class="rounded bg-gray-200 px-4 py-2 hover:bg-gray-300">
                                             Tutup
                                         </button>
                                     </div>
@@ -464,10 +576,9 @@
                                 </form>
                                 <button type="button"
                                     onclick="confirmApproval({{ $inspeksi_wm->id }}, '{{ $inspeksi_wm->isApproved() ? 'unapprove' : 'approve' }}')"
-                                    class="inline-flex items-center gap-2 rounded-xl px-5 py-2.5 text-sm font-semibold shadow-sm transition
-                        {{ $inspeksi_wm->isApproved()
-                            ? 'bg-orange-500 text-white hover:bg-orange-600'
-                            : 'bg-green-600 text-white hover:bg-green-700' }}">
+                                    class="{{ $inspeksi_wm->isApproved()
+                                        ? 'bg-orange-500 text-white hover:bg-orange-600'
+                                        : 'bg-green-600 text-white hover:bg-green-700' }} inline-flex items-center gap-2 rounded-xl px-5 py-2.5 text-sm font-semibold shadow-sm transition">
                                     @if ($inspeksi_wm->isApproved())
                                         <span class="text-base">↺</span>
                                         Unapprove
@@ -566,5 +677,30 @@
                 }
             })
         }
+    </script>
+    {{-- hapus fg --}}
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const deleteForms = document.querySelectorAll('.delete-form');
+            deleteForms.forEach(form => {
+                form.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    Swal.fire({
+                        title: 'Hapus Data?',
+                        text: "Data FG yang dihapus tidak bisa dikembalikan.",
+                        icon: 'warning',
+                        showCancelButton: true,
+                        confirmButtonColor: '#dc2626',
+                        cancelButtonColor: '#6b7280',
+                        confirmButtonText: 'Ya, Hapus!',
+                        cancelButtonText: 'Batal'
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            form.submit();
+                        }
+                    });
+                });
+            });
+        });
     </script>
 </x-app-layout>

@@ -15,6 +15,16 @@ class InspeksiKawatDuri extends Model
         'type_coating',
     ];
 
+    public function inspeksiKawatDuriWip()
+    {
+        return $this->hasMany(InspeksiKawatDuriWip::class, 'inspeksi_kawat_duri_id');
+    }
+
+    public function inspeksiKawatDuriFg()
+    {
+        return $this->hasMany(InspeksiKawatDuriFg::class, 'inspeksi_kawat_duri_id');
+    }
+
     public function isApproved()
     {
         return $this->approval_status === 'APPROVED';

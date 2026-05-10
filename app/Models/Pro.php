@@ -21,4 +21,6 @@ class Pro extends Model
     {
         return $this->hasMany(InspeksiKawatDuri::class);
     }
+
+
 }

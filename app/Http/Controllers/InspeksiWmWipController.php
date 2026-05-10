@@ -46,12 +46,10 @@ class InspeksiWmWipController extends Controller
             'visual'    => 'required|in:OK,NG',
             'shear_strength'    => 'required',
             'weight'    => 'required',
-
             'detail_name'       => 'nullable|array',
             'detail_name.*'     => 'nullable|string|max:255',
             'detail_description'   => 'nullable|array',
             'detail_description.*' => 'nullable|string|max:1000',
-
             'files'             => 'nullable|array',
             'files.*'           => 'nullable|file|mimes:jpg,jpeg,png,pdf|max:10240',
         ]);

@@ -79,7 +79,7 @@ class InspeksiWmFgController extends Controller
 
 
         return redirect()->route('inspeksi_wm.show', $request->inspeksi_wm_id)
-                        ->with('success', 'Data FG, detail, dan file berhasil ditambahkan');
+            ->with('success', 'Data FG, detail, dan file berhasil ditambahkan');
     }
 
     /**
@@ -95,7 +95,12 @@ class InspeksiWmFgController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $fg = InspeksiWmFg::with(['details', 'inspeksiWm'])->findOrFail($id);
+
+        return view('inspeksi_wm.fg.edit', [
+            'inspeksi_wm' => $fg->inspeksiWm,
+            'fg' => $fg,
+        ]);
     }
 
     /**
@@ -103,14 +108,67 @@ class InspeksiWmFgController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
-    }
+        $request->validate([
+            'status' => 'required|string',
+            'qty' => 'required|integer',
+            'weight' => 'required|numeric',
 
+            'detail_description.*' => 'nullable|string',
+            'detail_description2.*' => 'nullable|string',
+            'detail_qty.*' => 'nullable|integer',
+        ]);
+
+        $fg = InspeksiWmFg::findOrFail($id);
+
+        // update data utama
+        $fg->update([
+            'status' => $request->status,
+            'qty' => $request->qty,
+            'weight' => $request->weight,
+        ]);
+
+        // hapus detail lama
+        $fg->details()->delete();
+
+        // simpan detail baru
+        if ($request->detail_description) {
+
+            foreach ($request->detail_description as $index => $description) {
+
+                $description2 = $request->detail_description2[$index] ?? null;
+                $qty = $request->detail_qty[$index] ?? null;
+
+                // skip kalau kosong semua
+                if (
+                    empty($description) &&
+                    empty($description2) &&
+                    empty($qty)
+                ) {
+                    continue;
+                }
+
+                $fg->details()->create([
+                    'description' => $description,
+                    'description2' => $description2,
+                    'qty' => $qty,
+                ]);
+            }
+        }
+
+        return redirect()
+            ->route('inspeksi_wm.show', $fg->inspeksi_wm_id)
+            ->with('success', 'Data FG berhasil diupdate.');
+    }
     /**
      * Remove the specified resource from storage.
      */
     public function destroy(string $id)
     {
-        //
+        $fg = InspeksiWmFg::findOrFail($id);
+        $inspeksiWmId = $fg->inspeksi_wm_id; // Simpan ID inspeksi_wm sebelum menghapus FG
+        $fg->delete();
+
+        return redirect()->route('inspeksi_wm.show', $inspeksiWmId)
+            ->with('success', 'Data FG berhasil dihapus');
     }
 }
