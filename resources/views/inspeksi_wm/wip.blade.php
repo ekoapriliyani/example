@@ -182,10 +182,11 @@
                                 <x-input-label for="shear_strength" :value="__('Shear Strength')" />
                                 <div class="relative mt-1">
                                     <x-text-input id="shear_strength" name="shear_strength" type="number"
-                                        step="0.01" class="block w-full pr-12" :value="old('shear_strength')" required
+                                        step="0.01" class="block w-full pr-12" :value="old('shear_strength')"
                                         placeholder="0.00" />
                                     <div
                                         class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none text-gray-400 text-sm">
+                                        mpa
                                     </div>
                                 </div>
                                 <x-input-error class="mt-2" :messages="$errors->get('shear_strength')" />

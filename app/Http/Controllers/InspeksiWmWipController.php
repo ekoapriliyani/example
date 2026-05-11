@@ -45,7 +45,7 @@ class InspeksiWmWipController extends Controller
             'torsi_strength'    => 'required|in:OK,NG',
             'status_dimensi'    => 'required|in:OK,NG',
             'visual'    => 'required|in:OK,NG',
-            'shear_strength'    => 'required',
+            'shear_strength'    => 'nullable|numeric',
             'weight'    => 'required',
             'detail_name'       => 'nullable|array',
             'detail_name.*'     => 'nullable|string|max:255',
