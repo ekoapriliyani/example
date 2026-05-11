@@ -77,7 +77,7 @@
                                         placeholder="0.00" />
                                     <div
                                         class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none text-gray-400 text-sm">
-                                        mm
+
                                     </div>
                                 </div>
                                 <x-input-error class="mt-2" :messages="$errors->get('d_kawat_jalinan_act')" />
@@ -115,7 +115,7 @@
                                         placeholder="0.00" />
                                     <div
                                         class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none text-gray-400 text-sm">
-                                        mm
+
                                     </div>
                                 </div>
                                 <x-input-error class="mt-2" :messages="$errors->get('sudut_ujung_duri')" />
