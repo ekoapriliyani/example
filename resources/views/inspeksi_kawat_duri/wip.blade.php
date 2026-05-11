@@ -70,14 +70,14 @@
                                 <x-input-error class="mt-2" :messages="$errors->get('d_kawat_act')" />
                             </div>
                             <div>
-                                <x-input-label for="d_kawat_jalinan_act" :value="__('Diameter Kawat Jalinan (Actual)')" />
+                                <x-input-label for="d_kawat_jalinan_act" :value="__('Diameter Kawat Jalinan')" />
                                 <div class="relative mt-1">
                                     <x-text-input id="d_kawat_jalinan_act" name="d_kawat_jalinan_act" type="number"
                                         step="0.01" class="block w-full pr-12" :value="old('d_kawat_jalinan_act')" required
                                         placeholder="0.00" />
                                     <div
                                         class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none text-gray-400 text-sm">
-
+                                        mm
                                     </div>
                                 </div>
                                 <x-input-error class="mt-2" :messages="$errors->get('d_kawat_jalinan_act')" />
@@ -102,7 +102,7 @@
                                         placeholder="0" />
                                     <div
                                         class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none text-gray-400 text-sm">
-                                        mm
+                                        x
                                     </div>
                                 </div>
                                 <x-input-error class="mt-2" :messages="$errors->get('jml_jalinan_duri')" />
@@ -115,7 +115,7 @@
                                         placeholder="0.00" />
                                     <div
                                         class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none text-gray-400 text-sm">
-
+                                        °
                                     </div>
                                 </div>
                                 <x-input-error class="mt-2" :messages="$errors->get('sudut_ujung_duri')" />
@@ -134,9 +134,9 @@
                                 <x-input-error class="mt-2" :messages="$errors->get('weight')" />
                             </div>
                             <div>
-                                <x-input-label for="jml_counter" :value="__('Jumlah Counter (Actual)')" />
+                                <x-input-label for="jml_counter" :value="__('Jumlah Counter')" />
                                 <div class="relative mt-1">
-                                    <x-text-input id="jml_counter" name="jml_counter" type="number" step="1"
+                                    <x-text-input id="jml_counter" name="jml_counter" type="number"
                                         class="block w-full pr-12" :value="old('jml_counter')" required placeholder="0.00" />
                                     <div
                                         class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none text-gray-400 text-sm">
