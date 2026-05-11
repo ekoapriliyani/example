@@ -122,13 +122,13 @@
                             </div>
 
                             <div>
-                                <x-input-label for="weight" :value="__('Weight)')" />
+                                <x-input-label for="weight" :value="__('Weight')" />
                                 <div class="relative mt-1">
-                                    <x-text-input id="weight" name="weight" type="number" step="1"
+                                    <x-text-input id="weight" name="weight" type="number"
                                         class="block w-full pr-12" :value="old('weight')" required placeholder="0.00" />
                                     <div
                                         class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none text-gray-400 text-sm">
-
+                                        kg
                                     </div>
                                 </div>
                                 <x-input-error class="mt-2" :messages="$errors->get('weight')" />
@@ -147,10 +147,15 @@
                             </div>
                             <div>
                                 <x-input-label for="status" :value="__('Status')" />
-                                <div class="relative mt-1">
-                                    <x-text-input id="status" name="status" type="text"
-                                        class="block w-full pr-12" :value="old('status')" required placeholder="" />
-                                </div>
+
+                                <select id="status" name="status"
+                                    class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+                                    required>
+                                    <option value="">-- Pilih Status --</option>
+                                    <option value="OK" {{ old('status') == 'OK' ? 'selected' : '' }}>OK</option>
+                                    <option value="NG" {{ old('status') == 'NG' ? 'selected' : '' }}>NG</option>
+                                </select>
+
                                 <x-input-error class="mt-2" :messages="$errors->get('status')" />
                             </div>
                         </div>
