@@ -130,7 +130,7 @@
                             <x-input-error class="mt-2" :messages="$errors->get('mesin_id')" />
                         </div>
                         <div class="">
-                            <x-input-label for="total_prod" :value="__('Total Produksi (ton)')" />
+                            <x-input-label for="total_prod" :value="__('Total Produksi (kg)')" />
                             <x-text-input id="total_prod" name="total_prod" type="number" step="0.01"
                                 class="mt-1 block w-full" value="{{ old('total_prod') }}" />
                             <x-input-error class="mt-2" :messages="$errors->get('total_prod')" />
