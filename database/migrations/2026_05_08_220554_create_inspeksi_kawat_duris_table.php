@@ -16,9 +16,10 @@ return new class extends Migration
             $table->string('nomor_inspeksi');
             $table->date('tanggal');
             $table->foreignId('pro_id')->constrained('pros')->onDelete('cascade');
-            $table->string('shift');
+            $table->integer('shift');
             $table->foreignId('mesin_id')->nullable()->constrained('mesins');
             $table->string('type_coating');
+            $table->decimal('total_prod', 8, 2)->nullable();
             // Approval
             $table->string('approval_status')->default('PENDING');
             $table->foreignId('approved_by')->nullable()->constrained('users')->nullOnDelete();

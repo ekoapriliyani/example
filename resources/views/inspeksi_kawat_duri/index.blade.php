@@ -60,6 +60,8 @@
                                         <th class="px-4 py-3 font-semibold text-gray-900 text-left">Description</th>
                                         {{-- <th class="px-4 py-3 font-semibold text-gray-900 text-left">Product Kawat Duri</th> --}}
                                         <th class="px-4 py-3 font-semibold text-gray-900 text-left">QTY Ordered</th>
+                                        <th class="px-4 py-3 font-semibold text-gray-900 text-left">Total Produksi per
+                                            Shift</th>
                                         <th class="px-4 py-3 font-semibold text-gray-900 text-left">Type Coating</th>
                                         <th class="px-4 py-3 font-semibold text-gray-900 text-left">Mesin</th>
                                         <th class="px-4 py-3 font-semibold text-gray-900 text-right">Aksi</th>
@@ -87,6 +89,9 @@
                                                 {{ $item->productKawatDuri->description }}
                                             </td> --}}
                                             <td class="px-4 py-3 font-medium text-gray-900">{{ $item->pro->qty }}
+                                            </td>
+                                            <td class="px-4 py-3 font-medium text-gray-900">
+                                                {{ $item->total_prod }}
                                             </td>
                                             <td class="px-4 py-3 font-medium text-gray-900">{{ $item->type_coating }}
                                             </td>

@@ -15,7 +15,8 @@
                         </p>
                     </div>
 
-                    <form action="{{ route('inspeksi_kawat_duri.update', $inspeksiKawatDuri->id) }}" method="POST" class="space-y-6">
+                    <form action="{{ route('inspeksi_kawat_duri.update', $inspeksiKawatDuri->id) }}" method="POST"
+                        class="space-y-6">
                         @csrf
                         @method('PUT')
 
@@ -23,8 +24,7 @@
                             <x-input-label for="nomor_inspeksi" :value="__('Nomor Inspeksi')" />
                             <x-text-input id="nomor_inspeksi" name="nomor_inspeksi" type="text"
                                 class="mt-1 block w-full bg-gray-100"
-                                value="{{ old('nomor_inspeksi', $inspeksiKawatDuri->nomor_inspeksi) }}"
-                                readonly />
+                                value="{{ old('nomor_inspeksi', $inspeksiKawatDuri->nomor_inspeksi) }}" readonly />
                             <x-input-error class="mt-2" :messages="$errors->get('nomor_inspeksi')" />
                         </div>
 
@@ -52,18 +52,22 @@
 
                         <div>
                             <x-input-label for="pro_description" :value="__('Description')" />
-                            <x-text-input id="pro_description" type="text"
-                                class="mt-1 block w-full bg-gray-100"
-                                value="{{ old('pro_description') }}"
-                                readonly />
+                            <x-text-input id="pro_description" type="text" class="mt-1 block w-full bg-gray-100"
+                                value="{{ old('pro_description') }}" readonly />
                         </div>
 
                         <div>
                             <x-input-label for="pro_qty" :value="__('Qty Ordered')" />
-                            <x-text-input id="pro_qty" type="text"
-                                class="mt-1 block w-full bg-gray-100"
-                                value="{{ old('pro_qty') }}"
-                                readonly />
+                            <x-text-input id="pro_qty" type="text" class="mt-1 block w-full bg-gray-100"
+                                value="{{ old('pro_qty') }}" readonly />
+                        </div>
+
+                        <div>
+                            <x-input-label for="total_prod" :value="__('Total Produksi per Shift')" />
+                            <x-text-input id="total_prod" name="total_prod" type="number" step="0.01"
+                                class="mt-1 block w-full"
+                                value="{{ old('total_prod', $inspeksiKawatDuri->total_prod) }}" required />
+                            <x-input-error class="mt-2" :messages="$errors->get('total_prod')" />
                         </div>
 
                         <div>
@@ -71,13 +75,16 @@
                             <select id="shift" name="shift"
                                 class="mt-1 block w-full border-gray-300 rounded-md shadow-sm" required>
                                 <option value="">-- Pilih Shift --</option>
-                                <option value="shift1" {{ old('shift', $inspeksiKawatDuri->shift) == 'shift1' ? 'selected' : '' }}>
+                                <option value="shift1"
+                                    {{ old('shift', $inspeksiKawatDuri->shift) == 'shift1' ? 'selected' : '' }}>
                                     Shift 1
                                 </option>
-                                <option value="shift2" {{ old('shift', $inspeksiKawatDuri->shift) == 'shift2' ? 'selected' : '' }}>
+                                <option value="shift2"
+                                    {{ old('shift', $inspeksiKawatDuri->shift) == 'shift2' ? 'selected' : '' }}>
                                     Shift 2
                                 </option>
-                                <option value="shift3" {{ old('shift', $inspeksiKawatDuri->shift) == 'shift3' ? 'selected' : '' }}>
+                                <option value="shift3"
+                                    {{ old('shift', $inspeksiKawatDuri->shift) == 'shift3' ? 'selected' : '' }}>
                                     Shift 3
                                 </option>
                             </select>
@@ -89,12 +96,24 @@
                             <select id="type_coating" name="type_coating"
                                 class="mt-1 block w-full border-gray-300 rounded-md shadow-sm" required>
                                 <option value="">-- Pilih Type Coating --</option>
-                                <option value="LG" {{ old('type_coating', $inspeksiKawatDuri->type_coating) == 'LG' ? 'selected' : '' }}>LG</option>
-                                <option value="HG" {{ old('type_coating', $inspeksiKawatDuri->type_coating) == 'HG' ? 'selected' : '' }}>HG</option>
-                                <option value="ZN-AL" {{ old('type_coating', $inspeksiKawatDuri->type_coating) == 'ZN-AL' ? 'selected' : '' }}>ZN-AL</option>
-                                <option value="ULTRA" {{ old('type_coating', $inspeksiKawatDuri->type_coating) == 'ULTRA' ? 'selected' : '' }}>ULTRA</option>
-                                <option value="BLACK" {{ old('type_coating', $inspeksiKawatDuri->type_coating) == 'BLACK' ? 'selected' : '' }}>BLACK</option>
-                                <option value="EP" {{ old('type_coating', $inspeksiKawatDuri->type_coating) == 'EP' ? 'selected' : '' }}>EP</option>
+                                <option value="LG"
+                                    {{ old('type_coating', $inspeksiKawatDuri->type_coating) == 'LG' ? 'selected' : '' }}>
+                                    LG</option>
+                                <option value="HG"
+                                    {{ old('type_coating', $inspeksiKawatDuri->type_coating) == 'HG' ? 'selected' : '' }}>
+                                    HG</option>
+                                <option value="ZN-AL"
+                                    {{ old('type_coating', $inspeksiKawatDuri->type_coating) == 'ZN-AL' ? 'selected' : '' }}>
+                                    ZN-AL</option>
+                                <option value="ULTRA"
+                                    {{ old('type_coating', $inspeksiKawatDuri->type_coating) == 'ULTRA' ? 'selected' : '' }}>
+                                    ULTRA</option>
+                                <option value="BLACK"
+                                    {{ old('type_coating', $inspeksiKawatDuri->type_coating) == 'BLACK' ? 'selected' : '' }}>
+                                    BLACK</option>
+                                <option value="EP"
+                                    {{ old('type_coating', $inspeksiKawatDuri->type_coating) == 'EP' ? 'selected' : '' }}>
+                                    EP</option>
                             </select>
                             <x-input-error class="mt-2" :messages="$errors->get('type_coating')" />
                         </div>

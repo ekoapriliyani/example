@@ -10,17 +10,18 @@ return new class extends Migration
      * Run the migrations.
      */
     public function up(): void
-        {
-            Schema::create('inspeksi_wms', function (Blueprint $table) {
+    {
+        Schema::create('inspeksi_wms', function (Blueprint $table) {
             $table->id();
             $table->string('nomor_inspeksi');
             $table->date('tanggal');
             $table->foreignId('pro_id')->constrained('pros');
             $table->foreignId('product_wm_ref_id')->nullable()->constrained('product_wms');
-            $table->string('shift');
+            $table->integer('shift');
             $table->string('grade');
             $table->string('type_coating');
             $table->foreignId('mesin_id')->nullable()->constrained('mesins');
+            $table->decimal('total_prod', 8, 2)->nullable();
 
             // Approval
             $table->string('approval_status')->default('PENDING');

@@ -120,7 +120,6 @@
                                 </div>
                                 <x-input-error class="mt-2" :messages="$errors->get('sudut_ujung_duri')" />
                             </div>
-
                             <div>
                                 <x-input-label for="weight" :value="__('Weight')" />
                                 <div class="relative mt-1">
@@ -147,7 +146,6 @@
                             </div>
                             <div>
                                 <x-input-label for="status" :value="__('Status')" />
-
                                 <select id="status" name="status"
                                     class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
                                     required>

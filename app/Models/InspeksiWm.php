@@ -19,6 +19,7 @@ class InspeksiWm extends Model
         'grade',
         'type_coating',
         'mesin_id',
+        'total_prod',
         'approval_status',
         'approved_by',
         'approved_at',
@@ -29,11 +30,13 @@ class InspeksiWm extends Model
         return $this->approval_status === 'APPROVED';
     }
 
-    public function inspeksiWmWip() {
+    public function inspeksiWmWip()
+    {
         return $this->hasMany(InspeksiWmWip::class);
     }
 
-    public function inspeksiWmFg() {
+    public function inspeksiWmFg()
+    {
         return $this->hasMany(InspeksiWmFg::class);
     }
 

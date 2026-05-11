@@ -13,6 +13,10 @@ class InspeksiKawatDuri extends Model
         'shift',
         'mesin_id',
         'type_coating',
+        'total_prod',
+        'approval_status',
+        'approved_by',
+        'approved_at',
     ];
 
     public function inspeksiKawatDuriWip()

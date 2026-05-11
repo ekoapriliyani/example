@@ -61,11 +61,11 @@
                             <select id="shift" name="shift"
                                 class="mt-1 block w-full border-gray-300 rounded-md shadow-sm" required>
                                 <option value="">-- Pilih Shift --</option>
-                                <option value="shift1" {{ old('shift') == 'shift1' ? 'selected' : '' }}>Shift 1
+                                <option value="1" {{ old('shift') == '1' ? 'selected' : '' }}>Shift 1
                                 </option>
-                                <option value="shift2" {{ old('shift') == 'shift2' ? 'selected' : '' }}>Shift 2
+                                <option value="2" {{ old('shift') == '2' ? 'selected' : '' }}>Shift 2
                                 </option>
-                                <option value="shift3" {{ old('shift') == 'shift3' ? 'selected' : '' }}>Shift 3
+                                <option value="3" {{ old('shift') == '3' ? 'selected' : '' }}>Shift 3
                                 </option>
                             </select>
                             <x-input-error class="mt-2" :messages="$errors->get('shift')" />
@@ -81,6 +81,13 @@
                                 </option>
                             </select>
                             <x-input-error class="mt-2" :messages="$errors->get('type_coating')" />
+                        </div>
+
+                        <div>
+                            <x-input-label for="total_prod" :value="__('Total Produksi per Shift')" />
+                            <x-text-input id="total_prod" name="total_prod" type="number" step="0.01"
+                                class="mt-1 block w-full" value="{{ old('total_prod') }}" required />
+                            <x-input-error class="mt-2" :messages="$errors->get('total_prod')" />
                         </div>
 
                         <div>

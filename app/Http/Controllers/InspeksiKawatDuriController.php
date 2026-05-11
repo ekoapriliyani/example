@@ -64,6 +64,7 @@ class InspeksiKawatDuriController extends Controller
             'shift' => 'required|string',
             'mesin_id' => 'nullable|exists:mesins,id',
             'type_coating' => 'required|string',
+            'total_prod' => 'nullable|numeric',
         ]);
 
         InspeksiKawatDuri::create($request->all());
@@ -108,6 +109,7 @@ class InspeksiKawatDuriController extends Controller
             'shift' => 'required|string',
             'mesin_id' => 'nullable|exists:mesins,id',
             'type_coating' => 'required|string',
+            'total_prod' => 'nullable|numeric',
         ]);
 
         $inspeksiKawatDuri->update($request->all());

@@ -19,7 +19,6 @@
                             class="inline-flex cursor-not-allowed items-center gap-2 rounded-md bg-gray-400 px-4 py-2 text-sm font-semibold text-white opacity-60 shadow-sm">
                             <svg xmlns="http://www.w3.org/2000/svg" class="size-4" fill="none" viewBox="0 0 24 24"
                                 stroke="currentColor" stroke-width="2">
-
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
                             </svg>
                             Tambah WIP
@@ -94,6 +93,12 @@
                                 <dt class="text-sm font-medium italic text-gray-500">QTY Ordered</dt>
                                 <dd class="text-lg font-semibold text-gray-900">
                                     {{ $inspeksi_wm->pro->qty }}
+                                </dd>
+                            </div>
+                            <div>
+                                <dt class="text-sm font-medium italic text-gray-500">Total Produksi per shift</dt>
+                                <dd class="text-lg font-semibold text-gray-900">
+                                    {{ $inspeksi_wm->total_prod }}
                                 </dd>
                             </div>
                             <div>

@@ -75,14 +75,14 @@
                             <select id="shift" name="shift"
                                 class="mt-1 block w-full border-gray-300 rounded-md shadow-sm" required>
                                 <option value="">-- Pilih Shift --</option>
-                                <option value="shift1"
-                                    {{ old('shift', $inspeksi_wm->shift) == 'shift1' ? 'selected' : '' }}>Shift 1
+                                <option value="1"
+                                    {{ old('shift', $inspeksi_wm->shift) == '1' ? 'selected' : '' }}>Shift 1
                                 </option>
-                                <option value="shift2"
-                                    {{ old('shift', $inspeksi_wm->shift) == 'shift2' ? 'selected' : '' }}>Shift 2
+                                <option value="2"
+                                    {{ old('shift', $inspeksi_wm->shift) == '2' ? 'selected' : '' }}>Shift 2
                                 </option>
-                                <option value="shift3"
-                                    {{ old('shift', $inspeksi_wm->shift) == 'shift3' ? 'selected' : '' }}>Shift 3
+                                <option value="3"
+                                    {{ old('shift', $inspeksi_wm->shift) == '3' ? 'selected' : '' }}>Shift 3
                                 </option>
                             </select>
                             <x-input-error class="mt-2" :messages="$errors->get('shift')" />
@@ -146,6 +146,12 @@
                                 @endforeach
                             </select>
                             <x-input-error class="mt-2" :messages="$errors->get('mesin_id')" />
+                        </div>
+                        <div class="">
+                            <x-input-label for="total_prod" :value="__('Total Produksi (ton)')" />
+                            <x-text-input id="total_prod" name="total_prod" type="number" step="0.01"
+                                class="mt-1 block w-full" value="{{ old('total_prod', $inspeksi_wm->total_prod) }}" />
+                            <x-input-error class="mt-2" :messages="$errors->get('total_prod')" />
                         </div>
 
                         <div class="flex items-center justify-end gap-4 pt-4 border-t border-gray-100">
