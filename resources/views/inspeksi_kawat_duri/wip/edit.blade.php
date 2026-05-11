@@ -7,7 +7,7 @@
             <p class="text-sm text-gray-500">
                 Ref:
                 <span class="font-mono font-bold text-indigo-600">
-                    {{ $inspeksi_wm->nomor_inspeksi }}
+                    {{ $inspeksi_kawat_duri->nomor_inspeksi }}
                 </span>
             </p>
         </div>
