@@ -58,7 +58,7 @@
 
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                             <div>
-                                <x-input-label for="d_kawat_act" :value="__('Diameter Kawat (Actual)')" />
+                                <x-input-label for="d_kawat_act" :value="__('Diameter Kawat Duri')" />
                                 <div class="relative mt-1">
                                     <x-text-input id="d_kawat_act" name="d_kawat_act" type="number" step="0.01"
                                         class="block w-full pr-12" :value="old('d_kawat_act')" required placeholder="0.00" />
