@@ -124,7 +124,7 @@
                             <div>
                                 <x-input-label for="weight" :value="__('Weight')" />
                                 <div class="relative mt-1">
-                                    <x-text-input id="weight" name="weight" type="number"
+                                    <x-text-input id="weight" name="weight" type="number" step="0.01"
                                         class="block w-full pr-12" :value="old('weight')" required placeholder="0.00" />
                                     <div
                                         class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none text-gray-400 text-sm">

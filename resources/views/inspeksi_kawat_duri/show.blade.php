@@ -322,7 +322,7 @@
                                             </tr>
                                         </thead>
                                         <tbody class="divide-y divide-gray-200">
-                                            @forelse ($fg->details as $detail)
+                                            @forelse (($fg->details ?? []) as $detail)
                                                 <tr>
                                                     <td class="px-4 py-2">{{ $loop->iteration }}</td>
                                                     <td class="px-4 py-2">{{ $detail->description }}</td>

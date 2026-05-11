@@ -14,6 +14,9 @@ class InspeksiKawatDuriFg extends Model
         'weight',
         'files',
     ];
+    protected $casts = [
+        'files' => 'array', // otomatis decode JSON ke array
+    ];
 
     public function inspeksiKawatDuri()
     {
