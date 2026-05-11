@@ -248,7 +248,7 @@
                                     d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                             </svg>
                         </div>
-                        <h3 class="text-lg font-bold text-gray-800">Data Finished Goods (FG)</h3>
+                        <h3 class="text-lg font-bold text-gray-800">Hasil Inspeksi Finished Goods (FG)</h3>
                     </div>
 
                     <div class="overflow-x-auto rounded-lg border border-gray-200">
