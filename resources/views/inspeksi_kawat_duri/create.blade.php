@@ -79,11 +79,6 @@
                                 <option value="HG" {{ old('type_coating') == 'HG' ? 'selected' : '' }}>HG</option>
                                 <option value="ZN-AL" {{ old('type_coating') == 'ZN-AL' ? 'selected' : '' }}>ZN-AL
                                 </option>
-                                <option value="ULTRA" {{ old('type_coating') == 'ULTRA' ? 'selected' : '' }}>ULTRA
-                                </option>
-                                <option value="BLACK" {{ old('type_coating') == 'BLACK' ? 'selected' : '' }}>BLACK
-                                </option>
-                                <option value="EP" {{ old('type_coating') == 'EP' ? 'selected' : '' }}>EP</option>
                             </select>
                             <x-input-error class="mt-2" :messages="$errors->get('type_coating')" />
                         </div>
