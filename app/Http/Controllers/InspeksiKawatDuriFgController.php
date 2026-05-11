@@ -48,15 +48,17 @@ class InspeksiKawatDuriFgController extends Controller
             'qty'                    => $validated['qty'],
             'weight'                 => $validated['weight'],
         ]);
-
-        // Simpan file multiple ke kolom JSON
+        // simpan file multiple ke kolom JSON
         if ($request->hasFile('files')) {
             $paths = [];
+
             foreach ($request->file('files') as $file) {
                 $paths[] = $file->store('uploads/inspeksi_kd_fg', 'public');
             }
-            $fg->files = $paths;
-            $fg->save();
+
+            $fg->update([
+                'files' => $paths
+            ]);
         }
 
         // simpan detail multiple (array)

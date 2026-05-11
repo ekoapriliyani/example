@@ -86,7 +86,7 @@
                         <div>
                             <x-input-label for="total_prod" :value="__('Total Produksi per Shift')" />
                             <x-text-input id="total_prod" name="total_prod" type="number" step="0.01"
-                                class="mt-1 block w-full" value="{{ old('total_prod') }}" required />
+                                class="mt-1 block w-full" value="{{ old('total_prod') }}" />
                             <x-input-error class="mt-2" :messages="$errors->get('total_prod')" />
                         </div>
 

@@ -112,7 +112,12 @@ class InspeksiKawatDuriWipController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $wip = InspeksiKawatDuriWip::with(['inspeksiKdWipDetails', 'inspeksiKawatDuri'])->findOrFail($id);
+
+        return view('inspeksi_kawat_duri.wip.edit', [
+            'inspeksi_kawat_duri' => $wip->inspeksiKawatDuri,
+            'wip' => $wip,
+        ]);
     }
 
     /**

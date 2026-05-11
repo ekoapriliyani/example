@@ -84,15 +84,10 @@ Route::middleware(['auth'])->group(function () {
 
     Route::get('/inspeksi_kawat_duri/{inspeksi_kawat_duri}/wip', [InspeksiKawatDuriWipController::class, 'create'])->name('inspeksi_kawat_duri.wip');
     Route::post('/inspeksi_kawat_duri/wip', [InspeksiKawatDuriWipController::class, 'store'])->name('inspeksi_kawat_duri_wip.store');
-    Route::get(
-        '/inspeksi_kawat_duri/wip/{id}/edit',
-        [InspeksiKawatDuriWipController::class, 'edit']
-    )->name('inspeksi_kawat_duri_wip.edit');
 
-    Route::put(
-        '/inspeksi_kawat_duri/wip/{id}',
-        [InspeksiKawatDuriWipController::class, 'update']
-    )->name('inspeksi_kawat_duri_wip.update');
+    Route::get('inspeksi_kawat_duri/wip/{wip}/edit', [InspeksiKawatDuriWipController::class, 'edit'])->name('inspeksi_kawat_duri_wip.edit');
+    Route::put('inspeksi_kawat_duri/wip/{wip}', [InspeksiKawatDuriWipController::class, 'update'])->name('inspeksi_kawat_duri_wip.update');
+
 
     Route::delete(
         '/inspeksi_kawat_duri/wip/{id}',

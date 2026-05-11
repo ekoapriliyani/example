@@ -34,7 +34,7 @@
 
     <div class="py-12">
         <div class="mx-auto max-w-7xl space-y-8 sm:px-6 lg:px-8">
-            <div class="overflow-hidden border border-gray-200 bg-white shadow-sm sm:rounded-lg">
+            <div class="overflow-hidden border border-gray-200 bg-red-100 shadow-sm sm:rounded-lg">
                 <div class="p-6 sm:p-8">
                     <div class="flex items-start justify-between">
                         <dl class="grid grid-cols-1 gap-x-8 gap-y-4 sm:grid-cols-4">
@@ -59,6 +59,12 @@
                                 <dt class="text-sm font-medium italic text-gray-500">QTY Ordered</dt>
                                 <dd class="text-lg font-semibold text-gray-900">
                                     {{ $inspeksiKawatDuri->pro->qty }}
+                                </dd>
+                            </div>
+                            <div>
+                                <dt class="text-sm font-medium italic text-gray-500">Total Produksi per shift</dt>
+                                <dd class="text-lg font-semibold text-gray-900">
+                                    {{ $inspeksiKawatDuri->total_prod }}
                                 </dd>
                             </div>
                             <div>
@@ -202,6 +208,7 @@
                                                         <button type="submit"
                                                             class="inline-flex items-center rounded-md bg-red-100 p-2 text-red-600 transition hover:bg-red-200"
                                                             title="Hapus">
+
                                                             <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5"
                                                                 fill="none" viewBox="0 0 24 24"
                                                                 stroke="currentColor">
@@ -322,7 +329,7 @@
                                             </tr>
                                         </thead>
                                         <tbody class="divide-y divide-gray-200">
-                                            @forelse (($fg->details ?? []) as $detail)
+                                            @forelse (($fg->inspeksiKdFgDetails ?? []) as $detail)
                                                 <tr>
                                                     <td class="px-4 py-2">{{ $loop->iteration }}</td>
                                                     <td class="px-4 py-2">{{ $detail->description }}</td>
@@ -620,5 +627,30 @@
                 }
             })
         }
+    </script>
+
+    {{-- hapus wip --}}
+    <script>
+        document.querySelectorAll('.delete-form').forEach(form => {
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+
+                Swal.fire({
+                    title: 'Yakin hapus data?',
+                    text: "Data yang dihapus tidak bisa dikembalikan!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#dc2626',
+                    cancelButtonColor: '#6b7280',
+                    confirmButtonText: 'Ya, hapus!',
+                    cancelButtonText: 'Batal',
+                    reverseButtons: true
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        form.submit();
+                    }
+                });
+            });
+        });
     </script>
 </x-app-layout>
