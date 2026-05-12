@@ -160,6 +160,8 @@ class InspeksiKawatDuriWipController extends Controller
             'jml_jalinan_duri'     => $validated['jml_jalinan_duri'],
             'sudut_ujung_duri'     => $validated['sudut_ujung_duri'],
             'jml_counter'          => $validated['jml_counter'],
+            'weight'               => $validated['weight'],
+            'status'               => $validated['status'],
         ]);
 
         return redirect()->route('inspeksi_kawat_duri.show', $wip->inspeksi_kawat_duri_id)

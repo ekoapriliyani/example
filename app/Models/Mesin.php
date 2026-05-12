@@ -20,4 +20,9 @@ class Mesin extends Model
     {
         return $this->hasMany(InspeksiKawatDuri::class);
     }
+
+    public function inspeksiChainlinks()
+    {
+        return $this->hasMany(InspeksiChainlink::class);
+    }
 }

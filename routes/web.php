@@ -3,6 +3,7 @@
 use App\Http\Controllers\IncomingBahanBakuController;
 use App\Http\Controllers\IncomingProjectController;
 use App\Http\Controllers\IncomingPvcHdpeController;
+use App\Http\Controllers\InspeksiChainlinkController;
 use App\Http\Controllers\InspeksiKawatDuriController;
 use App\Http\Controllers\InspeksiKawatDuriFgController;
 use App\Http\Controllers\InspeksiKawatDuriWipController;
@@ -62,6 +63,7 @@ Route::middleware(['auth'])->group(function () {
 
     Route::resource('inspeksi_wm', InspeksiWmController::class);
     Route::resource('inspeksi_kawat_duri', InspeksiKawatDuriController::class);
+    Route::resource('inspeksi_chainlink', InspeksiChainlinkController::class);
 
     Route::get('/pro/{id}/detail', [InspeksiWmController::class, 'getProDetail'])->name('pros.detail');
 

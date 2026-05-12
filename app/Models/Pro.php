@@ -23,4 +23,8 @@ class Pro extends Model
     }
 
 
+    public function inspeksiChainlinks()
+    {
+        return $this->hasMany(InspeksiChainlink::class);
+    }
 }
