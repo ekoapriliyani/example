@@ -12,22 +12,51 @@
                 @php
                     $isApproved = $inspeksiKawatDuri->approval_status === 'APPROVED';
                 @endphp
-                <a href="{{ route('inspeksi_kawat_duri.wip', $inspeksiKawatDuri->id) }}"
-                    class="inline-flex items-center gap-2 rounded-md bg-blue-600 px-4 py-2 text-sm font-semibold text-white shadow-sm transition hover:bg-blue-700">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="size-4" fill="none" viewBox="0 0 24 24"
-                        stroke="currentColor" stroke-width="2">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
-                    </svg>
-                    Tambah WIP
-                </a>
-                <a href="{{ route('inspeksi_kawat_duri.fg', $inspeksiKawatDuri->id) }}"
-                    class="inline-flex items-center gap-2 rounded-md bg-green-600 px-4 py-2 text-sm font-semibold text-white shadow-sm transition hover:bg-green-700">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="size-4" fill="none" viewBox="0 0 24 24"
-                        stroke="currentColor" stroke-width="2">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
-                    </svg>
-                    Tambah FG
-                </a>
+                <div class="flex items-center gap-2">
+                    {{-- Tambah WIP --}}
+                    @if ($isApproved)
+                        <button type="button" disabled
+                            class="inline-flex cursor-not-allowed items-center gap-2 rounded-md bg-gray-400 px-4 py-2 text-sm font-semibold text-white opacity-60 shadow-sm">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="size-4" fill="none" viewBox="0 0 24 24"
+                                stroke="currentColor" stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+                            </svg>
+                            Tambah WIP
+                        </button>
+                    @else
+                        <a href="{{ route('inspeksi_kawat_duri.wip', $inspeksiKawatDuri->id) }}"
+                            class="inline-flex items-center gap-2 rounded-md bg-blue-600 px-4 py-2 text-sm font-semibold text-white shadow-sm transition hover:bg-blue-700">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="size-4" fill="none" viewBox="0 0 24 24"
+                                stroke="currentColor" stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+                            </svg>
+                            Tambah WIP
+                        </a>
+                    @endif
+
+                    {{-- Tambah FG --}}
+                    @if ($isApproved)
+                        <button type="button" disabled
+                            class="inline-flex cursor-not-allowed items-center gap-2 rounded-md bg-gray-400 px-4 py-2 text-sm font-semibold text-white opacity-60 shadow-sm">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="size-4" fill="none" viewBox="0 0 24 24"
+                                stroke="currentColor" stroke-width="2">
+
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+                            </svg>
+                            Tambah FG
+                        </button>
+                    @else
+                        <a href="{{ route('inspeksi_kawat_duri.fg', $inspeksiKawatDuri->id) }}"
+                            class="inline-flex items-center gap-2 rounded-md bg-green-600 px-4 py-2 text-sm font-semibold text-white shadow-sm transition hover:bg-green-700">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="size-4" fill="none" viewBox="0 0 24 24"
+                                stroke="currentColor" stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+                            </svg>
+                            Tambah FG
+                        </a>
+                    @endif
+
+                </div>
             </div>
         </div>
     </x-slot>
@@ -133,7 +162,8 @@
                                         <td class="px-4 py-3 font-medium">{{ $wip->no_material }}</td>
                                         <td class="px-4 py-3">{{ $wip->nama_operator }}</td>
                                         <td class="bg-blue-50/30 px-4 py-3 text-center">{{ $wip->d_kawat_act }}</td>
-                                        <td class="bg-blue-50/30 px-4 py-3 text-center">{{ $wip->d_kawat_jalinan_act }}
+                                        <td class="bg-blue-50/30 px-4 py-3 text-center">
+                                            {{ $wip->d_kawat_jalinan_act }}
                                         </td>
                                         <td class="bg-blue-50/30 px-4 py-3 text-center">{{ $wip->jarak_duri }}</td>
                                         <td class="bg-blue-50/30 px-4 py-3 text-center">{{ $wip->jml_jalinan_duri }}

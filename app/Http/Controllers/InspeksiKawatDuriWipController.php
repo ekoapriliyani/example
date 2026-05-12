@@ -125,7 +125,45 @@ class InspeksiKawatDuriWipController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $wip = InspeksiKawatDuriWip::findOrFail($id);
+
+        $validated = $request->validate([
+            'no_material' => 'required|string|max:255',
+            'nama_operator' => 'required|string|max:255',
+            'd_kawat_act' => 'required|numeric',
+            'd_kawat_jalinan_act' => 'required|numeric',
+            'jarak_duri' => 'required|numeric',
+            'jml_jalinan_duri' => 'required|numeric',
+            'sudut_ujung_duri' => 'required|numeric',
+            'weight' => 'required|numeric',
+            'jml_counter' => 'required|numeric',
+            'status' => 'required|string|max:255',
+            'detail_name'       => 'nullable|array',
+            'detail_name.*'     => 'nullable|string|max:255',
+            'detail_description'   => 'nullable|array',
+            'detail_description.*' => 'nullable|string|max:1000',
+            'files'             => 'nullable|array',
+            'files.*'           => 'nullable|file|mimes:jpg,jpeg,png,pdf|max:10240',
+        ]);
+
+        if (!Auth::check()) {
+            return redirect()->back()->with('error', 'Sesi login berakhir. Silakan login kembali.');
+        }
+
+        $wip->update([
+            'user_id'               => Auth::id(),
+            'no_material'           => $validated['no_material'],
+            'nama_operator'         => $validated['nama_operator'],
+            'd_kawat_act'          => $validated['d_kawat_act'],
+            'd_kawat_jalinan_act'  => $validated['d_kawat_jalinan_act'],
+            'jarak_duri'           => $validated['jarak_duri'],
+            'jml_jalinan_duri'     => $validated['jml_jalinan_duri'],
+            'sudut_ujung_duri'     => $validated['sudut_ujung_duri'],
+            'jml_counter'          => $validated['jml_counter'],
+        ]);
+
+        return redirect()->route('inspeksi_kawat_duri.show', $wip->inspeksi_kawat_duri_id)
+            ->with('success', 'Data WIP berhasil diperbarui.');
     }
 
     /**

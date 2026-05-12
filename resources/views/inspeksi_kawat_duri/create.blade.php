@@ -79,8 +79,21 @@
                                 <option value="HG" {{ old('type_coating') == 'HG' ? 'selected' : '' }}>HG</option>
                                 <option value="ZN-AL" {{ old('type_coating') == 'ZN-AL' ? 'selected' : '' }}>ZN-AL
                                 </option>
+                                <option value="PVC" {{ old('type_coating') == 'PVC' ? 'selected' : '' }}>PVC
+                                </option>
                             </select>
                             <x-input-error class="mt-2" :messages="$errors->get('type_coating')" />
+                        </div>
+                        <div>
+                            <x-input-label for="warna" :value="__('Warna')" />
+                            <select id="warna" name="warna"
+                                class="mt-1 block w-full border-gray-300 rounded-md shadow-sm" required>
+                                <option value="">-- Pilih Warna --</option>
+                                <option value="Hijau" {{ old('warna') == 'Hijau' ? 'selected' : '' }}>Hijau</option>
+                                <option value="Abu-Abu" {{ old('warna') == 'Abu-Abu' ? 'selected' : '' }}>Abu-Abu
+                                </option>
+                            </select>
+                            <x-input-error class="mt-2" :messages="$errors->get('warna')" />
                         </div>
 
                         <div>
