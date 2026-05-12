@@ -203,10 +203,8 @@
                                                     <a href="{{ route('inspeksi_kawat_duri_wip.edit', $wip->id) }}"
                                                         class="inline-flex items-center rounded-md bg-yellow-100 p-2 text-yellow-600 transition hover:bg-yellow-200"
                                                         title="Edit">
-
                                                         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5"
                                                             fill="none" viewBox="0 0 24 24" stroke="currentColor">
-
                                                             <path stroke-linecap="round" stroke-linejoin="round"
                                                                 stroke-width="2"
                                                                 d="M11 5h2m-1-1v2m-6 9l-1 4 4-1 9-9a2.121 2.121 0 00-3-3l-9 9z" />
@@ -218,10 +216,8 @@
                                                     <button type="button" disabled
                                                         class="inline-flex cursor-not-allowed items-center rounded-md bg-gray-200 p-2 text-gray-400 opacity-70"
                                                         title="Data sudah approved">
-
                                                         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5"
                                                             fill="none" viewBox="0 0 24 24" stroke="currentColor">
-
                                                             <path stroke-linecap="round" stroke-linejoin="round"
                                                                 stroke-width="2"
                                                                 d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6M9 7V4a1 1 0 011-1h4a1 1 0 011 1v3m-7 0h8" />
@@ -231,18 +227,14 @@
                                                     <form
                                                         action="{{ route('inspeksi_kawat_duri_wip.destroy', $wip->id) }}"
                                                         method="POST" class="delete-form inline-block">
-
                                                         @csrf
                                                         @method('DELETE')
-
                                                         <button type="submit"
                                                             class="inline-flex items-center rounded-md bg-red-100 p-2 text-red-600 transition hover:bg-red-200"
                                                             title="Hapus">
-
                                                             <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5"
                                                                 fill="none" viewBox="0 0 24 24"
                                                                 stroke="currentColor">
-
                                                                 <path stroke-linecap="round" stroke-linejoin="round"
                                                                     stroke-width="2"
                                                                     d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6M9 7V4a1 1 0 011-1h4a1 1 0 011 1v3m-7 0h8" />
@@ -250,7 +242,6 @@
                                                         </button>
                                                     </form>
                                                 @endif
-
                                             </div>
                                         </td>
                                         <td class="bg-blue-50/30 px-4 py-3 text-center">{{ $wip->created_at }}</td>

@@ -21,6 +21,16 @@ class InspeksiChainlink extends Model
         'approved_at',
     ];
 
+    public function inspeksiChainlinkWip()
+    {
+        return $this->hasMany(InspeksiChainlinkWip::class, 'inspeksi_chainlink_id');
+    }
+
+    public function inspeksiChainlinkFg()
+    {
+        return $this->hasMany(InspeksiChainlinkFg::class, 'inspeksi_chainlink_id');
+    }
+
     public function pro()
     {
         return $this->belongsTo(Pro::class);
@@ -31,8 +41,8 @@ class InspeksiChainlink extends Model
         return $this->belongsTo(Mesin::class);
     }
 
-    public function approvedBy()
+    public function isApproved()
     {
-        return $this->belongsTo(User::class, 'approved_by');
+        return $this->approval_status === 'APPROVED';
     }
 }

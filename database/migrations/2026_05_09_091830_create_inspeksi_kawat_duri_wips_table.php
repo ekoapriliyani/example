@@ -15,15 +15,15 @@ return new class extends Migration
             $table->id();
             $table->foreignId('inspeksi_kawat_duri_id')->constrained('inspeksi_kawat_duris')->onDelete('cascade'); // relasi ke header
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
-            $table->integer('no_material')->nullable();
+            $table->string('no_material')->nullable();
             $table->string('nama_operator');
-            $table->decimal('d_kawat_act', 8,2)->nullable();
-            $table->decimal('d_kawat_jalinan_act', 8,2)->nullable();
-            $table->decimal('jarak_duri', 8,2)->nullable();
-            $table->decimal('jml_jalinan_duri', 8,2)->nullable();
-            $table->decimal('sudut_ujung_duri', 8,2)->nullable();
-            $table->decimal('weight', 8,2)->nullable();
-            $table->decimal('jml_counter', 8,2)->nullable();
+            $table->decimal('d_kawat_act', 8, 2)->nullable();
+            $table->decimal('d_kawat_jalinan_act', 8, 2)->nullable();
+            $table->decimal('jarak_duri', 8, 2)->nullable();
+            $table->decimal('jml_jalinan_duri', 8, 2)->nullable();
+            $table->decimal('sudut_ujung_duri', 8, 2)->nullable();
+            $table->decimal('weight', 8, 2)->nullable();
+            $table->decimal('jml_counter', 8, 2)->nullable();
             $table->string('status')->nullable();
             $table->json('files')->nullable();
             $table->timestamps();
