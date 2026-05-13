@@ -15,9 +15,12 @@ class InspeksiChainlinkWip extends Model
         'lebar',
         'panjang',
         'mesh',
-        'diameter',
+        'diameter_inti',
+        'diameter_luar',
         'type',
         'model',
+        'warna',
+        'visual',
         'status',
         'files',
     ];

@@ -109,15 +109,15 @@
                                 </dd>
                             </div>
                             <div>
-                                <dt class="text-sm font-medium italic text-gray-500">Jumlah Counter</dt>
-                                <dd class="text-lg font-semibold text-gray-900">
-                                    {{ $inspeksiChainlink->jml_counter }}
-                                </dd>
-                            </div>
-                            <div>
                                 <dt class="text-sm font-medium italic text-gray-500">Lebar - Jumlah Lubang</dt>
                                 <dd class="text-lg font-semibold text-gray-900">
                                     {{ $inspeksiChainlink->jml_lubang_l }}
+                                </dd>
+                            </div>
+                            <div>
+                                <dt class="text-sm font-medium italic text-gray-500">Jumlah Counter</dt>
+                                <dd class="text-lg font-semibold text-gray-900">
+                                    {{ $inspeksiChainlink->jml_counter }}
                                 </dd>
                             </div>
                             <div>
@@ -155,9 +155,12 @@
                                     <th class="px-4 py-3 font-semibold text-gray-900">Lebar</th>
                                     <th class="px-4 py-3 font-semibold text-gray-900">Panjang</th>
                                     <th class="px-4 py-3 font-semibold text-gray-900">Mesh</th>
-                                    <th class="px-4 py-3 font-semibold text-gray-900">Diameter</th>
+                                    <th class="px-4 py-3 font-semibold text-gray-900">Diameter Inti</th>
+                                    <th class="px-4 py-3 font-semibold text-gray-900">Diameter Luar</th>
                                     <th class="px-4 py-3 font-semibold text-gray-900">Type</th>
                                     <th class="px-4 py-3 font-semibold text-gray-900">Model</th>
+                                    <th class="px-4 py-3 font-semibold text-gray-900">Warna</th>
+                                    <th class="px-4 py-3 font-semibold text-gray-900">Visual</th>
                                     <th class="px-4 py-3 font-semibold text-gray-900">Status</th>
                                     <th class="px-4 py-3 font-semibold text-gray-900">Detail</th>
                                     <th class="px-4 py-3 font-semibold text-gray-900">Gambar</th>
@@ -177,11 +180,15 @@
                                             {{ $wip->panjang }}
                                         </td>
                                         <td class="bg-blue-50/30 px-4 py-3 text-center">{{ $wip->mesh }}</td>
-                                        <td class="bg-blue-50/30 px-4 py-3 text-center">{{ $wip->diameter }}
+                                        <td class="bg-blue-50/30 px-4 py-3 text-center">{{ $wip->diameter_inti }}
+                                        </td>
+                                        <td class="bg-blue-50/30 px-4 py-3 text-center">{{ $wip->diameter_luar }}
                                         </td>
                                         <td class="bg-blue-50/30 px-4 py-3 text-center">{{ $wip->type }}
                                         </td>
                                         <td class="bg-blue-50/30 px-4 py-3 text-center">{{ $wip->model }}</td>
+                                        <td class="bg-blue-50/30 px-4 py-3 text-center">{{ $wip->warna }}</td>
+                                        <td class="bg-blue-50/30 px-4 py-3 text-center">{{ $wip->visual }}</td>
                                         <td class="bg-blue-50/30 px-4 py-3 text-center">{{ $wip->status }}</td>
                                         <td class="px-4 py-3">
                                             <button type="button" class="text-sm text-indigo-600 hover:underline"

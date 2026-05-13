@@ -94,16 +94,28 @@
                                 <x-input-error class="mt-2" :messages="$errors->get('mesh')" />
                             </div>
                             <div>
-                                <x-input-label for="diameter" :value="__('Diameter')" />
+                                <x-input-label for="diameter_inti" :value="__('diameter_inti')" />
                                 <div class="relative mt-1">
-                                    <x-text-input id="diameter" name="diameter" type="number" step="0.01"
-                                        class="block w-full pr-12" :value="old('diameter')" required placeholder="0.00" />
+                                    <x-text-input id="diameter_inti" name="diameter_inti" type="number" step="0.01"
+                                        class="block w-full pr-12" :value="old('diameter_inti')" required placeholder="0.00" />
                                     <div
                                         class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none text-gray-400 text-sm">
                                         mm
                                     </div>
                                 </div>
-                                <x-input-error class="mt-2" :messages="$errors->get('diameter')" />
+                                <x-input-error class="mt-2" :messages="$errors->get('diameter_inti')" />
+                            </div>
+                            <div>
+                                <x-input-label for="diameter_luar" :value="__('diameter_luar')" />
+                                <div class="relative mt-1">
+                                    <x-text-input id="diameter_luar" name="diameter_luar" type="number" step="0.01"
+                                        class="block w-full pr-12" :value="old('diameter_luar')" required placeholder="0.00" />
+                                    <div
+                                        class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none text-gray-400 text-sm">
+                                        mm
+                                    </div>
+                                </div>
+                                <x-input-error class="mt-2" :messages="$errors->get('diameter_luar')" />
                             </div>
                             <div>
                                 <x-input-label for="type" :value="__('Type')" />
@@ -112,15 +124,16 @@
                                     required>
                                     <option value="">-- Pilih Type --</option>
                                     <option value="PVC" {{ old('type') == 'PVC' ? 'selected' : '' }}>PVC</option>
-                                    <option value="ULTRA" {{ old('type') == 'ULTRA' ? 'selected' : '' }}>ULTRA</option>
+                                    <option value="ULTRA" {{ old('type') == 'ULTRA' ? 'selected' : '' }}>ULTRA
+                                    </option>
                                     <option value="HG" {{ old('type') == 'HG' ? 'selected' : '' }}>HG</option>
                                     <option value="LG" {{ old('type') == 'LG' ? 'selected' : '' }}>LG</option>
+                                    <option value="HDPE" {{ old('type') == 'HDPE' ? 'selected' : '' }}>HDPE</option>
                                 </select>
                                 <x-input-error class="mt-2" :messages="$errors->get('type')" />
                             </div>
                             <div>
                                 <x-input-label for="model" :value="__('Model')" />
-
                                 <select id="model" name="model"
                                     class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
                                     required>
@@ -139,6 +152,38 @@
                                     </option>
                                 </select>
                                 <x-input-error class="mt-2" :messages="$errors->get('model')" />
+                            </div>
+                            <div>
+                                <x-input-label for="warna" :value="__('Warna')" />
+                                <select id="warna" name="warna"
+                                    class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+                                    required>
+                                    <option value="">-- Pilih Warna --</option>
+                                    <option value="Hijau" {{ old('warna') == 'Hijau' ? 'selected' : '' }}>
+                                        Hijau
+                                    </option>
+                                    <option value="Abu-Abu" {{ old('warna') == 'Abu-Abu' ? 'selected' : '' }}>
+                                        Abu-Abu
+                                    </option>
+                                    <option value="Biru" {{ old('warna') == 'Biru' ? 'selected' : '' }}>
+                                        Biru
+                                    </option>
+                                    <option value="Putih" {{ old('warna') == 'Putih' ? 'selected' : '' }}>
+                                        Putih
+                                    </option>
+                                </select>
+                                <x-input-error class="mt-2" :messages="$errors->get('warna')" />
+                            </div>
+                            <div>
+                                <x-input-label for="visual" :value="__('Visual')" />
+                                <select id="visual" name="visual"
+                                    class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+                                    required>
+                                    <option value="">-- Pilih visual --</option>
+                                    <option value="OK" {{ old('visual') == 'OK' ? 'selected' : '' }}>OK</option>
+                                    <option value="NG" {{ old('visual') == 'NG' ? 'selected' : '' }}>NG</option>
+                                </select>
+                                <x-input-error class="mt-2" :messages="$errors->get('status')" />
                             </div>
                             <div>
                                 <x-input-label for="status" :value="__('Status')" />
@@ -162,12 +207,12 @@
                                             class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
                                             <option value="">-- Pilih Detail --</option>
                                             <option value="DIAMETER OUT">DIAMETER OUT</option>
-                                            <option value="JARAK DURI">JARAK DURI</option>
-                                            <option value="LILITAN">LILITAN</option>
-                                            <option value="KARAT">KARAT</option>
-                                            <option value="WHITE RUST">WHITE RUST</option>
                                             <option value="CRACK">CRACK</option>
+                                            <option value="MESH">MESH</option>
                                             <option value="PANJANG OUT">PANJANG OUT</option>
+                                            <option value="LEBAR OUT">LEBAR OUT</option>
+                                            <option value="PVC PECAH">PVC PECAH</option>
+                                            <option value="WHITE RUST">WHITE RUST</option>
                                         </select>
                                     </div>
                                     <div>
@@ -176,12 +221,12 @@
                                             class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
                                             <option value="">-- Pilih Detail --</option>
                                             <option value="DIAMETER OUT">DIAMETER OUT</option>
-                                            <option value="JARAK DURI">JARAK DURI</option>
-                                            <option value="LILITAN">LILITAN</option>
-                                            <option value="KARAT">KARAT</option>
-                                            <option value="WHITE RUST">WHITE RUST</option>
                                             <option value="CRACK">CRACK</option>
+                                            <option value="MESH">MESH</option>
                                             <option value="PANJANG OUT">PANJANG OUT</option>
+                                            <option value="LEBAR OUT">LEBAR OUT</option>
+                                            <option value="PVC PECAH">PVC PECAH</option>
+                                            <option value="WHITE RUST">WHITE RUST</option>
                                         </select>
                                     </div>
                                     <div>
@@ -243,12 +288,12 @@
                     class="mt-1 block w-full border-gray-300 rounded-md shadow-sm">
                     <option value="">-- Pilih Detail --</option>
                     <option value="DIAMETER OUT">DIAMETER OUT</option>
-                    <option value="JARAK DURI">JARAK DURI</option>
-                    <option value="LILITAN">LILITAN</option>
-                    <option value="KARAT">KARAT</option>
-                    <option value="WHITE RUST">WHITE RUST</option>
                     <option value="CRACK">CRACK</option>
+                    <option value="MESH">MESH</option>
                     <option value="PANJANG OUT">PANJANG OUT</option>
+                    <option value="LEBAR OUT">LEBAR OUT</option>
+                    <option value="PVC PECAH">PVC PECAH</option>
+                    <option value="WHITE RUST">WHITE RUST</option>
                 </select>
             </div>
             <div>
@@ -257,12 +302,12 @@
                     class="mt-1 block w-full border-gray-300 rounded-md shadow-sm">
                     <option value="">-- Pilih Detail --</option>
                     <option value="DIAMETER OUT">DIAMETER OUT</option>
-                    <option value="LILITAN">LILITAN</option>
-                    <option value="JARAK DURI">JARAK DURI</option>
-                    <option value="WHITE RUST">WHITE RUST</option>
                     <option value="CRACK">CRACK</option>
+                    <option value="MESH">MESH</option>
                     <option value="PANJANG OUT">PANJANG OUT</option>
-                    <option value="KARAT">KARAT</option>
+                    <option value="LEBAR OUT">LEBAR OUT</option>
+                    <option value="PVC PECAH">PVC PECAH</option>
+                    <option value="WHITE RUST">WHITE RUST</option>
                 </select>
             </div>
             <div>

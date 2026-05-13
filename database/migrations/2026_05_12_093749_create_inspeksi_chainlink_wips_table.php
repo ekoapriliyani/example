@@ -20,9 +20,12 @@ return new class extends Migration
             $table->decimal('lebar', 8, 2)->nullable();
             $table->decimal('panjang', 8, 2)->nullable();
             $table->decimal('mesh', 8, 2)->nullable();
-            $table->decimal('diameter', 8, 2)->nullable();
+            $table->decimal('diameter_inti', 8, 2)->nullable();
+            $table->decimal('diameter_luar', 8, 2)->nullable();
             $table->string('type');
             $table->string('model');
+            $table->string('warna');
+            $table->string('visual');
             $table->string('status');
             $table->json('files')->nullable();
             $table->timestamps();

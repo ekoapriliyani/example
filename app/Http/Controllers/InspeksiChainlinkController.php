@@ -85,9 +85,13 @@ class InspeksiChainlinkController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(InspeksiChainlink $inspeksiChainlink)
     {
-        //
+        return view('inspeksi_chainlink.edit', [
+            'inspeksiChainlink' => $inspeksiChainlink,
+            'pros' => Pro::orderBy('pro_id')->get(),
+            'mesins' => Mesin::orderBy('mesin_id')->get(),
+        ]);
     }
 
     /**
