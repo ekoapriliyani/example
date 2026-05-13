@@ -196,6 +196,20 @@
                                 </select>
                                 <x-input-error class="mt-2" :messages="$errors->get('status')" />
                             </div>
+
+                            <div>
+                                <x-input-label for="weight" :value="__('weight')" />
+                                <div class="relative mt-1">
+                                    <x-text-input id="weight" name="weight" type="number" step="0.01"
+                                        class="block w-full pr-12" :value="old('weight')" required placeholder="0.00" />
+                                    <div
+                                        class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none text-gray-400 text-sm">
+                                        kg
+                                    </div>
+                                </div>
+                                <x-input-error class="mt-2" :messages="$errors->get('weight')" />
+                            </div>
+
                         </div>
                         <div class="md:col-span-2 border-t border-gray-200 pt-6">
                             <h3 class="font-semibold text-gray-700 mb-4">Detail Inspeksi</h3>

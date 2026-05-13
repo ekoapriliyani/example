@@ -16,8 +16,11 @@ return new class extends Migration
             $table->foreignId('inspeksi_chainlink_id')->constrained('inspeksi_chainlinks')->onDelete('cascade');
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
             $table->string('status');
+            $table->string('packing');
+            $table->string('label');
             $table->integer('qty');
             $table->decimal('weight', 8, 2)->nullable();
+            $table->json('files')->nullable(); // simpan array path file upload
             $table->timestamps();
         });
     }

@@ -162,6 +162,7 @@
                                     <th class="px-4 py-3 font-semibold text-gray-900">Warna</th>
                                     <th class="px-4 py-3 font-semibold text-gray-900">Visual</th>
                                     <th class="px-4 py-3 font-semibold text-gray-900">Status</th>
+                                    <th class="px-4 py-3 font-semibold text-gray-900">Weight</th>
                                     <th class="px-4 py-3 font-semibold text-gray-900">Detail</th>
                                     <th class="px-4 py-3 font-semibold text-gray-900">Gambar</th>
                                     <th class="px-4 py-3 font-semibold text-gray-900">Aksi</th>
@@ -190,6 +191,7 @@
                                         <td class="bg-blue-50/30 px-4 py-3 text-center">{{ $wip->warna }}</td>
                                         <td class="bg-blue-50/30 px-4 py-3 text-center">{{ $wip->visual }}</td>
                                         <td class="bg-blue-50/30 px-4 py-3 text-center">{{ $wip->status }}</td>
+                                        <td class="bg-blue-50/30 px-4 py-3 text-center">{{ $wip->weight }}</td>
                                         <td class="px-4 py-3">
                                             <button type="button" class="text-sm text-indigo-600 hover:underline"
                                                 onclick="toggleDetail2({{ $wip->id }})">
@@ -298,6 +300,8 @@
                                     <th class="px-4 py-3 font-semibold text-gray-900">Status</th>
                                     <th class="px-4 py-3 font-semibold text-gray-900">Quantity</th>
                                     <th class="px-4 py-3 font-semibold text-gray-900">Weight</th>
+                                    <th class="px-4 py-3 font-semibold text-gray-900">Packing</th>
+                                    <th class="px-4 py-3 font-semibold text-gray-900">Label</th>
                                     <th class="px-4 py-3 font-semibold text-gray-900">Detail</th>
                                     <th class="px-4 py-3 font-semibold text-gray-900">Gambar</th>
                                     <th class="px-4 py-3 font-semibold text-gray-900">Created At</th>
@@ -329,6 +333,8 @@
                                         </td>
                                         <td class="px-4 py-3">{{ $fg->qty }}</td>
                                         <td class="px-4 py-3">{{ $fg->weight }} Kg</td>
+                                        <td class="px-4 py-3">{{ $fg->packing }}</td>
+                                        <td class="px-4 py-3">{{ $fg->label }}</td>
                                         <td class="px-4 py-3">
                                             <button type="button" class="text-sm text-indigo-600 hover:underline"
                                                 onclick="toggleDetail({{ $fg->id }})">

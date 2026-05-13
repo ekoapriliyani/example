@@ -10,8 +10,15 @@ class InspeksiChainlinkFg extends Model
         'inspeksi_chainlink_id',
         'user_id',
         'status',
+        'packing',
+        'label',
         'qty',
         'weight',
+        'files',
+    ];
+
+    protected $casts = [
+        'files' => 'array', // otomatis decode JSON ke array
     ];
 
     public function inspeksiChainlink()
@@ -22,5 +29,10 @@ class InspeksiChainlinkFg extends Model
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function inspeksiChainlinkFgDetails()
+    {
+        return $this->hasMany(InspeksiChainlinkFgDetail::class, 'inspeksi_chainlink_fg_id');
     }
 }

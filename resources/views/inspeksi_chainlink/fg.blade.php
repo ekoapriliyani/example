@@ -5,7 +5,7 @@
                 {{ __('Input Hasil Inspeksi FG') }}
             </h2>
             <p class="text-sm text-gray-500">
-                Ref: <span class="font-mono font-bold text-indigo-600">{{ $inspeksiKd->nomor_inspeksi }}</span>
+                Ref: <span class="font-mono font-bold text-indigo-600">{{ $inspeksiChainlink->nomor_inspeksi }}</span>
             </p>
         </div>
     </x-slot>
@@ -14,11 +14,10 @@
         <div class="max-w-4xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg border border-gray-200">
                 <div class="p-8">
-                    <form action="{{ route('inspeksi_kawat_duri_fg.store') }}" method="POST"
+                    <form action="{{ route('inspeksi_chainlink_fg.store') }}" method="POST"
                         enctype="multipart/form-data" class="space-y-6">
                         @csrf
-                        <input type="hidden" name="inspeksi_kawat_duri_id" value="{{ $inspeksiKd->id }}">
-
+                        <input type="hidden" name="inspeksi_chainlink_id" value="{{ $inspeksiChainlink->id }}">
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                             <div class="md:col-span-2">
                                 <x-input-label for="status" :value="__('Status')" />
@@ -42,7 +41,26 @@
                                     class="mt-1 block w-full" required placeholder="0" />
                                 <x-input-error class="mt-2" :messages="$errors->get('weight')" />
                             </div>
+                            <div class="">
+                                <x-input-label for="packing" :value="__('packing')" />
+                                <select id="packing" name="packing"
+                                    class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
+                                    <option value="OK">OK</option>
+                                    <option value="NG">NG</option>
+                                </select>
+                                <x-input-error class="mt-2" :messages="$errors->get('packing')" />
+                            </div>
+                            <div class="">
+                                <x-input-label for="label" :value="__('label')" />
+                                <select id="label" name="label"
+                                    class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
+                                    <option value="OK">OK</option>
+                                    <option value="NG">NG</option>
+                                </select>
+                                <x-input-error class="mt-2" :messages="$errors->get('label')" />
+                            </div>
                         </div>
+
 
                         <div class="md:col-span-2 border-t border-gray-200 pt-6">
                             <h3 class="font-semibold text-gray-700 mb-4">Detail Inspeksi</h3>
@@ -105,7 +123,7 @@
                         </div>
 
                         <div class="flex items-center justify-end gap-4 pt-6 border-t border-gray-100">
-                            <a href="{{ route('inspeksi_kawat_duri.show', $inspeksiKd->id) }}"
+                            <a href="{{ route('inspeksi_chainlink.show', $inspeksiChainlink->id) }}"
                                 class="text-sm text-gray-600 hover:underline">{{ __('Batal') }}</a>
                             <x-primary-button class="bg-blue-600 hover:bg-blue-700">
                                 {{ __('Simpan Data FG') }}

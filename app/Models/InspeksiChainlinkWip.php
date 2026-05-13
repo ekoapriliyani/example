@@ -21,6 +21,7 @@ class InspeksiChainlinkWip extends Model
         'model',
         'warna',
         'visual',
+        'weight',
         'status',
         'files',
     ];

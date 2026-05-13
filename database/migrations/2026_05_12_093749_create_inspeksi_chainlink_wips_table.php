@@ -27,6 +27,7 @@ return new class extends Migration
             $table->string('warna');
             $table->string('visual');
             $table->string('status');
+            $table->decimal('weight', 8, 2)->nullable();
             $table->json('files')->nullable();
             $table->timestamps();
         });

@@ -45,6 +45,7 @@ class InspeksiChainlinkWipController extends Controller
             'warna' => 'required',
             'visual' => 'required',
             'status' => 'required',
+            'weight' => 'nullable',
             'detail_name'       => 'nullable|array',
             'detail_name.*'     => 'nullable|string|max:255',
             'detail_description'   => 'nullable|array',
@@ -72,6 +73,7 @@ class InspeksiChainlinkWipController extends Controller
             'model' => $validated['model'],
             'warna' => $validated['warna'],
             'visual' => $validated['visual'],
+            'weight' => $validated['weight'],
             'status' => $validated['status'],
         ]);
 
