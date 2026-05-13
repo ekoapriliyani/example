@@ -126,7 +126,7 @@ Route::middleware(['auth'])->group(function () {
 
     Route::get('/inspeksi_chainlink/{inspeksi_chainlink}/fg', [InspeksiChainlinkFgController::class, 'create'])->name('inspeksi_chainlink.fg');
     Route::post('/inspeksi_chainlink/fg', [InspeksiChainlinkFgController::class, 'store'])->name('inspeksi_chainlink_fg.store');
-    Route::delete('/inspeksi_chainlink/wip{id', [InspeksiChainlinkWipcontroller::class, 'destroy'])->name('inspeksi_chainlink_wip.destroy');
+    Route::delete('/inspeksi_chainlink/wip/{id}', [InspeksiChainlinkWipController::class, 'destroy'])->name('inspeksi_chainlink_wip.destroy');
 
     // incoming bahan baku
     Route::get('incomingbahanbaku/{id}/inspeksi', [IncomingBahanBakuController::class, 'createInspeksi'])

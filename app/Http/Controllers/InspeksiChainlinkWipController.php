@@ -6,6 +6,7 @@ use App\Models\InspeksiChainlink;
 use App\Models\InspeksiChainlinkWip;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class InspeksiChainlinkWipController extends Controller
 {
@@ -133,7 +134,88 @@ class InspeksiChainlinkWipController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $validated = $request->validate([
+            'no_material' => 'required|string|max:255',
+            'nama_operator' => 'required|string|max:255',
+            'lebar' => 'required',
+            'panjang' => 'required',
+            'mesh' => 'required',
+            'diameter_inti' => 'required',
+            'diameter_luar' => 'required',
+            'type' => 'required',
+            'model' => 'required',
+            'warna' => 'required',
+            'visual' => 'required',
+            'weight' => 'required',
+            'status' => 'required',
+
+            'detail_name'       => 'nullable|array',
+            'detail_name.*'     => 'nullable|string|max:255',
+            'detail_description'   => 'nullable|array',
+            'detail_description.*' => 'nullable|string|max:1000',
+            'files'             => 'nullable|array',
+            'files.*'           => 'nullable|file|mimes:jpg,jpeg,png,pdf|max:10240',
+        ]);
+
+        if (!Auth::check()) {
+            return redirect()->back()->with('error', 'Sesi login berakhir. Silakan login kembali.');
+        }
+
+        $wip = InspeksiChainlinkWip::findOrFail($id);
+        $wip->update([
+            'user_id'               => Auth::id(),
+            'no_material'           => $validated['no_material'],
+            'nama_operator'         => $validated['nama_operator'],
+            'lebar'         => $validated['lebar'],
+            'panjang'         => $validated['panjang'],
+            'mesh'         => $validated['mesh'],
+            'diameter_inti'         => $validated['diameter_inti'],
+            'diameter_luar'         => $validated['diameter_luar'],
+            'type'         => $validated['type'],
+            'model'         => $validated['model'],
+            'warna'         => $validated['warna'],
+            'visual'         => $validated['visual'],
+            'weight'               => $validated['weight'],
+            'status'               => $validated['status'],
+        ]);
+
+        if ($request->hasFile('files')) {
+            if (is_array($wip->files)) {
+                foreach ($wip->files as $oldFile) {
+                    if (Storage::disk('public')->exists($oldFile)) {
+                        Storage::disk('public')->delete($oldFile);
+                    }
+                }
+            }
+            $newFiles = [];
+            foreach ($request->file('files') as $file) {
+                $newFiles[] = $file->store('inspeksi_chainlink_wip', 'public');
+            }
+            $wip->update([
+                'files' => $newFiles,
+            ]);
+        }
+
+        $wip->inspeksiChainlinkWipDetails()->delete();
+        if ($request->detail_description) {
+            foreach ($request->detail_description as $index => $description) {
+                $description2 = $request->detail_description2[$index] ?? null;
+                $qty = $request->detail_qty[$index] ?? null;
+
+                if (empty($description) && empty($description2) && empty($qty)) {
+                    continue;
+                }
+
+                $wip->inspeksiChainlinkWipDetails()->create([
+                    'description' => $description,
+                    'description2' => $description2,
+                    'qty' => $qty,
+                ]);
+            }
+        }
+
+        return redirect()->route('inspeksi_chainlink.show', $wip->inspeksi_chainlink_id)
+            ->with('success', 'Data WIP berhasil diperbarui.');
     }
 
     /**
@@ -141,6 +223,23 @@ class InspeksiChainlinkWipController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $wip = InspeksiChainlinkWip::findOrFail($id);
+        $inspeksiChainlinkId = $wip->inspeksi_chainlink_id;
+
+        // Hapus file terkait jika ada
+        if ($wip->files) {
+            foreach ($wip->files as $filePath) {
+                Storage::disk('public')->delete($filePath);
+            }
+        }
+
+        // Hapus detail terkait
+        $wip->inspeksiChainlinkWipDetails()->delete();
+
+        // Hapus data WIP
+        $wip->delete();
+
+        return redirect()->route('inspeksi_chainlink.show', $inspeksiChainlinkId)
+            ->with('success', 'Data WIP berhasil dihapus.');
     }
 }

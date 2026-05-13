@@ -6,6 +6,7 @@ use App\Models\InspeksiChainlink;
 use App\Models\InspeksiChainlinkFg;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class InspeksiChainlinkFgController extends Controller
 {
@@ -98,7 +99,11 @@ class InspeksiChainlinkFgController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $fg = InspeksiChainlinkFg::with(['inspeksiChainlinkFgDetails', 'inspeksiChainlink'])->findOrFail($id);
+        return view('inspeksi_chainlink.fg.edit', [
+            'inspeksi_chainlink' => $fg->inspeksiChainlink,
+            'fg' => $fg,
+        ]);
     }
 
     /**
@@ -106,7 +111,65 @@ class InspeksiChainlinkFgController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $request->validate([
+            'status' => 'required|string',
+            'qty' => 'required|integer',
+            'weight' => 'required|numeric',
+            'packing' => 'required',
+            'label' => 'required',
+
+            'files.*' => 'nullable|file|max:5120',
+
+            'detail_description.*' => 'nullable|string',
+            'detail_description2.*' => 'nullable|string',
+            'detail_qty.*' => 'nullable|integer',
+        ]);
+
+        $fg = InspeksiChainlinkFg::findOrFail($id);
+        $fg->update([
+            'status' => $request->status,
+            'qty' => $request->qty,
+            'weight' => $request->weight,
+            'packing' => $request->packing,
+            'label' => $request->label,
+        ]);
+        if ($request->hasFile('files')) {
+            if (is_array($fg->files)) {
+                foreach ($fg->files as $oldFile) {
+                    if (Storage::disk('public')->exists($oldFile)) {
+                        Storage::disk('public')->delete($oldFile);
+                    }
+                }
+            }
+            $newFiles = [];
+            foreach ($request->file('files') as $file) {
+                $newFiles[] = $file->store('inspeksi_chainlink_fg', 'public');
+            }
+            $fg->update([
+                'files' => $newFiles,
+            ]);
+        }
+        $fg->inspeksiChainlinkFgDetails()->delete();
+        if ($request->detail_description) {
+            foreach ($request->detail_description as $index => $description) {
+                $description2 = $request->detail_description2[$index] ?? null;
+                $qty = $request->detail_qty[$index] ?? null;
+
+                if (empty($description) && empty($description2) && empty($qty)) {
+                    continue;
+                }
+
+                $fg->inspeksiChainlinkFgDetails()->create([
+                    'description' => $description,
+                    'description2' => $description2,
+                    'qty' => $qty,
+                ]);
+            }
+        }
+
+        return redirect()
+            ->route('inspeksi_chainlink.show', $fg->inspeksi_chainlink_id)
+            ->with('success', 'Data FG berhasil diupdate.');
     }
 
     /**
@@ -114,6 +177,11 @@ class InspeksiChainlinkFgController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $fg = InspeksiChainlinkFg::findOrFail($id);
+        $inspeksiChainlinkId = $fg->inspeksi_chainlink_id; // Simpan ID inspeksi_wm sebelum menghapus FG
+        $fg->delete();
+
+        return redirect()->route('inspeksi_chainlink.show', $inspeksiChainlinkId)
+            ->with('success', 'Data FG berhasil dihapus');
     }
 }

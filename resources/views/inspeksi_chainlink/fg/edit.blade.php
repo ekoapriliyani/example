@@ -7,7 +7,7 @@
             <p class="text-sm text-gray-500">
                 Ref:
                 <span class="font-mono font-bold text-indigo-600">
-                    {{ $inspeksi_kawat_duri->nomor_inspeksi }}
+                    {{ $inspeksi_chainlink->nomor_inspeksi }}
                 </span>
             </p>
         </div>
@@ -17,13 +17,13 @@
         <div class="mx-auto max-w-4xl sm:px-6 lg:px-8">
             <div class="overflow-hidden border border-gray-200 bg-white shadow-sm sm:rounded-lg">
                 <div class="p-8">
-                    <form action="{{ route('inspeksi_kawat_duri_fg.update', $fg->id) }}" method="POST"
+                    <form action="{{ route('inspeksi_chainlink_fg.update', $fg->id) }}" method="POST"
                         enctype="multipart/form-data" class="space-y-6">
                         @csrf
                         @method('PUT')
 
                         <input type="hidden" name="inspeksi_fg_id"
-                            value="{{ old('inspeksi_kawat_duri_id', $fg->inspeksi_kawat_duri_id) }}">
+                            value="{{ old('inspeksi_chainlink_id', $fg->inspeksi_chainlink_id) }}">
                         <input type="hidden" name="user_id" value="{{ auth()->id() }}">
                         <div class="grid grid-cols-1 gap-6 md:grid-cols-2">
                             <div>
@@ -52,32 +52,50 @@
                                 <x-input-error class="mt-2" :messages="$errors->get('qty')" />
                             </div>
                         </div>
-                        <div class="grid grid-cols-1 gap-6 md:grid-cols-2">
+
+
+                        <div class="grid grid-cols-1 gap-6 md:grid-cols-3">
                             <div>
                                 <x-input-label for="weight" :value="__('Weight')" />
                                 <x-text-input id="weight" name="weight" type="number" step="0.01"
                                     class="mt-1 block w-full" :value="old('weight', $fg->weight)" required />
                                 <x-input-error class="mt-2" :messages="$errors->get('weight')" />
                             </div>
+
+                            <div>
+                                <x-input-label for="packing" :value="__('Packing')" />
+                                <select id="packing" name="packing"
+                                    class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+                                    required>
+                                    <option value="">-- Pilih packing --</option>
+                                    <option value="OK" {{ old('packing', $fg->packing) == 'OK' ? 'selected' : '' }}>
+                                        OK
+                                    </option>
+                                    <option value="NG" {{ old('packing', $fg->packing) == 'NG' ? 'selected' : '' }}>
+                                        NG
+                                    </option>
+                                </select>
+                                <x-input-error class="mt-2" :messages="$errors->get('packing')" />
+                            </div>
+                            <div>
+                                <x-input-label for="label" :value="__('Label')" />
+                                <select id="label" name="label"
+                                    class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+                                    required>
+                                    <option value="">-- Pilih label --</option>
+                                    <option value="OK" {{ old('label', $fg->label) == 'OK' ? 'selected' : '' }}>
+                                        OK
+                                    </option>
+                                    <option value="NG" {{ old('label', $fg->label) == 'NG' ? 'selected' : '' }}>
+                                        NG
+                                    </option>
+                                </select>
+                                <x-input-error class="mt-2" :messages="$errors->get('label')" />
+                            </div>
                         </div>
-                        <div>
-                            <x-input-label for="label" :value="__('label')" />
-                            <select id="label" name="label"
-                                class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
-                                required>
-                                <option value="">-- Pilih label --</option>
-                                <option value="OK" {{ old('label', $fg->label) == 'OK' ? 'selected' : '' }}>
-                                    OK
-                                </option>
-                                <option value="NG" {{ old('label', $fg->label) == 'NG' ? 'selected' : '' }}>
-                                    NG
-                                </option>
-                            </select>
-                            <x-input-error class="mt-2" :messages="$errors->get('label')" />
-                        </div>
+
                         <div class="border-t border-gray-200 pt-6">
                             <h3 class="mb-4 font-semibold text-gray-700">Files</h3>
-
                             {{-- File Lama --}}
                             @if ($fg->files)
                                 <div class="grid grid-cols-1 gap-4 md:grid-cols-2">
@@ -135,13 +153,13 @@
                         <div class="border-t border-gray-200 pt-6">
                             <h3 class="mb-4 font-semibold text-gray-700">Detail Inspeksi</h3>
                             <div id="detail-wrapper" class="space-y-4">
-                                @forelse ($fg->inspeksiKdFgDetails as $detail)
+                                @forelse ($fg->inspeksiChainlinkFgDetails as $detail)
                                     <div class="detail-row grid grid-cols-1 gap-4 md:grid-cols-3">
                                         <div>
                                             <x-input-label :value="__('Description')" />
                                             <select name="detail_description[]"
                                                 class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
-                                                @include('inspeksi_kawat_duri.fg.options-detail', [
+                                                @include('inspeksi_chainlink.fg.options-detail', [
                                                     'selected' => $detail->description,
                                                 ])
                                             </select>
@@ -150,7 +168,7 @@
                                             <x-input-label :value="__('Description 2')" />
                                             <select name="detail_description2[]"
                                                 class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
-                                                @include('inspeksi_kawat_duri.fg.options-detail', [
+                                                @include('inspeksi_chainlink.fg.options-detail', [
                                                     'selected' => $detail->description2,
                                                 ])
                                             </select>
@@ -168,7 +186,7 @@
                                             <x-input-label :value="__('Description')" />
                                             <select name="detail_description[]"
                                                 class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
-                                                @include('inspeksi_kawat_duri.fg.options-detail', [
+                                                @include('inspeksi_chainlink.fg.options-detail', [
                                                     'selected' => null,
                                                 ])
                                             </select>
@@ -177,7 +195,7 @@
                                             <x-input-label :value="__('Description 2')" />
                                             <select name="detail_description2[]"
                                                 class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
-                                                @include('inspeksi_kawat_duri.fg.options-detail', [
+                                                @include('inspeksi_chainlink.fg.options-detail', [
                                                     'selected' => null,
                                                 ])
                                             </select>
@@ -199,7 +217,7 @@
 
 
                         <div class="flex items-center justify-end gap-4 border-t border-gray-100 pt-6">
-                            <a href="{{ route('inspeksi_kawat_duri.show', $inspeksi_kawat_duri->id) }}"
+                            <a href="{{ route('inspeksi_chainlink.show', $inspeksi_chainlink->id) }}"
                                 class="inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-xs font-semibold uppercase tracking-widest text-gray-700 shadow-sm hover:bg-gray-50">
                                 {{ __('Batal') }}
                             </a>
@@ -215,7 +233,7 @@
     </div>
 
     <script>
-        const optionsDetail = `@include('inspeksi_kawat_duri.fg.options-detail', ['selected' => null])`;
+        const optionsDetail = `@include('inspeksi_chainlink.fg.options-detail', ['selected' => null])`;
 
         document.getElementById('add-detail').addEventListener('click', function() {
             const wrapper = document.getElementById('detail-wrapper');

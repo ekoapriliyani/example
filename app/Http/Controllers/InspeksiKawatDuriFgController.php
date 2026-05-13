@@ -38,6 +38,7 @@ class InspeksiKawatDuriFgController extends Controller
             'status'                 => 'required',
             'qty'                    => 'required',
             'weight'                 => 'required',
+            'label'                 => 'required',
             'files.*'                => 'file|mimes:jpg,jpeg,png,pdf|max:10240',
         ]);
 
@@ -48,6 +49,7 @@ class InspeksiKawatDuriFgController extends Controller
             'status'                 => $validated['status'],
             'qty'                    => $validated['qty'],
             'weight'                 => $validated['weight'],
+            'label'                 => $validated['label'],
         ]);
         // simpan file multiple ke kolom JSON
         if ($request->hasFile('files')) {
@@ -111,6 +113,7 @@ class InspeksiKawatDuriFgController extends Controller
             'status' => 'required|string',
             'qty' => 'required|integer',
             'weight' => 'required|numeric',
+            'label' => 'required',
 
             'files.*' => 'nullable|file|max:5120',
 
@@ -124,6 +127,7 @@ class InspeksiKawatDuriFgController extends Controller
             'status' => $request->status,
             'qty' => $request->qty,
             'weight' => $request->weight,
+            'label' => $request->label,
         ]);
         if ($request->hasFile('files')) {
             if (is_array($fg->files)) {

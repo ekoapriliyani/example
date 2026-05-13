@@ -125,7 +125,6 @@ class InspeksiKawatDuriWipController extends Controller
      */
     public function update(Request $request, string $id)
     {
-
         $validated = $request->validate([
             'no_material' => 'required|string|max:255',
             'nama_operator' => 'required|string|max:255',
