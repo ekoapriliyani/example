@@ -5,7 +5,7 @@ use App\Http\Controllers\IncomingProjectController;
 use App\Http\Controllers\IncomingPvcHdpeController;
 use App\Http\Controllers\InspeksiChainlinkController;
 use App\Http\Controllers\InspeksiChainlinkFgController;
-use App\Http\Controllers\InspeksiChainlinkWipcontroller;
+use App\Http\Controllers\InspeksiChainlinkWipController;
 use App\Http\Controllers\InspeksiKawatDuriController;
 use App\Http\Controllers\InspeksiKawatDuriFgController;
 use App\Http\Controllers\InspeksiKawatDuriWipController;
@@ -86,19 +86,26 @@ Route::middleware(['auth'])->group(function () {
     Route::delete('insepeksi_wm/wip/{wip}', [InspeksiWmWipController::class, 'destroy'])->name('inspeksi_wm_wip.destroy');
 
 
+    // WIP & FG Kawat Duri
+
     Route::get('/inspeksi_kawat_duri/{inspeksi_kawat_duri}/wip', [InspeksiKawatDuriWipController::class, 'create'])->name('inspeksi_kawat_duri.wip');
     Route::post('/inspeksi_kawat_duri/wip', [InspeksiKawatDuriWipController::class, 'store'])->name('inspeksi_kawat_duri_wip.store');
 
     Route::get('inspeksi_kawat_duri/wip/{wip}/edit', [InspeksiKawatDuriWipController::class, 'edit'])->name('inspeksi_kawat_duri_wip.edit');
     Route::put('inspeksi_kawat_duri/wip/{wip}', [InspeksiKawatDuriWipController::class, 'update'])->name('inspeksi_kawat_duri_wip.update');
 
+    Route::get('insepeksi_kawat_duri/fg/{fg}/edit', [InspeksiKawatDuriFgController::class, 'edit'])->name('inspeksi_kawat_duri_fg.edit');
+    Route::put('insepeksi_kawat_duri/fg/{fg}', [InspeksiKawatDuriFgController::class, 'update'])->name('inspeksi_kawat_duri_fg.update');
+    Route::delete('insepeksi_kawat_duri/fg/{fg}', [InspeksiKawatDuriFgController::class, 'destroy'])->name('inspeksi_kawat_duri_fg.destroy');
+
+
 
     // chainlink wip
-    Route::get('/inspeksi_chainlink/{inspeksi_chainlink}/wip', [InspeksiChainlinkWipcontroller::class, 'create'])->name('inspeksi_chainlink.wip');
-    Route::post('/inspeksi_chainlink/wip', [InspeksiChainlinkWipcontroller::class, 'store'])->name('inspeksi_chainlink_wip.store');
+    Route::get('/inspeksi_chainlink/{inspeksi_chainlink}/wip', [InspeksiChainlinkWipController::class, 'create'])->name('inspeksi_chainlink.wip');
+    Route::post('/inspeksi_chainlink/wip', [InspeksiChainlinkWipController::class, 'store'])->name('inspeksi_chainlink_wip.store');
 
-    Route::get('inspeksi_chainlink/wip/{wip}/edit', [InspeksiKawatDuriWipController::class, 'edit'])->name('inspeksi_chainlink_wip.edit');
-    Route::put('inspeksi_chainlink/wip/{wip}', [InspeksiKawatDuriWipController::class, 'update'])->name('inspeksi_chainlink_wip.update');
+    Route::get('inspeksi_chainlink/wip/{wip}/edit', [InspeksiChainlinkWipController::class, 'edit'])->name('inspeksi_chainlink_wip.edit');
+    Route::put('inspeksi_chainlink/wip/{wip}', [InspeksiChainlinkWipController::class, 'update'])->name('inspeksi_chainlink_wip.update');
 
     // chainlink fg
     Route::get('insepeksi_chainlink/fg/{fg}/edit', [InspeksiChainlinkFgController::class, 'edit'])->name('inspeksi_chainlink_fg.edit');

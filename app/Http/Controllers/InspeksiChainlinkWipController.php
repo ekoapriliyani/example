@@ -120,7 +120,12 @@ class InspeksiChainlinkWipController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $wip = InspeksiChainlinkWip::with(['inspeksiChainlinkWipDetails', 'inspeksiChainlink'])->findOrFail($id);
+
+        return view('inspeksi_chainlink.wip.edit', [
+            'inspeksi_chainlink' => $wip->inspeksiChainlink,
+            'wip' => $wip,
+        ]);
     }
 
     /**

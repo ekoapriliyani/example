@@ -125,7 +125,6 @@ class InspeksiKawatDuriWipController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        $wip = InspeksiKawatDuriWip::findOrFail($id);
 
         $validated = $request->validate([
             'no_material' => 'required|string|max:255',
@@ -150,6 +149,7 @@ class InspeksiKawatDuriWipController extends Controller
             return redirect()->back()->with('error', 'Sesi login berakhir. Silakan login kembali.');
         }
 
+        $wip = InspeksiKawatDuriWip::findOrFail($id);
         $wip->update([
             'user_id'               => Auth::id(),
             'no_material'           => $validated['no_material'],
@@ -163,6 +163,41 @@ class InspeksiKawatDuriWipController extends Controller
             'weight'               => $validated['weight'],
             'status'               => $validated['status'],
         ]);
+
+        if ($request->hasFile('files')) {
+            if (is_array($wip->files)) {
+                foreach ($wip->files as $oldFile) {
+                    if (Storage::disk('public')->exists($oldFile)) {
+                        Storage::disk('public')->delete($oldFile);
+                    }
+                }
+            }
+            $newFiles = [];
+            foreach ($request->file('files') as $file) {
+                $newFiles[] = $file->store('inspeksi_kawat_duri_wip', 'public');
+            }
+            $wip->update([
+                'files' => $newFiles,
+            ]);
+        }
+
+        $wip->inspeksiKdWipDetails()->delete();
+        if ($request->detail_description) {
+            foreach ($request->detail_description as $index => $description) {
+                $description2 = $request->detail_description2[$index] ?? null;
+                $qty = $request->detail_qty[$index] ?? null;
+
+                if (empty($description) && empty($description2) && empty($qty)) {
+                    continue;
+                }
+
+                $wip->inspeksiKdWipDetails()->create([
+                    'description' => $description,
+                    'description2' => $description2,
+                    'qty' => $qty,
+                ]);
+            }
+        }
 
         return redirect()->route('inspeksi_kawat_duri.show', $wip->inspeksi_kawat_duri_id)
             ->with('success', 'Data WIP berhasil diperbarui.');

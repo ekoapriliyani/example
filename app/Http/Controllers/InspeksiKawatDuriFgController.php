@@ -6,6 +6,7 @@ use App\Models\InspeksiKawatDuri;
 use App\Models\InspeksiKawatDuriFg;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class InspeksiKawatDuriFgController extends Controller
 {
@@ -94,7 +95,11 @@ class InspeksiKawatDuriFgController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $fg = InspeksiKawatDuriFg::with(['inspeksiKdFgDetails', 'inspeksiKawatDuri'])->findOrFail($id);
+        return view('inspeksi_kawat_duri.fg.edit', [
+            'inspeksi_kawat_duri' => $fg->inspeksiKawatDuri,
+            'fg' => $fg,
+        ]);
     }
 
     /**
@@ -102,7 +107,61 @@ class InspeksiKawatDuriFgController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $request->validate([
+            'status' => 'required|string',
+            'qty' => 'required|integer',
+            'weight' => 'required|numeric',
+
+            'files.*' => 'nullable|file|max:5120',
+
+            'detail_description.*' => 'nullable|string',
+            'detail_description2.*' => 'nullable|string',
+            'detail_qty.*' => 'nullable|integer',
+        ]);
+
+        $fg = InspeksiKawatDuriFg::findOrFail($id);
+        $fg->update([
+            'status' => $request->status,
+            'qty' => $request->qty,
+            'weight' => $request->weight,
+        ]);
+        if ($request->hasFile('files')) {
+            if (is_array($fg->files)) {
+                foreach ($fg->files as $oldFile) {
+                    if (Storage::disk('public')->exists($oldFile)) {
+                        Storage::disk('public')->delete($oldFile);
+                    }
+                }
+            }
+            $newFiles = [];
+            foreach ($request->file('files') as $file) {
+                $newFiles[] = $file->store('inspeksi_kawat_duri_fg', 'public');
+            }
+            $fg->update([
+                'files' => $newFiles,
+            ]);
+        }
+        $fg->inspeksiKdFgDetails()->delete();
+        if ($request->detail_description) {
+            foreach ($request->detail_description as $index => $description) {
+                $description2 = $request->detail_description2[$index] ?? null;
+                $qty = $request->detail_qty[$index] ?? null;
+
+                if (empty($description) && empty($description2) && empty($qty)) {
+                    continue;
+                }
+
+                $fg->inspeksiKdFgDetails()->create([
+                    'description' => $description,
+                    'description2' => $description2,
+                    'qty' => $qty,
+                ]);
+            }
+        }
+
+        return redirect()
+            ->route('inspeksi_kawat_duri.show', $fg->inspeksi_kawat_duri_id)
+            ->with('success', 'Data FG berhasil diupdate.');
     }
 
     /**
@@ -110,6 +169,11 @@ class InspeksiKawatDuriFgController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $fg = InspeksiKawatDuriFg::findOrFail($id);
+        $inspeksiKawatDuriId = $fg->inspeksi_kawat_duri_id; // Simpan ID inspeksi_wm sebelum menghapus FG
+        $fg->delete();
+
+        return redirect()->route('inspeksi_kawat_duri.show', $inspeksiKawatDuriId)
+            ->with('success', 'Data FG berhasil dihapus');
     }
 }

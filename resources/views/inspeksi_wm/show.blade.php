@@ -63,7 +63,7 @@
 
     <div class="py-12">
         <div class="mx-auto max-w-7xl space-y-8 sm:px-6 lg:px-8">
-            <div class="overflow-hidden border border-gray-200 bg-white shadow-sm sm:rounded-lg">
+            <div class="overflow-hidden border border-gray-200 bg-green-100 shadow-sm sm:rounded-lg">
                 <div class="p-6 sm:p-8">
                     <div class="flex items-start justify-between">
                         <dl class="grid grid-cols-1 gap-x-8 gap-y-4 sm:grid-cols-4">
