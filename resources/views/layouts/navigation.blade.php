@@ -112,8 +112,10 @@
                                 <x-dropdown-link :href="route('inspeksi_wm.index')">Wiremesh (WM)</x-dropdown-link>
                                 <x-dropdown-link :href="route('inspeksi_kawat_duri.index')">Kawat Duri</x-dropdown-link>
                                 <x-dropdown-link :href="route('inspeksi_chainlink.index')">Chainlink</x-dropdown-link>
-                                <x-dropdown-link :href="route('inspeksi_slitting.index')">Razor Sliting</x-dropdown-link>
+                                <x-dropdown-link :href="route('inspeksi_pvc.index')">PVC</x-dropdown-link>
+                                <x-dropdown-link :href="route('inspeksi_slitting.index')">Razor Slitting</x-dropdown-link>
                                 <x-dropdown-link :href="route('inspeksi_pound.index')">Razor Pound</x-dropdown-link>
+                                <x-dropdown-link :href="route('inspeksi_klip.index')">Inspeksi Klip</x-dropdown-link>
                             </x-slot>
                         </x-dropdown>
                     </div>
@@ -212,8 +214,10 @@
                 <x-responsive-nav-link :href="route('inspeksi_wm.index')">Wiremesh (WM)</x-responsive-nav-link>
                 <x-responsive-nav-link :href="route('inspeksi_kawat_duri.index')">Kawat Duri</x-responsive-nav-link>
                 <x-responsive-nav-link :href="route('inspeksi_chainlink.index')">Chainlink</x-responsive-nav-link>
-                <x-responsive-nav-link :href="route('inspeksi_slitting.index')">Razor Sliting</x-responsive-nav-link>
+                <x-responsive-nav-link :href="route('inspeksi_pvc.index')">PVC</x-responsive-nav-link>
+                <x-responsive-nav-link :href="route('inspeksi_slitting.index')">Razor Slitting</x-responsive-nav-link>
                 <x-responsive-nav-link :href="route('inspeksi_pound.index')">Razor Pound</x-responsive-nav-link>
+                <x-responsive-nav-link :href="route('inspeksi_klip.index')">Inspeksi Klip</x-responsive-nav-link>
             </div>
 
             <div class="border-t border-gray-200 pt-2">

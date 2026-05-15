@@ -47,4 +47,9 @@ class ProductRazor extends Model
     {
         return $this->hasMany(InspeksiPound::class, 'product_razor_ref_id');
     }
+
+    public function inspeksiKlips()
+    {
+        return $this->hasMany(InspeksiKlip::class, 'product_razor_ref_id');
+    }
 }
