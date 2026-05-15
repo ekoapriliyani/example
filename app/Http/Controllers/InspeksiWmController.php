@@ -48,7 +48,7 @@ class InspeksiWmController extends Controller
         $nextNomor = "INSWM{$tahunBulan}{$nextNumber}";
 
         $mesins = Mesin::orderBy('nama_mesin')->get();
-        $pros = Pro::orderBy('pro_id')->get();
+        $pros = Pro::orderByDesc('pro_id')->get();
         $productWms = ProductWm::orderBy('product_wm_id')->get();
 
         return view('inspeksi_wm.create', compact('nextNomor', 'pros', 'mesins', 'productWms'));
@@ -118,7 +118,7 @@ class InspeksiWmController extends Controller
      */
     public function edit(InspeksiWm $inspeksi_wm)
     {
-        $pros = Pro::orderBy('pro_id')->get();
+        $pros = Pro::orderByDesc('pro_id')->get();
         $mesins = Mesin::orderBy('nama_mesin')->get();
         $productWms = ProductWm::orderBy('product_wm_id')->get();
 

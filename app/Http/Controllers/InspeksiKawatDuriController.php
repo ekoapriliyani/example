@@ -47,7 +47,7 @@ class InspeksiKawatDuriController extends Controller
         $nextNomor = "INSKD{$tahunBulan}{$nextNumber}";
 
         $mesins = Mesin::orderBy('nama_mesin')->get();
-        $pros = Pro::orderBy('pro_id')->get();
+        $pros = Pro::orderByDesc('pro_id')->get();
 
         return view('inspeksi_kawat_duri.create', compact('nextNomor', 'pros', 'mesins'));
     }
@@ -87,7 +87,7 @@ class InspeksiKawatDuriController extends Controller
     public function edit($id)
     {
         $inspeksiKawatDuri = InspeksiKawatDuri::findOrFail($id);
-        $pros = Pro::orderBy('pro_id')->get();
+        $pros = Pro::orderByDesc('pro_id')->get();
         $mesins = Mesin::orderBy('mesin_id')->get();
 
         return view('inspeksi_kawat_duri.edit', compact(

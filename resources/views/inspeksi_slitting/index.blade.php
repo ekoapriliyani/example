@@ -1,12 +1,12 @@
 <x-app-layout>
     <x-slot name="header">
         <div class="flex items-center justify-between">
-            <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+            <h2 class="text-xl font-semibold leading-tight text-gray-800">
                 {{ __('Daftar Inspeksi Slitting') }}
             </h2>
 
             <a href="{{ route('inspeksi_slitting.create') }}"
-                class="inline-flex items-center gap-2 rounded-md bg-indigo-600 px-4 py-2 text-sm font-semibold text-white hover:bg-indigo-700 transition shadow-sm">
+                class="inline-flex items-center gap-2 rounded-md bg-indigo-600 px-4 py-2 text-sm font-semibold text-white shadow-sm transition hover:bg-indigo-700">
                 <svg xmlns="http://www.w3.org/2000/svg" class="size-4" fill="none" viewBox="0 0 24 24"
                     stroke="currentColor" stroke-width="3">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
@@ -17,58 +17,59 @@
     </x-slot>
 
     <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
+        <div class="mx-auto max-w-7xl space-y-6 sm:px-6 lg:px-8">
 
-            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg border border-gray-200 p-6">
+            <div class="overflow-hidden border border-gray-200 bg-white p-6 shadow-sm sm:rounded-lg">
                 <form action="{{ route('inspeksi_slitting.index') }}" method="GET" class="flex gap-2">
-                    <div class="relative flex-1 max-w-md">
-                        <span class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-                            <svg class="w-4 h-4 text-gray-400" xmlns="http://www.w3.org/2000/svg" fill="none"
+                    <div class="relative max-w-md flex-1">
+                        <span class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
+                            <svg class="h-4 w-4 text-gray-400" xmlns="http://www.w3.org/2000/svg" fill="none"
                                 viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                     d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                             </svg>
                         </span>
                         <input type="text" name="search" value="{{ request('search') }}"
-                            class="block w-full pl-10 pr-3 py-2 border border-gray-300 rounded-md leading-5 bg-white placeholder-gray-500 focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                            class="block w-full rounded-md border border-gray-300 bg-white py-2 pl-10 pr-3 leading-5 placeholder-gray-500 focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500 sm:text-sm"
                             placeholder="Cari nomor inspeksi atau tanggal...">
                     </div>
                     <button type="submit"
-                        class="inline-flex items-center px-4 py-2 bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 transition ease-in-out duration-150">
+                        class="inline-flex items-center rounded-md border border-transparent bg-gray-800 px-4 py-2 text-xs font-semibold uppercase tracking-widest text-white transition duration-150 ease-in-out hover:bg-gray-700">
                         Cari
                     </button>
                     @if (request('search'))
                         <a href="{{ route('inspeksi_slitting.index') }}"
-                            class="inline-flex items-center px-4 py-2 bg-white border border-gray-300 rounded-md font-semibold text-xs text-gray-700 uppercase tracking-widest shadow-sm hover:bg-gray-50 transition ease-in-out duration-150">
+                            class="inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-xs font-semibold uppercase tracking-widest text-gray-700 shadow-sm transition duration-150 ease-in-out hover:bg-gray-50">
                             Reset
                         </a>
                     @endif
                 </form>
             </div>
-            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg border border-gray-200">
+            <div class="overflow-hidden border border-gray-200 bg-white shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900">
                     <div class="overflow-hidden rounded-lg border border-gray-200">
                         <div class="overflow-x-auto">
                             <table class="min-w-full divide-y divide-gray-200 bg-white text-sm">
                                 <thead class="bg-gray-50">
                                     <tr>
-                                        <th class="px-4 py-3 font-semibold text-gray-900 text-left w-16">No</th>
-                                        <th class="px-4 py-3 font-semibold text-gray-900 text-left">Nomor Inspeksi</th>
-                                        <th class="px-4 py-3 font-semibold text-gray-900 text-left">Tanggal</th>
-                                        <th class="px-4 py-3 font-semibold text-gray-900 text-left">Shift</th>
-                                        <th class="px-4 py-3 font-semibold text-gray-900 text-left">PRO Number</th>
-                                        <th class="px-4 py-3 font-semibold text-gray-900 text-left">Description</th>
-                                        <th class="px-4 py-3 font-semibold text-gray-900 text-left">QTY Ordered</th>
-                                        <th class="px-4 py-3 font-semibold text-gray-900 text-left">Total Produksi per
+                                        <th class="w-16 px-4 py-3 text-left font-semibold text-gray-900">No</th>
+                                        <th class="px-4 py-3 text-left font-semibold text-gray-900">Nomor Inspeksi</th>
+                                        <th class="px-4 py-3 text-left font-semibold text-gray-900">Tanggal</th>
+                                        <th class="px-4 py-3 text-left font-semibold text-gray-900">Shift</th>
+                                        <th class="px-4 py-3 text-left font-semibold text-gray-900">PRO Number</th>
+                                        <th class="px-4 py-3 text-left font-semibold text-gray-900">Description</th>
+                                        <th class="px-4 py-3 text-left font-semibold text-gray-900">Product Razor</th>
+                                        <th class="px-4 py-3 text-left font-semibold text-gray-900">QTY Ordered</th>
+                                        <th class="px-4 py-3 text-left font-semibold text-gray-900">Total Produksi per
                                             Shift</th>
-                                        <th class="px-4 py-3 font-semibold text-gray-900 text-left">Mesin</th>
-                                        <th class="px-4 py-3 font-semibold text-gray-900 text-right">Aksi</th>
-                                        <th class="px-4 py-3 font-semibold text-gray-900 text-right">Status</th>
+                                        <th class="px-4 py-3 text-left font-semibold text-gray-900">Mesin</th>
+                                        <th class="px-4 py-3 text-right font-semibold text-gray-900">Aksi</th>
+                                        <th class="px-4 py-3 text-right font-semibold text-gray-900">Status</th>
                                     </tr>
                                 </thead>
                                 <tbody class="divide-y divide-gray-200">
                                     @forelse ($data as $item)
-                                        <tr class="hover:bg-gray-50 transition-colors">
+                                        <tr class="transition-colors hover:bg-gray-50">
                                             <td class="px-4 py-3 font-medium text-gray-900">
                                                 {{ $loop->iteration + ($data->firstItem() - 1) }}</td>
                                             <td class="px-4 py-3 font-medium text-gray-900">{{ $item->nomor_inspeksi }}
@@ -83,6 +84,9 @@
                                             <td class="px-4 py-3 font-medium text-gray-900">
                                                 {{ $item->pro->description }}
                                             </td>
+                                            <td class="px-4 py-3 font-medium text-gray-900">
+                                                {{ $item->productRazor->description ?? 'N/A' }}
+                                            </td>
                                             <td class="px-4 py-3 font-medium text-gray-900">{{ $item->pro->qty }}
                                             </td>
                                             <td class="px-4 py-3 font-medium text-gray-900">
@@ -91,11 +95,12 @@
                                             <td class="px-4 py-3 font-medium text-gray-900">
                                                 {{ $item->mesin->mesin_id }}
                                             </td>
+
                                             <td class="px-4 py-3">
                                                 <div class="flex items-center justify-end gap-2">
                                                     <!-- View (selalu tampil) -->
                                                     <a href="{{ route('inspeksi_slitting.show', $item->id) }}"
-                                                        class="inline-flex h-8 w-8 items-center justify-center rounded bg-indigo-50 text-indigo-700 hover:bg-indigo-100 transition"
+                                                        class="inline-flex h-8 w-8 items-center justify-center rounded bg-indigo-50 text-indigo-700 transition hover:bg-indigo-100"
                                                         title="View Details">
                                                         <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4"
                                                             fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -109,7 +114,7 @@
                                                     @if (!$item->isApproved())
                                                         <!-- Edit -->
                                                         <a href="{{ route('inspeksi_slitting.edit', $item->id) }}"
-                                                            class="inline-flex h-8 w-8 items-center justify-center rounded bg-yellow-50 text-yellow-700 hover:bg-yellow-100 transition"
+                                                            class="inline-flex h-8 w-8 items-center justify-center rounded bg-yellow-50 text-yellow-700 transition hover:bg-yellow-100"
                                                             title="Edit">
                                                             <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4"
                                                                 fill="none" viewBox="0 0 24 24"
@@ -125,7 +130,7 @@
                                                         <!-- Delete -->
                                                         <button type="button"
                                                             onclick="confirmDelete({{ $item->id }}, '{{ $item->nomor_inspeksi }}')"
-                                                            class="inline-flex h-8 w-8 items-center justify-center rounded bg-red-50 text-red-700 hover:bg-red-100 transition"
+                                                            class="inline-flex h-8 w-8 items-center justify-center rounded bg-red-50 text-red-700 transition hover:bg-red-100"
                                                             title="Delete">
                                                             <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4"
                                                                 fill="none" viewBox="0 0 24 24"
@@ -167,7 +172,7 @@
                                         </tr>
                                     @empty
                                         <tr>
-                                            <td colspan="4" class="px-4 py-8 text-center text-gray-500 italic">
+                                            <td colspan="4" class="px-4 py-8 text-center italic text-gray-500">
                                                 Belum ada data inspeksi.
                                             </td>
                                         </tr>

@@ -11,11 +11,9 @@ class InspeksiSlitting extends Model
         'tanggal',
         'pro_id',
         'shift',
-        'l_sheetgalvanized',
-        'tebal_sheetgalvanized',
-        'visual',
-        'weight',
         'total_prod',
+        'mesin_id',
+        'product_razor_ref_id',
         'approval_status',
         'approved_by',
         'approved_at'
@@ -33,7 +31,7 @@ class InspeksiSlitting extends Model
 
     public function mesin()
     {
-        return $this->belongsTo(Mesin::class, 'mesin_id');
+        return $this->belongsTo(Mesin::class);
     }
 
     public function productRazor()

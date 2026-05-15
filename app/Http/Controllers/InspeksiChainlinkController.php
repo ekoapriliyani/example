@@ -47,7 +47,7 @@ class InspeksiChainlinkController extends Controller
         $nextNomor = "INSCL{$tahunBulan}{$nextNumber}";
 
         $mesins = Mesin::orderBy('nama_mesin')->get();
-        $pros = Pro::orderBy('pro_id')->get();
+        $pros = Pro::orderByDesc('pro_id')->get();
 
         return view('inspeksi_chainlink.create', compact('nextNomor', 'pros', 'mesins'));
     }
@@ -89,7 +89,7 @@ class InspeksiChainlinkController extends Controller
     {
         return view('inspeksi_chainlink.edit', [
             'inspeksiChainlink' => $inspeksiChainlink,
-            'pros' => Pro::orderBy('pro_id')->get(),
+            'pros' => Pro::orderByDesc('pro_id')->get(),
             'mesins' => Mesin::orderBy('mesin_id')->get(),
         ]);
     }
