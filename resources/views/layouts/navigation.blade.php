@@ -35,6 +35,7 @@
                                 <x-dropdown-link :href="route('subkon.index')">Subkon</x-dropdown-link>
                                 <x-dropdown-link :href="route('supplier.index')">Supllier</x-dropdown-link>
                                 <x-dropdown-link :href="route('productwm.index')">Product Wiremesh</x-dropdown-link>
+                                <x-dropdown-link :href="route('productrazor.index')">Product Razor</x-dropdown-link>
                                 <x-dropdown-link :href="route('project.index')">Project</x-dropdown-link>
                                 {{-- <x-dropdown-link :href="route('user.index')">User</x-dropdown-link> --}}
                             </x-slot>
@@ -192,6 +193,7 @@
                 <x-responsive-nav-link :href="route('subkon.index')">Subkon</x-responsive-nav-link>
                 <x-responsive-nav-link :href="route('supplier.index')">Supplier</x-responsive-nav-link>
                 <x-responsive-nav-link :href="route('productwm.index')">Product WM</x-responsive-nav-link>
+                <x-responsive-nav-link :href="route('productrazor.index')">Product Razor</x-responsive-nav-link>
                 <x-responsive-nav-link :href="route('project.index')">Project</x-responsive-nav-link>
             </div>
 
