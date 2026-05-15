@@ -15,7 +15,7 @@
                         </p>
                     </div>
 
-                    <form action="{{ route('inspeksi_slitting.update', $inspeksi_slitting->id) }}" method="POST"
+                    <form action="{{ route('inspeksi_pound.update', $inspeksi_pound->id) }}" method="POST"
                         class="space-y-6">
                         @csrf
                         @method('PUT')
@@ -24,13 +24,13 @@
                             <x-input-label for="nomor_inspeksi" :value="__('Nomor Inspeksi (Otomatis)')" />
                             <x-text-input id="nomor_inspeksi" name="nomor_inspeksi" type="text"
                                 class="mt-1 block w-full bg-gray-100"
-                                value="{{ old('nomor_inspeksi', $inspeksi_slitting->nomor_inspeksi) }}" readonly />
+                                value="{{ old('nomor_inspeksi', $inspeksi_pound->nomor_inspeksi) }}" readonly />
                         </div>
                         <div>
                             <x-input-label for="tanggal" :value="__('Tanggal Inspeksi')" />
                             <x-text-input id="tanggal" name="tanggal" type="date"
                                 class="mt-1 block w-full bg-gray-100"
-                                value="{{ old('tanggal', $inspeksi_slitting->tanggal) }}" />
+                                value="{{ old('tanggal', $inspeksi_pound->tanggal) }}" />
                         </div>
 
                         <div>
@@ -40,7 +40,7 @@
                                 <option value="">-- Pilih PRO --</option>
                                 @foreach ($pros as $pro)
                                     <option value="{{ $pro->id }}" data-description="{{ $pro->description }}"
-                                        {{ old('pro_id', $inspeksi_slitting->pro_id) == $pro->id ? 'selected' : '' }}>
+                                        {{ old('pro_id', $inspeksi_pound->pro_id) == $pro->id ? 'selected' : '' }}>
                                         {{ $pro->pro_id }}
                                     </option>
                                 @endforeach
@@ -51,7 +51,7 @@
                         <div>
                             <x-input-label for="description" :value="__('Description')" />
                             <x-text-input id="description" type="text" class="mt-1 block w-full bg-gray-100"
-                                :value="old('description', optional($inspeksi_slitting->pro)->description)" readonly />
+                                :value="old('description', optional($inspeksi_pound->pro)->description)" readonly />
                         </div>
 
                         <div>
@@ -61,7 +61,7 @@
                                 <option value="">-- Pilih Product Razor --</option>
                                 @foreach ($productrazors as $product)
                                     <option value="{{ $product->id }}"
-                                        {{ old('product_razor_ref_id', $inspeksi_slitting->product_razor_ref_id ?? '') == $product->id ? 'selected' : '' }}>
+                                        {{ old('product_razor_ref_id', $inspeksi_pound->product_razor_ref_id ?? '') == $product->id ? 'selected' : '' }}>
 
                                         {{ $product->product_razor_id }} - {{ $product->description }}
 
@@ -77,13 +77,13 @@
                                 class="mt-1 block w-full rounded-md border-gray-300 shadow-sm" required>
                                 <option value="">-- Pilih Shift --</option>
                                 <option value="1"
-                                    {{ old('shift', $inspeksi_slitting->shift) == '1' ? 'selected' : '' }}>Shift 1
+                                    {{ old('shift', $inspeksi_pound->shift) == '1' ? 'selected' : '' }}>Shift 1
                                 </option>
                                 <option value="2"
-                                    {{ old('shift', $inspeksi_slitting->shift) == '2' ? 'selected' : '' }}>Shift 2
+                                    {{ old('shift', $inspeksi_pound->shift) == '2' ? 'selected' : '' }}>Shift 2
                                 </option>
                                 <option value="3"
-                                    {{ old('shift', $inspeksi_slitting->shift) == '3' ? 'selected' : '' }}>Shift 3
+                                    {{ old('shift', $inspeksi_pound->shift) == '3' ? 'selected' : '' }}>Shift 3
                                 </option>
                             </select>
                             <x-input-error class="mt-2" :messages="$errors->get('shift')" />
@@ -96,7 +96,7 @@
                                 <option value="">-- Pilih Mesin --</option>
                                 @foreach ($mesins as $mesin)
                                     <option value="{{ $mesin->id }}"
-                                        {{ old('mesin_id', $inspeksi_slitting->mesin_id) == $mesin->id ? 'selected' : '' }}>
+                                        {{ old('mesin_id', $inspeksi_pound->mesin_id) == $mesin->id ? 'selected' : '' }}>
                                         {{ $mesin->mesin_id }}
                                     </option>
                                 @endforeach
@@ -107,12 +107,12 @@
                             <x-input-label for="total_prod" :value="__('Total Produksi (kg)')" />
                             <x-text-input id="total_prod" name="total_prod" type="number" step="0.01"
                                 class="mt-1 block w-full"
-                                value="{{ old('total_prod', $inspeksi_slitting->total_prod) }}" />
+                                value="{{ old('total_prod', $inspeksi_pound->total_prod) }}" />
                             <x-input-error class="mt-2" :messages="$errors->get('total_prod')" />
                         </div>
 
                         <div class="flex items-center justify-end gap-4 border-t border-gray-100 pt-4">
-                            <a href="{{ route('inspeksi_slitting.index') }}"
+                            <a href="{{ route('inspeksi_pound.index') }}"
                                 class="inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-xs font-semibold uppercase tracking-widest text-gray-700 shadow-sm transition duration-150 ease-in-out hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 disabled:opacity-25">
                                 {{ __('Batal') }}
                             </a>
@@ -164,8 +164,8 @@
 
     {{--  --}}
     <script>
-        $('#product_slitting_ref_id').select2({
-            placeholder: '-- Pilih Product slitting --',
+        $('#product_pound_ref_id').select2({
+            placeholder: '-- Pilih Product pound --',
             allowClear: true,
             width: '100%'
         });

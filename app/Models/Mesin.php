@@ -30,4 +30,9 @@ class Mesin extends Model
     {
         return $this->hasMany(InspeksiSlitting::class);
     }
+
+    public function inspeksiPounds()
+    {
+        return $this->hasMany(InspeksiPound::class);
+    }
 }

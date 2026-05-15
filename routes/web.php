@@ -9,6 +9,7 @@ use App\Http\Controllers\InspeksiChainlinkWipController;
 use App\Http\Controllers\InspeksiKawatDuriController;
 use App\Http\Controllers\InspeksiKawatDuriFgController;
 use App\Http\Controllers\InspeksiKawatDuriWipController;
+use App\Http\Controllers\InspeksiPoundController;
 use App\Http\Controllers\InspeksiSlittingController;
 use App\Http\Controllers\InspeksiWmController;
 use App\Http\Controllers\InspeksiWmFgController;
@@ -26,6 +27,7 @@ use App\Http\Controllers\SubkonController;
 use App\Http\Controllers\SupplierController;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
+
 
 
 /*
@@ -95,6 +97,7 @@ Route::middleware(['auth'])->group(function () {
         'inspeksi_kawat_duri' => InspeksiKawatDuriController::class,
         'inspeksi_chainlink' => InspeksiChainlinkController::class,
         'inspeksi_slitting' => InspeksiSlittingController::class,
+        'inspeksi_pound' => InspeksiPoundController::class,
     ]);
 
 
