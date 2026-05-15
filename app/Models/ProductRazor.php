@@ -10,8 +10,8 @@ class ProductRazor extends Model
         'product_razor_id',
         'description',
         'p_roll',
-        'tol_min_roll',
-        'tol_max_roll',
+        'tol_min_p_roll',
+        'tol_max_p_roll',
         'd_spiral',
         'tol_min_d_spiral',
         'tol_max_d_spiral',
@@ -37,4 +37,9 @@ class ProductRazor extends Model
         'jarak_antar_klip',
         'l_sheetgalvanized'
     ];
+
+    public function inspeksiSlittings()
+    {
+        return $this->hasMany(InspeksiSlitting::class, 'product_razor_ref_id');
+    }
 }

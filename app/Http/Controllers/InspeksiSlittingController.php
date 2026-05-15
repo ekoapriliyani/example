@@ -1,0 +1,112 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use App\Models\InspeksiSlitting;
+use App\Models\Mesin;
+use App\Models\Pro;
+use App\Models\ProductRazor;
+use Carbon\Carbon;
+use Illuminate\Http\Request;
+
+class InspeksiSlittingController extends Controller
+{
+    /**
+     * Display a listing of the resource.
+     */
+    public function index(Request $request)
+    {
+        $search = $request->input('search');
+
+        $data = InspeksiSlitting::with(['pro', 'mesin'])
+            ->when($search, function ($query, $search) {
+                return $query->where('nomor_inspeksi', 'like', "%{$search}%");
+            })
+            ->latest()
+            ->paginate(10)
+            ->withQueryString();
+
+        return view('inspeksi_slitting.index', compact('data'));
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     */
+    public function create()
+    {
+        $tahunBulan = Carbon::now()->format('Ym');
+        $lastRecord = InspeksiSlitting::where('nomor_inspeksi', 'like', "INSS{$tahunBulan}%")
+            ->orderBy('nomor_inspeksi', 'desc')
+            ->first();
+
+        $nextNumber = 1;
+        if ($lastRecord) {
+            $lastNumberStr = str_replace("INSS{$tahunBulan}", '', $lastRecord->nomor_inspeksi);
+            $nextNumber = (int) $lastNumberStr + 1;
+        }
+
+        $nextNomor = "INSS{$tahunBulan}{$nextNumber}";
+
+        $mesins = Mesin::orderBy('nama_mesin')->get();
+        $pros = Pro::orderBy('pro_id')->get();
+        $productrazors = ProductRazor::orderBy('description')->get();
+
+        return view('inspeksi_slitting.create', compact('nextNomor', 'pros', 'mesins', 'productrazors'));
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     */
+    public function store(Request $request)
+    {
+        $validated = $request->validate([
+            'nomor_inspeksi' => 'required|unique:inspeksi_slittings,nomor_inspeksi',
+            'tanggal' => 'required|date',
+            'pro_id' => 'required|exists:pros,pro_id',
+            'shift' => 'required|in:Pagi,Sore,Malam',
+            'l_sheetgalvanized' => 'required|numeric|min:0',
+            'tebal_sheetgalvanized' => 'required|numeric|min:0',
+            'visual' => 'required|string|max:255',
+            'weight' => 'required|numeric|min:0',
+            'total_prod' => 'required|numeric|min:0',
+            'mesin_id' => 'required|exists:mesins,mesin_id',
+            'product_razor_ref_id' => 'nullable|exists:product_razors,id'
+        ]);
+
+        InspeksiSlitting::create($validated);
+
+        return redirect()->route('inspeksi_slitting.index')->with('success', 'Data inspeksi slitting berhasil disimpan.');
+    }
+
+    /**
+     * Display the specified resource.
+     */
+    public function show(string $id)
+    {
+        //
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     */
+    public function edit(string $id)
+    {
+        //
+    }
+
+    /**
+     * Update the specified resource in storage.
+     */
+    public function update(Request $request, string $id)
+    {
+        //
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     */
+    public function destroy(string $id)
+    {
+        //
+    }
+}

@@ -112,7 +112,7 @@
                                                 {{ $loop->iteration }}
                                             </td>
                                             <td class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap">
-                                                {{ $item->product_wm_id }}
+                                                {{ $item->product_razor_id }}
                                             </td>
                                             <td class="px-4 py-3 text-gray-700 min-w-50">
                                                 {{ $item->description }}

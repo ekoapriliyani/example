@@ -25,4 +25,9 @@ class Mesin extends Model
     {
         return $this->hasMany(InspeksiChainlink::class);
     }
+
+    public function inspeksiSlittings()
+    {
+        return $this->hasMany(InspeksiSlitting::class);
+    }
 }
