@@ -1,0 +1,41 @@
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Model;
+
+class InspeksiCt extends Model
+{
+    protected $fillable = [
+        'nomor_inspeksi',
+        'tanggal',
+        'pro_id',
+        'product_ct_ref_id',
+        'shift',
+        'mesin_id',
+        'total_prod',
+        'approval_status',
+        'approved_by',
+        'approved_at',
+    ];
+
+    public function pro()
+    {
+        return $this->belongsTo(Pro::class);
+    }
+
+    public function productCt()
+    {
+        return $this->belongsTo(ProductCt::class, 'product_ct_ref_id');
+    }
+
+    public function mesin()
+    {
+        return $this->belongsTo(Mesin::class);
+    }
+
+    public function isApproved()
+    {
+        return $this->approval_status === 'APPROVED';
+    }
+}

@@ -15,7 +15,7 @@
                         </p>
                     </div>
 
-                    <form action="{{ route('inspeksi_wm.update', $inspeksi_wm->id) }}" method="POST" class="space-y-6">
+                    <form action="{{ route('inspeksi_ct.update', $inspeksi_ct->id) }}" method="POST" class="space-y-6">
                         @csrf
                         @method('PUT')
 
@@ -23,13 +23,13 @@
                             <x-input-label for="nomor_inspeksi" :value="__('Nomor Inspeksi (Otomatis)')" />
                             <x-text-input id="nomor_inspeksi" name="nomor_inspeksi" type="text"
                                 class="mt-1 block w-full bg-gray-100"
-                                value="{{ old('nomor_inspeksi', $inspeksi_wm->nomor_inspeksi) }}" readonly />
+                                value="{{ old('nomor_inspeksi', $inspeksi_ct->nomor_inspeksi) }}" readonly />
                         </div>
                         <div>
                             <x-input-label for="tanggal" :value="__('Tanggal Inspeksi')" />
                             <x-text-input id="tanggal" name="tanggal" type="date"
                                 class="mt-1 block w-full bg-gray-100"
-                                value="{{ old('tanggal', $inspeksi_wm->tanggal) }}" />
+                                value="{{ old('tanggal', $inspeksi_ct->tanggal) }}" />
                         </div>
 
                         <div>
@@ -39,7 +39,7 @@
                                 <option value="">-- Pilih PRO --</option>
                                 @foreach ($pros as $pro)
                                     <option value="{{ $pro->id }}" data-description="{{ $pro->description }}"
-                                        {{ old('pro_id', $inspeksi_wm->pro_id) == $pro->id ? 'selected' : '' }}>
+                                        {{ old('pro_id', $inspeksi_ct->pro_id) == $pro->id ? 'selected' : '' }}>
                                         {{ $pro->pro_id }} - {{ $pro->description }}
                                     </option>
                                 @endforeach
@@ -50,24 +50,22 @@
                         <div>
                             <x-input-label for="description" :value="__('Description')" />
                             <x-text-input id="description" type="text" class="mt-1 block w-full bg-gray-100"
-                                :value="old('description', optional($inspeksi_wm->pro)->description)" readonly />
+                                :value="old('description', optional($inspeksi_ct->pro)->description)" readonly />
                         </div>
 
                         <div>
-                            <x-input-label for="product_wm_ref_id" :value="__('Product WM')" />
-                            <select id="product_wm_ref_id" name="product_wm_ref_id"
+                            <x-input-label for="product_ct_ref_id" :value="__('Product CT')" />
+                            <select id="product_ct_ref_id" name="product_ct_ref_id"
                                 class="mt-1 block w-full border-gray-300 rounded-md shadow-sm" required>
-                                <option value="">-- Pilih Product WM --</option>
-                                @foreach ($productWms as $product)
+                                <option value="">-- Pilih Product CT --</option>
+                                @foreach ($productCts as $product)
                                     <option value="{{ $product->id }}"
-                                        {{ old('product_wm_ref_id', $inspeksi_wm->product_wm_ref_id ?? '') == $product->id ? 'selected' : '' }}>
-
-                                        {{ $product->product_wm_id }} - {{ $product->description }}
-
+                                        {{ old('product_ct_ref_id', $inspeksi_ct->product_ct_ref_id ?? '') == $product->id ? 'selected' : '' }}>
+                                        {{ $product->product_ct_id }} - {{ $product->description }}
                                     </option>
                                 @endforeach
                             </select>
-                            <x-input-error class="mt-2" :messages="$errors->get('product_wm_ref_id')" />
+                            <x-input-error class="mt-2" :messages="$errors->get('product_ct_ref_id')" />
                         </div>
 
                         <div>
@@ -76,61 +74,16 @@
                                 class="mt-1 block w-full border-gray-300 rounded-md shadow-sm" required>
                                 <option value="">-- Pilih Shift --</option>
                                 <option value="1"
-                                    {{ old('shift', $inspeksi_wm->shift) == '1' ? 'selected' : '' }}>Shift 1
+                                    {{ old('shift', $inspeksi_ct->shift) == '1' ? 'selected' : '' }}>Shift 1
                                 </option>
                                 <option value="2"
-                                    {{ old('shift', $inspeksi_wm->shift) == '2' ? 'selected' : '' }}>Shift 2
+                                    {{ old('shift', $inspeksi_ct->shift) == '2' ? 'selected' : '' }}>Shift 2
                                 </option>
                                 <option value="3"
-                                    {{ old('shift', $inspeksi_wm->shift) == '3' ? 'selected' : '' }}>Shift 3
+                                    {{ old('shift', $inspeksi_ct->shift) == '3' ? 'selected' : '' }}>Shift 3
                                 </option>
                             </select>
                             <x-input-error class="mt-2" :messages="$errors->get('shift')" />
-                        </div>
-
-                        <div>
-                            <x-input-label for="grade" :value="__('Grade')" />
-                            <select id="grade" name="grade"
-                                class="mt-1 block w-full border-gray-300 rounded-md shadow-sm" required>
-                                <option value="">-- Pilih Grade --</option>
-                                <option value="SNI"
-                                    {{ old('grade', $inspeksi_wm->grade) == 'SNI' ? 'selected' : '' }}>
-                                    SNI</option>
-                                <option value="NON SNI"
-                                    {{ old('grade', $inspeksi_wm->grade) == 'NON SNI' ? 'selected' : '' }}>NON SNI
-                                </option>
-                            </select>
-                            <x-input-error class="mt-2" :messages="$errors->get('grade')" />
-                        </div>
-
-                        <div>
-                            <x-input-label for="type_coating" :value="__('Type Coating')" />
-                            <select id="type_coating" name="type_coating"
-                                class="mt-1 block w-full border-gray-300 rounded-md shadow-sm" required>
-                                <option value="">-- Pilih Type Coating --</option>
-                                <option value="LG"
-                                    {{ old('type_coating', $inspeksi_wm->type_coating) == 'LG' ? 'selected' : '' }}>LG
-                                </option>
-                                <option value="HG"
-                                    {{ old('type_coating', $inspeksi_wm->type_coating) == 'HG' ? 'selected' : '' }}>HG
-                                </option>
-                                <option value="ZN-AL"
-                                    {{ old('type_coating', $inspeksi_wm->type_coating) == 'ZN-AL' ? 'selected' : '' }}>
-                                    ZN-AL
-                                </option>
-                                <option value="ULTRA"
-                                    {{ old('type_coating', $inspeksi_wm->type_coating) == 'ULTRA' ? 'selected' : '' }}>
-                                    ULTRA
-                                </option>
-                                <option value="BLACK"
-                                    {{ old('type_coating', $inspeksi_wm->type_coating) == 'BLACK' ? 'selected' : '' }}>
-                                    BLACK
-                                </option>
-                                <option value="EP"
-                                    {{ old('type_coating', $inspeksi_wm->type_coating) == 'EP' ? 'selected' : '' }}>EP
-                                </option>
-                            </select>
-                            <x-input-error class="mt-2" :messages="$errors->get('type_coating')" />
                         </div>
 
                         <div>
@@ -140,7 +93,7 @@
                                 <option value="">-- Pilih Mesin --</option>
                                 @foreach ($mesins as $mesin)
                                     <option value="{{ $mesin->id }}"
-                                        {{ old('mesin_id', $inspeksi_wm->mesin_id) == $mesin->id ? 'selected' : '' }}>
+                                        {{ old('mesin_id', $inspeksi_ct->mesin_id) == $mesin->id ? 'selected' : '' }}>
                                         {{ $mesin->mesin_id }} - {{ $mesin->nama_mesin }}
                                     </option>
                                 @endforeach
@@ -150,12 +103,12 @@
                         <div class="">
                             <x-input-label for="total_prod" :value="__('Total Produksi (kg)')" />
                             <x-text-input id="total_prod" name="total_prod" type="number" step="0.01"
-                                class="mt-1 block w-full" value="{{ old('total_prod', $inspeksi_wm->total_prod) }}" />
+                                class="mt-1 block w-full" value="{{ old('total_prod', $inspeksi_ct->total_prod) }}" />
                             <x-input-error class="mt-2" :messages="$errors->get('total_prod')" />
                         </div>
 
                         <div class="flex items-center justify-end gap-4 pt-4 border-t border-gray-100">
-                            <a href="{{ route('inspeksi_wm.index') }}"
+                            <a href="{{ route('inspeksi_ct.index') }}"
                                 class="inline-flex items-center px-4 py-2 bg-white border border-gray-300 rounded-md font-semibold text-xs text-gray-700 uppercase tracking-widest shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 disabled:opacity-25 transition ease-in-out duration-150">
                                 {{ __('Batal') }}
                             </a>
@@ -207,8 +160,8 @@
 
     {{--  --}}
     <script>
-        $('#product_wm_ref_id').select2({
-            placeholder: '-- Pilih Product WM --',
+        $('#product_ct_ref_id').select2({
+            placeholder: '-- Pilih Product CT --',
             allowClear: true,
             width: '100%'
         });

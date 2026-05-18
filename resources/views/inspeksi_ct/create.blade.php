@@ -15,7 +15,7 @@
                         </p>
                     </div>
 
-                    <form action="{{ route('inspeksi_wm.store') }}" method="POST" class="space-y-6">
+                    <form action="{{ route('inspeksi_ct.store') }}" method="POST" class="space-y-6">
                         @csrf
 
                         <div>
@@ -56,18 +56,18 @@
                         </div>
 
                         <div>
-                            <x-input-label for="product_wm_ref_id" :value="__('Product WM')" />
-                            <select id="product_wm_ref_id" name="product_wm_ref_id"
+                            <x-input-label for="product_ct_ref_id" :value="__('Product CT')" />
+                            <select id="product_ct_ref_id" name="product_ct_ref_id"
                                 class="mt-1 block w-full border-gray-300 rounded-md shadow-sm">
-                                <option value="">-- Pilih Product WM --</option>
-                                @foreach ($productWms as $product)
+                                <option value="">-- Pilih Product CT --</option>
+                                @foreach ($productCts as $product)
                                     <option value="{{ $product->id }}"
-                                        {{ old('product_wm_ref_id') == $product->id ? 'selected' : '' }}>
-                                        {{ $product->product_wm_id }} - {{ $product->description }}
+                                        {{ old('product_ct_ref_id') == $product->id ? 'selected' : '' }}>
+                                        {{ $product->product_ct_id }} - {{ $product->description }}
                                     </option>
                                 @endforeach
                             </select>
-                            <x-input-error class="mt-2" :messages="$errors->get('product_wm_ref_id')" />
+                            <x-input-error class="mt-2" :messages="$errors->get('product_ct_ref_id')" />
                         </div>
 
                         <div>
@@ -83,36 +83,6 @@
                                 </option>
                             </select>
                             <x-input-error class="mt-2" :messages="$errors->get('shift')" />
-                        </div>
-
-                        <div>
-                            <x-input-label for="grade" :value="__('Grade')" />
-                            <select id="grade" name="grade"
-                                class="mt-1 block w-full border-gray-300 rounded-md shadow-sm" required>
-                                <option value="">-- Pilih Grade --</option>
-                                <option value="SNI" {{ old('grade') == 'SNI' ? 'selected' : '' }}>SNI</option>
-                                <option value="NON SNI" {{ old('grade') == 'NON SNI' ? 'selected' : '' }}>NON SNI
-                                </option>
-                            </select>
-                            <x-input-error class="mt-2" :messages="$errors->get('grade')" />
-                        </div>
-
-                        <div>
-                            <x-input-label for="type_coating" :value="__('Type Coating')" />
-                            <select id="type_coating" name="type_coating"
-                                class="mt-1 block w-full border-gray-300 rounded-md shadow-sm" required>
-                                <option value="">-- Pilih Type Coating --</option>
-                                <option value="LG" {{ old('type_coating') == 'LG' ? 'selected' : '' }}>LG</option>
-                                <option value="HG" {{ old('type_coating') == 'HG' ? 'selected' : '' }}>HG</option>
-                                <option value="ZN-AL" {{ old('type_coating') == 'ZN-AL' ? 'selected' : '' }}>ZN-AL
-                                </option>
-                                <option value="ULTRA" {{ old('type_coating') == 'ULTRA' ? 'selected' : '' }}>ULTRA
-                                </option>
-                                <option value="BLACK" {{ old('type_coating') == 'BLACK' ? 'selected' : '' }}>BLACK
-                                </option>
-                                <option value="EP" {{ old('type_coating') == 'EP' ? 'selected' : '' }}>EP</option>
-                            </select>
-                            <x-input-error class="mt-2" :messages="$errors->get('type_coating')" />
                         </div>
 
                         <div>
@@ -137,7 +107,7 @@
                         </div>
 
                         <div class="flex items-center justify-end gap-4 pt-4 border-t border-gray-100">
-                            <a href="{{ route('inspeksi_wm.index') }}"
+                            <a href="{{ route('inspeksi_ct.index') }}"
                                 class="inline-flex items-center px-4 py-2 bg-white border border-gray-300 rounded-md font-semibold text-xs text-gray-700 uppercase tracking-widest shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 disabled:opacity-25 transition ease-in-out duration-150">
                                 {{ __('Batal') }}
                             </a>
@@ -165,8 +135,8 @@
                 width: '100%'
             });
 
-            $('#product_wm_ref_id').select2({
-                placeholder: '-- Pilih Product WM --',
+            $('#product_ct_ref_id').select2({
+                placeholder: '-- Pilih Product CT --',
                 allowClear: true,
                 width: '100%'
             });

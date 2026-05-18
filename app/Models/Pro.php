@@ -42,4 +42,9 @@ class Pro extends Model
     {
         return $this->hasMany(InspeksiKlip::class);
     }
+
+    public function inspeksiCts()
+    {
+        return $this->hasMany(InspeksiCt::class);
+    }
 }

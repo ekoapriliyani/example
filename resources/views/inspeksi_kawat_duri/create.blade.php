@@ -87,7 +87,7 @@
                         <div>
                             <x-input-label for="warna" :value="__('Warna')" />
                             <select id="warna" name="warna"
-                                class="mt-1 block w-full border-gray-300 rounded-md shadow-sm" required>
+                                class="mt-1 block w-full border-gray-300 rounded-md shadow-sm">
                                 <option value="">-- Pilih Warna --</option>
                                 <option value="Hijau" {{ old('warna') == 'Hijau' ? 'selected' : '' }}>Hijau</option>
                                 <option value="Abu-Abu" {{ old('warna') == 'Abu-Abu' ? 'selected' : '' }}>Abu-Abu

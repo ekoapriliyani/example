@@ -6,6 +6,7 @@ use App\Http\Controllers\IncomingPvcHdpeController;
 use App\Http\Controllers\InspeksiChainlinkController;
 use App\Http\Controllers\InspeksiChainlinkFgController;
 use App\Http\Controllers\InspeksiChainlinkWipController;
+use App\Http\Controllers\InspeksiCtController;
 use App\Http\Controllers\InspeksiKawatDuriController;
 use App\Http\Controllers\InspeksiKawatDuriFgController;
 use App\Http\Controllers\InspeksiKawatDuriWipController;
@@ -21,6 +22,7 @@ use App\Http\Controllers\LabController;
 use App\Http\Controllers\MaterialController;
 use App\Http\Controllers\MesinController;
 use App\Http\Controllers\ProController;
+use App\Http\Controllers\ProductCtController;
 use App\Http\Controllers\ProductRazorController;
 use App\Http\Controllers\ProductWmController;
 use App\Http\Controllers\ProfileController;
@@ -89,6 +91,7 @@ Route::middleware(['auth'])->group(function () {
 
     Route::resources([
         'productwm'          => ProductWmController::class,
+        'productct'         => ProductCtController::class,
         'productRazor'       => ProductRazorController::class,
         'pro'                => ProController::class,
         'project'            => ProjectController::class,
@@ -99,6 +102,7 @@ Route::middleware(['auth'])->group(function () {
         'lab'                => LabController::class,
 
         'inspeksi_wm'        => InspeksiWmController::class,
+        'inspeksi_ct'        => InspeksiCtController::class,
         'inspeksi_kawat_duri' => InspeksiKawatDuriController::class,
         'inspeksi_pvc' => InspeksiPvcController::class,
         'inspeksi_chainlink' => InspeksiChainlinkController::class,
@@ -424,6 +428,11 @@ Route::middleware([
 
     Route::post('productwm/import', [ProductWmController::class, 'import'])
         ->name('productwm.import');
+
+    Route::post('productct/import', [ProductCtController::class, 'import'])
+        ->name('productct.import');
+
+
     Route::post('productrazor/import', [ProductRazorController::class, 'import'])
         ->name('productrazor.import');
 
