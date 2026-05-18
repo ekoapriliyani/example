@@ -97,7 +97,7 @@
                                 <x-input-label for="diameter_inti" :value="__('diameter_inti')" />
                                 <div class="relative mt-1">
                                     <x-text-input id="diameter_inti" name="diameter_inti" type="number" step="0.01"
-                                        class="block w-full pr-12" :value="old('diameter_inti')" required placeholder="0.00" />
+                                        class="block w-full pr-12" :value="old('diameter_inti')" placeholder="0.00" />
                                     <div
                                         class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none text-gray-400 text-sm">
                                         mm
@@ -109,7 +109,7 @@
                                 <x-input-label for="diameter_luar" :value="__('diameter_luar')" />
                                 <div class="relative mt-1">
                                     <x-text-input id="diameter_luar" name="diameter_luar" type="number" step="0.01"
-                                        class="block w-full pr-12" :value="old('diameter_luar')" required placeholder="0.00" />
+                                        class="block w-full pr-12" :value="old('diameter_luar')" placeholder="0.00" />
                                     <div
                                         class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none text-gray-400 text-sm">
                                         mm
@@ -156,8 +156,7 @@
                             <div>
                                 <x-input-label for="warna" :value="__('Warna')" />
                                 <select id="warna" name="warna"
-                                    class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
-                                    required>
+                                    class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
                                     <option value="">-- Pilih Warna --</option>
                                     <option value="Hijau" {{ old('warna') == 'Hijau' ? 'selected' : '' }}>
                                         Hijau

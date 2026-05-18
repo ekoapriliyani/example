@@ -111,10 +111,10 @@
                                     <th class="px-4 py-3 font-semibold text-gray-900">D2</th>
                                     <th class="px-4 py-3 font-semibold text-gray-900">D3</th>
                                     <th class="px-4 py-3 font-semibold text-gray-900">Rata Rata</th>
-                                    <th class="px-4 py-3 font-semibold text-gray-900">Dimensi</th>
+                                    {{-- <th class="px-4 py-3 font-semibold text-gray-900">Dimensi</th>
                                     <th class="px-4 py-3 font-semibold text-gray-900">Visual</th>
                                     <th class="px-4 py-3 font-semibold text-gray-900">Keterangan</th>
-                                    <th class="px-4 py-3 font-semibold text-gray-900">Gambar</th>
+                                    <th class="px-4 py-3 font-semibold text-gray-900">Gambar</th> --}}
                                     <th class="px-4 py-3 font-semibold text-gray-900 text-center">Created At</th>
                                     <th class="px-4 py-3 font-semibold text-gray-900 text-center">Aksi</th>
                                 </tr>
@@ -129,7 +129,7 @@
                                         <td class="px-4 py-3">{{ $inc->d2 }}</td>
                                         <td class="px-4 py-3">{{ $inc->d3 }}</td>
                                         <td class="px-4 py-3">{{ $inc->rata_rata }}</td>
-                                        <td class="px-4 py-3">
+                                        {{-- <td class="px-4 py-3">
                                             @if ($inc->dimensi === 'OK')
                                                 <span
                                                     class="inline-flex items-center px-2 py-1 text-xs font-semibold text-green-800 bg-green-200 rounded-full">
@@ -141,8 +141,8 @@
                                                     NG
                                                 </span>
                                             @endif
-                                        </td>
-                                        <td class="px-4 py-3">
+                                        </td> --}}
+                                        {{-- <td class="px-4 py-3">
                                             @if ($inc->visual === 'OK')
                                                 <span
                                                     class="inline-flex items-center px-2 py-1 text-xs font-semibold text-green-800 bg-green-200 rounded-full">
@@ -154,14 +154,14 @@
                                                     NG
                                                 </span>
                                             @endif
-                                        </td>
-                                        <td class="px-4 py-3">{{ $inc->keterangan }}</td>
+                                        </td> --}}
+                                        {{-- <td class="px-4 py-3">{{ $inc->keterangan }}</td>
                                         <td class="px-4 py-3">
                                             <button type="button" class="text-sm text-indigo-600 hover:underline"
                                                 onclick="toggleImage({{ $inc->id }})">
                                                 Lihat Gambar
                                             </button>
-                                        </td>
+                                        </td> --}}
                                         <td class="px-4 py-3 text-center bg-blue-50/30">{{ $inc->created_at }}</td>
                                         <td class="px-4 py-3">
                                             <div class="flex items-center justify-center gap-2">

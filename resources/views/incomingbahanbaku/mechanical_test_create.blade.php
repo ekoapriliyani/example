@@ -22,7 +22,7 @@
                     </div>
                     <!-- Hasil Tensile -->
                     <div class="mb-4">
-                        <label>Hasil Tensile</label>
+                        <label>Hasil Tensile (MPa)</label>
                         <input type="number" name="hasil_tensile" class="w-full border rounded px-3 py-2" required>
                     </div>
                     <!-- Hasil Coating Weight -->

@@ -118,7 +118,6 @@ class InspeksiCtController extends Controller
     public function destroy(InspeksiCt $inspeksi_ct)
     {
         $inspeksi_ct->delete();
-
         return redirect()->route('inspeksi_ct.index')->with('success', "Data inspeksi {$inspeksi_ct->nomor_inspeksi} berhasil dihapus");
     }
 }

@@ -16,12 +16,12 @@ return new class extends Migration
             $table->foreignId('incoming_bahan_baku_id')->constrained('incoming_bahan_bakus')->onDelete('cascade');
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
             $table->string('no_koil')->nullable();
-            $table->decimal('d1', 8,2)->nullable();
-            $table->decimal('d2', 8,2)->nullable();
-            $table->decimal('d3', 8,2)->nullable();
-            $table->decimal('rata_rata', 8,2)->nullable();
-            $table->string('dimensi');
-            $table->string('visual');
+            $table->decimal('d1', 8, 2)->nullable();
+            $table->decimal('d2', 8, 2)->nullable();
+            $table->decimal('d3', 8, 2)->nullable();
+            $table->decimal('rata_rata', 8, 2)->nullable();
+            $table->string('dimensi')->nullable();
+            $table->string('visual')->nullable();
             $table->string('keterangan')->nullable();
             $table->json('files')->nullable(); // simpan array path file upload
             $table->timestamps();

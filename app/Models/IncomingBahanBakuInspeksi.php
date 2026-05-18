@@ -14,21 +14,23 @@ class IncomingBahanBakuInspeksi extends Model
         'd2',
         'd3',
         'rata_rata',
-        'dimensi',
-        'visual',
-        'keterangan',
-        'files',
+        // 'dimensi',
+        // 'visual',
+        // 'keterangan',
+        // 'files',
     ];
-    
+
     protected $casts = [
         'files' => 'array', // otomatis decode JSON ke array
     ];
 
-    public function incomingbahanbaku() {
+    public function incomingbahanbaku()
+    {
         return $this->belongsTo(IncomingBahanBaku::class);
     }
 
-    public function user(){
+    public function user()
+    {
         return $this->belongsTo(User::class);
     }
 }

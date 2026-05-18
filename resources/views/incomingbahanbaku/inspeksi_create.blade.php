@@ -37,34 +37,34 @@
                     </div>
 
                     <!-- Dimensi -->
-                    <div class="mb-4">
+                    {{-- <div class="mb-4">
                         <label for="dimensi">Dimensi</label>
                         <select id="dimensi" name="dimensi" class="w-full border rounded px-3 py-2">
                             <option value="">-- Pilih Status --</option>
                             <option value="OK" {{ old('dimensi') == 'OK' ? 'selected' : '' }}>OK</option>
                             <option value="NG" {{ old('dimensi') == 'NG' ? 'selected' : '' }}>NG</option>
                         </select>
-                    </div>
+                    </div> --}}
 
                     <!-- Visual -->
-                    <div class="mb-4">
+                    {{-- <div class="mb-4">
                         <label for="visual">Visual</label>
                         <select id="visual" name="visual" class="w-full border rounded px-3 py-2">
                             <option value="">-- Pilih Status --</option>
                             <option value="OK" {{ old('visual') == 'OK' ? 'selected' : '' }}>OK</option>
                             <option value="NG" {{ old('visual') == 'NG' ? 'selected' : '' }}>NG</option>
                         </select>
-                    </div>
+                    </div> --}}
 
 
                     <!-- Keterangan -->
-                    <div class="mb-4">
+                    {{-- <div class="mb-4">
                         <label>Keterangan</label>
                         <textarea name="keterangan" class="w-full border rounded px-3 py-2"></textarea>
-                    </div>
+                    </div> --}}
 
                     {{-- upload file --}}
-                    <div class="mt-4">
+                    {{-- <div class="mt-4">
                         <x-input-label for="files" :value="__('Upload File')" />
                         <input id="files" name="files[]" type="file"
                             class="mt-1 block w-full border-gray-300 rounded-md shadow-sm" multiple>
@@ -75,7 +75,7 @@
                         @error('files.*')
                             <div class="text-red-500 text-sm mt-2">{{ $message }}</div>
                         @enderror
-                    </div>
+                    </div> --}}
 
 
 
