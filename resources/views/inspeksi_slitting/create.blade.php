@@ -56,19 +56,25 @@
                         </div>
 
                         <div>
-                            <x-input-label for="product_razor_ref_id" :value="__('Product razor')" />
-                            <select id="product_razor_ref_id" name="product_razor_ref_id"
-                                class="mt-1 block w-full rounded-md border-gray-300 shadow-sm">
-                                <option value="">-- Pilih Product razor --</option>
-                                @foreach ($productrazors as $product)
-                                    <option value="{{ $product->id }}"
-                                        {{ old('product_razor_ref_id') == $product->id ? 'selected' : '' }}>
-                                        {{ $product->product_razor_id }} - {{ $product->description }}
-                                    </option>
-                                @endforeach
-                            </select>
-                            <x-input-error class="mt-2" :messages="$errors->get('product_razor_ref_id')" />
+                            <x-input-label for="ukuran" :value="__('Ukuran')" />
+                            <div class="mt-1 flex space-x-4">
+                                <label class="inline-flex items-center">
+                                    <input type="radio" name="ukuran" value="21"
+                                        class="border-gray-300 text-indigo-600 shadow-sm focus:ring-indigo-500"
+                                        {{ old('ukuran') == '21' ? 'checked' : '' }}>
+                                    <span class="ml-2">21 mm</span>
+                                </label>
+                                <label class="inline-flex items-center">
+                                    <input type="radio" name="ukuran" value="25"
+                                        class="border-gray-300 text-indigo-600 shadow-sm focus:ring-indigo-500"
+                                        {{ old('ukuran') == '25' ? 'checked' : '' }}>
+                                    <span class="ml-2">25 mm</span>
+                                </label>
+                            </div>
+                            <x-input-error class="mt-2" :messages="$errors->get('ukuran')" />
                         </div>
+
+
 
                         <div>
                             <x-input-label for="shift" :value="__('Shift')" />

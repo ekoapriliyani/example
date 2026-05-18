@@ -13,6 +13,7 @@ use App\Http\Controllers\InspeksiKlipController;
 use App\Http\Controllers\InspeksiPoundController;
 use App\Http\Controllers\InspeksiPvcController;
 use App\Http\Controllers\InspeksiSlittingController;
+use App\Http\Controllers\InspeksiSlittingWipController;
 use App\Http\Controllers\InspeksiWmController;
 use App\Http\Controllers\InspeksiWmFgController;
 use App\Http\Controllers\InspeksiWmWipController;
@@ -167,6 +168,24 @@ Route::middleware(['auth'])->group(function () {
 
     Route::delete('insepeksi_wm/fg/{fg}', [InspeksiWmFgController::class, 'destroy'])
         ->name('inspeksi_wm_fg.destroy');
+
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Slitting
+    |--------------------------------------------------------------------------
+    */
+
+    // WIP
+    Route::get('/inspeksi_slitting/{inspeksi_slitting}/wip', [InspeksiSlittingWipController::class, 'create'])
+        ->name('inspeksi_slitting.wip');
+
+    Route::post('/inspeksi_slitting/wip', [InspeksiSlittingWipController::class, 'store'])
+        ->name('inspeksi_slitting_wip.store');
+
+    Route::get('insepeksi_slitting/wip/{wip}/edit', [InspeksiSlittingWipController::class, 'edit'])
+        ->name('inspeksi_slitting_wip.edit');
 
 
     /*
@@ -420,6 +439,9 @@ Route::middleware([
 
     Route::patch('/inspeksi-wm/{id}/toggle-approval', [InspeksiWmController::class, 'toggleApproval'])
         ->name('inspeksi-wm.toggle');
+
+    Route::patch('/inspeksi-slitting/{id}/toggle-approval', [InspeksiSlittingController::class, 'toggleApproval'])
+        ->name('inspeksi-slitting.toggle');
 
     Route::patch('/inspeksi-kawat-duri/{id}/toggle-approval', [InspeksiKawatDuriController::class, 'toggleApproval'])
         ->name('inspeksi-kawat-duri.toggle');

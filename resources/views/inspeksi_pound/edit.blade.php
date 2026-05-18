@@ -55,21 +55,50 @@
                         </div>
 
                         <div>
-                            <x-input-label for="product_razor_ref_id" :value="__('Product Razor')" />
-                            <select id="product_razor_ref_id" name="product_razor_ref_id"
-                                class="mt-1 block w-full rounded-md border-gray-300 shadow-sm" required>
-                                <option value="">-- Pilih Product Razor --</option>
-                                @foreach ($productrazors as $product)
-                                    <option value="{{ $product->id }}"
-                                        {{ old('product_razor_ref_id', $inspeksi_pound->product_razor_ref_id ?? '') == $product->id ? 'selected' : '' }}>
-
-                                        {{ $product->product_razor_id }} - {{ $product->description }}
-
-                                    </option>
-                                @endforeach
-                            </select>
-                            <x-input-error class="mt-2" :messages="$errors->get('product_razor_ref_id')" />
+                            <x-input-label for="qty" :value="__('QTY Ordered')" />
+                            <x-text-input id="qty" type="text" class="mt-1 block w-full bg-gray-100"
+                                :value="old('qty', optional($inspeksi_pound->pro)->qty)" readonly />
                         </div>
+
+                        <div>
+                            <x-input-label for="series" :value="__('Series')" />
+                            <select id="series" name="series"
+                                class="mt-1 block w-full rounded-md border-gray-300 shadow-sm bg-gray-100" required>
+                                <option value="">-- Pilih Series --</option>
+                                <option value="M Series"
+                                    {{ old('series', $inspeksi_pound->series) == 'M Series' ? 'selected' : '' }}>M
+                                    Series</option>
+                                <option value="LB Series"
+                                    {{ old('series', $inspeksi_pound->series) == 'LB Series' ? 'selected' : '' }}>LB
+                                    Series</option>
+                            </select>
+                            <x-input-error class="mt-2" :messages="$errors->get('series')" />
+                        </div>
+
+                        <div>
+                            <x-input-label for="d_razor" :value="__('D Razor')" />
+                            <select id="d_razor" name="d_razor"
+                                class="mt-1 block w-full rounded-md border-gray-300 shadow-sm bg-gray-100" required>
+                                <option value="">-- Pilih D Razor --</option>
+                                <option value="450"
+                                    {{ old('d_razor', $inspeksi_pound->d_razor) == 450 ? 'selected' : '' }}>450
+                                </option>
+                                <option value="500"
+                                    {{ old('d_razor', $inspeksi_pound->d_razor) == 500 ? 'selected' : '' }}>500
+                                </option>
+                                <option value="730"
+                                    {{ old('d_razor', $inspeksi_pound->d_razor) == 730 ? 'selected' : '' }}>730
+                                </option>
+                                <option value="980"
+                                    {{ old('d_razor', $inspeksi_pound->d_razor) == 980 ? 'selected' : '' }}>980
+                                </option>
+                                <option value="1200"
+                                    {{ old('d_razor', $inspeksi_pound->d_razor) == 1200 ? 'selected' : '' }}>1200
+                                </option>
+                            </select>
+                            <x-input-error class="mt-2" :messages="$errors->get('d_razor')" />
+                        </div>
+
 
                         <div>
                             <x-input-label for="shift" :value="__('Shift')" />

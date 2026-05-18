@@ -56,18 +56,59 @@
                         </div>
 
                         <div>
-                            <x-input-label for="product_razor_ref_id" :value="__('Product razor')" />
-                            <select id="product_razor_ref_id" name="product_razor_ref_id"
-                                class="mt-1 block w-full rounded-md border-gray-300 shadow-sm">
-                                <option value="">-- Pilih Product razor --</option>
-                                @foreach ($productrazors as $product)
-                                    <option value="{{ $product->id }}"
-                                        {{ old('product_razor_ref_id') == $product->id ? 'selected' : '' }}>
-                                        {{ $product->product_razor_id }} - {{ $product->description }}
-                                    </option>
-                                @endforeach
-                            </select>
-                            <x-input-error class="mt-2" :messages="$errors->get('product_razor_ref_id')" />
+                            <x-input-label for="series" :value="__('series')" />
+                            <div class="mt-1 flex space-x-4">
+                                <label class="inline-flex items-center">
+                                    <input type="radio" name="series" value="M Series"
+                                        class="border-gray-300 text-indigo-600 shadow-sm focus:ring-indigo-500"
+                                        {{ old('series') == 'M Series' ? 'checked' : '' }}>
+                                    <span class="ml-2">M Series</span>
+                                </label>
+                                <label class="inline-flex items-center">
+                                    <input type="radio" name="series" value="LB Series"
+                                        class="border-gray-300 text-indigo-600 shadow-sm focus:ring-indigo-500"
+                                        {{ old('series') == 'LB Series' ? 'checked' : '' }}>
+                                    <span class="ml-2">LB Series</span>
+                                </label>
+                            </div>
+                            <x-input-error class="mt-2" :messages="$errors->get('series')" />
+                        </div>
+
+                        <div>
+                            <x-input-label for="d_razor" :value="__('D-Razor')" />
+                            <div class="mt-1 flex space-x-4">
+                                <label class="inline-flex items-center">
+                                    <input type="radio" name="d_razor" value="450"
+                                        class="border-gray-300 text-indigo-600 shadow-sm focus:ring-indigo-500"
+                                        {{ old('d_razor') == 450 ? 'checked' : '' }}>
+                                    <span class="ml-2">450</span>
+                                </label>
+                                <label class="inline-flex items-center">
+                                    <input type="radio" name="d_razor" value="500"
+                                        class="border-gray-300 text-indigo-600 shadow-sm focus:ring-indigo-500"
+                                        {{ old('d_razor') == 500 ? 'checked' : '' }}>
+                                    <span class="ml-2">500</span>
+                                </label>
+                                <label class="inline-flex items-center">
+                                    <input type="radio" name="d_razor" value="730"
+                                        class="border-gray-300 text-indigo-600 shadow-sm focus:ring-indigo-500"
+                                        {{ old('d_razor') == 730 ? 'checked' : '' }}>
+                                    <span class="ml-2">730</span>
+                                </label>
+                                <label class="inline-flex items-center">
+                                    <input type="radio" name="d_razor" value="980"
+                                        class="border-gray-300 text-indigo-600 shadow-sm focus:ring-indigo-500"
+                                        {{ old('d_razor') == 980 ? 'checked' : '' }}>
+                                    <span class="ml-2">980</span>
+                                </label>
+                                <label class="inline-flex items-center">
+                                    <input type="radio" name="d_razor" value="1200"
+                                        class="border-gray-300 text-indigo-600 shadow-sm focus:ring-indigo-500"
+                                        {{ old('d_razor') == 1200 ? 'checked' : '' }}>
+                                    <span class="ml-2">1200</span>
+                                </label>
+                            </div>
+                            <x-input-error class="mt-2" :messages="$errors->get('d_razor')" />
                         </div>
 
                         <div>

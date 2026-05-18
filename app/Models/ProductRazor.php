@@ -38,16 +38,6 @@ class ProductRazor extends Model
         'l_sheetgalvanized'
     ];
 
-    public function inspeksiSlittings()
-    {
-        return $this->hasMany(InspeksiSlitting::class, 'product_razor_ref_id');
-    }
-
-    public function inspeksiPounds()
-    {
-        return $this->hasMany(InspeksiPound::class, 'product_razor_ref_id');
-    }
-
     public function inspeksiKlips()
     {
         return $this->hasMany(InspeksiKlip::class, 'product_razor_ref_id');

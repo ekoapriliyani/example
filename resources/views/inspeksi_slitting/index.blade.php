@@ -58,7 +58,7 @@
                                         <th class="px-4 py-3 text-left font-semibold text-gray-900">Shift</th>
                                         <th class="px-4 py-3 text-left font-semibold text-gray-900">PRO Number</th>
                                         <th class="px-4 py-3 text-left font-semibold text-gray-900">Description</th>
-                                        <th class="px-4 py-3 text-left font-semibold text-gray-900">Product Razor</th>
+                                        <th class="px-4 py-3 text-left font-semibold text-gray-900">Ukuran</th>
                                         <th class="px-4 py-3 text-left font-semibold text-gray-900">QTY Ordered</th>
                                         <th class="px-4 py-3 text-left font-semibold text-gray-900">Total Produksi per
                                             Shift</th>
@@ -85,7 +85,7 @@
                                                 {{ $item->pro->description }}
                                             </td>
                                             <td class="px-4 py-3 font-medium text-gray-900">
-                                                {{ $item->productRazor->description ?? 'N/A' }}
+                                                {{ $item->ukuran }}
                                             </td>
                                             <td class="px-4 py-3 font-medium text-gray-900">{{ $item->pro->qty }}
                                             </td>

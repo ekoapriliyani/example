@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('nomor_inspeksi');
             $table->date('tanggal');
             $table->foreignId('pro_id')->constrained('pros')->onDelete('cascade');
-            $table->foreignId('product_razor_ref_id')->nullable()->constrained('product_razors')->onDelete('cascade');
+            $table->integer('ukuran');
             $table->integer('shift');
             $table->decimal('total_prod', 8, 2)->nullable();
             $table->foreignId('mesin_id')->nullable()->constrained('mesins');

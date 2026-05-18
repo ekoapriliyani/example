@@ -13,7 +13,8 @@ class InspeksiPound extends Model
         'shift',
         'total_prod',
         'mesin_id',
-        'product_razor_ref_id',
+        'series',
+        'd_razor',
         'approval_status',
         'approved_by',
         'approved_at'

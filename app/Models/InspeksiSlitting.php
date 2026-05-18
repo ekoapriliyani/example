@@ -10,14 +10,19 @@ class InspeksiSlitting extends Model
         'nomor_inspeksi',
         'tanggal',
         'pro_id',
+        'ukuran',
         'shift',
         'total_prod',
         'mesin_id',
-        'product_razor_ref_id',
         'approval_status',
         'approved_by',
         'approved_at'
     ];
+
+    public function inspeksiSlittingWip()
+    {
+        return $this->hasMany(InspeksiSlittingWip::class);
+    }
 
     public function pro()
     {
@@ -32,10 +37,5 @@ class InspeksiSlitting extends Model
     public function mesin()
     {
         return $this->belongsTo(Mesin::class);
-    }
-
-    public function productRazor()
-    {
-        return $this->belongsTo(ProductRazor::class, 'product_razor_ref_id');
     }
 }

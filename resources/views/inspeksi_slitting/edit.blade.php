@@ -55,21 +55,27 @@
                         </div>
 
                         <div>
-                            <x-input-label for="product_razor_ref_id" :value="__('Product Razor')" />
-                            <select id="product_razor_ref_id" name="product_razor_ref_id"
-                                class="mt-1 block w-full rounded-md border-gray-300 shadow-sm" required>
-                                <option value="">-- Pilih Product Razor --</option>
-                                @foreach ($productrazors as $product)
-                                    <option value="{{ $product->id }}"
-                                        {{ old('product_razor_ref_id', $inspeksi_slitting->product_razor_ref_id ?? '') == $product->id ? 'selected' : '' }}>
-
-                                        {{ $product->product_razor_id }} - {{ $product->description }}
-
-                                    </option>
-                                @endforeach
-                            </select>
-                            <x-input-error class="mt-2" :messages="$errors->get('product_razor_ref_id')" />
+                            <x-input-label for="qty_ordered" :value="__('Qty Ordered')" />
+                            <x-text-input id="qty_ordered" type="text" class="mt-1 block w-full bg-gray-100"
+                                :value="old('qty_ordered', optional($inspeksi_slitting->pro)->qty)" readonly />
                         </div>
+
+                        <div>
+                            <x-input-label for="ukuran" :value="__('Ukuran')" />
+                            <select id="ukuran" name="ukuran"
+                                class="mt-1 block w-full rounded-md border-gray-300 shadow-sm" required>
+                                <option value="">-- Pilih ukuran --</option>
+                                <option value="21"
+                                    {{ old('ukuran', $inspeksi_slitting->ukuran) == 21 ? 'selected' : '' }}>21
+                                </option>
+                                <option value="25"
+                                    {{ old('ukuran', $inspeksi_slitting->ukuran) == 25 ? 'selected' : '' }}>25
+                                </option>
+                            </select>
+                            <x-input-error class="mt-2" :messages="$errors->get('ukuran')" />
+                        </div>
+
+
 
                         <div>
                             <x-input-label for="shift" :value="__('Shift')" />
