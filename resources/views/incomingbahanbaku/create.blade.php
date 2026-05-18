@@ -23,11 +23,10 @@
                             <x-text-input id="nomor_inspeksi" name="nomor_inspeksi" type="text"
                                 class="mt-1 block w-full bg-gray-100" value="{{ $nextNomor }}" readonly />
                         </div>
-                        <div class="">
+                        <div>
                             <x-input-label for="tanggal" :value="__('Tanggal')" />
-                            <input type="date" name="tanggal"
-                                class="mt-1 block w-full border-gray-300 rounded-md shadow-sm"
-                                value="{{ old('tanggal') }}" required>
+                            <x-text-input id="tanggal" name="tanggal" type="date" class="mt-1 block w-full"
+                                value="{{ old('tanggal', now()->format('Y-m-d')) }}" required />
                             <x-input-error class="mt-2" :messages="$errors->get('tanggal')" />
                         </div>
                         <div>

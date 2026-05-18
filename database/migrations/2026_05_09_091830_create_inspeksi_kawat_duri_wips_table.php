@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('no_material')->nullable();
             $table->string('nama_operator');
             $table->decimal('d_kawat_act', 8, 2)->nullable();
+            $table->decimal('d_kawat_luar', 8, 2)->nullable();
             $table->decimal('d_kawat_jalinan_act', 8, 2)->nullable();
             $table->decimal('jarak_duri', 8, 2)->nullable();
             $table->decimal('jml_jalinan_duri', 8, 2)->nullable();

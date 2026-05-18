@@ -46,6 +46,12 @@
                                 <x-input-error class="mt-2" :messages="$errors->get('d_kawat_act')" />
                             </div>
                             <div>
+                                <x-input-label for="d_kawat_luar" :value="__('D Kawat Luar')" />
+                                <x-text-input id="d_kawat_luar" name="d_kawat_luar" type="number" step="0.01"
+                                    class="mt-1 block w-full" :value="old('d_kawat_luar', $wip->d_kawat_luar)" required />
+                                <x-input-error class="mt-2" :messages="$errors->get('d_kawat_luar')" />
+                            </div>
+                            <div>
                                 <x-input-label for="d_kawat_jalinan_act" :value="__('Selisih Diagonal')" />
                                 <x-text-input id="d_kawat_jalinan_act" name="d_kawat_jalinan_act" type="number"
                                     step="0.01" class="mt-1 block w-full" :value="old('d_kawat_jalinan_act', $wip->d_kawat_jalinan_act)" required />
@@ -82,6 +88,18 @@
                                 <x-input-error class="mt-2" :messages="$errors->get('jml_counter')" />
                             </div>
                             <div>
+                                <x-input-label for="weight" :value="__('Weight')" />
+                                <x-text-input id="weight" name="weight" type="number" step="0.01"
+                                    class="mt-1 block w-full" :value="old('weight', $wip->weight)" required />
+                                <x-input-error class="mt-2" :messages="$errors->get('weight')" />
+                            </div>
+                            <div>
+                                <x-input-label for="jml_counter" :value="__('Jumlah Counter')" />
+                                <x-text-input id="jml_counter" name="jml_counter" type="number" step="1"
+                                    class="mt-1 block w-full" :value="old('jml_counter', $wip->jml_counter)" required />
+                                <x-input-error class="mt-2" :messages="$errors->get('jml_counter')" />
+                            </div>
+                            <div>
                                 <x-input-label for="status" :value="__('Status')" />
                                 <select id="status" name="status"
                                     class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
@@ -95,18 +113,6 @@
                                     </option>
                                 </select>
                                 <x-input-error class="mt-2" :messages="$errors->get('status')" />
-                            </div>
-                            <div>
-                                <x-input-label for="weight" :value="__('Weight')" />
-                                <x-text-input id="weight" name="weight" type="number" step="0.01"
-                                    class="mt-1 block w-full" :value="old('weight', $wip->weight)" required />
-                                <x-input-error class="mt-2" :messages="$errors->get('weight')" />
-                            </div>
-                            <div>
-                                <x-input-label for="jml_counter" :value="__('Jumlah Counter')" />
-                                <x-text-input id="jml_counter" name="jml_counter" type="number" step="1"
-                                    class="mt-1 block w-full" :value="old('jml_counter', $wip->jml_counter)" required />
-                                <x-input-error class="mt-2" :messages="$errors->get('jml_counter')" />
                             </div>
                         </div>
                         <div class="border-t border-gray-200 pt-6">

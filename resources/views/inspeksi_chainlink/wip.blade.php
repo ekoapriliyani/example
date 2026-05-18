@@ -82,16 +82,28 @@
                                 <x-input-error class="mt-2" :messages="$errors->get('panjang')" />
                             </div>
                             <div>
-                                <x-input-label for="mesh" :value="__('Mesh')" />
+                                <x-input-label for="p_mesh" :value="__('P Mesh')" />
                                 <div class="relative mt-1">
-                                    <x-text-input id="mesh" name="mesh" type="number" step="0.01"
-                                        class="block w-full pr-12" :value="old('mesh')" required placeholder="0.00" />
+                                    <x-text-input id="p_mesh" name="p_mesh" type="number" step="0.01"
+                                        class="block w-full pr-12" :value="old('p_mesh')" required placeholder="0.00" />
                                     <div
                                         class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none text-gray-400 text-sm">
                                         mm
                                     </div>
                                 </div>
-                                <x-input-error class="mt-2" :messages="$errors->get('mesh')" />
+                                <x-input-error class="mt-2" :messages="$errors->get('p_mesh')" />
+                            </div>
+                            <div>
+                                <x-input-label for="l_mesh" :value="__('L Mesh')" />
+                                <div class="relative mt-1">
+                                    <x-text-input id="l_mesh" name="l_mesh" type="number" step="0.01"
+                                        class="block w-full pr-12" :value="old('l_mesh')" required placeholder="0.00" />
+                                    <div
+                                        class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none text-gray-400 text-sm">
+                                        mm
+                                    </div>
+                                </div>
+                                <x-input-error class="mt-2" :messages="$errors->get('l_mesh')" />
                             </div>
                             <div>
                                 <x-input-label for="diameter_inti" :value="__('diameter_inti')" />

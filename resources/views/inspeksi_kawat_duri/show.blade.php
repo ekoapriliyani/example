@@ -140,7 +140,8 @@
                                     <th class="px-4 py-3 font-semibold text-gray-900">Inspektor</th>
                                     <th class="px-4 py-3 font-semibold text-gray-900">No. Material</th>
                                     <th class="px-4 py-3 font-semibold text-gray-900">Operator</th>
-                                    <th class="px-4 py-3 font-semibold text-gray-900">D. Kawat Act</th>
+                                    <th class="px-4 py-3 font-semibold text-gray-900">D. Kawat Inti</th>
+                                    <th class="px-4 py-3 font-semibold text-gray-900">D. Kawat Luar</th>
                                     <th class="px-4 py-3 font-semibold text-gray-900">Diameter Jalinan</th>
                                     <th class="px-4 py-3 font-semibold text-gray-900">Jarak Duri</th>
                                     <th class="px-4 py-3 font-semibold text-gray-900">Jumlah Jalinan Duri</th>
@@ -162,6 +163,7 @@
                                         <td class="px-4 py-3 font-medium">{{ $wip->no_material }}</td>
                                         <td class="px-4 py-3">{{ $wip->nama_operator }}</td>
                                         <td class="bg-blue-50/30 px-4 py-3 text-center">{{ $wip->d_kawat_act }}</td>
+                                        <td class="bg-blue-50/30 px-4 py-3 text-center">{{ $wip->d_kawat_luar }}</td>
                                         <td class="bg-blue-50/30 px-4 py-3 text-center">
                                             {{ $wip->d_kawat_jalinan_act }}
                                         </td>

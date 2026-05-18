@@ -12,6 +12,7 @@ class InspeksiKawatDuriWip extends Model
         'no_material',
         'nama_operator',
         'd_kawat_act',
+        'd_kawat_luar',
         'd_kawat_jalinan_act',
         'jarak_duri',
         'jml_jalinan_duri',
