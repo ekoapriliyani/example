@@ -12,6 +12,7 @@ use App\Http\Controllers\InspeksiKawatDuriFgController;
 use App\Http\Controllers\InspeksiKawatDuriWipController;
 use App\Http\Controllers\InspeksiKlipController;
 use App\Http\Controllers\InspeksiPoundController;
+use App\Http\Controllers\InspeksiPoundWipController;
 use App\Http\Controllers\InspeksiPvcController;
 use App\Http\Controllers\InspeksiSlittingController;
 use App\Http\Controllers\InspeksiSlittingWipController;
@@ -197,6 +198,33 @@ Route::middleware(['auth'])->group(function () {
 
     Route::delete('/inspeksi_slitting/wip/{id}', [InspeksiSlittingWipController::class, 'destroy'])
         ->name('inspeksi_slitting_wip.destroy');
+
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Pound
+    |--------------------------------------------------------------------------
+    */
+
+    // WIP
+    Route::get('/inspeksi_pound/{inspeksi_pound}/wip', [InspeksiPoundWipController::class, 'create'])
+        ->name('inspeksi_pound.wip');
+
+    Route::post('/inspeksi_pound/wip', [InspeksiPoundWipController::class, 'store'])
+        ->name('inspeksi_pound_wip.store');
+
+    Route::get('insepeksi_pound/wip/{wip}/edit', [InspeksiPoundWipController::class, 'edit'])
+        ->name('inspeksi_pound_wip.edit');
+
+
+    Route::put('inspeksi_pound/wip/{wip}', [InspeksiPoundWipController::class, 'update'])
+        ->name('inspeksi_pound_wip.update');
+
+    Route::delete('/inspeksi_pound/wip/{id}', [InspeksiPoundWipController::class, 'destroy'])
+        ->name('inspeksi_pound_wip.destroy');
+
+
 
 
     /*
@@ -458,6 +486,9 @@ Route::middleware([
 
     Route::patch('/inspeksi-slitting/{id}/toggle-approval', [InspeksiSlittingController::class, 'toggleApproval'])
         ->name('inspeksi-slitting.toggle');
+
+    Route::patch('/inspeksi-pound/{id}/toggle-approval', [InspeksiPoundController::class, 'toggleApproval'])
+        ->name('inspeksi-pound.toggle');
 
     Route::patch('/inspeksi-kawat-duri/{id}/toggle-approval', [InspeksiKawatDuriController::class, 'toggleApproval'])
         ->name('inspeksi-kawat-duri.toggle');

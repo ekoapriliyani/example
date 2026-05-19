@@ -102,9 +102,10 @@ class InspeksiPoundController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(InspeksiPound $inspeksi_pound)
     {
-        //
+        $inspeksi_pound->load(['pro', 'mesin', 'inspeksiPoundWip']);
+        return view('inspeksi_pound.show', ['inspeksi_pound' => $inspeksi_pound]);
     }
 
     /**

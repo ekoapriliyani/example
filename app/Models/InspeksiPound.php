@@ -39,4 +39,9 @@ class InspeksiPound extends Model
     {
         return $this->belongsTo(ProductRazor::class, 'product_razor_ref_id');
     }
+
+    public function inspeksiPoundWip()
+    {
+        return $this->hasMany(InspeksiPoundWip::class);
+    }
 }
