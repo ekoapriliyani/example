@@ -117,7 +117,7 @@
                                 <x-dropdown-link :href="route('inspeksi_pvc.index')">PVC</x-dropdown-link>
                                 <x-dropdown-link :href="route('inspeksi_slitting.index')">Razor Slitting</x-dropdown-link>
                                 <x-dropdown-link :href="route('inspeksi_pound.index')">Razor Pound</x-dropdown-link>
-                                <x-dropdown-link :href="route('inspeksi_klip.index')">Inspeksi Klip</x-dropdown-link>
+                                <x-dropdown-link :href="route('inspeksi_klip.index')">Razor Klip</x-dropdown-link>
                             </x-slot>
                         </x-dropdown>
                     </div>
@@ -221,7 +221,7 @@
                 <x-responsive-nav-link :href="route('inspeksi_pvc.index')">PVC</x-responsive-nav-link>
                 <x-responsive-nav-link :href="route('inspeksi_slitting.index')">Razor Slitting</x-responsive-nav-link>
                 <x-responsive-nav-link :href="route('inspeksi_pound.index')">Razor Pound</x-responsive-nav-link>
-                <x-responsive-nav-link :href="route('inspeksi_klip.index')">Inspeksi Klip</x-responsive-nav-link>
+                <x-responsive-nav-link :href="route('inspeksi_klip.index')">Razor Klip</x-responsive-nav-link>
             </div>
 
             <div class="border-t border-gray-200 pt-2">

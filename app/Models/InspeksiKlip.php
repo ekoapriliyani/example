@@ -38,4 +38,9 @@ class InspeksiKlip extends Model
     {
         return $this->belongsTo(ProductRazor::class, 'product_razor_ref_id');
     }
+
+    public function inspeksiKlipWip()
+    {
+        return $this->hasMany(InspeksiKlipWip::class);
+    }
 }

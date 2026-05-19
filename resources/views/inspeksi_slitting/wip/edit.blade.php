@@ -52,12 +52,12 @@
                                 <x-input-error class="mt-2" :messages="$errors->get('tebal_sheetgalvanized')" />
                             </div>
 
-                            <div>
+                            {{-- <div>
                                 <x-input-label for="weight" :value="__('Weight')" />
                                 <x-text-input id="weight" name="weight" type="number" step="0.01"
                                     class="mt-1 block w-full" :value="old('weight', $wip->weight)" required />
                                 <x-input-error class="mt-2" :messages="$errors->get('weight')" />
-                            </div>
+                            </div> --}}
 
                             <div>
                                 <x-input-label for="visual" :value="__('visual')" />

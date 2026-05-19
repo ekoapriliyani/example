@@ -5,7 +5,7 @@
                 {{ __('Input Hasil Inspeksi WIP') }}
             </h2>
             <p class="text-sm text-gray-500">
-                Ref: <span class="font-mono font-bold text-indigo-600">{{ $inspeksiSlitting->nomor_inspeksi }}</span>
+                Ref: <span class="font-mono font-bold text-indigo-600">{{ $inspeksiKlip->nomor_inspeksi }}</span>
             </p>
         </div>
     </x-slot>
@@ -24,7 +24,7 @@
                     <div class="ml-3">
                         <p class="text-sm text-blue-700">
                             Sedang menginput data WIP untuk transaksi
-                            <strong>{{ $inspeksiSlitting->nomor_inspeksi }}</strong>.
+                            <strong>{{ $inspeksiKlip->nomor_inspeksi }}</strong>.
                         </p>
                     </div>
                 </div>
@@ -32,10 +32,10 @@
 
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg border border-gray-200">
                 <div class="p-8">
-                    <form action="{{ route('inspeksi_slitting_wip.store') }}" method="POST"
-                        enctype="multipart/form-data" class="space-y-6">
+                    <form action="{{ route('inspeksi_klip_wip.store') }}" method="POST" enctype="multipart/form-data"
+                        class="space-y-6">
                         @csrf
-                        <input type="hidden" name="inspeksi_slitting_id" value="{{ $inspeksiSlitting->id }}">
+                        <input type="hidden" name="inspeksi_klip_id" value="{{ $inspeksiKlip->id }}">
                         <input type="hidden" name="user_id" value="{{ auth()->id() }}">
 
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -53,43 +53,55 @@
                                 <x-input-error class="mt-2" :messages="$errors->get('nama_operator')" />
                             </div>
                             <div>
-                                <x-input-label for="l_sheetgalvanized" :value="__('l_sheetgalvanized')" />
+                                <x-input-label for="jml_klip" :value="__('Jumlah Klip')" />
                                 <div class="relative mt-1">
-                                    <x-text-input id="l_sheetgalvanized" name="l_sheetgalvanized" type="number"
-                                        step="0.01" class="block w-full pr-12" :value="old('l_sheetgalvanized')" required
-                                        placeholder="0.00" />
+                                    <x-text-input id="jml_klip" name="jml_klip" type="number" step="0.01"
+                                        class="block w-full pr-12" :value="old('jml_klip')" placeholder="0.00" />
                                     <div
                                         class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none text-gray-400 text-sm">
-                                        mm
+                                        pcs
                                     </div>
                                 </div>
-                                <x-input-error class="mt-2" :messages="$errors->get('l_sheetgalvanized')" />
+                                <x-input-error class="mt-2" :messages="$errors->get('jml_klip')" />
                             </div>
                             <div>
-                                <x-input-label for="tebal_sheetgalvanized" :value="__('tebal_sheetgalvanized')" />
+                                <x-input-label for="d_razor" :value="__('Diameter Razor')" />
                                 <div class="relative mt-1">
-                                    <x-text-input id="tebal_sheetgalvanized" name="tebal_sheetgalvanized" type="number"
-                                        step="0.01" class="block w-full pr-12" :value="old('tebal_sheetgalvanized')" required
+                                    <x-text-input id="d_razor" name="d_razor" type="number" step="0.01"
+                                        class="block w-full pr-12" :value="old('d_razor')" required placeholder="0.00" />
+                                    <div
+                                        class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none text-gray-400 text-sm">
+                                        mm
+                                    </div>
+                                </div>
+                                <x-input-error class="mt-2" :messages="$errors->get('d_razor')" />
+                            </div>
+                            <div>
+                                <x-input-label for="jml_spiral" :value="__('Jumlah Spiral')" />
+                                <div class="relative mt-1">
+                                    <x-text-input id="jml_spiral" name="jml_spiral" type="number" step="0.01"
+                                        class="block w-full pr-12" :value="old('jml_spiral')" required placeholder="0.00" />
+                                    <div
+                                        class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none text-gray-400 text-sm">
+                                        turn
+                                    </div>
+                                </div>
+                                <x-input-error class="mt-2" :messages="$errors->get('jml_spiral')" />
+                            </div>
+                            <div>
+                                <x-input-label for="jarak_antar_klip" :value="__('Jarak Antar Klip')" />
+                                <div class="relative mt-1">
+                                    <x-text-input id="jarak_antar_klip" name="jarak_antar_klip" type="number"
+                                        step="0.01" class="block w-full pr-12" :value="old('jarak_antar_klip')" required
                                         placeholder="0.00" />
                                     <div
                                         class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none text-gray-400 text-sm">
                                         mm
                                     </div>
                                 </div>
-                                <x-input-error class="mt-2" :messages="$errors->get('tebal_sheetgalvanized')" />
+                                <x-input-error class="mt-2" :messages="$errors->get('jarak_antar_klip')" />
                             </div>
-                            {{-- <div>
-                                <x-input-label for="weight" :value="__('weight')" />
-                                <div class="relative mt-1">
-                                    <x-text-input id="weight" name="weight" type="number" step="0.01"
-                                        class="block w-full pr-12" :value="old('weight')" placeholder="0.00" />
-                                    <div
-                                        class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none text-gray-400 text-sm">
-                                        kg
-                                    </div>
-                                </div>
-                                <x-input-error class="mt-2" :messages="$errors->get('weight')" />
-                            </div> --}}
+
                             <div>
                                 <x-input-label for="visual" :value="__('Visual')" />
                                 <select id="visual" name="visual"
@@ -124,7 +136,9 @@
                                             class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
                                             <option value="">-- Pilih Detail --</option>
                                             <option value="KARAT">KARAT</option>
+                                            <option value="BENDING PECAH">BENDING PECAH</option>
                                             <option value="POTONGAN TIDAK RAPI">POTONGAN TIDAK RAPI</option>
+                                            <option value="KLIP TIDAK RAPAT">KLIP TIDAK RAPAT</option>
                                         </select>
                                     </div>
                                     <div>
@@ -133,7 +147,9 @@
                                             class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
                                             <option value="">-- Pilih Detail --</option>
                                             <option value="KARAT">KARAT</option>
+                                            <option value="BENDING PECAH">BENDING PECAH</option>
                                             <option value="POTONGAN TIDAK RAPI">POTONGAN TIDAK RAPI</option>
+                                            <option value="KLIP TIDAK RAPAT">KLIP TIDAK RAPAT</option>
                                         </select>
                                     </div>
                                     <div>
@@ -168,7 +184,7 @@
                         </div>
 
                         <div class="flex items-center justify-end gap-4 pt-6 border-t border-gray-100">
-                            <a href="{{ route('inspeksi_slitting.show', $inspeksiSlitting->id) }}"
+                            <a href="{{ route('inspeksi_klip.show', $inspeksiKlip->id) }}"
                                 class="inline-flex items-center px-4 py-2 bg-white border border-gray-300 rounded-md font-semibold text-xs text-gray-700 uppercase tracking-widest shadow-sm hover:bg-gray-50 transition ease-in-out duration-150">
                                 {{ __('Batal') }}
                             </a>
@@ -195,7 +211,9 @@
                     class="mt-1 block w-full border-gray-300 rounded-md shadow-sm">
                     <option value="">-- Pilih Detail --</option>
                     <option value="KARAT">KARAT</option>
+                    <option value="BENDING PECAH">BENDING PECAH</option>
                     <option value="POTONGAN TIDAK RAPI">POTONGAN TIDAK RAPI</option>
+                    <option value="KLIP TIDAK RAPAT">KLIP TIDAK RAPAT</option>
                 </select>
             </div>
             <div>
@@ -204,7 +222,9 @@
                     class="mt-1 block w-full border-gray-300 rounded-md shadow-sm">
                     <option value="">-- Pilih Detail --</option>
                     <option value="KARAT">KARAT</option>
+                    <option value="BENDING PECAH">BENDING PECAH</option>
                     <option value="POTONGAN TIDAK RAPI">POTONGAN TIDAK RAPI</option>
+                    <option value="KLIP TIDAK RAPAT">KLIP TIDAK RAPAT</option>
                 </select>
             </div>
             <div>

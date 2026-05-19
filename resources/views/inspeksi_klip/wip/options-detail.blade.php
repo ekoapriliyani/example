@@ -1,5 +1,5 @@
 @php
-    $options = ['KARAT', 'BENDING PECAH', 'JARAK BLADE', 'POTONGAN TIDAK RAPI'];
+    $options = ['KARAT', 'BENDING PECAH', 'POTONGAN TIDAK RAPI', 'KLIP TIDAK RAPAT'];
 @endphp
 
 <option value="">-- Pilih Detail --</option>

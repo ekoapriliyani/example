@@ -121,7 +121,7 @@
                                     <th class="px-4 py-3 font-semibold text-gray-900">D Roll</th>
                                     <th class="px-4 py-3 font-semibold text-gray-900">Daya Jepit</th>
                                     <th class="px-4 py-3 font-semibold text-gray-900">Visual</th>
-                                    <th class="px-4 py-3 font-semibold text-gray-900">Weight</th>
+                                    <th class="px-4 py-3 font-semibold text-gray-900">Status</th>
                                     <th class="px-4 py-3 font-semibold text-gray-900">Detail</th>
                                     <th class="px-4 py-3 font-semibold text-gray-900">Gambar</th>
                                     <th class="px-4 py-3 text-center font-semibold text-gray-900">Created At</th>
@@ -207,7 +207,13 @@
                                         <td class="px-4 py-3">{{ $wip->d_roll }}</td>
                                         <td class="px-4 py-3">{{ $wip->daya_jepit }}</td>
                                         <td class="bg-blue-50/30 px-4 py-3 text-center">{{ $wip->visual }}</td>
-                                        <td class="bg-blue-50/30 px-4 py-3 text-center">{{ $wip->weight }}</td>
+                                        <td class="bg-blue-50/30 px-4 py-3 text-center">
+                                            <span
+                                                class="inline-flex items-center rounded-full px-3 py-1 text-xs font-semibold
+                                                {{ $wip->status == 'OK' ? 'bg-green-100 text-green-700' : 'bg-yellow-100 text-yellow-700' }}">
+                                                {{ $wip->status }}
+                                            </span>
+                                        </td>
                                         <td class="px-4 py-3">
                                             <button type="button" class="text-sm text-indigo-600 hover:underline"
                                                 onclick="toggleDetail2({{ $wip->id }})">

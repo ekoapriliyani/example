@@ -11,6 +11,7 @@ use App\Http\Controllers\InspeksiKawatDuriController;
 use App\Http\Controllers\InspeksiKawatDuriFgController;
 use App\Http\Controllers\InspeksiKawatDuriWipController;
 use App\Http\Controllers\InspeksiKlipController;
+use App\Http\Controllers\InspeksiKlipWipController;
 use App\Http\Controllers\InspeksiPoundController;
 use App\Http\Controllers\InspeksiPoundWipController;
 use App\Http\Controllers\InspeksiPvcController;
@@ -223,6 +224,32 @@ Route::middleware(['auth'])->group(function () {
 
     Route::delete('/inspeksi_pound/wip/{id}', [InspeksiPoundWipController::class, 'destroy'])
         ->name('inspeksi_pound_wip.destroy');
+
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Klip
+    |--------------------------------------------------------------------------
+    */
+
+    // WIP
+    Route::get('/inspeksi_klip/{inspeksi_klip}/wip', [InspeksiKlipWipController::class, 'create'])
+        ->name('inspeksi_klip.wip');
+
+    Route::post('/inspeksi_klip/wip', [InspeksiKlipWipController::class, 'store'])
+        ->name('inspeksi_klip_wip.store');
+
+    Route::get('insepeksi_klip/wip/{wip}/edit', [InspeksiKlipWipController::class, 'edit'])
+        ->name('inspeksi_klip_wip.edit');
+
+
+    Route::put('inspeksi_klip/wip/{wip}', [InspeksiKlipWipController::class, 'update'])
+        ->name('inspeksi_klip_wip.update');
+
+    Route::delete('/inspeksi_klip/wip/{id}', [InspeksiKlipWipController::class, 'destroy'])
+        ->name('inspeksi_klip_wip.destroy');
+
 
 
 
@@ -489,6 +516,9 @@ Route::middleware([
 
     Route::patch('/inspeksi-pound/{id}/toggle-approval', [InspeksiPoundController::class, 'toggleApproval'])
         ->name('inspeksi-pound.toggle');
+
+    Route::patch('/inspeksi-klip/{id}/toggle-approval', [InspeksiKlipController::class, 'toggleApproval'])
+        ->name('inspeksi-klip.toggle');
 
     Route::patch('/inspeksi-kawat-duri/{id}/toggle-approval', [InspeksiKawatDuriController::class, 'toggleApproval'])
         ->name('inspeksi-kawat-duri.toggle');

@@ -2,29 +2,44 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\InspeksiSlitting;
-use App\Models\InspeksiSlittingWip;
+use App\Models\InspeksiKlip;
+use App\Models\InspeksiKlipWip;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
-class InspeksiSlittingWipController extends Controller
+class InspeksiKlipWipController extends Controller
 {
-    public function create(String $id)
+    /**
+     * Display a listing of the resource.
+     */
+    public function index()
     {
-        $inspeksiSlitting = InspeksiSlitting::findOrFail($id);
-        return view('inspeksi_slitting.wip', ['inspeksiSlitting' => $inspeksiSlitting]);
+        //
     }
 
+    /**
+     * Show the form for creating a new resource.
+     */
+    public function create(String $id)
+    {
+        $inspeksiKlip = InspeksiKlip::findOrFail($id);
+        return view('inspeksi_klip.wip', ['inspeksiKlip' => $inspeksiKlip]);
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     */
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'inspeksi_slitting_id' => 'required|exists:inspeksi_slittings,id',
+            'inspeksi_klip_id' => 'required|exists:inspeksi_klips,id',
             'no_material' => '',
             'nama_operator' => 'required|string|max:255',
-            'l_sheetgalvanized' => 'required',
-            'tebal_sheetgalvanized' => 'required',
-            // 'weight' => 'nullable',
+            'jml_klip' => '',
+            'd_razor' => '',
+            'jml_spiral' => '',
+            'jarak_antar_klip' => '',
             'visual' => 'required',
             'status' => 'required',
         ]);
@@ -32,14 +47,15 @@ class InspeksiSlittingWipController extends Controller
         if (!Auth::check()) {
             return redirect()->back()->with('error', 'Sesi login berakhir. Silakan login kembali.');
         }
-        $slitting = InspeksiSlittingWip::create([
-            'inspeksi_slitting_id' => $validated['inspeksi_slitting_id'],
+        $slitting = InspeksiKlipWip::create([
+            'inspeksi_klip_id' => $validated['inspeksi_klip_id'],
             'user_id' => Auth::id(),
             'no_material' => $validated['no_material'],
             'nama_operator' => $validated['nama_operator'],
-            'l_sheetgalvanized' => $validated['l_sheetgalvanized'],
-            'tebal_sheetgalvanized' => $validated['tebal_sheetgalvanized'],
-            // 'weight' => $validated['weight'],
+            'jml_klip' => $validated['jml_klip'],
+            'd_razor' => $validated['d_razor'],
+            'jml_spiral' => $validated['jml_spiral'],
+            'jarak_antar_klip' => $validated['jarak_antar_klip'],
             'visual' => $validated['visual'],
             'status' => $validated['status'],
         ]);
@@ -70,43 +86,55 @@ class InspeksiSlittingWipController extends Controller
             }
         }
 
-        return redirect()->route('inspeksi_slitting.show', $validated['inspeksi_slitting_id'])
+        return redirect()->route('inspeksi_klip.show', $validated['inspeksi_klip_id'])
             ->with('success', 'Data WIP berhasil disimpan.');
     }
 
+    /**
+     * Display the specified resource.
+     */
+    public function show(string $id)
+    {
+        //
+    }
 
     /**
      * Show the form for editing the specified resource.
      */
     public function edit(string $id)
     {
-        $wip = InspeksiSlittingWip::with(['details', 'inspeksiSlitting'])->findOrFail($id);
+        $wip = InspeksiKlipWip::with(['details', 'inspeksiKlip'])->findOrFail($id);
 
-        return view('inspeksi_slitting.wip.edit', [
-            'inspeksi_slitting' => $wip->inspeksiSlitting,
+        return view('inspeksi_klip.wip.edit', [
+            'inspeksi_klip' => $wip->inspeksiKlip,
             'wip' => $wip,
         ]);
     }
 
+    /**
+     * Update the specified resource in storage.
+     */
     public function update(Request $request, string $id)
     {
-        $wip = InspeksiSlittingWip::findOrFail($id);
+        $wip = InspeksiKlipWip::findOrFail($id);
 
         $validated = $request->validate([
             'no_material' => '',
             'nama_operator' => 'required|string|max:255',
-            'l_sheetgalvanized' => 'required',
-            'tebal_sheetgalvanized' => 'required',
-            // 'weight' => 'nullable',
+            'jml_klip' => 'required|numeric',
+            'd_razor' => 'required|numeric',
+            'jml_spiral' => 'required|numeric',
+            'jarak_antar_klip' => 'required|numeric',
             'visual' => 'required',
             'status' => 'required',
         ]);
         $wip->update([
             'no_material' => $validated['no_material'],
             'nama_operator' => $validated['nama_operator'],
-            'l_sheetgalvanized' => $validated['l_sheetgalvanized'],
-            'tebal_sheetgalvanized' => $validated['tebal_sheetgalvanized'],
-            // 'weight' => $validated['weight'],
+            'jml_klip' => $validated['jml_klip'],
+            'd_razor' => $validated['d_razor'],
+            'jml_spiral' => $validated['jml_spiral'],
+            'jarak_antar_klip' => $validated['jarak_antar_klip'],
             'visual' => $validated['visual'],
             'status' => $validated['status'],
         ]);
@@ -137,20 +165,17 @@ class InspeksiSlittingWipController extends Controller
                 ]);
             }
         }
-        return redirect()->route('inspeksi_slitting.show', $wip->inspeksi_slitting_id)
+        return redirect()->route('inspeksi_klip.show', $wip->inspeksi_klip_id)
             ->with('success', 'Data WIP berhasil diperbarui.');
     }
-
-
-
 
     /**
      * Remove the specified resource from storage.
      */
     public function destroy(string $id)
     {
-        $wip = InspeksiSlittingWip::findOrFail($id);
-        $inspeksiSlittingId = $wip->inspeksi_slitting_id;
+        $wip = InspeksiKlipWip::findOrFail($id);
+        $inspeksiKlipId = $wip->inspeksi_klip_id;
 
         // Hapus file terkait jika ada
         if ($wip->files) {
@@ -165,7 +190,7 @@ class InspeksiSlittingWipController extends Controller
         // Hapus data WIP
         $wip->delete();
 
-        return redirect()->route('inspeksi_slitting.show', $inspeksiSlittingId)
+        return redirect()->route('inspeksi_klip.show', $inspeksiKlipId)
             ->with('success', 'Data WIP berhasil dihapus.');
     }
 }

@@ -101,9 +101,10 @@ class InspeksiKlipController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(InspeksiKlip $inspeksi_klip)
     {
-        //
+        $inspeksi_klip->load(['pro', 'mesin', 'inspeksiKlipWip']);
+        return view('inspeksi_klip.show', ['inspeksi_klip' => $inspeksi_klip]);
     }
 
     /**
@@ -146,5 +147,36 @@ class InspeksiKlipController extends Controller
         $inspeksi_klip->delete();
 
         return redirect()->route('inspeksi_klip.index')->with('success', 'Data inspeksi klip berhasil dihapus.');
+    }
+
+    public function toggleApproval($id)
+    {
+        if (! in_array(auth()->user()->role, ['supervisor', 'manager', 'administrator'])) {
+            abort(403, 'Tidak punya akses.');
+        }
+
+        $inspeksi = InspeksiKlip::findOrFail($id);
+
+        if ($inspeksi->isApproved()) {
+            // UNAPPROVE
+            $inspeksi->update([
+                'approval_status' => 'PENDING',
+                'approved_by' => null,
+                'approved_at' => null,
+            ]);
+
+            $message = 'Approval dibatalkan.';
+        } else {
+            // APPROVE
+            $inspeksi->update([
+                'approval_status' => 'APPROVED',
+                'approved_by' => auth()->id(),
+                'approved_at' => now(),
+            ]);
+
+            $message = 'Data berhasil di-approve.';
+        }
+
+        return back()->with('success', $message);
     }
 }

@@ -4,28 +4,29 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class InspeksiSlittingWip extends Model
+class InspeksiKlipWip extends Model
 {
     protected $fillable = [
-        'inspeksi_slitting_id',
+        'inspeksi_klip_id',
         'user_id',
         'no_material',
         'nama_operator',
-        'l_sheetgalvanized',
-        'tebal_sheetgalvanized',
+        'jml_klip',
+        'd_razor',
+        'jml_spiral',
+        'jarak_antar_klip',
         'visual',
         'status',
-        // 'weight',
-        'files',
+        'files'
     ];
 
     protected $casts = [
-        'files' => 'array',
+        'files' => 'array', // Cast files as an array
     ];
 
-    public function inspeksiSlitting()
+    public function inspeksiKlip()
     {
-        return $this->belongsTo(InspeksiSlitting::class);
+        return $this->belongsTo(InspeksiKlip::class);
     }
 
     public function user()
@@ -35,6 +36,6 @@ class InspeksiSlittingWip extends Model
 
     public function details()
     {
-        return $this->hasMany(InspeksiSlittingWipDetail::class);
+        return $this->hasMany(InspeksiKlipWipDetail::class);
     }
 }

@@ -7,7 +7,7 @@
             <p class="text-sm text-gray-500">
                 Ref:
                 <span class="font-mono font-bold text-indigo-600">
-                    {{ $inspeksi_pound->nomor_inspeksi }}
+                    {{ $inspeksi_klip->nomor_inspeksi }}
                 </span>
             </p>
         </div>
@@ -17,13 +17,13 @@
         <div class="mx-auto max-w-4xl sm:px-6 lg:px-8">
             <div class="overflow-hidden border border-gray-200 bg-white shadow-sm sm:rounded-lg">
                 <div class="p-8">
-                    <form action="{{ route('inspeksi_pound_wip.update', $wip->id) }}" method="POST"
+                    <form action="{{ route('inspeksi_klip_wip.update', $wip->id) }}" method="POST"
                         enctype="multipart/form-data" class="space-y-6">
                         @csrf
                         @method('PUT')
 
-                        <input type="hidden" name="inspeksi_pound_id"
-                            value="{{ old('inspeksi_pound_id', $wip->inspeksi_pound_id) }}">
+                        <input type="hidden" name="inspeksi_klip_id"
+                            value="{{ old('inspeksi_klip_id', $wip->inspeksi_klip_id) }}">
                         <input type="hidden" name="user_id" value="{{ auth()->id() }}">
 
                         <div class="grid grid-cols-2 gap-6 md:grid-cols-2">
@@ -40,53 +40,30 @@
                                 <x-input-error class="mt-2" :messages="$errors->get('nama_operator')" />
                             </div>
                             <div>
-                                <x-input-label for="tebal_blade" :value="__('tebal_blade')" />
-                                <x-text-input id="tebal_blade" name="tebal_blade" type="number" step="0.01"
-                                    class="mt-1 block w-full" :value="old('tebal_blade', $wip->tebal_blade)" required />
-                                <x-input-error class="mt-2" :messages="$errors->get('tebal_blade')" />
+                                <x-input-label for="jml_klip" :value="__('Jumlah Klip')" />
+                                <x-text-input id="jml_klip" name="jml_klip" type="number" step="0.01"
+                                    class="mt-1 block w-full" :value="old('jml_klip', $wip->jml_klip)" required />
+                                <x-input-error class="mt-2" :messages="$errors->get('jml_klip')" />
                             </div>
                             <div>
-                                <x-input-label for="p_blade" :value="__('p_blade')" />
-                                <x-text-input id="p_blade" name="p_blade" type="number" step="0.01"
-                                    class="mt-1 block w-full" :value="old('p_blade', $wip->p_blade)" required />
-                                <x-input-error class="mt-2" :messages="$errors->get('p_blade')" />
+                                <x-input-label for="d_razor" :value="__('Diameter Razor')" />
+                                <x-text-input id="d_razor" name="d_razor" type="number" step="0.01"
+                                    class="mt-1 block w-full" :value="old('d_razor', $wip->d_razor)" required />
+                                <x-input-error class="mt-2" :messages="$errors->get('d_razor')" />
                             </div>
                             <div>
-                                <x-input-label for="l_blade" :value="__('l_blade')" />
-                                <x-text-input id="l_blade" name="l_blade" type="number" step="0.01"
-                                    class="mt-1 block w-full" :value="old('l_blade', $wip->l_blade)" required />
-                                <x-input-error class="mt-2" :messages="$errors->get('l_blade')" />
+                                <x-input-label for="jml_spiral" :value="__('Jumlah Spiral')" />
+                                <x-text-input id="jml_spiral" name="jml_spiral" type="number" step="0.01"
+                                    class="mt-1 block w-full" :value="old('jml_spiral', $wip->jml_spiral)" required />
+                                <x-input-error class="mt-2" :messages="$errors->get('jml_spiral')" />
                             </div>
                             <div>
-                                <x-input-label for="jarak_blade" :value="__('jarak_blade')" />
-                                <x-text-input id="jarak_blade" name="jarak_blade" type="number" step="0.01"
-                                    class="mt-1 block w-full" :value="old('jarak_blade', $wip->jarak_blade)" required />
-                                <x-input-error class="mt-2" :messages="$errors->get('jarak_blade')" />
-                            </div>
-                            <div>
-                                <x-input-label for="d_roll" :value="__('d_roll')" />
-                                <x-text-input id="d_roll" name="d_roll" type="number" step="0.01"
-                                    class="mt-1 block w-full" :value="old('d_roll', $wip->d_roll)" required />
-                                <x-input-error class="mt-2" :messages="$errors->get('d_roll')" />
+                                <x-input-label for="jarak_antar_klip" :value="__('Jarak Antar Klip')" />
+                                <x-text-input id="jarak_antar_klip" name="jarak_antar_klip" type="number"
+                                    step="0.01" class="mt-1 block w-full" :value="old('jarak_antar_klip', $wip->jarak_antar_klip)" required />
+                                <x-input-error class="mt-2" :messages="$errors->get('jarak_antar_klip')" />
                             </div>
 
-                            <div>
-                                <x-input-label for="daya_jepit" :value="__('Daya Jepit')" />
-                                <select id="daya_jepit" name="daya_jepit"
-                                    class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
-                                    required>
-                                    <option value="">-- Pilih Status --</option>
-                                    <option value="OK"
-                                        {{ old('daya_jepit', $wip->daya_jepit) == 'OK' ? 'selected' : '' }}>
-                                        OK
-                                    </option>
-                                    <option value="NG"
-                                        {{ old('daya_jepit', $wip->daya_jepit) == 'NG' ? 'selected' : '' }}>
-                                        NG
-                                    </option>
-                                </select>
-                                <x-input-error class="mt-2" :messages="$errors->get('daya_jepit')" />
-                            </div>
                             <div>
                                 <x-input-label for="visual" :value="__('visual')" />
                                 <select id="visual" name="visual"
@@ -176,7 +153,7 @@
                                             <x-input-label :value="__('Description')" />
                                             <select name="detail_description[]"
                                                 class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
-                                                @include('inspeksi_pound.wip.options-detail', [
+                                                @include('inspeksi_klip.wip.options-detail', [
                                                     'selected' => $detail->description,
                                                 ])
                                             </select>
@@ -186,7 +163,7 @@
                                             <x-input-label :value="__('Description 2')" />
                                             <select name="detail_description2[]"
                                                 class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
-                                                @include('inspeksi_pound.wip.options-detail', [
+                                                @include('inspeksi_klip.wip.options-detail', [
                                                     'selected' => $detail->description2,
                                                 ])
                                             </select>
@@ -206,7 +183,7 @@
                                             <x-input-label :value="__('Description')" />
                                             <select name="detail_description[]"
                                                 class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
-                                                @include('inspeksi_pound.wip.options-detail', [
+                                                @include('inspeksi_klip.wip.options-detail', [
                                                     'selected' => null,
                                                 ])
                                             </select>
@@ -216,7 +193,7 @@
                                             <x-input-label :value="__('Description 2')" />
                                             <select name="detail_description2[]"
                                                 class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
-                                                @include('inspeksi_pound.wip.options-detail', [
+                                                @include('inspeksi_klip.wip.options-detail', [
                                                     'selected' => null,
                                                 ])
                                             </select>
@@ -239,7 +216,7 @@
 
 
                         <div class="flex items-center justify-end gap-4 border-t border-gray-100 pt-6">
-                            <a href="{{ route('inspeksi_pound.show', $inspeksi_pound->id) }}"
+                            <a href="{{ route('inspeksi_klip.show', $inspeksi_klip->id) }}"
                                 class="inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-xs font-semibold uppercase tracking-widest text-gray-700 shadow-sm hover:bg-gray-50">
                                 {{ __('Batal') }}
                             </a>
@@ -255,7 +232,7 @@
     </div>
 
     <script>
-        const optionsDetail = `@include('inspeksi_pound.wip.options-detail', ['selected' => null])`;
+        const optionsDetail = `@include('inspeksi_klip.wip.options-detail', ['selected' => null])`;
 
         document.getElementById('add-detail').addEventListener('click', function() {
             const wrapper = document.getElementById('detail-wrapper');

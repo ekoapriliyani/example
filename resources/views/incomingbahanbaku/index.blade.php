@@ -54,6 +54,7 @@
                                 <thead class="bg-gray-50">
                                     <tr>
                                         <th class="px-4 py-3 font-semibold text-gray-900 text-left w-16">No</th>
+                                        <th class="px-4 py-3 font-semibold text-gray-900 text-left">Aksi</th>
                                         <th class="px-4 py-3 font-semibold text-gray-900 text-left">Tanggal</th>
                                         <th class="px-4 py-3 font-semibold text-gray-900 text-left">Nomor Inspeksi</th>
                                         <th class="px-4 py-3 font-semibold text-gray-900 text-left">Supplier</th>
@@ -65,7 +66,6 @@
                                         <th class="px-4 py-3 font-semibold text-gray-900 text-left">Jenis Kawat</th>
                                         <th class="px-4 py-3 font-semibold text-gray-900 text-left">Certificate</th>
                                         <th class="px-4 py-3 font-semibold text-gray-900 text-left">Files</th>
-                                        <th class="px-4 py-3 font-semibold text-gray-900 text-right">Aksi</th>
                                         <th class="px-4 py-3 font-semibold text-gray-900 text-left">Created At</th>
                                     </tr>
                                 </thead>
@@ -75,45 +75,8 @@
                                         <tr class="hover:bg-gray-50 transition-colors">
                                             <td class="px-4 py-3 font-medium text-gray-900">
                                                 {{ $loop->iteration }}</td>
-                                            <td class="px-4 py-3 font-medium text-gray-900">{{ $item->tanggal }}
-                                            </td>
-                                            <td class="px-4 py-3 font-medium text-gray-900">{{ $item->nomor_inspeksi }}
-                                            </td>
-                                            <td class="px-4 py-3 font-medium text-gray-900">{{ $item->supplier->nama }}
-                                            </td>
-                                            <td class="px-4 py-3 font-medium text-gray-900">
-                                                {{ $item->no_po }}
-                                            </td>
-                                            <td class="px-4 py-3 font-medium text-gray-900">{{ $item->no_sj }}
-                                            <td class="px-4 py-3 font-medium text-gray-900">{{ $item->jml_koil }}
-                                            <td class="px-4 py-3 font-medium text-gray-900">{{ $item->d_kawat }}
-                                            <td class="px-4 py-3 font-medium text-gray-900">{{ $item->tol }}
-                                            <td class="px-4 py-3 font-medium text-gray-900">{{ $item->jenis_kawat }}
-                                            </td>
-                                            <td class="px-4 py-3 font-medium text-gray-900">{{ $item->certificate }}
-                                            </td>
-                                            <td class="px-4 py-3 text-center">
-                                                @if ($item->files && count($item->files))
-                                                    <button type="button"
-                                                        onclick='openFileModal(@json($item->files))'
-                                                        class="inline-flex items-center gap-2 rounded-lg bg-indigo-50 px-3 py-2 text-sm font-medium text-indigo-700 hover:bg-indigo-100 transition">
-
-                                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4"
-                                                            fill="none" viewBox="0 0 24 24" stroke="currentColor">
-
-                                                            <path stroke-linecap="round" stroke-linejoin="round"
-                                                                stroke-width="2"
-                                                                d="M15 12H9m12 0A9 9 0 1112 3a9 9 0 019 9z" />
-                                                        </svg>
-
-                                                        Lihat File ({{ count($item->files) }})
-                                                    </button>
-                                                @else
-                                                    <span class="text-gray-400 italic">No files</span>
-                                                @endif
-                                            </td>
                                             <td class="px-4 py-3 whitespace-nowrap">
-                                                <div class="flex justify-end items-center gap-2">
+                                                <div class="flex justify-start items-center gap-2">
                                                     <!-- Detail -->
                                                     <a href="{{ route('incomingbahanbaku.show', $item->id) }}"
                                                         class="flex items-center justify-center rounded bg-indigo-50 p-2 text-indigo-700 hover:bg-indigo-100 transition">
@@ -157,6 +120,43 @@
                                                         @method('DELETE')
                                                     </form>
                                                 </div>
+                                            </td>
+                                            <td class="px-4 py-3 font-medium text-gray-900">{{ $item->tanggal }}
+                                            </td>
+                                            <td class="px-4 py-3 font-medium text-gray-900">
+                                                {{ $item->nomor_inspeksi }}
+                                            </td>
+                                            <td class="px-4 py-3 font-medium text-gray-900">
+                                                {{ $item->supplier->nama }}
+                                            </td>
+                                            <td class="px-4 py-3 font-medium text-gray-900">
+                                                {{ $item->no_po }}
+                                            </td>
+                                            <td class="px-4 py-3 font-medium text-gray-900">{{ $item->no_sj }}
+                                            <td class="px-4 py-3 font-medium text-gray-900">{{ $item->jml_koil }}
+                                            <td class="px-4 py-3 font-medium text-gray-900">{{ $item->d_kawat }}
+                                            <td class="px-4 py-3 font-medium text-gray-900">{{ $item->tol }}
+                                            <td class="px-4 py-3 font-medium text-gray-900">{{ $item->jenis_kawat }}
+                                            </td>
+                                            <td class="px-4 py-3 font-medium text-gray-900">{{ $item->certificate }}
+                                            </td>
+                                            <td class="px-4 py-3 text-center">
+                                                @if ($item->files && count($item->files))
+                                                    <button type="button"
+                                                        onclick='openFileModal(@json($item->files))'
+                                                        class="inline-flex items-center gap-2 rounded-lg bg-indigo-50 px-3 py-2 text-sm font-medium text-indigo-700 hover:bg-indigo-100 transition">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4"
+                                                            fill="none" viewBox="0 0 24 24" stroke="currentColor">
+
+                                                            <path stroke-linecap="round" stroke-linejoin="round"
+                                                                stroke-width="2"
+                                                                d="M15 12H9m12 0A9 9 0 1112 3a9 9 0 019 9z" />
+                                                        </svg>
+                                                        Lihat File ({{ count($item->files) }})
+                                                    </button>
+                                                @else
+                                                    <span class="text-gray-400 italic">No files</span>
+                                                @endif
                                             </td>
                                             <td class="px-4 py-3 font-medium text-gray-900">{{ $item->created_at }}
                                             </td>

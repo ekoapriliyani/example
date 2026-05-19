@@ -2,15 +2,15 @@
     <x-slot name="header">
         <div class="flex items-center justify-between">
             <h2 class="text-xl font-semibold leading-tight text-gray-800">
-                {{ __('Detail Inspeksi Slitting') }}
+                {{ __('Detail Inspeksi Klip') }}
             </h2>
             <div class="flex gap-2">
-                <a href="{{ route('inspeksi_slitting.index') }}"
+                <a href="{{ route('inspeksi_klip.index') }}"
                     class="inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-xs font-semibold uppercase tracking-widest text-gray-700 shadow-sm transition duration-150 ease-in-out hover:bg-gray-50">
                     Kembali
                 </a>
                 @php
-                    $isApproved = $inspeksi_slitting->approval_status === 'APPROVED';
+                    $isApproved = $inspeksi_klip->approval_status === 'APPROVED';
                 @endphp
                 <div class="flex items-center gap-2">
                     {{-- Tambah WIP --}}
@@ -24,7 +24,7 @@
                             Tambah WIP
                         </button>
                     @else
-                        <a href="{{ route('inspeksi_slitting.wip', $inspeksi_slitting->id) }}"
+                        <a href="{{ route('inspeksi_klip.wip', $inspeksi_klip->id) }}"
                             class="inline-flex items-center gap-2 rounded-md bg-blue-600 px-4 py-2 text-sm font-semibold text-white shadow-sm transition hover:bg-blue-700">
                             <svg xmlns="http://www.w3.org/2000/svg" class="size-4" fill="none" viewBox="0 0 24 24"
                                 stroke="currentColor" stroke-width="2">
@@ -47,44 +47,44 @@
                         <dl class="grid grid-cols-1 gap-x-8 gap-y-4 sm:grid-cols-4">
                             <div>
                                 <dt class="text-sm font-medium italic text-gray-500">Nomor Inspeksi</dt>
-                                <dd class="text-lg font-bold text-indigo-600">{{ $inspeksi_slitting->nomor_inspeksi }}
+                                <dd class="text-lg font-bold text-indigo-600">{{ $inspeksi_klip->nomor_inspeksi }}
                                 </dd>
                             </div>
                             <div>
                                 <dt class="text-sm font-medium italic text-gray-500">PRO Number</dt>
                                 <dd class="text-lg font-semibold text-gray-900">
-                                    {{ $inspeksi_slitting->pro->pro_id }}
+                                    {{ $inspeksi_klip->pro->pro_id }}
                                 </dd>
                             </div>
                             <div>
                                 <dt class="text-sm font-medium italic text-gray-500">Description</dt>
                                 <dd class="text-lg font-semibold text-gray-900">
-                                    {{ $inspeksi_slitting->pro->description }}
+                                    {{ $inspeksi_klip->pro->description }}
                                 </dd>
                             </div>
                             <div>
                                 <dt class="text-sm font-medium italic text-gray-500">QTY Ordered</dt>
                                 <dd class="text-lg font-semibold text-gray-900">
-                                    {{ $inspeksi_slitting->pro->qty }}
+                                    {{ $inspeksi_klip->pro->qty }}
                                 </dd>
                             </div>
                             <div>
                                 <dt class="text-sm font-medium italic text-gray-500">Total Produksi per shift</dt>
                                 <dd class="text-lg font-semibold text-gray-900">
-                                    {{ $inspeksi_slitting->total_prod }} kg
+                                    {{ $inspeksi_klip->total_prod }}
                                 </dd>
                             </div>
                             <div>
                                 <dt class="text-sm font-medium italic text-gray-500">Shift</dt>
                                 <dd class="text-lg font-semibold text-gray-900">
-                                    {{ $inspeksi_slitting->shift }}
+                                    {{ $inspeksi_klip->shift }}
                                 </dd>
                             </div>
 
                             <div>
                                 <dt class="text-sm font-medium italic text-gray-500">Mesin</dt>
                                 <dd class="text-lg font-semibold text-gray-900">
-                                    {{ $inspeksi_slitting->mesin->nama_mesin }}
+                                    {{ $inspeksi_klip->mesin->nama_mesin }}
                                 </dd>
                             </div>
                         </dl>
@@ -102,7 +102,7 @@
                                     d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
                             </svg>
                         </div>
-                        <h3 class="text-lg font-bold text-gray-800">Hasil Inspeksi WIP Razor Slitting</h3>
+                        <h3 class="text-lg font-bold text-gray-800">Hasil Inspeksi WIP Razor Klip</h3>
                     </div>
 
                     <div class="overflow-x-auto rounded-lg border border-gray-200">
@@ -114,18 +114,19 @@
                                     <th class="px-4 py-3 font-semibold text-gray-900">Inspektor</th>
                                     <th class="px-4 py-3 font-semibold text-gray-900">No. Material</th>
                                     <th class="px-4 py-3 font-semibold text-gray-900">Operator</th>
-                                    <th class="px-4 py-3 font-semibold text-gray-900">l_sheetgalvanized</th>
-                                    <th class="px-4 py-3 font-semibold text-gray-900">tebal_sheetgalvanized</th>
+                                    <th class="px-4 py-3 font-semibold text-gray-900">Jumlah Klip</th>
+                                    <th class="px-4 py-3 font-semibold text-gray-900">D Razor</th>
+                                    <th class="px-4 py-3 font-semibold text-gray-900">Jumlah Spiral</th>
+                                    <th class="px-4 py-3 font-semibold text-gray-900">Jarak Antar Klip</th>
                                     <th class="px-4 py-3 font-semibold text-gray-900">Visual</th>
                                     <th class="px-4 py-3 font-semibold text-gray-900">Status</th>
                                     <th class="px-4 py-3 font-semibold text-gray-900">Detail</th>
                                     <th class="px-4 py-3 font-semibold text-gray-900">Gambar</th>
-
                                     <th class="px-4 py-3 text-center font-semibold text-gray-900">Created At</th>
                                 </tr>
                             </thead>
                             <tbody class="divide-y divide-gray-200">
-                                @forelse ($inspeksi_slitting->inspeksiSlittingWip as $wip)
+                                @forelse ($inspeksi_klip->inspeksiklipWip as $wip)
                                     <tr class="transition-colors hover:bg-gray-50">
                                         <td class="px-4 py-3">{{ $loop->iteration }}</td>
                                         <td class="px-4 py-3">
@@ -143,7 +144,7 @@
                                                         </svg>
                                                     </button>
                                                 @else
-                                                    <a href="{{ route('inspeksi_slitting_wip.edit', $wip->id) }}"
+                                                    <a href="{{ route('inspeksi_klip_wip.edit', $wip->id) }}"
                                                         class="inline-flex items-center rounded-md bg-yellow-100 p-2 text-yellow-600 transition hover:bg-yellow-200"
                                                         title="Edit">
 
@@ -171,8 +172,7 @@
                                                         </svg>
                                                     </button>
                                                 @else
-                                                    <form
-                                                        action="{{ route('inspeksi_slitting_wip.destroy', $wip->id) }}"
+                                                    <form action="{{ route('inspeksi_klip_wip.destroy', $wip->id) }}"
                                                         method="POST" class="delete-form inline-block">
 
                                                         @csrf
@@ -198,8 +198,10 @@
                                         <td class="px-4 py-3">{{ $wip->user->name ?? 'N/A' }}</td>
                                         <td class="px-4 py-3 font-medium">{{ $wip->no_material }}</td>
                                         <td class="px-4 py-3">{{ $wip->nama_operator }}</td>
-                                        <td class="px-4 py-3">{{ $wip->l_sheetgalvanized }}</td>
-                                        <td class="px-4 py-3">{{ $wip->tebal_sheetgalvanized }}</td>
+                                        <td class="px-4 py-3">{{ $wip->jml_klip }}</td>
+                                        <td class="px-4 py-3">{{ $wip->d_razor }}</td>
+                                        <td class="px-4 py-3">{{ $wip->jml_spiral }}</td>
+                                        <td class="px-4 py-3">{{ $wip->jarak_antar_klip }}</td>
                                         <td class="bg-blue-50/30 px-4 py-3 text-center">{{ $wip->visual }}</td>
                                         <td class="bg-blue-50/30 px-4 py-3 text-center">
                                             <span
@@ -239,7 +241,7 @@
                 <div class="p-6">
                     <div class="overflow-x-auto rounded-lg border border-gray-200">
                         {{-- modal detail wip --}}
-                        @foreach ($inspeksi_slitting->inspeksiSlittingWip as $wip)
+                        @foreach ($inspeksi_klip->inspeksiklipWip as $wip)
                             <div id="detail2-{{ $wip->id }}"
                                 class="fixed inset-0 flex hidden items-center justify-center bg-gray-900 bg-opacity-50">
                                 <div class="w-1/2 rounded-lg bg-white p-6 shadow-lg">
@@ -283,7 +285,7 @@
 
 
                         {{-- modal gambar wip --}}
-                        @foreach ($inspeksi_slitting->inspeksiSlittingWip as $wip)
+                        @foreach ($inspeksi_klip->inspeksiklipWip as $wip)
                             <div id="image2-{{ $wip->id }}"
                                 class="fixed inset-0 flex hidden items-center justify-center bg-gray-900 bg-opacity-50">
                                 <div class="max-h-[80vh] w-3/4 overflow-y-auto rounded-lg bg-white p-6 shadow-lg">
@@ -338,18 +340,17 @@
                             </div>
                             <div>
                                 <h3 class="text-xl font-bold text-gray-900">
-                                    Approval Inspeksi Slitting
+                                    Approval Inspeksi klip
                                 </h3>
                                 <p class="mt-1 text-sm text-gray-500">
-                                    {{-- Review data inspeksi sebelum melakukan approval. --}}
-                                    Approved pada tanggal : {{ $inspeksi_slitting->approved_at }}
+                                    Review data inspeksi sebelum melakukan approval.
                                 </p>
                             </div>
                         </div>
                         <!-- Middle + Right -->
                         <div class="flex items-center gap-4">
                             <!-- Status -->
-                            @if ($inspeksi_slitting->isApproved())
+                            @if ($inspeksi_klip->isApproved())
                                 <span
                                     class="inline-flex items-center gap-2 rounded-full border border-green-200 bg-green-50 px-4 py-2 text-sm font-semibold text-green-700">
                                     <span class="h-2.5 w-2.5 rounded-full bg-green-500"></span>
@@ -364,18 +365,18 @@
                             @endif
                             <!-- Button -->
                             @if (in_array(auth()->user()->role, ['supervisor', 'manager', 'administrator']))
-                                <form id="approval-form-{{ $inspeksi_slitting->id }}"
-                                    action="{{ route('inspeksi-slitting.toggle', $inspeksi_slitting->id) }}"
-                                    method="POST" class="hidden">
+                                <form id="approval-form-{{ $inspeksi_klip->id }}"
+                                    action="{{ route('inspeksi-klip.toggle', $inspeksi_klip->id) }}" method="POST"
+                                    class="hidden">
                                     @csrf
                                     @method('PATCH')
                                 </form>
                                 <button type="button"
-                                    onclick="confirmApproval({{ $inspeksi_slitting->id }}, '{{ $inspeksi_slitting->isApproved() ? 'unapprove' : 'approve' }}')"
-                                    class="{{ $inspeksi_slitting->isApproved()
+                                    onclick="confirmApproval({{ $inspeksi_klip->id }}, '{{ $inspeksi_klip->isApproved() ? 'unapprove' : 'approve' }}')"
+                                    class="{{ $inspeksi_klip->isApproved()
                                         ? 'bg-orange-500 text-white hover:bg-orange-600'
                                         : 'bg-green-600 text-white hover:bg-green-700' }} inline-flex items-center gap-2 rounded-xl px-5 py-2.5 text-sm font-semibold shadow-sm transition">
-                                    @if ($inspeksi_slitting->isApproved())
+                                    @if ($inspeksi_klip->isApproved())
                                         <span class="text-base">↺</span>
                                         Unapprove
                                     @else
