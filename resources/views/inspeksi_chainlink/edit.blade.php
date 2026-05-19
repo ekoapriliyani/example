@@ -43,7 +43,7 @@
                                 @foreach ($pros as $pro)
                                     <option value="{{ $pro->id }}"
                                         {{ old('pro_id', $inspeksiChainlink->pro_id) == $pro->id ? 'selected' : '' }}>
-                                        {{ $pro->pro_id }}
+                                        {{ $pro->pro_id }} - {{ $pro->description }}
                                     </option>
                                 @endforeach
                             </select>

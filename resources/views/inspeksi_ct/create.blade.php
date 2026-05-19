@@ -26,7 +26,7 @@
                         <div>
                             <x-input-label for="tanggal" :value="__('Tanggal')" />
                             <x-text-input id="tanggal" name="tanggal" type="date" class="mt-1 block w-full"
-                                value="{{ old('tanggal') }}" required />
+                                value="{{ old('tanggal', now()->format('Y-m-d')) }}" required />
                             <x-input-error class="mt-2" :messages="$errors->get('tanggal')" />
                         </div>
                         <div>
@@ -37,7 +37,7 @@
                                 @foreach ($pros as $pro)
                                     <option value="{{ $pro->id }}"
                                         {{ old('pro_id') == $pro->id ? 'selected' : '' }}>
-                                        {{ $pro->pro_id }}
+                                        {{ $pro->pro_id }} - {{ $pro->description }}
                                     </option>
                                 @endforeach
                             </select>

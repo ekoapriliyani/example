@@ -54,6 +54,13 @@
                         </div>
 
                         <div>
+                            <x-input-label for="qty" :value="__('QTY')" />
+                            <x-text-input id="qty" type="text" class="mt-1 block w-full bg-gray-100"
+                                :value="old('qty', optional($inspeksi_ct->pro)->qty)" readonly />
+                        </div>
+
+
+                        <div>
                             <x-input-label for="product_ct_ref_id" :value="__('Product CT')" />
                             <select id="product_ct_ref_id" name="product_ct_ref_id"
                                 class="mt-1 block w-full border-gray-300 rounded-md shadow-sm" required>

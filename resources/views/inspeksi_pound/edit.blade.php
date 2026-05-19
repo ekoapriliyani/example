@@ -41,7 +41,7 @@
                                 @foreach ($pros as $pro)
                                     <option value="{{ $pro->id }}" data-description="{{ $pro->description }}"
                                         {{ old('pro_id', $inspeksi_pound->pro_id) == $pro->id ? 'selected' : '' }}>
-                                        {{ $pro->pro_id }}
+                                        {{ $pro->pro_id }} - {{ $pro->description }}
                                     </option>
                                 @endforeach
                             </select>
