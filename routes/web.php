@@ -16,6 +16,7 @@ use App\Http\Controllers\InspeksiPoundController;
 use App\Http\Controllers\InspeksiPoundWipController;
 use App\Http\Controllers\InspeksiPvcController;
 use App\Http\Controllers\InspeksiRazorpackingController;
+use App\Http\Controllers\InspeksiRazorpackingFgController;
 use App\Http\Controllers\InspeksiSlittingController;
 use App\Http\Controllers\InspeksiSlittingWipController;
 use App\Http\Controllers\InspeksiWmController;
@@ -35,6 +36,7 @@ use App\Http\Controllers\SubkonController;
 use App\Http\Controllers\SupplierController;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
+
 
 
 
@@ -252,6 +254,28 @@ Route::middleware(['auth'])->group(function () {
     Route::delete('/inspeksi_klip/wip/{id}', [InspeksiKlipWipController::class, 'destroy'])
         ->name('inspeksi_klip_wip.destroy');
 
+
+    /*
+    |--------------------------------------------------------------------------
+    | Razorpacking
+    |--------------------------------------------------------------------------
+    */
+
+    // FG
+    Route::get('/inspeksi_razorpacking/{inspeksi_razorpacking}/fg', [InspeksiRazorpackingFgController::class, 'create'])
+        ->name('inspeksi_razorpacking.fg');
+
+    Route::post('/inspeksi_razorpacking/fg', [InspeksiRazorpackingFgController::class, 'store'])
+        ->name('inspeksi_razorpacking_fg.store');
+
+    Route::get('insepeksi_razorpacking/fg/{fg}/edit', [InspeksiRazorpackingFgController::class, 'edit'])
+        ->name('inspeksi_razorpacking_fg.edit');
+
+    Route::put('insepeksi_razorpacking/fg/{fg}', [InspeksiRazorpackingFgController::class, 'update'])
+        ->name('inspeksi_razorpacking_fg.update');
+
+    Route::delete('insepeksi_razorpacking/fg/{fg}', [InspeksiRazorpackingFgController::class, 'destroy'])
+        ->name('inspeksi_razorpacking_fg.destroy');
 
 
 
@@ -522,8 +546,12 @@ Route::middleware([
     Route::patch('/inspeksi-klip/{id}/toggle-approval', [InspeksiKlipController::class, 'toggleApproval'])
         ->name('inspeksi-klip.toggle');
 
+    Route::patch('/inspeksi-razorpacking/{id}/toggle-approval', [InspeksiRazorpackingController::class, 'toggleApproval'])
+        ->name('inspeksi-razorpacking.toggle');
+
     Route::patch('/inspeksi-kawat-duri/{id}/toggle-approval', [InspeksiKawatDuriController::class, 'toggleApproval'])
         ->name('inspeksi-kawat-duri.toggle');
+
 
     Route::patch('/inspeksi-chainlink/{id}/toggle-approval', [InspeksiChainlinkController::class, 'toggleApproval'])
         ->name('inspeksi-chainlink.toggle');

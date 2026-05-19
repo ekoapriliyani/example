@@ -1,0 +1,170 @@
+<x-app-layout>
+    <x-slot name="header">
+        <div class="flex items-center justify-between">
+            <h2 class="text-xl font-semibold leading-tight text-gray-800">
+                {{ __('Input Hasil Inspeksi FG') }}
+            </h2>
+            <p class="text-sm text-gray-500">
+                Ref: <span class="font-mono font-bold text-indigo-600">{{ $inspeksiRazorpacking->nomor_inspeksi }}</span>
+            </p>
+        </div>
+    </x-slot>
+
+    <div class="py-12">
+        <div class="mx-auto max-w-4xl sm:px-6 lg:px-8">
+            <div class="overflow-hidden border border-gray-200 bg-white shadow-sm sm:rounded-lg">
+                <div class="p-8">
+                    <form action="{{ route('inspeksi_razorpacking_fg.store') }}" method="POST"
+                        enctype="multipart/form-data" class="space-y-6">
+                        @csrf
+                        <input type="hidden" name="inspeksi_razorpacking_id" value="{{ $inspeksiRazorpacking->id }}">
+
+                        <div class="grid grid-cols-1 gap-6 md:grid-cols-2">
+                            <div class="md:col-span-2">
+                                <x-input-label for="status" :value="__('Status')" />
+                                <select id="status" name="status"
+                                    class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
+                                    <option value="OK">OK</option>
+                                    <option value="NG">NG</option>
+                                    <option value="REJECT">REJECT</option>
+                                </select>
+                                <x-input-error class="mt-2" :messages="$errors->get('status')" />
+                            </div>
+                            <div>
+                                <x-input-label for="qty" :value="__('Quantity (Unit)')" />
+                                <x-text-input id="qty" name="qty" type="number" step="0.01"
+                                    class="mt-1 block w-full" required placeholder="0" />
+                                <x-input-error class="mt-2" :messages="$errors->get('qty')" />
+                            </div>
+                            <div>
+                                <x-input-label for="weight" :value="__('Weight')" />
+                                <x-text-input id="weight" name="weight" type="number" step="0.01"
+                                    class="mt-1 block w-full" required placeholder="0" />
+                                <x-input-error class="mt-2" :messages="$errors->get('weight')" />
+                            </div>
+                            <div class="md:col-span-2">
+                                <x-input-label for="label" :value="__('Label')" />
+                                <select id="label" name="label"
+                                    class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
+                                    <option value="OK">OK</option>
+                                    <option value="NG">NG</option>
+                                </select>
+                                <x-input-error class="mt-2" :messages="$errors->get('label')" />
+                            </div>
+                        </div>
+
+                        <div class="border-t border-gray-200 pt-6 md:col-span-2">
+                            <h3 class="mb-4 font-semibold text-gray-700">Detail Inspeksi</h3>
+                            <div id="detail-wrapper" class="space-y-4">
+                                <div class="grid grid-cols-1 gap-4 md:grid-cols-3">
+                                    <div>
+                                        <x-input-label for="detail_description_0" :value="__('Description')" />
+                                        <select id="detail_description_0" name="detail_description[]"
+                                            class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
+                                            <option value="">-- Pilih Detail --</option>
+                                            <option value="DIAMETER OUT">DIAMETER OUT</option>
+                                            <option value="JARAK DURI">JARAK DURI</option>
+                                            <option value="LILITAN">LILITAN</option>
+                                            <option value="KARAT">KARAT</option>
+                                            <option value="WHITE RUST">WHITE RUST</option>
+                                            <option value="CRACK">CRACK</option>
+                                            <option value="PANJANG OUT">PANJANG OUT</option>
+                                        </select>
+                                    </div>
+                                    <div>
+                                        <x-input-label for="detail_description2_0" :value="__('Description 2')" />
+                                        <select id="detail_description2_0" name="detail_description2[]"
+                                            class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
+                                            <option value="">-- Pilih Detail --</option>
+                                            <option value="DIAMETER OUT">DIAMETER OUT</option>
+                                            <option value="JARAK DURI">JARAK DURI</option>
+                                            <option value="LILITAN">LILITAN</option>
+                                            <option value="KARAT">KARAT</option>
+                                            <option value="WHITE RUST">WHITE RUST</option>
+                                            <option value="CRACK">CRACK</option>
+                                            <option value="PANJANG OUT">PANJANG OUT</option>
+                                        </select>
+                                    </div>
+                                    <div>
+                                        <x-input-label for="detail_qty_0" :value="__('QTY')" />
+                                        <x-text-input id="detail_qty_0" name="detail_qty[]" type="number"
+                                            class="mt-1 block w-full" placeholder="QTY" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="mt-4">
+                                <button type="button" id="add-detail"
+                                    class="rounded-md bg-indigo-600 px-3 py-1 text-sm text-white hover:bg-indigo-700">
+                                    + Tambah Detail
+                                </button>
+                            </div>
+                            <div class="mt-4">
+                                <x-input-label for="files" :value="__('Upload File')" />
+                                <input id="files" name="files[]" type="file"
+                                    class="mt-1 block w-full rounded-md border-gray-300 shadow-sm" multiple>
+                                @error('files')
+                                    <div class="mt-2 text-sm text-red-500">{{ $message }}</div>
+                                @enderror
+
+                                @error('files.*')
+                                    <div class="mt-2 text-sm text-red-500">{{ $message }}</div>
+                                @enderror
+                            </div>
+                        </div>
+
+                        <div class="flex items-center justify-end gap-4 border-t border-gray-100 pt-6">
+                            <a href="{{ route('inspeksi_razorpacking.show', $inspeksiRazorpacking->id) }}"
+                                class="text-sm text-gray-600 hover:underline">{{ __('Batal') }}</a>
+                            <x-primary-button class="bg-blue-600 hover:bg-blue-700">
+                                {{ __('Simpan Data FG') }}
+                            </x-primary-button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        document.getElementById('add-detail').addEventListener('click', function() {
+            let wrapper = document.getElementById('detail-wrapper');
+            let index = wrapper.children.length;
+            let newDetail = `
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div>
+                <label for="detail_description_${index}" class="block text-sm font-medium text-gray-700">Description</label>
+                <select id="detail_description_${index}" name="detail_description[]"
+                    class="mt-1 block w-full border-gray-300 rounded-md shadow-sm">
+                    <option value="">-- Pilih Detail --</option>
+                    <option value="DIAMETER OUT">DIAMETER OUT</option>
+                    <option value="JARAK DURI">JARAK DURI</option>
+                    <option value="LILITAN">LILITAN</option>
+                    <option value="KARAT">KARAT</option>
+                    <option value="WHITE RUST">WHITE RUST</option>
+                    <option value="CRACK">CRACK</option>
+                    <option value="PANJANG OUT">PANJANG OUT</option>
+                </select>
+            </div>
+            <div>
+                <label for="detail_description2_${index}" class="block text-sm font-medium text-gray-700">Description 2</label>
+                <select id="detail_description2_${index}" name="detail_description2[]"
+                    class="mt-1 block w-full border-gray-300 rounded-md shadow-sm">
+                    <option value="">-- Pilih Detail --</option>
+                    <option value="DIAMETER OUT">DIAMETER OUT</option>
+                    <option value="JARAK DURI">JARAK DURI</option>
+                    <option value="LILITAN">LILITAN</option>
+                    <option value="KARAT">KARAT</option>
+                    <option value="WHITE RUST">WHITE RUST</option>
+                    <option value="CRACK">CRACK</option>
+                    <option value="PANJANG OUT">PANJANG OUT</option>
+                </select>
+            </div>
+            <div>
+                <label for="detail_qty_${index}" class="block text-sm font-medium text-gray-700">QTY</label>
+                <input id="detail_qty_${index}" name="detail_qty[]" type="number"
+                    class="mt-1 block w-full border-gray-300 rounded-md shadow-sm" placeholder="QTY" />
+            </div>
+        </div>`;
+            wrapper.insertAdjacentHTML('beforeend', newDetail);
+        });
+    </script>
+</x-app-layout>
