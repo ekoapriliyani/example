@@ -15,11 +15,13 @@ return new class extends Migration
             $table->id();
             $table->foreignId('inspeksi_slitting_id')->constrained('inspeksi_slittings')->onDelete('cascade'); // relasi ke header
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
-            $table->string('nama_operator');
+            $table->string('no_material')->nullable();
+            $table->string('nama_operator')->nullable();
             $table->decimal('l_sheetgalvanized', 8, 2)->nullable();
             $table->decimal('tebal_sheetgalvanized', 8, 2)->nullable();
             $table->string('visual')->nullable();
             $table->decimal('weight', 10, 2)->nullable();
+            $table->string('status');
             $table->json('files')->nullable();
             $table->timestamps();
         });

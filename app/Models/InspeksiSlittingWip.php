@@ -9,6 +9,7 @@ class InspeksiSlittingWip extends Model
     protected $fillable = [
         'inspeksi_slitting_id',
         'user_id',
+        'no_material',
         'nama_operator',
         'l_sheetgalvanized',
         'tebal_sheetgalvanized',

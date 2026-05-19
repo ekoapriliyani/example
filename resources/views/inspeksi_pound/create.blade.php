@@ -65,6 +65,12 @@
                                     <span class="ml-2">M Series</span>
                                 </label>
                                 <label class="inline-flex items-center">
+                                    <input type="radio" name="series" value="R Series"
+                                        class="border-gray-300 text-indigo-600 shadow-sm focus:ring-indigo-500"
+                                        {{ old('series') == 'R Series' ? 'checked' : '' }}>
+                                    <span class="ml-2">R Series</span>
+                                </label>
+                                <label class="inline-flex items-center">
                                     <input type="radio" name="series" value="LB Series"
                                         class="border-gray-300 text-indigo-600 shadow-sm focus:ring-indigo-500"
                                         {{ old('series') == 'LB Series' ? 'checked' : '' }}>

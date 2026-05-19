@@ -53,6 +53,7 @@
                                 <thead class="bg-gray-50">
                                     <tr>
                                         <th class="w-16 px-4 py-3 text-left font-semibold text-gray-900">No</th>
+                                        <th class="px-4 py-3 text-left font-semibold text-gray-900">Aksi</th>
                                         <th class="px-4 py-3 text-left font-semibold text-gray-900">Nomor Inspeksi</th>
                                         <th class="px-4 py-3 text-left font-semibold text-gray-900">Tanggal</th>
                                         <th class="px-4 py-3 text-left font-semibold text-gray-900">Shift</th>
@@ -64,7 +65,6 @@
                                         <th class="px-4 py-3 text-left font-semibold text-gray-900">Total Produksi per
                                             Shift</th>
                                         <th class="px-4 py-3 text-left font-semibold text-gray-900">Mesin</th>
-                                        <th class="px-4 py-3 text-right font-semibold text-gray-900">Aksi</th>
                                         <th class="px-4 py-3 text-right font-semibold text-gray-900">Status</th>
                                     </tr>
                                 </thead>
@@ -73,33 +73,6 @@
                                         <tr class="transition-colors hover:bg-gray-50">
                                             <td class="px-4 py-3 font-medium text-gray-900">
                                                 {{ $loop->iteration + ($data->firstItem() - 1) }}</td>
-                                            <td class="px-4 py-3 font-medium text-gray-900">{{ $item->nomor_inspeksi }}
-                                            </td>
-                                            <td class="px-4 py-3 font-medium text-gray-900">
-                                                {{ $item->tanggal }}
-                                            </td>
-                                            <td class="px-4 py-3 font-medium text-gray-900">{{ $item->shift }}
-                                            </td>
-                                            <td class="px-4 py-3 font-medium text-gray-900">{{ $item->pro->pro_id }}
-                                            </td>
-                                            <td class="px-4 py-3 font-medium text-gray-900">
-                                                {{ $item->pro->description }}
-                                            </td>
-                                            <td class="px-4 py-3 font-medium text-gray-900">
-                                                {{ $item->series }}
-                                            </td>
-                                            <td class="px-4 py-3 font-medium text-gray-900">
-                                                {{ $item->d_razor }}
-                                            </td>
-                                            <td class="px-4 py-3 font-medium text-gray-900">{{ $item->pro->qty }}
-                                            </td>
-                                            <td class="px-4 py-3 font-medium text-gray-900">
-                                                {{ $item->total_prod }}
-                                            </td>
-                                            <td class="px-4 py-3 font-medium text-gray-900">
-                                                {{ $item->mesin->mesin_id }}
-                                            </td>
-
                                             <td class="px-4 py-3">
                                                 <div class="flex items-center justify-end gap-2">
                                                     <!-- View (selalu tampil) -->
@@ -159,6 +132,33 @@
                                                         </span>
                                                     @endif
                                                 </div>
+                                            </td>
+                                            <td class="px-4 py-3 font-medium text-gray-900">
+                                                {{ $item->nomor_inspeksi }}
+                                            </td>
+                                            <td class="px-4 py-3 font-medium text-gray-900">
+                                                {{ $item->tanggal }}
+                                            </td>
+                                            <td class="px-4 py-3 font-medium text-gray-900">{{ $item->shift }}
+                                            </td>
+                                            <td class="px-4 py-3 font-medium text-gray-900">{{ $item->pro->pro_id }}
+                                            </td>
+                                            <td class="px-4 py-3 font-medium text-gray-900">
+                                                {{ $item->pro->description }}
+                                            </td>
+                                            <td class="px-4 py-3 font-medium text-gray-900">
+                                                {{ $item->series }}
+                                            </td>
+                                            <td class="px-4 py-3 font-medium text-gray-900">
+                                                {{ $item->d_razor }}
+                                            </td>
+                                            <td class="px-4 py-3 font-medium text-gray-900">{{ $item->pro->qty }}
+                                            </td>
+                                            <td class="px-4 py-3 font-medium text-gray-900">
+                                                {{ $item->total_prod }}
+                                            </td>
+                                            <td class="px-4 py-3 font-medium text-gray-900">
+                                                {{ $item->mesin->mesin_id }}
                                             </td>
                                             <td class="px-4 py-3 font-medium text-gray-900">
                                                 @if ($item->isApproved())

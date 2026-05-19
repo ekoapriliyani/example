@@ -192,6 +192,13 @@ Route::middleware(['auth'])->group(function () {
         ->name('inspeksi_slitting_wip.edit');
 
 
+    Route::put('inspeksi_slitting/wip/{wip}', [InspeksiSlittingWipController::class, 'update'])
+        ->name('inspeksi_slitting_wip.update');
+
+    Route::delete('/inspeksi_slitting/wip/{id}', [InspeksiSlittingWipController::class, 'destroy'])
+        ->name('inspeksi_slitting_wip.destroy');
+
+
     /*
     |--------------------------------------------------------------------------
     | Kawat Duri

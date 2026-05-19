@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('inspeksi_slitting_wip_details', function (Blueprint $table) {
             $table->id();
             // relasi ke tabel utama
-            $table->foreignId('inspeksi_wm_wip_id')->constrained('inspeksi_wm_wips')->onDelete('cascade');
+            $table->foreignId('inspeksi_slitting_wip_id')->constrained('inspeksi_slitting_wips')->onDelete('cascade');
             // field detail
             $table->string('description')->nullable();
             $table->string('description2')->nullable();

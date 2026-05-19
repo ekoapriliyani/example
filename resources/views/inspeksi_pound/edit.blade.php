@@ -68,6 +68,9 @@
                                 <option value="M Series"
                                     {{ old('series', $inspeksi_pound->series) == 'M Series' ? 'selected' : '' }}>M
                                     Series</option>
+                                <option value="R Series"
+                                    {{ old('series', $inspeksi_pound->series) == 'R Series' ? 'selected' : '' }}>R
+                                    Series</option>
                                 <option value="LB Series"
                                     {{ old('series', $inspeksi_pound->series) == 'LB Series' ? 'selected' : '' }}>LB
                                     Series</option>

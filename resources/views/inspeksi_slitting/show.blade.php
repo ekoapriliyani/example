@@ -161,7 +161,7 @@
                                                         </svg>
                                                     </button>
                                                 @else
-                                                    <a href="{{ route('inspeksi_wm_wip.edit', $wip->id) }}"
+                                                    <a href="{{ route('inspeksi_slitting_wip.edit', $wip->id) }}"
                                                         class="inline-flex items-center rounded-md bg-yellow-100 p-2 text-yellow-600 transition hover:bg-yellow-200"
                                                         title="Edit">
 
@@ -189,7 +189,8 @@
                                                         </svg>
                                                     </button>
                                                 @else
-                                                    <form action="{{ route('inspeksi_wm_wip.destroy', $wip->id) }}"
+                                                    <form
+                                                        action="{{ route('inspeksi_slitting_wip.destroy', $wip->id) }}"
                                                         method="POST" class="delete-form inline-block">
 
                                                         @csrf
