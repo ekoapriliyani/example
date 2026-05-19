@@ -60,6 +60,7 @@
                                         <th class="px-4 py-3 text-left font-semibold text-gray-900">PRO Number</th>
                                         <th class="px-4 py-3 text-left font-semibold text-gray-900">Description</th>
                                         <th class="px-4 py-3 text-left font-semibold text-gray-900">Series</th>
+                                        <th class="px-4 py-3 text-left font-semibold text-gray-900">Type</th>
                                         <th class="px-4 py-3 text-left font-semibold text-gray-900">D Razor</th>
                                         <th class="px-4 py-3 text-left font-semibold text-gray-900">QTY Ordered</th>
                                         <th class="px-4 py-3 text-left font-semibold text-gray-900">Total Produksi per
@@ -148,6 +149,9 @@
                                             </td>
                                             <td class="px-4 py-3 font-medium text-gray-900">
                                                 {{ $item->series }}
+                                            </td>
+                                            <td class="px-4 py-3 font-medium text-gray-900">
+                                                {{ $item->type }}
                                             </td>
                                             <td class="px-4 py-3 font-medium text-gray-900">
                                                 {{ $item->d_razor }}

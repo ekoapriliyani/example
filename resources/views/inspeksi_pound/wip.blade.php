@@ -112,7 +112,7 @@
                                 </div>
                                 <x-input-error class="mt-2" :messages="$errors->get('d_roll')" />
                             </div>
-                            <div>
+                            {{-- <div>
                                 <x-input-label for="weight" :value="__('Weight')" />
                                 <div class="relative mt-1">
                                     <x-text-input id="weight" name="weight" type="number" step="0.01"
@@ -123,7 +123,7 @@
                                     </div>
                                 </div>
                                 <x-input-error class="mt-2" :messages="$errors->get('weight')" />
-                            </div>
+                            </div> --}}
                             <div>
                                 <x-input-label for="daya_jepit" :value="__('Daya Jepit')" />
                                 <select id="daya_jepit" name="daya_jepit"
@@ -174,6 +174,8 @@
                                             class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
                                             <option value="">-- Pilih Detail --</option>
                                             <option value="KARAT">KARAT</option>
+                                            <option value="BENDING PECAH">BENDING PECAH</option>
+                                            <option value="JARAK BLADE">JARAK BLADE</option>
                                             <option value="POTONGAN TIDAK RAPI">POTONGAN TIDAK RAPI</option>
                                         </select>
                                     </div>
@@ -183,6 +185,8 @@
                                             class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
                                             <option value="">-- Pilih Detail --</option>
                                             <option value="KARAT">KARAT</option>
+                                            <option value="BENDING PECAH">BENDING PECAH</option>
+                                            <option value="JARAK BLADE">JARAK BLADE</option>
                                             <option value="POTONGAN TIDAK RAPI">POTONGAN TIDAK RAPI</option>
                                         </select>
                                     </div>
@@ -245,6 +249,8 @@
                     class="mt-1 block w-full border-gray-300 rounded-md shadow-sm">
                     <option value="">-- Pilih Detail --</option>
                     <option value="KARAT">KARAT</option>
+                    <option value="BENDING PECAH">BENDING PECAH</option>
+                    <option value="JARAK BLADE">JARAK BLADE</option>
                     <option value="POTONGAN TIDAK RAPI">POTONGAN TIDAK RAPI</option>
                 </select>
             </div>
@@ -254,6 +260,8 @@
                     class="mt-1 block w-full border-gray-300 rounded-md shadow-sm">
                     <option value="">-- Pilih Detail --</option>
                     <option value="KARAT">KARAT</option>
+                    <option value="BENDING PECAH">BENDING PECAH</option>
+                    <option value="JARAK BLADE">JARAK BLADE</option>
                     <option value="POTONGAN TIDAK RAPI">POTONGAN TIDAK RAPI</option>
                 </select>
             </div>

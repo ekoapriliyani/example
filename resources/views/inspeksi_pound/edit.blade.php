@@ -62,43 +62,107 @@
 
                         <div>
                             <x-input-label for="series" :value="__('Series')" />
-                            <select id="series" name="series"
-                                class="mt-1 block w-full rounded-md border-gray-300 shadow-sm bg-gray-100" required>
-                                <option value="">-- Pilih Series --</option>
-                                <option value="M Series"
-                                    {{ old('series', $inspeksi_pound->series) == 'M Series' ? 'selected' : '' }}>M
-                                    Series</option>
-                                <option value="R Series"
-                                    {{ old('series', $inspeksi_pound->series) == 'R Series' ? 'selected' : '' }}>R
-                                    Series</option>
-                                <option value="LB Series"
-                                    {{ old('series', $inspeksi_pound->series) == 'LB Series' ? 'selected' : '' }}>LB
-                                    Series</option>
-                            </select>
+
+                            <div class="mt-1 flex flex-wrap gap-4">
+
+                                <label class="inline-flex items-center">
+                                    <input type="radio" name="series" value="M Series"
+                                        class="border-gray-300 text-indigo-600 shadow-sm focus:ring-indigo-500"
+                                        {{ old('series', $inspeksi_pound->series) == 'M Series' ? 'checked' : '' }}>
+                                    <span class="ml-2">M Series</span>
+                                </label>
+
+                                <label class="inline-flex items-center">
+                                    <input type="radio" name="series" value="R Series"
+                                        class="border-gray-300 text-indigo-600 shadow-sm focus:ring-indigo-500"
+                                        {{ old('series', $inspeksi_pound->series) == 'R Series' ? 'checked' : '' }}>
+                                    <span class="ml-2">R Series</span>
+                                </label>
+
+                                <label class="inline-flex items-center">
+                                    <input type="radio" name="series" value="LB Series"
+                                        class="border-gray-300 text-indigo-600 shadow-sm focus:ring-indigo-500"
+                                        {{ old('series', $inspeksi_pound->series) == 'LB Series' ? 'checked' : '' }}>
+                                    <span class="ml-2">LB Series</span>
+                                </label>
+
+                            </div>
+
                             <x-input-error class="mt-2" :messages="$errors->get('series')" />
+                        </div>
+                        <div>
+                            <x-input-label for="type" :value="__('Type')" />
+
+                            <div class="mt-1 flex space-x-4">
+
+                                <label class="inline-flex items-center">
+                                    <input type="radio" name="type" value="Concertina"
+                                        class="border-gray-300 text-indigo-600 shadow-sm focus:ring-indigo-500"
+                                        {{ old('type', $inspeksi_pound->type) == 'Concertina' ? 'checked' : '' }}>
+                                    <span class="ml-2">Concertina</span>
+                                </label>
+
+                                <label class="inline-flex items-center">
+                                    <input type="radio" name="type" value="Spiral"
+                                        class="border-gray-300 text-indigo-600 shadow-sm focus:ring-indigo-500"
+                                        {{ old('type', $inspeksi_pound->type) == 'Spiral' ? 'checked' : '' }}>
+                                    <span class="ml-2">Spiral</span>
+                                </label>
+
+                                <label class="inline-flex items-center">
+                                    <input type="radio" name="type" value="Flat Wrap"
+                                        class="border-gray-300 text-indigo-600 shadow-sm focus:ring-indigo-500"
+                                        {{ old('type', $inspeksi_pound->type) == 'Flat Wrap' ? 'checked' : '' }}>
+                                    <span class="ml-2">Flat Wrap</span>
+                                </label>
+
+                            </div>
+
+                            <x-input-error class="mt-2" :messages="$errors->get('type')" />
                         </div>
 
                         <div>
                             <x-input-label for="d_razor" :value="__('D Razor')" />
-                            <select id="d_razor" name="d_razor"
-                                class="mt-1 block w-full rounded-md border-gray-300 shadow-sm bg-gray-100" required>
-                                <option value="">-- Pilih D Razor --</option>
-                                <option value="450"
-                                    {{ old('d_razor', $inspeksi_pound->d_razor) == 450 ? 'selected' : '' }}>450
-                                </option>
-                                <option value="500"
-                                    {{ old('d_razor', $inspeksi_pound->d_razor) == 500 ? 'selected' : '' }}>500
-                                </option>
-                                <option value="730"
-                                    {{ old('d_razor', $inspeksi_pound->d_razor) == 730 ? 'selected' : '' }}>730
-                                </option>
-                                <option value="980"
-                                    {{ old('d_razor', $inspeksi_pound->d_razor) == 980 ? 'selected' : '' }}>980
-                                </option>
-                                <option value="1200"
-                                    {{ old('d_razor', $inspeksi_pound->d_razor) == 1200 ? 'selected' : '' }}>1200
-                                </option>
-                            </select>
+
+                            <div class="mt-1 flex flex-wrap gap-4">
+
+                                <label class="inline-flex items-center">
+                                    <input type="radio" name="d_razor" value="450"
+                                        class="border-gray-300 text-indigo-600 shadow-sm focus:ring-indigo-500"
+                                        {{ old('d_razor', $inspeksi_pound->d_razor) == 450 ? 'checked' : '' }}>
+                                    <span class="ml-2">450</span>
+                                </label>
+
+                                <label class="inline-flex items-center">
+                                    <input type="radio" name="d_razor" value="500"
+                                        class="border-gray-300 text-indigo-600 shadow-sm focus:ring-indigo-500"
+                                        {{ old('d_razor', $inspeksi_pound->d_razor) == 500 ? 'checked' : '' }}>
+                                    <span class="ml-2">500</span>
+                                </label>
+
+                                <label class="inline-flex items-center">
+                                    <input type="radio" name="d_razor" value="730"
+                                        class="border-gray-300 text-indigo-600 shadow-sm focus:ring-indigo-500"
+                                        {{ old('d_razor', $inspeksi_pound->d_razor) == 730 ? 'checked' : '' }}>
+                                    <span class="ml-2">730</span>
+                                </label>
+
+                                <label class="inline-flex items-center">
+                                    <input type="radio" name="d_razor" value="980"
+                                        class="border-gray-300 text-indigo-600 shadow-sm focus:ring-indigo-500"
+                                        {{ old('d_razor', $inspeksi_pound->d_razor) == 980 ? 'checked' : '' }}>
+                                    <span class="ml-2">980</span>
+                                </label>
+
+                                <label class="inline-flex items-center">
+                                    <input type="radio" name="d_razor" value="1200"
+                                        class="border-gray-300 text-indigo-600 shadow-sm focus:ring-indigo-500"
+                                        {{ old('d_razor', $inspeksi_pound->d_razor) == 1200 ? 'checked' : '' }}>
+                                    <span class="ml-2">1200</span>
+                                </label>
+
+                            </div>
+
                             <x-input-error class="mt-2" :messages="$errors->get('d_razor')" />
                         </div>
 

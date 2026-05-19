@@ -66,6 +66,7 @@ class InspeksiPoundController extends Controller
             'total_prod' => '',
             'mesin_id' => 'nullable|exists:mesins,id',
             'series' => 'required',
+            'type' => 'required',
             'd_razor' => 'required|integer',
         ]);
 
@@ -93,6 +94,7 @@ class InspeksiPoundController extends Controller
             'total_prod' => $validated['total_prod'] ?? null,
             'mesin_id' => $validated['mesin_id'] ?? null,
             'series' => $validated['series'],
+            'type' => $validated['type'],
             'd_razor' => $validated['d_razor'],
         ]);
 
@@ -132,6 +134,7 @@ class InspeksiPoundController extends Controller
             'total_prod' => '',
             'mesin_id' => 'nullable|exists:mesins,id',
             'series' => 'required',
+            'type' => 'required',
             'd_razor' => 'required|integer'
         ]);
 

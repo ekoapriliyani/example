@@ -18,7 +18,7 @@ class InspeksiPoundWip extends Model
         'd_roll',
         'daya_jepit',
         'visual',
-        'weight',
+        // 'weight',
         'status',
         'files'
     ];

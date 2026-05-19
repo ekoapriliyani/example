@@ -14,6 +14,7 @@ class InspeksiPound extends Model
         'total_prod',
         'mesin_id',
         'series',
+        'type',
         'd_razor',
         'approval_status',
         'approved_by',

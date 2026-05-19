@@ -71,7 +71,7 @@
                             <div>
                                 <dt class="text-sm font-medium italic text-gray-500">Total Produksi per shift</dt>
                                 <dd class="text-lg font-semibold text-gray-900">
-                                    {{ $inspeksi_slitting->total_prod }}
+                                    {{ $inspeksi_slitting->total_prod }} kg
                                 </dd>
                             </div>
                             <div>
@@ -110,6 +110,7 @@
                             <thead class="bg-gray-50">
                                 <tr>
                                     <th class="px-4 py-3 font-semibold text-gray-900">No</th>
+                                    <th class="px-4 py-3 font-semibold text-gray-900">Aksi</th>
                                     <th class="px-4 py-3 font-semibold text-gray-900">Inspektor</th>
                                     <th class="px-4 py-3 font-semibold text-gray-900">No. Material</th>
                                     <th class="px-4 py-3 font-semibold text-gray-900">Operator</th>
@@ -119,7 +120,7 @@
                                     <th class="px-4 py-3 font-semibold text-gray-900">Weight</th>
                                     <th class="px-4 py-3 font-semibold text-gray-900">Detail</th>
                                     <th class="px-4 py-3 font-semibold text-gray-900">Gambar</th>
-                                    <th class="px-4 py-3 font-semibold text-gray-900">Aksi</th>
+
                                     <th class="px-4 py-3 text-center font-semibold text-gray-900">Created At</th>
                                 </tr>
                             </thead>
@@ -127,25 +128,6 @@
                                 @forelse ($inspeksi_slitting->inspeksiSlittingWip as $wip)
                                     <tr class="transition-colors hover:bg-gray-50">
                                         <td class="px-4 py-3">{{ $loop->iteration }}</td>
-                                        <td class="px-4 py-3">{{ $wip->user->name ?? 'N/A' }}</td>
-                                        <td class="px-4 py-3 font-medium">{{ $wip->no_material }}</td>
-                                        <td class="px-4 py-3">{{ $wip->nama_operator }}</td>
-                                        <td class="px-4 py-3">{{ $wip->l_sheetgalvanized }}</td>
-                                        <td class="px-4 py-3">{{ $wip->tebal_sheetgalvanized }}</td>
-                                        <td class="bg-blue-50/30 px-4 py-3 text-center">{{ $wip->visual }}</td>
-                                        <td class="bg-blue-50/30 px-4 py-3 text-center">{{ $wip->weight }}</td>
-                                        <td class="px-4 py-3">
-                                            <button type="button" class="text-sm text-indigo-600 hover:underline"
-                                                onclick="toggleDetail2({{ $wip->id }})">
-                                                Lihat Detail
-                                            </button>
-                                        </td>
-                                        <td class="px-4 py-3">
-                                            <button type="button" class="text-sm text-indigo-600 hover:underline"
-                                                onclick="toggleImage2({{ $wip->id }})">
-                                                Lihat Gambar
-                                            </button>
-                                        </td>
                                         <td class="px-4 py-3">
                                             <div class="flex items-center gap-3">
                                                 {{-- Edit --}}
@@ -212,6 +194,25 @@
                                                 @endif
 
                                             </div>
+                                        </td>
+                                        <td class="px-4 py-3">{{ $wip->user->name ?? 'N/A' }}</td>
+                                        <td class="px-4 py-3 font-medium">{{ $wip->no_material }}</td>
+                                        <td class="px-4 py-3">{{ $wip->nama_operator }}</td>
+                                        <td class="px-4 py-3">{{ $wip->l_sheetgalvanized }}</td>
+                                        <td class="px-4 py-3">{{ $wip->tebal_sheetgalvanized }}</td>
+                                        <td class="bg-blue-50/30 px-4 py-3 text-center">{{ $wip->visual }}</td>
+                                        <td class="bg-blue-50/30 px-4 py-3 text-center">{{ $wip->weight }}</td>
+                                        <td class="px-4 py-3">
+                                            <button type="button" class="text-sm text-indigo-600 hover:underline"
+                                                onclick="toggleDetail2({{ $wip->id }})">
+                                                Lihat Detail
+                                            </button>
+                                        </td>
+                                        <td class="px-4 py-3">
+                                            <button type="button" class="text-sm text-indigo-600 hover:underline"
+                                                onclick="toggleImage2({{ $wip->id }})">
+                                                Lihat Gambar
+                                            </button>
                                         </td>
                                         <td class="bg-blue-50/30 px-4 py-3 text-center">{{ $wip->created_at }}</td>
                                     </tr>

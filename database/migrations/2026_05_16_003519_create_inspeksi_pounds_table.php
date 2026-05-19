@@ -17,6 +17,7 @@ return new class extends Migration
             $table->date('tanggal');
             $table->foreignId('pro_id')->constrained('pros')->onDelete('cascade');
             $table->string('series');
+            $table->string('type');
             $table->integer('d_razor');
             $table->integer('shift');
             $table->decimal('total_prod', 8, 2)->nullable();

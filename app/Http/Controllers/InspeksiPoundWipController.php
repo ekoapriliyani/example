@@ -42,7 +42,7 @@ class InspeksiPoundWipController extends Controller
             'jarak_blade' => '',
             'd_roll' => '',
             'daya_jepit' => '',
-            'weight' => '',
+            // 'weight' => '',
             'visual' => 'required',
             'status' => 'required',
         ]);
@@ -61,7 +61,7 @@ class InspeksiPoundWipController extends Controller
             'jarak_blade' => $validated['jarak_blade'],
             'd_roll' => $validated['d_roll'],
             'daya_jepit' => $validated['daya_jepit'],
-            'weight' => $validated['weight'],
+            // 'weight' => $validated['weight'],
             'visual' => $validated['visual'],
             'status' => $validated['status'],
         ]);
@@ -133,7 +133,7 @@ class InspeksiPoundWipController extends Controller
             'jarak_blade' => 'required',
             'd_roll' => 'required',
             'daya_jepit' => 'required',
-            'weight' => 'nullable',
+            // 'weight' => 'nullable',
             'visual' => 'required',
             'status' => 'required',
         ]);
@@ -146,7 +146,7 @@ class InspeksiPoundWipController extends Controller
             'jarak_blade' => $validated['jarak_blade'],
             'd_roll' => $validated['d_roll'],
             'daya_jepit' => $validated['daya_jepit'],
-            'weight' => $validated['weight'],
+            // 'weight' => $validated['weight'],
             'visual' => $validated['visual'],
             'status' => $validated['status'],
         ]);

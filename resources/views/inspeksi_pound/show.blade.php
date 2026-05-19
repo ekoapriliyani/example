@@ -110,6 +110,7 @@
                             <thead class="bg-gray-50">
                                 <tr>
                                     <th class="px-4 py-3 font-semibold text-gray-900">No</th>
+                                    <th class="px-4 py-3 font-semibold text-gray-900">Aksi</th>
                                     <th class="px-4 py-3 font-semibold text-gray-900">Inspektor</th>
                                     <th class="px-4 py-3 font-semibold text-gray-900">No. Material</th>
                                     <th class="px-4 py-3 font-semibold text-gray-900">Operator</th>
@@ -123,7 +124,6 @@
                                     <th class="px-4 py-3 font-semibold text-gray-900">Weight</th>
                                     <th class="px-4 py-3 font-semibold text-gray-900">Detail</th>
                                     <th class="px-4 py-3 font-semibold text-gray-900">Gambar</th>
-                                    <th class="px-4 py-3 font-semibold text-gray-900">Aksi</th>
                                     <th class="px-4 py-3 text-center font-semibold text-gray-900">Created At</th>
                                 </tr>
                             </thead>
@@ -131,30 +131,6 @@
                                 @forelse ($inspeksi_pound->inspeksiPoundWip as $wip)
                                     <tr class="transition-colors hover:bg-gray-50">
                                         <td class="px-4 py-3">{{ $loop->iteration }}</td>
-
-                                        <td class="px-4 py-3">{{ $wip->user->name ?? 'N/A' }}</td>
-                                        <td class="px-4 py-3 font-medium">{{ $wip->no_material }}</td>
-                                        <td class="px-4 py-3">{{ $wip->nama_operator }}</td>
-                                        <td class="px-4 py-3">{{ $wip->tebal_blade }}</td>
-                                        <td class="px-4 py-3">{{ $wip->p_blade }}</td>
-                                        <td class="px-4 py-3">{{ $wip->l_blade }}</td>
-                                        <td class="px-4 py-3">{{ $wip->jarak_blade }}</td>
-                                        <td class="px-4 py-3">{{ $wip->d_roll }}</td>
-                                        <td class="px-4 py-3">{{ $wip->daya_jepit }}</td>
-                                        <td class="bg-blue-50/30 px-4 py-3 text-center">{{ $wip->visual }}</td>
-                                        <td class="bg-blue-50/30 px-4 py-3 text-center">{{ $wip->weight }}</td>
-                                        <td class="px-4 py-3">
-                                            <button type="button" class="text-sm text-indigo-600 hover:underline"
-                                                onclick="toggleDetail2({{ $wip->id }})">
-                                                Lihat Detail
-                                            </button>
-                                        </td>
-                                        <td class="px-4 py-3">
-                                            <button type="button" class="text-sm text-indigo-600 hover:underline"
-                                                onclick="toggleImage2({{ $wip->id }})">
-                                                Lihat Gambar
-                                            </button>
-                                        </td>
                                         <td class="px-4 py-3">
                                             <div class="flex items-center gap-3">
                                                 {{-- Edit --}}
@@ -220,6 +196,29 @@
                                                 @endif
 
                                             </div>
+                                        </td>
+                                        <td class="px-4 py-3">{{ $wip->user->name ?? 'N/A' }}</td>
+                                        <td class="px-4 py-3 font-medium">{{ $wip->no_material }}</td>
+                                        <td class="px-4 py-3">{{ $wip->nama_operator }}</td>
+                                        <td class="px-4 py-3">{{ $wip->tebal_blade }}</td>
+                                        <td class="px-4 py-3">{{ $wip->p_blade }}</td>
+                                        <td class="px-4 py-3">{{ $wip->l_blade }}</td>
+                                        <td class="px-4 py-3">{{ $wip->jarak_blade }}</td>
+                                        <td class="px-4 py-3">{{ $wip->d_roll }}</td>
+                                        <td class="px-4 py-3">{{ $wip->daya_jepit }}</td>
+                                        <td class="bg-blue-50/30 px-4 py-3 text-center">{{ $wip->visual }}</td>
+                                        <td class="bg-blue-50/30 px-4 py-3 text-center">{{ $wip->weight }}</td>
+                                        <td class="px-4 py-3">
+                                            <button type="button" class="text-sm text-indigo-600 hover:underline"
+                                                onclick="toggleDetail2({{ $wip->id }})">
+                                                Lihat Detail
+                                            </button>
+                                        </td>
+                                        <td class="px-4 py-3">
+                                            <button type="button" class="text-sm text-indigo-600 hover:underline"
+                                                onclick="toggleImage2({{ $wip->id }})">
+                                                Lihat Gambar
+                                            </button>
                                         </td>
                                         <td class="bg-blue-50/30 px-4 py-3 text-center">{{ $wip->created_at }}</td>
                                     </tr>

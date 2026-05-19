@@ -81,6 +81,31 @@
                         </div>
 
                         <div>
+                            <x-input-label for="type" :value="__('type')" />
+                            <div class="mt-1 flex space-x-4">
+                                <label class="inline-flex items-center">
+                                    <input type="radio" name="type" value="Concertina"
+                                        class="border-gray-300 text-indigo-600 shadow-sm focus:ring-indigo-500"
+                                        {{ old('type') == 'Concertina' ? 'checked' : '' }}>
+                                    <span class="ml-2">Concertina</span>
+                                </label>
+                                <label class="inline-flex items-center">
+                                    <input type="radio" name="type" value="Spiral"
+                                        class="border-gray-300 text-indigo-600 shadow-sm focus:ring-indigo-500"
+                                        {{ old('type') == 'Spiral' ? 'checked' : '' }}>
+                                    <span class="ml-2">Spiral</span>
+                                </label>
+                                <label class="inline-flex items-center">
+                                    <input type="radio" name="type" value="Flat Wrap"
+                                        class="border-gray-300 text-indigo-600 shadow-sm focus:ring-indigo-500"
+                                        {{ old('type') == 'Flat Wrap' ? 'checked' : '' }}>
+                                    <span class="ml-2">Flat Wrap</span>
+                                </label>
+                            </div>
+                            <x-input-error class="mt-2" :messages="$errors->get('type')" />
+                        </div>
+
+                        <div>
                             <x-input-label for="d_razor" :value="__('D-Razor')" />
                             <div class="mt-1 flex space-x-4">
                                 <label class="inline-flex items-center">
