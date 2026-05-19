@@ -97,17 +97,32 @@ class InspeksiChainlinkController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, InspeksiChainlink $inspeksiChainlink)
     {
-        //
+        $request->validate([
+            'nomor_inspeksi' => 'required|unique:inspeksi_chainlinks,nomor_inspeksi,' . $inspeksiChainlink->id,
+            'tanggal' => 'required|date',
+            'pro_id' => 'required|exists:pros,id',
+            'shift' => 'required|string|max:255',
+            'mesin_id' => 'required|exists:mesins,id',
+            'jml_lubang_p' => 'required|numeric',
+            'jml_counter' => 'required|numeric',
+            'jml_lubang_l' => 'required|numeric',
+            'total_prod' => 'nullable|numeric',
+        ]);
+
+        $inspeksiChainlink->update($request->all());
+
+        return redirect()->route('inspeksi_chainlink.index')->with('success', 'Data berhasil diperbarui.');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(InspeksiChainlink $inspeksiChainlink)
     {
-        //
+        $inspeksiChainlink->delete();
+        return redirect()->route('inspeksi_chainlink.index')->with('success', 'Data inspeksi chainlink berhasil dihapus.');
     }
 
     public function toggleApproval($id)
