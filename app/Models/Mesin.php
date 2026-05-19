@@ -41,6 +41,11 @@ class Mesin extends Model
         return $this->hasMany(InspeksiKlip::class);
     }
 
+    public function inspeksiRazorpackings()
+    {
+        return $this->hasMany(InspeksiRazorpacking::class);
+    }
+
     public function inspeksiCts()
     {
         return $this->hasMany(InspeksiCt::class);

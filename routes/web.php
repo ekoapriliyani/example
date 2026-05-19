@@ -15,6 +15,7 @@ use App\Http\Controllers\InspeksiKlipWipController;
 use App\Http\Controllers\InspeksiPoundController;
 use App\Http\Controllers\InspeksiPoundWipController;
 use App\Http\Controllers\InspeksiPvcController;
+use App\Http\Controllers\InspeksiRazorpackingController;
 use App\Http\Controllers\InspeksiSlittingController;
 use App\Http\Controllers\InspeksiSlittingWipController;
 use App\Http\Controllers\InspeksiWmController;
@@ -111,6 +112,7 @@ Route::middleware(['auth'])->group(function () {
         'inspeksi_slitting' => InspeksiSlittingController::class,
         'inspeksi_pound' => InspeksiPoundController::class,
         'inspeksi_klip' => InspeksiKlipController::class,
+        'inspeksi_razorpacking' => InspeksiRazorpackingController::class,
     ]);
 
 
