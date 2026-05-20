@@ -121,4 +121,35 @@ class InspeksiCtController extends Controller
         $inspeksi_ct->delete();
         return redirect()->route('inspeksi_ct.index')->with('success', "Data inspeksi {$inspeksi_ct->nomor_inspeksi} berhasil dihapus");
     }
+
+    public function toggleApproval($id)
+    {
+        if (! in_array(auth()->user()->role, ['supervisor', 'manager', 'administrator'])) {
+            abort(403, 'Tidak punya akses.');
+        }
+
+        $inspeksi = InspeksiCt::findOrFail($id);
+
+        if ($inspeksi->isApproved()) {
+            // UNAPPROVE
+            $inspeksi->update([
+                'approval_status' => 'PENDING',
+                'approved_by' => null,
+                'approved_at' => null,
+            ]);
+
+            $message = 'Approval dibatalkan.';
+        } else {
+            // APPROVE
+            $inspeksi->update([
+                'approval_status' => 'APPROVED',
+                'approved_by' => auth()->id(),
+                'approved_at' => now(),
+            ]);
+
+            $message = 'Data berhasil di-approve.';
+        }
+
+        return back()->with('success', $message);
+    }
 }

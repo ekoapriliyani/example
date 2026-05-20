@@ -30,4 +30,9 @@ class InspeksiCtFg extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    public function details()
+    {
+        return $this->hasMany(InspeksiCtFgDetail::class);
+    }
 }

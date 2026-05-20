@@ -598,6 +598,12 @@ Route::middleware([
 
     Route::patch('/inspeksi-chainlink/{id}/toggle-approval', [InspeksiChainlinkController::class, 'toggleApproval'])
         ->name('inspeksi-chainlink.toggle');
+
+    Route::patch('/inspeksi-klip/{id}/toggle-approval', [InspeksiKlipController::class, 'toggleApproval'])
+        ->name('inspeksi-klip.toggle');
+
+    Route::patch('/inspeksi-ct/{id}/toggle-approval', [InspeksiCtController::class, 'toggleApproval'])
+        ->name('inspeksi-ct.toggle');
 });
 
 

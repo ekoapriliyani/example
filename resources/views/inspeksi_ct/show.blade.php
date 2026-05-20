@@ -2,7 +2,7 @@
     <x-slot name="header">
         <div class="flex items-center justify-between">
             <h2 class="text-xl font-semibold leading-tight text-gray-800">
-                {{ __('Detail Inspeksi WM') }}
+                {{ __('Detail Inspeksi CTCL') }}
             </h2>
             <div class="flex gap-2">
                 <a href="{{ route('inspeksi_ct.index') }}"
@@ -108,18 +108,6 @@
                                 </dd>
                             </div>
                             <div>
-                                <dt class="text-sm font-medium italic text-gray-500">Grade</dt>
-                                <dd class="text-lg font-semibold text-gray-900">
-                                    {{ $inspeksi_ct->grade }}
-                                </dd>
-                            </div>
-                            <div>
-                                <dt class="text-sm font-medium italic text-gray-500">Type Coating</dt>
-                                <dd class="text-lg font-semibold text-gray-900">
-                                    {{ $inspeksi_ct->type_coating }}
-                                </dd>
-                            </div>
-                            <div>
                                 <dt class="text-sm font-medium italic text-gray-500">Mesin</dt>
                                 <dd class="text-lg font-semibold text-gray-900">
                                     {{ $inspeksi_ct->mesin->nama_mesin }}
@@ -140,7 +128,7 @@
                                     d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
                             </svg>
                         </div>
-                        <h3 class="text-lg font-bold text-gray-800">Hasil Inspeksi WIP Wiremesh</h3>
+                        <h3 class="text-lg font-bold text-gray-800">Hasil Inspeksi WIP CTCL</h3>
                     </div>
 
                     <div class="overflow-x-auto rounded-lg border border-gray-200">
@@ -148,23 +136,18 @@
                             <thead class="bg-gray-50">
                                 <tr>
                                     <th class="px-4 py-3 font-semibold text-gray-900">No</th>
+                                    <th class="px-4 py-3 font-semibold text-gray-900">Aksi</th>
                                     <th class="px-4 py-3 font-semibold text-gray-900">Inspektor</th>
                                     <th class="px-4 py-3 font-semibold text-gray-900">No. Material</th>
                                     <th class="px-4 py-3 font-semibold text-gray-900">Operator</th>
-                                    <th class="px-4 py-3 font-semibold text-gray-900">D. Kawat Act</th>
-                                    <th class="px-4 py-3 font-semibold text-gray-900">Selisih Diagonal</th>
                                     <th class="px-4 py-3 font-semibold text-gray-900">P Produk</th>
                                     <th class="px-4 py-3 font-semibold text-gray-900">L Produk</th>
-                                    <th class="px-4 py-3 font-semibold text-gray-900">P Mesh</th>
-                                    <th class="px-4 py-3 font-semibold text-gray-900">L Mesh</th>
-                                    <th class="px-4 py-3 font-semibold text-gray-900">Torsi Strength</th>
-                                    <th class="px-4 py-3 font-semibold text-gray-900">Dimensi</th>
+                                    <th class="px-4 py-3 font-semibold text-gray-900">T Produk</th>
+                                    <th class="px-4 py-3 font-semibold text-gray-900">Sudut</th>
                                     <th class="px-4 py-3 font-semibold text-gray-900">Visual</th>
-                                    <th class="px-4 py-3 font-semibold text-gray-900">Shear Strength</th>
-                                    <th class="px-4 py-3 font-semibold text-gray-900">Weight</th>
+                                    <th class="px-4 py-3 font-semibold text-gray-900">Status</th>
                                     <th class="px-4 py-3 font-semibold text-gray-900">Detail</th>
                                     <th class="px-4 py-3 font-semibold text-gray-900">Gambar</th>
-                                    <th class="px-4 py-3 font-semibold text-gray-900">Aksi</th>
                                     <th class="px-4 py-3 text-center font-semibold text-gray-900">Created At</th>
                                 </tr>
                             </thead>
@@ -172,37 +155,6 @@
                                 @forelse ($inspeksi_ct->inspeksiCtWip as $wip)
                                     <tr class="transition-colors hover:bg-gray-50">
                                         <td class="px-4 py-3">{{ $loop->iteration }}</td>
-                                        <td class="px-4 py-3">{{ $wip->user->name ?? 'N/A' }}</td>
-                                        <td class="px-4 py-3 font-medium">{{ $wip->no_material }}</td>
-                                        <td class="px-4 py-3">{{ $wip->nama_operator }}</td>
-                                        <td class="bg-blue-50/30 px-4 py-3 text-center">{{ $wip->d_kawat_act }}</td>
-                                        <td class="bg-blue-50/30 px-4 py-3 text-center">{{ $wip->selisih_diagonal }}
-                                        </td>
-                                        <td class="bg-blue-50/30 px-4 py-3 text-center">{{ $wip->p_product_act }}</td>
-                                        <td class="bg-blue-50/30 px-4 py-3 text-center">{{ $wip->l_product_act }}</td>
-                                        <td class="bg-blue-50/30 px-4 py-3 text-center">{{ $wip->p_mesh_act }}</td>
-                                        <td class="bg-blue-50/30 px-4 py-3 text-center">{{ $wip->l_mesh_act }}</td>
-                                        <td class="bg-blue-50/30 px-4 py-3 text-center">{{ $wip->torsi_strength }}
-                                        </td>
-                                        <td class="bg-blue-50/30 px-4 py-3 text-center">{{ $wip->status_dimensi }}
-                                        </td>
-                                        <td class="bg-blue-50/30 px-4 py-3 text-center">{{ $wip->visual }}
-                                        </td>
-                                        <td class="bg-blue-50/30 px-4 py-3 text-center">{{ $wip->shear_strength }}
-                                        </td>
-                                        <td class="bg-blue-50/30 px-4 py-3 text-center">{{ $wip->weight }}</td>
-                                        <td class="px-4 py-3">
-                                            <button type="button" class="text-sm text-indigo-600 hover:underline"
-                                                onclick="toggleDetail2({{ $wip->id }})">
-                                                Lihat Detail
-                                            </button>
-                                        </td>
-                                        <td class="px-4 py-3">
-                                            <button type="button" class="text-sm text-indigo-600 hover:underline"
-                                                onclick="toggleImage2({{ $wip->id }})">
-                                                Lihat Gambar
-                                            </button>
-                                        </td>
                                         <td class="px-4 py-3">
                                             <div class="flex items-center gap-3">
                                                 {{-- Edit --}}
@@ -265,6 +217,29 @@
                                                 @endif
                                             </div>
                                         </td>
+                                        <td class="px-4 py-3">{{ $wip->user->name ?? 'N/A' }}</td>
+                                        <td class="px-4 py-3 font-medium">{{ $wip->no_material }}</td>
+                                        <td class="px-4 py-3">{{ $wip->nama_operator }}</td>
+                                        <td class="bg-blue-50/30 px-4 py-3 text-center">{{ $wip->p_produk }}</td>
+                                        <td class="bg-blue-50/30 px-4 py-3 text-center">{{ $wip->l_produk }}</td>
+                                        <td class="bg-blue-50/30 px-4 py-3 text-center">{{ $wip->t_produk }}</td>
+                                        <td class="bg-blue-50/30 px-4 py-3 text-center">{{ $wip->sudut }}</td>
+                                        <td class="bg-blue-50/30 px-4 py-3 text-center">{{ $wip->visual }}
+                                        </td>
+                                        <td class="bg-blue-50/30 px-4 py-3 text-center">{{ $wip->status }}
+                                        </td>
+                                        <td class="px-4 py-3">
+                                            <button type="button" class="text-sm text-indigo-600 hover:underline"
+                                                onclick="toggleDetail2({{ $wip->id }})">
+                                                Lihat Detail
+                                            </button>
+                                        </td>
+                                        <td class="px-4 py-3">
+                                            <button type="button" class="text-sm text-indigo-600 hover:underline"
+                                                onclick="toggleImage2({{ $wip->id }})">
+                                                Lihat Gambar
+                                            </button>
+                                        </td>
                                         <td class="bg-blue-50/30 px-4 py-3 text-center">{{ $wip->created_at }}</td>
                                     </tr>
                                 @empty
@@ -298,13 +273,13 @@
                             <thead class="bg-gray-50">
                                 <tr>
                                     <th class="px-4 py-3 font-semibold text-gray-900">No</th>
+                                    <th class="px-4 py-3 font-semibold text-gray-900">Aksi</th>
                                     <th class="px-4 py-3 font-semibold text-gray-900">Inspektor</th>
                                     <th class="px-4 py-3 font-semibold text-gray-900">Status</th>
                                     <th class="px-4 py-3 font-semibold text-gray-900">Quantity</th>
                                     <th class="px-4 py-3 font-semibold text-gray-900">Weight</th>
                                     <th class="px-4 py-3 font-semibold text-gray-900">Detail</th>
                                     <th class="px-4 py-3 font-semibold text-gray-900">Gambar</th>
-                                    <th class="px-4 py-3 font-semibold text-gray-900">Aksi</th>
                                     <th class="px-4 py-3 font-semibold text-gray-900">Created At</th>
                                 </tr>
                             </thead>
@@ -312,6 +287,76 @@
                                 @forelse ($inspeksi_ct->inspeksiCtFg as $fg)
                                     <tr class="transition-colors hover:bg-gray-50">
                                         <td class="px-4 py-3 font-medium">{{ $loop->iteration }}</td>
+                                        <td class="px-4 py-3">
+                                            <div class="flex items-center gap-3">
+                                                {{-- Edit --}}
+                                                @if ($isApproved)
+                                                    <button type="button" disabled
+                                                        class="inline-flex cursor-not-allowed items-center rounded-md bg-gray-200 p-2 text-gray-400 opacity-70"
+                                                        title="Data sudah approved">
+
+                                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5"
+                                                            fill="none" viewBox="0 0 24 24" stroke="currentColor">
+
+                                                            <path stroke-linecap="round" stroke-linejoin="round"
+                                                                stroke-width="2"
+                                                                d="M11 5h2m-1-1v2m-6 9l-1 4 4-1 9-9a2.121 2.121 0 00-3-3l-9 9z" />
+                                                        </svg>
+                                                    </button>
+                                                @else
+                                                    <a href="{{ route('inspeksi_ct_fg.edit', $fg->id) }}"
+                                                        class="inline-flex items-center rounded-md bg-yellow-100 p-2 text-yellow-600 transition hover:bg-yellow-200"
+                                                        title="Edit">
+
+                                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5"
+                                                            fill="none" viewBox="0 0 24 24" stroke="currentColor">
+
+                                                            <path stroke-linecap="round" stroke-linejoin="round"
+                                                                stroke-width="2"
+                                                                d="M11 5h2m-1-1v2m-6 9l-1 4 4-1 9-9a2.121 2.121 0 00-3-3l-9 9z" />
+                                                        </svg>
+                                                    </a>
+                                                @endif
+
+
+                                                {{-- Delete --}}
+                                                @if ($isApproved)
+                                                    <button type="button" disabled
+                                                        class="inline-flex cursor-not-allowed items-center rounded-md bg-gray-200 p-2 text-gray-400 opacity-70"
+                                                        title="Data sudah approved">
+
+                                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5"
+                                                            fill="none" viewBox="0 0 24 24" stroke="currentColor">
+
+                                                            <path stroke-linecap="round" stroke-linejoin="round"
+                                                                stroke-width="2"
+                                                                d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6M9 7V4a1 1 0 011-1h4a1 1 0 011 1v3m-7 0h8" />
+                                                        </svg>
+                                                    </button>
+                                                @else
+                                                    <form action="{{ route('inspeksi_ct_fg.destroy', $fg->id) }}"
+                                                        method="POST" class="delete-form inline-block">
+
+                                                        @csrf
+                                                        @method('DELETE')
+
+                                                        <button type="submit"
+                                                            class="inline-flex items-center rounded-md bg-red-100 p-2 text-red-600 transition hover:bg-red-200"
+                                                            title="Hapus">
+
+                                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5"
+                                                                fill="none" viewBox="0 0 24 24"
+                                                                stroke="currentColor">
+
+                                                                <path stroke-linecap="round" stroke-linejoin="round"
+                                                                    stroke-width="2"
+                                                                    d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6M9 7V4a1 1 0 011-1h4a1 1 0 011 1v3m-7 0h8" />
+                                                            </svg>
+                                                        </button>
+                                                    </form>
+                                                @endif
+                                            </div>
+                                        </td>
                                         <td class="px-4 py-3 font-medium">{{ $fg->user->name }}</td>
                                         <td class="px-4 py-3 font-medium">
                                             @if ($fg->status === 'OK')
@@ -345,77 +390,6 @@
                                                 onclick="toggleImage({{ $fg->id }})">
                                                 Lihat Gambar
                                             </button>
-                                        </td>
-                                        <td class="px-4 py-3">
-                                            <div class="flex items-center gap-3">
-                                                {{-- Edit --}}
-                                                @if ($isApproved)
-                                                    <button type="button" disabled
-                                                        class="inline-flex cursor-not-allowed items-center rounded-md bg-gray-200 p-2 text-gray-400 opacity-70"
-                                                        title="Data sudah approved">
-
-                                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5"
-                                                            fill="none" viewBox="0 0 24 24" stroke="currentColor">
-
-                                                            <path stroke-linecap="round" stroke-linejoin="round"
-                                                                stroke-width="2"
-                                                                d="M11 5h2m-1-1v2m-6 9l-1 4 4-1 9-9a2.121 2.121 0 00-3-3l-9 9z" />
-                                                        </svg>
-                                                    </button>
-                                                @else
-                                                    <a href="{{ route('inspeksi_wm_fg.edit', $fg->id) }}"
-                                                        class="inline-flex items-center rounded-md bg-yellow-100 p-2 text-yellow-600 transition hover:bg-yellow-200"
-                                                        title="Edit">
-
-                                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5"
-                                                            fill="none" viewBox="0 0 24 24" stroke="currentColor">
-
-                                                            <path stroke-linecap="round" stroke-linejoin="round"
-                                                                stroke-width="2"
-                                                                d="M11 5h2m-1-1v2m-6 9l-1 4 4-1 9-9a2.121 2.121 0 00-3-3l-9 9z" />
-                                                        </svg>
-                                                    </a>
-                                                @endif
-
-
-                                                {{-- Delete --}}
-                                                @if ($isApproved)
-                                                    <button type="button" disabled
-                                                        class="inline-flex cursor-not-allowed items-center rounded-md bg-gray-200 p-2 text-gray-400 opacity-70"
-                                                        title="Data sudah approved">
-
-                                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5"
-                                                            fill="none" viewBox="0 0 24 24" stroke="currentColor">
-
-                                                            <path stroke-linecap="round" stroke-linejoin="round"
-                                                                stroke-width="2"
-                                                                d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6M9 7V4a1 1 0 011-1h4a1 1 0 011 1v3m-7 0h8" />
-                                                        </svg>
-                                                    </button>
-                                                @else
-                                                    <form action="{{ route('inspeksi_wm_fg.destroy', $fg->id) }}"
-                                                        method="POST" class="delete-form inline-block">
-
-                                                        @csrf
-                                                        @method('DELETE')
-
-                                                        <button type="submit"
-                                                            class="inline-flex items-center rounded-md bg-red-100 p-2 text-red-600 transition hover:bg-red-200"
-                                                            title="Hapus">
-
-                                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5"
-                                                                fill="none" viewBox="0 0 24 24"
-                                                                stroke="currentColor">
-
-                                                                <path stroke-linecap="round" stroke-linejoin="round"
-                                                                    stroke-width="2"
-                                                                    d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6M9 7V4a1 1 0 011-1h4a1 1 0 011 1v3m-7 0h8" />
-                                                            </svg>
-                                                        </button>
-                                                    </form>
-                                                @endif
-
-                                            </div>
                                         </td>
                                         <td class="px-4 py-3">{{ $fg->created_at }}</td>
                                     </tr>
@@ -617,7 +591,7 @@
                         <!-- Middle + Right -->
                         <div class="flex items-center gap-4">
                             <!-- Status -->
-                            @if ($inspeksi_wm->isApproved())
+                            @if ($inspeksi_ct->isApproved())
                                 <span
                                     class="inline-flex items-center gap-2 rounded-full border border-green-200 bg-green-50 px-4 py-2 text-sm font-semibold text-green-700">
                                     <span class="h-2.5 w-2.5 rounded-full bg-green-500"></span>
@@ -632,18 +606,18 @@
                             @endif
                             <!-- Button -->
                             @if (in_array(auth()->user()->role, ['supervisor', 'manager', 'administrator']))
-                                <form id="approval-form-{{ $inspeksi_wm->id }}"
-                                    action="{{ route('inspeksi-wm.toggle', $inspeksi_wm->id) }}" method="POST"
+                                <form id="approval-form-{{ $inspeksi_ct->id }}"
+                                    action="{{ route('inspeksi-ct.toggle', $inspeksi_ct->id) }}" method="POST"
                                     class="hidden">
                                     @csrf
                                     @method('PATCH')
                                 </form>
                                 <button type="button"
-                                    onclick="confirmApproval({{ $inspeksi_wm->id }}, '{{ $inspeksi_wm->isApproved() ? 'unapprove' : 'approve' }}')"
-                                    class="{{ $inspeksi_wm->isApproved()
+                                    onclick="confirmApproval({{ $inspeksi_ct->id }}, '{{ $inspeksi_ct->isApproved() ? 'unapprove' : 'approve' }}')"
+                                    class="{{ $inspeksi_ct->isApproved()
                                         ? 'bg-orange-500 text-white hover:bg-orange-600'
                                         : 'bg-green-600 text-white hover:bg-green-700' }} inline-flex items-center gap-2 rounded-xl px-5 py-2.5 text-sm font-semibold shadow-sm transition">
-                                    @if ($inspeksi_wm->isApproved())
+                                    @if ($inspeksi_ct->isApproved())
                                         <span class="text-base">↺</span>
                                         Unapprove
                                     @else
