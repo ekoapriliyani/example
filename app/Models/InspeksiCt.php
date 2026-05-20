@@ -34,6 +34,16 @@ class InspeksiCt extends Model
         return $this->belongsTo(Mesin::class);
     }
 
+    public function inspeksiCtWip()
+    {
+        return $this->hasMany(InspeksiCtWip::class);
+    }
+
+    public function inspeksiCtFg()
+    {
+        return $this->hasMany(InspeksiCtFg::class);
+    }
+
     public function isApproved()
     {
         return $this->approval_status === 'APPROVED';

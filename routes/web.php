@@ -7,6 +7,8 @@ use App\Http\Controllers\InspeksiChainlinkController;
 use App\Http\Controllers\InspeksiChainlinkFgController;
 use App\Http\Controllers\InspeksiChainlinkWipController;
 use App\Http\Controllers\InspeksiCtController;
+use App\Http\Controllers\InspeksiCtFgController;
+use App\Http\Controllers\InspeksiCtWipController;
 use App\Http\Controllers\InspeksiKawatDuriController;
 use App\Http\Controllers\InspeksiKawatDuriFgController;
 use App\Http\Controllers\InspeksiKawatDuriWipController;
@@ -178,6 +180,47 @@ Route::middleware(['auth'])->group(function () {
 
     Route::delete('insepeksi_wm/fg/{fg}', [InspeksiWmFgController::class, 'destroy'])
         ->name('inspeksi_wm_fg.destroy');
+
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | CTCL
+    |--------------------------------------------------------------------------
+    */
+
+    // WIP
+    Route::get('/inspeksi_ct/{inspeksi_ct}/wip', [InspeksiCtWipController::class, 'create'])
+        ->name('inspeksi_ct.wip');
+
+    Route::post('/inspeksi_ct/wip', [InspeksiCtWipController::class, 'store'])
+        ->name('inspeksi_ct_wip.store');
+
+    Route::get('insepeksi_ct/wip/{wip}/edit', [InspeksiCtWipController::class, 'edit'])
+        ->name('inspeksi_ct_wip.edit');
+
+    Route::put('insepeksi_ct/wip/{wip}', [InspeksiCtWipController::class, 'update'])
+        ->name('inspeksi_ct_wip.update');
+
+    Route::delete('insepeksi_ct/wip/{wip}', [InspeksiCtWipController::class, 'destroy'])
+        ->name('inspeksi_ct_wip.destroy');
+
+    // FG
+    Route::get('/inspeksi_ct/{inspeksi_ct}/fg', [InspeksiCtFgController::class, 'create'])
+        ->name('inspeksi_ct.fg');
+
+    Route::post('/inspeksi_ct/fg', [InspeksiCtFgController::class, 'store'])
+        ->name('inspeksi_ct_fg.store');
+
+    Route::get('insepeksi_ct/fg/{fg}/edit', [InspeksiCtFgController::class, 'edit'])
+        ->name('inspeksi_ct_fg.edit');
+
+    Route::put('insepeksi_ct/fg/{fg}', [InspeksiCtFgController::class, 'update'])
+        ->name('inspeksi_ct_fg.update');
+
+    Route::delete('insepeksi_ct/fg/{fg}', [InspeksiCtFgController::class, 'destroy'])
+        ->name('inspeksi_ct_fg.destroy');
+
 
 
 

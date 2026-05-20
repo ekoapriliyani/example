@@ -11,15 +11,15 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('inspeksi_razorpacking_fgs', function (Blueprint $table) {
+        Schema::create('inspeksi_ct_fgs', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('inspeksi_razorpacking_id')->constrained('inspeksi_razorpackings')->onDelete('cascade'); // relasi ke header
+            $table->foreignId('inspeksi_ct_id')->constrained('inspeksi_cts')->onDelete('cascade');
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
             $table->string('status');
+            $table->string('packing');
+            $table->string('label');
             $table->integer('qty');
             $table->decimal('weight', 8, 2)->nullable();
-            $table->string('visual')->nullable();
-            $table->string('label')->nullable();
             $table->json('files')->nullable(); // simpan array path file upload
             $table->timestamps();
         });
@@ -30,6 +30,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('inspeksi_razorpacking_fgs');
+        Schema::dropIfExists('inspeksi_ct_fgs');
     }
 };

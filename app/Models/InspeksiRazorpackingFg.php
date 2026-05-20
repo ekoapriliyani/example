@@ -12,6 +12,7 @@ class InspeksiRazorpackingFg extends Model
         'status',
         'qty',
         'weight',
+        'visual',
         'label',
         'files',
     ];
@@ -28,5 +29,10 @@ class InspeksiRazorpackingFg extends Model
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function details()
+    {
+        return $this->hasMany(InspeksiRazorpackingFgDetail::class);
     }
 }

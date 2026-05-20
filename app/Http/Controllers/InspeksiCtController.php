@@ -78,7 +78,8 @@ class InspeksiCtController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $inspeksi_ct = InspeksiCt::with(['pro', 'mesin', 'productCt'])->findOrFail($id);
+        return view('inspeksi_ct.show', compact('inspeksi_ct'));
     }
 
     /**

@@ -43,6 +43,15 @@
                                 <x-input-error class="mt-2" :messages="$errors->get('weight')" />
                             </div>
                             <div class="md:col-span-2">
+                                <x-input-label for="visual" :value="__('Visual')" />
+                                <select id="visual" name="visual"
+                                    class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
+                                    <option value="OK">OK</option>
+                                    <option value="NG">NG</option>
+                                </select>
+                                <x-input-error class="mt-2" :messages="$errors->get('visual')" />
+                            </div>
+                            <div class="md:col-span-2">
                                 <x-input-label for="label" :value="__('Label')" />
                                 <select id="label" name="label"
                                     class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
