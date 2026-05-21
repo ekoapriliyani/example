@@ -12,7 +12,6 @@ class InspeksiRazorpacking extends Model
         'pro_id',
         'shift',
         'total_prod',
-        'mesin_id',
         'product_razor_ref_id',
         'approval_status',
         'approved_by',

@@ -92,21 +92,6 @@
                             <x-input-error class="mt-2" :messages="$errors->get('total_prod')" />
                         </div>
 
-                        <div>
-                            <x-input-label for="mesin_id" :value="__('Mesin')" />
-                            <select id="mesin_id" name="mesin_id"
-                                class="mt-1 block w-full rounded-md border-gray-300 shadow-sm">
-                                <option value="">-- Pilih Mesin --</option>
-                                @foreach ($mesins as $mesin)
-                                    <option value="{{ $mesin->id }}"
-                                        {{ old('mesin_id') == $mesin->id ? 'selected' : '' }}>
-                                        {{ $mesin->mesin_id }}
-                                    </option>
-                                @endforeach
-                            </select>
-                            <x-input-error class="mt-2" :messages="$errors->get('mesin_id')" />
-                        </div>
-
                         <div class="flex items-center justify-end gap-4 border-t border-gray-100 pt-4">
                             <a href="{{ route('inspeksi_razorpacking.index') }}"
                                 class="inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-xs font-semibold uppercase tracking-widest text-gray-700 shadow-sm transition duration-150 ease-in-out hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 disabled:opacity-25">

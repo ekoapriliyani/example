@@ -20,7 +20,12 @@ return new class extends Migration
             $table->decimal('jml_klip', 8, 2)->nullable();
             $table->decimal('d_razor', 8, 2)->nullable();
             $table->decimal('jml_spiral', 8, 2)->nullable();
-            $table->decimal('jarak_antar_klip', 8, 2)->nullable();
+            $table->decimal('jarak_antar_klip1', 8, 2)->nullable();
+            $table->decimal('jarak_antar_klip2', 8, 2)->nullable();
+            $table->decimal('jarak_antar_klip3', 8, 2)->nullable();
+            $table->decimal('jarak_antar_klip4', 8, 2)->nullable();
+            $table->decimal('jarak_antar_klip5', 8, 2)->nullable();
+            $table->string('kerapatan')->nullable();
             $table->string('visual')->nullable();
             $table->string('status');
             $table->json('files')->nullable();

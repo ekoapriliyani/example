@@ -61,15 +61,12 @@
                                 @foreach ($productrazors as $product)
                                     <option value="{{ $product->id }}"
                                         {{ old('product_razor_ref_id', $inspeksi_razorpacking->product_razor_ref_id ?? '') == $product->id ? 'selected' : '' }}>
-
                                         {{ $product->product_razor_id }} - {{ $product->description }}
-
                                     </option>
                                 @endforeach
                             </select>
                             <x-input-error class="mt-2" :messages="$errors->get('product_razor_ref_id')" />
                         </div>
-
                         <div>
                             <x-input-label for="shift" :value="__('Shift')" />
                             <select id="shift" name="shift"
@@ -87,21 +84,6 @@
                             </select>
                             <x-input-error class="mt-2" :messages="$errors->get('shift')" />
                         </div>
-
-                        <div>
-                            <x-input-label for="mesin_id" :value="__('Mesin')" />
-                            <select id="mesin_id" name="mesin_id"
-                                class="mt-1 block w-full rounded-md border-gray-300 shadow-sm" required>
-                                <option value="">-- Pilih Mesin --</option>
-                                @foreach ($mesins as $mesin)
-                                    <option value="{{ $mesin->id }}"
-                                        {{ old('mesin_id', $inspeksi_razorpacking->mesin_id) == $mesin->id ? 'selected' : '' }}>
-                                        {{ $mesin->mesin_id }}
-                                    </option>
-                                @endforeach
-                            </select>
-                            <x-input-error class="mt-2" :messages="$errors->get('mesin_id')" />
-                        </div>
                         <div class="">
                             <x-input-label for="total_prod" :value="__('Total Produksi (kg)')" />
                             <x-text-input id="total_prod" name="total_prod" type="number" step="0.01"
@@ -109,13 +91,11 @@
                                 value="{{ old('total_prod', $inspeksi_razorpacking->total_prod) }}" />
                             <x-input-error class="mt-2" :messages="$errors->get('total_prod')" />
                         </div>
-
                         <div class="flex items-center justify-end gap-4 border-t border-gray-100 pt-4">
                             <a href="{{ route('inspeksi_razorpacking.index') }}"
                                 class="inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-xs font-semibold uppercase tracking-widest text-gray-700 shadow-sm transition duration-150 ease-in-out hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 disabled:opacity-25">
                                 {{ __('Batal') }}
                             </a>
-
                             <x-primary-button>
                                 {{ __('Update Inspeksi') }}
                             </x-primary-button>

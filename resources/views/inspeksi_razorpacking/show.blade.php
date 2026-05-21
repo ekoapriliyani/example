@@ -81,18 +81,6 @@
                                     {{ $inspeksiRazorpacking->shift }}
                                 </dd>
                             </div>
-                            <div>
-                                <dt class="text-sm font-medium italic text-gray-500">Type Coating</dt>
-                                <dd class="text-lg font-semibold text-gray-900">
-                                    {{ $inspeksiRazorpacking->type_coating }}
-                                </dd>
-                            </div>
-                            <div>
-                                <dt class="text-sm font-medium italic text-gray-500">Mesin</dt>
-                                <dd class="text-lg font-semibold text-gray-900">
-                                    {{ $inspeksiRazorpacking->mesin->nama_mesin }}
-                                </dd>
-                            </div>
                         </dl>
                     </div>
                 </div>

@@ -71,13 +71,7 @@
                                         <select id="detail_description_0" name="detail_description[]"
                                             class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
                                             <option value="">-- Pilih Detail --</option>
-                                            <option value="DIAMETER OUT">DIAMETER OUT</option>
-                                            <option value="JARAK DURI">JARAK DURI</option>
-                                            <option value="LILITAN">LILITAN</option>
-                                            <option value="KARAT">KARAT</option>
-                                            <option value="WHITE RUST">WHITE RUST</option>
-                                            <option value="CRACK">CRACK</option>
-                                            <option value="PANJANG OUT">PANJANG OUT</option>
+                                            <option value="PACKING TIDAK SEMPURNA">PACKING TIDAK SEMPURNA</option>
                                         </select>
                                     </div>
                                     <div>
@@ -85,13 +79,7 @@
                                         <select id="detail_description2_0" name="detail_description2[]"
                                             class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
                                             <option value="">-- Pilih Detail --</option>
-                                            <option value="DIAMETER OUT">DIAMETER OUT</option>
-                                            <option value="JARAK DURI">JARAK DURI</option>
-                                            <option value="LILITAN">LILITAN</option>
-                                            <option value="KARAT">KARAT</option>
-                                            <option value="WHITE RUST">WHITE RUST</option>
-                                            <option value="CRACK">CRACK</option>
-                                            <option value="PANJANG OUT">PANJANG OUT</option>
+                                            <option value="PACKING TIDAK SEMPURNA">PACKING TIDAK SEMPURNA</option>
                                         </select>
                                     </div>
                                     <div>
@@ -144,13 +132,7 @@
                 <select id="detail_description_${index}" name="detail_description[]"
                     class="mt-1 block w-full border-gray-300 rounded-md shadow-sm">
                     <option value="">-- Pilih Detail --</option>
-                    <option value="DIAMETER OUT">DIAMETER OUT</option>
-                    <option value="JARAK DURI">JARAK DURI</option>
-                    <option value="LILITAN">LILITAN</option>
-                    <option value="KARAT">KARAT</option>
-                    <option value="WHITE RUST">WHITE RUST</option>
-                    <option value="CRACK">CRACK</option>
-                    <option value="PANJANG OUT">PANJANG OUT</option>
+                    <option value="PACKING TIDAK SEMPURNA">PACKING TIDAK SEMPURNA</option>
                 </select>
             </div>
             <div>
@@ -158,13 +140,7 @@
                 <select id="detail_description2_${index}" name="detail_description2[]"
                     class="mt-1 block w-full border-gray-300 rounded-md shadow-sm">
                     <option value="">-- Pilih Detail --</option>
-                    <option value="DIAMETER OUT">DIAMETER OUT</option>
-                    <option value="JARAK DURI">JARAK DURI</option>
-                    <option value="LILITAN">LILITAN</option>
-                    <option value="KARAT">KARAT</option>
-                    <option value="WHITE RUST">WHITE RUST</option>
-                    <option value="CRACK">CRACK</option>
-                    <option value="PANJANG OUT">PANJANG OUT</option>
+                    <option value="PACKING TIDAK SEMPURNA">PACKING TIDAK SEMPURNA</option>
                 </select>
             </div>
             <div>

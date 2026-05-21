@@ -19,7 +19,7 @@ return new class extends Migration
             $table->foreignId('product_razor_ref_id')->nullable()->constrained('product_razors')->onDelete('cascade');
             $table->integer('shift');
             $table->decimal('total_prod', 8, 2)->nullable();
-            $table->foreignId('mesin_id')->nullable()->constrained('mesins');
+
             // Approval
             $table->string('approval_status')->default('PENDING');
             $table->foreignId('approved_by')->nullable()->constrained('users')->nullOnDelete();

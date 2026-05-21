@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\InspeksiRazorpacking;
-use App\Models\Mesin;
 use App\Models\Pro;
 use App\Models\ProductRazor;
 use Carbon\Carbon;
@@ -18,7 +17,7 @@ class InspeksiRazorpackingController extends Controller
     {
         $search = $request->input('search');
 
-        $data = InspeksiRazorpacking::with(['pro', 'mesin'])
+        $data = InspeksiRazorpacking::with(['pro'])
             ->when($search, function ($query, $search) {
                 return $query->where('nomor_inspeksi', 'like', "%{$search}%");
             })
@@ -46,12 +45,10 @@ class InspeksiRazorpackingController extends Controller
         }
 
         $nextNomor = "INSRP{$tahunBulan}{$nextNumber}";
-
-        $mesins = Mesin::orderBy('nama_mesin', 'asc')->get();
         $pros = Pro::orderByDesc('pro_id')->get();
         $productrazors = ProductRazor::orderBy('description', 'asc')->get();
 
-        return view('inspeksi_razorpacking.create', compact('nextNomor', 'pros', 'mesins', 'productrazors'));
+        return view('inspeksi_razorpacking.create', compact('nextNomor', 'pros', 'productrazors'));
     }
 
     /**
@@ -65,7 +62,6 @@ class InspeksiRazorpackingController extends Controller
             'pro_id' => 'required|exists:pros,id',
             'shift' => 'required',
             'total_prod' => '',
-            'mesin_id' => 'nullable|exists:mesins,id',
             'product_razor_ref_id' => 'nullable|exists:product_razors,id'
         ]);
 
@@ -91,7 +87,6 @@ class InspeksiRazorpackingController extends Controller
             'pro_id' => $validated['pro_id'],
             'shift' => $validated['shift'],
             'total_prod' => $validated['total_prod'] ?? null,
-            'mesin_id' => $validated['mesin_id'] ?? null,
             'product_razor_ref_id' => $validated['product_razor_ref_id'] ?? null
         ]);
 
@@ -103,7 +98,7 @@ class InspeksiRazorpackingController extends Controller
      */
     public function show(InspeksiRazorpacking $inspeksi_razorpacking)
     {
-        $inspeksi_razorpacking->load(['pro', 'mesin']);
+        $inspeksi_razorpacking->load(['pro']);
         return view('inspeksi_razorpacking.show', ['inspeksiRazorpacking' => $inspeksi_razorpacking]);
     }
 
@@ -112,11 +107,10 @@ class InspeksiRazorpackingController extends Controller
      */
     public function edit(InspeksiRazorpacking $inspeksi_razorpacking)
     {
-        $mesins = Mesin::orderBy('nama_mesin', 'asc')->get();
         $pros = Pro::orderByDesc('pro_id')->get();
         $productrazors = ProductRazor::orderBy('description', 'asc')->get();
 
-        return view('inspeksi_razorpacking.edit', compact('inspeksi_razorpacking', 'mesins', 'pros', 'productrazors'));
+        return view('inspeksi_razorpacking.edit', compact('inspeksi_razorpacking', 'pros', 'productrazors'));
     }
 
     /**
@@ -129,7 +123,6 @@ class InspeksiRazorpackingController extends Controller
             'pro_id' => 'required|exists:pros,id',
             'shift' => 'required',
             'total_prod' => '',
-            'mesin_id' => 'nullable|exists:mesins,id',
             'product_razor_ref_id' => 'nullable|exists:product_razors,id'
         ]);
 
@@ -139,7 +132,6 @@ class InspeksiRazorpackingController extends Controller
             'pro_id' => $validated['pro_id'],
             'shift' => $validated['shift'],
             'total_prod' => $validated['total_prod'] ?? null,
-            'mesin_id' => $validated['mesin_id'] ?? null,
             'product_razor_ref_id' => $validated['product_razor_ref_id'] ?? null
         ]);
 

@@ -38,7 +38,7 @@
                         <input type="hidden" name="inspeksi_klip_id" value="{{ $inspeksiKlip->id }}">
                         <input type="hidden" name="user_id" value="{{ auth()->id() }}">
 
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
                             <div>
                                 <x-input-label for="no_material" :value="__('Nomor Material')" />
                                 <x-text-input id="no_material" name="no_material" type="text" autofocus
@@ -64,6 +64,8 @@
                                 </div>
                                 <x-input-error class="mt-2" :messages="$errors->get('jml_klip')" />
                             </div>
+                        </div>
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
                             <div>
                                 <x-input-label for="d_razor" :value="__('Diameter Razor')" />
                                 <div class="relative mt-1">
@@ -88,20 +90,76 @@
                                 </div>
                                 <x-input-error class="mt-2" :messages="$errors->get('jml_spiral')" />
                             </div>
+                        </div>
+                        <div class="grid grid-cols-1 md:grid-cols-5 gap-6">
                             <div>
-                                <x-input-label for="jarak_antar_klip" :value="__('Jarak Antar Klip')" />
+                                <x-input-label for="jarak_antar_klip1" :value="__('Jarak Antar Klip 1')" />
                                 <div class="relative mt-1">
-                                    <x-text-input id="jarak_antar_klip" name="jarak_antar_klip" type="number"
-                                        step="0.01" class="block w-full pr-12" :value="old('jarak_antar_klip')" required
+                                    <x-text-input id="jarak_antar_klip1" name="jarak_antar_klip1" type="number"
+                                        step="0.01" class="block w-full pr-12" :value="old('jarak_antar_klip1')" required
                                         placeholder="0.00" />
                                     <div
                                         class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none text-gray-400 text-sm">
                                         blade
                                     </div>
                                 </div>
-                                <x-input-error class="mt-2" :messages="$errors->get('jarak_antar_klip')" />
+                                <x-input-error class="mt-2" :messages="$errors->get('jarak_antar_klip1')" />
                             </div>
+                            <div>
+                                <x-input-label for="jarak_antar_klip2" :value="__('Jarak Antar Klip 2')" />
+                                <div class="relative mt-1">
+                                    <x-text-input id="jarak_antar_klip2" name="jarak_antar_klip2" type="number"
+                                        step="0.01" class="block w-full pr-12" :value="old('jarak_antar_klip2')" required
+                                        placeholder="0.00" />
+                                    <div
+                                        class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none text-gray-400 text-sm">
+                                        blade
+                                    </div>
+                                </div>
+                                <x-input-error class="mt-2" :messages="$errors->get('jarak_antar_klip2')" />
+                            </div>
+                            <div>
+                                <x-input-label for="jarak_antar_klip3" :value="__('Jarak Antar Klip 3')" />
+                                <div class="relative mt-1">
+                                    <x-text-input id="jarak_antar_klip3" name="jarak_antar_klip3" type="number"
+                                        step="0.01" class="block w-full pr-12" :value="old('jarak_antar_klip3')" required
+                                        placeholder="0.00" />
+                                    <div
+                                        class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none text-gray-400 text-sm">
+                                        blade
+                                    </div>
+                                </div>
+                                <x-input-error class="mt-2" :messages="$errors->get('jarak_antar_klip3')" />
+                            </div>
+                            <div>
+                                <x-input-label for="jarak_antar_klip4" :value="__('Jarak Antar Klip 4')" />
+                                <div class="relative mt-1">
+                                    <x-text-input id="jarak_antar_klip4" name="jarak_antar_klip4" type="number"
+                                        step="0.01" class="block w-full pr-12" :value="old('jarak_antar_klip4')" required
+                                        placeholder="0.00" />
+                                    <div
+                                        class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none text-gray-400 text-sm">
+                                        blade
+                                    </div>
+                                </div>
+                                <x-input-error class="mt-2" :messages="$errors->get('jarak_antar_klip4')" />
+                            </div>
+                            <div>
+                                <x-input-label for="jarak_antar_klip5" :value="__('Jarak Antar Klip 5')" />
+                                <div class="relative mt-1">
+                                    <x-text-input id="jarak_antar_klip5" name="jarak_antar_klip5" type="number"
+                                        step="0.01" class="block w-full pr-12" :value="old('jarak_antar_klip5')" required
+                                        placeholder="0.00" />
+                                    <div
+                                        class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none text-gray-400 text-sm">
+                                        blade
+                                    </div>
+                                </div>
+                                <x-input-error class="mt-2" :messages="$errors->get('jarak_antar_klip5')" />
+                            </div>
+                        </div>
 
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
                             <div>
                                 <x-input-label for="visual" :value="__('Visual')" />
                                 <select id="visual" name="visual"
@@ -111,7 +169,19 @@
                                     <option value="OK" {{ old('visual') == 'OK' ? 'selected' : '' }}>OK</option>
                                     <option value="NG" {{ old('visual') == 'NG' ? 'selected' : '' }}>NG</option>
                                 </select>
-                                <x-input-error class="mt-2" :messages="$errors->get('status')" />
+                                <x-input-error class="mt-2" :messages="$errors->get('visual')" />
+                            </div>
+
+                            <div>
+                                <x-input-label for="kerapatan" :value="__('Kerapatan')" />
+                                <select id="kerapatan" name="kerapatan"
+                                    class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+                                    required>
+                                    {{-- <option value="">-- Pilih kerapatan --</option> --}}
+                                    <option value="OK" {{ old('kerapatan') == 'OK' ? 'selected' : '' }}>OK</option>
+                                    <option value="NG" {{ old('kerapatan') == 'NG' ? 'selected' : '' }}>NG</option>
+                                </select>
+                                <x-input-error class="mt-2" :messages="$errors->get('kerapatan')" />
                             </div>
 
                             <div>
@@ -119,13 +189,14 @@
                                 <select id="status" name="status"
                                     class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
                                     required>
-                                    {{-- <option value="">-- Pilih Status --</option> --}}
+                                    {{-- <option value="">-- Pilih status --</option> --}}
                                     <option value="OK" {{ old('status') == 'OK' ? 'selected' : '' }}>OK</option>
                                     <option value="NG" {{ old('status') == 'NG' ? 'selected' : '' }}>NG</option>
                                 </select>
                                 <x-input-error class="mt-2" :messages="$errors->get('status')" />
                             </div>
                         </div>
+
                         <div class="md:col-span-2 border-t border-gray-200 pt-6">
                             <h3 class="font-semibold text-gray-700 mb-4">Detail Inspeksi</h3>
                             <div id="detail-wrapper" class="space-y-4">
