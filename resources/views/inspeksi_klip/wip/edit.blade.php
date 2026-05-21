@@ -60,7 +60,7 @@
                             <div>
                                 <x-input-label for="jarak_antar_klip" :value="__('Jarak Antar Klip')" />
                                 <x-text-input id="jarak_antar_klip" name="jarak_antar_klip" type="number"
-                                    step="0.01" class="mt-1 block w-full" :value="old('jarak_antar_klip', $wip->jarak_antar_klip)" required />
+                                    step="0.01" class="mt-1 block w-full" :value="old('jarak_antar_klip', $wip->jarak_antar_klip)" />
                                 <x-input-error class="mt-2" :messages="$errors->get('jarak_antar_klip')" />
                             </div>
 

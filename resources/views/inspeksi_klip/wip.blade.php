@@ -96,7 +96,7 @@
                                         placeholder="0.00" />
                                     <div
                                         class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none text-gray-400 text-sm">
-                                        mm
+                                        blade
                                     </div>
                                 </div>
                                 <x-input-error class="mt-2" :messages="$errors->get('jarak_antar_klip')" />

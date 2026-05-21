@@ -34,6 +34,16 @@ class InspeksiBending extends Model
         return $this->belongsTo(Mesin::class, 'mesin_id');
     }
 
+    public function inspeksiBendingWip()
+    {
+        return $this->hasMany(InspeksiBendingWip::class, 'inspeksi_bending_id');
+    }
+
+    public function inspeksiBendingFg()
+    {
+        return $this->hasMany(InspeksiBendingFg::class, 'inspeksi_bending_id');
+    }
+
     public function isApproved()
     {
         return $this->approval_status === 'APPROVED';

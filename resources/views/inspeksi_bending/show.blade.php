@@ -85,9 +85,9 @@
                                 </dd>
                             </div>
                             <div>
-                                <dt class="text-sm font-medium italic text-gray-500">Product Bending</dt>
+                                <dt class="text-sm font-medium italic text-gray-500">Product Fencing</dt>
                                 <dd class="text-lg font-semibold text-gray-900">
-                                    {{ $inspeksi_bending->productBending->description }}
+                                    {{ $inspeksi_bending->productFencing->description }}
                                 </dd>
                             </div>
                             <div>
@@ -129,7 +129,7 @@
                                     d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
                             </svg>
                         </div>
-                        <h3 class="text-lg font-bold text-gray-800">Hasil Inspeksi WIP Wiremesh</h3>
+                        <h3 class="text-lg font-bold text-gray-800">Hasil Inspeksi WIP Bending</h3>
                     </div>
 
                     <div class="overflow-x-auto rounded-lg border border-gray-200">
@@ -158,7 +158,7 @@
                                 </tr>
                             </thead>
                             <tbody class="divide-y divide-gray-200">
-                                @forelse ($inspeksi_wm->inspeksiWmWip as $wip)
+                                @forelse ($inspeksi_bending->inspeksiBendingWip as $wip)
                                     <tr class="transition-colors hover:bg-gray-50">
                                         <td class="px-4 py-3">{{ $loop->iteration }}</td>
                                         <td class="px-4 py-3">{{ $wip->user->name ?? 'N/A' }}</td>
@@ -302,7 +302,7 @@
                                 </tr>
                             </thead>
                             <tbody class="divide-y divide-gray-200">
-                                @forelse ($inspeksi_wm->inspeksiWmFg as $fg)
+                                @forelse ($inspeksi_bending->inspeksiBendingFg as $fg)
                                     <tr class="transition-colors hover:bg-gray-50">
                                         <td class="px-4 py-3 font-medium">{{ $loop->iteration }}</td>
                                         <td class="px-4 py-3 font-medium">{{ $fg->user->name }}</td>
@@ -421,7 +421,7 @@
                             </tbody>
                         </table>
                         {{-- modal detail fg --}}
-                        @foreach ($inspeksi_wm->inspeksiWmFg as $fg)
+                        @foreach ($inspeksi_bending->inspeksiBendingFg as $fg)
                             <div id="detail-{{ $fg->id }}"
                                 class="fixed inset-0 flex hidden items-center justify-center bg-gray-900 bg-opacity-50">
                                 <div class="w-1/2 rounded-lg bg-white p-6 shadow-lg">
@@ -465,7 +465,7 @@
 
 
                         {{-- modal detail wip --}}
-                        @foreach ($inspeksi_wm->inspeksiWmWip as $wip)
+                        @foreach ($inspeksi_bending->inspeksiBendingWip as $wip)
                             <div id="detail2-{{ $wip->id }}"
                                 class="fixed inset-0 flex hidden items-center justify-center bg-gray-900 bg-opacity-50">
                                 <div class="w-1/2 rounded-lg bg-white p-6 shadow-lg">
@@ -508,7 +508,7 @@
                         @endforeach
 
                         {{-- modal gambar fg --}}
-                        @foreach ($inspeksi_wm->inspeksiWmFg as $fg)
+                        @foreach ($inspeksi_bending->inspeksiBendingFg as $fg)
                             <div id="image-{{ $fg->id }}"
                                 class="fixed inset-0 flex hidden items-center justify-center bg-gray-900 bg-opacity-50">
                                 <div class="max-h-[80vh] w-3/4 overflow-y-auto rounded-lg bg-white p-6 shadow-lg">
@@ -545,7 +545,7 @@
                         @endforeach
 
                         {{-- modal gambar wip --}}
-                        @foreach ($inspeksi_wm->inspeksiWmWip as $wip)
+                        @foreach ($inspeksi_bending->inspeksiBendingWip as $wip)
                             <div id="image2-{{ $wip->id }}"
                                 class="fixed inset-0 flex hidden items-center justify-center bg-gray-900 bg-opacity-50">
                                 <div class="max-h-[80vh] w-3/4 overflow-y-auto rounded-lg bg-white p-6 shadow-lg">
@@ -600,7 +600,7 @@
                             </div>
                             <div>
                                 <h3 class="text-xl font-bold text-gray-900">
-                                    Approval Inspeksi WM
+                                    Approval Inspeksi Bending
                                 </h3>
                                 <p class="mt-1 text-sm text-gray-500">
                                     Review data inspeksi sebelum melakukan approval.
@@ -610,7 +610,7 @@
                         <!-- Middle + Right -->
                         <div class="flex items-center gap-4">
                             <!-- Status -->
-                            @if ($inspeksi_wm->isApproved())
+                            @if ($inspeksi_bending->isApproved())
                                 <span
                                     class="inline-flex items-center gap-2 rounded-full border border-green-200 bg-green-50 px-4 py-2 text-sm font-semibold text-green-700">
                                     <span class="h-2.5 w-2.5 rounded-full bg-green-500"></span>
@@ -625,18 +625,18 @@
                             @endif
                             <!-- Button -->
                             @if (in_array(auth()->user()->role, ['supervisor', 'manager', 'administrator']))
-                                <form id="approval-form-{{ $inspeksi_wm->id }}"
-                                    action="{{ route('inspeksi-wm.toggle', $inspeksi_wm->id) }}" method="POST"
-                                    class="hidden">
+                                <form id="approval-form-{{ $inspeksi_bending->id }}"
+                                    action="{{ route('inspeksi-bending.toggle', $inspeksi_bending->id) }}"
+                                    method="POST" class="hidden">
                                     @csrf
                                     @method('PATCH')
                                 </form>
                                 <button type="button"
-                                    onclick="confirmApproval({{ $inspeksi_wm->id }}, '{{ $inspeksi_wm->isApproved() ? 'unapprove' : 'approve' }}')"
-                                    class="{{ $inspeksi_wm->isApproved()
+                                    onclick="confirmApproval({{ $inspeksi_bending->id }}, '{{ $inspeksi_bending->isApproved() ? 'unapprove' : 'approve' }}')"
+                                    class="{{ $inspeksi_bending->isApproved()
                                         ? 'bg-orange-500 text-white hover:bg-orange-600'
                                         : 'bg-green-600 text-white hover:bg-green-700' }} inline-flex items-center gap-2 rounded-xl px-5 py-2.5 text-sm font-semibold shadow-sm transition">
-                                    @if ($inspeksi_wm->isApproved())
+                                    @if ($inspeksi_bending->isApproved())
                                         <span class="text-base">↺</span>
                                         Unapprove
                                     @else

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\InspeksiBending;
 use Illuminate\Http\Request;
 
 class InspeksiBendingWipController extends Controller
@@ -17,9 +18,10 @@ class InspeksiBendingWipController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create(String $id)
     {
-        //
+        $inspeksiBending = InspeksiBending::findOrFail($id);
+        return view('inspeksi_bending.wip', ['inspeksi_bending' => $inspeksiBending]);
     }
 
     /**

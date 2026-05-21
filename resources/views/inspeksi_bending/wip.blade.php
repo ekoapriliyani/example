@@ -5,7 +5,7 @@
                 {{ __('Input Hasil Inspeksi WIP') }}
             </h2>
             <p class="text-sm text-gray-500">
-                Ref: <span class="font-mono font-bold text-indigo-600">{{ $inspeksi_wm->nomor_inspeksi }}</span>
+                Ref: <span class="font-mono font-bold text-indigo-600">{{ $inspeksi_bending->nomor_inspeksi }}</span>
             </p>
         </div>
     </x-slot>
@@ -24,7 +24,7 @@
                     <div class="ml-3">
                         <p class="text-sm text-blue-700">
                             Sedang menginput data WIP untuk transaksi
-                            <strong>{{ $inspeksi_wm->nomor_inspeksi }}</strong>.
+                            <strong>{{ $inspeksi_bending->nomor_inspeksi }}</strong>.
                         </p>
                     </div>
                 </div>
@@ -32,10 +32,10 @@
 
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg border border-gray-200">
                 <div class="p-8">
-                    <form action="{{ route('inspeksi_wm_wip.store') }}" method="POST" enctype="multipart/form-data"
-                        class="space-y-6">
+                    <form action="{{ route('inspeksi_bending_wip.store') }}" method="POST"
+                        enctype="multipart/form-data" class="space-y-6">
                         @csrf
-                        <input type="hidden" name="inspeksi_wm_id" value="{{ $inspeksi_wm->id }}">
+                        <input type="hidden" name="inspeksi_bending_id" value="{{ $inspeksi_bending->id }}">
                         <input type="hidden" name="user_id" value="{{ auth()->id() }}">
 
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -300,16 +300,14 @@
                                 @error('files')
                                     <div class="text-red-500 text-sm mt-2">{{ $message }}</div>
                                 @enderror
-
                                 @error('files.*')
                                     <div class="text-red-500 text-sm mt-2">{{ $message }}</div>
                                 @enderror
                             </div>
-
                         </div>
 
                         <div class="flex items-center justify-end gap-4 pt-6 border-t border-gray-100">
-                            <a href="{{ route('inspeksi_wm.show', $inspeksi_wm->id) }}"
+                            <a href="{{ route('inspeksi_bending.show', $inspeksi_bending->id) }}"
                                 class="inline-flex items-center px-4 py-2 bg-white border border-gray-300 rounded-md font-semibold text-xs text-gray-700 uppercase tracking-widest shadow-sm hover:bg-gray-50 transition ease-in-out duration-150">
                                 {{ __('Batal') }}
                             </a>
