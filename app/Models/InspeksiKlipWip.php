@@ -14,7 +14,12 @@ class InspeksiKlipWip extends Model
         'jml_klip',
         'd_razor',
         'jml_spiral',
-        'jarak_antar_klip',
+        'jarak_antar_klip1',
+        'jarak_antar_klip2',
+        'jarak_antar_klip3',
+        'jarak_antar_klip4',
+        'jarak_antar_klip5',
+        'kerapatan',
         'visual',
         'status',
         'files'

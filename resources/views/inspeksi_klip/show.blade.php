@@ -117,7 +117,11 @@
                                     <th class="px-4 py-3 font-semibold text-gray-900">Jumlah Klip</th>
                                     <th class="px-4 py-3 font-semibold text-gray-900">D Razor</th>
                                     <th class="px-4 py-3 font-semibold text-gray-900">Jumlah Spiral</th>
-                                    <th class="px-4 py-3 font-semibold text-gray-900">Jarak Antar Klip</th>
+                                    <th class="px-4 py-3 font-semibold text-gray-900">Jarak Antar Klip 1</th>
+                                    <th class="px-4 py-3 font-semibold text-gray-900">Jarak Antar Klip 2</th>
+                                    <th class="px-4 py-3 font-semibold text-gray-900">Jarak Antar Klip 3</th>
+                                    <th class="px-4 py-3 font-semibold text-gray-900">Jarak Antar Klip 4</th>
+                                    <th class="px-4 py-3 font-semibold text-gray-900">Jarak Antar Klip 5</th>
                                     <th class="px-4 py-3 font-semibold text-gray-900">Visual</th>
                                     <th class="px-4 py-3 font-semibold text-gray-900">Status</th>
                                     <th class="px-4 py-3 font-semibold text-gray-900">Detail</th>
@@ -201,12 +205,15 @@
                                         <td class="px-4 py-3">{{ $wip->jml_klip }}</td>
                                         <td class="px-4 py-3">{{ $wip->d_razor }}</td>
                                         <td class="px-4 py-3">{{ $wip->jml_spiral }}</td>
-                                        <td class="px-4 py-3">{{ $wip->jarak_antar_klip }}</td>
+                                        <td class="px-4 py-3">{{ $wip->jarak_antar_klip1 }}</td>
+                                        <td class="px-4 py-3">{{ $wip->jarak_antar_klip2 }}</td>
+                                        <td class="px-4 py-3">{{ $wip->jarak_antar_klip3 }}</td>
+                                        <td class="px-4 py-3">{{ $wip->jarak_antar_klip4 }}</td>
+                                        <td class="px-4 py-3">{{ $wip->jarak_antar_klip5 }}</td>
                                         <td class="bg-blue-50/30 px-4 py-3 text-center">{{ $wip->visual }}</td>
                                         <td class="bg-blue-50/30 px-4 py-3 text-center">
                                             <span
-                                                class="inline-flex items-center rounded-full px-3 py-1 text-xs font-semibold
-                                                {{ $wip->status == 'OK' ? 'bg-green-100 text-green-700' : 'bg-yellow-100 text-yellow-700' }}">
+                                                class="{{ $wip->status == 'OK' ? 'bg-green-100 text-green-700' : 'bg-yellow-100 text-yellow-700' }} inline-flex items-center rounded-full px-3 py-1 text-xs font-semibold">
                                                 {{ $wip->status }}
                                             </span>
                                         </td>
