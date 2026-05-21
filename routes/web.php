@@ -3,6 +3,9 @@
 use App\Http\Controllers\IncomingBahanBakuController;
 use App\Http\Controllers\IncomingProjectController;
 use App\Http\Controllers\IncomingPvcHdpeController;
+use App\Http\Controllers\InspeksiBendingController;
+use App\Http\Controllers\InspeksiBendingFgController;
+use App\Http\Controllers\InspeksiBendingWipController;
 use App\Http\Controllers\InspeksiChainlinkController;
 use App\Http\Controllers\InspeksiChainlinkFgController;
 use App\Http\Controllers\InspeksiChainlinkWipController;
@@ -29,6 +32,7 @@ use App\Http\Controllers\MaterialController;
 use App\Http\Controllers\MesinController;
 use App\Http\Controllers\ProController;
 use App\Http\Controllers\ProductCtController;
+use App\Http\Controllers\ProductFencingController;
 use App\Http\Controllers\ProductRazorController;
 use App\Http\Controllers\ProductWmController;
 use App\Http\Controllers\ProfileController;
@@ -98,6 +102,7 @@ Route::middleware(['auth'])->group(function () {
 
     Route::resources([
         'productwm'          => ProductWmController::class,
+        'productFencing'     => ProductFencingController::class,
         'productct'         => ProductCtController::class,
         'productRazor'       => ProductRazorController::class,
         'pro'                => ProController::class,
@@ -110,6 +115,7 @@ Route::middleware(['auth'])->group(function () {
 
         'inspeksi_wm'        => InspeksiWmController::class,
         'inspeksi_ct'        => InspeksiCtController::class,
+        'inspeksi_bending'   => InspeksiBendingController::class,
         'inspeksi_kawat_duri' => InspeksiKawatDuriController::class,
         'inspeksi_pvc' => InspeksiPvcController::class,
         'inspeksi_chainlink' => InspeksiChainlinkController::class,
@@ -220,6 +226,47 @@ Route::middleware(['auth'])->group(function () {
 
     Route::delete('insepeksi_ct/fg/{fg}', [InspeksiCtFgController::class, 'destroy'])
         ->name('inspeksi_ct_fg.destroy');
+
+
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Bending
+    |--------------------------------------------------------------------------
+    */
+
+    // WIP
+    Route::get('/inspeksi_bending/{inspeksi_bending}/wip', [InspeksiBendingWipController::class, 'create'])
+        ->name('inspeksi_bending.wip');
+
+    Route::post('/inspeksi_bending/wip', [InspeksiBendingWipController::class, 'store'])
+        ->name('inspeksi_bending_wip.store');
+
+    Route::get('insepeksi_bending/wip/{wip}/edit', [InspeksiBendingWipController::class, 'edit'])
+        ->name('inspeksi_bending_wip.edit');
+
+    Route::put('insepeksi_bending/wip/{wip}', [InspeksiBendingWipController::class, 'update'])
+        ->name('inspeksi_bending_wip.update');
+
+    Route::delete('insepeksi_bending/wip/{wip}', [InspeksiBendingWipController::class, 'destroy'])
+        ->name('inspeksi_bending_wip.destroy');
+
+    // FG
+    Route::get('/inspeksi_bending/{inspeksi_bending}/fg', [InspeksiBendingFgController::class, 'create'])
+        ->name('inspeksi_bending.fg');
+
+    Route::post('/inspeksi_bending/fg', [InspeksiBendingFgController::class, 'store'])
+        ->name('inspeksi_bending_fg.store');
+
+    Route::get('insepeksi_bending/fg/{fg}/edit', [InspeksiBendingFgController::class, 'edit'])
+        ->name('inspeksi_bending_fg.edit');
+
+    Route::put('insepeksi_bending/fg/{fg}', [InspeksiBendingFgController::class, 'update'])
+        ->name('inspeksi_bending_fg.update');
+
+    Route::delete('insepeksi_bending/fg/{fg}', [InspeksiBendingFgController::class, 'destroy'])
+        ->name('inspeksi_bending_fg.destroy');
 
 
 
@@ -539,6 +586,7 @@ Route::middleware([
         'material' => MaterialController::class,
         'mesin'    => MesinController::class,
         'productwm' => ProductWmController::class,
+        'productfencing' => ProductFencingController::class,
         'productrazor' => ProductRazorController::class,
         'supplier' => SupplierController::class,
         'subkon'   => SubkonController::class,
@@ -559,6 +607,9 @@ Route::middleware([
 
     Route::post('productwm/import', [ProductWmController::class, 'import'])
         ->name('productwm.import');
+
+    Route::post('productfencing/import', [ProductFencingController::class, 'import'])
+        ->name('productfencing.import');
 
     Route::post('productct/import', [ProductCtController::class, 'import'])
         ->name('productct.import');

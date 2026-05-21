@@ -35,6 +35,7 @@
                                 <x-dropdown-link :href="route('subkon.index')">Subkon</x-dropdown-link>
                                 <x-dropdown-link :href="route('supplier.index')">Supllier</x-dropdown-link>
                                 <x-dropdown-link :href="route('productwm.index')">Product Wiremesh</x-dropdown-link>
+                                <x-dropdown-link :href="route('productFencing.index')">Product Fencing</x-dropdown-link>
                                 <x-dropdown-link :href="route('productct.index')">Product CTCL</x-dropdown-link>
                                 <x-dropdown-link :href="route('productrazor.index')">Product Razor</x-dropdown-link>
                                 <x-dropdown-link :href="route('project.index')">Project</x-dropdown-link>
@@ -111,6 +112,7 @@
                             </x-slot>
                             <x-slot name="content">
                                 <x-dropdown-link :href="route('inspeksi_wm.index')">Wiremesh (WM)</x-dropdown-link>
+                                <x-dropdown-link :href="route('inspeksi_bending.index')">Bending</x-dropdown-link>
                                 <x-dropdown-link :href="route('inspeksi_ct.index')">CTCL</x-dropdown-link>
                                 <x-dropdown-link :href="route('inspeksi_kawat_duri.index')">Kawat Duri</x-dropdown-link>
                                 <x-dropdown-link :href="route('inspeksi_chainlink.index')">Chainlink</x-dropdown-link>
@@ -200,6 +202,7 @@
                 <x-responsive-nav-link :href="route('subkon.index')">Subkon</x-responsive-nav-link>
                 <x-responsive-nav-link :href="route('supplier.index')">Supplier</x-responsive-nav-link>
                 <x-responsive-nav-link :href="route('productwm.index')">Product WM</x-responsive-nav-link>
+                <x-responsive-nav-link :href="route('productFencing.index')">Product Fencing</x-responsive-nav-link>
                 <x-responsive-nav-link :href="route('productct.index')">Product CTCL</x-responsive-nav-link>
                 <x-responsive-nav-link :href="route('productrazor.index')">Product Razor</x-responsive-nav-link>
                 <x-responsive-nav-link :href="route('project.index')">Project</x-responsive-nav-link>
@@ -216,6 +219,7 @@
             <div class="border-t border-gray-200 pt-2">
                 <div class="px-4 text-xs font-semibold uppercase text-gray-400">Inspeksi Reguler</div>
                 <x-responsive-nav-link :href="route('inspeksi_wm.index')">Wiremesh (WM)</x-responsive-nav-link>
+                <x-responsive-nav-link :href="route('inspeksi_bending.index')">Bending</x-responsive-nav-link>
                 <x-responsive-nav-link :href="route('inspeksi_ct.index')">CTCL</x-responsive-nav-link>
                 <x-responsive-nav-link :href="route('inspeksi_kawat_duri.index')">Kawat Duri</x-responsive-nav-link>
                 <x-responsive-nav-link :href="route('inspeksi_chainlink.index')">Chainlink</x-responsive-nav-link>
