@@ -282,13 +282,19 @@
                             <thead class="bg-gray-50">
                                 <tr>
                                     <th class="px-4 py-3 font-semibold text-gray-900">No</th>
+                                    <th class="px-4 py-3 font-semibold text-gray-900">Aksi</th>
                                     <th class="px-4 py-3 font-semibold text-gray-900">Inspektor</th>
+                                    <th class="px-4 py-3 font-semibold text-gray-900">Type</th>
                                     <th class="px-4 py-3 font-semibold text-gray-900">Status</th>
+                                    <th class="px-4 py-3 font-semibold text-gray-900">Coating Thickness</th>
+                                    <th class="px-4 py-3 font-semibold text-gray-900">Daya Rekat</th>
+                                    <th class="px-4 py-3 font-semibold text-gray-900">Visual</th>
+                                    <th class="px-4 py-3 font-semibold text-gray-900">Packing</th>
+                                    <th class="px-4 py-3 font-semibold text-gray-900">Label</th>
                                     <th class="px-4 py-3 font-semibold text-gray-900">Quantity</th>
                                     <th class="px-4 py-3 font-semibold text-gray-900">Weight</th>
                                     <th class="px-4 py-3 font-semibold text-gray-900">Detail</th>
                                     <th class="px-4 py-3 font-semibold text-gray-900">Gambar</th>
-                                    <th class="px-4 py-3 font-semibold text-gray-900">Aksi</th>
                                     <th class="px-4 py-3 font-semibold text-gray-900">Created At</th>
                                 </tr>
                             </thead>
@@ -296,40 +302,6 @@
                                 @forelse ($inspeksi_bending->inspeksiBendingFg as $fg)
                                     <tr class="transition-colors hover:bg-gray-50">
                                         <td class="px-4 py-3 font-medium">{{ $loop->iteration }}</td>
-                                        <td class="px-4 py-3 font-medium">{{ $fg->user->name }}</td>
-                                        <td class="px-4 py-3 font-medium">
-                                            @if ($fg->status === 'OK')
-                                                <span class="rounded bg-green-100 px-2 py-1 text-green-800">
-                                                    {{ $fg->status }}
-                                                </span>
-                                            @elseif($fg->status === 'NG')
-                                                <span class="rounded bg-yellow-100 px-2 py-1 text-yellow-800">
-                                                    {{ $fg->status }}
-                                                </span>
-                                            @elseif($fg->status === 'REJECT')
-                                                <span class="rounded bg-red-100 px-2 py-1 text-red-800">
-                                                    {{ $fg->status }}
-                                                </span>
-                                            @else
-                                                <span class="rounded bg-gray-100 px-2 py-1 text-gray-800">
-                                                    {{ $fg->status }}
-                                                </span>
-                                            @endif
-                                        </td>
-                                        <td class="px-4 py-3">{{ $fg->qty }}</td>
-                                        <td class="px-4 py-3">{{ $fg->weight }} Kg</td>
-                                        <td class="px-4 py-3">
-                                            <button type="button" class="text-sm text-indigo-600 hover:underline"
-                                                onclick="toggleDetail({{ $fg->id }})">
-                                                Lihat Detail
-                                            </button>
-                                        </td>
-                                        <td class="px-4 py-3">
-                                            <button type="button" class="text-sm text-indigo-600 hover:underline"
-                                                onclick="toggleImage({{ $fg->id }})">
-                                                Lihat Gambar
-                                            </button>
-                                        </td>
                                         <td class="px-4 py-3">
                                             <div class="flex items-center gap-3">
                                                 {{-- Edit --}}
@@ -347,7 +319,7 @@
                                                         </svg>
                                                     </button>
                                                 @else
-                                                    <a href="{{ route('inspeksi_wm_fg.edit', $fg->id) }}"
+                                                    <a href="{{ route('inspeksi_bending_fg.edit', $fg->id) }}"
                                                         class="inline-flex items-center rounded-md bg-yellow-100 p-2 text-yellow-600 transition hover:bg-yellow-200"
                                                         title="Edit">
 
@@ -377,7 +349,7 @@
                                                         </svg>
                                                     </button>
                                                 @else
-                                                    <form action="{{ route('inspeksi_wm_fg.destroy', $fg->id) }}"
+                                                    <form action="{{ route('inspeksi_bending_fg.destroy', $fg->id) }}"
                                                         method="POST" class="delete-form inline-block">
 
                                                         @csrf
@@ -400,6 +372,46 @@
                                                 @endif
 
                                             </div>
+                                        </td>
+                                        <td class="px-4 py-3 font-medium">{{ $fg->user->name }}</td>
+                                        <td class="px-4 py-3">{{ $fg->type }}</td>
+                                        <td class="px-4 py-3 font-medium">
+                                            @if ($fg->status === 'OK')
+                                                <span class="rounded bg-green-100 px-2 py-1 text-green-800">
+                                                    {{ $fg->status }}
+                                                </span>
+                                            @elseif($fg->status === 'NG')
+                                                <span class="rounded bg-yellow-100 px-2 py-1 text-yellow-800">
+                                                    {{ $fg->status }}
+                                                </span>
+                                            @elseif($fg->status === 'REJECT')
+                                                <span class="rounded bg-red-100 px-2 py-1 text-red-800">
+                                                    {{ $fg->status }}
+                                                </span>
+                                            @else
+                                                <span class="rounded bg-gray-100 px-2 py-1 text-gray-800">
+                                                    {{ $fg->status }}
+                                                </span>
+                                            @endif
+                                        </td>
+                                        <td class="px-4 py-3">{{ $fg->coating_thickness }}</td>
+                                        <td class="px-4 py-3">{{ $fg->daya_rekat }}</td>
+                                        <td class="px-4 py-3">{{ $fg->visual }}</td>
+                                        <td class="px-4 py-3">{{ $fg->packing }}</td>
+                                        <td class="px-4 py-3">{{ $fg->label }}</td>
+                                        <td class="px-4 py-3">{{ $fg->qty }}</td>
+                                        <td class="px-4 py-3">{{ $fg->weight }} Kg</td>
+                                        <td class="px-4 py-3">
+                                            <button type="button" class="text-sm text-indigo-600 hover:underline"
+                                                onclick="toggleDetail({{ $fg->id }})">
+                                                Lihat Detail
+                                            </button>
+                                        </td>
+                                        <td class="px-4 py-3">
+                                            <button type="button" class="text-sm text-indigo-600 hover:underline"
+                                                onclick="toggleImage({{ $fg->id }})">
+                                                Lihat Gambar
+                                            </button>
                                         </td>
                                         <td class="px-4 py-3">{{ $fg->created_at }}</td>
                                     </tr>

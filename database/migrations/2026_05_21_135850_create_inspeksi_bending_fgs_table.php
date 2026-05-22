@@ -15,6 +15,12 @@ return new class extends Migration
             $table->id();
             $table->foreignId('inspeksi_bending_id')->constrained('inspeksi_bendings')->onDelete('cascade'); // relasi ke header
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
+            $table->string('type');
+            $table->decimal('coating_thickness', 8, 2)->nullable();
+            $table->string('daya_rekat');
+            $table->string('visual');
+            $table->string('packing');
+            $table->string('label');
             $table->string('status');
             $table->integer('qty');
             $table->decimal('weight', 8, 2)->nullable();

@@ -149,12 +149,14 @@
                             <thead class="bg-gray-50">
                                 <tr>
                                     <th class="px-4 py-3 font-semibold text-gray-900">No</th>
+                                    <th class="px-4 py-3 font-semibold text-gray-900">Aksi</th>
                                     <th class="px-4 py-3 font-semibold text-gray-900">Inspektor</th>
                                     <th class="px-4 py-3 font-semibold text-gray-900">No. Material</th>
                                     <th class="px-4 py-3 font-semibold text-gray-900">Operator</th>
                                     <th class="px-4 py-3 font-semibold text-gray-900">Lebar</th>
                                     <th class="px-4 py-3 font-semibold text-gray-900">Panjang</th>
-                                    <th class="px-4 py-3 font-semibold text-gray-900">Mesh</th>
+                                    <th class="px-4 py-3 font-semibold text-gray-900">P Mesh</th>
+                                    <th class="px-4 py-3 font-semibold text-gray-900">L Mesh</th>
                                     <th class="px-4 py-3 font-semibold text-gray-900">Diameter Inti</th>
                                     <th class="px-4 py-3 font-semibold text-gray-900">Diameter Luar</th>
                                     <th class="px-4 py-3 font-semibold text-gray-900">Type</th>
@@ -165,7 +167,7 @@
                                     <th class="px-4 py-3 font-semibold text-gray-900">Weight</th>
                                     <th class="px-4 py-3 font-semibold text-gray-900">Detail</th>
                                     <th class="px-4 py-3 font-semibold text-gray-900">Gambar</th>
-                                    <th class="px-4 py-3 font-semibold text-gray-900">Aksi</th>
+
                                     <th class="px-4 py-3 text-center font-semibold text-gray-900">Created At</th>
                                 </tr>
                             </thead>
@@ -173,37 +175,6 @@
                                 @forelse ($inspeksiChainlink->inspeksiChainlinkWip as $wip)
                                     <tr class="transition-colors hover:bg-gray-50">
                                         <td class="px-4 py-3">{{ $loop->iteration }}</td>
-                                        <td class="px-4 py-3">{{ $wip->user->name ?? 'N/A' }}</td>
-                                        <td class="px-4 py-3 font-medium">{{ $wip->no_material }}</td>
-                                        <td class="px-4 py-3">{{ $wip->nama_operator }}</td>
-                                        <td class="bg-blue-50/30 px-4 py-3 text-center">{{ $wip->lebar }}</td>
-                                        <td class="bg-blue-50/30 px-4 py-3 text-center">
-                                            {{ $wip->panjang }}
-                                        </td>
-                                        <td class="bg-blue-50/30 px-4 py-3 text-center">{{ $wip->mesh }}</td>
-                                        <td class="bg-blue-50/30 px-4 py-3 text-center">{{ $wip->diameter_inti }}
-                                        </td>
-                                        <td class="bg-blue-50/30 px-4 py-3 text-center">{{ $wip->diameter_luar }}
-                                        </td>
-                                        <td class="bg-blue-50/30 px-4 py-3 text-center">{{ $wip->type }}
-                                        </td>
-                                        <td class="bg-blue-50/30 px-4 py-3 text-center">{{ $wip->model }}</td>
-                                        <td class="bg-blue-50/30 px-4 py-3 text-center">{{ $wip->warna }}</td>
-                                        <td class="bg-blue-50/30 px-4 py-3 text-center">{{ $wip->visual }}</td>
-                                        <td class="bg-blue-50/30 px-4 py-3 text-center">{{ $wip->status }}</td>
-                                        <td class="bg-blue-50/30 px-4 py-3 text-center">{{ $wip->weight }}</td>
-                                        <td class="px-4 py-3">
-                                            <button type="button" class="text-sm text-indigo-600 hover:underline"
-                                                onclick="toggleDetail2({{ $wip->id }})">
-                                                Lihat Detail
-                                            </button>
-                                        </td>
-                                        <td class="px-4 py-3">
-                                            <button type="button" class="text-sm text-indigo-600 hover:underline"
-                                                onclick="toggleImage2({{ $wip->id }})">
-                                                Lihat Gambar
-                                            </button>
-                                        </td>
                                         <td class="px-4 py-3">
                                             <div class="flex items-center gap-3">
                                                 {{-- Edit --}}
@@ -263,6 +234,38 @@
                                                 @endif
                                             </div>
                                         </td>
+                                        <td class="px-4 py-3">{{ $wip->user->name ?? 'N/A' }}</td>
+                                        <td class="px-4 py-3 font-medium">{{ $wip->no_material }}</td>
+                                        <td class="px-4 py-3">{{ $wip->nama_operator }}</td>
+                                        <td class="bg-blue-50/30 px-4 py-3 text-center">{{ $wip->lebar }}</td>
+                                        <td class="bg-blue-50/30 px-4 py-3 text-center">
+                                            {{ $wip->panjang }}
+                                        </td>
+                                        <td class="bg-blue-50/30 px-4 py-3 text-center">{{ $wip->p_mesh }}</td>
+                                        <td class="bg-blue-50/30 px-4 py-3 text-center">{{ $wip->l_mesh }}</td>
+                                        <td class="bg-blue-50/30 px-4 py-3 text-center">{{ $wip->diameter_inti }}
+                                        </td>
+                                        <td class="bg-blue-50/30 px-4 py-3 text-center">{{ $wip->diameter_luar }}
+                                        </td>
+                                        <td class="bg-blue-50/30 px-4 py-3 text-center">{{ $wip->type }}
+                                        </td>
+                                        <td class="bg-blue-50/30 px-4 py-3 text-center">{{ $wip->model }}</td>
+                                        <td class="bg-blue-50/30 px-4 py-3 text-center">{{ $wip->warna }}</td>
+                                        <td class="bg-blue-50/30 px-4 py-3 text-center">{{ $wip->visual }}</td>
+                                        <td class="bg-blue-50/30 px-4 py-3 text-center">{{ $wip->status }}</td>
+                                        <td class="bg-blue-50/30 px-4 py-3 text-center">{{ $wip->weight }}</td>
+                                        <td class="px-4 py-3">
+                                            <button type="button" class="text-sm text-indigo-600 hover:underline"
+                                                onclick="toggleDetail2({{ $wip->id }})">
+                                                Lihat Detail
+                                            </button>
+                                        </td>
+                                        <td class="px-4 py-3">
+                                            <button type="button" class="text-sm text-indigo-600 hover:underline"
+                                                onclick="toggleImage2({{ $wip->id }})">
+                                                Lihat Gambar
+                                            </button>
+                                        </td>
                                         <td class="bg-blue-50/30 px-4 py-3 text-center">{{ $wip->created_at }}</td>
                                     </tr>
                                 @empty
@@ -296,6 +299,7 @@
                             <thead class="bg-gray-50">
                                 <tr>
                                     <th class="px-4 py-3 font-semibold text-gray-900">No</th>
+                                    <th class="px-4 py-3 font-semibold text-gray-900">Aksi</th>
                                     <th class="px-4 py-3 font-semibold text-gray-900">Inspektor</th>
                                     <th class="px-4 py-3 font-semibold text-gray-900">Status</th>
                                     <th class="px-4 py-3 font-semibold text-gray-900">Quantity</th>
@@ -311,42 +315,6 @@
                                 @forelse ($inspeksiChainlink->inspeksiChainlinkFg as $fg)
                                     <tr class="transition-colors hover:bg-gray-50">
                                         <td class="px-4 py-3 font-medium">{{ $loop->iteration }}</td>
-                                        <td class="px-4 py-3 font-medium">{{ $fg->user->name }}</td>
-                                        <td class="px-4 py-3 font-medium">
-                                            @if ($fg->status === 'OK')
-                                                <span class="rounded bg-green-100 px-2 py-1 text-green-800">
-                                                    {{ $fg->status }}
-                                                </span>
-                                            @elseif($fg->status === 'NG')
-                                                <span class="rounded bg-yellow-100 px-2 py-1 text-yellow-800">
-                                                    {{ $fg->status }}
-                                                </span>
-                                            @elseif($fg->status === 'REJECT')
-                                                <span class="rounded bg-red-100 px-2 py-1 text-red-800">
-                                                    {{ $fg->status }}
-                                                </span>
-                                            @else
-                                                <span class="rounded bg-gray-100 px-2 py-1 text-gray-800">
-                                                    {{ $fg->status }}
-                                                </span>
-                                            @endif
-                                        </td>
-                                        <td class="px-4 py-3">{{ $fg->qty }}</td>
-                                        <td class="px-4 py-3">{{ $fg->weight }} Kg</td>
-                                        <td class="px-4 py-3">{{ $fg->packing }}</td>
-                                        <td class="px-4 py-3">{{ $fg->label }}</td>
-                                        <td class="px-4 py-3">
-                                            <button type="button" class="text-sm text-indigo-600 hover:underline"
-                                                onclick="toggleDetail({{ $fg->id }})">
-                                                Lihat Detail
-                                            </button>
-                                        </td>
-                                        <td class="px-4 py-3">
-                                            <button type="button" class="text-sm text-indigo-600 hover:underline"
-                                                onclick="toggleImage({{ $fg->id }})">
-                                                Lihat Gambar
-                                            </button>
-                                        </td>
                                         <td class="px-4 py-3">
                                             <div class="flex items-center gap-3">
                                                 {{-- Edit --}}
@@ -406,6 +374,43 @@
                                                 @endif
                                             </div>
                                         </td>
+                                        <td class="px-4 py-3 font-medium">{{ $fg->user->name }}</td>
+                                        <td class="px-4 py-3 font-medium">
+                                            @if ($fg->status === 'OK')
+                                                <span class="rounded bg-green-100 px-2 py-1 text-green-800">
+                                                    {{ $fg->status }}
+                                                </span>
+                                            @elseif($fg->status === 'NG')
+                                                <span class="rounded bg-yellow-100 px-2 py-1 text-yellow-800">
+                                                    {{ $fg->status }}
+                                                </span>
+                                            @elseif($fg->status === 'REJECT')
+                                                <span class="rounded bg-red-100 px-2 py-1 text-red-800">
+                                                    {{ $fg->status }}
+                                                </span>
+                                            @else
+                                                <span class="rounded bg-gray-100 px-2 py-1 text-gray-800">
+                                                    {{ $fg->status }}
+                                                </span>
+                                            @endif
+                                        </td>
+                                        <td class="px-4 py-3">{{ $fg->qty }}</td>
+                                        <td class="px-4 py-3">{{ $fg->weight }} Kg</td>
+                                        <td class="px-4 py-3">{{ $fg->packing }}</td>
+                                        <td class="px-4 py-3">{{ $fg->label }}</td>
+                                        <td class="px-4 py-3">
+                                            <button type="button" class="text-sm text-indigo-600 hover:underline"
+                                                onclick="toggleDetail({{ $fg->id }})">
+                                                Lihat Detail
+                                            </button>
+                                        </td>
+                                        <td class="px-4 py-3">
+                                            <button type="button" class="text-sm text-indigo-600 hover:underline"
+                                                onclick="toggleImage({{ $fg->id }})">
+                                                Lihat Gambar
+                                            </button>
+                                        </td>
+
                                         <td class="px-4 py-3">{{ $fg->created_at }}</td>
                                     </tr>
                                 @empty

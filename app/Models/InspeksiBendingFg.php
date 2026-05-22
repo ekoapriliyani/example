@@ -9,10 +9,20 @@ class InspeksiBendingFg extends Model
     protected $fillable = [
         'inspeksi_bending_id',
         'user_id',
+        'type',
+        'coating_thickness',
+        'daya_rekat',
+        'visual',
+        'packing',
+        'label',
         'status',
         'qty',
         'weight',
         'files',
+    ];
+
+    protected $casts = [
+        'files' => 'array', // otomatis decode JSON ke array
     ];
 
     public function inspeksiBending()
