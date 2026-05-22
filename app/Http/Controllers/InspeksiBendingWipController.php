@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\InspeksiBending;
+use App\Models\InspeksiBendingWip;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class InspeksiBendingWipController extends Controller
 {
@@ -29,7 +32,71 @@ class InspeksiBendingWipController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validated = $request->validate([
+            'inspeksi_bending_id'    => 'required|exists:inspeksi_bendings,id',
+            'no_material'           => 'required|string|max:255',
+            'nama_operator'         => 'required|string|max:255',
+            'd_kawat_act'           => 'required|numeric',
+            'p_product_act'         => 'required|numeric',
+            'l_product_act'         => 'required|numeric',
+            't_tekukan'             => 'required|numeric',
+            'sudut'                 => 'required|numeric',
+            'diagonal'             => 'required|numeric',
+            'matchingcrosswire'     => 'required|string|max:255',
+            'visual'               => 'required|string|max:255',
+            'status'               => 'required|string|max:255',
+            'files'                => 'nullable|array',
+            'files.*'              => 'nullable|file|mimes:jpg,jpeg,png,pdf|max:10240',
+        ]);
+        if (!Auth::check()) {
+            return redirect()->back()->with('error', 'Sesi login berakhir. Silakan login kembali.');
+        }
+
+        // simpan WIP utama
+        $wip = InspeksiBendingWip::create([
+            'inspeksi_bending_id' => $validated['inspeksi_bending_id'],
+            'user_id'             => Auth::id(),
+            'no_material'         => $validated['no_material'],
+            'nama_operator'       => $validated['nama_operator'],
+            'd_kawat_act'         => $validated['d_kawat_act'],
+            'p_product_act'    => $validated['p_product_act'],
+            'l_product_act'    => $validated['l_product_act'],
+            't_tekukan'        => $validated['t_tekukan'],
+            'sudut'            => $validated['sudut'],
+            'diagonal'        => $validated['diagonal'],
+            'matchingcrosswire' => $validated['matchingcrosswire'],
+            'visual'          => $validated['visual'],
+            'status'          => $validated['status'],
+        ]);
+
+
+        // simpan file multiple ke kolom JSON
+        if ($request->hasFile('files')) {
+            $paths = [];
+            foreach ($request->file('files') as $file) {
+                $paths[] = $file->store('uploads/inspeksi_wip', 'public');
+            }
+            $wip->update([
+                'files' => $paths
+            ]);
+        }
+        // simpan detail multiple (array)
+        // ambil semua array dari request
+        $descriptions  = $request->input('detail_description', []);
+        $descriptions2 = $request->input('detail_description2', []);
+        $qty           = $request->input('detail_qty', []);
+        foreach ($descriptions as $i => $description) {
+            if (!empty($description)) {
+                $wip->details()->create([
+                    'description'  => $description,
+                    'description2' => $descriptions2[$i] ?? null,
+                    'qty'          => $qty[$i] ?? null,
+                ]);
+            }
+        }
+        return redirect()
+            ->route('inspeksi_bending.show', $request->inspeksi_bending_id)
+            ->with('success', 'Data WIP, detail, dan file berhasil ditambahkan');
     }
 
     /**
@@ -59,8 +126,25 @@ class InspeksiBendingWipController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(String $id)
     {
-        //
+        $wip = InspeksiBendingWip::findOrFail($id);
+        $inspeksiBendingId = $wip->inspeksi_bending_id;
+
+        // Hapus file terkait jika ada
+        if ($wip->files) {
+            foreach ($wip->files as $filePath) {
+                Storage::disk('public')->delete($filePath);
+            }
+        }
+
+        // Hapus detail terkait
+        $wip->details()->delete();
+
+        // Hapus data WIP
+        $wip->delete();
+
+        return redirect()->route('inspeksi_bending.show', $inspeksiBendingId)
+            ->with('success', 'Data WIP berhasil dihapus.');
     }
 }

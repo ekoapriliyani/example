@@ -71,23 +71,7 @@
                             </div>
 
                             <div>
-                                <x-input-label for="selisih_diagonal" :value="__('Selisih Diagonal (Actual)')" />
-                                <div class="relative mt-1">
-                                    <x-text-input id="selisih_diagonal" name="selisih_diagonal" type="number"
-                                        step="1" class="block w-full pr-12" :value="old('selisih_diagonal')" required
-                                        placeholder="0.00" />
-                                    <div
-                                        class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none text-gray-400 text-sm">
-                                        mm
-                                    </div>
-                                </div>
-                                <x-input-error class="mt-2" :messages="$errors->get('selisih_diagonal')" />
-                            </div>
-                        </div>
-
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                            <div>
-                                <x-input-label for="p_product_act" :value="__('Panjang Produk (Actual)')" />
+                                <x-input-label for="p_product_act" :value="__('P Product (Actual)')" />
                                 <div class="relative mt-1">
                                     <x-text-input id="p_product_act" name="p_product_act" type="number" step="1"
                                         class="block w-full pr-12" :value="old('p_product_act')" required placeholder="0.00" />
@@ -98,9 +82,8 @@
                                 </div>
                                 <x-input-error class="mt-2" :messages="$errors->get('p_product_act')" />
                             </div>
-
                             <div>
-                                <x-input-label for="l_product_act" :value="__('Lebar Produk (Actual)')" />
+                                <x-input-label for="l_product_act" :value="__('L Product (Actual)')" />
                                 <div class="relative mt-1">
                                     <x-text-input id="l_product_act" name="l_product_act" type="number" step="1"
                                         class="block w-full pr-12" :value="old('l_product_act')" required placeholder="0.00" />
@@ -111,60 +94,60 @@
                                 </div>
                                 <x-input-error class="mt-2" :messages="$errors->get('l_product_act')" />
                             </div>
-
                             <div>
-                                <x-input-label for="p_mesh_act" :value="__('Panjang Mesh (Actual)')" />
+                                <x-input-label for="t_tekukan" :value="__('T Tekukan')" />
                                 <div class="relative mt-1">
-                                    <x-text-input id="p_mesh_act" name="p_mesh_act" type="number" step="1"
-                                        class="block w-full pr-12" :value="old('p_mesh_act')" required placeholder="0.00" />
+                                    <x-text-input id="t_tekukan" name="t_tekukan" type="number" step="1"
+                                        class="block w-full pr-12" :value="old('t_tekukan')" required placeholder="0.00" />
                                     <div
                                         class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none text-gray-400 text-sm">
                                         mm
                                     </div>
                                 </div>
-                                <x-input-error class="mt-2" :messages="$errors->get('p_mesh_act')" />
+                                <x-input-error class="mt-2" :messages="$errors->get('t_tekukan')" />
                             </div>
-
                             <div>
-                                <x-input-label for="l_mesh_act" :value="__('Lebar Mesh (Actual)')" />
+                                <x-input-label for="sudut" :value="__('Sudut')" />
                                 <div class="relative mt-1">
-                                    <x-text-input id="l_mesh_act" name="l_mesh_act" type="number" step="1"
-                                        class="block w-full pr-12" :value="old('l_mesh_act')" required placeholder="0.00" />
+                                    <x-text-input id="sudut" name="sudut" type="number" step="1"
+                                        class="block w-full pr-12" :value="old('sudut')" required placeholder="0.00" />
                                     <div
                                         class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none text-gray-400 text-sm">
                                         mm
                                     </div>
                                 </div>
-                                <x-input-error class="mt-2" :messages="$errors->get('l_mesh_act')" />
+                                <x-input-error class="mt-2" :messages="$errors->get('sudut')" />
+                            </div>
+                            <div>
+                                <x-input-label for="diagonal" :value="__('diagonal')" />
+                                <div class="relative mt-1">
+                                    <x-text-input id="diagonal" name="diagonal" type="number" step="1"
+                                        class="block w-full pr-12" :value="old('diagonal')" required placeholder="0.00" />
+                                    <div
+                                        class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none text-gray-400 text-sm">
+                                        mm
+                                    </div>
+                                </div>
+                                <x-input-error class="mt-2" :messages="$errors->get('diagonal')" />
                             </div>
 
                             <div>
-                                <x-input-label for="torsi_strength" :value="__('Torsi Strength')" />
+                                <x-input-label for="matchingcrosswire" :value="__('Matching crosswire')" />
                                 <div class="relative mt-1">
-                                    <select id="torsi_strength" name="torsi_strength"
+                                    <select id="matchingcrosswire" name="matchingcrosswire"
                                         class="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
-                                        <option value="OK" {{ old('torsi_strength') == 'OK' ? 'selected' : '' }}>OK
+                                        <option value="OK"
+                                            {{ old('matchingcrosswire') == 'OK' ? 'selected' : '' }}>OK
                                         </option>
-                                        <option value="NG" {{ old('torsi_strength') == 'NG' ? 'selected' : '' }}>NG
+                                        <option value="NG"
+                                            {{ old('matchingcrosswire') == 'NG' ? 'selected' : '' }}>NG
                                         </option>
                                     </select>
                                 </div>
-                                <x-input-error class="mt-2" :messages="$errors->get('torsi_strength')" />
+                                <x-input-error class="mt-2" :messages="$errors->get('matchingcrosswire')" />
                             </div>
 
-                            <div>
-                                <x-input-label for="status_dimensi" :value="__('Dimensi')" />
-                                <div class="relative mt-1">
-                                    <select id="status_dimensi" name="status_dimensi"
-                                        class="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
-                                        <option value="OK" {{ old('status_dimensi') == 'OK' ? 'selected' : '' }}>OK
-                                        </option>
-                                        <option value="NG" {{ old('status_dimensi') == 'NG' ? 'selected' : '' }}>NG
-                                        </option>
-                                    </select>
-                                </div>
-                                <x-input-error class="mt-2" :messages="$errors->get('status_dimensi')" />
-                            </div>
+
                             <div>
                                 <x-input-label for="visual" :value="__('Visual')" />
                                 <div class="relative mt-1">
@@ -178,33 +161,21 @@
                                 </div>
                                 <x-input-error class="mt-2" :messages="$errors->get('visual')" />
                             </div>
+
                             <div>
-                                <x-input-label for="shear_strength" :value="__('Shear Strength')" />
+                                <x-input-label for="status" :value="__('Status')" />
                                 <div class="relative mt-1">
-                                    <x-text-input id="shear_strength" name="shear_strength" type="number"
-                                        step="0.01" class="block w-full pr-12" :value="old('shear_strength')"
-                                        placeholder="0.00" />
-                                    <div
-                                        class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none text-gray-400 text-sm">
-                                        mpa
-                                    </div>
+                                    <select id="status" name="status"
+                                        class="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
+                                        <option value="OK" {{ old('status') == 'OK' ? 'selected' : '' }}>OK
+                                        </option>
+                                        <option value="NG" {{ old('status') == 'NG' ? 'selected' : '' }}>NG
+                                        </option>
+                                    </select>
                                 </div>
-                                <x-input-error class="mt-2" :messages="$errors->get('shear_strength')" />
-                            </div>
-                            <div>
-                                <x-input-label for="weight" :value="__('Weight')" />
-                                <div class="relative mt-1">
-                                    <x-text-input id="weight" name="weight" type="number" step="0.01"
-                                        class="block w-full pr-12" :value="old('weight')" required placeholder="0.00" />
-                                    <div
-                                        class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none text-gray-400 text-sm">
-                                        kg
-                                    </div>
-                                </div>
-                                <x-input-error class="mt-2" :messages="$errors->get('weight')" />
+                                <x-input-error class="mt-2" :messages="$errors->get('status')" />
                             </div>
                         </div>
-
                         <div class="md:col-span-2 border-t border-gray-200 pt-6">
                             <h3 class="font-semibold text-gray-700 mb-4">Detail Inspeksi</h3>
 

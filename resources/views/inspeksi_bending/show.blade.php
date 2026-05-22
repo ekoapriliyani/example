@@ -137,23 +137,21 @@
                             <thead class="bg-gray-50">
                                 <tr>
                                     <th class="px-4 py-3 font-semibold text-gray-900">No</th>
+                                    <th class="px-4 py-3 font-semibold text-gray-900">Aksi</th>
                                     <th class="px-4 py-3 font-semibold text-gray-900">Inspektor</th>
                                     <th class="px-4 py-3 font-semibold text-gray-900">No. Material</th>
                                     <th class="px-4 py-3 font-semibold text-gray-900">Operator</th>
                                     <th class="px-4 py-3 font-semibold text-gray-900">D. Kawat Act</th>
-                                    <th class="px-4 py-3 font-semibold text-gray-900">Selisih Diagonal</th>
                                     <th class="px-4 py-3 font-semibold text-gray-900">P Produk</th>
                                     <th class="px-4 py-3 font-semibold text-gray-900">L Produk</th>
-                                    <th class="px-4 py-3 font-semibold text-gray-900">P Mesh</th>
-                                    <th class="px-4 py-3 font-semibold text-gray-900">L Mesh</th>
-                                    <th class="px-4 py-3 font-semibold text-gray-900">Torsi Strength</th>
-                                    <th class="px-4 py-3 font-semibold text-gray-900">Dimensi</th>
+                                    <th class="px-4 py-3 font-semibold text-gray-900">T Tekukan</th>
+                                    <th class="px-4 py-3 font-semibold text-gray-900">Sudut</th>
+                                    <th class="px-4 py-3 font-semibold text-gray-900">Diagonal</th>
+                                    <th class="px-4 py-3 font-semibold text-gray-900">Matching Crosswire</th>
                                     <th class="px-4 py-3 font-semibold text-gray-900">Visual</th>
-                                    <th class="px-4 py-3 font-semibold text-gray-900">Shear Strength</th>
-                                    <th class="px-4 py-3 font-semibold text-gray-900">Weight</th>
+                                    <th class="px-4 py-3 font-semibold text-gray-900">Status</th>
                                     <th class="px-4 py-3 font-semibold text-gray-900">Detail</th>
                                     <th class="px-4 py-3 font-semibold text-gray-900">Gambar</th>
-                                    <th class="px-4 py-3 font-semibold text-gray-900">Aksi</th>
                                     <th class="px-4 py-3 text-center font-semibold text-gray-900">Created At</th>
                                 </tr>
                             </thead>
@@ -161,37 +159,6 @@
                                 @forelse ($inspeksi_bending->inspeksiBendingWip as $wip)
                                     <tr class="transition-colors hover:bg-gray-50">
                                         <td class="px-4 py-3">{{ $loop->iteration }}</td>
-                                        <td class="px-4 py-3">{{ $wip->user->name ?? 'N/A' }}</td>
-                                        <td class="px-4 py-3 font-medium">{{ $wip->no_material }}</td>
-                                        <td class="px-4 py-3">{{ $wip->nama_operator }}</td>
-                                        <td class="bg-blue-50/30 px-4 py-3 text-center">{{ $wip->d_kawat_act }}</td>
-                                        <td class="bg-blue-50/30 px-4 py-3 text-center">{{ $wip->selisih_diagonal }}
-                                        </td>
-                                        <td class="bg-blue-50/30 px-4 py-3 text-center">{{ $wip->p_product_act }}</td>
-                                        <td class="bg-blue-50/30 px-4 py-3 text-center">{{ $wip->l_product_act }}</td>
-                                        <td class="bg-blue-50/30 px-4 py-3 text-center">{{ $wip->p_mesh_act }}</td>
-                                        <td class="bg-blue-50/30 px-4 py-3 text-center">{{ $wip->l_mesh_act }}</td>
-                                        <td class="bg-blue-50/30 px-4 py-3 text-center">{{ $wip->torsi_strength }}
-                                        </td>
-                                        <td class="bg-blue-50/30 px-4 py-3 text-center">{{ $wip->status_dimensi }}
-                                        </td>
-                                        <td class="bg-blue-50/30 px-4 py-3 text-center">{{ $wip->visual }}
-                                        </td>
-                                        <td class="bg-blue-50/30 px-4 py-3 text-center">{{ $wip->shear_strength }}
-                                        </td>
-                                        <td class="bg-blue-50/30 px-4 py-3 text-center">{{ $wip->weight }}</td>
-                                        <td class="px-4 py-3">
-                                            <button type="button" class="text-sm text-indigo-600 hover:underline"
-                                                onclick="toggleDetail2({{ $wip->id }})">
-                                                Lihat Detail
-                                            </button>
-                                        </td>
-                                        <td class="px-4 py-3">
-                                            <button type="button" class="text-sm text-indigo-600 hover:underline"
-                                                onclick="toggleImage2({{ $wip->id }})">
-                                                Lihat Gambar
-                                            </button>
-                                        </td>
                                         <td class="px-4 py-3">
                                             <div class="flex items-center gap-3">
                                                 {{-- Edit --}}
@@ -207,13 +174,11 @@
                                                         </svg>
                                                     </button>
                                                 @else
-                                                    <a href="{{ route('inspeksi_wm_wip.edit', $wip->id) }}"
+                                                    <a href="{{ route('inspeksi_bending_wip.edit', $wip->id) }}"
                                                         class="inline-flex items-center rounded-md bg-yellow-100 p-2 text-yellow-600 transition hover:bg-yellow-200"
                                                         title="Edit">
-
                                                         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5"
                                                             fill="none" viewBox="0 0 24 24" stroke="currentColor">
-
                                                             <path stroke-linecap="round" stroke-linejoin="round"
                                                                 stroke-width="2"
                                                                 d="M11 5h2m-1-1v2m-6 9l-1 4 4-1 9-9a2.121 2.121 0 00-3-3l-9 9z" />
@@ -235,12 +200,11 @@
                                                         </svg>
                                                     </button>
                                                 @else
-                                                    <form action="{{ route('inspeksi_wm_wip.destroy', $wip->id) }}"
+                                                    <form
+                                                        action="{{ route('inspeksi_bending_wip.destroy', $wip->id) }}"
                                                         method="POST" class="delete-form inline-block">
-
                                                         @csrf
                                                         @method('DELETE')
-
                                                         <button type="submit"
                                                             class="inline-flex items-center rounded-md bg-red-100 p-2 text-red-600 transition hover:bg-red-200"
                                                             title="Hapus">
@@ -255,8 +219,35 @@
                                                         </button>
                                                     </form>
                                                 @endif
-
                                             </div>
+                                        </td>
+                                        <td class="px-4 py-3">{{ $wip->user->name ?? 'N/A' }}</td>
+                                        <td class="px-4 py-3 font-medium">{{ $wip->no_material }}</td>
+                                        <td class="px-4 py-3">{{ $wip->nama_operator }}</td>
+                                        <td class="bg-blue-50/30 px-4 py-3 text-center">{{ $wip->d_kawat_act }}</td>
+                                        <td class="bg-blue-50/30 px-4 py-3 text-center">{{ $wip->p_product_act }}</td>
+                                        <td class="bg-blue-50/30 px-4 py-3 text-center">{{ $wip->l_product_act }}</td>
+                                        <td class="bg-blue-50/30 px-4 py-3 text-center">{{ $wip->t_tekukan }}</td>
+                                        <td class="bg-blue-50/30 px-4 py-3 text-center">{{ $wip->sudut }}</td>
+                                        <td class="bg-blue-50/30 px-4 py-3 text-center">{{ $wip->diagonal }}
+                                        </td>
+                                        <td class="bg-blue-50/30 px-4 py-3 text-center">{{ $wip->matchingcrosswire }}
+                                        </td>
+                                        <td class="bg-blue-50/30 px-4 py-3 text-center">{{ $wip->visual }}
+                                        </td>
+                                        <td class="bg-blue-50/30 px-4 py-3 text-center">{{ $wip->status }}
+                                        </td>
+                                        <td class="px-4 py-3">
+                                            <button type="button" class="text-sm text-indigo-600 hover:underline"
+                                                onclick="toggleDetail2({{ $wip->id }})">
+                                                Lihat Detail
+                                            </button>
+                                        </td>
+                                        <td class="px-4 py-3">
+                                            <button type="button" class="text-sm text-indigo-600 hover:underline"
+                                                onclick="toggleImage2({{ $wip->id }})">
+                                                Lihat Gambar
+                                            </button>
                                         </td>
                                         <td class="bg-blue-50/30 px-4 py-3 text-center">{{ $wip->created_at }}</td>
                                     </tr>

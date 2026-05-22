@@ -9,11 +9,24 @@ class InspeksiBendingWip extends Model
     protected $fillable = [
         'inspeksi_bending_id',
         'user_id',
+        'no_material',
+        'nama_operator',
+        'd_kawat_act',
+        'p_product_act',
+        'l_product_act',
+        't_tekukan',
+        'sudut',
+        'diagonal',
+        'matchingcrosswire',
+        'visual',
         'status',
-        'qty',
-        'weight',
         'files',
     ];
+
+    protected $casts = [
+        'files' => 'array',
+    ];
+
 
     public function inspeksiBending()
     {

@@ -21,10 +21,9 @@ return new class extends Migration
             $table->decimal('p_product_act', 8, 2)->nullable();
             $table->decimal('l_product_act', 8, 2)->nullable();
             $table->decimal('t_tekukan', 8, 2)->nullable();
-            $table->decimal('l_mesh_act', 8, 2)->nullable();
             $table->decimal('sudut', 8, 2)->nullable();
             $table->decimal('diagonal', 8, 2)->nullable();
-            $table->decimal('matchingcrosswire', 8, 2)->nullable();
+            $table->string('matchingcrosswire')->nullable();
             $table->string('visual')->nullable();
             $table->string('status')->nullable();
             $table->json('files')->nullable();
