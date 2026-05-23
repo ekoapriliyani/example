@@ -22,6 +22,9 @@ use App\Http\Controllers\InspeksiPoundWipController;
 use App\Http\Controllers\InspeksiPvcController;
 use App\Http\Controllers\InspeksiRazorpackingController;
 use App\Http\Controllers\InspeksiRazorpackingFgController;
+use App\Http\Controllers\InspeksiShearingController;
+use App\Http\Controllers\InspeksiShearingFgController;
+use App\Http\Controllers\InspeksiShearingWipController;
 use App\Http\Controllers\InspeksiSlittingController;
 use App\Http\Controllers\InspeksiSlittingWipController;
 use App\Http\Controllers\InspeksiWmController;
@@ -116,6 +119,7 @@ Route::middleware(['auth'])->group(function () {
         'inspeksi_wm'        => InspeksiWmController::class,
         'inspeksi_ct'        => InspeksiCtController::class,
         'inspeksi_bending'   => InspeksiBendingController::class,
+        'inspeksi_shearing'   => InspeksiShearingController::class,
         'inspeksi_kawat_duri' => InspeksiKawatDuriController::class,
         'inspeksi_pvc' => InspeksiPvcController::class,
         'inspeksi_chainlink' => InspeksiChainlinkController::class,
@@ -267,6 +271,46 @@ Route::middleware(['auth'])->group(function () {
 
     Route::delete('insepeksi_bending/fg/{fg}', [InspeksiBendingFgController::class, 'destroy'])
         ->name('inspeksi_bending_fg.destroy');
+
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Shearing
+    |--------------------------------------------------------------------------
+    */
+
+    // WIP
+    Route::get('/inspeksi_shearing/{inspeksi_shearing}/wip', [InspeksiShearingWipController::class, 'create'])
+        ->name('inspeksi_shearing.wip');
+
+    Route::post('/inspeksi_shearing/wip', [InspeksiShearingWipController::class, 'store'])
+        ->name('inspeksi_shearing_wip.store');
+
+    Route::get('insepeksi_shearing/wip/{wip}/edit', [InspeksiShearingWipController::class, 'edit'])
+        ->name('inspeksi_shearing_wip.edit');
+
+    Route::put('insepeksi_shearing/wip/{wip}', [InspeksiShearingWipController::class, 'update'])
+        ->name('inspeksi_shearing_wip.update');
+
+    Route::delete('insepeksi_shearing/wip/{wip}', [InspeksiShearingWipController::class, 'destroy'])
+        ->name('inspeksi_shearing_wip.destroy');
+
+    // FG
+    Route::get('/inspeksi_shearing/{inspeksi_shearing}/fg', [InspeksiShearingFgController::class, 'create'])
+        ->name('inspeksi_shearing.fg');
+
+    Route::post('/inspeksi_shearing/fg', [InspeksiShearingFgController::class, 'store'])
+        ->name('inspeksi_shearing_fg.store');
+
+    Route::get('insepeksi_shearing/fg/{fg}/edit', [InspeksiShearingFgController::class, 'edit'])
+        ->name('inspeksi_shearing_fg.edit');
+
+    Route::put('insepeksi_shearing/fg/{fg}', [InspeksiShearingFgController::class, 'update'])
+        ->name('inspeksi_shearing_fg.update');
+
+    Route::delete('insepeksi_shearing/fg/{fg}', [InspeksiShearingFgController::class, 'destroy'])
+        ->name('inspeksi_shearing_fg.destroy');
 
 
 
@@ -658,6 +702,9 @@ Route::middleware([
 
     Route::patch('/inspeksi-ct/{id}/toggle-approval', [InspeksiCtController::class, 'toggleApproval'])
         ->name('inspeksi-ct.toggle');
+
+    Route::patch('/inspeksi-shearing/{id}/toggle-approval', [InspeksiShearingController::class, 'toggleApproval'])
+        ->name('inspeksi-shearing.toggle');
 });
 
 
