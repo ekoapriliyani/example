@@ -36,10 +36,16 @@ class InspeksiCtWipController extends Controller
             'inspeksi_ct_id' => 'required|exists:inspeksi_cts,id',
             'no_material' => 'required|string|max:255',
             'nama_operator' => 'required|string|max:255',
+            'd_kawat_act' => 'required',
             'l_produk' => 'required',
             'p_produk' => 'required',
             't_produk' => 'required',
-            'sudut' => 'required',
+            'mesh1' => 'required',
+            'mesh2' => 'required',
+            'mesh3' => 'required',
+            'mesh4' => 'required',
+            'mesh5' => 'required',
+            'diagonal' => 'required',
             'visual' => 'required',
             'status' => 'required',
         ]);
@@ -52,10 +58,16 @@ class InspeksiCtWipController extends Controller
             'user_id' => Auth::id(),
             'no_material' => $validated['no_material'],
             'nama_operator' => $validated['nama_operator'],
+            'd_kawat_act' => $validated['d_kawat_act'],
             'l_produk' => $validated['l_produk'],
             'p_produk' => $validated['p_produk'],
             't_produk' => $validated['t_produk'],
-            'sudut' => $validated['sudut'],
+            'mesh1' => $validated['mesh1'],
+            'mesh2' => $validated['mesh2'],
+            'mesh3' => $validated['mesh3'],
+            'mesh4' => $validated['mesh4'],
+            'mesh5' => $validated['mesh5'],
+            'diagonal' => $validated['diagonal'],
             'visual' => $validated['visual'],
             'status' => $validated['status'],
         ]);
@@ -105,7 +117,12 @@ class InspeksiCtWipController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $wip = InspeksiCtWip::with(['details', 'inspeksiCt'])->findOrFail($id);
+
+        return view('inspeksi_ct.wip.edit', [
+            'inspeksi_ct' => $wip->inspeksiCt,
+            'wip' => $wip,
+        ]);
     }
 
     /**
@@ -113,7 +130,63 @@ class InspeksiCtWipController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $validated = $request->validate([
+            'no_material' => 'required|string|max:255',
+            'nama_operator' => 'required|string|max:255',
+            'd_kawat_act' => 'required',
+            'l_produk' => 'required',
+            'p_produk' => 'required',
+            't_produk' => 'required',
+            'mesh1' => 'required',
+            'mesh2' => 'required',
+            'mesh3' => 'required',
+            'mesh4' => 'required',
+            'mesh5' => 'required',
+            'diagonal' => 'required',
+            'visual' => 'required',
+            // tambahkan validasi untuk field lain jika diperlukan
+        ]);
+
+        $wip = InspeksiCtWip::findOrFail($id);
+        $wip->update($validated);
+
+        if ($request->hasFile('files')) {
+            if (is_array($wip->files)) {
+                foreach ($wip->files as $oldFile) {
+                    if (Storage::disk('public')->exists($oldFile)) {
+                        Storage::disk('public')->delete($oldFile);
+                    }
+                }
+            }
+            $newFiles = [];
+            foreach ($request->file('files') as $file) {
+                $newFiles[] = $file->store('inspeksi_ct_wip', 'public');
+            }
+            $wip->update([
+                'files' => $newFiles,
+            ]);
+        }
+        $wip->details()->delete();
+        if ($request->detail_description) {
+            foreach ($request->detail_description as $index => $description) {
+                $description2 = $request->detail_description2[$index] ?? null;
+                $qty = $request->detail_qty[$index] ?? null;
+
+                if (empty($description) && empty($description2) && empty($qty)) {
+                    continue;
+                }
+
+                $wip->details()->create([
+                    'description' => $description,
+                    'description2' => $description2,
+                    'qty' => $qty,
+                ]);
+            }
+        }
+
+        return redirect()
+            ->route('inspeksi_ct.show', $wip->inspeksi_ct_id)
+            ->with('success', 'Data WIP berhasil diupdate.');
     }
 
     /**

@@ -140,10 +140,16 @@
                                     <th class="px-4 py-3 font-semibold text-gray-900">Inspektor</th>
                                     <th class="px-4 py-3 font-semibold text-gray-900">No. Material</th>
                                     <th class="px-4 py-3 font-semibold text-gray-900">Operator</th>
+                                    <th class="px-4 py-3 font-semibold text-gray-900">D Kawat Act</th>
                                     <th class="px-4 py-3 font-semibold text-gray-900">P Produk</th>
                                     <th class="px-4 py-3 font-semibold text-gray-900">L Produk</th>
                                     <th class="px-4 py-3 font-semibold text-gray-900">T Produk</th>
-                                    <th class="px-4 py-3 font-semibold text-gray-900">Sudut</th>
+                                    <th class="px-4 py-3 font-semibold text-gray-900">Mesh 1</th>
+                                    <th class="px-4 py-3 font-semibold text-gray-900">Mesh 2</th>
+                                    <th class="px-4 py-3 font-semibold text-gray-900">Mesh 3</th>
+                                    <th class="px-4 py-3 font-semibold text-gray-900">Mesh 4</th>
+                                    <th class="px-4 py-3 font-semibold text-gray-900">Mesh 5</th>
+                                    <th class="px-4 py-3 font-semibold text-gray-900">Diagonal</th>
                                     <th class="px-4 py-3 font-semibold text-gray-900">Visual</th>
                                     <th class="px-4 py-3 font-semibold text-gray-900">Status</th>
                                     <th class="px-4 py-3 font-semibold text-gray-900">Detail</th>
@@ -220,10 +226,16 @@
                                         <td class="px-4 py-3">{{ $wip->user->name ?? 'N/A' }}</td>
                                         <td class="px-4 py-3 font-medium">{{ $wip->no_material }}</td>
                                         <td class="px-4 py-3">{{ $wip->nama_operator }}</td>
+                                        <td class="px-4 py-3">{{ $wip->d_kawat_act }}</td>
                                         <td class="bg-blue-50/30 px-4 py-3 text-center">{{ $wip->p_produk }}</td>
                                         <td class="bg-blue-50/30 px-4 py-3 text-center">{{ $wip->l_produk }}</td>
                                         <td class="bg-blue-50/30 px-4 py-3 text-center">{{ $wip->t_produk }}</td>
-                                        <td class="bg-blue-50/30 px-4 py-3 text-center">{{ $wip->sudut }}</td>
+                                        <td class="bg-blue-50/30 px-4 py-3 text-center">{{ $wip->mesh1 }}</td>
+                                        <td class="bg-blue-50/30 px-4 py-3 text-center">{{ $wip->mesh2 }}</td>
+                                        <td class="bg-blue-50/30 px-4 py-3 text-center">{{ $wip->mesh3 }}</td>
+                                        <td class="bg-blue-50/30 px-4 py-3 text-center">{{ $wip->mesh4 }}</td>
+                                        <td class="bg-blue-50/30 px-4 py-3 text-center">{{ $wip->mesh5 }}</td>
+                                        <td class="bg-blue-50/30 px-4 py-3 text-center">{{ $wip->diagonal }}</td>
                                         <td class="bg-blue-50/30 px-4 py-3 text-center">{{ $wip->visual }}
                                         </td>
                                         <td class="bg-blue-50/30 px-4 py-3 text-center">{{ $wip->status }}
