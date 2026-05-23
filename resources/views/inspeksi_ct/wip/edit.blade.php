@@ -26,7 +26,7 @@
                             value="{{ old('inspeksi_ct_id', $wip->inspeksi_ct_id) }}">
                         <input type="hidden" name="user_id" value="{{ auth()->id() }}">
 
-                        <div class="grid grid-cols-2 gap-6 md:grid-cols-2">
+                        <div class="grid grid-cols-3 gap-6 md:grid-cols-3">
                             <div>
                                 <x-input-label for="no_material" :value="__('No. Material')" />
                                 <x-text-input id="no_material" name="no_material" type="text"
@@ -84,18 +84,6 @@
                                 <x-input-error class="mt-2" :messages="$errors->get('mesh3')" />
                             </div>
                             <div>
-                                <x-input-label for="mesh4" :value="__('Mesh 4')" />
-                                <x-text-input id="mesh4" name="mesh4" type="number" step="0.01"
-                                    class="mt-1 block w-full" :value="old('mesh4', $wip->mesh4)" required />
-                                <x-input-error class="mt-2" :messages="$errors->get('mesh4')" />
-                            </div>
-                            <div>
-                                <x-input-label for="mesh5" :value="__('Mesh 5')" />
-                                <x-text-input id="mesh5" name="mesh5" type="number" step="0.01"
-                                    class="mt-1 block w-full" :value="old('mesh5', $wip->mesh5)" required />
-                                <x-input-error class="mt-2" :messages="$errors->get('mesh5')" />
-                            </div>
-                            <div>
                                 <x-input-label for="diagonal" :value="__('Diagonal')" />
                                 <x-text-input id="diagonal" name="diagonal" type="number" step="0.01"
                                     class="mt-1 block w-full" :value="old('diagonal', $wip->diagonal)" required />
@@ -115,6 +103,21 @@
                                     </option>
                                 </select>
                                 <x-input-error class="mt-2" :messages="$errors->get('visual')" />
+                            </div>
+                            <div>
+                                <x-input-label for="status" :value="__('Status')" />
+                                <select id="status" name="status"
+                                    class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+                                    required>
+                                    <option value="">-- Pilih status --</option>
+                                    <option value="OK" {{ old('status', $wip->status) == 'OK' ? 'selected' : '' }}>
+                                        OK
+                                    </option>
+                                    <option value="NG" {{ old('status', $wip->status) == 'NG' ? 'selected' : '' }}>
+                                        NG
+                                    </option>
+                                </select>
+                                <x-input-error class="mt-2" :messages="$errors->get('status')" />
                             </div>
                         </div>
                         <div class="border-t border-gray-200 pt-6">

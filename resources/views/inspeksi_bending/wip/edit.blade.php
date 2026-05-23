@@ -26,7 +26,7 @@
                             value="{{ old('inspeksi_bending_id', $wip->inspeksi_bending_id) }}">
                         <input type="hidden" name="user_id" value="{{ auth()->id() }}">
 
-                        <div class="grid grid-cols-2 gap-6 md:grid-cols-2">
+                        <div class="grid grid-cols-2 gap-6 md:grid-cols-3">
                             <div>
                                 <x-input-label for="no_material" :value="__('No. Material')" />
                                 <x-text-input id="no_material" name="no_material" type="text"
@@ -63,12 +63,40 @@
                                     class="mt-1 block w-full" :value="old('t_tekukan', $wip->t_tekukan)" required />
                                 <x-input-error class="mt-2" :messages="$errors->get('t_tekukan')" />
                             </div>
+                        </div>
+                        <div class="grid grid-cols-2 gap-6 md:grid-cols-5">
                             <div>
-                                <x-input-label for="sudut" :value="__('Sudut')" />
-                                <x-text-input id="sudut" name="sudut" type="number" step="0.01"
-                                    class="mt-1 block w-full" :value="old('sudut', $wip->sudut)" required />
-                                <x-input-error class="mt-2" :messages="$errors->get('sudut')" />
+                                <x-input-label for="mesh1" :value="__('Mesh 1')" />
+                                <x-text-input id="mesh1" name="mesh1" type="number" step="0.01"
+                                    class="mt-1 block w-full" :value="old('mesh1', $wip->mesh1)" required />
+                                <x-input-error class="mt-2" :messages="$errors->get('mesh1')" />
                             </div>
+                            <div>
+                                <x-input-label for="mesh2" :value="__('Mesh 2')" />
+                                <x-text-input id="mesh2" name="mesh2" type="number" step="0.01"
+                                    class="mt-1 block w-full" :value="old('mesh2', $wip->mesh2)" required />
+                                <x-input-error class="mt-2" :messages="$errors->get('mesh2')" />
+                            </div>
+                            <div>
+                                <x-input-label for="mesh3" :value="__('Mesh 3')" />
+                                <x-text-input id="mesh3" name="mesh3" type="number" step="0.01"
+                                    class="mt-1 block w-full" :value="old('mesh3', $wip->mesh3)" required />
+                                <x-input-error class="mt-2" :messages="$errors->get('mesh3')" />
+                            </div>
+                            <div>
+                                <x-input-label for="mesh4" :value="__('Mesh 4')" />
+                                <x-text-input id="mesh4" name="mesh4" type="number" step="0.01"
+                                    class="mt-1 block w-full" :value="old('mesh4', $wip->mesh4)" required />
+                                <x-input-error class="mt-2" :messages="$errors->get('mesh4')" />
+                            </div>
+                            <div>
+                                <x-input-label for="mesh5" :value="__('Mesh 5')" />
+                                <x-text-input id="mesh5" name="mesh5" type="number" step="0.01"
+                                    class="mt-1 block w-full" :value="old('mesh5', $wip->mesh5)" required />
+                                <x-input-error class="mt-2" :messages="$errors->get('mesh5')" />
+                            </div>
+                        </div>
+                        <div class="grid grid-cols-2 gap-6 md:grid-cols-4">
                             <div>
                                 <x-input-label for="diagonal" :value="__('Diagonal')" />
                                 <x-text-input id="diagonal" name="diagonal" type="number" step="0.01"
@@ -115,7 +143,8 @@
                                     <option value="OK" {{ old('status', $wip->status) == 'OK' ? 'selected' : '' }}>
                                         OK
                                     </option>
-                                    <option value="NG" {{ old('status', $wip->status) == 'NG' ? 'selected' : '' }}>
+                                    <option value="NG"
+                                        {{ old('status', $wip->status) == 'NG' ? 'selected' : '' }}>
                                         NG
                                     </option>
                                 </select>

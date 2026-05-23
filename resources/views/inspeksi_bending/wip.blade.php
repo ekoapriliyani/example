@@ -38,7 +38,7 @@
                         <input type="hidden" name="inspeksi_bending_id" value="{{ $inspeksi_bending->id }}">
                         <input type="hidden" name="user_id" value="{{ auth()->id() }}">
 
-                        <div class="grid grid-cols-1 gap-6 md:grid-cols-2">
+                        <div class="grid grid-cols-1 gap-6 md:grid-cols-3">
                             <div>
                                 <x-input-label for="no_material" :value="__('Nomor Material')" />
                                 <x-text-input id="no_material" name="no_material" type="number"
@@ -46,7 +46,6 @@
                                     placeholder="Masukkan kode material" />
                                 <x-input-error class="mt-2" :messages="$errors->get('no_material')" />
                             </div>
-
                             <div>
                                 <x-input-label for="nama_operator" :value="__('Nama Operator')" />
                                 <x-text-input id="nama_operator" name="nama_operator" type="text"
@@ -54,9 +53,6 @@
                                     placeholder="Nama operator mesin" />
                                 <x-input-error class="mt-2" :messages="$errors->get('nama_operator')" />
                             </div>
-                        </div>
-
-                        <div class="grid grid-cols-1 gap-6 md:grid-cols-2">
                             <div>
                                 <x-input-label for="d_kawat_act" :value="__('Diameter Kawat (Actual)')" />
                                 <div class="relative mt-1">
@@ -69,7 +65,9 @@
                                 </div>
                                 <x-input-error class="mt-2" :messages="$errors->get('d_kawat_act')" />
                             </div>
+                        </div>
 
+                        <div class="grid grid-cols-1 gap-6 md:grid-cols-3">
                             <div>
                                 <x-input-label for="p_product_act" :value="__('P Product (Actual)')" />
                                 <div class="relative mt-1">
@@ -106,18 +104,71 @@
                                 </div>
                                 <x-input-error class="mt-2" :messages="$errors->get('t_tekukan')" />
                             </div>
+                        </div>
+                        <div class="grid grid-cols-1 gap-6 md:grid-cols-5">
                             <div>
-                                <x-input-label for="sudut" :value="__('Sudut')" />
+                                <x-input-label for="mesh1" :value="__('Mesh 1')" />
                                 <div class="relative mt-1">
-                                    <x-text-input id="sudut" name="sudut" type="number" step="0.01"
-                                        class="block w-full pr-12" :value="old('sudut')" required placeholder="0.00" />
+                                    <x-text-input id="mesh1" name="mesh1" type="number" step="0.01"
+                                        class="block w-full pr-12" :value="old('mesh1')" required placeholder="0.00" />
                                     <div
                                         class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3 text-sm text-gray-400">
                                         mm
                                     </div>
                                 </div>
-                                <x-input-error class="mt-2" :messages="$errors->get('sudut')" />
+                                <x-input-error class="mt-2" :messages="$errors->get('mesh1')" />
                             </div>
+                            <div>
+                                <x-input-label for="mesh2" :value="__('Mesh 2')" />
+                                <div class="relative mt-1">
+                                    <x-text-input id="mesh2" name="mesh2" type="number" step="0.01"
+                                        class="block w-full pr-12" :value="old('mesh2')" required placeholder="0.00" />
+                                    <div
+                                        class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3 text-sm text-gray-400">
+                                        mm
+                                    </div>
+                                </div>
+                                <x-input-error class="mt-2" :messages="$errors->get('mesh2')" />
+                            </div>
+                            <div>
+                                <x-input-label for="mesh3" :value="__('Mesh 3')" />
+                                <div class="relative mt-1">
+                                    <x-text-input id="mesh3" name="mesh3" type="number" step="0.01"
+                                        class="block w-full pr-12" :value="old('mesh3')" required placeholder="0.00" />
+                                    <div
+                                        class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3 text-sm text-gray-400">
+                                        mm
+                                    </div>
+                                </div>
+                                <x-input-error class="mt-2" :messages="$errors->get('mesh3')" />
+                            </div>
+                            <div>
+                                <x-input-label for="mesh4" :value="__('Mesh 4')" />
+                                <div class="relative mt-1">
+                                    <x-text-input id="mesh4" name="mesh4" type="number" step="0.01"
+                                        class="block w-full pr-12" :value="old('mesh4')" required placeholder="0.00" />
+                                    <div
+                                        class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3 text-sm text-gray-400">
+                                        mm
+                                    </div>
+                                </div>
+                                <x-input-error class="mt-2" :messages="$errors->get('mesh4')" />
+                            </div>
+                            <div>
+                                <x-input-label for="mesh5" :value="__('Mesh 5')" />
+                                <div class="relative mt-1">
+                                    <x-text-input id="mesh5" name="mesh5" type="number" step="0.01"
+                                        class="block w-full pr-12" :value="old('mesh5')" required placeholder="0.00" />
+                                    <div
+                                        class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3 text-sm text-gray-400">
+                                        mm
+                                    </div>
+                                </div>
+                                <x-input-error class="mt-2" :messages="$errors->get('mesh5')" />
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-1 gap-6 md:grid-cols-4">
                             <div>
                                 <x-input-label for="diagonal" :value="__('diagonal')" />
                                 <div class="relative mt-1">

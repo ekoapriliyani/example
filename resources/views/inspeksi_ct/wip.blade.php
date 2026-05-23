@@ -38,7 +38,7 @@
                         <input type="hidden" name="inspeksi_ct_id" value="{{ $inspeksiCt->id }}">
                         <input type="hidden" name="user_id" value="{{ auth()->id() }}">
 
-                        <div class="grid grid-cols-1 gap-6 md:grid-cols-2">
+                        <div class="grid grid-cols-1 gap-6 md:grid-cols-3">
                             <div>
                                 <x-input-label for="no_material" :value="__('Nomor Material')" />
                                 <x-text-input id="no_material" name="no_material" type="number"
@@ -67,9 +67,7 @@
                                 </div>
                                 <x-input-error class="mt-2" :messages="$errors->get('d_kawat_act')" />
                             </div>
-                        </div>
 
-                        <div class="grid grid-cols-1 gap-6 md:grid-cols-2">
                             <div>
                                 <x-input-label for="p_produk" :value="__('Panjang Produk')" />
                                 <div class="relative mt-1">
@@ -106,6 +104,7 @@
                                 </div>
                                 <x-input-error class="mt-2" :messages="$errors->get('t_produk')" />
                             </div>
+
                             <div>
                                 <x-input-label for="mesh1" :value="__('Mesh 1')" />
                                 <div class="relative mt-1">
@@ -146,32 +145,6 @@
                             </div>
 
                             <div>
-                                <x-input-label for="mesh4" :value="__('Mesh 4')" />
-                                <div class="relative mt-1">
-                                    <x-text-input id="mesh4" name="mesh4" type="number" step="0.01"
-                                        class="block w-full pr-12" :value="old('mesh4')" required placeholder="0.00" />
-                                    <div
-                                        class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3 text-sm text-gray-400">
-                                        mm
-                                    </div>
-                                </div>
-                                <x-input-error class="mt-2" :messages="$errors->get('mesh4')" />
-                            </div>
-
-                            <div>
-                                <x-input-label for="mesh5" :value="__('Mesh 5')" />
-                                <div class="relative mt-1">
-                                    <x-text-input id="mesh5" name="mesh5" type="number" step="0.01"
-                                        class="block w-full pr-12" :value="old('mesh5')" required placeholder="0.00" />
-                                    <div
-                                        class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3 text-sm text-gray-400">
-                                        mm
-                                    </div>
-                                </div>
-                                <x-input-error class="mt-2" :messages="$errors->get('mesh5')" />
-                            </div>
-
-                            <div>
                                 <x-input-label for="diagonal" :value="__('Diagonal')" />
                                 <div class="relative mt-1">
                                     <x-text-input id="diagonal" name="diagonal" type="number" step="0.01"
@@ -207,6 +180,7 @@
                                 <x-input-error class="mt-2" :messages="$errors->get('status')" />
                             </div>
                         </div>
+
                         <div class="border-t border-gray-200 pt-6 md:col-span-2">
                             <h3 class="mb-4 font-semibold text-gray-700">Detail Inspeksi</h3>
                             <div id="detail-wrapper" class="space-y-4">

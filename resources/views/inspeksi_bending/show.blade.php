@@ -145,7 +145,11 @@
                                     <th class="px-4 py-3 font-semibold text-gray-900">P Produk</th>
                                     <th class="px-4 py-3 font-semibold text-gray-900">L Produk</th>
                                     <th class="px-4 py-3 font-semibold text-gray-900">T Tekukan</th>
-                                    <th class="px-4 py-3 font-semibold text-gray-900">Sudut</th>
+                                    <th class="px-4 py-3 font-semibold text-gray-900">Mesh 1</th>
+                                    <th class="px-4 py-3 font-semibold text-gray-900">Mesh 2</th>
+                                    <th class="px-4 py-3 font-semibold text-gray-900">Mesh 3</th>
+                                    <th class="px-4 py-3 font-semibold text-gray-900">Mesh 4</th>
+                                    <th class="px-4 py-3 font-semibold text-gray-900">Mesh 5</th>
                                     <th class="px-4 py-3 font-semibold text-gray-900">Diagonal</th>
                                     <th class="px-4 py-3 font-semibold text-gray-900">Matching Crosswire</th>
                                     <th class="px-4 py-3 font-semibold text-gray-900">Visual</th>
@@ -228,7 +232,11 @@
                                         <td class="bg-blue-50/30 px-4 py-3 text-center">{{ $wip->p_product_act }}</td>
                                         <td class="bg-blue-50/30 px-4 py-3 text-center">{{ $wip->l_product_act }}</td>
                                         <td class="bg-blue-50/30 px-4 py-3 text-center">{{ $wip->t_tekukan }}</td>
-                                        <td class="bg-blue-50/30 px-4 py-3 text-center">{{ $wip->sudut }}</td>
+                                        <td class="bg-blue-50/30 px-4 py-3 text-center">{{ $wip->mesh1 }}</td>
+                                        <td class="bg-blue-50/30 px-4 py-3 text-center">{{ $wip->mesh2 }}</td>
+                                        <td class="bg-blue-50/30 px-4 py-3 text-center">{{ $wip->mesh3 }}</td>
+                                        <td class="bg-blue-50/30 px-4 py-3 text-center">{{ $wip->mesh4 }}</td>
+                                        <td class="bg-blue-50/30 px-4 py-3 text-center">{{ $wip->mesh5 }}</td>
                                         <td class="bg-blue-50/30 px-4 py-3 text-center">{{ $wip->diagonal }}
                                         </td>
                                         <td class="bg-blue-50/30 px-4 py-3 text-center">{{ $wip->matchingcrosswire }}

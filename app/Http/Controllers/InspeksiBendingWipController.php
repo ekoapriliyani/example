@@ -40,7 +40,11 @@ class InspeksiBendingWipController extends Controller
             'p_product_act'         => 'required|numeric',
             'l_product_act'         => 'required|numeric',
             't_tekukan'             => 'required|numeric',
-            'sudut'                 => 'required|numeric',
+            'mesh1'                 => 'required|numeric',
+            'mesh2'                 => 'required|numeric',
+            'mesh3'                 => 'required|numeric',
+            'mesh4'                 => 'required|numeric',
+            'mesh5'                 => 'required|numeric',
             'diagonal'             => 'required|numeric',
             'matchingcrosswire'     => 'required|string|max:255',
             'visual'               => 'required|string|max:255',
@@ -62,7 +66,11 @@ class InspeksiBendingWipController extends Controller
             'p_product_act'    => $validated['p_product_act'],
             'l_product_act'    => $validated['l_product_act'],
             't_tekukan'        => $validated['t_tekukan'],
-            'sudut'            => $validated['sudut'],
+            'mesh1'            => $validated['mesh1'],
+            'mesh2'            => $validated['mesh2'],
+            'mesh3'            => $validated['mesh3'],
+            'mesh4'            => $validated['mesh4'],
+            'mesh5'            => $validated['mesh5'],
             'diagonal'        => $validated['diagonal'],
             'matchingcrosswire' => $validated['matchingcrosswire'],
             'visual'          => $validated['visual'],
@@ -132,7 +140,11 @@ class InspeksiBendingWipController extends Controller
             'p_product_act'         => 'required|numeric',
             'l_product_act'         => 'required|numeric',
             't_tekukan'             => 'required|numeric',
-            'sudut'                 => 'required|numeric',
+            'mesh1'                 => 'required|numeric',
+            'mesh2'                 => 'required|numeric',
+            'mesh3'                 => 'required|numeric',
+            'mesh4'                 => 'required|numeric',
+            'mesh5'                 => 'required|numeric',
             'diagonal'             => 'required|numeric',
             'matchingcrosswire'     => 'required|string|max:255',
             'visual'               => 'required|string|max:255',
@@ -150,7 +162,11 @@ class InspeksiBendingWipController extends Controller
             'p_product_act'    => $validated['p_product_act'],
             'l_product_act'    => $validated['l_product_act'],
             't_tekukan'        => $validated['t_tekukan'],
-            'sudut'            => $validated['sudut'],
+            'mesh1'            => $validated['mesh1'],
+            'mesh2'            => $validated['mesh2'],
+            'mesh3'            => $validated['mesh3'],
+            'mesh4'            => $validated['mesh4'],
+            'mesh5'            => $validated['mesh5'],
             'diagonal'        => $validated['diagonal'],
             'matchingcrosswire' => $validated['matchingcrosswire'],
             'visual'          => $validated['visual'],
@@ -161,21 +177,23 @@ class InspeksiBendingWipController extends Controller
             return redirect()->back()->with('error', 'Sesi login berakhir. Silakan login kembali.');
         }
 
-        $wip = InspeksiBendingWip::findOrFail($id);
-        $wip->update([
-            'user_id'               => Auth::id(),
-            'no_material'           => $validated['no_material'],
-            'nama_operator'         => $validated['nama_operator'],
-            'd_kawat_act'         => $validated['d_kawat_act'],
-            'p_product_act'    => $validated['p_product_act'],
-            'l_product_act'    => $validated['l_product_act'],
-            't_tekukan'        => $validated['t_tekukan'],
-            'sudut'            => $validated['sudut'],
-            'diagonal'        => $validated['diagonal'],
-            'matchingcrosswire' => $validated['matchingcrosswire'],
-            'visual'          => $validated['visual'],
-            'status'          => $validated['status'],
-        ]);
+        // $wip = InspeksiBendingWip::findOrFail($id);
+        // $wip->update([
+        //     'user_id'               => Auth::id(),
+        //     'no_material'           => $validated['no_material'],
+        //     'nama_operator'         => $validated['nama_operator'],
+        //     'd_kawat_act'         => $validated['d_kawat_act'],
+        //     'p_product_act'    => $validated['p_product_act'],
+        //     'l_product_act'    => $validated['l_product_act'],
+        //     't_tekukan'        => $validated['t_tekukan'],
+        //     'sudut'            => $validated['sudut'],
+        //     'diagonal'        => $validated['diagonal'],
+        //     'matchingcrosswire' => $validated['matchingcrosswire'],
+        //     'visual'          => $validated['visual'],
+        //     'status'          => $validated['status'],
+        // ]);
+
+
         if ($request->hasFile('files')) {
             if (is_array($wip->files)) {
                 foreach ($wip->files as $oldFile) {
