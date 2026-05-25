@@ -2,13 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\InspeksiBending;
-use App\Models\InspeksiBendingWip;
+use App\Models\InspeksiFencing;
+use App\Models\InspeksiFencingWip;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
-class InspeksiBendingWipController extends Controller
+class InspeksiFencingWipController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -23,8 +23,8 @@ class InspeksiBendingWipController extends Controller
      */
     public function create(String $id)
     {
-        $inspeksiBending = InspeksiBending::findOrFail($id);
-        return view('inspeksi_bending.wip', ['inspeksi_bending' => $inspeksiBending]);
+        $inspeksiFencing = InspeksiFencing::findOrFail($id);
+        return view('inspeksi_fencing.wip', ['inspeksi_fencing' => $inspeksiFencing]);
     }
 
     /**
@@ -32,19 +32,26 @@ class InspeksiBendingWipController extends Controller
      */
     public function store(Request $request)
     {
+        // 1. Cek sesi login terlebih dahulu di posisi paling atas
+        if (!Auth::check()) {
+            return redirect()->back()->with('error', 'Sesi login berakhir. Silakan login kembali.');
+        }
+
+        // 2. Jalankan validasi dengan rule yang tepat
         $validated = $request->validate([
-            'inspeksi_bending_id'    => 'required|exists:inspeksi_bendings,id',
+            'inspeksi_fencing_id'    => 'required|exists:inspeksi_fencings,id',
             'no_material'           => 'required|string|max:255',
             'nama_operator'         => 'required|string|max:255',
             'd_kawat_act'           => 'required|numeric',
             'p_product_act'         => 'required|numeric',
             'l_product_act'         => 'required|numeric',
-            't_tekukan'             => 'required|numeric',
-            'mesh1'                 => 'required|numeric',
-            'mesh2'                 => 'required|numeric',
-            'mesh3'                 => 'required|numeric',
-            'mesh4'                 => 'required|numeric',
-            'mesh5'                 => 'required|numeric',
+            't_product_act'         => 'nullable|numeric', // Diubah menjadi nullable
+            'mesh1'                 => 'nullable|numeric',  // Diubah menjadi nullable agar aman
+            'mesh2'                 => 'nullable|numeric',
+            'mesh3'                 => 'nullable|numeric',
+            'mesh4'                 => 'nullable|numeric',
+            'mesh5'                 => 'nullable|numeric',
+            'mesh6'                 => 'nullable|numeric',
             'diagonal'             => 'required|numeric',
             'matchingcrosswire'     => 'required|string|max:255',
             'visual'               => 'required|string|max:255',
@@ -52,33 +59,32 @@ class InspeksiBendingWipController extends Controller
             'files'                => 'nullable|array',
             'files.*'              => 'nullable|file|mimes:jpg,jpeg,png,pdf|max:10240',
         ]);
-        if (!Auth::check()) {
-            return redirect()->back()->with('error', 'Sesi login berakhir. Silakan login kembali.');
-        }
 
-        // simpan WIP utama
-        $wip = InspeksiBendingWip::create([
-            'inspeksi_bending_id' => $validated['inspeksi_bending_id'],
+        // 3. Simpan WIP utama menggunakan request direct (?? null) untuk field yang bisa kosong/disabled
+        $wip = InspeksiFencingWip::create([
+            'inspeksi_fencing_id' => $validated['inspeksi_fencing_id'],
             'user_id'             => Auth::id(),
             'no_material'         => $validated['no_material'],
             'nama_operator'       => $validated['nama_operator'],
             'd_kawat_act'         => $validated['d_kawat_act'],
-            'p_product_act'    => $validated['p_product_act'],
-            'l_product_act'    => $validated['l_product_act'],
-            't_tekukan'        => $validated['t_tekukan'],
-            'mesh1'            => $validated['mesh1'],
-            'mesh2'            => $validated['mesh2'],
-            'mesh3'            => $validated['mesh3'],
-            'mesh4'            => $validated['mesh4'],
-            'mesh5'            => $validated['mesh5'],
-            'diagonal'        => $validated['diagonal'],
-            'matchingcrosswire' => $validated['matchingcrosswire'],
-            'visual'          => $validated['visual'],
-            'status'          => $validated['status'],
+            'p_product_act'      => $validated['p_product_act'],
+            'l_product_act'      => $validated['l_product_act'],
+
+            // SOLUSI AMAN: Menggunakan data request langsung, jika kosong/disabled otomatis diisi null
+            't_product_act'      => $request->t_product_act ?? null,
+            'mesh1'              => $request->mesh1 ?? null,
+            'mesh2'              => $request->mesh2 ?? null,
+            'mesh3'              => $request->mesh3 ?? null,
+            'mesh4'              => $request->mesh4 ?? null,
+            'mesh5'              => $request->mesh5 ?? null,
+            'mesh6'              => $request->mesh6 ?? null,
+            'diagonal'           => $validated['diagonal'],
+            'matchingcrosswire'  => $validated['matchingcrosswire'],
+            'visual'            => $validated['visual'],
+            'status'            => $validated['status'],
         ]);
 
-
-        // simpan file multiple ke kolom JSON
+        // 4. Simpan file multiple ke kolom JSON
         if ($request->hasFile('files')) {
             $paths = [];
             foreach ($request->file('files') as $file) {
@@ -88,11 +94,12 @@ class InspeksiBendingWipController extends Controller
                 'files' => $paths
             ]);
         }
-        // simpan detail multiple (array)
-        // ambil semua array dari request
+
+        // 5. Simpan detail multiple (array)
         $descriptions  = $request->input('detail_description', []);
         $descriptions2 = $request->input('detail_description2', []);
         $qty           = $request->input('detail_qty', []);
+
         foreach ($descriptions as $i => $description) {
             if (!empty($description)) {
                 $wip->details()->create([
@@ -102,8 +109,10 @@ class InspeksiBendingWipController extends Controller
                 ]);
             }
         }
+
+        // Gunakan $validated untuk menjamin parameter ID selalu ada saat redirect
         return redirect()
-            ->route('inspeksi_bending.show', $request->inspeksi_bending_id)
+            ->route('inspeksi_fencing.show', $validated['inspeksi_fencing_id'])
             ->with('success', 'Data WIP, detail, dan file berhasil ditambahkan');
     }
 
@@ -120,9 +129,9 @@ class InspeksiBendingWipController extends Controller
      */
     public function edit(string $id)
     {
-        $wip = InspeksiBendingWip::with(['details', 'inspeksiBending'])->findOrFail($id);
-        return view('inspeksi_bending.wip.edit', [
-            'inspeksi_bending' => $wip->inspeksiBending,
+        $wip = InspeksiFencingWip::with(['details', 'inspeksiFencing'])->findOrFail($id);
+        return view('inspeksi_fencing.wip.edit', [
+            'inspeksi_fencing' => $wip->inspeksiFencing,
             'wip' => $wip,
         ]);
     }
@@ -132,19 +141,20 @@ class InspeksiBendingWipController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        $wip = InspeksiBendingWip::findOrFail($id);
+        $wip = InspeksiFencingWip::findOrFail($id);
         $validated = $request->validate([
             'no_material'           => 'required|string|max:255',
             'nama_operator'         => 'required|string|max:255',
             'd_kawat_act'           => 'required|numeric',
             'p_product_act'         => 'required|numeric',
             'l_product_act'         => 'required|numeric',
-            't_tekukan'             => 'required|numeric',
-            'mesh1'                 => 'required|numeric',
-            'mesh2'                 => 'required|numeric',
-            'mesh3'                 => 'required|numeric',
-            'mesh4'                 => 'required|numeric',
-            'mesh5'                 => 'required|numeric',
+            't_product_act'         => 'required|numeric',
+            'mesh1'                 => 'nullable|numeric',
+            'mesh2'                 => 'nullable|numeric',
+            'mesh3'                 => 'nullable|numeric',
+            'mesh4'                 => 'nullable|numeric',
+            'mesh5'                 => 'nullable|numeric',
+            'mesh6'                 => 'nullable|numeric',
             'diagonal'             => 'required|numeric',
             'matchingcrosswire'     => 'required|string|max:255',
             'visual'               => 'required|string|max:255',
@@ -161,12 +171,13 @@ class InspeksiBendingWipController extends Controller
             'd_kawat_act'         => $validated['d_kawat_act'],
             'p_product_act'    => $validated['p_product_act'],
             'l_product_act'    => $validated['l_product_act'],
-            't_tekukan'        => $validated['t_tekukan'],
+            't_product_act'        => $validated['t_product_act'],
             'mesh1'            => $validated['mesh1'],
             'mesh2'            => $validated['mesh2'],
             'mesh3'            => $validated['mesh3'],
             'mesh4'            => $validated['mesh4'],
             'mesh5'            => $validated['mesh5'],
+            'mesh6'            => $validated['mesh6'],
             'diagonal'        => $validated['diagonal'],
             'matchingcrosswire' => $validated['matchingcrosswire'],
             'visual'          => $validated['visual'],
@@ -187,7 +198,7 @@ class InspeksiBendingWipController extends Controller
             }
             $newFiles = [];
             foreach ($request->file('files') as $file) {
-                $newFiles[] = $file->store('inspeksi_bending_wip', 'public');
+                $newFiles[] = $file->store('inspeksi_fencing_wip', 'public');
             }
             $wip->update([
                 'files' => $newFiles,
@@ -210,17 +221,17 @@ class InspeksiBendingWipController extends Controller
                 ]);
             }
         }
-        return redirect()->route('inspeksi_bending.show', $wip->inspeksi_bending_id)
+        return redirect()->route('inspeksi_fencing.show', $wip->inspeksi_fencing_id)
             ->with('success', 'Data WIP berhasil diperbarui.');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(String $id)
+    public function destroy(string $id)
     {
-        $wip = InspeksiBendingWip::findOrFail($id);
-        $inspeksiBendingId = $wip->inspeksi_bending_id;
+        $wip = InspeksiFencingWip::findOrFail($id);
+        $inspeksiFencingId = $wip->inspeksi_fencing_id;
 
         // Hapus file terkait jika ada
         if ($wip->files) {
@@ -235,7 +246,7 @@ class InspeksiBendingWipController extends Controller
         // Hapus data WIP
         $wip->delete();
 
-        return redirect()->route('inspeksi_bending.show', $inspeksiBendingId)
+        return redirect()->route('inspeksi_fencing.show', $inspeksiFencingId)
             ->with('success', 'Data WIP berhasil dihapus.');
     }
 }

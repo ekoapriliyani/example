@@ -16,9 +16,9 @@ class Mesin extends Model
         return $this->hasMany(InspeksiWm::class);
     }
 
-    public function inspeksiBendings()
+    public function inspeksiFencings()
     {
-        return $this->hasMany(InspeksiBending::class);
+        return $this->hasMany(InspeksiFencing::class);
     }
 
     public function inspeksiKawatDuris()

@@ -4,34 +4,26 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class InspeksiFencingWip extends Model
+class InspeksiFencingFg extends Model
 {
     protected $fillable = [
         'inspeksi_fencing_id',
         'user_id',
-        'no_material',
-        'nama_operator',
-        'd_kawat_act',
-        'p_product_act',
-        'l_product_act',
-        't_product_act',
-        'mesh1',
-        'mesh2',
-        'mesh3',
-        'mesh4',
-        'mesh5',
-        'mesh6',
-        'diagonal',
-        'matchingcrosswire',
+        'type',
+        'coating_thickness',
+        'daya_rekat',
         'visual',
+        'packing',
+        'label',
         'status',
+        'qty',
+        'weight',
         'files',
     ];
 
     protected $casts = [
-        'files' => 'array',
+        'files' => 'array', // otomatis decode JSON ke array
     ];
-
 
     public function inspeksiFencing()
     {
@@ -45,6 +37,6 @@ class InspeksiFencingWip extends Model
 
     public function details()
     {
-        return $this->hasMany(InspeksiFencingWipDetail::class, 'inspeksi_fencing_wip_id');
+        return $this->hasMany(InspeksiFencingFgDetail::class, 'inspeksi_fencing_fg_id');
     }
 }

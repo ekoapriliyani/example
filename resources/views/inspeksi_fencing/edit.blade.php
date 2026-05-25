@@ -1,16 +1,16 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Edit Inspeksi Bending') }}
+        <h2 class="text-xl font-semibold leading-tight text-gray-800">
+            {{ __('Edit Inspeksi Fencing') }}
         </h2>
     </x-slot>
 
     <div class="py-12">
-        <div class="max-w-3xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg border border-gray-200">
+        <div class="mx-auto max-w-3xl sm:px-6 lg:px-8">
+            <div class="overflow-hidden border border-gray-200 bg-white shadow-sm sm:rounded-lg">
                 <div class="p-8 text-gray-900">
 
-                    <form action="{{ route('inspeksi_bending.update', $inspeksiBending->id) }}" method="POST"
+                    <form action="{{ route('inspeksi_fencing.update', $inspeksiFencing->id) }}" method="POST"
                         class="space-y-6">
 
                         @csrf
@@ -19,13 +19,13 @@
                         <div>
                             <x-input-label for="nomor_inspeksi" :value="__('Nomor Inspeksi')" />
                             <x-text-input id="nomor_inspeksi" name="nomor_inspeksi" type="text"
-                                class="mt-1 block w-full bg-gray-100" :value="old('nomor_inspeksi', $inspeksiBending->nomor_inspeksi)" readonly />
+                                class="mt-1 block w-full bg-gray-100" :value="old('nomor_inspeksi', $inspeksiFencing->nomor_inspeksi)" readonly />
                         </div>
 
                         <div>
                             <x-input-label for="tanggal" :value="__('Tanggal')" />
                             <x-text-input id="tanggal" name="tanggal" type="date" class="mt-1 block w-full"
-                                :value="old('tanggal', $inspeksiBending->tanggal)" required />
+                                :value="old('tanggal', $inspeksiFencing->tanggal)" required />
 
                             <x-input-error class="mt-2" :messages="$errors->get('tanggal')" />
                         </div>
@@ -34,13 +34,13 @@
                             <x-input-label for="pro_id" :value="__('PRO Number')" />
 
                             <select id="pro_id" name="pro_id"
-                                class="mt-1 block w-full border-gray-300 rounded-md shadow-sm" required>
+                                class="mt-1 block w-full rounded-md border-gray-300 shadow-sm" required>
 
                                 <option value="">-- Pilih PRO --</option>
 
                                 @foreach ($pros as $pro)
                                     <option value="{{ $pro->id }}"
-                                        {{ old('pro_id', $inspeksiBending->pro_id) == $pro->id ? 'selected' : '' }}>
+                                        {{ old('pro_id', $inspeksiFencing->pro_id) == $pro->id ? 'selected' : '' }}>
 
                                         {{ $pro->pro_id }} - {{ $pro->description }}
                                     </option>
@@ -65,45 +65,25 @@
                         </div>
 
                         <div>
-                            <x-input-label for="product_fencing_ref_id" :value="__('Product Fencing')" />
-
-                            <select id="product_fencing_ref_id" name="product_fencing_ref_id"
-                                class="mt-1 block w-full border-gray-300 rounded-md shadow-sm">
-
-                                <option value="">-- Pilih Product Fencing --</option>
-
-                                @foreach ($productFencings as $product)
-                                    <option value="{{ $product->id }}"
-                                        {{ old('product_fencing_ref_id', $inspeksiBending->product_fencing_ref_id) == $product->id ? 'selected' : '' }}>
-
-                                        {{ $product->product_fencing_id }} - {{ $product->description }}
-                                    </option>
-                                @endforeach
-                            </select>
-
-                            <x-input-error class="mt-2" :messages="$errors->get('product_fencing_ref_id')" />
-                        </div>
-
-                        <div>
                             <x-input-label for="shift" :value="__('Shift')" />
 
                             <select id="shift" name="shift"
-                                class="mt-1 block w-full border-gray-300 rounded-md shadow-sm" required>
+                                class="mt-1 block w-full rounded-md border-gray-300 shadow-sm" required>
 
                                 <option value="">-- Pilih Shift --</option>
 
                                 <option value="1"
-                                    {{ old('shift', $inspeksiBending->shift) == '1' ? 'selected' : '' }}>
+                                    {{ old('shift', $inspeksiFencing->shift) == '1' ? 'selected' : '' }}>
                                     Shift 1
                                 </option>
 
                                 <option value="2"
-                                    {{ old('shift', $inspeksiBending->shift) == '2' ? 'selected' : '' }}>
+                                    {{ old('shift', $inspeksiFencing->shift) == '2' ? 'selected' : '' }}>
                                     Shift 2
                                 </option>
 
                                 <option value="3"
-                                    {{ old('shift', $inspeksiBending->shift) == '3' ? 'selected' : '' }}>
+                                    {{ old('shift', $inspeksiFencing->shift) == '3' ? 'selected' : '' }}>
                                     Shift 3
                                 </option>
                             </select>
@@ -115,13 +95,13 @@
                             <x-input-label for="mesin_id" :value="__('Mesin')" />
 
                             <select id="mesin_id" name="mesin_id"
-                                class="mt-1 block w-full border-gray-300 rounded-md shadow-sm">
+                                class="mt-1 block w-full rounded-md border-gray-300 shadow-sm">
 
                                 <option value="">-- Pilih Mesin --</option>
 
                                 @foreach ($mesins as $mesin)
                                     <option value="{{ $mesin->id }}"
-                                        {{ old('mesin_id', $inspeksiBending->mesin_id) == $mesin->id ? 'selected' : '' }}>
+                                        {{ old('mesin_id', $inspeksiFencing->mesin_id) == $mesin->id ? 'selected' : '' }}>
 
                                         {{ $mesin->mesin_id }} - {{ $mesin->nama_mesin }}
                                     </option>
@@ -132,18 +112,18 @@
                         </div>
 
                         <div>
-                            <x-input-label for="total_prod" :value="__('Total Produksi (kg)')" />
+                            <x-input-label for="total_prod" :value="__('Total Produksi (Roll/Lembar/Unit)')" />
 
                             <x-text-input id="total_prod" name="total_prod" type="number" step="0.01"
-                                class="mt-1 block w-full" :value="old('total_prod', $inspeksiBending->total_prod)" />
+                                class="mt-1 block w-full" :value="old('total_prod', $inspeksiFencing->total_prod)" />
 
                             <x-input-error class="mt-2" :messages="$errors->get('total_prod')" />
                         </div>
 
-                        <div class="flex items-center justify-end gap-4 pt-4 border-t border-gray-100">
+                        <div class="flex items-center justify-end gap-4 border-t border-gray-100 pt-4">
 
-                            <a href="{{ route('inspeksi_bending.index') }}"
-                                class="inline-flex items-center px-4 py-2 bg-white border border-gray-300 rounded-md font-semibold text-xs text-gray-700 uppercase tracking-widest shadow-sm hover:bg-gray-50">
+                            <a href="{{ route('inspeksi_fencing.index') }}"
+                                class="inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-xs font-semibold uppercase tracking-widest text-gray-700 shadow-sm hover:bg-gray-50">
 
                                 {{ __('Batal') }}
                             </a>
@@ -170,12 +150,6 @@
 
             $('#pro_id').select2({
                 placeholder: '-- Pilih PRO --',
-                allowClear: true,
-                width: '100%'
-            });
-
-            $('#product_fencing_ref_id').select2({
-                placeholder: '-- Pilih Product Fencing --',
                 allowClear: true,
                 width: '100%'
             });
@@ -214,7 +188,7 @@
                 loadProDetail($(this).val());
             });
 
-            loadProDetail("{{ old('pro_id', $inspeksiBending->pro_id) }}");
+            loadProDetail("{{ old('pro_id', $inspeksiFencing->pro_id) }}");
 
         });
     </script>

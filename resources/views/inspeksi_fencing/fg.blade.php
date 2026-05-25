@@ -5,7 +5,7 @@
                 {{ __('Input Hasil Inspeksi FG') }}
             </h2>
             <p class="text-sm text-gray-500">
-                Ref: <span class="font-mono font-bold text-indigo-600">{{ $inspeksiBending->nomor_inspeksi }}</span>
+                Ref: <span class="font-mono font-bold text-indigo-600">{{ $inspeksiFencing->nomor_inspeksi }}</span>
             </p>
         </div>
     </x-slot>
@@ -14,10 +14,10 @@
         <div class="mx-auto max-w-4xl sm:px-6 lg:px-8">
             <div class="overflow-hidden border border-gray-200 bg-white shadow-sm sm:rounded-lg">
                 <div class="p-8">
-                    <form action="{{ route('inspeksi_bending_fg.store') }}" method="POST" enctype="multipart/form-data"
+                    <form action="{{ route('inspeksi_fencing_fg.store') }}" method="POST" enctype="multipart/form-data"
                         class="space-y-6">
                         @csrf
-                        <input type="hidden" name="inspeksi_bending_id" value="{{ $inspeksiBending->id }}">
+                        <input type="hidden" name="inspeksi_fencing_id" value="{{ $inspeksiFencing->id }}">
                         <div class="grid grid-cols-1 gap-6 md:grid-cols-2">
                             <div class="">
                                 <x-input-label for="type" :value="__('type')" />
@@ -156,7 +156,7 @@
                         </div>
 
                         <div class="flex items-center justify-end gap-4 border-t border-gray-100 pt-6">
-                            <a href="{{ route('inspeksi_bending.show', $inspeksiBending->id) }}"
+                            <a href="{{ route('inspeksi_fencing.show', $inspeksiFencing->id) }}"
                                 class="text-sm text-gray-600 hover:underline">{{ __('Batal') }}</a>
                             <x-primary-button class="bg-blue-600 hover:bg-blue-700">
                                 {{ __('Simpan Data FG') }}

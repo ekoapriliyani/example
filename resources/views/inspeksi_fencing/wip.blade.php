@@ -5,7 +5,7 @@
                 {{ __('Input Hasil Inspeksi WIP') }}
             </h2>
             <p class="text-sm text-gray-500">
-                Ref: <span class="font-mono font-bold text-indigo-600">{{ $inspeksi_bending->nomor_inspeksi }}</span>
+                Ref: <span class="font-mono font-bold text-indigo-600">{{ $inspeksi_fencing->nomor_inspeksi }}</span>
             </p>
         </div>
     </x-slot>
@@ -24,7 +24,7 @@
                     <div class="ml-3">
                         <p class="text-sm text-blue-700">
                             Sedang menginput data WIP untuk transaksi
-                            <strong>{{ $inspeksi_bending->nomor_inspeksi }}</strong>.
+                            <strong>{{ $inspeksi_fencing->nomor_inspeksi }}</strong>.
                         </p>
                     </div>
                 </div>
@@ -32,11 +32,33 @@
 
             <div class="overflow-hidden border border-gray-200 bg-white shadow-sm sm:rounded-lg">
                 <div class="p-8">
-                    <form action="{{ route('inspeksi_bending_wip.store') }}" method="POST"
+                    <form action="{{ route('inspeksi_fencing_wip.store') }}" method="POST"
                         enctype="multipart/form-data" class="space-y-6">
                         @csrf
-                        <input type="hidden" name="inspeksi_bending_id" value="{{ $inspeksi_bending->id }}">
+                        <input type="hidden" name="inspeksi_fencing_id" value="{{ $inspeksi_fencing->id }}">
                         <input type="hidden" name="user_id" value="{{ auth()->id() }}">
+
+                        <div class="grid grid-cols-1 gap-6 md:grid-cols-3">
+                            <div>
+                                <x-input-label :value="__('Metode Kerja')" class="mb-2" />
+                                <div class="mt-2 flex items-center space-x-6">
+                                    <label class="inline-flex cursor-pointer items-center">
+                                        <input type="radio" name="metode" value="Welding" id="metode_welding"
+                                            class="rounded-full border-gray-300 text-indigo-600 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+                                            {{ old('metode') == 'Welding' ? 'checked' : '' }} required>
+                                        <span class="ml-2 text-sm text-gray-600">Welding</span>
+                                    </label>
+
+                                    <label class="inline-flex cursor-pointer items-center">
+                                        <input type="radio" name="metode" value="Bending" id="metode_bending"
+                                            class="rounded-full border-gray-300 text-indigo-600 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+                                            {{ old('metode') == 'Bending' ? 'checked' : '' }}>
+                                        <span class="ml-2 text-sm text-gray-600">Bending</span>
+                                    </label>
+                                </div>
+                                <x-input-error class="mt-2" :messages="$errors->get('metode')" />
+                            </div>
+                        </div>
 
                         <div class="grid grid-cols-1 gap-6 md:grid-cols-3">
                             <div>
@@ -93,19 +115,19 @@
                                 <x-input-error class="mt-2" :messages="$errors->get('l_product_act')" />
                             </div>
                             <div>
-                                <x-input-label for="t_tekukan" :value="__('T Tekukan')" />
+                                <x-input-label for="t_product_act" :value="__('T Product (Actual)')" />
                                 <div class="relative mt-1">
-                                    <x-text-input id="t_tekukan" name="t_tekukan" type="number" step="0.01"
-                                        class="block w-full pr-12" :value="old('t_tekukan')" required placeholder="0.00" />
+                                    <x-text-input id="t_product_act" name="t_product_act" type="number" step="0.01"
+                                        class="block w-full pr-12" :value="old('t_product_act')" required placeholder="0.00" />
                                     <div
                                         class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3 text-sm text-gray-400">
                                         mm
                                     </div>
                                 </div>
-                                <x-input-error class="mt-2" :messages="$errors->get('t_tekukan')" />
+                                <x-input-error class="mt-2" :messages="$errors->get('t_product_act')" />
                             </div>
                         </div>
-                        <div class="grid grid-cols-1 gap-6 md:grid-cols-5">
+                        <div class="grid grid-cols-1 gap-6 md:grid-cols-3">
                             <div>
                                 <x-input-label for="mesh1" :value="__('Mesh 1')" />
                                 <div class="relative mt-1">
@@ -122,7 +144,7 @@
                                 <x-input-label for="mesh2" :value="__('Mesh 2')" />
                                 <div class="relative mt-1">
                                     <x-text-input id="mesh2" name="mesh2" type="number" step="0.01"
-                                        class="block w-full pr-12" :value="old('mesh2')" required placeholder="0.00" />
+                                        class="block w-full pr-12" :value="old('mesh2')" placeholder="0.00" />
                                     <div
                                         class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3 text-sm text-gray-400">
                                         mm
@@ -134,7 +156,7 @@
                                 <x-input-label for="mesh3" :value="__('Mesh 3')" />
                                 <div class="relative mt-1">
                                     <x-text-input id="mesh3" name="mesh3" type="number" step="0.01"
-                                        class="block w-full pr-12" :value="old('mesh3')" required placeholder="0.00" />
+                                        class="block w-full pr-12" :value="old('mesh3')" placeholder="0.00" />
                                     <div
                                         class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3 text-sm text-gray-400">
                                         mm
@@ -146,7 +168,7 @@
                                 <x-input-label for="mesh4" :value="__('Mesh 4')" />
                                 <div class="relative mt-1">
                                     <x-text-input id="mesh4" name="mesh4" type="number" step="0.01"
-                                        class="block w-full pr-12" :value="old('mesh4')" required placeholder="0.00" />
+                                        class="block w-full pr-12" :value="old('mesh4')" placeholder="0.00" />
                                     <div
                                         class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3 text-sm text-gray-400">
                                         mm
@@ -158,13 +180,25 @@
                                 <x-input-label for="mesh5" :value="__('Mesh 5')" />
                                 <div class="relative mt-1">
                                     <x-text-input id="mesh5" name="mesh5" type="number" step="0.01"
-                                        class="block w-full pr-12" :value="old('mesh5')" required placeholder="0.00" />
+                                        class="block w-full pr-12" :value="old('mesh5')" placeholder="0.00" />
                                     <div
                                         class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3 text-sm text-gray-400">
                                         mm
                                     </div>
                                 </div>
                                 <x-input-error class="mt-2" :messages="$errors->get('mesh5')" />
+                            </div>
+                            <div>
+                                <x-input-label for="mesh6" :value="__('Mesh 6')" />
+                                <div class="relative mt-1">
+                                    <x-text-input id="mesh6" name="mesh6" type="number" step="0.01"
+                                        class="block w-full pr-12" :value="old('mesh6')" placeholder="0.00" />
+                                    <div
+                                        class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3 text-sm text-gray-400">
+                                        mm
+                                    </div>
+                                </div>
+                                <x-input-error class="mt-2" :messages="$errors->get('mesh6')" />
                             </div>
                         </div>
 
@@ -326,7 +360,7 @@
                         </div>
 
                         <div class="flex items-center justify-end gap-4 border-t border-gray-100 pt-6">
-                            <a href="{{ route('inspeksi_bending.show', $inspeksi_bending->id) }}"
+                            <a href="{{ route('inspeksi_fencing.show', $inspeksi_fencing->id) }}"
                                 class="inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-xs font-semibold uppercase tracking-widest text-gray-700 shadow-sm transition duration-150 ease-in-out hover:bg-gray-50">
                                 {{ __('Batal') }}
                             </a>
@@ -418,6 +452,47 @@
             </div>
         </div>`;
             wrapper.insertAdjacentHTML('beforeend', newDetail);
+        });
+    </script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const tProdukInput = document.getElementById('t_product_act');
+            const pProdukInput = document.getElementById('p_product_act');
+
+            function handleMetodeChange() {
+                // Mengambil nilai radio button yang sedang aktif/terpilih
+                const selectedMetode = document.querySelector('input[name="metode"]:checked')?.value;
+
+                if (selectedMetode === 'Welding') {
+                    // Jika pilih Welding: t_produk disable, p_produk enable
+                    tProdukInput.disabled = true;
+                    tProdukInput.required = false;
+                    tProdukInput.value = ''; // Mengosongkan nilai t_produk
+                    tProdukInput.classList.add('bg-gray-100', 'cursor-not-allowed');
+
+                    pProdukInput.disabled = false;
+                    pProdukInput.required = true;
+                    pProdukInput.classList.remove('bg-gray-100', 'cursor-not-allowed');
+
+                } else if (selectedMetode === 'Bending') {
+                    // Jika pilih Bending: p_produk & t_produk keduanya aktif dan bisa diisi
+                    pProdukInput.disabled = false;
+                    pProdukInput.required = true;
+                    pProdukInput.classList.remove('bg-gray-100', 'cursor-not-allowed');
+
+                    tProdukInput.disabled = false;
+                    tProdukInput.required = true;
+                    tProdukInput.classList.remove('bg-gray-100', 'cursor-not-allowed');
+                }
+            }
+
+            // Pasang event listener ke semua radio button bernama "metode"
+            document.querySelectorAll('input[name="metode"]').forEach(radio => {
+                radio.addEventListener('change', handleMetodeChange);
+            });
+
+            // Jalankan saat pertama kali halaman dimuat (untuk handle old value / error-back)
+            handleMetodeChange();
         });
     </script>
 </x-app-layout>

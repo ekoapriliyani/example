@@ -4,14 +4,15 @@ use App\Http\Controllers\IncomingBahanBakuController;
 use App\Http\Controllers\IncomingProjectController;
 use App\Http\Controllers\IncomingPvcHdpeController;
 use App\Http\Controllers\InspeksiBendingController;
-use App\Http\Controllers\InspeksiBendingFgController;
-use App\Http\Controllers\InspeksiBendingWipController;
 use App\Http\Controllers\InspeksiChainlinkController;
 use App\Http\Controllers\InspeksiChainlinkFgController;
 use App\Http\Controllers\InspeksiChainlinkWipController;
 use App\Http\Controllers\InspeksiCtController;
 use App\Http\Controllers\InspeksiCtFgController;
 use App\Http\Controllers\InspeksiCtWipController;
+use App\Http\Controllers\InspeksiFencingController;
+use App\Http\Controllers\InspeksiFencingFgController;
+use App\Http\Controllers\InspeksiFencingWipController;
 use App\Http\Controllers\InspeksiKawatDuriController;
 use App\Http\Controllers\InspeksiKawatDuriFgController;
 use App\Http\Controllers\InspeksiKawatDuriWipController;
@@ -47,9 +48,6 @@ use App\Http\Controllers\SubkonController;
 use App\Http\Controllers\SupplierController;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
-
-
-
 
 
 
@@ -120,7 +118,7 @@ Route::middleware(['auth'])->group(function () {
 
         'inspeksi_wm'        => InspeksiWmController::class,
         'inspeksi_ct'        => InspeksiCtController::class,
-        'inspeksi_bending'   => InspeksiBendingController::class,
+        'inspeksi_fencing'   => InspeksiFencingController::class,
         'inspeksi_wf'   => InspeksiWfController::class,
         'inspeksi_shearing'   => InspeksiShearingController::class,
         'inspeksi_kawat_duri' => InspeksiKawatDuriController::class,
@@ -239,41 +237,41 @@ Route::middleware(['auth'])->group(function () {
 
     /*
     |--------------------------------------------------------------------------
-    | Bending
+    | Fencing
     |--------------------------------------------------------------------------
     */
 
     // WIP
-    Route::get('/inspeksi_bending/{inspeksi_bending}/wip', [InspeksiBendingWipController::class, 'create'])
-        ->name('inspeksi_bending.wip');
+    Route::get('/inspeksi_fencing/{inspeksi_fencing}/wip', [InspeksiFencingWipController::class, 'create'])
+        ->name('inspeksi_fencing.wip');
 
-    Route::post('/inspeksi_bending/wip', [InspeksiBendingWipController::class, 'store'])
-        ->name('inspeksi_bending_wip.store');
+    Route::post('/inspeksi_fencing/wip', [InspeksiFencingWipController::class, 'store'])
+        ->name('inspeksi_fencing_wip.store');
 
-    Route::get('insepeksi_bending/wip/{wip}/edit', [InspeksiBendingWipController::class, 'edit'])
-        ->name('inspeksi_bending_wip.edit');
+    Route::get('insepeksi_fencing/wip/{wip}/edit', [InspeksiFencingWipController::class, 'edit'])
+        ->name('inspeksi_fencing_wip.edit');
 
-    Route::put('insepeksi_bending/wip/{wip}', [InspeksiBendingWipController::class, 'update'])
-        ->name('inspeksi_bending_wip.update');
+    Route::put('insepeksi_fencing/wip/{wip}', [InspeksiFencingWipController::class, 'update'])
+        ->name('inspeksi_fencing_wip.update');
 
-    Route::delete('insepeksi_bending/wip/{wip}', [InspeksiBendingWipController::class, 'destroy'])
-        ->name('inspeksi_bending_wip.destroy');
+    Route::delete('insepeksi_fencing/wip/{wip}', [InspeksiFencingWipController::class, 'destroy'])
+        ->name('inspeksi_fencing_wip.destroy');
 
     // FG
-    Route::get('/inspeksi_bending/{inspeksi_bending}/fg', [InspeksiBendingFgController::class, 'create'])
-        ->name('inspeksi_bending.fg');
+    Route::get('/inspeksi_fencing/{inspeksi_fencing}/fg', [InspeksiFencingFgController::class, 'create'])
+        ->name('inspeksi_fencing.fg');
 
-    Route::post('/inspeksi_bending/fg', [InspeksiBendingFgController::class, 'store'])
-        ->name('inspeksi_bending_fg.store');
+    Route::post('/inspeksi_fencing/fg', [InspeksiFencingFgController::class, 'store'])
+        ->name('inspeksi_fencing_fg.store');
 
-    Route::get('insepeksi_bending/fg/{fg}/edit', [InspeksiBendingFgController::class, 'edit'])
-        ->name('inspeksi_bending_fg.edit');
+    Route::get('insepeksi_fencing/fg/{fg}/edit', [InspeksiFencingFgController::class, 'edit'])
+        ->name('inspeksi_fencing_fg.edit');
 
-    Route::put('insepeksi_bending/fg/{fg}', [InspeksiBendingFgController::class, 'update'])
-        ->name('inspeksi_bending_fg.update');
+    Route::put('insepeksi_fencing/fg/{fg}', [InspeksiFencingFgController::class, 'update'])
+        ->name('inspeksi_fencing_fg.update');
 
-    Route::delete('insepeksi_bending/fg/{fg}', [InspeksiBendingFgController::class, 'destroy'])
-        ->name('inspeksi_bending_fg.destroy');
+    Route::delete('insepeksi_fencing/fg/{fg}', [InspeksiFencingFgController::class, 'destroy'])
+        ->name('inspeksi_fencing_fg.destroy');
 
 
 

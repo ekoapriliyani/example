@@ -6,5 +6,41 @@ use Illuminate\Database\Eloquent\Model;
 
 class InspeksiFencing extends Model
 {
-    //
+    protected $fillable = [
+        'nomor_inspeksi',
+        'tanggal',
+        'pro_id',
+        'shift',
+        'mesin_id',
+        'total_prod',
+        'approval_status',
+        'approved_by',
+        'approved_at',
+    ];
+
+    public function pro()
+    {
+        return $this->belongsTo(Pro::class, 'pro_id');
+    }
+
+
+    public function mesin()
+    {
+        return $this->belongsTo(Mesin::class, 'mesin_id');
+    }
+
+    public function inspeksiFencingWip()
+    {
+        return $this->hasMany(InspeksiFencingWip::class, 'inspeksi_fencing_id');
+    }
+
+    public function inspeksiFencingFg()
+    {
+        return $this->hasMany(InspeksiFencingFg::class, 'inspeksi_fencing_id');
+    }
+
+    public function isApproved()
+    {
+        return $this->approval_status === 'APPROVED';
+    }
 }

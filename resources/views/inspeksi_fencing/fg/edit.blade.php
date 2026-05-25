@@ -2,7 +2,7 @@
     <x-slot name="header">
         <div class="flex items-center justify-between">
             <h2 class="text-xl font-semibold leading-tight text-gray-800">
-                {{ __('Edit Hasil Inspeksi WIP') }}
+                {{ __('Edit Hasil Inspeksi FG') }}
             </h2>
             <p class="text-sm text-gray-500">
                 Ref:
@@ -17,150 +17,149 @@
         <div class="mx-auto max-w-4xl sm:px-6 lg:px-8">
             <div class="overflow-hidden border border-gray-200 bg-white shadow-sm sm:rounded-lg">
                 <div class="p-8">
-                    <form action="{{ route('inspeksi_bending_wip.update', $wip->id) }}" method="POST"
+                    <form action="{{ route('inspeksi_bending_fg.update', $fg->id) }}" method="POST"
                         enctype="multipart/form-data" class="space-y-6">
                         @csrf
                         @method('PUT')
 
-                        <input type="hidden" name="inspeksi_bending_id"
-                            value="{{ old('inspeksi_bending_id', $wip->inspeksi_bending_id) }}">
+                        <input type="hidden" name="inspeksi_fg_id"
+                            value="{{ old('inspeksi_fencing_id', $fg->inspeksi_fencing_id) }}">
                         <input type="hidden" name="user_id" value="{{ auth()->id() }}">
-
-                        <div class="grid grid-cols-2 gap-6 md:grid-cols-3">
+                        <div class="grid grid-cols-1 gap-6 md:grid-cols-2">
                             <div>
-                                <x-input-label for="no_material" :value="__('No. Material')" />
-                                <x-text-input id="no_material" name="no_material" type="text"
-                                    class="mt-1 block w-full" :value="old('no_material', $wip->no_material)" required />
-                                <x-input-error class="mt-2" :messages="$errors->get('no_material')" />
-                            </div>
-                            <div>
-                                <x-input-label for="nama_operator" :value="__('Nama Operator')" />
-                                <x-text-input id="nama_operator" name="nama_operator" type="text"
-                                    class="mt-1 block w-full" :value="old('nama_operator', $wip->nama_operator)" required />
-                                <x-input-error class="mt-2" :messages="$errors->get('nama_operator')" />
-                            </div>
-                            <div>
-                                <x-input-label for="d_kawat_act" :value="__('D Kawat Actual')" />
-                                <x-text-input id="d_kawat_act" name="d_kawat_act" type="number" step="0.01"
-                                    class="mt-1 block w-full" :value="old('d_kawat_act', $wip->d_kawat_act)" required />
-                                <x-input-error class="mt-2" :messages="$errors->get('d_kawat_act')" />
-                            </div>
-                            <div>
-                                <x-input-label for="p_product_act" :value="__('Panjang Product Actual')" />
-                                <x-text-input id="p_product_act" name="p_product_act" type="number" step="0.01"
-                                    class="mt-1 block w-full" :value="old('p_product_act', $wip->p_product_act)" required />
-                                <x-input-error class="mt-2" :messages="$errors->get('p_product_act')" />
-                            </div>
-                            <div>
-                                <x-input-label for="l_product_act" :value="__('Lebar Product Actual')" />
-                                <x-text-input id="l_product_act" name="l_product_act" type="number" step="0.01"
-                                    class="mt-1 block w-full" :value="old('l_product_act', $wip->l_product_act)" required />
-                                <x-input-error class="mt-2" :messages="$errors->get('l_product_act')" />
-                            </div>
-                            <div>
-                                <x-input-label for="t_tekukan" :value="__('Diameter Inti')" />
-                                <x-text-input id="t_tekukan" name="t_tekukan" type="number" step="0.01"
-                                    class="mt-1 block w-full" :value="old('t_tekukan', $wip->t_tekukan)" required />
-                                <x-input-error class="mt-2" :messages="$errors->get('t_tekukan')" />
-                            </div>
-                        </div>
-                        <div class="grid grid-cols-2 gap-6 md:grid-cols-5">
-                            <div>
-                                <x-input-label for="mesh1" :value="__('Mesh 1')" />
-                                <x-text-input id="mesh1" name="mesh1" type="number" step="0.01"
-                                    class="mt-1 block w-full" :value="old('mesh1', $wip->mesh1)" required />
-                                <x-input-error class="mt-2" :messages="$errors->get('mesh1')" />
-                            </div>
-                            <div>
-                                <x-input-label for="mesh2" :value="__('Mesh 2')" />
-                                <x-text-input id="mesh2" name="mesh2" type="number" step="0.01"
-                                    class="mt-1 block w-full" :value="old('mesh2', $wip->mesh2)" required />
-                                <x-input-error class="mt-2" :messages="$errors->get('mesh2')" />
-                            </div>
-                            <div>
-                                <x-input-label for="mesh3" :value="__('Mesh 3')" />
-                                <x-text-input id="mesh3" name="mesh3" type="number" step="0.01"
-                                    class="mt-1 block w-full" :value="old('mesh3', $wip->mesh3)" required />
-                                <x-input-error class="mt-2" :messages="$errors->get('mesh3')" />
-                            </div>
-                            <div>
-                                <x-input-label for="mesh4" :value="__('Mesh 4')" />
-                                <x-text-input id="mesh4" name="mesh4" type="number" step="0.01"
-                                    class="mt-1 block w-full" :value="old('mesh4', $wip->mesh4)" required />
-                                <x-input-error class="mt-2" :messages="$errors->get('mesh4')" />
-                            </div>
-                            <div>
-                                <x-input-label for="mesh5" :value="__('Mesh 5')" />
-                                <x-text-input id="mesh5" name="mesh5" type="number" step="0.01"
-                                    class="mt-1 block w-full" :value="old('mesh5', $wip->mesh5)" required />
-                                <x-input-error class="mt-2" :messages="$errors->get('mesh5')" />
-                            </div>
-                        </div>
-                        <div class="grid grid-cols-2 gap-6 md:grid-cols-4">
-                            <div>
-                                <x-input-label for="diagonal" :value="__('Diagonal')" />
-                                <x-text-input id="diagonal" name="diagonal" type="number" step="0.01"
-                                    class="mt-1 block w-full" :value="old('diagonal', $wip->diagonal)" required />
-                                <x-input-error class="mt-2" :messages="$errors->get('diagonal')" />
-                            </div>
-                            <div>
-                                <x-input-label for="matchingcrosswire" :value="__('Matching Crosswire')" />
-                                <select id="matchingcrosswire" name="matchingcrosswire"
+                                <x-input-label for="type" :value="__('Type')" />
+                                <select id="type" name="type"
                                     class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
                                     required>
+                                    <option value="HOTDIP" {{ old('type', $fg->type) == 'HOTDIP' ? 'selected' : '' }}>
+                                        HOTDIP
+                                    </option>
+                                    <option value="POWDER COATING"
+                                        {{ old('type', $fg->type) == 'POWDER COATING' ? 'selected' : '' }}>
+                                        POWDER COATING
+                                    </option>
+                                </select>
+                                <x-input-error class="mt-2" :messages="$errors->get('type')" />
+                            </div>
+                            <div>
+                                <x-input-label for="status" :value="__('Status')" />
+                                <select id="status" name="status"
+                                    class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+                                    required>
+                                    <option value="">-- Pilih Status --</option>
+                                    <option value="OK" {{ old('status', $fg->status) == 'OK' ? 'selected' : '' }}>
+                                        OK
+                                    </option>
+                                    <option value="NG" {{ old('status', $fg->status) == 'NG' ? 'selected' : '' }}>
+                                        NG
+                                    </option>
+                                    <option value="REJECT"
+                                        {{ old('status', $fg->status) == 'REJECT' ? 'selected' : '' }}>
+                                        REJECT
+                                    </option>
+                                </select>
+                                <x-input-error class="mt-2" :messages="$errors->get('status')" />
+                            </div>
+
+                            <div>
+                                <x-input-label for="qty" :value="__('Quantity')" />
+                                <x-text-input id="qty" name="qty" type="number" class="mt-1 block w-full"
+                                    :value="old('qty', $fg->qty)" required />
+                                <x-input-error class="mt-2" :messages="$errors->get('qty')" />
+                            </div>
+
+                            <div>
+                                <x-input-label for="coating_thickness" :value="__('Coating Thickness')" />
+                                <x-text-input id="coating_thickness" name="coating_thickness" type="number"
+                                    step="0.01" class="mt-1 block w-full" :value="old('coating_thickness', $fg->coating_thickness)" required />
+                                <x-input-error class="mt-2" :messages="$errors->get('coating_thickness')" />
+                            </div>
+
+                            <div>
+                                <x-input-label for="daya_rekat" :value="__('Daya Rekat')" />
+                                <select id="daya_rekat" name="daya_rekat"
+                                    class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+                                    required>
+                                    <option value="">-- Pilih Daya Rekat --</option>
                                     <option value="OK"
-                                        {{ old('matchingcrosswire', $wip->matchingcrosswire) == 'OK' ? 'selected' : '' }}>
+                                        {{ old('daya_rekat', $fg->daya_rekat) == 'OK' ? 'selected' : '' }}>
                                         OK
                                     </option>
                                     <option value="NG"
-                                        {{ old('matchingcrosswire', $wip->matchingcrosswire) == 'NG' ? 'selected' : '' }}>
+                                        {{ old('daya_rekat', $fg->daya_rekat) == 'NG' ? 'selected' : '' }}>
                                         NG
                                     </option>
                                 </select>
-                                <x-input-error class="mt-2" :messages="$errors->get('matchingcrosswire')" />
+                                <x-input-error class="mt-2" :messages="$errors->get('daya_rekat')" />
                             </div>
                             <div>
                                 <x-input-label for="visual" :value="__('Visual')" />
                                 <select id="visual" name="visual"
                                     class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
                                     required>
-                                    <option value="OK" {{ old('visual', $wip->visual) == 'OK' ? 'selected' : '' }}>
+                                    <option value="">-- Pilih Visual --</option>
+                                    <option value="OK" {{ old('visual', $fg->visual) == 'OK' ? 'selected' : '' }}>
                                         OK
                                     </option>
-                                    <option value="NG" {{ old('visual', $wip->visual) == 'NG' ? 'selected' : '' }}>
+                                    <option value="NG" {{ old('visual', $fg->visual) == 'NG' ? 'selected' : '' }}>
                                         NG
                                     </option>
                                 </select>
                                 <x-input-error class="mt-2" :messages="$errors->get('visual')" />
                             </div>
-
                             <div>
-                                <x-input-label for="status" :value="__('Status')" />
-                                <select id="status" name="status"
+                                <x-input-label for="packing" :value="__('Packing')" />
+                                <select id="packing" name="packing"
                                     class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
                                     required>
-                                    {{-- <option value="">-- Pilih status --</option> --}}
-                                    <option value="OK" {{ old('status', $wip->status) == 'OK' ? 'selected' : '' }}>
+                                    <option value="">-- Pilih packing --</option>
+                                    <option value="OK"
+                                        {{ old('packing', $fg->packing) == 'OK' ? 'selected' : '' }}>
                                         OK
                                     </option>
                                     <option value="NG"
-                                        {{ old('status', $wip->status) == 'NG' ? 'selected' : '' }}>
+                                        {{ old('packing', $fg->packing) == 'NG' ? 'selected' : '' }}>
                                         NG
                                     </option>
                                 </select>
-                                <x-input-error class="mt-2" :messages="$errors->get('status')" />
+                                <x-input-error class="mt-2" :messages="$errors->get('packing')" />
+                            </div>
+                            <div>
+                                <x-input-label for="label" :value="__('Label')" />
+                                <select id="label" name="label"
+                                    class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+                                    required>
+                                    <option value="">-- Pilih label --</option>
+                                    <option value="OK" {{ old('label', $fg->label) == 'OK' ? 'selected' : '' }}>
+                                        OK
+                                    </option>
+                                    <option value="NG" {{ old('label', $fg->label) == 'NG' ? 'selected' : '' }}>
+                                        NG
+                                    </option>
+                                </select>
+                                <x-input-error class="mt-2" :messages="$errors->get('label')" />
+                            </div>
+                            <div>
+                                <x-input-label for="weight" :value="__('Weight')" />
+                                <x-text-input id="weight" name="weight" type="number" step="0.01"
+                                    class="mt-1 block w-full" :value="old('weight', $fg->weight)" required />
+                                <x-input-error class="mt-2" :messages="$errors->get('weight')" />
                             </div>
                         </div>
+
                         <div class="border-t border-gray-200 pt-6">
                             <h3 class="mb-4 font-semibold text-gray-700">Files</h3>
                             {{-- File Lama --}}
-                            @if ($wip->files)
+                            @if ($fg->files)
                                 <div class="grid grid-cols-1 gap-4 md:grid-cols-2">
-                                    @foreach ($wip->files as $file)
+
+                                    @foreach ($fg->files as $file)
                                         @php
                                             $ext = pathinfo($file, PATHINFO_EXTENSION);
                                         @endphp
+
                                         <div class="rounded-lg border border-gray-200 bg-gray-50 p-3">
+
                                             @if (in_array(strtolower($ext), ['jpg', 'jpeg', 'png']))
                                                 <img src="{{ asset('storage/' . $file) }}" alt="FG Image"
                                                     class="mb-3 h-48 w-full rounded border object-contain" />
@@ -170,14 +169,20 @@
                                                     {{ strtoupper($ext) }} FILE
                                                 </div>
                                             @endif
+
                                             <div class="flex items-center justify-between">
+
                                                 <a href="{{ asset('storage/' . $file) }}" target="_blank"
                                                     class="text-sm font-medium text-indigo-600 hover:underline">
+
                                                     {{ basename($file) }}
                                                 </a>
+
                                             </div>
+
                                         </div>
                                     @endforeach
+
                                 </div>
                             @else
                                 <div
@@ -197,34 +202,30 @@
                                 <x-input-error class="mt-2" :messages="$errors->get('files')" />
                             </div>
                         </div>
-
                         {{-- detail --}}
                         <div class="border-t border-gray-200 pt-6">
                             <h3 class="mb-4 font-semibold text-gray-700">Detail Inspeksi</h3>
-
                             <div id="detail-wrapper" class="space-y-4">
-                                @forelse ($wip->details as $detail)
+                                @forelse ($fg->details as $detail)
                                     <div class="detail-row grid grid-cols-1 gap-4 md:grid-cols-3">
                                         <div>
                                             <x-input-label :value="__('Description')" />
                                             <select name="detail_description[]"
                                                 class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
-                                                @include('inspeksi_bending.wip.options-detail', [
+                                                @include('inspeksi_fencing.fg.options-detail', [
                                                     'selected' => $detail->description,
                                                 ])
                                             </select>
                                         </div>
-
                                         <div>
                                             <x-input-label :value="__('Description 2')" />
                                             <select name="detail_description2[]"
                                                 class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
-                                                @include('inspeksi_bending.wip.options-detail', [
+                                                @include('inspeksi_fencing.fg.options-detail', [
                                                     'selected' => $detail->description2,
                                                 ])
                                             </select>
                                         </div>
-
                                         <div>
                                             <x-input-label :value="__('QTY')" />
                                             <x-text-input name="detail_qty[]" type="number"
@@ -239,22 +240,20 @@
                                             <x-input-label :value="__('Description')" />
                                             <select name="detail_description[]"
                                                 class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
-                                                @include('inspeksi_bending.wip.options-detail', [
+                                                @include('inspeksi_fencing.fg.options-detail', [
                                                     'selected' => null,
                                                 ])
                                             </select>
                                         </div>
-
                                         <div>
                                             <x-input-label :value="__('Description 2')" />
                                             <select name="detail_description2[]"
                                                 class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
-                                                @include('inspeksi_bending.wip.options-detail', [
+                                                @include('inspeksi_fencing.fg.options-detail', [
                                                     'selected' => null,
                                                 ])
                                             </select>
                                         </div>
-
                                         <div>
                                             <x-input-label :value="__('QTY')" />
                                             <x-text-input name="detail_qty[]" type="number"
@@ -278,7 +277,7 @@
                             </a>
 
                             <x-primary-button class="bg-indigo-600 hover:bg-indigo-700">
-                                {{ __('Update Data WIP') }}
+                                {{ __('Update Data FG') }}
                             </x-primary-button>
                         </div>
                     </form>
@@ -288,7 +287,7 @@
     </div>
 
     <script>
-        const optionsDetail = `@include('inspeksi_bending.wip.options-detail', ['selected' => null])`;
+        const optionsDetail = `@include('inspeksi_fencing.fg.options-detail', ['selected' => null])`;
 
         document.getElementById('add-detail').addEventListener('click', function() {
             const wrapper = document.getElementById('detail-wrapper');
