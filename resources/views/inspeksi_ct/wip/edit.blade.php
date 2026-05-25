@@ -61,7 +61,7 @@
                             <div>
                                 <x-input-label for="t_produk" :value="__('T Produk')" />
                                 <x-text-input id="t_produk" name="t_produk" type="number" step="0.01"
-                                    class="mt-1 block w-full" :value="old('t_produk', $wip->t_produk)" required />
+                                    class="mt-1 block w-full" :value="old('t_produk', $wip->t_produk)" />
                                 <x-input-error class="mt-2" :messages="$errors->get('t_produk')" />
                             </div>
 

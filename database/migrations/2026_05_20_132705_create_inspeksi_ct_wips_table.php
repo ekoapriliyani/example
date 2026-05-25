@@ -24,8 +24,6 @@ return new class extends Migration
             $table->decimal('mesh1', 8, 2)->nullable();
             $table->decimal('mesh2', 8, 2)->nullable();
             $table->decimal('mesh3', 8, 2)->nullable();
-            $table->decimal('mesh4', 8, 2)->nullable();
-            $table->decimal('mesh5', 8, 2)->nullable();
             $table->decimal('diagonal', 8, 2)->nullable();
             $table->string('visual');
             $table->string('status');

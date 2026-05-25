@@ -40,6 +40,27 @@
 
                         <div class="grid grid-cols-1 gap-6 md:grid-cols-3">
                             <div>
+                                <x-input-label :value="__('Metode Kerja')" class="mb-2" />
+                                <div class="mt-2 flex items-center space-x-6">
+                                    <label class="inline-flex cursor-pointer items-center">
+                                        <input type="radio" name="metode" value="Welding" id="metode_welding"
+                                            class="rounded-full border-gray-300 text-indigo-600 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+                                            {{ old('metode') == 'Welding' ? 'checked' : '' }} required>
+                                        <span class="ml-2 text-sm text-gray-600">Welding</span>
+                                    </label>
+
+                                    <label class="inline-flex cursor-pointer items-center">
+                                        <input type="radio" name="metode" value="Bending" id="metode_bending"
+                                            class="rounded-full border-gray-300 text-indigo-600 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+                                            {{ old('metode') == 'Bending' ? 'checked' : '' }}>
+                                        <span class="ml-2 text-sm text-gray-600">Bending</span>
+                                    </label>
+                                </div>
+                                <x-input-error class="mt-2" :messages="$errors->get('metode')" />
+                            </div>
+                        </div>
+                        <div class="grid grid-cols-1 gap-6 md:grid-cols-3">
+                            <div>
                                 <x-input-label for="no_material" :value="__('Nomor Material')" />
                                 <x-text-input id="no_material" name="no_material" type="number"
                                     class="mt-1 block w-full" :value="old('no_material')" required
@@ -96,7 +117,7 @@
                                 <x-input-label for="t_produk" :value="__('Tinggi Produk')" />
                                 <div class="relative mt-1">
                                     <x-text-input id="t_produk" name="t_produk" type="number" step="0.01"
-                                        class="block w-full pr-12" :value="old('t_produk')" required placeholder="0.00" />
+                                        class="block w-full pr-12" :value="old('t_produk')" placeholder="0.00" />
                                     <div
                                         class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3 text-sm text-gray-400">
                                         mm
@@ -373,6 +394,47 @@
             </div>
         </div>`;
             wrapper.insertAdjacentHTML('beforeend', newDetail);
+        });
+    </script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const tProdukInput = document.getElementById('t_produk');
+            const pProdukInput = document.getElementById('p_produk');
+
+            function handleMetodeChange() {
+                // Mengambil nilai radio button yang sedang aktif/terpilih
+                const selectedMetode = document.querySelector('input[name="metode"]:checked')?.value;
+
+                if (selectedMetode === 'Welding') {
+                    // Jika pilih Welding: t_produk disable, p_produk enable
+                    tProdukInput.disabled = true;
+                    tProdukInput.required = false;
+                    tProdukInput.value = ''; // Mengosongkan nilai t_produk
+                    tProdukInput.classList.add('bg-gray-100', 'cursor-not-allowed');
+
+                    pProdukInput.disabled = false;
+                    pProdukInput.required = true;
+                    pProdukInput.classList.remove('bg-gray-100', 'cursor-not-allowed');
+
+                } else if (selectedMetode === 'Bending') {
+                    // Jika pilih Bending: p_produk & t_produk keduanya aktif dan bisa diisi
+                    pProdukInput.disabled = false;
+                    pProdukInput.required = true;
+                    pProdukInput.classList.remove('bg-gray-100', 'cursor-not-allowed');
+
+                    tProdukInput.disabled = false;
+                    tProdukInput.required = true;
+                    tProdukInput.classList.remove('bg-gray-100', 'cursor-not-allowed');
+                }
+            }
+
+            // Pasang event listener ke semua radio button bernama "metode"
+            document.querySelectorAll('input[name="metode"]').forEach(radio => {
+                radio.addEventListener('change', handleMetodeChange);
+            });
+
+            // Jalankan saat pertama kali halaman dimuat (untuk handle old value / error-back)
+            handleMetodeChange();
         });
     </script>
 </x-app-layout>

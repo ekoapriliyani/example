@@ -18,8 +18,6 @@ class InspeksiCtWip extends Model
         'mesh1',
         'mesh2',
         'mesh3',
-        'mesh4',
-        'mesh5',
         'diagonal',
         'visual',
         'status',

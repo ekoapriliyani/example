@@ -84,12 +84,6 @@
                                 </dd>
                             </div>
                             <div>
-                                <dt class="text-sm font-medium italic text-gray-500">Product CT</dt>
-                                <dd class="text-lg font-semibold text-gray-900">
-                                    {{ $inspeksi_ct->productCt->description }}
-                                </dd>
-                            </div>
-                            <div>
                                 <dt class="text-sm font-medium italic text-gray-500">QTY Ordered</dt>
                                 <dd class="text-lg font-semibold text-gray-900">
                                     {{ $inspeksi_ct->pro->qty }}

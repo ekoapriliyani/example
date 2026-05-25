@@ -10,7 +10,6 @@ class InspeksiCt extends Model
         'nomor_inspeksi',
         'tanggal',
         'pro_id',
-        'product_ct_ref_id',
         'shift',
         'mesin_id',
         'total_prod',
@@ -24,10 +23,6 @@ class InspeksiCt extends Model
         return $this->belongsTo(Pro::class);
     }
 
-    public function productCt()
-    {
-        return $this->belongsTo(ProductCt::class, 'product_ct_ref_id');
-    }
 
     public function mesin()
     {

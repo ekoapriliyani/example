@@ -18,7 +18,7 @@ class InspeksiCtController extends Controller
     {
         $search = $request->input('search');
 
-        $data = InspeksiCt::with(['pro', 'mesin', 'productCt'])
+        $data = InspeksiCt::with(['pro', 'mesin'])
             ->when($search, function ($query, $search) {
                 return $query->where('nomor_inspeksi', 'like', "%{$search}%");
             })
@@ -63,7 +63,6 @@ class InspeksiCtController extends Controller
             'nomor_inspeksi' => 'required|unique:inspeksi_cts,nomor_inspeksi',
             'tanggal' => 'required|date',
             'pro_id' => 'required|exists:pros,id',
-            'product_ct_ref_id' => 'required|exists:product_cts,id',
             'shift' => 'required',
             'mesin_id' => 'required|exists:mesins,id',
         ]);
@@ -78,7 +77,7 @@ class InspeksiCtController extends Controller
      */
     public function show(string $id)
     {
-        $inspeksi_ct = InspeksiCt::with(['pro', 'mesin', 'productCt'])->findOrFail($id);
+        $inspeksi_ct = InspeksiCt::with(['pro', 'mesin'])->findOrFail($id);
         return view('inspeksi_ct.show', compact('inspeksi_ct'));
     }
 
@@ -89,9 +88,7 @@ class InspeksiCtController extends Controller
     {
         $pros = Pro::orderByDesc('pro_id')->get();
         $mesins = Mesin::orderBy('nama_mesin')->get();
-        $productCts = ProductCt::orderBy('product_ct_id')->get();
-
-        return view('inspeksi_ct.edit', compact('inspeksi_ct', 'pros', 'mesins', 'productCts'));
+        return view('inspeksi_ct.edit', compact('inspeksi_ct', 'pros', 'mesins'));
     }
 
     /**
@@ -102,7 +99,6 @@ class InspeksiCtController extends Controller
         $validated = $request->validate([
             'tanggal' => 'required|date',
             'pro_id' => 'required|exists:pros,id',
-            'product_ct_ref_id' => 'required|exists:product_cts,id',
             'shift' => 'required',
             'mesin_id' => 'required|exists:mesins,id',
             'total_prod' => 'nullable|numeric',
