@@ -27,6 +27,8 @@ use App\Http\Controllers\InspeksiShearingFgController;
 use App\Http\Controllers\InspeksiShearingWipController;
 use App\Http\Controllers\InspeksiSlittingController;
 use App\Http\Controllers\InspeksiSlittingWipController;
+use App\Http\Controllers\InspeksiWfController;
+use App\Http\Controllers\InspeksiWfWipController;
 use App\Http\Controllers\InspeksiWmController;
 use App\Http\Controllers\InspeksiWmFgController;
 use App\Http\Controllers\InspeksiWmWipController;
@@ -272,6 +274,31 @@ Route::middleware(['auth'])->group(function () {
 
     Route::delete('insepeksi_bending/fg/{fg}', [InspeksiBendingFgController::class, 'destroy'])
         ->name('inspeksi_bending_fg.destroy');
+
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | WF
+    |--------------------------------------------------------------------------
+    */
+
+    // WIP
+    Route::get('/inspeksi_wf/{inspeksi_wf}/wip', [InspeksiWfWipController::class, 'create'])
+        ->name('inspeksi_wf.wip');
+
+    Route::post('/inspeksi_wf/wip', [InspeksiWfWipController::class, 'store'])
+        ->name('inspeksi_wf_wip.store');
+
+    Route::get('insepeksi_wf/wip/{wip}/edit', [InspeksiWfWipController::class, 'edit'])
+        ->name('inspeksi_wf_wip.edit');
+
+    Route::put('insepeksi_wf/wip/{wip}', [InspeksiWfWipController::class, 'update'])
+        ->name('inspeksi_wf_wip.update');
+
+    Route::delete('insepeksi_wf/wip/{wip}', [InspeksiWfWipController::class, 'destroy'])
+        ->name('inspeksi_wf_wip.destroy');
+
 
 
 
@@ -675,6 +702,9 @@ Route::middleware([
 
     Route::patch('/inspeksi-wm/{id}/toggle-approval', [InspeksiWmController::class, 'toggleApproval'])
         ->name('inspeksi-wm.toggle');
+
+    Route::patch('/inspeksi-wf/{id}/toggle-approval', [InspeksiWfController::class, 'toggleApproval'])
+        ->name('inspeksi-wf.toggle');
 
     Route::patch('/inspeksi-bending/{id}/toggle-approval', [InspeksiBendingController::class, 'toggleApproval'])
         ->name('inspeksi-bending.toggle');

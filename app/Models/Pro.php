@@ -22,6 +22,11 @@ class Pro extends Model
         return $this->hasMany(InspeksiBending::class);
     }
 
+    public function inspeksiWfs()
+    {
+        return $this->hasMany(InspeksiWf::class);
+    }
+
     public function inspeksiKawatDuris()
     {
         return $this->hasMany(InspeksiKawatDuri::class);

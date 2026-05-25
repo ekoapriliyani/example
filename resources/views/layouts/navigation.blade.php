@@ -112,6 +112,7 @@
                             </x-slot>
                             <x-slot name="content">
                                 <x-dropdown-link :href="route('inspeksi_wm.index')">Wiremesh (WM)</x-dropdown-link>
+                                <x-dropdown-link :href="route('inspeksi_wf.index')">Wafios/EVG</x-dropdown-link>
                                 <x-dropdown-link :href="route('inspeksi_bending.index')">Bending</x-dropdown-link>
                                 <x-dropdown-link :href="route('inspeksi_ct.index')">CTCL</x-dropdown-link>
                                 <x-dropdown-link :href="route('inspeksi_kawat_duri.index')">Kawat Duri</x-dropdown-link>
@@ -220,6 +221,7 @@
             <div class="border-t border-gray-200 pt-2">
                 <div class="px-4 text-xs font-semibold uppercase text-gray-400">Inspeksi Reguler</div>
                 <x-responsive-nav-link :href="route('inspeksi_wm.index')">Wiremesh (WM)</x-responsive-nav-link>
+                <x-responsive-nav-link :href="route('inspeksi_wf.index')">Wafios/EVG</x-responsive-nav-link>
                 <x-responsive-nav-link :href="route('inspeksi_bending.index')">Bending</x-responsive-nav-link>
                 <x-responsive-nav-link :href="route('inspeksi_ct.index')">CTCL</x-responsive-nav-link>
                 <x-responsive-nav-link :href="route('inspeksi_kawat_duri.index')">Kawat Duri</x-responsive-nav-link>

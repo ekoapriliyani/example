@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\InspeksiWfWip;
 use Illuminate\Database\Eloquent\Model;
 
 class InspeksiWf extends Model

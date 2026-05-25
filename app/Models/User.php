@@ -107,4 +107,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(InspeksiChainlinkWip::class);
     }
+
+    public function inspeksiWfWip()
+    {
+        return $this->hasMany(InspeksiWfWip::class);
+    }
 }
