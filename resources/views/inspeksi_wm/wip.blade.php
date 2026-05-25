@@ -179,7 +179,7 @@
                                 <x-input-error class="mt-2" :messages="$errors->get('visual')" />
                             </div>
                             <div>
-                                <x-input-label for="shear_strength" :value="__('Shear Strength')" />
+                                <x-input-label for="shear_strength" :value="__('Shear Strength Min')" />
                                 <div class="relative mt-1">
                                     <x-text-input id="shear_strength" name="shear_strength" type="number"
                                         step="0.01" class="block w-full pr-12" :value="old('shear_strength')"

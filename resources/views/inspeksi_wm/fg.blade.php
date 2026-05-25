@@ -38,8 +38,8 @@
                             </div>
                             <div>
                                 <x-input-label for="weight" :value="__('Weight')" />
-                                <x-text-input id="weight" name="weight" type="number" class="mt-1 block w-full"
-                                    required placeholder="0" />
+                                <x-text-input id="weight" name="weight" type="number" step="0.01"
+                                    class="mt-1 block w-full" required placeholder="0" />
                                 <x-input-error class="mt-2" :messages="$errors->get('weight')" />
                             </div>
                         </div>
