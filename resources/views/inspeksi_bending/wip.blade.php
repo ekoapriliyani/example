@@ -198,7 +198,6 @@
                                 <x-input-error class="mt-2" :messages="$errors->get('matchingcrosswire')" />
                             </div>
 
-
                             <div>
                                 <x-input-label for="visual" :value="__('Visual')" />
                                 <div class="relative mt-1">
@@ -241,7 +240,6 @@
                                             <option value="LAS (LEPAS/TIDAK NGELAS)">LAS (LEPAS/TIDAK NGELAS)
                                             </option>
                                             <option value="DIAMETER OUT">DIAMETER OUT</option>
-                                            <option value="TEBAL OUT">TEBAL OUT</option>
                                             <option value="PANJANG OUT">PANJANG OUT</option>
                                             <option value="LEBAR OUT">LEBAR OUT</option>
                                             <option value="TINGGI OUT">TINGGI OUT</option>
@@ -274,7 +272,6 @@
                                             <option value="LAS (LEPAS/TIDAK NGELAS)">LAS (LEPAS/TIDAK NGELAS)
                                             </option>
                                             <option value="DIAMETER OUT">DIAMETER OUT</option>
-                                            <option value="TEBAL OUT">TEBAL OUT</option>
                                             <option value="PANJANG OUT">PANJANG OUT</option>
                                             <option value="LEBAR OUT">LEBAR OUT</option>
                                             <option value="TINGGI OUT">TINGGI OUT</option>

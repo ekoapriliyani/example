@@ -119,6 +119,7 @@ Route::middleware(['auth'])->group(function () {
         'inspeksi_wm'        => InspeksiWmController::class,
         'inspeksi_ct'        => InspeksiCtController::class,
         'inspeksi_bending'   => InspeksiBendingController::class,
+        'inspeksi_wf'   => InspeksiWfController::class,
         'inspeksi_shearing'   => InspeksiShearingController::class,
         'inspeksi_kawat_duri' => InspeksiKawatDuriController::class,
         'inspeksi_pvc' => InspeksiPvcController::class,
