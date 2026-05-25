@@ -190,13 +190,31 @@
                                         <select id="detail_description_0" name="detail_description[]"
                                             class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
                                             <option value="">-- Pilih Detail --</option>
+                                            <option value="LAS (LEPAS/TIDAK NGELAS)">LAS (LEPAS/TIDAK NGELAS)
+                                            </option>
                                             <option value="DIAMETER OUT">DIAMETER OUT</option>
-                                            <option value="CRACK">CRACK</option>
-                                            <option value="MESH">MESH</option>
+                                            <option value="TEBAL OUT">TEBAL OUT</option>
                                             <option value="PANJANG OUT">PANJANG OUT</option>
                                             <option value="LEBAR OUT">LEBAR OUT</option>
-                                            <option value="PVC PECAH">PVC PECAH</option>
+                                            <option value="TINGGI OUT">TINGGI OUT</option>
+                                            <option value="DIAGONAL OUT">DIAGONAL OUT</option>
+                                            <option value="CW/LW PENDEK">CW/LW PENDEK</option>
+                                            <option value="MESH OUT / TIDAK SIMETRIS">MESH OUT / TIDAK SIMETRIS
+                                            </option>
+                                            <option value="OVERHANG OUT">OVERHANG OUT</option>
+                                            <option value="KARAT">KARAT</option>
                                             <option value="WHITE RUST">WHITE RUST</option>
+                                            <option value="TRIMING">TRIMING</option>
+                                            <option value="CRACK">CRACK</option>
+                                            <option value="PENYOK/RUSAK">PENYOK/RUSAK</option>
+                                            <option value="PVC/HDPE PECAH/SOBEK">PVC/HDPE PECAH/SOBEK</option>
+                                            <option value="PVC/HDPE MIRING">PVC/HDPE MIRING</option>
+                                            <option value="PVC/HDPE KASAR">PVC/HDPE KASAR</option>
+                                            <option value="JARAK DURI/BLADE">JARAK DURI/BLADE</option>
+                                            <option value="BLADE PECAH/SOBEK">BLADE PECAH/SOBEK</option>
+                                            <option value="PISAU POUNCH TUMPUL">PISAU POUNCH TUMPUL</option>
+                                            <option value="BENDING TIDAK PRESS">BENDING TIDAK PRESS</option>
+                                            <option value="KLIP TIDAK RAPAT">KLIP TIDAK RAPAT</option>
                                         </select>
                                     </div>
                                     <div>
@@ -204,13 +222,31 @@
                                         <select id="detail_description2_0" name="detail_description2[]"
                                             class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
                                             <option value="">-- Pilih Detail --</option>
+                                            <option value="LAS (LEPAS/TIDAK NGELAS)">LAS (LEPAS/TIDAK NGELAS)
+                                            </option>
                                             <option value="DIAMETER OUT">DIAMETER OUT</option>
-                                            <option value="CRACK">CRACK</option>
-                                            <option value="MESH">MESH</option>
+                                            <option value="TEBAL OUT">TEBAL OUT</option>
                                             <option value="PANJANG OUT">PANJANG OUT</option>
                                             <option value="LEBAR OUT">LEBAR OUT</option>
-                                            <option value="PVC PECAH">PVC PECAH</option>
+                                            <option value="TINGGI OUT">TINGGI OUT</option>
+                                            <option value="DIAGONAL OUT">DIAGONAL OUT</option>
+                                            <option value="CW/LW PENDEK">CW/LW PENDEK</option>
+                                            <option value="MESH OUT / TIDAK SIMETRIS">MESH OUT / TIDAK SIMETRIS
+                                            </option>
+                                            <option value="OVERHANG OUT">OVERHANG OUT</option>
+                                            <option value="KARAT">KARAT</option>
                                             <option value="WHITE RUST">WHITE RUST</option>
+                                            <option value="TRIMING">TRIMING</option>
+                                            <option value="CRACK">CRACK</option>
+                                            <option value="PENYOK/RUSAK">PENYOK/RUSAK</option>
+                                            <option value="PVC/HDPE PECAH/SOBEK">PVC/HDPE PECAH/SOBEK</option>
+                                            <option value="PVC/HDPE MIRING">PVC/HDPE MIRING</option>
+                                            <option value="PVC/HDPE KASAR">PVC/HDPE KASAR</option>
+                                            <option value="JARAK DURI/BLADE">JARAK DURI/BLADE</option>
+                                            <option value="BLADE PECAH/SOBEK">BLADE PECAH/SOBEK</option>
+                                            <option value="PISAU POUNCH TUMPUL">PISAU POUNCH TUMPUL</option>
+                                            <option value="BENDING TIDAK PRESS">BENDING TIDAK PRESS</option>
+                                            <option value="KLIP TIDAK RAPAT">KLIP TIDAK RAPAT</option>
                                         </select>
                                     </div>
                                     <div>
@@ -271,13 +307,31 @@
                 <select id="detail_description_${index}" name="detail_description[]"
                     class="mt-1 block w-full border-gray-300 rounded-md shadow-sm">
                     <option value="">-- Pilih Detail --</option>
-                    <option value="DIAMETER OUT">DIAMETER OUT</option>
-                    <option value="CRACK">CRACK</option>
-                    <option value="MESH">MESH</option>
-                    <option value="PANJANG OUT">PANJANG OUT</option>
-                    <option value="LEBAR OUT">LEBAR OUT</option>
-                    <option value="PVC PECAH">PVC PECAH</option>
-                    <option value="WHITE RUST">WHITE RUST</option>
+                    <option value="LAS (LEPAS/TIDAK NGELAS)">LAS (LEPAS/TIDAK NGELAS)
+                                            </option>
+                                            <option value="DIAMETER OUT">DIAMETER OUT</option>
+                                            <option value="TEBAL OUT">TEBAL OUT</option>
+                                            <option value="PANJANG OUT">PANJANG OUT</option>
+                                            <option value="LEBAR OUT">LEBAR OUT</option>
+                                            <option value="TINGGI OUT">TINGGI OUT</option>
+                                            <option value="DIAGONAL OUT">DIAGONAL OUT</option>
+                                            <option value="CW/LW PENDEK">CW/LW PENDEK</option>
+                                            <option value="MESH OUT / TIDAK SIMETRIS">MESH OUT / TIDAK SIMETRIS
+                                            </option>
+                                            <option value="OVERHANG OUT">OVERHANG OUT</option>
+                                            <option value="KARAT">KARAT</option>
+                                            <option value="WHITE RUST">WHITE RUST</option>
+                                            <option value="TRIMING">TRIMING</option>
+                                            <option value="CRACK">CRACK</option>
+                                            <option value="PENYOK/RUSAK">PENYOK/RUSAK</option>
+                                            <option value="PVC/HDPE PECAH/SOBEK">PVC/HDPE PECAH/SOBEK</option>
+                                            <option value="PVC/HDPE MIRING">PVC/HDPE MIRING</option>
+                                            <option value="PVC/HDPE KASAR">PVC/HDPE KASAR</option>
+                                            <option value="JARAK DURI/BLADE">JARAK DURI/BLADE</option>
+                                            <option value="BLADE PECAH/SOBEK">BLADE PECAH/SOBEK</option>
+                                            <option value="PISAU POUNCH TUMPUL">PISAU POUNCH TUMPUL</option>
+                                            <option value="BENDING TIDAK PRESS">BENDING TIDAK PRESS</option>
+                                            <option value="KLIP TIDAK RAPAT">KLIP TIDAK RAPAT</option>
                 </select>
             </div>
             <div>
@@ -285,13 +339,31 @@
                 <select id="detail_description2_${index}" name="detail_description2[]"
                     class="mt-1 block w-full border-gray-300 rounded-md shadow-sm">
                     <option value="">-- Pilih Detail --</option>
-                    <option value="DIAMETER OUT">DIAMETER OUT</option>
-                    <option value="CRACK">CRACK</option>
-                    <option value="MESH">MESH</option>
-                    <option value="PANJANG OUT">PANJANG OUT</option>
-                    <option value="LEBAR OUT">LEBAR OUT</option>
-                    <option value="PVC PECAH">PVC PECAH</option>
-                    <option value="WHITE RUST">WHITE RUST</option>
+                    <option value="LAS (LEPAS/TIDAK NGELAS)">LAS (LEPAS/TIDAK NGELAS)
+                                            </option>
+                                            <option value="DIAMETER OUT">DIAMETER OUT</option>
+                                            <option value="TEBAL OUT">TEBAL OUT</option>
+                                            <option value="PANJANG OUT">PANJANG OUT</option>
+                                            <option value="LEBAR OUT">LEBAR OUT</option>
+                                            <option value="TINGGI OUT">TINGGI OUT</option>
+                                            <option value="DIAGONAL OUT">DIAGONAL OUT</option>
+                                            <option value="CW/LW PENDEK">CW/LW PENDEK</option>
+                                            <option value="MESH OUT / TIDAK SIMETRIS">MESH OUT / TIDAK SIMETRIS
+                                            </option>
+                                            <option value="OVERHANG OUT">OVERHANG OUT</option>
+                                            <option value="KARAT">KARAT</option>
+                                            <option value="WHITE RUST">WHITE RUST</option>
+                                            <option value="TRIMING">TRIMING</option>
+                                            <option value="CRACK">CRACK</option>
+                                            <option value="PENYOK/RUSAK">PENYOK/RUSAK</option>
+                                            <option value="PVC/HDPE PECAH/SOBEK">PVC/HDPE PECAH/SOBEK</option>
+                                            <option value="PVC/HDPE MIRING">PVC/HDPE MIRING</option>
+                                            <option value="PVC/HDPE KASAR">PVC/HDPE KASAR</option>
+                                            <option value="JARAK DURI/BLADE">JARAK DURI/BLADE</option>
+                                            <option value="BLADE PECAH/SOBEK">BLADE PECAH/SOBEK</option>
+                                            <option value="PISAU POUNCH TUMPUL">PISAU POUNCH TUMPUL</option>
+                                            <option value="BENDING TIDAK PRESS">BENDING TIDAK PRESS</option>
+                                            <option value="KLIP TIDAK RAPAT">KLIP TIDAK RAPAT</option>
                 </select>
             </div>
             <div>

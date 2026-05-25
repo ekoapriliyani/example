@@ -1,6 +1,33 @@
 @php
-    $options = ['DIAMETER OUT', 'CRACK', 'MESH', 'PANJANG OUT', 'LEBAR OUT', 'WHITE RUST', 'DIAGONAL OUT'];
+    $options = [
+        'LAS (LEPAS/TIDAK NGELAS)',
+        'DIAMETER OUT',
+        'TEBAL OUT',
+        'PANJANG OUT',
+        'LEBAR OUT',
+        'TINGGI OUT',
+        'DIAGONAL OUT',
+        'CW/LW PENDEK',
+        'MESH OUT / TIDAK SIMETRIS',
+        'OVERHANG OUT',
+        'KARAT',
+        'WHITE RUST',
+        'TRIMING',
+        'CRACK',
+        'PENYOK/RUSAK',
+        'PVC/HDPE PECAH/SOBEK',
+        'PVC/HDPE MIRING',
+        'PVC/HDPE KASAR',
+        'JARAK DURI/BLADE',
+        'BLADE PECAH/SOBEK',
+        'PISAU POUNCH TUMPUL',
+        'BENDING TIDAK PRESS',
+        'KLIP TIDAK RAPAT',
+    ];
 @endphp
+
+
+
 
 <option value="">-- Pilih Detail --</option>
 
