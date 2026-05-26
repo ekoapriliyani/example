@@ -1,4 +1,4 @@
-<nav x-data="{ open: false }" class="border-b border-gray-100 bg-white">
+<nav x-data="{ open: false }" class="sticky top-0 z-50 border-b border-gray-100 bg-white shadow-sm">
     <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div class="flex h-16 justify-between">
             <div class="flex">
@@ -113,7 +113,7 @@
                             <x-slot name="content">
                                 <x-dropdown-link :href="route('inspeksi_wm.index')">Wiremesh (WM)</x-dropdown-link>
                                 <x-dropdown-link :href="route('inspeksi_wf.index')">Wafios/EVG</x-dropdown-link>
-                                <x-dropdown-link :href="route('inspeksi_fencing.index')">fencing</x-dropdown-link>
+                                <x-dropdown-link :href="route('inspeksi_fencing.index')">Fencing</x-dropdown-link>
                                 <x-dropdown-link :href="route('inspeksi_ct.index')">CTCL</x-dropdown-link>
                                 <x-dropdown-link :href="route('inspeksi_kawat_duri.index')">Kawat Duri</x-dropdown-link>
                                 <x-dropdown-link :href="route('inspeksi_chainlink.index')">Chainlink</x-dropdown-link>
@@ -222,7 +222,7 @@
                 <div class="px-4 text-xs font-semibold uppercase text-gray-400">Inspeksi Reguler</div>
                 <x-responsive-nav-link :href="route('inspeksi_wm.index')">Wiremesh (WM)</x-responsive-nav-link>
                 <x-responsive-nav-link :href="route('inspeksi_wf.index')">Wafios/EVG</x-responsive-nav-link>
-                <x-responsive-nav-link :href="route('inspeksi_fencing.index')">fencing</x-responsive-nav-link>
+                <x-responsive-nav-link :href="route('inspeksi_fencing.index')">Fencing</x-responsive-nav-link>
                 <x-responsive-nav-link :href="route('inspeksi_ct.index')">CTCL</x-responsive-nav-link>
                 <x-responsive-nav-link :href="route('inspeksi_kawat_duri.index')">Kawat Duri</x-responsive-nav-link>
                 <x-responsive-nav-link :href="route('inspeksi_chainlink.index')">Chainlink</x-responsive-nav-link>

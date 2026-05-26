@@ -42,63 +42,72 @@
                             <div>
                                 <x-input-label for="no_material" :value="__('Nomor Material')" />
                                 <x-text-input id="no_material" name="no_material" type="number"
-                                    class="mt-1 block w-full" :value="old('no_material')" required
-                                    placeholder="Masukkan kode material" />
+                                    class="mt-1 block w-full" :value="old('no_material')" placeholder="Masukkan kode material" />
                                 <x-input-error class="mt-2" :messages="$errors->get('no_material')" />
                             </div>
 
                             <div>
                                 <x-input-label for="nama_operator" :value="__('Nama Operator')" />
                                 <x-text-input id="nama_operator" name="nama_operator" type="text"
-                                    class="mt-1 block w-full" :value="old('nama_operator')" required
-                                    placeholder="Nama operator mesin" />
+                                    class="mt-1 block w-full" :value="old('nama_operator')" placeholder="Nama operator mesin" />
                                 <x-input-error class="mt-2" :messages="$errors->get('nama_operator')" />
                             </div>
                         </div>
 
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                             <div>
-                                <x-input-label for="d_kawat_act" :value="__('Diameter Inti Kawat Duri')" />
+                                <x-input-label for="d_inti_kd" :value="__('Diameter Inti Kawat Duri')" />
                                 <div class="relative mt-1">
-                                    <x-text-input id="d_kawat_act" name="d_kawat_act" type="number" step="0.01"
-                                        class="block w-full pr-12" :value="old('d_kawat_act')" required placeholder="0.00" />
+                                    <x-text-input id="d_inti_kd" name="d_inti_kd" type="number" step="0.01"
+                                        class="block w-full pr-12" :value="old('d_inti_kd')" placeholder="0.00" />
                                     <div
                                         class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none text-gray-400 text-sm">
                                         mm
                                     </div>
                                 </div>
-                                <x-input-error class="mt-2" :messages="$errors->get('d_kawat_act')" />
+                                <x-input-error class="mt-2" :messages="$errors->get('d_inti_kd')" />
                             </div>
                             <div>
-                                <x-input-label for="d_kawat_luar" :value="__('Diameter Kawat Luar')" />
+                                <x-input-label for="d_pvc_kd" :value="__('Diameter PVC Kawat Duri')" />
                                 <div class="relative mt-1">
-                                    <x-text-input id="d_kawat_luar" name="d_kawat_luar" type="number" step="0.01"
-                                        class="block w-full pr-12" :value="old('d_kawat_luar')" required placeholder="0.00" />
+                                    <x-text-input id="d_pvc_kd" name="d_pvc_kd" type="number" step="0.01"
+                                        class="block w-full pr-12" :value="old('d_pvc_kd')" placeholder="0.00" />
                                     <div
                                         class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none text-gray-400 text-sm">
                                         mm
                                     </div>
                                 </div>
-                                <x-input-error class="mt-2" :messages="$errors->get('d_kawat_luar')" />
+                                <x-input-error class="mt-2" :messages="$errors->get('d_pvc_kd')" />
                             </div>
                             <div>
-                                <x-input-label for="d_kawat_jalinan_act" :value="__('Diameter Kawat Jalinan')" />
+                                <x-input-label for="d_inti_kj" :value="__('Diameter Inti Kawat Jalinan')" />
                                 <div class="relative mt-1">
-                                    <x-text-input id="d_kawat_jalinan_act" name="d_kawat_jalinan_act" type="number"
-                                        step="0.01" class="block w-full pr-12" :value="old('d_kawat_jalinan_act')"
-                                        placeholder="0.00" />
+                                    <x-text-input id="d_inti_kj" name="d_inti_kj" type="number" step="0.01"
+                                        class="block w-full pr-12" :value="old('d_inti_kj')" placeholder="0.00" />
                                     <div
                                         class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none text-gray-400 text-sm">
                                         mm
                                     </div>
                                 </div>
-                                <x-input-error class="mt-2" :messages="$errors->get('d_kawat_jalinan_act')" />
+                                <x-input-error class="mt-2" :messages="$errors->get('d_inti_kj')" />
+                            </div>
+                            <div>
+                                <x-input-label for="d_pvc_kj" :value="__('Diameter PVC Kawat Jalinan')" />
+                                <div class="relative mt-1">
+                                    <x-text-input id="d_pvc_kj" name="d_pvc_kj" type="number" step="0.01"
+                                        class="block w-full pr-12" :value="old('d_pvc_kj')" placeholder="0.00" />
+                                    <div
+                                        class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none text-gray-400 text-sm">
+                                        mm
+                                    </div>
+                                </div>
+                                <x-input-error class="mt-2" :messages="$errors->get('d_pvc_kj')" />
                             </div>
                             <div>
                                 <x-input-label for="jarak_duri" :value="__('Jarak Duri')" />
                                 <div class="relative mt-1">
                                     <x-text-input id="jarak_duri" name="jarak_duri" type="number" step="0.01"
-                                        class="block w-full pr-12" :value="old('jarak_duri')" required placeholder="0.00" />
+                                        class="block w-full pr-12" :value="old('jarak_duri')" placeholder="0.00" />
                                     <div
                                         class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none text-gray-400 text-sm">
                                         mm
@@ -110,7 +119,8 @@
                                 <x-input-label for="jml_jalinan_duri" :value="__('Jumlah Jalinan Duri')" />
                                 <div class="relative mt-1">
                                     <x-text-input id="jml_jalinan_duri" name="jml_jalinan_duri" type="number"
-                                        step="1" class="block w-full pr-12" :value="old('jml_jalinan_duri')" placeholder="0" />
+                                        step="1" class="block w-full pr-12" :value="old('jml_jalinan_duri')"
+                                        placeholder="0" />
                                     <div
                                         class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none text-gray-400 text-sm">
                                         x
@@ -135,7 +145,7 @@
                                 <x-input-label for="weight" :value="__('Weight')" />
                                 <div class="relative mt-1">
                                     <x-text-input id="weight" name="weight" type="number" step="0.01"
-                                        class="block w-full pr-12" :value="old('weight')" required placeholder="0.00" />
+                                        class="block w-full pr-12" :value="old('weight')" placeholder="0.00" />
                                     <div
                                         class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none text-gray-400 text-sm">
                                         kg
@@ -147,7 +157,7 @@
                                 <x-input-label for="jml_counter" :value="__('Jumlah Counter')" />
                                 <div class="relative mt-1">
                                     <x-text-input id="jml_counter" name="jml_counter" type="number"
-                                        class="block w-full pr-12" :value="old('jml_counter')" required placeholder="0.00" />
+                                        class="block w-full pr-12" :value="old('jml_counter')" placeholder="0.00" />
                                     <div
                                         class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none text-gray-400 text-sm">
                                         x
@@ -160,7 +170,6 @@
                                 <select id="status" name="status"
                                     class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
                                     required>
-                                    <option value="">-- Pilih Status --</option>
                                     <option value="OK" {{ old('status') == 'OK' ? 'selected' : '' }}>OK</option>
                                     <option value="NG" {{ old('status') == 'NG' ? 'selected' : '' }}>NG</option>
                                 </select>

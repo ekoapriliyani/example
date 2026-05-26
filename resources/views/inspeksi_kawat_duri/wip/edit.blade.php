@@ -40,13 +40,13 @@
                                 <x-input-error class="mt-2" :messages="$errors->get('nama_operator')" />
                             </div>
                             <div>
-                                <x-input-label for="d_kawat_act" :value="__('D Kawat Act')" />
+                                <x-input-label for="d_kawat_act" :value="__('Diameter Kawat Inti')" />
                                 <x-text-input id="d_kawat_act" name="d_kawat_act" type="number" step="0.01"
                                     class="mt-1 block w-full" :value="old('d_kawat_act', $wip->d_kawat_act)" required />
                                 <x-input-error class="mt-2" :messages="$errors->get('d_kawat_act')" />
                             </div>
                             <div>
-                                <x-input-label for="d_kawat_luar" :value="__('D Kawat Luar')" />
+                                <x-input-label for="d_kawat_luar" :value="__('Diameter Kawat PVC')" />
                                 <x-text-input id="d_kawat_luar" name="d_kawat_luar" type="number" step="0.01"
                                     class="mt-1 block w-full" :value="old('d_kawat_luar', $wip->d_kawat_luar)" required />
                                 <x-input-error class="mt-2" :messages="$errors->get('d_kawat_luar')" />

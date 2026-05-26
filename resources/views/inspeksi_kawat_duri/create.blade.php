@@ -85,7 +85,7 @@
                             <x-input-error class="mt-2" :messages="$errors->get('type_coating')" />
                         </div>
                         <div>
-                            <x-input-label for="warna" :value="__('Warna')" />
+                            <x-input-label for="warna" :value="__('Warna (kosongin jika tidak ada)')" />
                             <select id="warna" name="warna"
                                 class="mt-1 block w-full border-gray-300 rounded-md shadow-sm">
                                 <option value="">-- Pilih Warna --</option>
@@ -111,7 +111,7 @@
                                 @foreach ($mesins as $mesin)
                                     <option value="{{ $mesin->id }}"
                                         {{ old('mesin_id') == $mesin->id ? 'selected' : '' }}>
-                                        {{ $mesin->mesin_id }}
+                                        {{ $mesin->mesin_id }} - {{ $mesin->nama_mesin }}
                                     </option>
                                 @endforeach
                             </select>

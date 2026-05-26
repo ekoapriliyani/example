@@ -158,7 +158,7 @@
                                     <th class="px-4 py-3 font-semibold text-gray-900">P Mesh</th>
                                     <th class="px-4 py-3 font-semibold text-gray-900">L Mesh</th>
                                     <th class="px-4 py-3 font-semibold text-gray-900">Diameter Inti</th>
-                                    <th class="px-4 py-3 font-semibold text-gray-900">Diameter Luar</th>
+                                    <th class="px-4 py-3 font-semibold text-gray-900">Diameter PVC</th>
                                     <th class="px-4 py-3 font-semibold text-gray-900">Type</th>
                                     <th class="px-4 py-3 font-semibold text-gray-900">Model</th>
                                     <th class="px-4 py-3 font-semibold text-gray-900">Warna</th>
@@ -252,7 +252,25 @@
                                         <td class="bg-blue-50/30 px-4 py-3 text-center">{{ $wip->model }}</td>
                                         <td class="bg-blue-50/30 px-4 py-3 text-center">{{ $wip->warna }}</td>
                                         <td class="bg-blue-50/30 px-4 py-3 text-center">{{ $wip->visual }}</td>
-                                        <td class="bg-blue-50/30 px-4 py-3 text-center">{{ $wip->status }}</td>
+                                        <td class="px-4 py-3 font-medium">
+                                            @if ($wip->status === 'OK')
+                                                <span class="rounded bg-green-100 px-2 py-1 text-green-800">
+                                                    {{ $wip->status }}
+                                                </span>
+                                            @elseif($wip->status === 'NG')
+                                                <span class="rounded bg-yellow-100 px-2 py-1 text-yellow-800">
+                                                    {{ $wip->status }}
+                                                </span>
+                                            @elseif($wip->status === 'REJECT')
+                                                <span class="rounded bg-red-100 px-2 py-1 text-red-800">
+                                                    {{ $wip->status }}
+                                                </span>
+                                            @else
+                                                <span class="rounded bg-gray-100 px-2 py-1 text-gray-800">
+                                                    {{ $wip->status }}
+                                                </span>
+                                            @endif
+                                        </td>
                                         <td class="bg-blue-50/30 px-4 py-3 text-center">{{ $wip->weight }}</td>
                                         <td class="px-4 py-3">
                                             <button type="button" class="text-sm text-indigo-600 hover:underline"

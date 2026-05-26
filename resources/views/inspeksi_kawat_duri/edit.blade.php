@@ -119,6 +119,21 @@
                         </div>
 
                         <div>
+                            <x-input-label for="warna" :value="__('Warna (kosongin jika tidak ada)')" />
+                            <select id="warna" name="warna"
+                                class="mt-1 block w-full border-gray-300 rounded-md shadow-sm" required>
+                                <option value="">-- Pilih Warna --</option>
+                                <option value="Abu-Abu"
+                                    {{ old('warna', $inspeksiKawatDuri->warna) == 'Abu-Abu' ? 'selected' : '' }}>
+                                    Abu-Abu</option>
+                                <option value="Hijau"
+                                    {{ old('warna', $inspeksiKawatDuri->warna) == 'Hijau' ? 'selected' : '' }}>
+                                    Hijau</option>
+                            </select>
+                            <x-input-error class="mt-2" :messages="$errors->get('warna')" />
+                        </div>
+
+                        <div>
                             <x-input-label for="mesin_id" :value="__('Mesin')" />
                             <select id="mesin_id" name="mesin_id"
                                 class="mt-1 block w-full border-gray-300 rounded-md shadow-sm">
@@ -126,7 +141,7 @@
                                 @foreach ($mesins as $mesin)
                                     <option value="{{ $mesin->id }}"
                                         {{ old('mesin_id', $inspeksiKawatDuri->mesin_id) == $mesin->id ? 'selected' : '' }}>
-                                        {{ $mesin->mesin_id }}
+                                        {{ $mesin->mesin_id }} - {{ $mesin->nama_mesin }}
                                     </option>
                                 @endforeach
                             </select>

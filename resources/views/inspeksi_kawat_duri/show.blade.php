@@ -137,12 +137,14 @@
                             <thead class="bg-gray-50">
                                 <tr>
                                     <th class="px-4 py-3 font-semibold text-gray-900">No</th>
+                                    <th class="px-4 py-3 font-semibold text-gray-900">Aksi</th>
                                     <th class="px-4 py-3 font-semibold text-gray-900">Inspektor</th>
                                     <th class="px-4 py-3 font-semibold text-gray-900">No. Material</th>
                                     <th class="px-4 py-3 font-semibold text-gray-900">Operator</th>
-                                    <th class="px-4 py-3 font-semibold text-gray-900">D. Kawat Inti</th>
-                                    <th class="px-4 py-3 font-semibold text-gray-900">D. Kawat Luar</th>
-                                    <th class="px-4 py-3 font-semibold text-gray-900">Diameter Jalinan</th>
+                                    <th class="px-4 py-3 font-semibold text-gray-900">D. Inti KD</th>
+                                    <th class="px-4 py-3 font-semibold text-gray-900">D. PVC KD</th>
+                                    <th class="px-4 py-3 font-semibold text-gray-900">D. Inti Kwt Jalinan</th>
+                                    <th class="px-4 py-3 font-semibold text-gray-900">D. PVC Kwt Jalinan</th>
                                     <th class="px-4 py-3 font-semibold text-gray-900">Jarak Duri</th>
                                     <th class="px-4 py-3 font-semibold text-gray-900">Jumlah Jalinan Duri</th>
                                     <th class="px-4 py-3 font-semibold text-gray-900">Sudut Ujung Duri</th>
@@ -151,7 +153,6 @@
                                     <th class="px-4 py-3 font-semibold text-gray-900">Status</th>
                                     <th class="px-4 py-3 font-semibold text-gray-900">Detail</th>
                                     <th class="px-4 py-3 font-semibold text-gray-900">Gambar</th>
-                                    <th class="px-4 py-3 font-semibold text-gray-900">Aksi</th>
                                     <th class="px-4 py-3 text-center font-semibold text-gray-900">Created At</th>
                                 </tr>
                             </thead>
@@ -159,34 +160,6 @@
                                 @forelse ($inspeksiKawatDuri->inspeksiKawatDuriWip as $wip)
                                     <tr class="transition-colors hover:bg-gray-50">
                                         <td class="px-4 py-3">{{ $loop->iteration }}</td>
-                                        <td class="px-4 py-3">{{ $wip->user->name ?? 'N/A' }}</td>
-                                        <td class="px-4 py-3 font-medium">{{ $wip->no_material }}</td>
-                                        <td class="px-4 py-3">{{ $wip->nama_operator }}</td>
-                                        <td class="bg-blue-50/30 px-4 py-3 text-center">{{ $wip->d_kawat_act }}</td>
-                                        <td class="bg-blue-50/30 px-4 py-3 text-center">{{ $wip->d_kawat_luar }}</td>
-                                        <td class="bg-blue-50/30 px-4 py-3 text-center">
-                                            {{ $wip->d_kawat_jalinan_act }}
-                                        </td>
-                                        <td class="bg-blue-50/30 px-4 py-3 text-center">{{ $wip->jarak_duri }}</td>
-                                        <td class="bg-blue-50/30 px-4 py-3 text-center">{{ $wip->jml_jalinan_duri }}
-                                        </td>
-                                        <td class="bg-blue-50/30 px-4 py-3 text-center">{{ $wip->sudut_ujung_duri }}
-                                        </td>
-                                        <td class="bg-blue-50/30 px-4 py-3 text-center">{{ $wip->weight }}</td>
-                                        <td class="bg-blue-50/30 px-4 py-3 text-center">{{ $wip->jml_counter }}</td>
-                                        <td class="bg-blue-50/30 px-4 py-3 text-center">{{ $wip->status }}</td>
-                                        <td class="px-4 py-3">
-                                            <button type="button" class="text-sm text-indigo-600 hover:underline"
-                                                onclick="toggleDetail2({{ $wip->id }})">
-                                                Lihat Detail
-                                            </button>
-                                        </td>
-                                        <td class="px-4 py-3">
-                                            <button type="button" class="text-sm text-indigo-600 hover:underline"
-                                                onclick="toggleImage2({{ $wip->id }})">
-                                                Lihat Gambar
-                                            </button>
-                                        </td>
                                         <td class="px-4 py-3">
                                             <div class="flex items-center gap-3">
                                                 {{-- Edit --}}
@@ -245,6 +218,37 @@
                                                     </form>
                                                 @endif
                                             </div>
+                                        </td>
+                                        <td class="px-4 py-3">{{ $wip->user->name ?? 'N/A' }}</td>
+                                        <td class="px-4 py-3 font-medium">{{ $wip->no_material }}</td>
+                                        <td class="px-4 py-3">{{ $wip->nama_operator }}</td>
+                                        <td class="bg-blue-50/30 px-4 py-3 text-center">{{ $wip->d_inti_kd }}</td>
+                                        <td class="bg-blue-50/30 px-4 py-3 text-center">{{ $wip->d_pvc_kd }}</td>
+                                        <td class="bg-blue-50/30 px-4 py-3 text-center">
+                                            {{ $wip->d_inti_kj }}
+                                        </td>
+                                        <td class="bg-blue-50/30 px-4 py-3 text-center">
+                                            {{ $wip->d_pvc_kj }}
+                                        </td>
+                                        <td class="bg-blue-50/30 px-4 py-3 text-center">{{ $wip->jarak_duri }}</td>
+                                        <td class="bg-blue-50/30 px-4 py-3 text-center">{{ $wip->jml_jalinan_duri }}
+                                        </td>
+                                        <td class="bg-blue-50/30 px-4 py-3 text-center">{{ $wip->sudut_ujung_duri }}
+                                        </td>
+                                        <td class="bg-blue-50/30 px-4 py-3 text-center">{{ $wip->weight }}</td>
+                                        <td class="bg-blue-50/30 px-4 py-3 text-center">{{ $wip->jml_counter }}</td>
+                                        <td class="bg-blue-50/30 px-4 py-3 text-center">{{ $wip->status }}</td>
+                                        <td class="px-4 py-3">
+                                            <button type="button" class="text-sm text-indigo-600 hover:underline"
+                                                onclick="toggleDetail2({{ $wip->id }})">
+                                                Lihat Detail
+                                            </button>
+                                        </td>
+                                        <td class="px-4 py-3">
+                                            <button type="button" class="text-sm text-indigo-600 hover:underline"
+                                                onclick="toggleImage2({{ $wip->id }})">
+                                                Lihat Gambar
+                                            </button>
                                         </td>
                                         <td class="bg-blue-50/30 px-4 py-3 text-center">{{ $wip->created_at }}</td>
                                     </tr>

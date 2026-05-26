@@ -17,9 +17,10 @@ return new class extends Migration
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
             $table->string('no_material')->nullable();
             $table->string('nama_operator');
-            $table->decimal('d_kawat_act', 8, 2)->nullable();
-            $table->decimal('d_kawat_luar', 8, 2)->nullable();
-            $table->decimal('d_kawat_jalinan_act', 8, 2)->nullable();
+            $table->decimal('d_inti_kd', 8, 2)->nullable();
+            $table->decimal('d_pvc_kd', 8, 2)->nullable();
+            $table->decimal('d_inti_kj', 8, 2)->nullable();
+            $table->decimal('d_pvc_kj', 8, 2)->nullable();
             $table->decimal('jarak_duri', 8, 2)->nullable();
             $table->decimal('jml_jalinan_duri', 8, 2)->nullable();
             $table->decimal('sudut_ujung_duri', 8, 2)->nullable();

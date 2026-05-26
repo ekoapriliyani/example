@@ -64,6 +64,7 @@ class InspeksiKawatDuriController extends Controller
             'shift' => 'required|string',
             'mesin_id' => 'nullable|exists:mesins,id',
             'type_coating' => 'required|string',
+            'warna' => 'nullable|string',
             'total_prod' => 'nullable|numeric',
         ]);
 
@@ -109,6 +110,7 @@ class InspeksiKawatDuriController extends Controller
             'shift' => 'required|string',
             'mesin_id' => 'nullable|exists:mesins,id',
             'type_coating' => 'required|string',
+            'warna' => 'nullable|string',
             'total_prod' => 'nullable|numeric',
         ]);
 

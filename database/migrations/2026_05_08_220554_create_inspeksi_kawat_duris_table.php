@@ -19,6 +19,7 @@ return new class extends Migration
             $table->integer('shift');
             $table->foreignId('mesin_id')->nullable()->constrained('mesins');
             $table->string('type_coating');
+            $table->string('warna')->nullable();
             $table->decimal('total_prod', 8, 2)->nullable();
             // Approval
             $table->string('approval_status')->default('PENDING');

@@ -13,6 +13,7 @@ class InspeksiKawatDuri extends Model
         'shift',
         'mesin_id',
         'type_coating',
+        'warna',
         'total_prod',
         'approval_status',
         'approved_by',

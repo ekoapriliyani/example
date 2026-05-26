@@ -70,7 +70,7 @@
                                 <x-input-error class="mt-2" :messages="$errors->get('diameter_inti')" />
                             </div>
                             <div>
-                                <x-input-label for="diameter_luar" :value="__('Diameter Luar')" />
+                                <x-input-label for="diameter_luar" :value="__('Diameter PVC')" />
                                 <x-text-input id="diameter_luar" name="diameter_luar" type="number" step="0.01"
                                     class="mt-1 block w-full" :value="old('diameter_luar', $wip->diameter_luar)" required />
                                 <x-input-error class="mt-2" :messages="$errors->get('diameter_luar')" />
