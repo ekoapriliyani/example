@@ -40,31 +40,37 @@
                                 <x-input-error class="mt-2" :messages="$errors->get('nama_operator')" />
                             </div>
                             <div>
-                                <x-input-label for="tebal_blade" :value="__('tebal_blade')" />
+                                <x-input-label for="tebal_blade" :value="__('Tebal Blade')" />
                                 <x-text-input id="tebal_blade" name="tebal_blade" type="number" step="0.01"
                                     class="mt-1 block w-full" :value="old('tebal_blade', $wip->tebal_blade)" required />
                                 <x-input-error class="mt-2" :messages="$errors->get('tebal_blade')" />
                             </div>
                             <div>
-                                <x-input-label for="p_blade" :value="__('p_blade')" />
+                                <x-input-label for="p_blade" :value="__('Panjang Blade')" />
                                 <x-text-input id="p_blade" name="p_blade" type="number" step="0.01"
                                     class="mt-1 block w-full" :value="old('p_blade', $wip->p_blade)" required />
                                 <x-input-error class="mt-2" :messages="$errors->get('p_blade')" />
                             </div>
                             <div>
-                                <x-input-label for="l_blade" :value="__('l_blade')" />
+                                <x-input-label for="l_blade" :value="__('Lebar Blade')" />
                                 <x-text-input id="l_blade" name="l_blade" type="number" step="0.01"
                                     class="mt-1 block w-full" :value="old('l_blade', $wip->l_blade)" required />
                                 <x-input-error class="mt-2" :messages="$errors->get('l_blade')" />
                             </div>
                             <div>
-                                <x-input-label for="jarak_blade" :value="__('jarak_blade')" />
+                                <x-input-label for="jarak_blade" :value="__('Jarak Blade')" />
                                 <x-text-input id="jarak_blade" name="jarak_blade" type="number" step="0.01"
                                     class="mt-1 block w-full" :value="old('jarak_blade', $wip->jarak_blade)" required />
                                 <x-input-error class="mt-2" :messages="$errors->get('jarak_blade')" />
                             </div>
                             <div>
-                                <x-input-label for="d_roll" :value="__('d_roll')" />
+                                <x-input-label for="jml_spiral" :value="__('Jumlah Spiral')" />
+                                <x-text-input id="jml_spiral" name="jml_spiral" type="number" step="0.01"
+                                    class="mt-1 block w-full" :value="old('jml_spiral', $wip->jml_spiral)" required />
+                                <x-input-error class="mt-2" :messages="$errors->get('jml_spiral')" />
+                            </div>
+                            <div>
+                                <x-input-label for="d_roll" :value="__('Diameter Roll')" />
                                 <x-text-input id="d_roll" name="d_roll" type="number" step="0.01"
                                     class="mt-1 block w-full" :value="old('d_roll', $wip->d_roll)" required />
                                 <x-input-error class="mt-2" :messages="$errors->get('d_roll')" />

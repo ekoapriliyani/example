@@ -118,6 +118,7 @@
                                     <th class="px-4 py-3 font-semibold text-gray-900">P blade</th>
                                     <th class="px-4 py-3 font-semibold text-gray-900">L Blade</th>
                                     <th class="px-4 py-3 font-semibold text-gray-900">Jarak Blade</th>
+                                    <th class="px-4 py-3 font-semibold text-gray-900">Jumlah Spiral</th>
                                     <th class="px-4 py-3 font-semibold text-gray-900">D Roll</th>
                                     <th class="px-4 py-3 font-semibold text-gray-900">Daya Jepit</th>
                                     <th class="px-4 py-3 font-semibold text-gray-900">Visual</th>
@@ -204,6 +205,7 @@
                                         <td class="px-4 py-3">{{ $wip->p_blade }}</td>
                                         <td class="px-4 py-3">{{ $wip->l_blade }}</td>
                                         <td class="px-4 py-3">{{ $wip->jarak_blade }}</td>
+                                        <td class="px-4 py-3">{{ $wip->jml_spiral }}</td>
                                         <td class="px-4 py-3">{{ $wip->d_roll }}</td>
                                         <td class="px-4 py-3">{{ $wip->daya_jepit }}</td>
                                         <td class="bg-blue-50/30 px-4 py-3 text-center">{{ $wip->visual }}</td>

@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\InspeksiRazorpacking;
 use App\Models\Pro;
-use App\Models\ProductRazor;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 
@@ -46,9 +45,8 @@ class InspeksiRazorpackingController extends Controller
 
         $nextNomor = "INSRP{$tahunBulan}{$nextNumber}";
         $pros = Pro::orderByDesc('pro_id')->get();
-        $productrazors = ProductRazor::orderBy('description', 'asc')->get();
 
-        return view('inspeksi_razorpacking.create', compact('nextNomor', 'pros', 'productrazors'));
+        return view('inspeksi_razorpacking.create', compact('nextNomor', 'pros'));
     }
 
     /**
@@ -62,7 +60,6 @@ class InspeksiRazorpackingController extends Controller
             'pro_id' => 'required|exists:pros,id',
             'shift' => 'required',
             'total_prod' => '',
-            'product_razor_ref_id' => 'nullable|exists:product_razors,id'
         ]);
 
         $tanggalInput = Carbon::now();
@@ -87,7 +84,6 @@ class InspeksiRazorpackingController extends Controller
             'pro_id' => $validated['pro_id'],
             'shift' => $validated['shift'],
             'total_prod' => $validated['total_prod'] ?? null,
-            'product_razor_ref_id' => $validated['product_razor_ref_id'] ?? null
         ]);
 
         return redirect()->route('inspeksi_razorpacking.index')->with('success', 'Data inspeksi razor packing berhasil disimpan.');
@@ -108,9 +104,7 @@ class InspeksiRazorpackingController extends Controller
     public function edit(InspeksiRazorpacking $inspeksi_razorpacking)
     {
         $pros = Pro::orderByDesc('pro_id')->get();
-        $productrazors = ProductRazor::orderBy('description', 'asc')->get();
-
-        return view('inspeksi_razorpacking.edit', compact('inspeksi_razorpacking', 'pros', 'productrazors'));
+        return view('inspeksi_razorpacking.edit', compact('inspeksi_razorpacking', 'pros'));
     }
 
     /**
@@ -123,7 +117,6 @@ class InspeksiRazorpackingController extends Controller
             'pro_id' => 'required|exists:pros,id',
             'shift' => 'required',
             'total_prod' => '',
-            'product_razor_ref_id' => 'nullable|exists:product_razors,id'
         ]);
 
         $inspeksi_razorpacking = InspeksiRazorpacking::findOrFail($id);
@@ -132,7 +125,6 @@ class InspeksiRazorpackingController extends Controller
             'pro_id' => $validated['pro_id'],
             'shift' => $validated['shift'],
             'total_prod' => $validated['total_prod'] ?? null,
-            'product_razor_ref_id' => $validated['product_razor_ref_id'] ?? null
         ]);
 
         return redirect()->route('inspeksi_razorpacking.index')->with('success', 'Data inspeksi razor packing berhasil diperbarui.');

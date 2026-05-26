@@ -28,6 +28,8 @@ return new class extends Migration
             $table->decimal('mesh5', 8, 2)->nullable();
             $table->decimal('mesh6', 8, 2)->nullable();
             $table->decimal('diagonal', 8, 2)->nullable();
+            $table->decimal('shear_strength', 8, 2)->nullable();
+            $table->decimal('overhang', 8, 2)->nullable();
             $table->string('matchingcrosswire')->nullable();
             $table->string('visual')->nullable();
             $table->string('status')->nullable();

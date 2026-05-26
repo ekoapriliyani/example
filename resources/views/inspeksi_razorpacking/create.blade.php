@@ -56,21 +56,6 @@
                         </div>
 
                         <div>
-                            <x-input-label for="product_razor_ref_id" :value="__('Product razor')" />
-                            <select id="product_razor_ref_id" name="product_razor_ref_id"
-                                class="mt-1 block w-full rounded-md border-gray-300 shadow-sm">
-                                <option value="">-- Pilih Product razor --</option>
-                                @foreach ($productrazors as $product)
-                                    <option value="{{ $product->id }}"
-                                        {{ old('product_razor_ref_id') == $product->id ? 'selected' : '' }}>
-                                        {{ $product->product_razor_id }} - {{ $product->description }}
-                                    </option>
-                                @endforeach
-                            </select>
-                            <x-input-error class="mt-2" :messages="$errors->get('product_razor_ref_id')" />
-                        </div>
-
-                        <div>
                             <x-input-label for="shift" :value="__('Shift')" />
                             <select id="shift" name="shift"
                                 class="mt-1 block w-full rounded-md border-gray-300 shadow-sm" required>
@@ -117,12 +102,6 @@
         $(document).ready(function() {
             $('#pro_id').select2({
                 placeholder: '-- Pilih PRO --',
-                allowClear: true,
-                width: '100%'
-            });
-
-            $('#product_razor_ref_id').select2({
-                placeholder: '-- Pilih Product razor --',
                 allowClear: true,
                 width: '100%'
             });

@@ -101,6 +101,18 @@
                                 <x-input-error class="mt-2" :messages="$errors->get('jarak_blade')" />
                             </div>
                             <div>
+                                <x-input-label for="jml_spiral" :value="__('Jumlah Spiral')" />
+                                <div class="relative mt-1">
+                                    <x-text-input id="jml_spiral" name="jml_spiral" type="number" step="0.01"
+                                        class="block w-full pr-12" :value="old('jml_spiral')" required placeholder="0.00" />
+                                    <div
+                                        class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none text-gray-400 text-sm">
+                                        pcs
+                                    </div>
+                                </div>
+                                <x-input-error class="mt-2" :messages="$errors->get('jml_spiral')" />
+                            </div>
+                            <div>
                                 <x-input-label for="d_roll" :value="__('Diameter Roll')" />
                                 <div class="relative mt-1">
                                     <x-text-input id="d_roll" name="d_roll" type="number" step="0.01"

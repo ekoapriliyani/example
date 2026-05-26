@@ -21,6 +21,7 @@ return new class extends Migration
             $table->decimal('p_blade', 8, 2)->nullable();
             $table->decimal('l_blade', 8, 2)->nullable();
             $table->decimal('jarak_blade', 8, 2)->nullable();
+            $table->decimal('jml_spiral', 8, 2)->nullable();
             $table->decimal('d_roll', 8, 2)->nullable();
             $table->string('daya_jepit');
             $table->string('visual')->nullable();

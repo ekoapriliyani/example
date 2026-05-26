@@ -15,6 +15,7 @@ class InspeksiPoundWip extends Model
         'p_blade',
         'l_blade',
         'jarak_blade',
+        'jml_spiral',
         'd_roll',
         'daya_jepit',
         'visual',

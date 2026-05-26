@@ -22,6 +22,8 @@ class InspeksiFencingWip extends Model
         'mesh5',
         'mesh6',
         'diagonal',
+        'shear_strength',
+        'overhang',
         'matchingcrosswire',
         'visual',
         'status',

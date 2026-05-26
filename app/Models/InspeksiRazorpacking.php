@@ -12,7 +12,6 @@ class InspeksiRazorpacking extends Model
         'pro_id',
         'shift',
         'total_prod',
-        'product_razor_ref_id',
         'approval_status',
         'approved_by',
         'approved_at'
@@ -31,11 +30,6 @@ class InspeksiRazorpacking extends Model
     public function mesin()
     {
         return $this->belongsTo(Mesin::class);
-    }
-
-    public function productRazor()
-    {
-        return $this->belongsTo(ProductRazor::class, 'product_razor_ref_id');
     }
 
     public function inspeksiRazorpackingFg()
