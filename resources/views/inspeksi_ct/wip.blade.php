@@ -67,7 +67,6 @@
                                     placeholder="Masukkan kode material" />
                                 <x-input-error class="mt-2" :messages="$errors->get('no_material')" />
                             </div>
-
                             <div>
                                 <x-input-label for="nama_operator" :value="__('Nama Operator')" />
                                 <x-text-input id="nama_operator" name="nama_operator" type="text"
@@ -75,7 +74,6 @@
                                     placeholder="Nama operator mesin" />
                                 <x-input-error class="mt-2" :messages="$errors->get('nama_operator')" />
                             </div>
-
                             <div>
                                 <x-input-label for="d_kawat_act" :value="__('Diameter Kawat Aktual')" />
                                 <div class="relative mt-1">
@@ -88,7 +86,6 @@
                                 </div>
                                 <x-input-error class="mt-2" :messages="$errors->get('d_kawat_act')" />
                             </div>
-
                             <div>
                                 <x-input-label for="p_produk" :value="__('Panjang Produk')" />
                                 <div class="relative mt-1">
@@ -125,7 +122,6 @@
                                 </div>
                                 <x-input-error class="mt-2" :messages="$errors->get('t_produk')" />
                             </div>
-
                             <div>
                                 <x-input-label for="mesh1" :value="__('Mesh 1')" />
                                 <div class="relative mt-1">
@@ -138,7 +134,6 @@
                                 </div>
                                 <x-input-error class="mt-2" :messages="$errors->get('mesh1')" />
                             </div>
-
                             <div>
                                 <x-input-label for="mesh2" :value="__('Mesh 2')" />
                                 <div class="relative mt-1">
@@ -151,7 +146,6 @@
                                 </div>
                                 <x-input-error class="mt-2" :messages="$errors->get('mesh2')" />
                             </div>
-
                             <div>
                                 <x-input-label for="mesh3" :value="__('Mesh 3')" />
                                 <div class="relative mt-1">
@@ -164,7 +158,6 @@
                                 </div>
                                 <x-input-error class="mt-2" :messages="$errors->get('mesh3')" />
                             </div>
-
                             <div>
                                 <x-input-label for="diagonal" :value="__('Diagonal')" />
                                 <div class="relative mt-1">
@@ -201,7 +194,6 @@
                                 <x-input-error class="mt-2" :messages="$errors->get('status')" />
                             </div>
                         </div>
-
                         <div class="border-t border-gray-200 pt-6 md:col-span-2">
                             <h3 class="mb-4 font-semibold text-gray-700">Detail Inspeksi</h3>
                             <div id="detail-wrapper" class="space-y-4">
@@ -283,7 +275,6 @@
                                     + Tambah Detail
                                 </button>
                             </div>
-
                             <div class="mt-4">
                                 <x-input-label for="files" :value="__('Upload Gambar / File')" />
                                 <input id="files" name="files[]" type="file"
@@ -298,7 +289,6 @@
                                     <div class="mt-2 text-sm text-red-500">{{ $message }}</div>
                                 @enderror
                             </div>
-
                         </div>
 
                         <div class="flex items-center justify-end gap-4 border-t border-gray-100 pt-6">
@@ -328,31 +318,29 @@
                 <select id="detail_description_${index}" name="detail_description[]"
                     class="mt-1 block w-full border-gray-300 rounded-md shadow-sm">
                     <option value="">-- Pilih Detail --</option>
-                    <option value="LAS (LEPAS/TIDAK NGELAS)">LAS (LEPAS/TIDAK NGELAS)
-                                            </option>
-                                            <option value="DIAMETER OUT">DIAMETER OUT</option>
-                                            <option value="TEBAL OUT">TEBAL OUT</option>
-                                            <option value="PANJANG OUT">PANJANG OUT</option>
-                                            <option value="LEBAR OUT">LEBAR OUT</option>
-                                            <option value="TINGGI OUT">TINGGI OUT</option>
-                                            <option value="DIAGONAL OUT">DIAGONAL OUT</option>
-                                            <option value="CW/LW PENDEK">CW/LW PENDEK</option>
-                                            <option value="MESH OUT / TIDAK SIMETRIS">MESH OUT / TIDAK SIMETRIS
-                                            </option>
-                                            <option value="OVERHANG OUT">OVERHANG OUT</option>
-                                            <option value="KARAT">KARAT</option>
-                                            <option value="WHITE RUST">WHITE RUST</option>
-                                            <option value="TRIMING">TRIMING</option>
-                                            <option value="CRACK">CRACK</option>
-                                            <option value="PENYOK/RUSAK">PENYOK/RUSAK</option>
-                                            <option value="PVC/HDPE PECAH/SOBEK">PVC/HDPE PECAH/SOBEK</option>
-                                            <option value="PVC/HDPE MIRING">PVC/HDPE MIRING</option>
-                                            <option value="PVC/HDPE KASAR">PVC/HDPE KASAR</option>
-                                            <option value="JARAK DURI/BLADE">JARAK DURI/BLADE</option>
-                                            <option value="BLADE PECAH/SOBEK">BLADE PECAH/SOBEK</option>
-                                            <option value="PISAU POUNCH TUMPUL">PISAU POUNCH TUMPUL</option>
-                                            <option value="BENDING TIDAK PRESS">BENDING TIDAK PRESS</option>
-                                            <option value="KLIP TIDAK RAPAT">KLIP TIDAK RAPAT</option>
+                    <option value="LAS (LEPAS/TIDAK NGELAS)">LAS (LEPAS/TIDAK NGELAS)</option>
+                    <option value="DIAMETER OUT">DIAMETER OUT</option>
+                    <option value="TEBAL OUT">TEBAL OUT</option>
+                    <option value="PANJANG OUT">PANJANG OUT</option>
+                    <option value="LEBAR OUT">LEBAR OUT</option>
+                    <option value="TINGGI OUT">TINGGI OUT</option>
+                    <option value="DIAGONAL OUT">DIAGONAL OUT</option>
+                    <option value="CW/LW PENDEK">CW/LW PENDEK</option>
+                    <option value="MESH OUT / TIDAK SIMETRIS">MESH OUT / TIDAK SIMETRIS</option>
+                    <option value="OVERHANG OUT">OVERHANG OUT</option>
+                    <option value="KARAT">KARAT</option>
+                    <option value="WHITE RUST">WHITE RUST</option>
+                    <option value="TRIMING">TRIMING</option>
+                    <option value="CRACK">CRACK</option>
+                    <option value="PENYOK/RUSAK">PENYOK/RUSAK</option>
+                    <option value="PVC/HDPE PECAH/SOBEK">PVC/HDPE PECAH/SOBEK</option>
+                    <option value="PVC/HDPE MIRING">PVC/HDPE MIRING</option>
+                    <option value="PVC/HDPE KASAR">PVC/HDPE KASAR</option>
+                    <option value="JARAK DURI/BLADE">JARAK DURI/BLADE</option>
+                    <option value="BLADE PECAH/SOBEK">BLADE PECAH/SOBEK</option>
+                    <option value="PISAU POUNCH TUMPUL">PISAU POUNCH TUMPUL</option>
+                    <option value="BENDING TIDAK PRESS">BENDING TIDAK PRESS</option>
+                    <option value="KLIP TIDAK RAPAT">KLIP TIDAK RAPAT</option>
                 </select>
             </div>
             <div>
@@ -360,31 +348,29 @@
                 <select id="detail_description2_${index}" name="detail_description2[]"
                     class="mt-1 block w-full border-gray-300 rounded-md shadow-sm">
                     <option value="">-- Pilih Detail --</option>
-                    <option value="LAS (LEPAS/TIDAK NGELAS)">LAS (LEPAS/TIDAK NGELAS)
-                                            </option>
-                                            <option value="DIAMETER OUT">DIAMETER OUT</option>
-                                            <option value="TEBAL OUT">TEBAL OUT</option>
-                                            <option value="PANJANG OUT">PANJANG OUT</option>
-                                            <option value="LEBAR OUT">LEBAR OUT</option>
-                                            <option value="TINGGI OUT">TINGGI OUT</option>
-                                            <option value="DIAGONAL OUT">DIAGONAL OUT</option>
-                                            <option value="CW/LW PENDEK">CW/LW PENDEK</option>
-                                            <option value="MESH OUT / TIDAK SIMETRIS">MESH OUT / TIDAK SIMETRIS
-                                            </option>
-                                            <option value="OVERHANG OUT">OVERHANG OUT</option>
-                                            <option value="KARAT">KARAT</option>
-                                            <option value="WHITE RUST">WHITE RUST</option>
-                                            <option value="TRIMING">TRIMING</option>
-                                            <option value="CRACK">CRACK</option>
-                                            <option value="PENYOK/RUSAK">PENYOK/RUSAK</option>
-                                            <option value="PVC/HDPE PECAH/SOBEK">PVC/HDPE PECAH/SOBEK</option>
-                                            <option value="PVC/HDPE MIRING">PVC/HDPE MIRING</option>
-                                            <option value="PVC/HDPE KASAR">PVC/HDPE KASAR</option>
-                                            <option value="JARAK DURI/BLADE">JARAK DURI/BLADE</option>
-                                            <option value="BLADE PECAH/SOBEK">BLADE PECAH/SOBEK</option>
-                                            <option value="PISAU POUNCH TUMPUL">PISAU POUNCH TUMPUL</option>
-                                            <option value="BENDING TIDAK PRESS">BENDING TIDAK PRESS</option>
-                                            <option value="KLIP TIDAK RAPAT">KLIP TIDAK RAPAT</option>
+                    <option value="LAS (LEPAS/TIDAK NGELAS)">LAS (LEPAS/TIDAK NGELAS)</option>
+                    <option value="DIAMETER OUT">DIAMETER OUT</option>
+                    <option value="TEBAL OUT">TEBAL OUT</option>
+                    <option value="PANJANG OUT">PANJANG OUT</option>
+                    <option value="LEBAR OUT">LEBAR OUT</option>
+                    <option value="TINGGI OUT">TINGGI OUT</option>
+                    <option value="DIAGONAL OUT">DIAGONAL OUT</option>
+                    <option value="CW/LW PENDEK">CW/LW PENDEK</option>
+                    <option value="MESH OUT / TIDAK SIMETRIS">MESH OUT / TIDAK SIMETRIS</option>
+                    <option value="OVERHANG OUT">OVERHANG OUT</option>
+                    <option value="KARAT">KARAT</option>
+                    <option value="WHITE RUST">WHITE RUST</option>
+                    <option value="TRIMING">TRIMING</option>
+                    <option value="CRACK">CRACK</option>
+                    <option value="PENYOK/RUSAK">PENYOK/RUSAK</option>
+                    <option value="PVC/HDPE PECAH/SOBEK">PVC/HDPE PECAH/SOBEK</option>
+                    <option value="PVC/HDPE MIRING">PVC/HDPE MIRING</option>
+                    <option value="PVC/HDPE KASAR">PVC/HDPE KASAR</option>
+                    <option value="JARAK DURI/BLADE">JARAK DURI/BLADE</option>
+                    <option value="BLADE PECAH/SOBEK">BLADE PECAH/SOBEK</option>
+                    <option value="PISAU POUNCH TUMPUL">PISAU POUNCH TUMPUL</option>
+                    <option value="BENDING TIDAK PRESS">BENDING TIDAK PRESS</option>
+                    <option value="KLIP TIDAK RAPAT">KLIP TIDAK RAPAT</option>
                 </select>
             </div>
             <div>
@@ -411,7 +397,6 @@
                     tProdukInput.required = false;
                     tProdukInput.value = ''; // Mengosongkan nilai t_produk
                     tProdukInput.classList.add('bg-gray-100', 'cursor-not-allowed');
-
                     pProdukInput.disabled = false;
                     pProdukInput.required = true;
                     pProdukInput.classList.remove('bg-gray-100', 'cursor-not-allowed');

@@ -19,6 +19,8 @@ class InspeksiCtWip extends Model
         'mesh2',
         'mesh3',
         'diagonal',
+        'shear_strength',
+        'overhang',
         'visual',
         'status',
         'files',

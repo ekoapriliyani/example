@@ -25,6 +25,8 @@ return new class extends Migration
             $table->decimal('mesh2', 8, 2)->nullable();
             $table->decimal('mesh3', 8, 2)->nullable();
             $table->decimal('diagonal', 8, 2)->nullable();
+            $table->decimal('shear_strength', 8, 2)->nullable();
+            $table->decimal('overhang', 8, 2)->nullable();
             $table->string('visual');
             $table->string('status');
             $table->json('files')->nullable();
