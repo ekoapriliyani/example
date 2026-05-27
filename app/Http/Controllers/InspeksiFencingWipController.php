@@ -81,7 +81,7 @@ class InspeksiFencingWipController extends Controller
             'mesh5'              => $request->mesh5 ?? null,
             'mesh6'              => $request->mesh6 ?? null,
             'diagonal'           => $validated['diagonal'],
-            'shear_strength'           => $validated['shear_strength'],
+            'shear_strength'           => $request->shear_strength ?? null,
             'overhang'           => $validated['overhang'],
             'matchingcrosswire'  => $validated['matchingcrosswire'],
             'visual'            => $validated['visual'],

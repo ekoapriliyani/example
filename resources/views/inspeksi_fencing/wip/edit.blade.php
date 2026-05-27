@@ -30,37 +30,37 @@
                             <div>
                                 <x-input-label for="no_material" :value="__('No. Material')" />
                                 <x-text-input id="no_material" name="no_material" type="text"
-                                    class="mt-1 block w-full" :value="old('no_material', $wip->no_material)" required />
+                                    class="mt-1 block w-full" :value="old('no_material', $wip->no_material)" />
                                 <x-input-error class="mt-2" :messages="$errors->get('no_material')" />
                             </div>
                             <div>
                                 <x-input-label for="nama_operator" :value="__('Nama Operator')" />
                                 <x-text-input id="nama_operator" name="nama_operator" type="text"
-                                    class="mt-1 block w-full" :value="old('nama_operator', $wip->nama_operator)" required />
+                                    class="mt-1 block w-full" :value="old('nama_operator', $wip->nama_operator)" />
                                 <x-input-error class="mt-2" :messages="$errors->get('nama_operator')" />
                             </div>
                             <div>
                                 <x-input-label for="d_kawat_act" :value="__('D Kawat Actual')" />
                                 <x-text-input id="d_kawat_act" name="d_kawat_act" type="number" step="0.01"
-                                    class="mt-1 block w-full" :value="old('d_kawat_act', $wip->d_kawat_act)" required />
+                                    class="mt-1 block w-full" :value="old('d_kawat_act', $wip->d_kawat_act)" />
                                 <x-input-error class="mt-2" :messages="$errors->get('d_kawat_act')" />
                             </div>
                             <div>
                                 <x-input-label for="p_product_act" :value="__('Panjang Product Actual')" />
                                 <x-text-input id="p_product_act" name="p_product_act" type="number" step="0.01"
-                                    class="mt-1 block w-full" :value="old('p_product_act', $wip->p_product_act)" required />
+                                    class="mt-1 block w-full" :value="old('p_product_act', $wip->p_product_act)" />
                                 <x-input-error class="mt-2" :messages="$errors->get('p_product_act')" />
                             </div>
                             <div>
                                 <x-input-label for="l_product_act" :value="__('Lebar Product Actual')" />
                                 <x-text-input id="l_product_act" name="l_product_act" type="number" step="0.01"
-                                    class="mt-1 block w-full" :value="old('l_product_act', $wip->l_product_act)" required />
+                                    class="mt-1 block w-full" :value="old('l_product_act', $wip->l_product_act)" />
                                 <x-input-error class="mt-2" :messages="$errors->get('l_product_act')" />
                             </div>
                             <div>
                                 <x-input-label for="t_product_act" :value="__('Tinggi Product Aktual')" />
                                 <x-text-input id="t_product_act" name="t_product_act" type="number" step="0.01"
-                                    class="mt-1 block w-full" :value="old('t_product_act', $wip->t_product_act)" required />
+                                    class="mt-1 block w-full" :value="old('t_product_act', $wip->t_product_act)" />
                                 <x-input-error class="mt-2" :messages="$errors->get('t_product_act')" />
                             </div>
                         </div>
@@ -68,37 +68,37 @@
                             <div>
                                 <x-input-label for="mesh1" :value="__('Mesh 1')" />
                                 <x-text-input id="mesh1" name="mesh1" type="number" step="0.01"
-                                    class="mt-1 block w-full" :value="old('mesh1', $wip->mesh1)" required />
+                                    class="mt-1 block w-full" :value="old('mesh1', $wip->mesh1)" />
                                 <x-input-error class="mt-2" :messages="$errors->get('mesh1')" />
                             </div>
                             <div>
                                 <x-input-label for="mesh2" :value="__('Mesh 2')" />
                                 <x-text-input id="mesh2" name="mesh2" type="number" step="0.01"
-                                    class="mt-1 block w-full" :value="old('mesh2', $wip->mesh2)" required />
+                                    class="mt-1 block w-full" :value="old('mesh2', $wip->mesh2)" />
                                 <x-input-error class="mt-2" :messages="$errors->get('mesh2')" />
                             </div>
                             <div>
                                 <x-input-label for="mesh3" :value="__('Mesh 3')" />
                                 <x-text-input id="mesh3" name="mesh3" type="number" step="0.01"
-                                    class="mt-1 block w-full" :value="old('mesh3', $wip->mesh3)" required />
+                                    class="mt-1 block w-full" :value="old('mesh3', $wip->mesh3)" />
                                 <x-input-error class="mt-2" :messages="$errors->get('mesh3')" />
                             </div>
                             <div>
                                 <x-input-label for="mesh4" :value="__('Mesh 4')" />
                                 <x-text-input id="mesh4" name="mesh4" type="number" step="0.01"
-                                    class="mt-1 block w-full" :value="old('mesh4', $wip->mesh4)" required />
+                                    class="mt-1 block w-full" :value="old('mesh4', $wip->mesh4)" />
                                 <x-input-error class="mt-2" :messages="$errors->get('mesh4')" />
                             </div>
                             <div>
                                 <x-input-label for="mesh5" :value="__('Mesh 5')" />
                                 <x-text-input id="mesh5" name="mesh5" type="number" step="0.01"
-                                    class="mt-1 block w-full" :value="old('mesh5', $wip->mesh5)" required />
+                                    class="mt-1 block w-full" :value="old('mesh5', $wip->mesh5)" />
                                 <x-input-error class="mt-2" :messages="$errors->get('mesh5')" />
                             </div>
                             <div>
                                 <x-input-label for="mesh6" :value="__('Mesh 6')" />
                                 <x-text-input id="mesh6" name="mesh6" type="number" step="0.01"
-                                    class="mt-1 block w-full" :value="old('mesh6', $wip->mesh6)" required />
+                                    class="mt-1 block w-full" :value="old('mesh6', $wip->mesh6)" />
                                 <x-input-error class="mt-2" :messages="$errors->get('mesh6')" />
                             </div>
                         </div>
@@ -106,19 +106,19 @@
                             <div>
                                 <x-input-label for="diagonal" :value="__('Diagonal')" />
                                 <x-text-input id="diagonal" name="diagonal" type="number" step="0.01"
-                                    class="mt-1 block w-full" :value="old('diagonal', $wip->diagonal)" required />
+                                    class="mt-1 block w-full" :value="old('diagonal', $wip->diagonal)" />
                                 <x-input-error class="mt-2" :messages="$errors->get('diagonal')" />
                             </div>
                             <div>
                                 <x-input-label for="shear_strength" :value="__('Shear Strength')" />
                                 <x-text-input id="shear_strength" name="shear_strength" type="number"
-                                    step="0.01" class="mt-1 block w-full" :value="old('shear_strength', $wip->shear_strength)" required />
+                                    step="0.01" class="mt-1 block w-full" :value="old('shear_strength', $wip->shear_strength)" />
                                 <x-input-error class="mt-2" :messages="$errors->get('shear_strength')" />
                             </div>
                             <div>
                                 <x-input-label for="overhang" :value="__('Overhang')" />
                                 <x-text-input id="overhang" name="overhang" type="number" step="0.01"
-                                    class="mt-1 block w-full" :value="old('overhang', $wip->overhang)" required />
+                                    class="mt-1 block w-full" :value="old('overhang', $wip->overhang)" />
                                 <x-input-error class="mt-2" :messages="$errors->get('overhang')" />
                             </div>
                             <div>
