@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('nomor_inspeksi');
             $table->date('tanggal');
             $table->foreignId('pro_id')->constrained('pros');
-            $table->foreignId('product_wm_ref_id')->nullable()->constrained('product_wms');
+            // $table->foreignId('product_wm_ref_id')->nullable()->constrained('product_wms');
             $table->integer('shift');
             $table->string('grade');
             $table->string('type_coating');

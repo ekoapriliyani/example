@@ -14,7 +14,7 @@ class InspeksiWm extends Model
         'nomor_inspeksi',
         'tanggal',
         'pro_id',
-        'product_wm_ref_id',
+        // 'product_wm_ref_id',
         'shift',
         'grade',
         'type_coating',
@@ -50,8 +50,8 @@ class InspeksiWm extends Model
         return $this->belongsTo(Pro::class);
     }
 
-    public function productWm()
-    {
-        return $this->belongsTo(ProductWm::class, 'product_wm_ref_id');
-    }
+    // public function productWm()
+    // {
+    //     return $this->belongsTo(ProductWm::class, 'product_wm_ref_id');
+    // }
 }

@@ -142,6 +142,8 @@
                                     <th class="px-4 py-3 font-semibold text-gray-900">Mesh 2</th>
                                     <th class="px-4 py-3 font-semibold text-gray-900">Mesh 3</th>
                                     <th class="px-4 py-3 font-semibold text-gray-900">Diagonal</th>
+                                    <th class="px-4 py-3 font-semibold text-gray-900">Shear Strength</th>
+                                    <th class="px-4 py-3 font-semibold text-gray-900">Overhang</th>
                                     <th class="px-4 py-3 font-semibold text-gray-900">Visual</th>
                                     <th class="px-4 py-3 font-semibold text-gray-900">Status</th>
                                     <th class="px-4 py-3 font-semibold text-gray-900">Detail</th>
@@ -226,6 +228,9 @@
                                         <td class="bg-blue-50/30 px-4 py-3 text-center">{{ $wip->mesh2 }}</td>
                                         <td class="bg-blue-50/30 px-4 py-3 text-center">{{ $wip->mesh3 }}</td>
                                         <td class="bg-blue-50/30 px-4 py-3 text-center">{{ $wip->diagonal }}</td>
+                                        <td class="bg-blue-50/30 px-4 py-3 text-center">{{ $wip->shear_strength }}
+                                        </td>
+                                        <td class="bg-blue-50/30 px-4 py-3 text-center">{{ $wip->overhang }}</td>
                                         <td class="bg-blue-50/30 px-4 py-3 text-center">{{ $wip->visual }}
                                         </td>
                                         <td class="bg-blue-50/30 px-4 py-3 text-center">{{ $wip->status }}

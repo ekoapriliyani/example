@@ -90,6 +90,18 @@
                                 <x-input-error class="mt-2" :messages="$errors->get('diagonal')" />
                             </div>
                             <div>
+                                <x-input-label for="shear_strength" :value="__('Shear Strength')" />
+                                <x-text-input id="shear_strength" name="shear_strength" type="number" step="0.01"
+                                    class="mt-1 block w-full" :value="old('shear_strength', $wip->shear_strength)" required />
+                                <x-input-error class="mt-2" :messages="$errors->get('shear_strength')" />
+                            </div>
+                            <div>
+                                <x-input-label for="overhang" :value="__('Overhang')" />
+                                <x-text-input id="overhang" name="overhang" type="number" step="0.01"
+                                    class="mt-1 block w-full" :value="old('overhang', $wip->overhang)" required />
+                                <x-input-error class="mt-2" :messages="$errors->get('overhang')" />
+                            </div>
+                            <div>
                                 <x-input-label for="visual" :value="__('Visual')" />
                                 <select id="visual" name="visual"
                                     class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"

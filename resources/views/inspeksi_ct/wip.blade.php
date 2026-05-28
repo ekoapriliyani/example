@@ -170,6 +170,31 @@
                                 </div>
                                 <x-input-error class="mt-2" :messages="$errors->get('diagonal')" />
                             </div>
+                            <div>
+                                <x-input-label for="shear_strength" :value="__('Shear Strength')" />
+                                <div class="relative mt-1">
+                                    <x-text-input id="shear_strength" name="shear_strength" type="number"
+                                        step="0.01" class="block w-full pr-12" :value="old('shear_strength')" required
+                                        placeholder="0.00" />
+                                    <div
+                                        class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3 text-sm text-gray-400">
+                                        mm
+                                    </div>
+                                </div>
+                                <x-input-error class="mt-2" :messages="$errors->get('shear_strength')" />
+                            </div>
+                            <div>
+                                <x-input-label for="overhang" :value="__('Overhang')" />
+                                <div class="relative mt-1">
+                                    <x-text-input id="overhang" name="overhang" type="number" step="0.01"
+                                        class="block w-full pr-12" :value="old('overhang')" required placeholder="0.00" />
+                                    <div
+                                        class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3 text-sm text-gray-400">
+                                        mm
+                                    </div>
+                                </div>
+                                <x-input-error class="mt-2" :messages="$errors->get('overhang')" />
+                            </div>
 
                             <div>
                                 <x-input-label for="visual" :value="__('Visual')" />
@@ -386,6 +411,7 @@
         document.addEventListener('DOMContentLoaded', function() {
             const tProdukInput = document.getElementById('t_produk');
             const pProdukInput = document.getElementById('p_produk');
+            const shearstrengthInput = document.getElementById('shear_strength');
 
             function handleMetodeChange() {
                 // Mengambil nilai radio button yang sedang aktif/terpilih
@@ -397,9 +423,17 @@
                     tProdukInput.required = false;
                     tProdukInput.value = ''; // Mengosongkan nilai t_produk
                     tProdukInput.classList.add('bg-gray-100', 'cursor-not-allowed');
+
                     pProdukInput.disabled = false;
                     pProdukInput.required = true;
                     pProdukInput.classList.remove('bg-gray-100', 'cursor-not-allowed');
+
+                    // Pastikan shear_strength tetap aktif saat memilih Welding
+                    if (shearstrengthInput) {
+                        shearstrengthInput.disabled = false;
+                        shearstrengthInput.required = true; // sesuaikan jadi false jika tidak wajib di Welding
+                        shearstrengthInput.classList.remove('bg-gray-100', 'cursor-not-allowed');
+                    }
 
                 } else if (selectedMetode === 'Bending') {
                     // Jika pilih Bending: p_produk & t_produk keduanya aktif dan bisa diisi
@@ -410,6 +444,14 @@
                     tProdukInput.disabled = false;
                     tProdukInput.required = true;
                     tProdukInput.classList.remove('bg-gray-100', 'cursor-not-allowed');
+
+                    // LOGIKA BARU: Jika pilih Bending, maka shear_strength disable
+                    if (shearstrengthInput) {
+                        shearstrengthInput.disabled = true;
+                        shearstrengthInput.required = false;
+                        shearstrengthInput.value = ''; // Mengosongkan nilai jika sebelumnya terisi
+                        shearstrengthInput.classList.add('bg-gray-100', 'cursor-not-allowed');
+                    }
                 }
             }
 

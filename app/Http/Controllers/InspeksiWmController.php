@@ -18,7 +18,7 @@ class InspeksiWmController extends Controller
     {
         $search = $request->input('search');
 
-        $data = InspeksiWm::with(['pro', 'mesin', 'productWm'])
+        $data = InspeksiWm::with(['pro', 'mesin'])
             ->when($search, function ($query, $search) {
                 return $query->where('nomor_inspeksi', 'like', "%{$search}%");
             })
@@ -49,9 +49,8 @@ class InspeksiWmController extends Controller
 
         $mesins = Mesin::orderBy('nama_mesin')->get();
         $pros = Pro::orderByDesc('pro_id')->get();
-        $productWms = ProductWm::orderBy('product_wm_id')->get();
 
-        return view('inspeksi_wm.create', compact('nextNomor', 'pros', 'mesins', 'productWms'));
+        return view('inspeksi_wm.create', compact('nextNomor', 'pros', 'mesins'));
     }
 
     /**
@@ -62,7 +61,6 @@ class InspeksiWmController extends Controller
         $validated = $request->validate([
             'tanggal' => 'required|date',
             'pro_id' => 'required|exists:pros,id',
-            'product_wm_ref_id' => 'nullable|exists:product_wms,id',
             'shift' => 'required',
             'grade' => 'required',
             'type_coating' => 'required',
@@ -90,7 +88,6 @@ class InspeksiWmController extends Controller
             'nomor_inspeksi' => $nomorOtomatis,
             'tanggal' => $validated['tanggal'],
             'pro_id' => $validated['pro_id'], // ini FK ke pros.id
-            'product_wm_ref_id' => $validated['product_wm_ref_id'] ?? null,
             'shift' => $validated['shift'],
             'grade' => $validated['grade'],
             'type_coating' => $validated['type_coating'],
@@ -108,7 +105,7 @@ class InspeksiWmController extends Controller
      */
     public function show(InspeksiWm $inspeksi_wm)
     {
-        $inspeksi_wm->load(['pro', 'mesin', 'productWm', 'inspeksiWmWip', 'inspeksiWmFg']);
+        $inspeksi_wm->load(['pro', 'mesin', 'inspeksiWmWip', 'inspeksiWmFg']);
 
         return view('inspeksi_wm.show', ['inspeksi_wm' => $inspeksi_wm]);
     }
@@ -120,9 +117,8 @@ class InspeksiWmController extends Controller
     {
         $pros = Pro::orderByDesc('pro_id')->get();
         $mesins = Mesin::orderBy('nama_mesin')->get();
-        $productWms = ProductWm::orderBy('product_wm_id')->get();
 
-        return view('inspeksi_wm.edit', compact('inspeksi_wm', 'pros', 'mesins', 'productWms'));
+        return view('inspeksi_wm.edit', compact('inspeksi_wm', 'pros', 'mesins'));
     }
 
     /**
@@ -133,7 +129,6 @@ class InspeksiWmController extends Controller
         $validated = $request->validate([
             'tanggal' => 'required|date',
             'pro_id' => 'required|exists:pros,id',
-            'product_wm_ref_id' => 'nullable|exists:product_wms,id',
             'shift' => 'required',
             'grade' => 'required',
             'type_coating' => 'required',
@@ -145,7 +140,6 @@ class InspeksiWmController extends Controller
         $inspeksi_wm->update([
             'tanggal' => $validated['tanggal'],
             'pro_id' => $validated['pro_id'],
-            'product_wm_ref_id' => $validated['product_wm_ref_id'] ?? null,
             'shift' => $validated['shift'],
             'grade' => $validated['grade'],
             'type_coating' => $validated['type_coating'],

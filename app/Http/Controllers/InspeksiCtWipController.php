@@ -44,6 +44,8 @@ class InspeksiCtWipController extends Controller
             'mesh2' => '',
             'mesh3' => '',
             'diagonal' => 'required',
+            'shear_strength' => '',
+            'overhang' => '',
             'visual' => 'required',
             'status' => 'required',
         ]);
@@ -64,6 +66,8 @@ class InspeksiCtWipController extends Controller
             'mesh2' => $validated['mesh2'],
             'mesh3' => $validated['mesh3'],
             'diagonal' => $validated['diagonal'],
+            'shear_strength' => $request->shear_strength ?? null,
+            'overhang' => $validated['overhang'],
             'visual' => $validated['visual'],
             'status' => $validated['status'],
         ]);
@@ -137,6 +141,8 @@ class InspeksiCtWipController extends Controller
             'mesh2' => '',
             'mesh3' => '',
             'diagonal' => 'required',
+            'shear_strength' => '',
+            'overhang' => '',
             'visual' => 'required',
             // tambahkan validasi untuk field lain jika diperlukan
         ]);
