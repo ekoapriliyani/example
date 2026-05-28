@@ -13,6 +13,7 @@ class InspeksiSlitting extends Model
         'ukuran',
         'shift',
         'total_prod',
+        'satuan',
         'mesin_id',
         'approval_status',
         'approved_by',

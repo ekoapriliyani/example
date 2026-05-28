@@ -64,6 +64,7 @@ class InspeksiSlittingController extends Controller
             'pro_id' => 'required|exists:pros,id',
             'shift' => 'required',
             'total_prod' => '',
+            'satuan' => 'required',
             'mesin_id' => 'nullable|exists:mesins,id',
             'ukuran' => 'nullable|integer|min:0'
         ]);
@@ -90,6 +91,7 @@ class InspeksiSlittingController extends Controller
             'pro_id' => $validated['pro_id'],
             'shift' => $validated['shift'],
             'total_prod' => $validated['total_prod'] ?? null,
+            'satuan' => $validated['satuan'],
             'mesin_id' => $validated['mesin_id'] ?? null,
             'ukuran' => $validated['ukuran'] ?? null
         ]);
@@ -127,6 +129,7 @@ class InspeksiSlittingController extends Controller
             'pro_id' => 'required|exists:pros,id',
             'shift' => 'required',
             'total_prod' => 'nullable|numeric|min:0',
+            'satuan' => 'required',
             'mesin_id' => 'nullable|exists:mesins,id',
             'ukuran' => 'nullable|integer|min:0'
         ]);

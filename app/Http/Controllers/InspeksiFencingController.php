@@ -64,6 +64,7 @@ class InspeksiFencingController extends Controller
             'shift' => 'required',
             'mesin_id' => 'required|exists:mesins,id',
             'total_prod' => '',
+            'satuan' => 'required',
         ]);
 
         $tanggalInput = Carbon::now();
@@ -89,6 +90,7 @@ class InspeksiFencingController extends Controller
             'shift' => $validated['shift'],
             'mesin_id' => $validated['mesin_id'] ?? null,
             'total_prod' => $validated['total_prod'] ?? null,
+            'satuan' => $validated['satuan'],
         ]);
 
         return redirect()
@@ -129,6 +131,7 @@ class InspeksiFencingController extends Controller
             'shift' => 'required',
             'mesin_id' => 'required|exists:mesins,id',
             'total_prod' => '',
+            'satuan' => 'required',
         ]);
 
         $inspeksiFencing = InspeksiFencing::findOrFail($id);

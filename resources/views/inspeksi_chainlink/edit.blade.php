@@ -63,14 +63,6 @@
                         </div>
 
                         <div>
-                            <x-input-label for="total_prod" :value="__('Total Produksi per Shift')" />
-                            <x-text-input id="total_prod" name="total_prod" type="number" step="0.01"
-                                class="mt-1 block w-full"
-                                value="{{ old('total_prod', $inspeksiChainlink->total_prod) }}" />
-                            <x-input-error class="mt-2" :messages="$errors->get('total_prod')" />
-                        </div>
-
-                        <div>
                             <x-input-label for="shift" :value="__('Shift')" />
                             <select id="shift" name="shift"
                                 class="mt-1 block w-full border-gray-300 rounded-md shadow-sm" required>
@@ -128,6 +120,49 @@
                                 class="mt-1 block w-full"
                                 value="{{ old('jml_lubang_l', $inspeksiChainlink->jml_lubang_l) }}" />
                             <x-input-error class="mt-2" :messages="$errors->get('jml_lubang_l')" />
+                        </div>
+
+                        <div>
+                            <x-input-label for="total_prod" :value="__('Total Produksi (diisi diakhir shift)')" class="text-red-600 italic" />
+                            <div class="flex items-center space-x-2 mt-1">
+                                <div class="relative flex-1">
+                                    <x-text-input id="total_prod" name="total_prod" type="number" step="0.01"
+                                        class="block w-full"
+                                        value="{{ old('total_prod', $inspeksiChainlink->total_prod) }}"
+                                        placeholder="0.00" />
+                                </div>
+                                <div class="w-32">
+                                    <select id="satuan" name="satuan"
+                                        class="block w-full border-gray-300 dark:border-gray-700 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-sm">
+                                        <option value="unit"
+                                            {{ old('satuan', $inspeksiChainlink->satuan) == 'unit' ? 'selected' : '' }}>
+                                            unit
+                                        </option>
+                                        <option value="pcs"
+                                            {{ old('satuan', $inspeksiChainlink->satuan) == 'pcs' ? 'selected' : '' }}>
+                                            pcs
+                                        </option>
+                                        <option value="kg"
+                                            {{ old('satuan', $inspeksiChainlink->satuan) == 'kg' ? 'selected' : '' }}>
+                                            kg
+                                        </option>
+                                        <option value="roll"
+                                            {{ old('satuan', $inspeksiChainlink->satuan) == 'roll' ? 'selected' : '' }}>
+                                            roll
+                                        </option>
+                                        <option value="lembar"
+                                            {{ old('satuan', $inspeksiChainlink->satuan) == 'lembar' ? 'selected' : '' }}>
+                                            lembar
+                                        </option>
+                                        <option value="ton"
+                                            {{ old('satuan', $inspeksiChainlink->satuan) == 'ton' ? 'selected' : '' }}>
+                                            ton
+                                        </option>
+                                    </select>
+                                </div>
+                            </div>
+                            <x-input-error class="mt-2" :messages="$errors->get('total_prod')" />
+                            <x-input-error class="mt-2" :messages="$errors->get('satuan')" />
                         </div>
 
                         <div class="flex items-center justify-end gap-4 pt-4 border-t border-gray-100">

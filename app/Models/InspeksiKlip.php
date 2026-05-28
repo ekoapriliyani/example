@@ -12,8 +12,8 @@ class InspeksiKlip extends Model
         'pro_id',
         'shift',
         'total_prod',
+        'satuan',
         'mesin_id',
-        'product_razor_ref_id',
         'approval_status',
         'approved_by',
         'approved_at'

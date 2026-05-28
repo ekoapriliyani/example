@@ -64,6 +64,7 @@ class InspeksiShearingController extends Controller
             'pro_id' => 'required|exists:pros,id',
             'mesin_id' => 'required|exists:mesins,id',
             'total_prod' => 'nullable|integer',
+            'satuan' => 'required',
         ]);
 
         $tanggalInput = Carbon::now();
@@ -89,6 +90,7 @@ class InspeksiShearingController extends Controller
             'shift' => $validated['shift'],
             'mesin_id' => $validated['mesin_id'] ?? null,
             'total_prod' => $validated['total_prod'] ?? null,
+            'satuan' => $validated['satuan'],
         ]);
 
         return redirect()
@@ -126,6 +128,7 @@ class InspeksiShearingController extends Controller
             'pro_id' => 'required|exists:pros,id',
             'mesin_id' => 'nullable|exists:mesins,id',
             'total_prod' => 'nullable',
+            'satuan' => 'required',
         ]);
 
         $inspeksiShearing->update($validated);

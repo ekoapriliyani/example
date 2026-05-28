@@ -66,6 +66,7 @@ class InspeksiKawatDuriController extends Controller
             'type_coating' => 'required|string',
             'warna' => 'nullable|string',
             'total_prod' => 'nullable|numeric',
+            'satuan' => 'required|string',
         ]);
 
         InspeksiKawatDuri::create($request->all());
@@ -112,6 +113,7 @@ class InspeksiKawatDuriController extends Controller
             'type_coating' => 'required|string',
             'warna' => 'nullable|string',
             'total_prod' => 'nullable|numeric',
+            'satuan' => 'required|string',
         ]);
 
         $inspeksiKawatDuri->update($request->all());

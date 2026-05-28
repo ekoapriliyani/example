@@ -13,6 +13,7 @@ class InspeksiFencing extends Model
         'shift',
         'mesin_id',
         'total_prod',
+        'satuan',
         'approval_status',
         'approved_by',
         'approved_at',

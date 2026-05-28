@@ -22,6 +22,7 @@ return new class extends Migration
             $table->decimal('jml_counter', 8, 2)->nullable();
             $table->decimal('jml_lubang_l', 8, 2)->nullable();
             $table->decimal('total_prod', 8, 2)->nullable();
+            $table->string('satuan');
             // Approval
             $table->string('approval_status')->default('PENDING');
             $table->foreignId('approved_by')->nullable()->constrained('users')->nullOnDelete();

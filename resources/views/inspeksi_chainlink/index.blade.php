@@ -62,6 +62,7 @@
                                         <th class="px-4 py-3 font-semibold text-gray-900 text-left">QTY Ordered</th>
                                         <th class="px-4 py-3 font-semibold text-gray-900 text-left">Total Produksi per
                                             Shift</th>
+                                        <th class="px-4 py-3 font-semibold text-gray-900 text-left">Satuan</th>
                                         <th class="px-4 py-3 font-semibold text-gray-900 text-left">Panjang (Jumlah
                                             Lubang per roll)</th>
                                         <th class="px-4 py-3 font-semibold text-gray-900 text-left">Jumlah Counter</th>
@@ -153,6 +154,9 @@
                                             </td>
                                             <td class="px-4 py-3 font-medium text-gray-900">
                                                 {{ $item->total_prod }}
+                                            </td>
+                                            <td class="px-4 py-3 font-medium text-gray-900">
+                                                {{ $item->satuan }}
                                             </td>
                                             <td class="px-4 py-3 font-medium text-gray-900">{{ $item->jml_lubang_p }}
                                             </td>

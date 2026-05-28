@@ -66,6 +66,7 @@ class InspeksiWmController extends Controller
             'type_coating' => 'required',
             'mesin_id' => 'nullable|exists:mesins,id',
             'total_prod' => 'nullable|numeric',
+            'satuan' => 'required',
         ]);
 
         $tanggalInput = Carbon::now();
@@ -93,6 +94,7 @@ class InspeksiWmController extends Controller
             'type_coating' => $validated['type_coating'],
             'mesin_id' => $validated['mesin_id'] ?? null,
             'total_prod' => $validated['total_prod'] ?? null,
+            'satuan' => $validated['satuan'] ?? null,
         ]);
 
         return redirect()
@@ -134,6 +136,7 @@ class InspeksiWmController extends Controller
             'type_coating' => 'required',
             'shear_strength' => 'nullable|numeric',
             'total_prod' => 'nullable|numeric',
+            'satuan' => 'required',
             'mesin_id' => 'nullable|exists:mesins,id',
         ]);
 
@@ -146,6 +149,7 @@ class InspeksiWmController extends Controller
             'shear_strength' => $validated['shear_strength'] ?? null,
             'mesin_id' => $validated['mesin_id'] ?? null,
             'total_prod' => $validated['total_prod'] ?? null,
+            'satuan' => $validated['satuan'] ?? null,
         ]);
 
         return redirect()

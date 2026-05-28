@@ -15,6 +15,7 @@ class InspeksiKawatDuri extends Model
         'type_coating',
         'warna',
         'total_prod',
+        'satuan',
         'approval_status',
         'approved_by',
         'approved_at',

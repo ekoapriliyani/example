@@ -19,6 +19,7 @@ return new class extends Migration
             $table->integer('ukuran');
             $table->integer('shift');
             $table->decimal('total_prod', 8, 2)->nullable();
+            $table->string('satuan');
             $table->foreignId('mesin_id')->nullable()->constrained('mesins');
             // Approval
             $table->string('approval_status')->default('PENDING');

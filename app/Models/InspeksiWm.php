@@ -20,6 +20,7 @@ class InspeksiWm extends Model
         'type_coating',
         'mesin_id',
         'total_prod',
+        'satuan',
         'approval_status',
         'approved_by',
         'approved_at',

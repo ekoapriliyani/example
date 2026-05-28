@@ -63,6 +63,7 @@ class InspeksiWfController extends Controller
             'shift' => 'required',
             'mesin_id' => 'nullable|exists:mesins,id',
             'total_prod' => 'nullable|numeric',
+            'satuan' => 'required',
         ]);
 
         $tanggalInput = Carbon::now();
@@ -88,6 +89,7 @@ class InspeksiWfController extends Controller
             'shift' => $validated['shift'],
             'mesin_id' => $validated['mesin_id'] ?? null,
             'total_prod' => $validated['total_prod'] ?? null,
+            'satuan' => $validated['satuan'] ?? null,
         ]);
 
         return redirect()
@@ -126,6 +128,7 @@ class InspeksiWfController extends Controller
             'pro_id' => 'required|exists:pros,id',
             'shift' => 'required',
             'total_prod' => 'nullable|numeric',
+            'satuan' => 'required',
             'mesin_id' => 'nullable|exists:mesins,id',
         ]);
 
@@ -135,6 +138,7 @@ class InspeksiWfController extends Controller
             'shift' => $validated['shift'],
             'mesin_id' => $validated['mesin_id'] ?? null,
             'total_prod' => $validated['total_prod'] ?? null,
+            'satuan' => $validated['satuan'] ?? null,
         ]);
 
         return redirect()

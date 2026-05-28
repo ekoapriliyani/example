@@ -18,6 +18,7 @@ return new class extends Migration
             $table->foreignId('pro_id')->constrained('pros')->onDelete('cascade');
             $table->integer('shift');
             $table->decimal('total_prod', 8, 2)->nullable();
+            $table->string('satuan');
 
             // Approval
             $table->string('approval_status')->default('PENDING');

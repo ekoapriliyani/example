@@ -67,6 +67,7 @@ class InspeksiChainlinkController extends Controller
             'jml_counter' => 'required|numeric',
             'jml_lubang_l' => 'required|numeric',
             'total_prod' => 'nullable|numeric',
+            'satuan' => 'required|string',
         ]);
 
         InspeksiChainlink::create($validated);
@@ -109,6 +110,7 @@ class InspeksiChainlinkController extends Controller
             'jml_counter' => 'required|numeric',
             'jml_lubang_l' => 'required|numeric',
             'total_prod' => 'nullable|numeric',
+            'satuan' => 'required|string',
         ]);
 
         $inspeksiChainlink->update($request->all());

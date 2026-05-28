@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('type_coating');
             $table->string('warna')->nullable();
             $table->decimal('total_prod', 8, 2)->nullable();
+            $table->string('satuan');
             // Approval
             $table->string('approval_status')->default('PENDING');
             $table->foreignId('approved_by')->nullable()->constrained('users')->nullOnDelete();

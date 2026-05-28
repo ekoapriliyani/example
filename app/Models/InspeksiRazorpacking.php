@@ -12,6 +12,7 @@ class InspeksiRazorpacking extends Model
         'pro_id',
         'shift',
         'total_prod',
+        'satuan',
         'approval_status',
         'approved_by',
         'approved_at'

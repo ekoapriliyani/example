@@ -16,6 +16,7 @@ class InspeksiChainlink extends Model
         'jml_counter',
         'jml_lubang_l',
         'total_prod',
+        'satuan',
         'approval_status',
         'approved_by',
         'approved_at',

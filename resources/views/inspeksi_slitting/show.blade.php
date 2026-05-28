@@ -71,7 +71,7 @@
                             <div>
                                 <dt class="text-sm font-medium italic text-gray-500">Total Produksi per shift</dt>
                                 <dd class="text-lg font-semibold text-gray-900">
-                                    {{ $inspeksi_slitting->total_prod }} kg
+                                    {{ $inspeksi_slitting->total_prod }} {{ $inspeksi_slitting->satuan }}
                                 </dd>
                             </div>
                             <div>

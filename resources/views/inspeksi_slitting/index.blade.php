@@ -63,8 +63,8 @@
                                         <th class="px-4 py-3 text-left font-semibold text-gray-900">QTY Ordered</th>
                                         <th class="px-4 py-3 text-left font-semibold text-gray-900">Total Produksi per
                                             Shift</th>
+                                        <th class="px-4 py-3 text-left font-semibold text-gray-900">Satuan</th>
                                         <th class="px-4 py-3 text-left font-semibold text-gray-900">Mesin</th>
-
                                         <th class="px-4 py-3 text-right font-semibold text-gray-900">Status</th>
                                     </tr>
                                 </thead>
@@ -153,6 +153,9 @@
                                             </td>
                                             <td class="px-4 py-3 font-medium text-gray-900">
                                                 {{ $item->total_prod }}
+                                            </td>
+                                            <td class="px-4 py-3 font-medium text-gray-900">
+                                                {{ $item->satuan }}
                                             </td>
                                             <td class="px-4 py-3 font-medium text-gray-900">
                                                 {{ $item->mesin->mesin_id }}

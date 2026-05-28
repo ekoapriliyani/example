@@ -54,29 +54,12 @@
                         </div>
 
                         <div>
-                            <x-input-label for="product_wm_ref_id" :value="__('Product WM')" />
-                            <select id="product_wm_ref_id" name="product_wm_ref_id"
-                                class="mt-1 block w-full border-gray-300 rounded-md shadow-sm" required>
-                                <option value="">-- Pilih Product WM --</option>
-                                @foreach ($productWms as $product)
-                                    <option value="{{ $product->id }}"
-                                        {{ old('product_wm_ref_id', $inspeksi_wm->product_wm_ref_id ?? '') == $product->id ? 'selected' : '' }}>
-
-                                        {{ $product->product_wm_id }} - {{ $product->description }}
-
-                                    </option>
-                                @endforeach
-                            </select>
-                            <x-input-error class="mt-2" :messages="$errors->get('product_wm_ref_id')" />
-                        </div>
-
-                        <div>
                             <x-input-label for="shift" :value="__('Shift')" />
                             <select id="shift" name="shift"
                                 class="mt-1 block w-full border-gray-300 rounded-md shadow-sm" required>
                                 <option value="">-- Pilih Shift --</option>
-                                <option value="1"
-                                    {{ old('shift', $inspeksi_wm->shift) == '1' ? 'selected' : '' }}>Shift 1
+                                <option value="1" {{ old('shift', $inspeksi_wm->shift) == '1' ? 'selected' : '' }}>
+                                    Shift 1
                                 </option>
                                 <option value="2"
                                     {{ old('shift', $inspeksi_wm->shift) == '2' ? 'selected' : '' }}>Shift 2
@@ -147,11 +130,42 @@
                             </select>
                             <x-input-error class="mt-2" :messages="$errors->get('mesin_id')" />
                         </div>
-                        <div class="">
-                            <x-input-label for="total_prod" :value="__('Total Produksi (kg)')" />
-                            <x-text-input id="total_prod" name="total_prod" type="number" step="0.01"
-                                class="mt-1 block w-full" value="{{ old('total_prod', $inspeksi_wm->total_prod) }}" />
+
+                        <div>
+                            <x-input-label for="total_prod" :value="__('Total Produksi (diisi diakhir shift)')" class="text-red-600 italic" />
+                            <div class="flex items-center space-x-2 mt-1">
+                                <div class="relative flex-1">
+                                    <x-text-input id="total_prod" name="total_prod" type="number" step="0.01"
+                                        class="block w-full" value="{{ old('total_prod', $inspeksi_wm->total_prod) }}"
+                                        placeholder="0.00" />
+                                </div>
+                                <div class="w-32">
+                                    <select id="satuan" name="satuan"
+                                        class="block w-full border-gray-300 dark:border-gray-700 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-sm">
+                                        <option value="unit"
+                                            {{ old('satuan', $inspeksi_wm->satuan) == 'unit' ? 'selected' : '' }}>unit
+                                        </option>
+                                        <option value="pcs"
+                                            {{ old('satuan', $inspeksi_wm->satuan) == 'pcs' ? 'selected' : '' }}>pcs
+                                        </option>
+                                        <option value="kg"
+                                            {{ old('satuan', $inspeksi_wm->satuan) == 'kg' ? 'selected' : '' }}>kg
+                                        </option>
+                                        <option value="roll"
+                                            {{ old('satuan', $inspeksi_wm->satuan) == 'roll' ? 'selected' : '' }}>roll
+                                        </option>
+                                        <option value="lembar"
+                                            {{ old('satuan', $inspeksi_wm->satuan) == 'lembar' ? 'selected' : '' }}>
+                                            lembar
+                                        </option>
+                                        <option value="ton"
+                                            {{ old('satuan', $inspeksi_wm->satuan) == 'ton' ? 'selected' : '' }}>ton
+                                        </option>
+                                    </select>
+                                </div>
+                            </div>
                             <x-input-error class="mt-2" :messages="$errors->get('total_prod')" />
+                            <x-input-error class="mt-2" :messages="$errors->get('satuan')" />
                         </div>
 
                         <div class="flex items-center justify-end gap-4 pt-4 border-t border-gray-100">

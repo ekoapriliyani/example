@@ -49,9 +49,8 @@ class InspeksiKlipController extends Controller
 
         $mesins = Mesin::orderBy('nama_mesin', 'asc')->get();
         $pros = Pro::orderByDesc('pro_id')->get();
-        $productrazors = ProductRazor::orderBy('description', 'asc')->get();
 
-        return view('inspeksi_klip.create', compact('nextNomor', 'pros', 'mesins', 'productrazors'));
+        return view('inspeksi_klip.create', compact('nextNomor', 'pros', 'mesins'));
     }
 
     /**
@@ -65,8 +64,8 @@ class InspeksiKlipController extends Controller
             'pro_id' => 'required|exists:pros,id',
             'shift' => 'required',
             'total_prod' => '',
+            'satuan' => 'required',
             'mesin_id' => 'nullable|exists:mesins,id',
-            'product_razor_ref_id' => 'nullable|exists:product_razors,id'
         ]);
 
         $tanggalInput = Carbon::now();
@@ -91,8 +90,8 @@ class InspeksiKlipController extends Controller
             'pro_id' => $validated['pro_id'],
             'shift' => $validated['shift'],
             'total_prod' => $validated['total_prod'] ?? null,
+            'satuan' => $validated['satuan'],
             'mesin_id' => $validated['mesin_id'] ?? null,
-            'product_razor_ref_id' => $validated['product_razor_ref_id'] ?? null
         ]);
 
         return redirect()->route('inspeksi_klip.index')->with('success', 'Data inspeksi klip berhasil disimpan.');
@@ -130,8 +129,8 @@ class InspeksiKlipController extends Controller
             'pro_id' => 'required|exists:pros,id',
             'shift' => 'required',
             'total_prod' => '',
+            'satuan' => 'required',
             'mesin_id' => 'nullable|exists:mesins,id',
-            'product_razor_ref_id' => 'nullable|exists:product_razors,id'
         ]);
 
         $inspeksi_klip->update($validated);

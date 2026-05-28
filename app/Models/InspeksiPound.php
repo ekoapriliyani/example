@@ -12,6 +12,7 @@ class InspeksiPound extends Model
         'pro_id',
         'shift',
         'total_prod',
+        'satuan',
         'mesin_id',
         'series',
         'type',

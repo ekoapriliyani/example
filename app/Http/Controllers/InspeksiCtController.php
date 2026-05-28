@@ -49,9 +49,8 @@ class InspeksiCtController extends Controller
 
         $mesins = Mesin::orderBy('nama_mesin')->get();
         $pros = Pro::orderByDesc('pro_id')->get();
-        $productCts = ProductCt::orderBy('product_ct_id')->get();
 
-        return view('inspeksi_ct.create', compact('nextNomor', 'pros', 'mesins', 'productCts'));
+        return view('inspeksi_ct.create', compact('nextNomor', 'pros', 'mesins'));
     }
 
     /**
@@ -65,6 +64,8 @@ class InspeksiCtController extends Controller
             'pro_id' => 'required|exists:pros,id',
             'shift' => 'required',
             'mesin_id' => 'required|exists:mesins,id',
+            'total_prod' => 'nullable|numeric',
+            'satuan' => 'required',
         ]);
 
         InspeksiCt::create($validated);
@@ -102,6 +103,7 @@ class InspeksiCtController extends Controller
             'shift' => 'required',
             'mesin_id' => 'required|exists:mesins,id',
             'total_prod' => 'nullable|numeric',
+            'satuan' => 'required',
         ]);
 
         $inspeksi_ct->update($validated);

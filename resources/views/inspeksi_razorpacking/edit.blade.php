@@ -54,20 +54,6 @@
                         </div>
 
                         <div>
-                            <x-input-label for="product_razor_ref_id" :value="__('Product Razor')" />
-                            <select id="product_razor_ref_id" name="product_razor_ref_id"
-                                class="mt-1 block w-full rounded-md border-gray-300 shadow-sm" required>
-                                <option value="">-- Pilih Product Razor --</option>
-                                @foreach ($productrazors as $product)
-                                    <option value="{{ $product->id }}"
-                                        {{ old('product_razor_ref_id', $inspeksi_razorpacking->product_razor_ref_id ?? '') == $product->id ? 'selected' : '' }}>
-                                        {{ $product->product_razor_id }} - {{ $product->description }}
-                                    </option>
-                                @endforeach
-                            </select>
-                            <x-input-error class="mt-2" :messages="$errors->get('product_razor_ref_id')" />
-                        </div>
-                        <div>
                             <x-input-label for="shift" :value="__('Shift')" />
                             <select id="shift" name="shift"
                                 class="mt-1 block w-full rounded-md border-gray-300 shadow-sm" required>
@@ -84,12 +70,47 @@
                             </select>
                             <x-input-error class="mt-2" :messages="$errors->get('shift')" />
                         </div>
-                        <div class="">
-                            <x-input-label for="total_prod" :value="__('Total Produksi (kg)')" />
-                            <x-text-input id="total_prod" name="total_prod" type="number" step="0.01"
-                                class="mt-1 block w-full"
-                                value="{{ old('total_prod', $inspeksi_razorpacking->total_prod) }}" />
+                        <div>
+                            <x-input-label for="total_prod" :value="__('Total Produksi (diisi diakhir shift)')" class="text-red-600 italic" />
+                            <div class="flex items-center space-x-2 mt-1">
+                                <div class="relative flex-1">
+                                    <x-text-input id="total_prod" name="total_prod" type="number" step="0.01"
+                                        class="block w-full"
+                                        value="{{ old('total_prod', $inspeksi_razorpacking->total_prod) }}"
+                                        placeholder="0.00" />
+                                </div>
+                                <div class="w-32">
+                                    <select id="satuan" name="satuan"
+                                        class="block w-full border-gray-300 dark:border-gray-700 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-sm">
+                                        <option value="unit"
+                                            {{ old('satuan', $inspeksi_razorpacking->satuan) == 'unit' ? 'selected' : '' }}>
+                                            unit
+                                        </option>
+                                        <option value="pcs"
+                                            {{ old('satuan', $inspeksi_razorpacking->satuan) == 'pcs' ? 'selected' : '' }}>
+                                            pcs
+                                        </option>
+                                        <option value="kg"
+                                            {{ old('satuan', $inspeksi_razorpacking->satuan) == 'kg' ? 'selected' : '' }}>
+                                            kg
+                                        </option>
+                                        <option value="roll"
+                                            {{ old('satuan', $inspeksi_razorpacking->satuan) == 'roll' ? 'selected' : '' }}>
+                                            roll
+                                        </option>
+                                        <option value="lembar"
+                                            {{ old('satuan', $inspeksi_razorpacking->satuan) == 'lembar' ? 'selected' : '' }}>
+                                            lembar
+                                        </option>
+                                        <option value="ton"
+                                            {{ old('satuan', $inspeksi_razorpacking->satuan) == 'ton' ? 'selected' : '' }}>
+                                            ton
+                                        </option>
+                                    </select>
+                                </div>
+                            </div>
                             <x-input-error class="mt-2" :messages="$errors->get('total_prod')" />
+                            <x-input-error class="mt-2" :messages="$errors->get('satuan')" />
                         </div>
                         <div class="flex items-center justify-end gap-4 border-t border-gray-100 pt-4">
                             <a href="{{ route('inspeksi_razorpacking.index') }}"
@@ -141,12 +162,4 @@
         });
     </script>
 
-    {{--  --}}
-    <script>
-        $('#product_razorpacking_ref_id').select2({
-            placeholder: '-- Pilih Product razorpacking --',
-            allowClear: true,
-            width: '100%'
-        });
-    </script>
 </x-app-layout>

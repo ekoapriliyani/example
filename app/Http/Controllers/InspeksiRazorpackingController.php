@@ -60,6 +60,7 @@ class InspeksiRazorpackingController extends Controller
             'pro_id' => 'required|exists:pros,id',
             'shift' => 'required',
             'total_prod' => '',
+            'satuan' => 'required',
         ]);
 
         $tanggalInput = Carbon::now();
@@ -84,6 +85,7 @@ class InspeksiRazorpackingController extends Controller
             'pro_id' => $validated['pro_id'],
             'shift' => $validated['shift'],
             'total_prod' => $validated['total_prod'] ?? null,
+            'satuan' => $validated['satuan'],
         ]);
 
         return redirect()->route('inspeksi_razorpacking.index')->with('success', 'Data inspeksi razor packing berhasil disimpan.');
@@ -117,6 +119,7 @@ class InspeksiRazorpackingController extends Controller
             'pro_id' => 'required|exists:pros,id',
             'shift' => 'required',
             'total_prod' => '',
+            'satuan' => 'required',
         ]);
 
         $inspeksi_razorpacking = InspeksiRazorpacking::findOrFail($id);
@@ -125,6 +128,7 @@ class InspeksiRazorpackingController extends Controller
             'pro_id' => $validated['pro_id'],
             'shift' => $validated['shift'],
             'total_prod' => $validated['total_prod'] ?? null,
+            'satuan' => $validated['satuan'],
         ]);
 
         return redirect()->route('inspeksi_razorpacking.index')->with('success', 'Data inspeksi razor packing berhasil diperbarui.');
