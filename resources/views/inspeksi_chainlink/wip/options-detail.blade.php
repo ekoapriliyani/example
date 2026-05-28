@@ -1,5 +1,18 @@
 @php
-    $options = ['CRACK', 'MESH', 'PANJANG OUT', 'LEBAR OUT', 'PVC PECAH', 'WHITE RUST'];
+    $options = [
+        'CRACK/PEEL OFF/MENGELUPAS',
+        'DIAMETER OUT',
+        'KARAT',
+        'LEBAR OUT',
+        'MESH OUT / TIDAK SIMETRIS',
+        'PANJANG OUT',
+        'PATAH/PUTUS',
+        'PENYOK/RUSAK',
+        'PVC/HDPE KASAR',
+        'PVC/HDPE MIRING',
+        'PVC/HDPE PECAH/SOBEK',
+        'WHITE RUST',
+    ];
 @endphp
 
 <option value="">-- Pilih Detail --</option>

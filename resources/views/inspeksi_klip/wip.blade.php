@@ -206,10 +206,23 @@
                                         <select id="detail_description_0" name="detail_description[]"
                                             class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
                                             <option value="">-- Pilih Detail --</option>
+                                            <option value="BENDING TIDAK PRESS">BENDING TIDAK PRESS</option>
+                                            <option value="BLADE PECAH/SOBEK">BLADE PECAH/SOBEK</option>
+                                            <option value="CRACK/PEEL OFF/MENGELUPAS">CRACK/PEEL OFF/MENGELUPAS
+                                            </option>
+                                            <option value="DIAMETER OUT">DIAMETER OUT</option>
+                                            <option value="JARAK DURI/BLADE">JARAK DURI/BLADE</option>
+                                            <option value="JUMLAH SPIRAL OUT">JUMLAH SPIRAL OUT</option>
                                             <option value="KARAT">KARAT</option>
-                                            <option value="BENDING PECAH">BENDING PECAH</option>
-                                            <option value="POTONGAN TIDAK RAPI">POTONGAN TIDAK RAPI</option>
                                             <option value="KLIP TIDAK RAPAT">KLIP TIDAK RAPAT</option>
+                                            <option value="LEBAR BLADE OUT">LEBAR BLADE OUT</option>
+                                            <option value="PANJANG BLADE OUT">PANJANG BLADE OUT</option>
+                                            <option value="PATAH/PUTUS">PATAH/PUTUS</option>
+                                            <option value="PENYOK/RUSAK">PENYOK/RUSAK</option>
+                                            <option value="PISAU POUNCH TUMPUL">PISAU POUNCH TUMPUL</option>
+                                            <option value="TEBAL BLADE OUT">TEBAL BLADE OUT</option>
+                                            <option value="TRIMING">TRIMING</option>
+                                            <option value="WHITE RUST">WHITE RUST</option>
                                         </select>
                                     </div>
                                     <div>
@@ -217,10 +230,23 @@
                                         <select id="detail_description2_0" name="detail_description2[]"
                                             class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
                                             <option value="">-- Pilih Detail --</option>
+                                            <option value="BENDING TIDAK PRESS">BENDING TIDAK PRESS</option>
+                                            <option value="BLADE PECAH/SOBEK">BLADE PECAH/SOBEK</option>
+                                            <option value="CRACK/PEEL OFF/MENGELUPAS">CRACK/PEEL OFF/MENGELUPAS
+                                            </option>
+                                            <option value="DIAMETER OUT">DIAMETER OUT</option>
+                                            <option value="JARAK DURI/BLADE">JARAK DURI/BLADE</option>
+                                            <option value="JUMLAH SPIRAL OUT">JUMLAH SPIRAL OUT</option>
                                             <option value="KARAT">KARAT</option>
-                                            <option value="BENDING PECAH">BENDING PECAH</option>
-                                            <option value="POTONGAN TIDAK RAPI">POTONGAN TIDAK RAPI</option>
                                             <option value="KLIP TIDAK RAPAT">KLIP TIDAK RAPAT</option>
+                                            <option value="LEBAR BLADE OUT">LEBAR BLADE OUT</option>
+                                            <option value="PANJANG BLADE OUT">PANJANG BLADE OUT</option>
+                                            <option value="PATAH/PUTUS">PATAH/PUTUS</option>
+                                            <option value="PENYOK/RUSAK">PENYOK/RUSAK</option>
+                                            <option value="PISAU POUNCH TUMPUL">PISAU POUNCH TUMPUL</option>
+                                            <option value="TEBAL BLADE OUT">TEBAL BLADE OUT</option>
+                                            <option value="TRIMING">TRIMING</option>
+                                            <option value="WHITE RUST">WHITE RUST</option>
                                         </select>
                                     </div>
                                     <div>
@@ -281,10 +307,22 @@
                 <select id="detail_description_${index}" name="detail_description[]"
                     class="mt-1 block w-full border-gray-300 rounded-md shadow-sm">
                     <option value="">-- Pilih Detail --</option>
+                    <option value="BENDING TIDAK PRESS">BENDING TIDAK PRESS</option>
+                    <option value="BLADE PECAH/SOBEK">BLADE PECAH/SOBEK</option>
+                    <option value="CRACK/PEEL OFF/MENGELUPAS">CRACK/PEEL OFF/MENGELUPAS</option>
+                    <option value="DIAMETER OUT">DIAMETER OUT</option>
+                    <option value="JARAK DURI/BLADE">JARAK DURI/BLADE</option>
+                    <option value="JUMLAH SPIRAL OUT">JUMLAH SPIRAL OUT</option>
                     <option value="KARAT">KARAT</option>
-                    <option value="BENDING PECAH">BENDING PECAH</option>
-                    <option value="POTONGAN TIDAK RAPI">POTONGAN TIDAK RAPI</option>
                     <option value="KLIP TIDAK RAPAT">KLIP TIDAK RAPAT</option>
+                    <option value="LEBAR BLADE OUT">LEBAR BLADE OUT</option>
+                    <option value="PANJANG BLADE OUT">PANJANG BLADE OUT</option>
+                    <option value="PATAH/PUTUS">PATAH/PUTUS</option>
+                    <option value="PENYOK/RUSAK">PENYOK/RUSAK</option>
+                    <option value="PISAU POUNCH TUMPUL">PISAU POUNCH TUMPUL</option>
+                    <option value="TEBAL BLADE OUT">TEBAL BLADE OUT</option>
+                    <option value="TRIMING">TRIMING</option>
+                    <option value="WHITE RUST">WHITE RUST</option>
                 </select>
             </div>
             <div>
@@ -292,10 +330,22 @@
                 <select id="detail_description2_${index}" name="detail_description2[]"
                     class="mt-1 block w-full border-gray-300 rounded-md shadow-sm">
                     <option value="">-- Pilih Detail --</option>
+                    <option value="BENDING TIDAK PRESS">BENDING TIDAK PRESS</option>
+                    <option value="BLADE PECAH/SOBEK">BLADE PECAH/SOBEK</option>
+                    <option value="CRACK/PEEL OFF/MENGELUPAS">CRACK/PEEL OFF/MENGELUPAS</option>
+                    <option value="DIAMETER OUT">DIAMETER OUT</option>
+                    <option value="JARAK DURI/BLADE">JARAK DURI/BLADE</option>
+                    <option value="JUMLAH SPIRAL OUT">JUMLAH SPIRAL OUT</option>
                     <option value="KARAT">KARAT</option>
-                    <option value="BENDING PECAH">BENDING PECAH</option>
-                    <option value="POTONGAN TIDAK RAPI">POTONGAN TIDAK RAPI</option>
                     <option value="KLIP TIDAK RAPAT">KLIP TIDAK RAPAT</option>
+                    <option value="LEBAR BLADE OUT">LEBAR BLADE OUT</option>
+                    <option value="PANJANG BLADE OUT">PANJANG BLADE OUT</option>
+                    <option value="PATAH/PUTUS">PATAH/PUTUS</option>
+                    <option value="PENYOK/RUSAK">PENYOK/RUSAK</option>
+                    <option value="PISAU POUNCH TUMPUL">PISAU POUNCH TUMPUL</option>
+                    <option value="TEBAL BLADE OUT">TEBAL BLADE OUT</option>
+                    <option value="TRIMING">TRIMING</option>
+                    <option value="WHITE RUST">WHITE RUST</option>
                 </select>
             </div>
             <div>
