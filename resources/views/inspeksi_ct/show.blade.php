@@ -285,6 +285,8 @@
                                     <th class="px-4 py-3 font-semibold text-gray-900">Status</th>
                                     <th class="px-4 py-3 font-semibold text-gray-900">Quantity</th>
                                     <th class="px-4 py-3 font-semibold text-gray-900">Weight</th>
+                                    <th class="px-4 py-3 font-semibold text-gray-900">Packing</th>
+                                    <th class="px-4 py-3 font-semibold text-gray-900">Label</th>
                                     <th class="px-4 py-3 font-semibold text-gray-900">Detail</th>
                                     <th class="px-4 py-3 font-semibold text-gray-900">Gambar</th>
                                     <th class="px-4 py-3 font-semibold text-gray-900">Created At</th>
@@ -386,6 +388,8 @@
                                         </td>
                                         <td class="px-4 py-3">{{ $fg->qty }}</td>
                                         <td class="px-4 py-3">{{ $fg->weight }} Kg</td>
+                                        <td class="px-4 py-3">{{ $fg->packing }}</td>
+                                        <td class="px-4 py-3">{{ $fg->label }}</td>
                                         <td class="px-4 py-3">
                                             <button type="button" class="text-sm text-indigo-600 hover:underline"
                                                 onclick="toggleDetail({{ $fg->id }})">

@@ -18,7 +18,8 @@ return new class extends Migration
             $table->string('status');
             $table->integer('qty');
             $table->decimal('weight', 8, 2)->nullable();
-            $table->string('label')->nullable();
+            $table->string('packing');
+            $table->string('label');
             $table->json('files')->nullable(); // simpan array path file upload
             $table->timestamps();
         });

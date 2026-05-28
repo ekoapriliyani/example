@@ -39,7 +39,7 @@ class InspeksiChainlinkFgController extends Controller
             'packing'                 => 'required',
             'label'                 => 'required',
             'qty'                    => 'required',
-            'weight'                 => 'required',
+            'weight'                 => '',
             'files.*'                => 'file|mimes:jpg,jpeg,png,pdf|max:10240',
         ]);
 
@@ -114,7 +114,7 @@ class InspeksiChainlinkFgController extends Controller
         $request->validate([
             'status' => 'required|string',
             'qty' => 'required|integer',
-            'weight' => 'required|numeric',
+            'weight' => '',
             'packing' => 'required',
             'label' => 'required',
 

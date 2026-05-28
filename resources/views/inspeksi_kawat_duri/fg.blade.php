@@ -42,7 +42,16 @@
                                     class="mt-1 block w-full" required placeholder="0" />
                                 <x-input-error class="mt-2" :messages="$errors->get('weight')" />
                             </div>
-                            <div class="md:col-span-2">
+                            <div class="">
+                                <x-input-label for="packing" :value="__('Packing')" />
+                                <select id="packing" name="packing"
+                                    class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
+                                    <option value="OK">OK</option>
+                                    <option value="NG">NG</option>
+                                </select>
+                                <x-input-error class="mt-2" :messages="$errors->get('packing')" />
+                            </div>
+                            <div class="">
                                 <x-input-label for="label" :value="__('Label')" />
                                 <select id="label" name="label"
                                     class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">

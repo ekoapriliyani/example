@@ -59,6 +59,34 @@
                                     class="mt-1 block w-full" :value="old('weight', $fg->weight)" required />
                                 <x-input-error class="mt-2" :messages="$errors->get('weight')" />
                             </div>
+                            <div>
+                                <x-input-label for="packing" :value="__('Packing')" />
+                                <select id="packing" name="packing"
+                                    class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+                                    required>
+                                    <option value="OK" {{ old('packing', $fg->packing) == 'OK' ? 'selected' : '' }}>
+                                        OK
+                                    </option>
+                                    <option value="NG" {{ old('packing', $fg->packing) == 'NG' ? 'selected' : '' }}>
+                                        NG
+                                    </option>
+                                </select>
+                                <x-input-error class="mt-2" :messages="$errors->get('packing')" />
+                            </div>
+                            <div>
+                                <x-input-label for="label" :value="__('Label')" />
+                                <select id="label" name="label"
+                                    class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+                                    required>
+                                    <option value="OK" {{ old('label', $fg->label) == 'OK' ? 'selected' : '' }}>
+                                        OK
+                                    </option>
+                                    <option value="NG" {{ old('label', $fg->label) == 'NG' ? 'selected' : '' }}>
+                                        NG
+                                    </option>
+                                </select>
+                                <x-input-error class="mt-2" :messages="$errors->get('label')" />
+                            </div>
                         </div>
                         <div class="border-t border-gray-200 pt-6">
                             <h3 class="mb-4 font-semibold text-gray-700">Files</h3>

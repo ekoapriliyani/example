@@ -1,12 +1,23 @@
 <x-app-layout>
     <x-slot name="header">
-        <div class="flex items-center justify-between">
-            <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-                {{ __('Input Hasil Inspeksi FG') }}
-            </h2>
-            <p class="text-sm text-gray-500">
-                Ref: <span class="font-mono font-bold text-indigo-600">{{ $inspeksi_wm->nomor_inspeksi }}</span>
-            </p>
+        <div>
+            <nav class="flex items-center space-x-2 text-sm text-gray-500 mb-2">
+                <a href="{{ route('inspeksi_wm.index') }}" class="hover:text-indigo-600 transition-colors">Inspeksi WM</a>
+                <span class="text-gray-400">/</span>
+                <a href="{{ route('inspeksi_wm.show', $inspeksi_wm->id) }}"
+                    class="hover:text-indigo-600 transition-colors">Detail</a>
+                <span class="text-gray-400">/</span>
+                <span class="text-gray-800 font-medium">Finished Good</span>
+            </nav>
+
+            <div class="flex items-center justify-between">
+                <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+                    {{ __('Input Hasil Inspeksi FG') }}
+                </h2>
+                <p class="text-sm text-gray-500">
+                    Ref: <span class="font-mono font-bold text-indigo-600">{{ $inspeksi_wm->nomor_inspeksi }}</span>
+                </p>
+            </div>
         </div>
     </x-slot>
 
@@ -19,7 +30,7 @@
                         @csrf
                         <input type="hidden" name="inspeksi_wm_id" value="{{ $inspeksi_wm->id }}">
 
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="grid grid-cols-2 md:grid-cols-2 gap-6">
                             <div class="md:col-span-2">
                                 <x-input-label for="status" :value="__('Status')" />
                                 <select id="status" name="status"
@@ -39,8 +50,29 @@
                             <div>
                                 <x-input-label for="weight" :value="__('Weight')" />
                                 <x-text-input id="weight" name="weight" type="number" step="0.01"
-                                    class="mt-1 block w-full" required placeholder="0" />
+                                    class="mt-1 block w-full" placeholder="0" />
                                 <x-input-error class="mt-2" :messages="$errors->get('weight')" />
+                            </div>
+                            {{-- packing --}}
+                            <div class="">
+                                <x-input-label for="packing" :value="__('Packing')" />
+                                <select id="packing" name="packing"
+                                    class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
+                                    <option value="OK">OK</option>
+                                    <option value="NG">NG</option>
+                                </select>
+                                <x-input-error class="mt-2" :messages="$errors->get('packing')" />
+                            </div>
+
+                            {{-- label --}}
+                            <div class="">
+                                <x-input-label for="label" :value="__('Label')" />
+                                <select id="label" name="label"
+                                    class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
+                                    <option value="OK">OK</option>
+                                    <option value="NG">NG</option>
+                                </select>
+                                <x-input-error class="mt-2" :messages="$errors->get('label')" />
                             </div>
                         </div>
 
@@ -83,7 +115,8 @@
                                             <option value="KARAT">KARAT</option>
                                             <option value="LASAN LEPAS">LASAN LEPAS</option>
                                             <option value="LEBAR OUT">LEBAR OUT</option>
-                                            <option value="MESH OUT / TIDAK SIMETRIS">MESH OUT / TIDAK SIMETRIS</option>
+                                            <option value="MESH OUT / TIDAK SIMETRIS">MESH OUT / TIDAK SIMETRIS
+                                            </option>
                                             <option value="OVERHANG OUT">OVERHANG OUT</option>
                                             <option value="PANJANG OUT">PANJANG OUT</option>
                                             <option value="PATAH/PUTUS">PATAH/PUTUS</option>
@@ -111,7 +144,6 @@
                                 <x-input-label for="files" :value="__('Upload File')" />
                                 <input id="files" name="files[]" type="file"
                                     class="mt-1 block w-full border-gray-300 rounded-md shadow-sm" multiple>
-                                {{-- <x-input-error class="mt-2" :messages="$errors->get('files.*')" /> --}}
                                 @error('files')
                                     <div class="text-red-500 text-sm mt-2">{{ $message }}</div>
                                 @enderror

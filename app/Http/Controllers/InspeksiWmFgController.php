@@ -36,7 +36,9 @@ class InspeksiWmFgController extends Controller
             'inspeksi_wm_id' => 'required|exists:inspeksi_wms,id',
             'status'         => 'required',
             'qty'            => 'required',
-            'weight'         => 'required',
+            'weight'         => '',
+            'packing'        => 'required',
+            'label'          => 'required',
             'files.*'        => 'file|mimes:jpg,jpeg,png,pdf|max:10240',
         ]);
 
@@ -51,6 +53,8 @@ class InspeksiWmFgController extends Controller
             'status'         => $validated['status'],
             'qty'            => $validated['qty'],
             'weight'         => $validated['weight'],
+            'packing'        => $validated['packing'],
+            'label'          => $validated['label'],
         ]);
 
         // simpan file multiple ke kolom JSON
@@ -112,7 +116,9 @@ class InspeksiWmFgController extends Controller
         $request->validate([
             'status' => 'required|string',
             'qty' => 'required|integer',
-            'weight' => 'required|numeric',
+            'weight' => '',
+            'packing' => 'required|string',
+            'label' => 'required|string',
 
             'files.*' => 'nullable|file|max:5120',
 
@@ -126,6 +132,8 @@ class InspeksiWmFgController extends Controller
             'status' => $request->status,
             'qty' => $request->qty,
             'weight' => $request->weight,
+            'packing' => $request->packing,
+            'label' => $request->label,
         ]);
         if ($request->hasFile('files')) {
             if (is_array($fg->files)) {

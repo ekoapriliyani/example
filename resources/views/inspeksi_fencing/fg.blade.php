@@ -18,16 +18,27 @@
                         class="space-y-6">
                         @csrf
                         <input type="hidden" name="inspeksi_fencing_id" value="{{ $inspeksiFencing->id }}">
-                        <div class="grid grid-cols-1 gap-6 md:grid-cols-2">
+                        <div class="grid grid-cols-1 gap-6 md:grid-cols-1">
                             <div class="">
-                                <x-input-label for="type" :value="__('type')" />
-                                <select id="type" name="type"
-                                    class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
-                                    <option value="HOTDIP">HOTDIP</option>
-                                    <option value="POWDER COATING">POWDER COATING</option>
-                                </select>
+                                <x-input-label :value="__('Type Coating')" class="mb-2" />
+                                <div class="flex items-center space-x-6 mt-2">
+                                    <label for="type_hotdip" class="inline-flex items-center cursor-pointer">
+                                        <input type="radio" id="type_hotdip" name="type" value="HOTDIP"
+                                            {{ old('type') == 'HOTDIP' ? 'checked' : '' }}
+                                            class="w-4 h-4 text-indigo-600 border-gray-300 focus:ring-indigo-500">
+                                        <span class="ml-2 text-sm text-gray-700">HOTDIP</span>
+                                    </label>
+                                    <label for="type_powder" class="inline-flex items-center cursor-pointer">
+                                        <input type="radio" id="type_powder" name="type" value="POWDER COATING"
+                                            {{ old('type') == 'POWDER COATING' ? 'checked' : '' }}
+                                            class="w-4 h-4 text-indigo-600 border-gray-300 focus:ring-indigo-500">
+                                        <span class="ml-2 text-sm text-gray-700">POWDER COATING</span>
+                                    </label>
+                                </div>
                                 <x-input-error class="mt-2" :messages="$errors->get('type')" />
                             </div>
+                        </div>
+                        <div class="grid grid-cols-1 gap-6 md:grid-cols-2">
                             <div class="">
                                 <x-input-label for="status" :value="__('Status')" />
                                 <select id="status" name="status"

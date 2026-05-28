@@ -40,22 +40,28 @@
                                 <x-input-error class="mt-2" :messages="$errors->get('nama_operator')" />
                             </div>
                             <div>
-                                <x-input-label for="d_kawat_act" :value="__('Diameter Kawat Inti')" />
-                                <x-text-input id="d_kawat_act" name="d_kawat_act" type="number" step="0.01"
-                                    class="mt-1 block w-full" :value="old('d_kawat_act', $wip->d_kawat_act)" required />
-                                <x-input-error class="mt-2" :messages="$errors->get('d_kawat_act')" />
+                                <x-input-label for="d_inti_kd" :value="__('Diameter Kawat Inti')" />
+                                <x-text-input id="d_inti_kd" name="d_inti_kd" type="number" step="0.01"
+                                    class="mt-1 block w-full" :value="old('d_inti_kd', $wip->d_inti_kd)" required />
+                                <x-input-error class="mt-2" :messages="$errors->get('d_inti_kd')" />
                             </div>
                             <div>
-                                <x-input-label for="d_kawat_luar" :value="__('Diameter Kawat PVC')" />
-                                <x-text-input id="d_kawat_luar" name="d_kawat_luar" type="number" step="0.01"
-                                    class="mt-1 block w-full" :value="old('d_kawat_luar', $wip->d_kawat_luar)" required />
-                                <x-input-error class="mt-2" :messages="$errors->get('d_kawat_luar')" />
+                                <x-input-label for="d_pvc_kd" :value="__('Diameter Kawat PVC')" />
+                                <x-text-input id="d_pvc_kd" name="d_pvc_kd" type="number" step="0.01"
+                                    class="mt-1 block w-full" :value="old('d_pvc_kd', $wip->d_pvc_kd)" required />
+                                <x-input-error class="mt-2" :messages="$errors->get('d_pvc_kd')" />
                             </div>
                             <div>
-                                <x-input-label for="d_kawat_jalinan_act" :value="__('Selisih Diagonal')" />
-                                <x-text-input id="d_kawat_jalinan_act" name="d_kawat_jalinan_act" type="number"
-                                    step="0.01" class="mt-1 block w-full" :value="old('d_kawat_jalinan_act', $wip->d_kawat_jalinan_act)" required />
-                                <x-input-error class="mt-2" :messages="$errors->get('d_kawat_jalinan_act')" />
+                                <x-input-label for="d_inti_kj" :value="__('Diameter Inti Kawat Jalinan')" />
+                                <x-text-input id="d_inti_kj" name="d_inti_kj" type="number" step="0.01"
+                                    class="mt-1 block w-full" :value="old('d_inti_kj', $wip->d_inti_kj)" required />
+                                <x-input-error class="mt-2" :messages="$errors->get('d_inti_kj')" />
+                            </div>
+                            <div>
+                                <x-input-label for="d_pvc_kj" :value="__('Diameter PVC Kawat Jalinan')" />
+                                <x-text-input id="d_pvc_kj" name="d_pvc_kj" type="number" step="0.01"
+                                    class="mt-1 block w-full" :value="old('d_pvc_kj', $wip->d_pvc_kj)" required />
+                                <x-input-error class="mt-2" :messages="$errors->get('d_pvc_kj')" />
                             </div>
                             <div>
                                 <x-input-label for="jarak_duri" :value="__('Jarak Duri')" />
@@ -84,18 +90,6 @@
                             <div>
                                 <x-input-label for="jml_counter" :value="__('Jumlah Counter')" />
                                 <x-text-input id="jml_counter" name="jml_counter" type="number" step="0.01"
-                                    class="mt-1 block w-full" :value="old('jml_counter', $wip->jml_counter)" required />
-                                <x-input-error class="mt-2" :messages="$errors->get('jml_counter')" />
-                            </div>
-                            <div>
-                                <x-input-label for="weight" :value="__('Weight')" />
-                                <x-text-input id="weight" name="weight" type="number" step="0.01"
-                                    class="mt-1 block w-full" :value="old('weight', $wip->weight)" required />
-                                <x-input-error class="mt-2" :messages="$errors->get('weight')" />
-                            </div>
-                            <div>
-                                <x-input-label for="jml_counter" :value="__('Jumlah Counter')" />
-                                <x-text-input id="jml_counter" name="jml_counter" type="number" step="1"
                                     class="mt-1 block w-full" :value="old('jml_counter', $wip->jml_counter)" required />
                                 <x-input-error class="mt-2" :messages="$errors->get('jml_counter')" />
                             </div>

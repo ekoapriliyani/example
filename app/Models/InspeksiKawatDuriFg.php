@@ -12,6 +12,7 @@ class InspeksiKawatDuriFg extends Model
         'status',
         'qty',
         'weight',
+        'packing',
         'label',
         'files',
     ];
