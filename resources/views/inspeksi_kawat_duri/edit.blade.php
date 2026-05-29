@@ -88,6 +88,9 @@
                             <select id="type_coating" name="type_coating"
                                 class="mt-1 block w-full border-gray-300 rounded-md shadow-sm" required>
                                 <option value="">-- Pilih Type Coating --</option>
+                                <option value="EP"
+                                    {{ old('type_coating', $inspeksiKawatDuri->type_coating) == 'EP' ? 'selected' : '' }}>
+                                    EP</option>
                                 <option value="LG"
                                     {{ old('type_coating', $inspeksiKawatDuri->type_coating) == 'LG' ? 'selected' : '' }}>
                                     LG</option>
