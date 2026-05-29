@@ -121,6 +121,15 @@
                                 <option value="Hijau"
                                     {{ old('warna', $inspeksiKawatDuri->warna) == 'Hijau' ? 'selected' : '' }}>
                                     Hijau</option>
+                                <option value="Biru"
+                                    {{ old('warna', $inspeksiKawatDuri->warna) == 'Biru' ? 'selected' : '' }}>
+                                    Biru</option>
+                                <option value="Putih"
+                                    {{ old('warna', $inspeksiKawatDuri->warna) == 'Putih' ? 'selected' : '' }}>
+                                    Putih</option>
+                                <option value="Hitam"
+                                    {{ old('warna', $inspeksiKawatDuri->warna) == 'Hitam' ? 'selected' : '' }}>
+                                    Hitam</option>
                             </select>
                             <x-input-error class="mt-2" :messages="$errors->get('warna')" />
                         </div>

@@ -92,6 +92,9 @@
                                 <option value="Hijau" {{ old('warna') == 'Hijau' ? 'selected' : '' }}>Hijau</option>
                                 <option value="Abu-Abu" {{ old('warna') == 'Abu-Abu' ? 'selected' : '' }}>Abu-Abu
                                 </option>
+                                <option value="Biru" {{ old('warna') == 'Biru' ? 'selected' : '' }}>Biru</option>
+                                <option value="Putih" {{ old('warna') == 'Putih' ? 'selected' : '' }}>Putih</option>
+                                <option value="Hitam" {{ old('warna') == 'Hitam' ? 'selected' : '' }}>Hitam</option>
                             </select>
                             <x-input-error class="mt-2" :messages="$errors->get('warna')" />
                         </div>

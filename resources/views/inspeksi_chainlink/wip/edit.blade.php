@@ -145,6 +145,10 @@
                                         {{ old('warna', $wip->warna) == 'Putih' ? 'selected' : '' }}>
                                         Putih
                                     </option>
+                                    <option value="Hitam"
+                                        {{ old('warna', $wip->warna) == 'Hitam' ? 'selected' : '' }}>
+                                        Hitam
+                                    </option>
                                 </select>
                                 <x-input-error class="mt-2" :messages="$errors->get('warna')" />
                             </div>
