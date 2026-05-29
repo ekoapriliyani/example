@@ -87,6 +87,7 @@
                                     <th class="px-4 py-3 font-semibold text-gray-900">No</th>
                                     <th class="px-4 py-3 font-semibold text-gray-900">Inspektor</th>
                                     <th class="px-4 py-3 font-semibold text-gray-900">Warna</th>
+                                    <th class="px-4 py-3 font-semibold text-gray-900">Status</th>
                                     <th class="px-4 py-3 font-semibold text-gray-900">Keterangan</th>
                                     <th class="px-4 py-3 font-semibold text-gray-900">Gambar</th>
                                     <th class="px-4 py-3 font-semibold text-gray-900 text-center">Created At</th>
@@ -97,13 +98,14 @@
                                     <tr class="hover:bg-gray-50 transition-colors">
                                         <td class="px-4 py-3">{{ $loop->iteration }}</td>
                                         <td class="px-4 py-3">{{ $inc->user->name ?? 'N/A' }}</td>
+                                        <td class="px-4 py-3">{{ $inc->warna }}</td>
                                         <td class="px-4 py-3">
-                                            @if ($inc->warna === 'OK')
+                                            @if ($inc->status === 'OK')
                                                 <span
                                                     class="inline-flex items-center px-2 py-1 text-xs font-semibold text-green-800 bg-green-200 rounded-full">
                                                     OK
                                                 </span>
-                                            @elseif($inc->warna === 'NG')
+                                            @elseif($inc->status === 'NG')
                                                 <span
                                                     class="inline-flex items-center px-2 py-1 text-xs font-semibold text-yellow-800 bg-yellow-200 rounded-full">
                                                     NG

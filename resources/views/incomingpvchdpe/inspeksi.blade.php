@@ -18,8 +18,17 @@
                         <label for="warna" class="block mb-1">Warna</label>
                         <select name="warna" id="warna" class="w-full border rounded px-3 py-2">
                             <option value="">-- Pilih Warna --</option>
-                            <option value="OK" {{ old('warna') == 'OK' ? 'selected' : '' }}>OK</option>
-                            <option value="NG" {{ old('warna') == 'NG' ? 'selected' : '' }}>NG</option>
+                            <option value="Abu-Abu" {{ old('warna') == 'Abu-Abu' ? 'selected' : '' }}>Abu-Abu</option>
+                            <option value="Hijau" {{ old('warna') == 'Hijau' ? 'selected' : '' }}>Hijau</option>
+                            <option value="Putih" {{ old('warna') == 'Putih' ? 'selected' : '' }}>Putih</option>
+                        </select>
+                    </div>
+                    <!-- Status -->
+                    <div class="mb-4">
+                        <label for="status" class="block mb-1">Status</label>
+                        <select name="status" id="status" class="w-full border rounded px-3 py-2">
+                            <option value="OK" {{ old('status') == 'OK' ? 'selected' : '' }}>OK</option>
+                            <option value="NG" {{ old('status') == 'NG' ? 'selected' : '' }}>NG</option>
                         </select>
                     </div>
                     <!-- Keterangan -->

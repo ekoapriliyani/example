@@ -10,6 +10,7 @@ class IncomingPvcHdpeInspeksi extends Model
         'incoming_pvc_hdpe_id',
         'user_id',
         'warna',
+        'status',
         'keterangan',
         'files',
     ];

@@ -15,7 +15,8 @@ return new class extends Migration
             $table->id();
             $table->foreignId('incoming_pvc_hdpe_id')->constrained('incoming_pvc_hdpes')->onDelete('cascade');
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
-            $table->string('warna'); // ganti dari visual ke warna
+            $table->string('warna');
+            $table->string('status');
             $table->string('keterangan')->nullable();
             $table->json('files')->nullable(); // simpan array path file upload
             $table->timestamps();

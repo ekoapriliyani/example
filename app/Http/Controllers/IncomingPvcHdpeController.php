@@ -116,7 +116,8 @@ class IncomingPvcHdpeController extends Controller
     public function storeInspeksi(Request $request, $id)
     {
         $validated = $request->validate([
-            'warna'  => 'required|in:OK,NG',
+            'warna'  => 'required',
+            'status'  => 'required|in:OK,NG',
             'keterangan' => 'nullable|string',
             'files'   => 'nullable|array',
             'files.*' => 'nullable|image|max:20480',
@@ -126,6 +127,7 @@ class IncomingPvcHdpeController extends Controller
             'incoming_pvc_hdpe_id' => $id,
             'user_id' => Auth::id(),
             'warna' => $validated['warna'],
+            'status' => $validated['status'],
             'keterangan' => $validated['keterangan'],
         ]);
 
