@@ -78,7 +78,7 @@
                                 @foreach ($mesins as $mesin)
                                     <option value="{{ $mesin->id }}"
                                         {{ old('mesin_id') == $mesin->id ? 'selected' : '' }}>
-                                        {{ $mesin->mesin_id }}
+                                        {{ $mesin->mesin_id }} - {{ $mesin->nama_mesin }}
                                     </option>
                                 @endforeach
                             </select>
