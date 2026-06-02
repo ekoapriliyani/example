@@ -146,7 +146,7 @@
                                             <td class="px-4 py-3 font-medium text-gray-900">{{ $item->pro->qty }}
                                             </td>
                                             <td class="px-4 py-3">
-                                                {{ $item->total_prod }}
+                                                {{ $item->total_prod }} {{ $item->satuan }}
                                             </td>
                                             <td class="px-4 py-3 font-medium text-gray-900">
                                                 {{ $item->mesin->mesin_id }}
