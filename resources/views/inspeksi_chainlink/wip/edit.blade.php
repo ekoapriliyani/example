@@ -30,7 +30,7 @@
                             <div>
                                 <x-input-label for="no_material" :value="__('No. Material')" />
                                 <x-text-input id="no_material" name="no_material" type="text"
-                                    class="mt-1 block w-full" :value="old('no_material', $wip->no_material)" required />
+                                    class="mt-1 block w-full" :value="old('no_material', $wip->no_material)" />
                                 <x-input-error class="mt-2" :messages="$errors->get('no_material')" />
                             </div>
                             <div>
@@ -66,13 +66,13 @@
                             <div>
                                 <x-input-label for="diameter_inti" :value="__('Diameter Inti')" />
                                 <x-text-input id="diameter_inti" name="diameter_inti" type="number" step="0.01"
-                                    class="mt-1 block w-full" :value="old('diameter_inti', $wip->diameter_inti)" required />
+                                    class="mt-1 block w-full" :value="old('diameter_inti', $wip->diameter_inti)" />
                                 <x-input-error class="mt-2" :messages="$errors->get('diameter_inti')" />
                             </div>
                             <div>
                                 <x-input-label for="diameter_luar" :value="__('Diameter PVC')" />
                                 <x-text-input id="diameter_luar" name="diameter_luar" type="number" step="0.01"
-                                    class="mt-1 block w-full" :value="old('diameter_luar', $wip->diameter_luar)" required />
+                                    class="mt-1 block w-full" :value="old('diameter_luar', $wip->diameter_luar)" />
                                 <x-input-error class="mt-2" :messages="$errors->get('diameter_luar')" />
                             </div>
 
@@ -126,8 +126,7 @@
                             <div>
                                 <x-input-label for="warna" :value="__('warna')" />
                                 <select id="warna" name="warna"
-                                    class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
-                                    required>
+                                    class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
                                     <option value="">-- Pilih warna --</option>
                                     <option value="Hijau"
                                         {{ old('warna', $wip->warna) == 'Hijau' ? 'selected' : '' }}>
@@ -192,7 +191,7 @@
                             <div>
                                 <x-input-label for="weight" :value="__('Weight')" />
                                 <x-text-input id="weight" name="weight" type="number" step="0.01"
-                                    class="mt-1 block w-full" :value="old('weight', $wip->weight)" required />
+                                    class="mt-1 block w-full" :value="old('weight', $wip->weight)" />
                                 <x-input-error class="mt-2" :messages="$errors->get('weight')" />
                             </div>
                         </div>

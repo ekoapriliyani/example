@@ -105,7 +105,7 @@
                                 <x-input-error class="mt-2" :messages="$errors->get('l_mesh')" />
                             </div>
                             <div>
-                                <x-input-label for="diameter_inti" :value="__('Diameter Inti Kawat Duri')" />
+                                <x-input-label for="diameter_inti" :value="__('Diameter Inti')" />
                                 <div class="relative mt-1">
                                     <x-text-input id="diameter_inti" name="diameter_inti" type="number" step="0.01"
                                         class="block w-full pr-12" :value="old('diameter_inti')" placeholder="0.00" />
@@ -117,7 +117,7 @@
                                 <x-input-error class="mt-2" :messages="$errors->get('diameter_inti')" />
                             </div>
                             <div>
-                                <x-input-label for="diameter_luar" :value="__('Diameter PVC Kawat Duri')" />
+                                <x-input-label for="diameter_luar" :value="__('Diameter PVC')" />
                                 <div class="relative mt-1">
                                     <x-text-input id="diameter_luar" name="diameter_luar" type="number" step="0.01"
                                         class="block w-full pr-12" :value="old('diameter_luar')" placeholder="0.00" />
