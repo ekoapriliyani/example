@@ -102,6 +102,7 @@
                                 <option value="ULTRA">ULTRA</option>
                                 <option value="BLACK WIRE">BLACK WIRE</option>
                                 <option value="BEZILUM">BEZILUM</option>
+                                <option value="EP">EP</option>
                             </select>
                             <x-input-error class="mt-2" :messages="$errors->get('jenis_kawat')" />
                         </div>
