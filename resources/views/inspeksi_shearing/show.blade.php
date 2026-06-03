@@ -135,13 +135,10 @@
                                     <th class="px-4 py-3 font-semibold text-gray-900">Inspektor</th>
                                     <th class="px-4 py-3 font-semibold text-gray-900">No. Material</th>
                                     <th class="px-4 py-3 font-semibold text-gray-900">Operator</th>
-                                    <th class="px-4 py-3 font-semibold text-gray-900">D. Kawat Act</th>
-                                    <th class="px-4 py-3 font-semibold text-gray-900">P Produk</th>
-                                    <th class="px-4 py-3 font-semibold text-gray-900">L Produk</th>
-                                    <th class="px-4 py-3 font-semibold text-gray-900">T Tekukan</th>
-                                    <th class="px-4 py-3 font-semibold text-gray-900">Sudut</th>
-                                    <th class="px-4 py-3 font-semibold text-gray-900">Diagonal</th>
-                                    <th class="px-4 py-3 font-semibold text-gray-900">Matching Crosswire</th>
+                                    <th class="px-4 py-3 font-semibold text-gray-900">P Potong</th>
+                                    <th class="px-4 py-3 font-semibold text-gray-900">L Potong</th>
+                                    <th class="px-4 py-3 font-semibold text-gray-900">Mesh 1</th>
+                                    <th class="px-4 py-3 font-semibold text-gray-900">Mesh 2</th>
                                     <th class="px-4 py-3 font-semibold text-gray-900">Visual</th>
                                     <th class="px-4 py-3 font-semibold text-gray-900">Status</th>
                                     <th class="px-4 py-3 font-semibold text-gray-900">Detail</th>
@@ -218,19 +215,12 @@
                                         <td class="px-4 py-3">{{ $wip->user->name ?? 'N/A' }}</td>
                                         <td class="px-4 py-3 font-medium">{{ $wip->no_material }}</td>
                                         <td class="px-4 py-3">{{ $wip->nama_operator }}</td>
-                                        <td class="bg-blue-50/30 px-4 py-3 text-center">{{ $wip->d_kawat_act }}</td>
-                                        <td class="bg-blue-50/30 px-4 py-3 text-center">{{ $wip->p_product_act }}</td>
-                                        <td class="bg-blue-50/30 px-4 py-3 text-center">{{ $wip->l_product_act }}</td>
-                                        <td class="bg-blue-50/30 px-4 py-3 text-center">{{ $wip->t_tekukan }}</td>
-                                        <td class="bg-blue-50/30 px-4 py-3 text-center">{{ $wip->sudut }}</td>
-                                        <td class="bg-blue-50/30 px-4 py-3 text-center">{{ $wip->diagonal }}
-                                        </td>
-                                        <td class="bg-blue-50/30 px-4 py-3 text-center">{{ $wip->matchingcrosswire }}
-                                        </td>
-                                        <td class="bg-blue-50/30 px-4 py-3 text-center">{{ $wip->visual }}
-                                        </td>
-                                        <td class="bg-blue-50/30 px-4 py-3 text-center">{{ $wip->status }}
-                                        </td>
+                                        <td class="bg-blue-50/30 px-4 py-3 text-center">{{ $wip->p_potong }}</td>
+                                        <td class="bg-blue-50/30 px-4 py-3 text-center">{{ $wip->l_potong }}</td>
+                                        <td class="bg-blue-50/30 px-4 py-3 text-center">{{ $wip->mesh1 }}</td>
+                                        <td class="bg-blue-50/30 px-4 py-3 text-center">{{ $wip->mesh2 }}</td>
+                                        <td class="bg-blue-50/30 px-4 py-3 text-center">{{ $wip->visual }}</td>
+                                        <td class="bg-blue-50/30 px-4 py-3 text-center">{{ $wip->status }}</td>
                                         <td class="px-4 py-3">
                                             <button type="button" class="text-sm text-indigo-600 hover:underline"
                                                 onclick="toggleDetail2({{ $wip->id }})">

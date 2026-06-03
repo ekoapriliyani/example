@@ -23,13 +23,14 @@
                     <!-- Hasil Tensile -->
                     <div class="mb-4">
                         <label>Hasil Tensile (MPa)</label>
-                        <input type="number" name="hasil_tensile" class="w-full border rounded px-3 py-2" required>
+                        <input type="number" step="0.01" name="hasil_tensile"
+                            class="w-full border rounded px-3 py-2" required>
                     </div>
                     <!-- Hasil Coating Weight -->
                     <div class="mb-4">
                         <label>Hasil Coating Weight</label>
-                        <input type="number" name="hasil_coatingweight" class="w-full border rounded px-3 py-2"
-                            required>
+                        <input type="number" step="0.01" name="hasil_coatingweight"
+                            class="w-full border rounded px-3 py-2" required>
                     </div>
 
                     <!-- Hasil Lilit -->

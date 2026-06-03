@@ -58,95 +58,71 @@
 
                         <div class="grid grid-cols-1 gap-6 md:grid-cols-2">
                             <div>
-                                <x-input-label for="d_kawat_act" :value="__('Diameter Kawat (Actual)')" />
+                                <x-input-label for="p_potong" :value="__('P Potong')" />
                                 <div class="relative mt-1">
-                                    <x-text-input id="d_kawat_act" name="d_kawat_act" type="number" step="0.01"
-                                        class="block w-full pr-12" :value="old('d_kawat_act')" required placeholder="0.00" />
+                                    <x-text-input id="p_potong" name="p_potong" type="number" step="0.01"
+                                        class="block w-full pr-12" :value="old('p_potong')" required placeholder="0.00" />
                                     <div
                                         class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3 text-sm text-gray-400">
                                         mm
                                     </div>
                                 </div>
-                                <x-input-error class="mt-2" :messages="$errors->get('d_kawat_act')" />
+                                <x-input-error class="mt-2" :messages="$errors->get('p_potong')" />
                             </div>
 
                             <div>
-                                <x-input-label for="p_product_act" :value="__('P Product (Actual)')" />
+                                <x-input-label for="l_potong" :value="__('L Potong')" />
                                 <div class="relative mt-1">
-                                    <x-text-input id="p_product_act" name="p_product_act" type="number" step="0.01"
-                                        class="block w-full pr-12" :value="old('p_product_act')" required placeholder="0.00" />
+                                    <x-text-input id="l_potong" name="l_potong" type="number" step="0.01"
+                                        class="block w-full pr-12" :value="old('l_potong')" required placeholder="0.00" />
                                     <div
                                         class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3 text-sm text-gray-400">
                                         mm
                                     </div>
                                 </div>
-                                <x-input-error class="mt-2" :messages="$errors->get('p_product_act')" />
-                            </div>
-                            <div>
-                                <x-input-label for="l_product_act" :value="__('L Product (Actual)')" />
-                                <div class="relative mt-1">
-                                    <x-text-input id="l_product_act" name="l_product_act" type="number" step="0.01"
-                                        class="block w-full pr-12" :value="old('l_product_act')" required placeholder="0.00" />
-                                    <div
-                                        class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3 text-sm text-gray-400">
-                                        mm
-                                    </div>
-                                </div>
-                                <x-input-error class="mt-2" :messages="$errors->get('l_product_act')" />
-                            </div>
-                            <div>
-                                <x-input-label for="t_tekukan" :value="__('T Tekukan')" />
-                                <div class="relative mt-1">
-                                    <x-text-input id="t_tekukan" name="t_tekukan" type="number" step="0.01"
-                                        class="block w-full pr-12" :value="old('t_tekukan')" required placeholder="0.00" />
-                                    <div
-                                        class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3 text-sm text-gray-400">
-                                        mm
-                                    </div>
-                                </div>
-                                <x-input-error class="mt-2" :messages="$errors->get('t_tekukan')" />
-                            </div>
-                            <div>
-                                <x-input-label for="sudut" :value="__('Sudut')" />
-                                <div class="relative mt-1">
-                                    <x-text-input id="sudut" name="sudut" type="number" step="0.01"
-                                        class="block w-full pr-12" :value="old('sudut')" required placeholder="0.00" />
-                                    <div
-                                        class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3 text-sm text-gray-400">
-                                        mm
-                                    </div>
-                                </div>
-                                <x-input-error class="mt-2" :messages="$errors->get('sudut')" />
-                            </div>
-                            <div>
-                                <x-input-label for="diagonal" :value="__('diagonal')" />
-                                <div class="relative mt-1">
-                                    <x-text-input id="diagonal" name="diagonal" type="number" step="0.01"
-                                        class="block w-full pr-12" :value="old('diagonal')" required placeholder="0.00" />
-                                    <div
-                                        class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3 text-sm text-gray-400">
-                                        mm
-                                    </div>
-                                </div>
-                                <x-input-error class="mt-2" :messages="$errors->get('diagonal')" />
+                                <x-input-error class="mt-2" :messages="$errors->get('l_potong')" />
                             </div>
 
                             <div>
-                                <x-input-label for="matchingcrosswire" :value="__('Matching crosswire')" />
+                                <x-input-label for="mesh1" :value="__('Mesh 1')" />
                                 <div class="relative mt-1">
-                                    <select id="matchingcrosswire" name="matchingcrosswire"
+                                    <x-text-input id="mesh1" name="mesh1" type="number" step="0.01"
+                                        class="block w-full pr-12" :value="old('mesh1')" required placeholder="0.00" />
+                                    <div
+                                        class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3 text-sm text-gray-400">
+                                        mm
+                                    </div>
+                                </div>
+                                <x-input-error class="mt-2" :messages="$errors->get('mesh1')" />
+                            </div>
+                            <div>
+                                <x-input-label for="mesh2" :value="__('Mesh 2')" />
+                                <div class="relative mt-1">
+                                    <x-text-input id="mesh2" name="mesh2" type="number" step="0.01"
+                                        class="block w-full pr-12" :value="old('mesh2')" required placeholder="0.00" />
+                                    <div
+                                        class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3 text-sm text-gray-400">
+                                        mm
+                                    </div>
+                                </div>
+                                <x-input-error class="mt-2" :messages="$errors->get('mesh2')" />
+                            </div>
+
+                            <div>
+                                <x-input-label for="type" :value="__('Type')" />
+                                <div class="relative mt-1">
+                                    <select id="type" name="type"
                                         class="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
-                                        <option value="OK"
-                                            {{ old('matchingcrosswire') == 'OK' ? 'selected' : '' }}>OK
+                                        <option value="Galvanized" {{ old('type') == 'Galvanized' ? 'selected' : '' }}>
+                                            Galvanized
                                         </option>
-                                        <option value="NG"
-                                            {{ old('matchingcrosswire') == 'NG' ? 'selected' : '' }}>NG
+                                        <option value="PVC" {{ old('type') == 'PVC' ? 'selected' : '' }}>
+                                            PVC
                                         </option>
                                     </select>
                                 </div>
-                                <x-input-error class="mt-2" :messages="$errors->get('matchingcrosswire')" />
+                                <x-input-error class="mt-2" :messages="$errors->get('type')" />
                             </div>
-
 
                             <div>
                                 <x-input-label for="visual" :value="__('Visual')" />
@@ -278,7 +254,7 @@
                         </div>
 
                         <div class="flex items-center justify-end gap-4 border-t border-gray-100 pt-6">
-                            <a href="{{ route('inspeksi_bending.show', $inspeksi_bending->id) }}"
+                            <a href="{{ route('inspeksi_shearing.show', $inspeksi_shearing->id) }}"
                                 class="inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-xs font-semibold uppercase tracking-widest text-gray-700 shadow-sm transition duration-150 ease-in-out hover:bg-gray-50">
                                 {{ __('Batal') }}
                             </a>
