@@ -113,7 +113,26 @@ class InspeksiChainlinkController extends Controller
             'satuan' => 'required|string',
         ]);
 
-        $inspeksiChainlink->update($request->all());
+        $today = now()->format('Ymd');
+        $lastInspeksi = \App\Models\InspeksiChainlink::whereDate('created_at', now())
+            ->orderBy('id', 'desc')
+            ->first();
+
+        if ($lastInspeksi) {
+            // Ambil 3 digit terakhir dari nomor_inspeksi terakhir, lalu tambahkan 1
+            $lastNumber = (int) substr($lastInspeksi->nomor_inspeksi, -3);
+            $nextNumber = str_pad($lastNumber + 1, 3, '0', STR_PAD_LEFT);
+        } else {
+            $nextNumber = '001';
+        }
+
+        $fixNomorInspeksi = "INSP-CL-" . $today . "-" . $nextNumber;
+
+        // 3. Masukkan nomor yang sudah pasti aman dan unik ke dalam array data validasi
+        $validated['nomor_inspeksi'] = $fixNomorInspeksi;
+
+        // 4. Simpan ke database
+        InspeksiChainlink::create($validated);
 
         return redirect()->route('inspeksi_chainlink.index')->with('success', 'Data berhasil diperbarui.');
     }
