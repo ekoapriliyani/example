@@ -33,19 +33,27 @@ class InspeksiChainlinkController extends Controller
      */
     public function create()
     {
+        // 1. Ambil format Tahun dan Bulan saat ini (Contoh: 202606)
         $tahunBulan = Carbon::now()->format('Ym');
-        $lastRecord = InspeksiChainlink::where('nomor_inspeksi', 'like', "INSCL{$tahunBulan}%")
-            ->orderBy('nomor_inspeksi', 'desc')
+        $prefix = "INSCL{$tahunBulan}";
+
+        // 2. PERBAIKAN: Urutkan berdasarkan 'id' desc agar mendapatkan rekor TERAKHIR yang benar-benar masuk database
+        $lastRecord = InspeksiChainlink::where('nomor_inspeksi', 'like', "{$prefix}%")
+            ->orderBy('id', 'desc')
             ->first();
 
         $nextNumber = 1;
         if ($lastRecord) {
-            $lastNumberStr = str_replace("INSCL{$tahunBulan}", '', $lastRecord->nomor_inspeksi);
+            // Ambil string nomor aslinya, buang prefix-nya
+            $lastNumberStr = str_replace($prefix, '', $lastRecord->nomor_inspeksi);
             $nextNumber = (int) $lastNumberStr + 1;
         }
 
-        $nextNomor = "INSCL{$tahunBulan}{$nextNumber}";
+        // 3. PERBAIKAN: Gunakan str_pad agar nomor urut konsisten memiliki panjang 3 digit (001, 002, dst)
+        $paddedNumber = str_pad($nextNumber, 3, '0', STR_PAD_LEFT);
+        $nextNomor = "{$prefix}{$paddedNumber}"; // Hasil: INSCL202606001
 
+        // 4. Ambil data mesin dan PRO
         $mesins = Mesin::orderBy('nama_mesin')->get();
         $pros = Pro::orderByDesc('pro_id')->get();
 
