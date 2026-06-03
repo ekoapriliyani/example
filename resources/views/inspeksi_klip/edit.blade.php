@@ -54,7 +54,7 @@
                                 :value="old('description', optional($inspeksi_klip->pro)->description)" readonly />
                         </div>
 
-                        <div>
+                        {{-- <div>
                             <x-input-label for="product_razor_ref_id" :value="__('Product Razor')" />
                             <select id="product_razor_ref_id" name="product_razor_ref_id"
                                 class="mt-1 block w-full rounded-md border-gray-300 shadow-sm" required>
@@ -69,7 +69,7 @@
                                 @endforeach
                             </select>
                             <x-input-error class="mt-2" :messages="$errors->get('product_razor_ref_id')" />
-                        </div>
+                        </div> --}}
 
                         <div>
                             <x-input-label for="shift" :value="__('Shift')" />
