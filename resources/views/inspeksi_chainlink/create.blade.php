@@ -15,6 +15,17 @@
                         </p>
                     </div>
 
+                    @if ($errors->any())
+                        <div class="mb-6 p-4 bg-red-50 border-l-4 border-red-500 text-red-700 rounded shadow-sm">
+                            <p class="font-bold mb-2">Simpan data gagal. Selesaikan error berikut:</p>
+                            <ul class="list-disc list-inside text-sm space-y-1">
+                                @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    @endif
+
                     <form action="{{ route('inspeksi_chainlink.store') }}" method="POST" class="space-y-6">
                         @csrf
 
@@ -23,12 +34,14 @@
                             <x-text-input id="nomor_inspeksi" name="nomor_inspeksi" type="text"
                                 class="mt-1 block w-full bg-gray-100" value="{{ $nextNomor }}" readonly />
                         </div>
+
                         <div>
                             <x-input-label for="tanggal" :value="__('Tanggal')" />
                             <x-text-input id="tanggal" name="tanggal" type="date" class="mt-1 block w-full"
                                 value="{{ old('tanggal', now()->format('Y-m-d')) }}" required />
                             <x-input-error class="mt-2" :messages="$errors->get('tanggal')" />
                         </div>
+
                         <div>
                             <x-input-label for="pro_id" :value="__('PRO Number')" />
                             <select id="pro_id" name="pro_id"
@@ -61,12 +74,9 @@
                             <select id="shift" name="shift"
                                 class="mt-1 block w-full border-gray-300 rounded-md shadow-sm" required>
                                 <option value="">-- Pilih Shift --</option>
-                                <option value="1" {{ old('shift') == '1' ? 'selected' : '' }}>Shift 1
-                                </option>
-                                <option value="2" {{ old('shift') == '2' ? 'selected' : '' }}>Shift 2
-                                </option>
-                                <option value="3" {{ old('shift') == '3' ? 'selected' : '' }}>Shift 3
-                                </option>
+                                <option value="1" {{ old('shift') == '1' ? 'selected' : '' }}>Shift 1</option>
+                                <option value="2" {{ old('shift') == '2' ? 'selected' : '' }}>Shift 2</option>
+                                <option value="3" {{ old('shift') == '3' ? 'selected' : '' }}>Shift 3</option>
                             </select>
                             <x-input-error class="mt-2" :messages="$errors->get('shift')" />
                         </div>
@@ -74,25 +84,28 @@
                         <div>
                             <x-input-label for="jml_lubang_p" :value="__('Panjang - Jumlah Lubang/m')" />
                             <x-text-input id="jml_lubang_p" name="jml_lubang_p" type="number" step="0.01"
-                                class="mt-1 block w-full" value="{{ old('jml_lubang_p') }}" />
+                                class="mt-1 block w-full" value="{{ old('jml_lubang_p') }}" required />
                             <x-input-error class="mt-2" :messages="$errors->get('jml_lubang_p')" />
                         </div>
+
                         <div>
                             <x-input-label for="jml_counter" :value="__('Jumlah Counter')" />
                             <x-text-input id="jml_counter" name="jml_counter" type="number" step="0.01"
-                                class="mt-1 block w-full" value="{{ old('jml_counter') }}" />
+                                class="mt-1 block w-full" value="{{ old('jml_counter') }}" required />
                             <x-input-error class="mt-2" :messages="$errors->get('jml_counter')" />
                         </div>
+
                         <div>
                             <x-input-label for="jml_lubang_l" :value="__('Lebar - Jumlah Lubang')" />
                             <x-text-input id="jml_lubang_l" name="jml_lubang_l" type="number" step="0.01"
-                                class="mt-1 block w-full" value="{{ old('jml_lubang_l') }}" />
+                                class="mt-1 block w-full" value="{{ old('jml_lubang_l') }}" required />
                             <x-input-error class="mt-2" :messages="$errors->get('jml_lubang_l')" />
                         </div>
+
                         <div>
                             <x-input-label for="mesin_id" :value="__('Mesin')" />
                             <select id="mesin_id" name="mesin_id"
-                                class="mt-1 block w-full border-gray-300 rounded-md shadow-sm">
+                                class="mt-1 block w-full border-gray-300 rounded-md shadow-sm" required>
                                 <option value="">-- Pilih Mesin --</option>
                                 @foreach ($mesins as $mesin)
                                     <option value="{{ $mesin->id }}"
@@ -113,15 +126,16 @@
                                 </div>
                                 <div class="w-32">
                                     <select id="satuan" name="satuan"
-                                        class="block w-full border-gray-300 dark:border-gray-700 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-sm">
-                                        <option value="unit" {{ old('satuan') == 'unit' ? 'selected' : '' }}>
-                                            unit</option>
+                                        class="block w-full border-gray-300 dark:border-gray-700 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-sm"
+                                        required>
+                                        <option value="unit" {{ old('satuan') == 'unit' ? 'selected' : '' }}>unit
+                                        </option>
                                         <option value="pcs" {{ old('satuan') == 'pcs' ? 'selected' : '' }}>pcs
                                         </option>
                                         <option value="kg" {{ old('satuan') == 'kg' ? 'selected' : '' }}>kg
                                         </option>
-                                        <option value="roll" {{ old('satuan') == 'roll' ? 'selected' : '' }}>
-                                            roll</option>
+                                        <option value="roll" {{ old('satuan') == 'roll' ? 'selected' : '' }}>roll
+                                        </option>
                                         <option value="lembar" {{ old('satuan') == 'lembar' ? 'selected' : '' }}>
                                             lembar</option>
                                         <option value="ton" {{ old('satuan') == 'ton' ? 'selected' : '' }}>ton
@@ -129,7 +143,6 @@
                                     </select>
                                 </div>
                             </div>
-
                             <x-input-error class="mt-2" :messages="$errors->get('total_prod')" />
                             <x-input-error class="mt-2" :messages="$errors->get('satuan')" />
                         </div>
@@ -151,7 +164,6 @@
     </div>
 
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
-
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 
