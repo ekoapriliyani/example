@@ -131,7 +131,7 @@
                                     class="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
                                     <option value="">Pilih Jenis Kawat</option>
 
-                                    @foreach (['LG', 'HG', 'ULTRA', 'BLACK WIRE', 'BEZILUM'] as $jk)
+                                    @foreach (['LG', 'HG', 'ULTRA', 'BLACK WIRE', 'BEZILUM', 'EP'] as $jk)
                                         <option value="{{ $jk }}"
                                             {{ old('jenis_kawat', $data->jenis_kawat) == $jk ? 'selected' : '' }}>
                                             {{ $jk }}
