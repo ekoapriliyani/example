@@ -34,19 +34,27 @@ class InspeksiWmController extends Controller
      */
     public function create()
     {
+        // 1. Ambil format Tahun dan Bulan saat ini (Contoh: 202606)
         $tahunBulan = Carbon::now()->format('Ym');
-        $lastRecord = InspeksiWm::where('nomor_inspeksi', 'like', "INSWM{$tahunBulan}%")
-            ->orderBy('nomor_inspeksi', 'desc')
+        $prefix = "INSWM{$tahunBulan}";
+
+        // 2. PERBAIKAN: Urutkan berdasarkan 'id' desc agar mendapatkan rekor TERAKHIR yang valid
+        $lastRecord = InspeksiWm::where('nomor_inspeksi', 'like', "{$prefix}%")
+            ->orderBy('id', 'desc')
             ->first();
 
         $nextNumber = 1;
         if ($lastRecord) {
-            $lastNumberStr = str_replace("INSWM{$tahunBulan}", '', $lastRecord->nomor_inspeksi);
+            // Ambil string nomor aslinya, buang prefix-nya
+            $lastNumberStr = str_replace($prefix, '', $lastRecord->nomor_inspeksi);
             $nextNumber = (int) $lastNumberStr + 1;
         }
 
-        $nextNomor = "INSWM{$tahunBulan}{$nextNumber}";
+        // 3. PERBAIKAN: Gunakan str_pad agar nomor urut konsisten memiliki panjang 3 digit (001, 002, dst)
+        $paddedNumber = str_pad($nextNumber, 3, '0', STR_PAD_LEFT);
+        $nextNomor = "{$prefix}{$paddedNumber}"; // Hasil: INSWM202606001
 
+        // 4. Ambil data mesin dan PRO
         $mesins = Mesin::orderBy('nama_mesin')->get();
         $pros = Pro::orderByDesc('pro_id')->get();
 
@@ -69,37 +77,34 @@ class InspeksiWmController extends Controller
             'satuan' => 'required',
         ]);
 
-        $tanggalInput = Carbon::now();
-        $tahunBulan = $tanggalInput->format('Ym');
+        // 1. Generate ulang nomor inspeksi tepat sebelum menyimpan demi menghindari duplikasi data
+        $tahunBulan = Carbon::now()->format('Ym');
+        $prefix = "INSWM{$tahunBulan}";
 
-        $lastRecord = InspeksiWm::where('nomor_inspeksi', 'like', "INSWM{$tahunBulan}%")
-            ->orderBy('nomor_inspeksi', 'desc')
+        $lastRecord = InspeksiWm::where('nomor_inspeksi', 'like', "{$prefix}%")
+            ->orderBy('id', 'desc')
             ->first();
 
-        if (! $lastRecord) {
-            $nextNumber = 1;
-        } else {
-            $lastNumberStr = str_replace("INSWM{$tahunBulan}", '', $lastRecord->nomor_inspeksi);
+        $nextNumber = 1;
+        if ($lastRecord) {
+            $lastNumberStr = str_replace($prefix, '', $lastRecord->nomor_inspeksi);
             $nextNumber = (int) $lastNumberStr + 1;
         }
 
-        $nomorOtomatis = "INSWM{$tahunBulan}{$nextNumber}";
+        $paddedNumber = str_pad($nextNumber, 3, '0', STR_PAD_LEFT);
+        $fixNomorInspeksi = "{$prefix}{$paddedNumber}";
 
-        InspeksiWm::create([
-            'nomor_inspeksi' => $nomorOtomatis,
-            'tanggal' => $validated['tanggal'],
-            'pro_id' => $validated['pro_id'], // ini FK ke pros.id
-            'shift' => $validated['shift'],
-            'grade' => $validated['grade'],
-            'type_coating' => $validated['type_coating'],
-            'mesin_id' => $validated['mesin_id'] ?? null,
-            'total_prod' => $validated['total_prod'] ?? null,
-            'satuan' => $validated['satuan'] ?? null,
-        ]);
+        // 2. Masukkan nomor yang sudah pasti aman dan sinkron ke array data
+        $validated['nomor_inspeksi'] = $fixNomorInspeksi;
+        $validated['mesin_id'] = $validated['mesin_id'] ?? null;
+        $validated['total_prod'] = $validated['total_prod'] ?? null;
+
+        // 3. Simpan ke database menggunakan data yang sudah tervalidasi
+        InspeksiWm::create($validated);
 
         return redirect()
             ->route('inspeksi_wm.index')
-            ->with('success', "Inspeksi {$nomorOtomatis} berhasil disimpan");
+            ->with('success', "Inspeksi {$fixNomorInspeksi} berhasil disimpan");
     }
 
     /**
