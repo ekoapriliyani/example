@@ -33,19 +33,27 @@ class InspeksiKawatDuriController extends Controller
      */
     public function create()
     {
+        // 1. Ambil format Tahun dan Bulan saat ini (Contoh: 202606)
         $tahunBulan = Carbon::now()->format('Ym');
-        $lastRecord = InspeksiKawatDuri::where('nomor_inspeksi', 'like', "INSKD{$tahunBulan}%")
-            ->orderBy('nomor_inspeksi', 'desc')
+        $prefix = "INSKD{$tahunBulan}";
+
+        // 2. PERBAIKAN: Urutkan berdasarkan 'id' desc agar mendapatkan rekor TERAKHIR yang valid
+        $lastRecord = InspeksiKawatDuri::where('nomor_inspeksi', 'like', "{$prefix}%")
+            ->orderBy('id', 'desc')
             ->first();
 
         $nextNumber = 1;
         if ($lastRecord) {
-            $lastNumberStr = str_replace("INSKD{$tahunBulan}", '', $lastRecord->nomor_inspeksi);
+            // Ambil string nomor aslinya, buang prefix-nya
+            $lastNumberStr = str_replace($prefix, '', $lastRecord->nomor_inspeksi);
             $nextNumber = (int) $lastNumberStr + 1;
         }
 
-        $nextNomor = "INSKD{$tahunBulan}{$nextNumber}";
+        // 3. PERBAIKAN: Gunakan str_pad agar nomor urut konsisten memiliki panjang 3 digit (001, 002, dst)
+        $paddedNumber = str_pad($nextNumber, 3, '0', STR_PAD_LEFT);
+        $nextNomor = "{$prefix}{$paddedNumber}"; // Hasil: INSKD202606001
 
+        // 4. Ambil data mesin dan PRO
         $mesins = Mesin::orderBy('nama_mesin')->get();
         $pros = Pro::orderByDesc('pro_id')->get();
 
@@ -57,8 +65,9 @@ class InspeksiKawatDuriController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'nomor_inspeksi' => 'required|unique:inspeksi_kawat_duris,nomor_inspeksi',
+        // 1. Ambil data tervalidasi ke dalam variabel
+        $validated = $request->validate([
+            'nomor_inspeksi' => 'required', // Lepas unique rule di sini karena nomor di-generate ulang di backend agar aman
             'tanggal' => 'required|date',
             'pro_id' => 'required|exists:pros,id',
             'shift' => 'required|string',
@@ -69,11 +78,36 @@ class InspeksiKawatDuriController extends Controller
             'satuan' => 'required|string',
         ]);
 
-        InspeksiKawatDuri::create($request->all());
+        // 2. Generate ulang nomor inspeksi tepat sebelum menyimpan demi menghindari duplikasi data
+        $tahunBulan = Carbon::now()->format('Ym');
+        $prefix = "INSKD{$tahunBulan}";
 
-        return redirect()->route('inspeksi_kawat_duri.index')->with('success', 'Data berhasil disimpan.');
+        $lastRecord = InspeksiKawatDuri::where('nomor_inspeksi', 'like', "{$prefix}%")
+            ->orderBy('id', 'desc')
+            ->first();
+
+        $nextNumber = 1;
+        if ($lastRecord) {
+            $lastNumberStr = str_replace($prefix, '', $lastRecord->nomor_inspeksi);
+            $nextNumber = (int) $lastNumberStr + 1;
+        }
+
+        $paddedNumber = str_pad($nextNumber, 3, '0', STR_PAD_LEFT);
+        $fixNomorInspeksi = "{$prefix}{$paddedNumber}";
+
+        // 3. Masukkan nomor yang sudah pasti aman dan sinkron ke array data
+        $validated['nomor_inspeksi'] = $fixNomorInspeksi;
+
+        // 4. Pastikan data nullable terisi default null jika kosong
+        $validated['mesin_id'] = $validated['mesin_id'] ?? null;
+        $validated['warna'] = $validated['warna'] ?? null;
+        $validated['total_prod'] = $validated['total_prod'] ?? null;
+
+        // 5. Simpan menggunakan data yang sudah tervalidasi (Lebih aman dibanding $request->all())
+        InspeksiKawatDuri::create($validated);
+
+        return redirect()->route('inspeksi_kawat_duri.index')->with('success', "Data inspeksi {$fixNomorInspeksi} berhasil disimpan.");
     }
-
     /**
      * Display the specified resource.
      */
