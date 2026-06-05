@@ -146,9 +146,12 @@ class InspeksiShearingController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(InspeksiShearing $inspeksiShearing)
     {
-        //
+        $inspeksiShearing->delete();
+        return redirect()
+            ->route('inspeksi_shearing.index')
+            ->with('success', "Inspeksi {$inspeksiShearing->nomor_inspeksi} berhasil dihapus");
     }
 
     public function toggleApproval($id)
