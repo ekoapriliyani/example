@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Edit Inspeksi Chainlink') }}
+            {{ __('Tambah Inspeksi Baru') }}
         </h2>
     </x-slot>
 
@@ -11,30 +11,24 @@
                 <div class="p-8 text-gray-900">
                     <div class="mb-6">
                         <p class="text-sm text-gray-600">
-                            Silakan ubah detail operasional inspeksi QC Chainlink.
+                            Silakan masukkan detail operasional untuk pencatatan inspeksi QC baru.
                         </p>
                     </div>
 
-                    <form action="{{ route('inspeksi_chainlink.update', $inspeksiChainlink->id) }}" method="POST"
-                        class="space-y-6">
+                    <form action="{{ route('inspeksi_gabionframe.store') }}" method="POST" class="space-y-6">
                         @csrf
-                        @method('PUT')
 
                         <div>
-                            <x-input-label for="nomor_inspeksi" :value="__('Nomor Inspeksi')" />
+                            <x-input-label for="nomor_inspeksi" :value="__('Nomor Inspeksi (Otomatis)')" />
                             <x-text-input id="nomor_inspeksi" name="nomor_inspeksi" type="text"
-                                class="mt-1 block w-full bg-gray-100"
-                                value="{{ old('nomor_inspeksi', $inspeksiChainlink->nomor_inspeksi) }}" readonly />
-                            <x-input-error class="mt-2" :messages="$errors->get('nomor_inspeksi')" />
+                                class="mt-1 block w-full bg-gray-100" value="{{ $nextNomor }}" readonly />
                         </div>
-
                         <div>
                             <x-input-label for="tanggal" :value="__('Tanggal')" />
                             <x-text-input id="tanggal" name="tanggal" type="date" class="mt-1 block w-full"
-                                value="{{ old('tanggal', $inspeksiChainlink->tanggal) }}" required />
+                                value="{{ old('tanggal', now()->format('Y-m-d')) }}" required />
                             <x-input-error class="mt-2" :messages="$errors->get('tanggal')" />
                         </div>
-
                         <div>
                             <x-input-label for="pro_id" :value="__('PRO Number')" />
                             <select id="pro_id" name="pro_id"
@@ -42,14 +36,13 @@
                                 <option value="">-- Pilih PRO --</option>
                                 @foreach ($pros as $pro)
                                     <option value="{{ $pro->id }}"
-                                        {{ old('pro_id', $inspeksiChainlink->pro_id) == $pro->id ? 'selected' : '' }}>
+                                        {{ old('pro_id') == $pro->id ? 'selected' : '' }}>
                                         {{ $pro->pro_id }} - {{ $pro->description }}
                                     </option>
                                 @endforeach
                             </select>
                             <x-input-error class="mt-2" :messages="$errors->get('pro_id')" />
                         </div>
-
                         <div>
                             <x-input-label for="pro_description" :value="__('Description')" />
                             <x-text-input id="pro_description" type="text" class="mt-1 block w-full bg-gray-100"
@@ -67,17 +60,11 @@
                             <select id="shift" name="shift"
                                 class="mt-1 block w-full border-gray-300 rounded-md shadow-sm" required>
                                 <option value="">-- Pilih Shift --</option>
-                                <option value="1"
-                                    {{ old('shift', $inspeksiChainlink->shift) == '1' ? 'selected' : '' }}>
-                                    Shift 1
+                                <option value="1" {{ old('shift') == '1' ? 'selected' : '' }}>Shift 1
                                 </option>
-                                <option value="2"
-                                    {{ old('shift', $inspeksiChainlink->shift) == '2' ? 'selected' : '' }}>
-                                    Shift 2
+                                <option value="2" {{ old('shift') == '2' ? 'selected' : '' }}>Shift 2
                                 </option>
-                                <option value="3"
-                                    {{ old('shift', $inspeksiChainlink->shift) == '3' ? 'selected' : '' }}>
-                                    Shift 3
+                                <option value="3" {{ old('shift') == '3' ? 'selected' : '' }}>Shift 3
                                 </option>
                             </select>
                             <x-input-error class="mt-2" :messages="$errors->get('shift')" />
@@ -90,89 +77,51 @@
                                 <option value="">-- Pilih Mesin --</option>
                                 @foreach ($mesins as $mesin)
                                     <option value="{{ $mesin->id }}"
-                                        {{ old('mesin_id', $inspeksiChainlink->mesin_id) == $mesin->id ? 'selected' : '' }}>
+                                        {{ old('mesin_id') == $mesin->id ? 'selected' : '' }}>
                                         {{ $mesin->mesin_id }} - {{ $mesin->nama_mesin }}
                                     </option>
                                 @endforeach
                             </select>
                             <x-input-error class="mt-2" :messages="$errors->get('mesin_id')" />
                         </div>
-
-                        <div>
-                            <x-input-label for="jml_lubang_p" :value="__('Panjang - Jumlah Lubang/m')" />
-                            <x-text-input id="jml_lubang_p" name="jml_lubang_p" type="number" step="0.01"
-                                class="mt-1 block w-full"
-                                value="{{ old('jml_lubang_p', $inspeksiChainlink->jml_lubang_p) }}" />
-                            <x-input-error class="mt-2" :messages="$errors->get('jml_lubang_p')" />
-                        </div>
-
-                        <div>
-                            <x-input-label for="jml_counter" :value="__('Jumlah Counter')" />
-                            <x-text-input id="jml_counter" name="jml_counter" type="number" step="0.01"
-                                class="mt-1 block w-full"
-                                value="{{ old('jml_counter', $inspeksiChainlink->jml_counter) }}" />
-                            <x-input-error class="mt-2" :messages="$errors->get('jml_counter')" />
-                        </div>
-
-                        <div>
-                            <x-input-label for="jml_lubang_l" :value="__('Lebar - Jumlah Lubang')" />
-                            <x-text-input id="jml_lubang_l" name="jml_lubang_l" type="number" step="0.01"
-                                class="mt-1 block w-full"
-                                value="{{ old('jml_lubang_l', $inspeksiChainlink->jml_lubang_l) }}" />
-                            <x-input-error class="mt-2" :messages="$errors->get('jml_lubang_l')" />
-                        </div>
-
                         <div>
                             <x-input-label for="total_prod" :value="__('Total Produksi (diisi diakhir shift)')" class="text-red-600 italic" />
                             <div class="flex items-center space-x-2 mt-1">
                                 <div class="relative flex-1">
                                     <x-text-input id="total_prod" name="total_prod" type="number" step="0.01"
-                                        class="block w-full"
-                                        value="{{ old('total_prod', $inspeksiChainlink->total_prod) }}"
-                                        placeholder="0.00" />
+                                        class="block w-full" value="{{ old('total_prod') }}" placeholder="0.00" />
                                 </div>
                                 <div class="w-32">
                                     <select id="satuan" name="satuan"
                                         class="block w-full border-gray-300 dark:border-gray-700 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-sm">
-                                        <option value="unit"
-                                            {{ old('satuan', $inspeksiChainlink->satuan) == 'unit' ? 'selected' : '' }}>
-                                            unit
+                                        <option value="unit" {{ old('satuan') == 'unit' ? 'selected' : '' }}>
+                                            unit</option>
+                                        <option value="pcs" {{ old('satuan') == 'pcs' ? 'selected' : '' }}>pcs
                                         </option>
-                                        <option value="pcs"
-                                            {{ old('satuan', $inspeksiChainlink->satuan) == 'pcs' ? 'selected' : '' }}>
-                                            pcs
+                                        <option value="kg" {{ old('satuan') == 'kg' ? 'selected' : '' }}>kg
                                         </option>
-                                        <option value="kg"
-                                            {{ old('satuan', $inspeksiChainlink->satuan) == 'kg' ? 'selected' : '' }}>
-                                            kg
-                                        </option>
-                                        <option value="roll"
-                                            {{ old('satuan', $inspeksiChainlink->satuan) == 'roll' ? 'selected' : '' }}>
-                                            roll
-                                        </option>
-                                        <option value="lembar"
-                                            {{ old('satuan', $inspeksiChainlink->satuan) == 'lembar' ? 'selected' : '' }}>
-                                            lembar
-                                        </option>
-                                        <option value="ton"
-                                            {{ old('satuan', $inspeksiChainlink->satuan) == 'ton' ? 'selected' : '' }}>
-                                            ton
+                                        <option value="roll" {{ old('satuan') == 'roll' ? 'selected' : '' }}>
+                                            roll</option>
+                                        <option value="lembar" {{ old('satuan') == 'lembar' ? 'selected' : '' }}>
+                                            lembar</option>
+                                        <option value="ton" {{ old('satuan') == 'ton' ? 'selected' : '' }}>ton
                                         </option>
                                     </select>
                                 </div>
                             </div>
+
                             <x-input-error class="mt-2" :messages="$errors->get('total_prod')" />
                             <x-input-error class="mt-2" :messages="$errors->get('satuan')" />
                         </div>
 
                         <div class="flex items-center justify-end gap-4 pt-4 border-t border-gray-100">
-                            <a href="{{ route('inspeksi_chainlink.index') }}"
-                                class="inline-flex items-center px-4 py-2 bg-white border border-gray-300 rounded-md font-semibold text-xs text-gray-700 uppercase tracking-widest shadow-sm hover:bg-gray-50">
+                            <a href="{{ route('inspeksi_gabionframe.index') }}"
+                                class="inline-flex items-center px-4 py-2 bg-white border border-gray-300 rounded-md font-semibold text-xs text-gray-700 uppercase tracking-widest shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 disabled:opacity-25 transition ease-in-out duration-150">
                                 {{ __('Batal') }}
                             </a>
 
                             <x-primary-button>
-                                {{ __('Update Inspeksi') }}
+                                {{ __('Simpan Inspeksi') }}
                             </x-primary-button>
                         </div>
                     </form>
@@ -194,6 +143,12 @@
                 width: '100%'
             });
 
+            // $('#product_fencing_ref_id').select2({
+            //     placeholder: '-- Pilih Product Fencing --',
+            //     allowClear: true,
+            //     width: '100%'
+            // });
+
             $('#mesin_id').select2({
                 placeholder: '-- Pilih Mesin --',
                 allowClear: true,
@@ -211,11 +166,6 @@
 
                 try {
                     const response = await fetch(`/pro/${proId}/detail`);
-
-                    if (!response.ok) {
-                        throw new Error('HTTP error ' + response.status);
-                    }
-
                     const data = await response.json();
 
                     descriptionInput.value = data.description ?? '';
@@ -229,11 +179,9 @@
                 loadProDetail($(this).val());
             });
 
-            const selectedProId = $('#pro_id').val();
-
-            if (selectedProId) {
-                loadProDetail(selectedProId);
-            }
+            @if (old('pro_id'))
+                loadProDetail("{{ old('pro_id') }}");
+            @endif
         });
     </script>
 </x-app-layout>

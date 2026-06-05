@@ -13,6 +13,7 @@ use App\Http\Controllers\InspeksiCtWipController;
 use App\Http\Controllers\InspeksiFencingController;
 use App\Http\Controllers\InspeksiFencingFgController;
 use App\Http\Controllers\InspeksiFencingWipController;
+use App\Http\Controllers\InspeksiGabionframeController;
 use App\Http\Controllers\InspeksiKawatDuriController;
 use App\Http\Controllers\InspeksiKawatDuriFgController;
 use App\Http\Controllers\InspeksiKawatDuriWipController;
@@ -121,6 +122,7 @@ Route::middleware(['auth'])->group(function () {
         'inspeksi_fencing'   => InspeksiFencingController::class,
         'inspeksi_wf'   => InspeksiWfController::class,
         'inspeksi_shearing'   => InspeksiShearingController::class,
+        'inspeksi_gabionframe'   => InspeksiGabionframeController::class,
         'inspeksi_kawat_duri' => InspeksiKawatDuriController::class,
         'inspeksi_pvc' => InspeksiPvcController::class,
         'inspeksi_chainlink' => InspeksiChainlinkController::class,
@@ -337,6 +339,29 @@ Route::middleware(['auth'])->group(function () {
 
     Route::delete('insepeksi_shearing/fg/{fg}', [InspeksiShearingFgController::class, 'destroy'])
         ->name('inspeksi_shearing_fg.destroy');
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Gabionframe
+    |--------------------------------------------------------------------------
+    */
+
+    // WIP
+    Route::get('/inspeksi_gabionframe/{inspeksi_gabionframe}/wip', [InspeksiGabionframeWipController::class, 'create'])
+        ->name('inspeksi_gabionframe.wip');
+
+    Route::post('/inspeksi_gabionframe/wip', [InspeksiGabionframeWipController::class, 'store'])
+        ->name('inspeksi_gabionframe_wip.store');
+
+    Route::get('insepeksi_gabionframe/wip/{wip}/edit', [InspeksiGabionframeWipController::class, 'edit'])
+        ->name('inspeksi_gabionframe_wip.edit');
+
+    Route::put('insepeksi_gabionframe/wip/{wip}', [InspeksiGabionframeWipController::class, 'update'])
+        ->name('inspeksi_gabionframe_wip.update');
+
+    Route::delete('insepeksi_gabionframe/wip/{wip}', [InspeksiGabionframeWipController::class, 'destroy'])
+        ->name('inspeksi_gabionframe_wip.destroy');
 
 
 

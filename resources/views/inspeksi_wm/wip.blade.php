@@ -230,10 +230,8 @@
                                 <x-input-error class="mt-2" :messages="$errors->get('weight')" />
                             </div>
                         </div>
-
                         <div class="md:col-span-2 border-t border-gray-200 pt-6">
                             <h3 class="font-semibold text-gray-700 mb-4">Detail Inspeksi</h3>
-
                             <div id="detail-wrapper" class="space-y-4">
                                 <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
                                     <div>
