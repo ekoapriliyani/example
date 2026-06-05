@@ -132,7 +132,7 @@
 
                         <div>
                             <x-input-label for="mesin_id" :value="__('Mesin')" />
-                            <select id="mesin_id" name="mesin_id"
+                            <select id="mesin_id" name="mesin_id" required
                                 class="mt-1 block w-full border-gray-300 rounded-md shadow-sm">
                                 <option value="">-- Pilih Mesin --</option>
                                 @foreach ($mesins as $mesin)
