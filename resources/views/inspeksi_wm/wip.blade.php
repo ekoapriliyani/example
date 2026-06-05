@@ -39,12 +39,37 @@
                         <input type="hidden" name="user_id" value="{{ auth()->id() }}">
 
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            {{-- KOLOM NOMOR MATERIAL + SCANNER BARCODE --}}
                             <div>
                                 <x-input-label for="no_material" :value="__('Nomor Material')" />
-                                <x-text-input id="no_material" name="no_material" type="number"
-                                    class="mt-1 block w-full" :value="old('no_material')" required
-                                    placeholder="Masukkan kode material" />
+                                <div class="flex gap-2 mt-1">
+                                    <x-text-input id="no_material" name="no_material" type="text"
+                                        class="block w-full" :value="old('no_material')" required
+                                        placeholder="Masukkan atau scan kode" />
+
+                                    <button type="button" id="btn-scan"
+                                        class="inline-flex items-center px-3 py-2 bg-indigo-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-indigo-700 active:bg-indigo-900 focus:outline-none focus:border-indigo-900 focus:ring ring-indigo-300 disabled:opacity-25 transition ease-in-out duration-150">
+                                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                                            xmlns="http://www.w3.org/2000/svg">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                d="M12 4v1m6 11h2m-6 0h-2v4m0-11v3m0 0h.01M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z">
+                                            </path>
+                                        </svg>
+                                        <span class="ml-1 hidden sm:inline">Scan</span>
+                                    </button>
+                                </div>
                                 <x-input-error class="mt-2" :messages="$errors->get('no_material')" />
+
+                                {{-- LAYOUT VIEWPORT KAMERA SCANNER --}}
+                                <div id="scanner-container" class="mt-4 hidden p-4 bg-gray-50 border rounded-lg">
+                                    <div class="flex justify-between items-center mb-2">
+                                        <span class="text-sm font-semibold text-gray-700">Kamera Scanner Aktif</span>
+                                        <button type="button" id="btn-close-scanner"
+                                            class="text-xs text-red-600 hover:underline">Tutup Kamera</button>
+                                    </div>
+                                    <div id="reader" class="w-full mx-auto overflow-hidden rounded-md"
+                                        style="max-width: 400px;"></div>
+                                </div>
                             </div>
 
                             <div>
@@ -102,8 +127,9 @@
                             <div>
                                 <x-input-label for="l_product_act" :value="__('Lebar Produk (Actual)')" />
                                 <div class="relative mt-1">
-                                    <x-text-input id="l_product_act" name="l_product_act" type="number" step="1"
-                                        class="block w-full pr-12" :value="old('l_product_act')" required placeholder="0.00" />
+                                    <x-text-input id="l_product_act" name="l_product_act" type="number"
+                                        step="1" class="block w-full pr-12" :value="old('l_product_act')" required
+                                        placeholder="0.00" />
                                     <div
                                         class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none text-gray-400 text-sm">
                                         mm
@@ -279,8 +305,7 @@
                                 <input id="files" name="files[]" type="file"
                                     class="mt-1 block w-full border-gray-300 rounded-md shadow-sm" multiple
                                     accept="image/*,.pdf,.doc,.docx,.xls,.xlsx">
-                                {{-- <x-input-error class="mt-2" :messages="$errors->get('files')" />
-                                <x-input-error class="mt-2" :messages="$errors->get('files.*')" /> --}}
+
                                 @error('files')
                                     <div class="text-red-500 text-sm mt-2">{{ $message }}</div>
                                 @enderror
@@ -308,64 +333,139 @@
         </div>
     </div>
 
+    {{-- SCRIPTS ZONE --}}
+    <script src="https://unpkg.com/html5-qrcode" type="text/javascript"></script>
+
     <script>
+        // --- LOGIK BARCODE SCANNER ---
+        let html5QrcodeScanner = null;
+
+        document.getElementById('btn-scan').addEventListener('click', function() {
+            const container = document.getElementById('scanner-container');
+
+            if (container.classList.contains('hidden')) {
+                container.classList.remove('hidden');
+                startScanner();
+            } else {
+                stopScanner();
+                container.classList.add('hidden');
+            }
+        });
+
+        document.getElementById('btn-close-scanner').addEventListener('click', function() {
+            stopScanner();
+            document.getElementById('scanner-container').classList.add('hidden');
+        });
+
+        function startScanner() {
+            html5QrcodeScanner = new Html5Qrcode("reader");
+
+            const config = {
+                fps: 10,
+                qrbox: {
+                    width: 250,
+                    height: 150
+                } // Menyesuaikan fokus persegi panjang barcode material
+            };
+
+            html5QrcodeScanner.start({
+                    facingMode: "environment"
+                },
+                config,
+                onScanSuccess,
+                onScanFailure
+            ).catch((err) => {
+                alert("Gagal mengakses kamera: " + err);
+                document.getElementById('scanner-container').classList.add('hidden');
+            });
+        }
+
+        function onScanSuccess(decodedText, decodedResult) {
+            document.getElementById('no_material').value = decodedText;
+
+            stopScanner();
+            document.getElementById('scanner-container').classList.add('hidden');
+
+            // Efek visual sukses
+            const inputField = document.getElementById('no_material');
+            inputField.classList.add('border-green-500', 'ring', 'ring-green-200');
+            setTimeout(() => {
+                inputField.classList.remove('border-green-500', 'ring', 'ring-green-200');
+            }, 1500);
+        }
+
+        function onScanFailure(error) {
+            console.warn(`Mencari kode: ${error}`);
+        }
+
+        function stopScanner() {
+            if (html5QrcodeScanner) {
+                html5QrcodeScanner.stop().then(() => {
+                    html5QrcodeScanner = null;
+                }).catch((err) => {
+                    console.error("Gagal mematikan kamera.", err);
+                });
+            }
+        }
+
+        // --- LOGIK DINAMIS TAMBAH FIELD (BAWAAN WIREMESH) ---
         document.getElementById('add-detail').addEventListener('click', function() {
             let wrapper = document.getElementById('detail-wrapper');
             let index = wrapper.children.length;
             let newDetail = `
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-            <div>
-                <label for="detail_description_${index}" class="block text-sm font-medium text-gray-700">Description</label>
-                <select id="detail_description_${index}" name="detail_description[]"
-                    class="mt-1 block w-full border-gray-300 rounded-md shadow-sm">
-                    <option value="">-- Pilih Detail --</option>
-                    <option value="CRACK/PEEL OFF/MENGELUPAS">CRACK/PEEL OFF/MENGELUPAS</option>
-                    <option value="CW/LW PENDEK">CW/LW PENDEK</option>
-                    <option value="DIAGONAL OUT">DIAGONAL OUT</option>
-                    <option value="DIAMETER OUT">DIAMETER OUT</option>
-                    <option value="KARAT">KARAT</option>
-                    <option value="LASAN LEPAS">LASAN LEPAS</option>
-                    <option value="LEBAR OUT">LEBAR OUT</option>
-                    <option value="MESH OUT / TIDAK SIMETRIS">MESH OUT / TIDAK SIMETRIS</option>
-                    <option value="OVERHANG OUT">OVERHANG OUT</option>
-                    <option value="PANJANG OUT">PANJANG OUT</option>
-                    <option value="PATAH/PUTUS">PATAH/PUTUS</option>
-                    <option value="PENYOK/RUSAK">PENYOK/RUSAK</option>
-                    <option value="SALAH TEKUK BENDING">SALAH TEKUK BENDING</option>
-                    <option value="TINGGI OUT">TINGGI OUT</option>
-                    <option value="TRIMING">TRIMING</option>
-                    <option value="WHITE RUST">WHITE RUST</option>
-                </select>
-            </div>
-            <div>
-                <label for="detail_description2_${index}" class="block text-sm font-medium text-gray-700">Description 2</label>
-                <select id="detail_description2_${index}" name="detail_description2[]"
-                    class="mt-1 block w-full border-gray-300 rounded-md shadow-sm">
-                    <option value="">-- Pilih Detail --</option>
-                    <option value="CRACK/PEEL OFF/MENGELUPAS">CRACK/PEEL OFF/MENGELUPAS</option>
-                    <option value="CW/LW PENDEK">CW/LW PENDEK</option>
-                    <option value="DIAGONAL OUT">DIAGONAL OUT</option>
-                    <option value="DIAMETER OUT">DIAMETER OUT</option>
-                    <option value="KARAT">KARAT</option>
-                    <option value="LASAN LEPAS">LASAN LEPAS</option>
-                    <option value="LEBAR OUT">LEBAR OUT</option>
-                    <option value="MESH OUT / TIDAK SIMETRIS">MESH OUT / TIDAK SIMETRIS</option>
-                    <option value="OVERHANG OUT">OVERHANG OUT</option>
-                    <option value="PANJANG OUT">PANJANG OUT</option>
-                    <option value="PATAH/PUTUS">PATAH/PUTUS</option>
-                    <option value="PENYOK/RUSAK">PENYOK/RUSAK</option>
-                    <option value="SALAH TEKUK BENDING">SALAH TEKUK BENDING</option>
-                    <option value="TINGGI OUT">TINGGI OUT</option>
-                    <option value="TRIMING">TRIMING</option>
-                    <option value="WHITE RUST">WHITE RUST</option>
-                </select>
-            </div>
-            <div>
-                <label for="detail_qty_${index}" class="block text-sm font-medium text-gray-700">QTY</label>
-                <input id="detail_qty_${index}" name="detail_qty[]" type="number"
-                    class="mt-1 block w-full border-gray-300 rounded-md shadow-sm" placeholder="QTY" />
-            </div>
-        </div>`;
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div>
+                    <label for="detail_description_${index}" class="block text-sm font-medium text-gray-700">Description</label>
+                    <select id="detail_description_${index}" name="detail_description[]"
+                        class="mt-1 block w-full border-gray-300 rounded-md shadow-sm">
+                        <option value="">-- Pilih Detail --</option>
+                        <option value="CRACK/PEEL OFF/MENGELUPAS">CRACK/PEEL OFF/MENGELUPAS</option>
+                        <option value="CW/LW PENDEK">CW/LW PENDEK</option>
+                        <option value="DIAGONAL OUT">DIAGONAL OUT</option>
+                        <option value="DIAMETER OUT">DIAMETER OUT</option>
+                        <option value="KARAT">KARAT</option>
+                        <option value="LASAN LEPAS">LASAN LEPAS</option>
+                        <option value="LEBAR OUT">LEBAR OUT</option>
+                        <option value="MESH OUT / TIDAK SIMETRIS">MESH OUT / TIDAK SIMETRIS</option>
+                        <option value="OVERHANG OUT">OVERHANG OUT</option>
+                        <option value="PANJANG OUT">PANJANG OUT</option>
+                        <option value="PATAH/PUTUS">PATAH/PUTUS</option>
+                        <option value="PENYOK/RUSAK">PENYOK/RUSAK</option>
+                        <option value="SALAH TEKUK BENDING">SALAH TEKUK BENDING</option>
+                        <option value="TINGGI OUT">TINGGI OUT</option>
+                        <option value="TRIMING">TRIMING</option>
+                        <option value="WHITE RUST">WHITE RUST</option>
+                    </select>
+                </div>
+                <div>
+                    <label for="detail_description2_${index}" class="block text-sm font-medium text-gray-700">Description 2</label>
+                    <select id="detail_description2_${index}" name="detail_description2[]"
+                        class="mt-1 block w-full border-gray-300 rounded-md shadow-sm">
+                        <option value="">-- Pilih Detail --</option>
+                        <option value="CRACK/PEEL OFF/MENGELUPAS">CRACK/PEEL OFF/MENGELUPAS</option>
+                        <option value="CW/LW PENDEK">CW/LW PENDEK</option>
+                        <option value="DIAGONAL OUT">DIAGONAL OUT</option>
+                        <option value="DIAMETER OUT">DIAMETER OUT</option>
+                        <option value="KARAT">KARAT</option>
+                        <option value="LASAN LEPAS">LASAN LEPAS</option>
+                        <option value="LEBAR OUT">LEBAR OUT</option>
+                        <option value="MESH OUT / TIDAK SIMETRIS">MESH OUT / TIDAK SIMETRIS</option>
+                        <option value="OVERHANG OUT">OVERHANG OUT</option>
+                        <option value="PANJANG OUT">PANJANG OUT</option>
+                        <option value="PATAH/PUTUS">PATAH/PUTUS</option>
+                        <option value="PENYOK/RUSAK">PENYOK/RUSAK</option>
+                        <option value="SALAH TEKUK BENDING">SALAH TEKUK BENDING</option>
+                        <option value="TINGGI OUT">TINGGI OUT</option>
+                        <option value="TRIMING">TRIMING</option>
+                        <option value="WHITE RUST">WHITE RUST</option>
+                    </select>
+                </div>
+                <div>
+                    <label for="detail_qty_${index}" class="block text-sm font-medium text-gray-700">QTY</label>
+                    <input id="detail_qty_${index}" name="detail_qty[]" type="number"
+                        class="mt-1 block w-full border-gray-300 rounded-md shadow-sm" placeholder="QTY" />
+                </div>
+            </div>`;
             wrapper.insertAdjacentHTML('beforeend', newDetail);
         });
     </script>
