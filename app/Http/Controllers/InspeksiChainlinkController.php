@@ -37,7 +37,7 @@ class InspeksiChainlinkController extends Controller
         $tahunBulan = Carbon::now()->format('Ym');
         $prefix = "INSCL{$tahunBulan}";
 
-        // 2. PERBAIKAN: Urutkan berdasarkan 'id' desc agar mendapatkan rekor TERAKHIR yang benar-benar masuk database
+        // 2. Urutkan berdasarkan 'id' desc agar mendapatkan rekor TERAKHIR yang valid
         $lastRecord = InspeksiChainlink::where('nomor_inspeksi', 'like', "{$prefix}%")
             ->orderBy('id', 'desc')
             ->first();
@@ -49,7 +49,7 @@ class InspeksiChainlinkController extends Controller
             $nextNumber = (int) $lastNumberStr + 1;
         }
 
-        // 3. PERBAIKAN: Gunakan str_pad agar nomor urut konsisten memiliki panjang 3 digit (001, 002, dst)
+        // 3. Gunakan str_pad agar nomor urut konsisten memiliki panjang 3 digit (001, 002, dst)
         $paddedNumber = str_pad($nextNumber, 3, '0', STR_PAD_LEFT);
         $nextNomor = "{$prefix}{$paddedNumber}"; // Hasil: INSCL202606001
 
@@ -66,7 +66,7 @@ class InspeksiChainlinkController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'nomor_inspeksi' => 'required|string|max:255|unique:inspeksi_chainlinks,nomor_inspeksi',
+            'nomor_inspeksi' => 'required|string|max:255', // Lepas unique rule di sini karena nomor di-generate ulang di backend agar aman
             'tanggal' => 'required|date',
             'pro_id' => 'required|exists:pros,id',
             'shift' => 'required|string|max:255',
@@ -78,25 +78,28 @@ class InspeksiChainlinkController extends Controller
             'satuan' => 'required|string',
         ]);
 
-        $today = now()->format('Ymd');
-        $lastInspeksi = \App\Models\InspeksiChainlink::whereDate('created_at', now())
+        // 1. Generate ulang nomor inspeksi tepat sebelum menyimpan demi menghindari duplikasi data (Format Bulanan)
+        $tahunBulan = Carbon::now()->format('Ym');
+        $prefix = "INSCL{$tahunBulan}";
+
+        $lastRecord = InspeksiChainlink::where('nomor_inspeksi', 'like', "{$prefix}%")
             ->orderBy('id', 'desc')
             ->first();
 
-        if ($lastInspeksi) {
-            // Ambil 3 digit terakhir dari nomor_inspeksi terakhir, lalu tambahkan 1
-            $lastNumber = (int) substr($lastInspeksi->nomor_inspeksi, -3);
-            $nextNumber = str_pad($lastNumber + 1, 3, '0', STR_PAD_LEFT);
-        } else {
-            $nextNumber = '001';
+        $nextNumber = 1;
+        if ($lastRecord) {
+            $lastNumberStr = str_replace($prefix, '', $lastRecord->nomor_inspeksi);
+            $nextNumber = (int) $lastNumberStr + 1;
         }
 
-        $fixNomorInspeksi = "INSCL-" . $today . $nextNumber;
+        $paddedNumber = str_pad($nextNumber, 3, '0', STR_PAD_LEFT);
+        $fixNomorInspeksi = "{$prefix}{$paddedNumber}";
 
-        // 3. Masukkan nomor yang sudah pasti aman dan unik ke dalam array data validasi
+        // 2. Masukkan nomor yang sudah pasti aman dan sinkron ke array data
         $validated['nomor_inspeksi'] = $fixNomorInspeksi;
+        $validated['total_prod'] = $validated['total_prod'] ?? null;
 
-        // 4. Simpan ke database
+        // 3. Simpan ke database menggunakan data yang sudah tervalidasi
         InspeksiChainlink::create($validated);
 
         return redirect()->route('inspeksi_chainlink.index')->with('success', 'Data inspeksi chainlink berhasil disimpan.');
