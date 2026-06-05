@@ -34,12 +34,11 @@ class InspeksiKlipController extends Controller
      */
     public function create()
     {
-
         // 1. Ambil format Tahun dan Bulan saat ini (Contoh: 202606)
         $tahunBulan = Carbon::now()->format('Ym');
         $prefix = "INSK{$tahunBulan}";
 
-        // 2. PERBAIKAN: Urutkan berdasarkan 'id' desc agar mendapatkan rekor TERAKHIR yang benar-benar masuk database
+        // 2. Cari nomor terakhir yang memiliki prefix serupa di bulan ini
         $lastRecord = InspeksiKlip::where('nomor_inspeksi', 'like', "{$prefix}%")
             ->orderBy('id', 'desc')
             ->first();
@@ -51,34 +50,15 @@ class InspeksiKlipController extends Controller
             $nextNumber = (int) $lastNumberStr + 1;
         }
 
-        // 3. PERBAIKAN: Gunakan str_pad agar nomor urut konsisten memiliki panjang 3 digit (001, 002, dst)
+        // 3. Gunakan str_pad agar nomor urut konsisten memiliki panjang 3 digit (001, 002, dst)
         $paddedNumber = str_pad($nextNumber, 3, '0', STR_PAD_LEFT);
-        $nextNomor = "{$prefix}{$paddedNumber}"; // Hasil: INSCL202606001
+        $nextNomor = "{$prefix}{$paddedNumber}"; // Hasil: INSK202606001
 
         // 4. Ambil data mesin dan PRO
         $mesins = Mesin::orderBy('nama_mesin')->get();
         $pros = Pro::orderByDesc('pro_id')->get();
 
         return view('inspeksi_klip.create', compact('nextNomor', 'pros', 'mesins'));
-
-
-        // $tahunBulan = Carbon::now()->format('Ym');
-        // $lastRecord = InspeksiKlip::where('nomor_inspeksi', 'like', "%INSK{$tahunBulan}%")
-        //     ->orderBy('nomor_inspeksi', 'desc')
-        //     ->first();
-
-        // $nextNumber = 1;
-        // if ($lastRecord) {
-        //     $lastNumberStr = str_replace("INSK{$tahunBulan}", '', $lastRecord->nomor_inspeksi);
-        //     $nextNumber = (int) $lastNumberStr + 1;
-        // }
-
-        // $nextNomor = "INSK{$tahunBulan}{$nextNumber}";
-
-        // $mesins = Mesin::orderBy('nama_mesin', 'asc')->get();
-        // $pros = Pro::orderByDesc('pro_id')->get();
-
-        // return view('inspeksi_klip.create', compact('nextNomor', 'pros', 'mesins'));
     }
 
     /**
@@ -87,7 +67,7 @@ class InspeksiKlipController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'nomor_inspeksi' => 'required|unique:inspeksi_klips,nomor_inspeksi',
+            'nomor_inspeksi' => 'required', // validasi unique dilepas disini karena nomor di-generate ulang di backend agar aman
             'tanggal' => 'required|date',
             'pro_id' => 'required|exists:pros,id',
             'shift' => 'required',
@@ -96,31 +76,28 @@ class InspeksiKlipController extends Controller
             'mesin_id' => 'nullable|exists:mesins,id',
         ]);
 
-        $tanggalInput = Carbon::now();
-        $tahunBulan = $tanggalInput->format('Ym');
+        // LAKUKAN PENGECEKAN ULANG SAAT SAVE AGAR MENGHINDARI DUPLIKAT JIKA ADA 2 USER INPUT BERSAMAAN
+        $tahunBulan = Carbon::now()->format('Ym');
+        $prefix = "INSK{$tahunBulan}";
 
-        $lastRecord = InspeksiKlip::where('nomor_inspeksi', 'like', "INSK{$tahunBulan}%")
-            ->orderBy('nomor_inspeksi', 'desc')
+        $lastRecord = InspeksiKlip::where('nomor_inspeksi', 'like', "{$prefix}%")
+            ->orderBy('id', 'desc')
             ->first();
 
-        if (! $lastRecord) {
-            $nextNumber = 1;
-        } else {
-            $lastNumberStr = str_replace("INSK{$tahunBulan}", '', $lastRecord->nomor_inspeksi);
+        $nextNumber = 1;
+        if ($lastRecord) {
+            $lastNumberStr = str_replace($prefix, '', $lastRecord->nomor_inspeksi);
             $nextNumber = (int) $lastNumberStr + 1;
         }
 
-        $nomorOtomatis = "INSK{$tahunBulan}{$nextNumber}";
+        $paddedNumber = str_pad($nextNumber, 3, '0', STR_PAD_LEFT);
+        $fixNomorInspeksi = "{$prefix}{$paddedNumber}";
 
-        InspeksiKlip::create([
-            'nomor_inspeksi' => $nomorOtomatis,
-            'tanggal' => $validated['tanggal'],
-            'pro_id' => $validated['pro_id'],
-            'shift' => $validated['shift'],
-            'total_prod' => $validated['total_prod'] ?? null,
-            'satuan' => $validated['satuan'],
-            'mesin_id' => $validated['mesin_id'] ?? null,
-        ]);
+        // Masukkan nomor yang sudah pasti aman dan sinkron
+        $validated['nomor_inspeksi'] = $fixNomorInspeksi;
+
+        // Simpan ke database
+        InspeksiKlip::create($validated);
 
         return redirect()->route('inspeksi_klip.index')->with('success', 'Data inspeksi klip berhasil disimpan.');
     }
