@@ -30,4 +30,9 @@ class InspeksiGabionframe extends Model
     {
         return $this->approval_status === 'APPROVED';
     }
+
+    public function inspeksiGabionframeWip()
+    {
+        return $this->hasMany(InspeksiGabionframeWip::class);
+    }
 }

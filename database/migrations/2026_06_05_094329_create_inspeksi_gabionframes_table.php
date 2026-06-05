@@ -20,6 +20,12 @@ return new class extends Migration
             $table->foreignId('mesin_id')->nullable()->constrained('mesins');
             $table->decimal('total_prod', 8, 2)->nullable();
             $table->string('satuan');
+
+            // Approval
+
+            $table->string('approval_status')->default('PENDING');
+            $table->foreignId('approved_by')->nullable()->constrained('users')->nullOnDelete();
+            $table->timestamp('approved_at')->nullable();
             $table->timestamps();
         });
     }

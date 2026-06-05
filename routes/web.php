@@ -14,6 +14,7 @@ use App\Http\Controllers\InspeksiFencingController;
 use App\Http\Controllers\InspeksiFencingFgController;
 use App\Http\Controllers\InspeksiFencingWipController;
 use App\Http\Controllers\InspeksiGabionframeController;
+use App\Http\Controllers\InspeksiGabionframeWipController;
 use App\Http\Controllers\InspeksiKawatDuriController;
 use App\Http\Controllers\InspeksiKawatDuriFgController;
 use App\Http\Controllers\InspeksiKawatDuriWipController;
@@ -759,6 +760,9 @@ Route::middleware([
 
     Route::patch('/inspeksi-shearing/{id}/toggle-approval', [InspeksiShearingController::class, 'toggleApproval'])
         ->name('inspeksi-shearing.toggle');
+
+    Route::patch('/inspeksi-gabionframe/{id}/toggle-approval', [InspeksiGabionframeController::class, 'toggleApproval'])
+        ->name('inspeksi-gabionframe.toggle');
 });
 
 
