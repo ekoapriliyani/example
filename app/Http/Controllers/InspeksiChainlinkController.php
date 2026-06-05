@@ -91,7 +91,7 @@ class InspeksiChainlinkController extends Controller
             $nextNumber = '001';
         }
 
-        $fixNomorInspeksi = "INSP-CL-" . $today . "-" . $nextNumber;
+        $fixNomorInspeksi = "INSCL-" . $today . $nextNumber;
 
         // 3. Masukkan nomor yang sudah pasti aman dan unik ke dalam array data validasi
         $validated['nomor_inspeksi'] = $fixNomorInspeksi;
