@@ -32,18 +32,27 @@ class InspeksiRazorpackingController extends Controller
      */
     public function create()
     {
+        // 1. Ambil format Tahun dan Bulan saat ini (Contoh: 202606)
         $tahunBulan = Carbon::now()->format('Ym');
-        $lastRecord = InspeksiRazorpacking::where('nomor_inspeksi', 'like', "%INSRP{$tahunBulan}%")
-            ->orderBy('nomor_inspeksi', 'desc')
+        $prefix = "INSRP{$tahunBulan}";
+
+        // 2. PERBAIKAN: Urutkan berdasarkan 'id' desc agar mendapatkan rekor TERAKHIR yang valid
+        $lastRecord = InspeksiRazorpacking::where('nomor_inspeksi', 'like', "{$prefix}%")
+            ->orderBy('id', 'desc')
             ->first();
 
         $nextNumber = 1;
         if ($lastRecord) {
-            $lastNumberStr = str_replace("INSRP{$tahunBulan}", '', $lastRecord->nomor_inspeksi);
+            // Ambil string nomor aslinya, buang prefix-nya
+            $lastNumberStr = str_replace($prefix, '', $lastRecord->nomor_inspeksi);
             $nextNumber = (int) $lastNumberStr + 1;
         }
 
-        $nextNomor = "INSRP{$tahunBulan}{$nextNumber}";
+        // 3. PERBAIKAN: Gunakan str_pad agar nomor urut konsisten memiliki panjang 3 digit (001, 002, dst)
+        $paddedNumber = str_pad($nextNumber, 3, '0', STR_PAD_LEFT);
+        $nextNomor = "{$prefix}{$paddedNumber}"; // Hasil: INSRP202606001
+
+        // 4. Ambil data PRO (Modul ini tampaknya tidak menggunakan data mesin)
         $pros = Pro::orderByDesc('pro_id')->get();
 
         return view('inspeksi_razorpacking.create', compact('nextNomor', 'pros'));
@@ -55,7 +64,7 @@ class InspeksiRazorpackingController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'nomor_inspeksi' => 'required|unique:inspeksi_razorpackings,nomor_inspeksi',
+            'nomor_inspeksi' => 'required', // Lepas unique rule di sini karena nomor di-generate ulang di backend agar aman
             'tanggal' => 'required|date',
             'pro_id' => 'required|exists:pros,id',
             'shift' => 'required',
@@ -63,32 +72,31 @@ class InspeksiRazorpackingController extends Controller
             'satuan' => 'required',
         ]);
 
-        $tanggalInput = Carbon::now();
-        $tahunBulan = $tanggalInput->format('Ym');
+        // 1. Generate ulang nomor inspeksi tepat sebelum menyimpan demi menghindari duplikasi data
+        $tahunBulan = Carbon::now()->format('Ym');
+        $prefix = "INSRP{$tahunBulan}";
 
-        $lastRecord = InspeksiRazorpacking::where('nomor_inspeksi', 'like', "INSRP{$tahunBulan}%")
-            ->orderBy('nomor_inspeksi', 'desc')
+        $lastRecord = InspeksiRazorpacking::where('nomor_inspeksi', 'like', "{$prefix}%")
+            ->orderBy('id', 'desc')
             ->first();
 
-        if (! $lastRecord) {
-            $nextNumber = 1;
-        } else {
-            $lastNumberStr = str_replace("INSRP{$tahunBulan}", '', $lastRecord->nomor_inspeksi);
+        $nextNumber = 1;
+        if ($lastRecord) {
+            $lastNumberStr = str_replace($prefix, '', $lastRecord->nomor_inspeksi);
             $nextNumber = (int) $lastNumberStr + 1;
         }
 
-        $nomorOtomatis = "INSRP{$tahunBulan}{$nextNumber}";
+        $paddedNumber = str_pad($nextNumber, 3, '0', STR_PAD_LEFT);
+        $fixNomorInspeksi = "{$prefix}{$paddedNumber}";
 
-        InspeksiRazorpacking::create([
-            'nomor_inspeksi' => $nomorOtomatis,
-            'tanggal' => $validated['tanggal'],
-            'pro_id' => $validated['pro_id'],
-            'shift' => $validated['shift'],
-            'total_prod' => $validated['total_prod'] ?? null,
-            'satuan' => $validated['satuan'],
-        ]);
+        // 2. Masukkan nomor yang sudah pasti aman dan sinkron ke array data
+        $validated['nomor_inspeksi'] = $fixNomorInspeksi;
+        $validated['total_prod'] = $validated['total_prod'] ?? null;
 
-        return redirect()->route('inspeksi_razorpacking.index')->with('success', 'Data inspeksi razor packing berhasil disimpan.');
+        // 3. Simpan ke database menggunakan data yang sudah tervalidasi (Clean & Safe)
+        InspeksiRazorpacking::create($validated);
+
+        return redirect()->route('inspeksi_razorpacking.index')->with('success', "Data inspeksi {$fixNomorInspeksi} berhasil disimpan.");
     }
 
     /**
