@@ -730,8 +730,11 @@ Route::middleware([
     Route::patch('/inspeksi-wf/{id}/toggle-approval', [InspeksiWfController::class, 'toggleApproval'])
         ->name('inspeksi-wf.toggle');
 
-    Route::patch('/inspeksi-bending/{id}/toggle-approval', [InspeksiBendingController::class, 'toggleApproval'])
-        ->name('inspeksi-bending.toggle');
+    // Route::patch('/inspeksi-bending/{id}/toggle-approval', [InspeksiBendingController::class, 'toggleApproval'])
+    //     ->name('inspeksi-bending.toggle');
+
+    Route::patch('/inspeksi-fencing/{id}/toggle-approval', [InspeksiFencingController::class, 'toggleApproval'])
+        ->name('inspeksi-fencing.toggle');
 
     Route::patch('/inspeksi-slitting/{id}/toggle-approval', [InspeksiSlittingController::class, 'toggleApproval'])
         ->name('inspeksi-slitting.toggle');

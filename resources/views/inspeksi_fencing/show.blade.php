@@ -613,7 +613,7 @@
                             </div>
                             <div>
                                 <h3 class="text-xl font-bold text-gray-900">
-                                    Approval Inspeksi Bending
+                                    Approval Inspeksi Fencing
                                 </h3>
                                 <p class="mt-1 text-sm text-gray-500">
                                     Review data inspeksi sebelum melakukan approval.
@@ -639,7 +639,7 @@
                             <!-- Button -->
                             @if (in_array(auth()->user()->role, ['supervisor', 'manager', 'administrator']))
                                 <form id="approval-form-{{ $inspeksi_fencing->id }}"
-                                    action="{{ route('inspeksi-bending.toggle', $inspeksi_fencing->id) }}"
+                                    action="{{ route('inspeksi-fencing.toggle', $inspeksi_fencing->id) }}"
                                     method="POST" class="hidden">
                                     @csrf
                                     @method('PATCH')
