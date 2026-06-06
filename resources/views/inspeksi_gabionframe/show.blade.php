@@ -113,8 +113,12 @@
                                     <th class="px-4 py-3 font-semibold text-gray-900">Inspektor</th>
                                     <th class="px-4 py-3 font-semibold text-gray-900">No. Material</th>
                                     <th class="px-4 py-3 font-semibold text-gray-900">Operator</th>
-                                    <th class="px-4 py-3 font-semibold text-gray-900">P Potong</th>
-                                    <th class="px-4 py-3 font-semibold text-gray-900">L Potong</th>
+                                    <th class="px-4 py-3 font-semibold text-gray-900">P Act</th>
+                                    <th class="px-4 py-3 font-semibold text-gray-900">L Act</th>
+                                    <th class="px-4 py-3 font-semibold text-gray-900">D Kawat Galv Anyam</th>
+                                    <th class="px-4 py-3 font-semibold text-gray-900">D Kawat Galv Frame</th>
+                                    <th class="px-4 py-3 font-semibold text-gray-900">D Kawat PVC Anyam</th>
+                                    <th class="px-4 py-3 font-semibold text-gray-900">D Kawat PVC Frame</th>
                                     <th class="px-4 py-3 font-semibold text-gray-900">Mesh 1</th>
                                     <th class="px-4 py-3 font-semibold text-gray-900">Mesh 2</th>
                                     <th class="px-4 py-3 font-semibold text-gray-900">Visual</th>
@@ -159,28 +163,27 @@
                                                     <button type="button" disabled
                                                         class="inline-flex cursor-not-allowed items-center rounded-md bg-gray-200 p-2 text-gray-400 opacity-70"
                                                         title="Data sudah approved">
-
                                                         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5"
                                                             fill="none" viewBox="0 0 24 24" stroke="currentColor">
-
                                                             <path stroke-linecap="round" stroke-linejoin="round"
                                                                 stroke-width="2"
                                                                 d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6M9 7V4a1 1 0 011-1h4a1 1 0 011 1v3m-7 0h8" />
                                                         </svg>
                                                     </button>
                                                 @else
-                                                    <form
+                                                    <form id="delete-form-{{ $wip->id }}"
                                                         action="{{ route('inspeksi_gabionframe_wip.destroy', $wip->id) }}"
                                                         method="POST" class="delete-form inline-block">
                                                         @csrf
                                                         @method('DELETE')
-                                                        <button type="submit"
+
+                                                        <button type="button"
+                                                            onclick="confirmDelete('{{ $wip->id }}', '{{ $wip->id_project ?? $wip->id }}')"
                                                             class="inline-flex items-center rounded-md bg-red-100 p-2 text-red-600 transition hover:bg-red-200"
                                                             title="Hapus">
                                                             <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5"
                                                                 fill="none" viewBox="0 0 24 24"
                                                                 stroke="currentColor">
-
                                                                 <path stroke-linecap="round" stroke-linejoin="round"
                                                                     stroke-width="2"
                                                                     d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6M9 7V4a1 1 0 011-1h4a1 1 0 011 1v3m-7 0h8" />
@@ -193,8 +196,16 @@
                                         <td class="px-4 py-3">{{ $wip->user->name ?? 'N/A' }}</td>
                                         <td class="px-4 py-3 font-medium">{{ $wip->no_material }}</td>
                                         <td class="px-4 py-3">{{ $wip->nama_operator }}</td>
-                                        <td class="bg-blue-50/30 px-4 py-3 text-center">{{ $wip->p_potong }}</td>
-                                        <td class="bg-blue-50/30 px-4 py-3 text-center">{{ $wip->l_potong }}</td>
+                                        <td class="bg-blue-50/30 px-4 py-3 text-center">{{ $wip->p_act }}</td>
+                                        <td class="bg-blue-50/30 px-4 py-3 text-center">{{ $wip->l_act }}</td>
+                                        <td class="bg-blue-50/30 px-4 py-3 text-center">{{ $wip->d_kwtGal_anyam }}
+                                        </td>
+                                        <td class="bg-blue-50/30 px-4 py-3 text-center">{{ $wip->d_kwtGal_frame }}
+                                        </td>
+                                        <td class="bg-blue-50/30 px-4 py-3 text-center">{{ $wip->d_kwtPvc_anyam }}
+                                        </td>
+                                        <td class="bg-blue-50/30 px-4 py-3 text-center">{{ $wip->d_kwtPvc_frame }}
+                                        </td>
                                         <td class="bg-blue-50/30 px-4 py-3 text-center">{{ $wip->mesh1 }}</td>
                                         <td class="bg-blue-50/30 px-4 py-3 text-center">{{ $wip->mesh2 }}</td>
                                         <td class="bg-blue-50/30 px-4 py-3 text-center">{{ $wip->visual }}</td>
@@ -427,17 +438,18 @@
     <script>
         function confirmDelete(id, name) {
             Swal.fire({
-                title: 'Hapus seluruh record?',
-                text: "Semua data WIP terkait " + name + " akan ikut terhapus!",
+                title: 'Hapus data WIP?',
+                text: "Data WIP terkait " + name + " akan dihapus secara permanen!",
                 icon: 'warning',
                 showCancelButton: true,
                 confirmButtonColor: '#dc2626',
                 cancelButtonColor: '#4f46e5',
-                confirmButtonText: 'Ya, Hapus Semua!',
+                confirmButtonText: 'Ya, Hapus!',
                 cancelButtonText: 'Batal',
                 reverseButtons: true
             }).then((result) => {
                 if (result.isConfirmed) {
+                    // Menjalankan submit pada form yang ID-nya sesuai dengan parameter
                     document.getElementById('delete-form-' + id).submit();
                 }
             })

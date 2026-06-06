@@ -33,29 +33,6 @@
                             Tambah WIP
                         </a>
                     @endif
-
-                    {{-- Tambah FG --}}
-                    @if ($isApproved)
-                        <button type="button" disabled
-                            class="inline-flex cursor-not-allowed items-center gap-2 rounded-md bg-gray-400 px-4 py-2 text-sm font-semibold text-white opacity-60 shadow-sm">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="size-4" fill="none" viewBox="0 0 24 24"
-                                stroke="currentColor" stroke-width="2">
-
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
-                            </svg>
-                            Tambah FG
-                        </button>
-                    @else
-                        <a href="{{ route('inspeksi_shearing.fg', $inspeksi_shearing->id) }}"
-                            class="inline-flex items-center gap-2 rounded-md bg-green-600 px-4 py-2 text-sm font-semibold text-white shadow-sm transition hover:bg-green-700">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="size-4" fill="none" viewBox="0 0 24 24"
-                                stroke="currentColor" stroke-width="2">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
-                            </svg>
-                            Tambah FG
-                        </a>
-                    @endif
-
                 </div>
             </div>
         </div>
@@ -248,328 +225,84 @@
                 </div>
             </div>
 
-            <div class="overflow-hidden border border-gray-200 bg-white shadow-sm sm:rounded-lg">
-                <div class="p-6">
-                    <div class="mb-4 flex items-center gap-2">
-                        <div class="rounded-lg bg-green-100 p-2 text-green-600">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="size-5" fill="none"
-                                viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                            </svg>
-                        </div>
-                        <h3 class="text-lg font-bold text-gray-800">Data Finished Goods (FG)</h3>
-                    </div>
-
-                    <div class="overflow-x-auto rounded-lg border border-gray-200">
-                        <table class="min-w-full divide-y divide-gray-200 text-left text-sm">
+            {{-- modal detail wip --}}
+            @foreach ($inspeksi_shearing->inspeksiShearingWip as $wip)
+                <div id="detail2-{{ $wip->id }}"
+                    class="fixed inset-0 flex hidden items-center justify-center bg-gray-900 bg-opacity-50">
+                    <div class="w-1/2 rounded-lg bg-white p-6 shadow-lg">
+                        {{-- <h3 class="text-lg font-semibold mb-4">Detail FG: {{ $wip->batch_number }}</h3> --}}
+                        <table class="min-w-full divide-y divide-gray-200 text-sm">
                             <thead class="bg-gray-50">
                                 <tr>
-                                    <th class="px-4 py-3 font-semibold text-gray-900">No</th>
-                                    <th class="px-4 py-3 font-semibold text-gray-900">Aksi</th>
-                                    <th class="px-4 py-3 font-semibold text-gray-900">Inspektor</th>
-                                    <th class="px-4 py-3 font-semibold text-gray-900">Type</th>
-                                    <th class="px-4 py-3 font-semibold text-gray-900">Status</th>
-                                    <th class="px-4 py-3 font-semibold text-gray-900">Coating Thickness</th>
-                                    <th class="px-4 py-3 font-semibold text-gray-900">Daya Rekat</th>
-                                    <th class="px-4 py-3 font-semibold text-gray-900">Visual</th>
-                                    <th class="px-4 py-3 font-semibold text-gray-900">Packing</th>
-                                    <th class="px-4 py-3 font-semibold text-gray-900">Label</th>
-                                    <th class="px-4 py-3 font-semibold text-gray-900">Quantity</th>
-                                    <th class="px-4 py-3 font-semibold text-gray-900">Weight</th>
-                                    <th class="px-4 py-3 font-semibold text-gray-900">Detail</th>
-                                    <th class="px-4 py-3 font-semibold text-gray-900">Gambar</th>
-                                    <th class="px-4 py-3 font-semibold text-gray-900">Created At</th>
+                                    <th class="px-4 py-2">No</th>
+                                    <th class="px-4 py-2">Description</th>
+                                    <th class="px-4 py-2">Description 2</th>
+                                    <th class="px-4 py-2">QTY</th>
                                 </tr>
                             </thead>
                             <tbody class="divide-y divide-gray-200">
-                                @forelse ($inspeksi_shearing->inspeksiShearingFg as $fg)
-                                    <tr class="transition-colors hover:bg-gray-50">
-                                        <td class="px-4 py-3 font-medium">{{ $loop->iteration }}</td>
-                                        <td class="px-4 py-3">
-                                            <div class="flex items-center gap-3">
-                                                {{-- Edit --}}
-                                                @if ($isApproved)
-                                                    <button type="button" disabled
-                                                        class="inline-flex cursor-not-allowed items-center rounded-md bg-gray-200 p-2 text-gray-400 opacity-70"
-                                                        title="Data sudah approved">
-
-                                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5"
-                                                            fill="none" viewBox="0 0 24 24" stroke="currentColor">
-
-                                                            <path stroke-linecap="round" stroke-linejoin="round"
-                                                                stroke-width="2"
-                                                                d="M11 5h2m-1-1v2m-6 9l-1 4 4-1 9-9a2.121 2.121 0 00-3-3l-9 9z" />
-                                                        </svg>
-                                                    </button>
-                                                @else
-                                                    <a href="{{ route('inspeksi_bending_fg.edit', $fg->id) }}"
-                                                        class="inline-flex items-center rounded-md bg-yellow-100 p-2 text-yellow-600 transition hover:bg-yellow-200"
-                                                        title="Edit">
-
-                                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5"
-                                                            fill="none" viewBox="0 0 24 24" stroke="currentColor">
-
-                                                            <path stroke-linecap="round" stroke-linejoin="round"
-                                                                stroke-width="2"
-                                                                d="M11 5h2m-1-1v2m-6 9l-1 4 4-1 9-9a2.121 2.121 0 00-3-3l-9 9z" />
-                                                        </svg>
-                                                    </a>
-                                                @endif
-
-
-                                                {{-- Delete --}}
-                                                @if ($isApproved)
-                                                    <button type="button" disabled
-                                                        class="inline-flex cursor-not-allowed items-center rounded-md bg-gray-200 p-2 text-gray-400 opacity-70"
-                                                        title="Data sudah approved">
-
-                                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5"
-                                                            fill="none" viewBox="0 0 24 24" stroke="currentColor">
-
-                                                            <path stroke-linecap="round" stroke-linejoin="round"
-                                                                stroke-width="2"
-                                                                d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6M9 7V4a1 1 0 011-1h4a1 1 0 011 1v3m-7 0h8" />
-                                                        </svg>
-                                                    </button>
-                                                @else
-                                                    <form action="{{ route('inspeksi_bending_fg.destroy', $fg->id) }}"
-                                                        method="POST" class="delete-form inline-block">
-
-                                                        @csrf
-                                                        @method('DELETE')
-
-                                                        <button type="submit"
-                                                            class="inline-flex items-center rounded-md bg-red-100 p-2 text-red-600 transition hover:bg-red-200"
-                                                            title="Hapus">
-
-                                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5"
-                                                                fill="none" viewBox="0 0 24 24"
-                                                                stroke="currentColor">
-
-                                                                <path stroke-linecap="round" stroke-linejoin="round"
-                                                                    stroke-width="2"
-                                                                    d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6M9 7V4a1 1 0 011-1h4a1 1 0 011 1v3m-7 0h8" />
-                                                            </svg>
-                                                        </button>
-                                                    </form>
-                                                @endif
-
-                                            </div>
-                                        </td>
-                                        <td class="px-4 py-3 font-medium">{{ $fg->user->name }}</td>
-                                        <td class="px-4 py-3">{{ $fg->type }}</td>
-                                        <td class="px-4 py-3 font-medium">
-                                            @if ($fg->status === 'OK')
-                                                <span class="rounded bg-green-100 px-2 py-1 text-green-800">
-                                                    {{ $fg->status }}
-                                                </span>
-                                            @elseif($fg->status === 'NG')
-                                                <span class="rounded bg-yellow-100 px-2 py-1 text-yellow-800">
-                                                    {{ $fg->status }}
-                                                </span>
-                                            @elseif($fg->status === 'REJECT')
-                                                <span class="rounded bg-red-100 px-2 py-1 text-red-800">
-                                                    {{ $fg->status }}
-                                                </span>
-                                            @else
-                                                <span class="rounded bg-gray-100 px-2 py-1 text-gray-800">
-                                                    {{ $fg->status }}
-                                                </span>
-                                            @endif
-                                        </td>
-                                        <td class="px-4 py-3">{{ $fg->coating_thickness }}</td>
-                                        <td class="px-4 py-3">{{ $fg->daya_rekat }}</td>
-                                        <td class="px-4 py-3">{{ $fg->visual }}</td>
-                                        <td class="px-4 py-3">{{ $fg->packing }}</td>
-                                        <td class="px-4 py-3">{{ $fg->label }}</td>
-                                        <td class="px-4 py-3">{{ $fg->qty }}</td>
-                                        <td class="px-4 py-3">{{ $fg->weight }} Kg</td>
-                                        <td class="px-4 py-3">
-                                            <button type="button" class="text-sm text-indigo-600 hover:underline"
-                                                onclick="toggleDetail({{ $fg->id }})">
-                                                Lihat Detail
-                                            </button>
-                                        </td>
-                                        <td class="px-4 py-3">
-                                            <button type="button" class="text-sm text-indigo-600 hover:underline"
-                                                onclick="toggleImage({{ $fg->id }})">
-                                                Lihat Gambar
-                                            </button>
-                                        </td>
-                                        <td class="px-4 py-3">{{ $fg->created_at }}</td>
+                                @forelse ($wip->details as $detail)
+                                    <tr>
+                                        <td class="px-4 py-2">{{ $loop->iteration }}</td>
+                                        <td class="px-4 py-2">{{ $detail->description }}</td>
+                                        <td class="px-4 py-2">{{ $detail->description2 }}</td>
+                                        <td class="px-4 py-2">{{ $detail->qty }}</td>
                                     </tr>
                                 @empty
                                     <tr>
-                                        <td colspan="2" class="px-4 py-8 text-center italic text-gray-400">Belum
-                                            ada data FG untuk inspeksi ini.</td>
+                                        <td colspan="3" class="px-4 py-4 text-center italic text-gray-400">
+                                            Belum ada detail untuk WIP ini.
+                                        </td>
                                     </tr>
                                 @endforelse
                             </tbody>
                         </table>
-                        {{-- modal detail fg --}}
-                        @foreach ($inspeksi_shearing->inspeksiShearingFg as $fg)
-                            <div id="detail-{{ $fg->id }}"
-                                class="fixed inset-0 flex hidden items-center justify-center bg-gray-900 bg-opacity-50">
-                                <div class="w-1/2 rounded-lg bg-white p-6 shadow-lg">
-                                    <h3 class="mb-4 text-lg font-semibold">Detail FG: {{ $fg->batch_number }}</h3>
-                                    <table class="min-w-full divide-y divide-gray-200 text-sm">
-                                        <thead class="bg-gray-50">
-                                            <tr>
-                                                <th class="px-4 py-2">No</th>
-                                                <th class="px-4 py-2">Description</th>
-                                                <th class="px-4 py-2">Description 2</th>
-                                                <th class="px-4 py-2">QTY</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody class="divide-y divide-gray-200">
-                                            @forelse ($fg->details as $detail)
-                                                <tr>
-                                                    <td class="px-4 py-2">{{ $loop->iteration }}</td>
-                                                    <td class="px-4 py-2">{{ $detail->description }}</td>
-                                                    <td class="px-4 py-2">{{ $detail->description2 }}</td>
-                                                    <td class="px-4 py-2">{{ $detail->qty }}</td>
-                                                </tr>
-                                            @empty
-                                                <tr>
-                                                    <td colspan="3"
-                                                        class="px-4 py-4 text-center italic text-gray-400">
-                                                        Belum ada detail untuk FG ini.
-                                                    </td>
-                                                </tr>
-                                            @endforelse
-                                        </tbody>
-                                    </table>
-                                    <div class="mt-4 text-right">
-                                        <button onclick="toggleDetail({{ $fg->id }})"
-                                            class="rounded bg-gray-200 px-4 py-2 hover:bg-gray-300">
-                                            Tutup
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                        @endforeach
-
-
-                        {{-- modal detail wip --}}
-                        @foreach ($inspeksi_shearing->inspeksiShearingWip as $wip)
-                            <div id="detail2-{{ $wip->id }}"
-                                class="fixed inset-0 flex hidden items-center justify-center bg-gray-900 bg-opacity-50">
-                                <div class="w-1/2 rounded-lg bg-white p-6 shadow-lg">
-                                    {{-- <h3 class="text-lg font-semibold mb-4">Detail FG: {{ $wip->batch_number }}</h3> --}}
-                                    <table class="min-w-full divide-y divide-gray-200 text-sm">
-                                        <thead class="bg-gray-50">
-                                            <tr>
-                                                <th class="px-4 py-2">No</th>
-                                                <th class="px-4 py-2">Description</th>
-                                                <th class="px-4 py-2">Description 2</th>
-                                                <th class="px-4 py-2">QTY</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody class="divide-y divide-gray-200">
-                                            @forelse ($wip->details as $detail)
-                                                <tr>
-                                                    <td class="px-4 py-2">{{ $loop->iteration }}</td>
-                                                    <td class="px-4 py-2">{{ $detail->description }}</td>
-                                                    <td class="px-4 py-2">{{ $detail->description2 }}</td>
-                                                    <td class="px-4 py-2">{{ $detail->qty }}</td>
-                                                </tr>
-                                            @empty
-                                                <tr>
-                                                    <td colspan="3"
-                                                        class="px-4 py-4 text-center italic text-gray-400">
-                                                        Belum ada detail untuk WIP ini.
-                                                    </td>
-                                                </tr>
-                                            @endforelse
-                                        </tbody>
-                                    </table>
-                                    <div class="mt-4 text-right">
-                                        <button onclick="toggleDetail2({{ $wip->id }})"
-                                            class="rounded bg-gray-200 px-4 py-2 hover:bg-gray-300">
-                                            Tutup
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                        @endforeach
-
-                        {{-- modal gambar fg --}}
-                        @foreach ($inspeksi_shearing->inspeksiShearingFg as $fg)
-                            <div id="image-{{ $fg->id }}"
-                                class="fixed inset-0 flex hidden items-center justify-center bg-gray-900 bg-opacity-50">
-                                <div class="max-h-[80vh] w-3/4 overflow-y-auto rounded-lg bg-white p-6 shadow-lg">
-                                    {{-- <h3 class="text-lg font-semibold mb-4">Gambar FG: {{ $fg->batch_number }}</h3> --}}
-
-                                    @if ($fg->files)
-                                        <div class="space-y-4">
-                                            @foreach ($fg->files as $file)
-                                                @php $ext = pathinfo($file, PATHINFO_EXTENSION); @endphp
-
-                                                @if (in_array($ext, ['jpg', 'jpeg', 'png']))
-                                                    <img src="{{ asset('storage/' . $file) }}" alt="FG Image"
-                                                        class="max-h-64 w-full rounded border object-contain" />
-                                                @else
-                                                    <a href="{{ asset('storage/' . $file) }}" target="_blank"
-                                                        class="block text-blue-600 hover:underline">
-                                                        Lihat File ({{ strtoupper($ext) }})
-                                                    </a>
-                                                @endif
-                                            @endforeach
-                                        </div>
-                                    @else
-                                        <p class="italic text-gray-400">Tidak ada gambar diupload.</p>
-                                    @endif
-
-                                    <div class="mt-4 text-right">
-                                        <button onclick="toggleImage({{ $fg->id }})"
-                                            class="rounded bg-gray-200 px-4 py-2 hover:bg-gray-300">
-                                            Tutup
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                        @endforeach
-
-                        {{-- modal gambar wip --}}
-                        @foreach ($inspeksi_shearing->inspeksiShearingWip as $wip)
-                            <div id="image2-{{ $wip->id }}"
-                                class="fixed inset-0 flex hidden items-center justify-center bg-gray-900 bg-opacity-50">
-                                <div class="max-h-[80vh] w-3/4 overflow-y-auto rounded-lg bg-white p-6 shadow-lg">
-                                    {{-- <h3 class="text-lg font-semibold mb-4">Gambar WIP: {{ $wip->batch_number }}</h3> --}}
-
-                                    @if ($wip->files)
-                                        <div class="space-y-4">
-                                            @foreach ($wip->files as $file)
-                                                @php $ext = pathinfo($file, PATHINFO_EXTENSION); @endphp
-
-                                                @if (in_array($ext, ['jpg', 'jpeg', 'png']))
-                                                    <img src="{{ asset('storage/' . $file) }}" alt="Wip Image"
-                                                        class="max-h-64 w-full rounded border object-contain" />
-                                                @else
-                                                    <a href="{{ asset('storage/' . $file) }}" target="_blank"
-                                                        class="block text-blue-600 hover:underline">
-                                                        Lihat File ({{ strtoupper($ext) }})
-                                                    </a>
-                                                @endif
-                                            @endforeach
-                                        </div>
-                                    @else
-                                        <p class="italic text-gray-400">Tidak ada gambar diupload.</p>
-                                    @endif
-
-                                    <div class="mt-4 text-right">
-                                        <button onclick="toggleImage2({{ $wip->id }})"
-                                            class="rounded bg-gray-200 px-4 py-2 hover:bg-gray-300">
-                                            Tutup
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                        @endforeach
+                        <div class="mt-4 text-right">
+                            <button onclick="toggleDetail2({{ $wip->id }})"
+                                class="rounded bg-gray-200 px-4 py-2 hover:bg-gray-300">
+                                Tutup
+                            </button>
+                        </div>
                     </div>
                 </div>
-            </div>
+            @endforeach
+
+            {{-- modal gambar wip --}}
+            @foreach ($inspeksi_shearing->inspeksiShearingWip as $wip)
+                <div id="image2-{{ $wip->id }}"
+                    class="fixed inset-0 flex hidden items-center justify-center bg-gray-900 bg-opacity-50">
+                    <div class="max-h-[80vh] w-3/4 overflow-y-auto rounded-lg bg-white p-6 shadow-lg">
+                        {{-- <h3 class="text-lg font-semibold mb-4">Gambar WIP: {{ $wip->batch_number }}</h3> --}}
+
+                        @if ($wip->files)
+                            <div class="space-y-4">
+                                @foreach ($wip->files as $file)
+                                    @php $ext = pathinfo($file, PATHINFO_EXTENSION); @endphp
+
+                                    @if (in_array($ext, ['jpg', 'jpeg', 'png']))
+                                        <img src="{{ asset('storage/' . $file) }}" alt="Wip Image"
+                                            class="max-h-64 w-full rounded border object-contain" />
+                                    @else
+                                        <a href="{{ asset('storage/' . $file) }}" target="_blank"
+                                            class="block text-blue-600 hover:underline">
+                                            Lihat File ({{ strtoupper($ext) }})
+                                        </a>
+                                    @endif
+                                @endforeach
+                            </div>
+                        @else
+                            <p class="italic text-gray-400">Tidak ada gambar diupload.</p>
+                        @endif
+
+                        <div class="mt-4 text-right">
+                            <button onclick="toggleImage2({{ $wip->id }})"
+                                class="rounded bg-gray-200 px-4 py-2 hover:bg-gray-300">
+                                Tutup
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            @endforeach
 
             {{-- section approval --}}
             <div class="overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-sm">
