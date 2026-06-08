@@ -16,36 +16,64 @@ class IncomingBahanBakuController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $data = IncomingBahanBaku::all();
-        return view('incomingbahanbaku.index', ['data' => $data]);
+        $search = $request->input('search');
+
+        $data = IncomingBahanBaku::with('supplier') // Eager loading relasi supplier
+            ->when($search, function ($query, $search) {
+                return $query->where('nomor_inspeksi', 'like', "%{$search}%")
+                    ->orWhere('tanggal', 'like', "%{$search}%")
+                    ->orWhere('no_po', 'like', "%{$search}%")
+                    // Jika ingin mencari berdasarkan nama supplier yang berelasi
+                    ->orWhereHas('supplier', function ($q) use ($search) {
+                        $q->where('nama', 'like', "%{$search}%");
+                    });
+            })
+            ->orderBy('created_at', 'desc') // Lebih aman menggunakan parameter waktu pembuatan data
+            ->paginate(10)
+            ->withQueryString();
+
+        return view('incomingbahanbaku.index', compact('data'));
     }
+
+
+
+    public function inspeksi()
+    {
+        return view('incomingbahanbaku.inspeksi');
+    }
+
 
     /**
      * Show the form for creating a new resource.
      */
     public function create()
     {
+        // 1. Ambil format Tahun dan Bulan saat ini (Contoh: 202606)
         $tahunBulan = Carbon::now()->format('Ym');
-        $lastRecord = IncomingBahanBaku::where('nomor_inspeksi', 'like', "INBB{$tahunBulan}%")
-            ->orderBy('nomor_inspeksi', 'desc')
+        $prefix = "INBB{$tahunBulan}";
+
+        // 2. PERBAIKAN: Urutkan berdasarkan 'id' desc agar mendapatkan rekor TERAKHIR yang valid
+        $lastRecord = IncomingBahanBaku::where('nomor_inspeksi', 'like', "{$prefix}%")
+            ->orderBy('id', 'desc')
             ->first();
 
         $nextNumber = 1;
         if ($lastRecord) {
-            $lastNumberStr = str_replace("INBB{$tahunBulan}", "", $lastRecord->nomor_inspeksi);
+            // Ambil string nomor aslinya, buang prefix-nya
+            $lastNumberStr = str_replace($prefix, '', $lastRecord->nomor_inspeksi);
             $nextNumber = (int) $lastNumberStr + 1;
         }
 
-        $nextNomor = "INBB{$tahunBulan}{$nextNumber}";
-        $suppliers = Supplier::orderBy('supplier_code')->get();
-        return view('incomingbahanbaku.create', compact('nextNomor', 'suppliers'));
-    }
+        // 3. PERBAIKAN: Gunakan str_pad agar nomor urut konsisten memiliki panjang 3 digit (001, 002, dst)
+        $paddedNumber = str_pad($nextNumber, 3, '0', STR_PAD_LEFT);
+        $nextNomor = "{$prefix}{$paddedNumber}"; // Hasil: INBB202606001
 
-    public function inspeksi()
-    {
-        return view('incomingbahanbaku.inspeksi');
+        // 4. Ambil data Supplier
+        $suppliers = Supplier::orderBy('supplier_code')->get();
+
+        return view('incomingbahanbaku.create', compact('nextNomor', 'suppliers'));
     }
 
     /**
@@ -67,35 +95,31 @@ class IncomingBahanBakuController extends Controller
             'files.*' => 'nullable|image|max:20480',
         ]);
 
-        $tanggalInput = Carbon::now();
-        $tahunBulan = $tanggalInput->format('Ym');
+        // 1. Generate ulang nomor inspeksi tepat sebelum menyimpan demi menghindari duplikasi data
+        $tahunBulan = Carbon::now()->format('Ym');
+        $prefix = "INBB{$tahunBulan}";
 
-        $lastRecord = IncomingBahanBaku::where('nomor_inspeksi', 'like', "INBB{$tahunBulan}%")
-            ->orderBy('nomor_inspeksi', 'desc')
+        $lastRecord = IncomingBahanBaku::where('nomor_inspeksi', 'like', "{$prefix}%")
+            ->orderBy('id', 'desc')
             ->first();
 
-        if (!$lastRecord) {
-            $nextNumber = 1;
-        } else {
-            $lastNumberStr = str_replace("INBB{$tahunBulan}", "", $lastRecord->nomor_inspeksi);
+        $nextNumber = 1;
+        if ($lastRecord) {
+            $lastNumberStr = str_replace($prefix, '', $lastRecord->nomor_inspeksi);
             $nextNumber = (int) $lastNumberStr + 1;
         }
 
-        $nomorOtomatis = "INBB{$tahunBulan}{$nextNumber}";
+        $paddedNumber = str_pad($nextNumber, 3, '0', STR_PAD_LEFT);
+        $fixNomorInspeksi = "{$prefix}{$paddedNumber}";
 
+        // 2. Masukkan nomor yang sudah pasti aman dan sinkron ke array data sebelum di-create
+        $validated['nomor_inspeksi'] = $fixNomorInspeksi;
+        $validated['certificate'] = $validated['certificate'] ?? null;
 
-        $inc = IncomingBahanBaku::create([
-            'tanggal' => $validated['tanggal'],
-            'nomor_inspeksi' => $nomorOtomatis,
-            'supplier_id' => $validated['supplier_id'],
-            'no_po' => $validated['no_po'],
-            'no_sj' => $validated['no_sj'],
-            'jml_koil' => $validated['jml_koil'],
-            'd_kawat' => $validated['d_kawat'],
-            'tol' => $validated['tol'],
-            'jenis_kawat' => $validated['jenis_kawat'],
-            'certificate' => $validated['certificate'],
-        ]);
+        // 3. Simpan data utama ke database
+        $inc = IncomingBahanBaku::create($validated);
+
+        // 4. Proses upload file jika ada
         if ($request->hasFile('files')) {
             $paths = [];
             foreach ($request->file('files') as $file) {
@@ -111,7 +135,7 @@ class IncomingBahanBakuController extends Controller
             ]);
         }
 
-        return redirect()->route('incomingbahanbaku.index')->with('success', 'data incoming berhasil disimpan');
+        return redirect()->route('incomingbahanbaku.index')->with('success', "Data incoming {$fixNomorInspeksi} berhasil disimpan");
     }
 
     /**

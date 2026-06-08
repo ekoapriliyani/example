@@ -74,7 +74,8 @@
                                     @forelse ($data as $item)
                                         <tr class="hover:bg-gray-50 transition-colors">
                                             <td class="px-4 py-3 font-medium text-gray-900">
-                                                {{ $loop->iteration }}</td>
+                                                {{ $loop->iteration + ($data->firstItem() - 1) }}
+                                            </td>
                                             <td class="px-4 py-3 whitespace-nowrap">
                                                 <div class="flex justify-start items-center gap-2">
                                                     <!-- Detail -->
