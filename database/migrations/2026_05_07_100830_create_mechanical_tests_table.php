@@ -16,10 +16,14 @@ return new class extends Migration
             $table->string('nomor_koil')->nullable();
             $table->foreignId('incoming_bahan_baku_id')->constrained('incoming_bahan_bakus')->onDelete('cascade');
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
-            $table->decimal('hasil_tensile', 8,2)->nullable();
-            $table->decimal('hasil_coatingweight', 8,2)->nullable();
+            $table->decimal('hasil_tensile', 8, 2)->nullable();
+            $table->decimal('hasil_coatingweight', 8, 2)->nullable();
             $table->string('hasil_lilit')->nullable();
             $table->string('hasil_puntir')->nullable();
+            $table->string('status')->nullable();
+            $table->string('description1')->nullable();
+            $table->string('description2')->nullable();
+            $table->json('files')->nullable();
             $table->timestamps();
         });
     }

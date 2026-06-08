@@ -399,6 +399,10 @@ class IncomingBahanBakuController extends Controller
             'hasil_coatingweight' => 'required',
             'hasil_lilit' => 'required',
             'hasil_puntir' => 'required',
+            'status' => 'required',
+            'description1' => 'nullable|string',
+            'description2' => 'nullable|string',
+            'files.*' => 'file|mimes:jpg,jpeg,png,pdf|max:10240',
         ]);
 
         if (!Auth::check()) {
@@ -413,7 +417,20 @@ class IncomingBahanBakuController extends Controller
             'hasil_coatingweight' => $validated['hasil_coatingweight'],
             'hasil_lilit' => $validated['hasil_lilit'],
             'hasil_puntir' => $validated['hasil_puntir'],
+            'status' => $validated['status'],
+            'description1' => $validated['description1'],
+            'description2' => $validated['description2'],
+            'files' => $validated['files'] ?? null,
         ]);
+
+        // simpan file multiple ke kolom JSON
+        if ($request->hasFile('files')) {
+            $paths = [];
+            foreach ($request->file('files') as $file) {
+                $paths[] = $file->store('uploads/inspeksi_bb', 'public');
+            }
+            $mechanicalTest->update(['files' => $paths]);
+        }
 
         return redirect()
             ->route('incomingbahanbaku.show', $id)
@@ -433,14 +450,53 @@ class IncomingBahanBakuController extends Controller
             'hasil_coatingweight' => 'required',
             'hasil_lilit' => 'required',
             'hasil_puntir' => 'required',
+            'description1' => 'nullable|string',
+            'description2' => 'nullable|string',
+            'files.*' => 'image|mimes:jpg,jpeg,png,webp|max:2048',
+            'status' => 'required',
         ]);
 
+        // 1. Ambil data files lama sebagai backup default
+        $arrFiles = $mechanicalTest->files ?? [];
+
+        // 2. Cek apakah user mengupload file/gambar baru
+        if ($request->hasFile('files')) {
+
+            // Hapus file fisik lama di storage jika ada
+            if (!empty($mechanicalTest->files)) {
+                foreach ($mechanicalTest->files as $oldFile) {
+
+                    // PROTEKSI: Jika ternyata $oldFile adalah array, ambil index pertamanya [0]
+                    $actualPath = is_array($oldFile) ? ($oldFile[0] ?? '') : $oldFile;
+
+                    // Pastikan variabel berbentuk string dan tidak kosong sebelum di-cek ke Flysystem
+                    if (!empty($actualPath) && is_string($actualPath)) {
+                        if (Storage::disk('public')->exists($actualPath)) {
+                            Storage::disk('public')->delete($actualPath);
+                        }
+                    }
+                }
+            }
+
+            // Simpan file-file baru yang di-upload
+            $arrFiles = [];
+            foreach ($request->file('files') as $file) {
+                $path = $file->store('mechanical_tests', 'public');
+                $arrFiles[] = $path;
+            }
+        }
+
+        // 3. Gabungkan array files baru ke dalam array validasi data update
+        $validated['files'] = $arrFiles;
+
+        // 4. Jalankan perintah update massal ke database
         $mechanicalTest->update($validated);
 
         return redirect()
             ->route('incomingbahanbaku.show', $mechanicalTest->incoming_bahan_baku_id)
-            ->with('success', 'Data mechanical test berhasil diupdate');
+            ->with('success', 'Data mechanical test & lampiran berhasil diupdate');
     }
+
 
     public function destroyMechanicalTest(MechanicalTest $mechanicalTest)
     {

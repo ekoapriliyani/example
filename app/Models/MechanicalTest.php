@@ -14,13 +14,23 @@ class MechanicalTest extends Model
         'hasil_coatingweight',
         'hasil_lilit',
         'hasil_puntir',
+        'status',
+        'description1',
+        'description2',
+        'files',
     ];
 
-    public function incomingBahanBaku() {
+    protected $casts = [
+        'files' => 'array',
+    ];
+
+    public function incomingBahanBaku()
+    {
         return $this->belongsTo(IncomingBahanBaku::class);
     }
 
-    public function user() {
+    public function user()
+    {
         return $this->belongsTo(User::class);
     }
 }

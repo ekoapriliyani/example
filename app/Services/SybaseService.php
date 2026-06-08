@@ -19,6 +19,7 @@ class SybaseService
         );
     }
 
+    // pro data
     public function getAllProData(): array
     {
         $pdo = $this->connect();
@@ -29,6 +30,27 @@ class SybaseService
                 description,
                 Qty_ordered
             FROM DBA.Beva_vProBI
+            WHERE trno IS NOT NULL
+            AND description IS NOT NULL
+            AND Status = 'Open'
+            ORDER BY trno
+        ";
+
+        return $pdo->query($sql)->fetchAll();
+    }
+
+    // shipment data
+    public function getShipmentData(): array
+    {
+        $pdo = $this->connect();
+
+        $sql = "
+            SELECT DISTINCT
+                trno,
+                custname,
+                description,
+                qt
+            FROM DBA.Beva_vShipmentBI
             WHERE trno IS NOT NULL
             AND description IS NOT NULL
             AND Status = 'Open'
