@@ -11,7 +11,7 @@
                 <div class="p-8 text-gray-900">
                     <div class="mb-6">
                         <p class="text-sm text-gray-600">
-                            Silahkan isi data hasil pengecekan incoming bahan baku koil di bawah ini dengan benar.
+                            xxxxxxx
                         </p>
                     </div>
 
@@ -67,39 +67,6 @@
                             </div>
                             <x-input-error class="mt-2" :messages="$errors->get('jml_koil')" />
                         </div>
-
-                        {{-- SEKSI INPUT NO KOIL + SCANNER BARCODE --}}
-                        <div>
-                            <x-input-label for="no_koil" :value="__('Nomor Koil')" />
-                            <div class="flex gap-2 mt-1">
-                                <x-text-input id="no_koil" name="no_koil" type="text" class="block w-full"
-                                    :value="old('no_koil')" placeholder="Masukkan atau scan nomor koil" required />
-
-                                <button type="button" id="btn-scan"
-                                    class="inline-flex items-center px-3 py-2 bg-indigo-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-indigo-700 active:bg-indigo-900 focus:outline-none focus:border-indigo-900 focus:ring ring-indigo-300 disabled:opacity-25 transition ease-in-out duration-150">
-                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"
-                                        xmlns="http://www.w3.org/2000/svg">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                            d="M12 4v1m6 11h2m-6 0h-2v4m0-11v3m0 0h.01M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z">
-                                        </path>
-                                    </svg>
-                                    <span class="ml-1 hidden sm:inline">Scan</span>
-                                </button>
-                            </div>
-                            <x-input-error class="mt-2" :messages="$errors->get('no_koil')" />
-
-                            {{-- KONTAINER VIEWPORT KAMERA --}}
-                            <div id="scanner-container" class="mt-4 hidden p-4 bg-gray-50 border rounded-lg">
-                                <div class="flex justify-between items-center mb-2">
-                                    <span class="text-sm font-semibold text-gray-700">Kamera Scanner Aktif</span>
-                                    <button type="button" id="btn-close-scanner"
-                                        class="text-xs text-red-600 hover:underline">Tutup Kamera</button>
-                                </div>
-                                <div id="reader" class="w-full mx-auto overflow-hidden rounded-md"
-                                    style="max-width: 400px;"></div>
-                            </div>
-                        </div>
-
                         <div>
                             <x-input-label for="d_kawat" :value="__('D Kawat')" />
                             <div class="relative mt-1">
@@ -185,90 +152,14 @@
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 
-    {{-- LIBRARY HTML5-QRCODE VIA CDN --}}
-    <script src="https://unpkg.com/html5-qrcode" type="text/javascript"></script>
-
     <script>
         $(document).ready(function() {
-            // Inisialisasi Select2 bawaan Anda
+
             $('#supplier_id').select2({
                 placeholder: '-- Pilih Supplier --',
                 allowClear: true,
                 width: '100%'
             });
         });
-
-        // --- LOGIK BARCODE SCANNER NO KOIL ---
-        let html5QrcodeScanner = null;
-
-        document.getElementById('btn-scan').addEventListener('click', function() {
-            const container = document.getElementById('scanner-container');
-
-            if (container.classList.contains('hidden')) {
-                container.classList.remove('hidden');
-                startScanner();
-            } else {
-                stopScanner();
-                container.classList.add('hidden');
-            }
-        });
-
-        document.getElementById('btn-close-scanner').addEventListener('click', function() {
-            stopScanner();
-            document.getElementById('scanner-container').classList.add('hidden');
-        });
-
-        function startScanner() {
-            html5QrcodeScanner = new Html5Qrcode("reader");
-
-            const config = {
-                fps: 10,
-                qrbox: {
-                    width: 260,
-                    height: 140
-                } // Sangat pas untuk label memanjang pada label koil
-            };
-
-            html5QrcodeScanner.start({
-                    facingMode: "environment"
-                },
-                config,
-                onScanSuccess,
-                onScanFailure
-            ).catch((err) => {
-                alert("Gagal mengakses kamera: " + err);
-                document.getElementById('scanner-container').classList.add('hidden');
-            });
-        }
-
-        function onScanSuccess(decodedText, decodedResult) {
-            // Masukkan teks barcode ke field no_koil
-            document.getElementById('no_koil').value = decodedText;
-
-            stopScanner();
-            document.getElementById('scanner-container').classList.add('hidden');
-
-            // Efek kilatan hijau sukses input
-            const inputField = document.getElementById('no_koil');
-            inputField.classList.add('border-green-500', 'ring', 'ring-green-200');
-            setTimeout(() => {
-                inputField.classList.remove('border-green-500', 'ring', 'ring-green-200');
-            }, 1500);
-        }
-
-        function onScanFailure(error) {
-            // Pencarian log diabaikan agar tidak memenuhi konsol dev-tools
-            console.warn(`Mencari kode barcode koil...`);
-        }
-
-        function stopScanner() {
-            if (html5QrcodeScanner) {
-                html5QrcodeScanner.stop().then(() => {
-                    html5QrcodeScanner = null;
-                }).catch((err) => {
-                    console.error("Gagal menonaktifkan kamera stream.", err);
-                });
-            }
-        }
     </script>
 </x-app-layout>
