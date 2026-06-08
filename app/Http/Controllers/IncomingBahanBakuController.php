@@ -31,7 +31,7 @@ class IncomingBahanBakuController extends Controller
                     });
             })
             ->orderBy('created_at', 'desc') // Lebih aman menggunakan parameter waktu pembuatan data
-            ->paginate(10)
+            ->paginate(100)
             ->withQueryString();
 
         return view('incomingbahanbaku.index', compact('data'));
