@@ -239,10 +239,12 @@ class IncomingBahanBakuController extends Controller
             'd1' => 'nullable|numeric',
             'd2' => 'nullable|numeric',
             'd3' => 'nullable|numeric',
-            // 'dimensi' => 'nullable|string',
-            // 'visual' => 'nullable|string',
+            'dimensi' => 'nullable|string',
+            'visual' => 'nullable|string',
+            'description1' => 'nullable|string',
+            'description2' => 'nullable|string',
             // 'keterangan' => 'nullable|string',
-            // 'files.*' => 'file|mimes:jpg,jpeg,png,pdf|max:10240',
+            'files.*' => 'file|mimes:jpg,jpeg,png,pdf|max:10240',
         ]);
 
         // hitung rata-rata
@@ -264,19 +266,21 @@ class IncomingBahanBakuController extends Controller
             'd2' => $validated['d2'],
             'd3' => $validated['d3'],
             'rata_rata' => $rata_rata,
-            // 'dimensi' => $validated['dimensi'],
-            // 'visual' => $validated['visual'],
+            'dimensi' => $validated['dimensi'],
+            'visual' => $validated['visual'],
+            'description1' => $validated['description1'],
+            'description2' => $validated['description2'],
             // 'keterangan' => $validated['keterangan'],
         ]);
 
         // simpan file multiple ke kolom JSON
-        // if ($request->hasFile('files')) {
-        //     $paths = [];
-        //     foreach ($request->file('files') as $file) {
-        //         $paths[] = $file->store('uploads/inspeksi_bb', 'public');
-        //     }
-        //     $insbb->update(['files' => $paths]);
-        // }
+        if ($request->hasFile('files')) {
+            $paths = [];
+            foreach ($request->file('files') as $file) {
+                $paths[] = $file->store('uploads/inspeksi_bb', 'public');
+            }
+            $insbb->update(['files' => $paths]);
+        }
 
         return redirect()
             ->route('incomingbahanbaku.show', $id)
@@ -305,6 +309,8 @@ class IncomingBahanBakuController extends Controller
             'd3' => 'required|numeric',
             'dimensi' => 'required',
             'visual' => 'required',
+            'description1' => 'nullable|string',
+            'description2' => 'nullable|string',
             'keterangan' => 'nullable',
             'files.*' => 'image|mimes:jpg,jpeg,png|max:2048',
         ]);

@@ -63,23 +63,71 @@
                         </div>
                     </div>
 
-                    {{-- <div class="mb-4">
-                        <label for="dimensi">Dimensi</label>
-                        <select id="dimensi" name="dimensi" class="w-full border rounded px-3 py-2">
-                            <option value="">-- Pilih Status --</option>
-                            <option value="OK" {{ old('dimensi') == 'OK' ? 'selected' : '' }}>OK</option>
-                            <option value="NG" {{ old('dimensi') == 'NG' ? 'selected' : '' }}>NG</option>
-                        </select>
-                    </div> --}}
+                    <div class="grid grid-cols-2 gap-4 mb-4">
+                        <div class="mb-4">
+                            <label for="dimensi">Dimensi</label>
+                            <select id="dimensi" name="dimensi" class="w-full border rounded px-3 py-2">
+                                <option value="OK" {{ old('dimensi') == 'OK' ? 'selected' : '' }}>OK</option>
+                                <option value="NG" {{ old('dimensi') == 'NG' ? 'selected' : '' }}>NG</option>
+                            </select>
+                        </div>
 
-                    {{-- <div class="mb-4">
-                        <label for="visual">Visual</label>
-                        <select id="visual" name="visual" class="w-full border rounded px-3 py-2">
-                            <option value="">-- Pilih Status --</option>
-                            <option value="OK" {{ old('visual') == 'OK' ? 'selected' : '' }}>OK</option>
-                            <option value="NG" {{ old('visual') == 'NG' ? 'selected' : '' }}>NG</option>
-                        </select>
-                    </div> --}}
+                        <div class="mb-4">
+                            <label for="visual">Visual</label>
+                            <select id="visual" name="visual" class="w-full border rounded px-3 py-2">
+                                <option value="OK" {{ old('visual') == 'OK' ? 'selected' : '' }}>OK</option>
+                                <option value="NG" {{ old('visual') == 'NG' ? 'selected' : '' }}>NG</option>
+                            </select>
+                        </div>
+
+                        <div class="mb-4">
+                            <label for="description1">Description 1</label>
+                            <select id="description1" name="description1" class="w-full border rounded px-3 py-2">
+                                <option value="" {{ old('description1') == '' ? 'selected' : '' }}>-- Pilih
+                                    Deskripsi
+                                    --</option>
+                                <option value="KARAT" {{ old('description1') == 'KARAT' ? 'selected' : '' }}>KARAT
+                                </option>
+                                <option value="WHITE RUST" {{ old('description1') == 'WHITE RUST' ? 'selected' : '' }}>
+                                    WHITE
+                                    RUST</option>
+                                <option value="CRACK/FLAKING"
+                                    {{ old('description1') == 'CRACK/FLAKING' ? 'selected' : '' }}>CRACK/FLAKING
+                                </option>
+                                <option value="RUAS BAMBU" {{ old('description1') == 'RUAS BAMBU' ? 'selected' : '' }}>
+                                    RUAS
+                                    BAMBU</option>
+                                <option value="BINTIK HITAM"
+                                    {{ old('description1') == 'BINTIK HITAM' ? 'selected' : '' }}>
+                                    BINTIK HITAM
+                                </option>
+                            </select>
+                        </div>
+
+                        <div class="mb-4">
+                            <label for="description2">Description 2</label>
+                            <select id="description2" name="description2" class="w-full border rounded px-3 py-2">
+                                <option value="" {{ old('description2') == '' ? 'selected' : '' }}>-- Pilih
+                                    Deskripsi
+                                    --</option>
+                                <option value="KARAT" {{ old('description2') == 'KARAT' ? 'selected' : '' }}>KARAT
+                                </option>
+                                <option value="WHITE RUST" {{ old('description2') == 'WHITE RUST' ? 'selected' : '' }}>
+                                    WHITE
+                                    RUST</option>
+                                <option value="CRACK/FLAKING"
+                                    {{ old('description2') == 'CRACK/FLAKING' ? 'selected' : '' }}>CRACK/FLAKING
+                                </option>
+                                <option value="RUAS BAMBU" {{ old('description2') == 'RUAS BAMBU' ? 'selected' : '' }}>
+                                    RUAS
+                                    BAMBU</option>
+                                <option value="BINTIK HITAM"
+                                    {{ old('description2') == 'BINTIK HITAM' ? 'selected' : '' }}>
+                                    BINTIK HITAM
+                                </option>
+                            </select>
+                        </div>
+                    </div>
 
                     {{-- <div class="mb-4">
                         <label>Keterangan</label>
@@ -87,7 +135,7 @@
                     </div> --}}
 
                     {{-- upload file --}}
-                    {{-- <div class="mt-4">
+                    <div class="mt-4">
                         <x-input-label for="files" :value="__('Upload File')" />
                         <input id="files" name="files[]" type="file"
                             class="mt-1 block w-full border-gray-300 rounded-md shadow-sm" multiple>
@@ -98,7 +146,7 @@
                         @error('files.*')
                             <div class="text-red-500 text-sm mt-2">{{ $message }}</div>
                         @enderror
-                    </div> --}}
+                    </div>
 
                     <div class="flex justify-end gap-2 pt-4 border-t border-gray-100">
                         <a href="{{ route('incomingbahanbaku.show', $incomingbahanbaku->id) }}"

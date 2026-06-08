@@ -23,6 +23,8 @@ return new class extends Migration
             $table->string('dimensi')->nullable();
             $table->string('visual')->nullable();
             $table->string('keterangan')->nullable();
+            $table->string('description1')->nullable();
+            $table->string('description2')->nullable();
             $table->json('files')->nullable(); // simpan array path file upload
             $table->timestamps();
         });

@@ -14,10 +14,12 @@ class IncomingBahanBakuInspeksi extends Model
         'd2',
         'd3',
         'rata_rata',
-        // 'dimensi',
-        // 'visual',
+        'dimensi',
+        'visual',
         // 'keterangan',
-        // 'files',
+        'description1',
+        'description2',
+        'files',
     ];
 
     protected $casts = [
