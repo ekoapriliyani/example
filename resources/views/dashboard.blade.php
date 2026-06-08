@@ -1,123 +1,69 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('QC') }}
+            {{ __('QC Dashboard') }}
         </h2>
     </x-slot>
 
     <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="p-6 text-gray-900">
-                    {{ __("You're logged in!") }}
-                    <div class="mt-4">
-                        {{-- <form id="syncForm" action="{{ route('sync.pro.reference') }}" method="POST">
-                            @csrf
-                            <button type="submit" class="btn btn-primary">
-                                Sync Pro Reference
-                            </button>
-                        </form> --}}
-                        <div id="syncModal" class="sync-modal" style="display: none;">
-                            <div class="sync-box">
-                                <div id="syncLoading">
-                                    <div class="spinner"></div>
-                                    <h5>Sync sedang berjalan...</h5>
-                                    <p>Mohon tunggu sebentar</p>
-                                </div>
+        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
 
-                                <div id="syncSuccess" style="display: none;">
-                                    <div class="checkmark">✓</div>
-                                    <h5>Sync berhasil!</h5>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div
+                    class="bg-white overflow-hidden shadow-sm sm:rounded-lg border border-gray-200 p-6 flex items-center justify-between">
+                    <div>
+                        <p class="text-sm font-semibold text-gray-500 uppercase tracking-wider">Total Inspeksi</p>
+                        <h3 class="text-3xl font-extrabold text-indigo-600 mt-1">24</h3>
+                    </div>
+                    <div class="p-3 rounded-full bg-indigo-50 text-indigo-600">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="size-8" fill="none" viewBox="0 0 24 24"
+                            stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01" />
+                        </svg>
+                    </div>
+                </div>
 
-                                    @if (session('sync_success'))
-                                        <pre>{{ session('sync_success') }}</pre>
-                                    @endif
-                                </div>
-                            </div>
-                        </div>
-                        <style>
-                            .sync-modal {
-                                position: fixed;
-                                inset: 0;
-                                background: rgba(0, 0, 0, 0.45);
-                                z-index: 9999;
-                                display: flex;
-                                align-items: center;
-                                justify-content: center;
-                            }
+                <div
+                    class="bg-white overflow-hidden shadow-sm sm:rounded-lg border border-gray-200 p-6 flex items-center justify-between">
+                    <div>
+                        <p class="text-sm font-semibold text-gray-500 uppercase tracking-wider">Pending Approval</p>
+                        <h3 class="text-3xl font-extrabold text-amber-500 mt-1">5</h3>
+                    </div>
+                    <div class="p-3 rounded-full bg-amber-50 text-amber-500">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="size-8" fill="none" viewBox="0 0 24 24"
+                            stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                    </div>
+                </div>
 
-                            .sync-box {
-                                background: white;
-                                width: 360px;
-                                padding: 30px;
-                                border-radius: 14px;
-                                text-align: center;
-                                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-                            }
-
-                            .spinner {
-                                width: 48px;
-                                height: 48px;
-                                border: 5px solid #ddd;
-                                border-top-color: #4f46e5;
-                                border-radius: 50%;
-                                margin: 0 auto 18px;
-                                animation: spin 1s linear infinite;
-                            }
-
-                            .checkmark {
-                                width: 64px;
-                                height: 64px;
-                                line-height: 64px;
-                                border-radius: 50%;
-                                background: #22c55e;
-                                color: white;
-                                font-size: 42px;
-                                font-weight: bold;
-                                margin: 0 auto 18px;
-                            }
-
-                            .sync-box pre {
-                                background: #f3f4f6;
-                                padding: 10px;
-                                border-radius: 8px;
-                                font-size: 13px;
-                                text-align: left;
-                                white-space: pre-wrap;
-                            }
-
-                            @keyframes spin {
-                                to {
-                                    transform: rotate(360deg);
-                                }
-                            }
-                        </style>
+                <div
+                    class="bg-white overflow-hidden shadow-sm sm:rounded-lg border border-gray-200 p-6 flex items-center justify-between">
+                    <div>
+                        <p class="text-sm font-semibold text-gray-500 uppercase tracking-wider">Approved</p>
+                        <h3 class="text-3xl font-extrabold text-emerald-600 mt-1">19</h3>
+                    </div>
+                    <div class="p-3 rounded-full bg-emerald-50 text-emerald-600">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="size-8" fill="none" viewBox="0 0 24 24"
+                            stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
                     </div>
                 </div>
             </div>
+            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg border border-gray-200">
+                <div class="p-6 text-gray-900">
+                    <h4 class="text-lg font-bold text-gray-800 mb-2">Selamat Datang di Panel QC Inspection</h4>
+                    <p class="text-sm text-gray-600">
+                        Gunakan menu navigasi di atas untuk mengelola data material, subkon, proyek, atau memproses
+                        ringkasan data operasional inspeksi lapangan.
+                    </p>
+                </div>
+            </div>
+
         </div>
     </div>
-    <script>
-        document.getElementById('syncForm').addEventListener('submit', function() {
-            document.getElementById('syncModal').style.display = 'flex';
-        });
-    </script>
-
-    @if (session('sync_success'))
-        <script>
-            window.addEventListener('load', function() {
-                const modal = document.getElementById('syncModal');
-                const loading = document.getElementById('syncLoading');
-                const success = document.getElementById('syncSuccess');
-
-                modal.style.display = 'flex';
-                loading.style.display = 'none';
-                success.style.display = 'block';
-
-                setTimeout(function() {
-                    modal.style.display = 'none';
-                }, 3000);
-            });
-        </script>
-    @endif
 </x-app-layout>
