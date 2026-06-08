@@ -28,70 +28,131 @@
                             class="w-full border rounded px-3 py-2" required>
                     </div>
 
-                    <!-- D1 -->
-                    <div class="mb-4">
-                        <label>D1</label>
+                    <div class="grid grid-cols-3 gap-4 mb-4">
+                        <!-- D1 -->
+                        <div class="mb-4">
+                            <label>D1</label>
 
-                        <input type="number" step="0.01" name="d1" value="{{ old('d1', $inspeksi->d1) }}"
-                            class="w-full border rounded px-3 py-2" required>
+                            <input type="number" step="0.01" name="d1" value="{{ old('d1', $inspeksi->d1) }}"
+                                class="w-full border rounded px-3 py-2" required>
+                        </div>
+
+                        <!-- D2 -->
+                        <div class="mb-4">
+                            <label>D2</label>
+
+                            <input type="number" step="0.01" name="d2" value="{{ old('d2', $inspeksi->d2) }}"
+                                class="w-full border rounded px-3 py-2" required>
+                        </div>
+
+                        <!-- D3 -->
+                        <div class="mb-4">
+                            <label>D3</label>
+
+                            <input type="number" step="0.01" name="d3" value="{{ old('d3', $inspeksi->d3) }}"
+                                class="w-full border rounded px-3 py-2" required>
+                        </div>
                     </div>
 
-                    <!-- D2 -->
-                    <div class="mb-4">
-                        <label>D2</label>
+                    <div class="grid grid-cols-2 gap-4 mb-4">
+                        <!-- Dimensi -->
+                        <div class="mb-4">
+                            <label>Dimensi</label>
 
-                        <input type="number" step="0.01" name="d2" value="{{ old('d2', $inspeksi->d2) }}"
-                            class="w-full border rounded px-3 py-2" required>
+                            <select name="dimensi" class="w-full border rounded px-3 py-2">
+
+                                <option value="OK"
+                                    {{ old('dimensi', $inspeksi->dimensi) == 'OK' ? 'selected' : '' }}>
+                                    OK
+                                </option>
+
+                                <option value="NG"
+                                    {{ old('dimensi', $inspeksi->dimensi) == 'NG' ? 'selected' : '' }}>
+                                    NG
+                                </option>
+
+                            </select>
+                        </div>
+
+                        <!-- Visual -->
+                        <div class="mb-4">
+                            <label>Visual</label>
+
+                            <select name="visual" class="w-full border rounded px-3 py-2">
+
+                                <option value="OK" {{ old('visual', $inspeksi->visual) == 'OK' ? 'selected' : '' }}>
+                                    OK
+                                </option>
+
+                                <option value="NG" {{ old('visual', $inspeksi->visual) == 'NG' ? 'selected' : '' }}>
+                                    NG
+                                </option>
+
+                            </select>
+                        </div>
+
+                        <div class="mb-4">
+                            <label for="description1">Description 1</label>
+                            <select id="description1" name="description1" class="w-full border rounded px-3 py-2">
+                                <option value=""
+                                    {{ old('description1', $inspeksi->description1) == '' ? 'selected' : '' }}>
+                                    -- Pilih Deskripsi --
+                                </option>
+                                <option value="KARAT"
+                                    {{ old('description1', $inspeksi->description1) == 'KARAT' ? 'selected' : '' }}>
+                                    KARAT
+                                </option>
+                                <option value="WHITE RUST"
+                                    {{ old('description1', $inspeksi->description1) == 'WHITE RUST' ? 'selected' : '' }}>
+                                    WHITE RUST</option>
+                                <option value="CRACK/FLAKING"
+                                    {{ old('description1', $inspeksi->description1) == 'CRACK/FLAKING' ? 'selected' : '' }}>
+                                    CRACK/FLAKING</option>
+                                <option value="RUAS BAMBU"
+                                    {{ old('description1', $inspeksi->description1) == 'RUAS BAMBU' ? 'selected' : '' }}>
+                                    RUAS BAMBU</option>
+                                <option value="BINTIK HITAM"
+                                    {{ old('description1', $inspeksi->description1) == 'BINTIK HITAM' ? 'selected' : '' }}>
+                                    BINTIK HITAM</option>
+                            </select>
+                        </div>
+
+                        <div class="mb-4">
+                            <label for="description2">Description 2</label>
+                            <select id="description2" name="description2" class="w-full border rounded px-3 py-2">
+                                <option value=""
+                                    {{ old('description2', $inspeksi->description2) == '' ? 'selected' : '' }}>
+                                    -- Pilih Deskripsi --
+                                </option>
+                                <option value="KARAT"
+                                    {{ old('description2', $inspeksi->description2) == 'KARAT' ? 'selected' : '' }}>
+                                    KARAT
+                                </option>
+                                <option value="WHITE RUST"
+                                    {{ old('description2', $inspeksi->description2) == 'WHITE RUST' ? 'selected' : '' }}>
+                                    WHITE RUST</option>
+                                <option value="CRACK/FLAKING"
+                                    {{ old('description2', $inspeksi->description2) == 'CRACK/FLAKING' ? 'selected' : '' }}>
+                                    CRACK/FLAKING</option>
+                                <option value="RUAS BAMBU"
+                                    {{ old('description2', $inspeksi->description2) == 'RUAS BAMBU' ? 'selected' : '' }}>
+                                    RUAS BAMBU</option>
+                                <option value="BINTIK HITAM"
+                                    {{ old('description2', $inspeksi->description2) == 'BINTIK HITAM' ? 'selected' : '' }}>
+                                    BINTIK HITAM</option>
+                            </select>
+                        </div>
                     </div>
 
-                    <!-- D3 -->
-                    <div class="mb-4">
-                        <label>D3</label>
 
-                        <input type="number" step="0.01" name="d3" value="{{ old('d3', $inspeksi->d3) }}"
-                            class="w-full border rounded px-3 py-2" required>
-                    </div>
-
-                    <!-- Dimensi -->
-                    <div class="mb-4">
-                        <label>Dimensi</label>
-
-                        <select name="dimensi" class="w-full border rounded px-3 py-2">
-
-                            <option value="OK" {{ old('dimensi', $inspeksi->dimensi) == 'OK' ? 'selected' : '' }}>
-                                OK
-                            </option>
-
-                            <option value="NG" {{ old('dimensi', $inspeksi->dimensi) == 'NG' ? 'selected' : '' }}>
-                                NG
-                            </option>
-
-                        </select>
-                    </div>
-
-                    <!-- Visual -->
-                    <div class="mb-4">
-                        <label>Visual</label>
-
-                        <select name="visual" class="w-full border rounded px-3 py-2">
-
-                            <option value="OK" {{ old('visual', $inspeksi->visual) == 'OK' ? 'selected' : '' }}>
-                                OK
-                            </option>
-
-                            <option value="NG" {{ old('visual', $inspeksi->visual) == 'NG' ? 'selected' : '' }}>
-                                NG
-                            </option>
-
-                        </select>
-                    </div>
 
                     <!-- Keterangan -->
-                    <div class="mb-4">
+                    {{-- <div class="mb-4">
                         <label>Keterangan</label>
 
                         <textarea name="keterangan" class="w-full border rounded px-3 py-2">{{ old('keterangan', $inspeksi->keterangan) }}</textarea>
-                    </div>
+                    </div> --}}
+
                     <!-- File/Gambar -->
                     <div class="mb-4">
                         <label>Upload Gambar</label>
