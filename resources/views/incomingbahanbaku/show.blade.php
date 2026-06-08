@@ -105,6 +105,7 @@
                             <thead class="bg-gray-50">
                                 <tr>
                                     <th class="px-4 py-3 font-semibold text-gray-900">No</th>
+                                    <th class="px-4 py-3 font-semibold text-gray-900 text-center">Aksi</th>
                                     <th class="px-4 py-3 font-semibold text-gray-900">Inspektor</th>
                                     <th class="px-4 py-3 font-semibold text-gray-900">No Koil</th>
                                     <th class="px-4 py-3 font-semibold text-gray-900">D1</th>
@@ -118,13 +119,49 @@
                                     {{-- <th class="px-4 py-3 font-semibold text-gray-900">Keterangan</th> --}}
                                     <th class="px-4 py-3 font-semibold text-gray-900">Gambar</th>
                                     <th class="px-4 py-3 font-semibold text-gray-900 text-center">Created At</th>
-                                    <th class="px-4 py-3 font-semibold text-gray-900 text-center">Aksi</th>
                                 </tr>
                             </thead>
                             <tbody class="divide-y divide-gray-200">
                                 @forelse ($incomingbahanbaku->incomingbahanbakuinspeksi as $inc)
                                     <tr class="hover:bg-gray-50 transition-colors">
                                         <td class="px-4 py-3">{{ $loop->iteration }}</td>
+                                        <td class="px-4 py-3">
+                                            <div class="flex items-center justify-center gap-2">
+
+                                                <!-- Edit -->
+                                                <a href="{{ route('incomingbahanbaku.inspeksi.edit', [
+                                                    'incomingbahanbaku' => $incomingbahanbaku->id,
+                                                    'inspeksi' => $inc->id,
+                                                ]) }}"
+                                                    class="flex items-center justify-center rounded bg-yellow-50 p-2 text-yellow-700 hover:bg-yellow-100 transition">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4"
+                                                        fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                                            stroke-width="2"
+                                                            d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5" />
+                                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                                            stroke-width="2"
+                                                            d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z" />
+                                                    </svg>
+                                                </a>
+                                                <!-- Delete -->
+                                                <form
+                                                    action="{{ route('incomingbahanbaku.inspeksi.destroy', $inc->id) }}"
+                                                    method="POST" class="form-delete inline">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button type="submit"
+                                                        class="flex items-center justify-center rounded bg-red-50 p-2 text-red-700 hover:bg-red-100 transition">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4"
+                                                            fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                            <path stroke-linecap="round" stroke-linejoin="round"
+                                                                stroke-width="2"
+                                                                d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3" />
+                                                        </svg>
+                                                    </button>
+                                                </form>
+                                            </div>
+                                        </td>
                                         <td class="px-4 py-3">{{ $inc->user->name ?? 'N/A' }}</td>
                                         <td class="px-4 py-3">{{ $inc->no_koil }}</td>
                                         <td class="px-4 py-3">{{ $inc->d1 }}</td>
@@ -167,55 +204,7 @@
                                             </button>
                                         </td>
                                         <td class="px-4 py-3 text-center bg-blue-50/30">{{ $inc->created_at }}</td>
-                                        <td class="px-4 py-3">
-                                            <div class="flex items-center justify-center gap-2">
 
-                                                <!-- Edit -->
-                                                <a href="{{ route('incomingbahanbaku.inspeksi.edit', [
-                                                    'incomingbahanbaku' => $incomingbahanbaku->id,
-                                                    'inspeksi' => $inc->id,
-                                                ]) }}"
-                                                    class="flex items-center justify-center rounded bg-yellow-50 p-2 text-yellow-700 hover:bg-yellow-100 transition">
-
-                                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4"
-                                                        fill="none" viewBox="0 0 24 24" stroke="currentColor">
-
-                                                        <path stroke-linecap="round" stroke-linejoin="round"
-                                                            stroke-width="2"
-                                                            d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5" />
-
-                                                        <path stroke-linecap="round" stroke-linejoin="round"
-                                                            stroke-width="2"
-                                                            d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z" />
-                                                    </svg>
-
-                                                </a>
-
-                                                <!-- Delete -->
-                                                <form
-                                                    action="{{ route('incomingbahanbaku.inspeksi.destroy', $inc->id) }}"
-                                                    method="POST" class="form-delete inline">
-
-                                                    @csrf
-                                                    @method('DELETE')
-
-                                                    <button type="submit"
-                                                        class="flex items-center justify-center rounded bg-red-50 p-2 text-red-700 hover:bg-red-100 transition">
-
-                                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4"
-                                                            fill="none" viewBox="0 0 24 24" stroke="currentColor">
-
-                                                            <path stroke-linecap="round" stroke-linejoin="round"
-                                                                stroke-width="2"
-                                                                d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3" />
-                                                        </svg>
-
-                                                    </button>
-
-                                                </form>
-
-                                            </div>
-                                        </td>
                                     </tr>
                                 @empty
                                     <tr>
