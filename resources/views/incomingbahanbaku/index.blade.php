@@ -31,7 +31,7 @@
                         </span>
                         <input type="text" name="search" value="{{ request('search') }}"
                             class="block w-full pl-10 pr-3 py-2 border border-gray-300 rounded-md leading-5 bg-white placeholder-gray-500 focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                            placeholder="Cari nomor inspeksi atau tanggal...">
+                            placeholder="Cari nomor inspeksi, tanggal, PO, supplier...">
                     </div>
                     <button type="submit"
                         class="inline-flex items-center px-4 py-2 bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 transition ease-in-out duration-150">
@@ -65,7 +65,7 @@
                                         <th class="px-4 py-3 font-semibold text-gray-900 text-left">Tol Kawat</th>
                                         <th class="px-4 py-3 font-semibold text-gray-900 text-left">Jenis Kawat</th>
                                         <th class="px-4 py-3 font-semibold text-gray-900 text-left">Certificate</th>
-                                        <th class="px-4 py-3 font-semibold text-gray-900 text-left">Files</th>
+                                        <th class="px-4 py-3 font-semibold text-gray-900 text-center">Files</th>
                                         <th class="px-4 py-3 font-semibold text-gray-900 text-left">Created At</th>
                                     </tr>
                                 </thead>
@@ -78,9 +78,9 @@
                                             </td>
                                             <td class="px-4 py-3 whitespace-nowrap">
                                                 <div class="flex justify-start items-center gap-2">
-                                                    <!-- Detail -->
                                                     <a href="{{ route('incomingbahanbaku.show', $item->id) }}"
-                                                        class="flex items-center justify-center rounded bg-indigo-50 p-2 text-indigo-700 hover:bg-indigo-100 transition">
+                                                        class="flex items-center justify-center rounded bg-indigo-50 p-2 text-indigo-700 hover:bg-indigo-100 transition"
+                                                        title="Detail">
                                                         <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4"
                                                             fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                             <path stroke-linecap="round" stroke-linejoin="round"
@@ -90,9 +90,9 @@
                                                                 d="M2.458 12C3.732 7.943 7.523 5 12 5c4.477 0 8.268 2.943 9.542 7-1.274 4.057-5.065 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
                                                         </svg>
                                                     </a>
-                                                    <!-- Edit -->
                                                     <a href="{{ route('incomingbahanbaku.edit', $item->id) }}"
-                                                        class="flex items-center justify-center rounded bg-yellow-50 p-2 text-yellow-700 hover:bg-yellow-100 transition">
+                                                        class="flex items-center justify-center rounded bg-yellow-50 p-2 text-yellow-700 hover:bg-yellow-100 transition"
+                                                        title="Edit">
                                                         <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4"
                                                             fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                             <path stroke-linecap="round" stroke-linejoin="round"
@@ -103,10 +103,10 @@
                                                                 d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z" />
                                                         </svg>
                                                     </a>
-                                                    <!-- Delete -->
                                                     <button type="button"
                                                         onclick="confirmDelete({{ $item->id }}, '{{ $item->nomor_inspeksi }}')"
-                                                        class="flex items-center justify-center rounded bg-red-50 p-2 text-red-700 hover:bg-red-100 transition">
+                                                        class="flex items-center justify-center rounded bg-red-50 p-2 text-red-700 hover:bg-red-100 transition"
+                                                        title="Hapus">
                                                         <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4"
                                                             fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                             <path stroke-linecap="round" stroke-linejoin="round"
@@ -122,33 +122,28 @@
                                                     </form>
                                                 </div>
                                             </td>
-                                            <td class="px-4 py-3 font-medium text-gray-900">{{ $item->tanggal }}
-                                            </td>
                                             <td class="px-4 py-3 font-medium text-gray-900">
-                                                {{ $item->nomor_inspeksi }}
-                                            </td>
+                                                {{ \Carbon\Carbon::parse($item->tanggal)->format('d/m/Y') }}</td>
                                             <td class="px-4 py-3 font-medium text-gray-900">
-                                                {{ $item->supplier->nama }}
-                                            </td>
+                                                {{ $item->nomor_inspeksi }}</td>
                                             <td class="px-4 py-3 font-medium text-gray-900">
-                                                {{ $item->no_po }}
-                                            </td>
-                                            <td class="px-4 py-3 font-medium text-gray-900">{{ $item->no_sj }}
-                                            <td class="px-4 py-3 font-medium text-gray-900">{{ $item->jml_koil }}
-                                            <td class="px-4 py-3 font-medium text-gray-900">{{ $item->d_kawat }}
-                                            <td class="px-4 py-3 font-medium text-gray-900">{{ $item->tol }}
+                                                {{ $item->supplier->nama ?? 'N/A' }}</td>
+                                            <td class="px-4 py-3 font-medium text-gray-900">{{ $item->no_po }}</td>
+                                            <td class="px-4 py-3 font-medium text-gray-900">{{ $item->no_sj }}</td>
+                                            <td class="px-4 py-3 font-medium text-gray-900">{{ $item->jml_koil }}</td>
+                                            <td class="px-4 py-3 font-medium text-gray-900">{{ $item->d_kawat }}</td>
+                                            <td class="px-4 py-3 font-medium text-gray-900">{{ $item->tol }}</td>
                                             <td class="px-4 py-3 font-medium text-gray-900">{{ $item->jenis_kawat }}
                                             </td>
                                             <td class="px-4 py-3 font-medium text-gray-900">{{ $item->certificate }}
                                             </td>
-                                            <td class="px-4 py-3 text-center">
+                                            <td class="px-4 py-3 text-center whitespace-nowrap">
                                                 @if ($item->files && count($item->files))
                                                     <button type="button"
                                                         onclick='openFileModal(@json($item->files))'
-                                                        class="inline-flex items-center gap-2 rounded-lg bg-indigo-50 px-3 py-2 text-sm font-medium text-indigo-700 hover:bg-indigo-100 transition">
-                                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4"
+                                                        class="inline-flex items-center gap-2 rounded-lg bg-indigo-50 px-3 py-1.5 text-xs font-medium text-indigo-700 hover:bg-indigo-100 transition">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-3.5 w-3.5"
                                                             fill="none" viewBox="0 0 24 24" stroke="currentColor">
-
                                                             <path stroke-linecap="round" stroke-linejoin="round"
                                                                 stroke-width="2"
                                                                 d="M15 12H9m12 0A9 9 0 1112 3a9 9 0 019 9z" />
@@ -156,55 +151,41 @@
                                                         Lihat File ({{ count($item->files) }})
                                                     </button>
                                                 @else
-                                                    <span class="text-gray-400 italic">No files</span>
+                                                    <span class="text-gray-400 italic text-xs">No files</span>
                                                 @endif
                                             </td>
-                                            <td class="px-4 py-3 font-medium text-gray-900">{{ $item->created_at }}
-                                            </td>
+                                            <td class="px-4 py-3 text-xs text-gray-500">
+                                                {{ $item->created_at->format('d/m/Y H:i') }}</td>
                                         </tr>
                                     @empty
                                         <tr>
-                                            <td colspan="4" class="px-4 py-8 text-center text-gray-500 italic">
-                                                Belum ada data inspeksi.
+                                            <td colspan="14" class="px-4 py-8 text-center text-gray-500 italic">
+                                                Belum ada data inspeksi bahan baku.
                                             </td>
                                         </tr>
                                     @endforelse
                                 </tbody>
                             </table>
-                            {{-- modal gambar --}}
-                            <div id="fileModal"
-                                class="fixed inset-0 z-50 hidden items-center justify-center bg-black/70 p-6">
-
-                                <div
-                                    class="relative max-h-[90vh] w-full max-w-5xl overflow-auto rounded-2xl bg-white shadow-xl">
-
-                                    <!-- Header -->
-                                    <div
-                                        class="sticky top-0 flex items-center justify-between border-b bg-white px-6 py-4">
-                                        <h3 class="text-lg font-semibold text-gray-800">
-                                            Preview File
-                                        </h3>
-
-                                        <button onclick="closeFileModal()"
-                                            class="rounded-lg p-2 text-gray-500 hover:bg-gray-100">
-                                            ✕
-                                        </button>
-                                    </div>
-
-                                    <!-- Content -->
-                                    <div id="filePreviewContainer" class="space-y-6 p-6">
-                                    </div>
-
-                                </div>
-                            </div>
                         </div>
                     </div>
 
-                    {{-- <div class="mt-4">
+                    <div class="mt-4">
                         {{ $data->links() }}
-                    </div> --}}
+                    </div>
+
                 </div>
             </div>
+        </div>
+    </div>
+
+    <div id="fileModal" class="fixed inset-0 z-50 hidden items-center justify-center bg-black/70 p-6">
+        <div class="relative max-h-[90vh] w-full max-w-5xl overflow-auto rounded-2xl bg-white shadow-xl">
+            <div class="sticky top-0 flex items-center justify-between border-b bg-white px-6 py-4 z-10">
+                <h3 class="text-lg font-semibold text-gray-800">Preview File</h3>
+                <button onclick="closeFileModal()"
+                    class="rounded-lg p-2 text-gray-500 hover:bg-gray-100 text-lg font-bold">✕</button>
+            </div>
+            <div id="filePreviewContainer" class="space-y-6 p-6"></div>
         </div>
     </div>
 
@@ -240,12 +221,11 @@
                 }
             })
         }
-    </script>
-    <script>
+
+        // Fungsi Open Modal File
         function openFileModal(files) {
             let modal = document.getElementById('fileModal');
             let container = document.getElementById('filePreviewContainer');
-
             container.innerHTML = '';
 
             files.forEach(file => {
@@ -254,26 +234,20 @@
 
                 if (['jpg', 'jpeg', 'png', 'gif', 'webp'].includes(ext)) {
                     container.innerHTML += `
-                    <div>
-                        <img src="${url}"
-                            class="w-full rounded-xl border shadow-sm">
-                    </div>
-                `;
+                        <div class="flex justify-center">
+                            <img src="${url}" class="max-w-full rounded-xl border shadow-sm">
+                        </div>`;
                 } else if (ext === 'pdf') {
                     container.innerHTML += `
-                    <iframe src="${url}"
-                        class="h-[700px] w-full rounded-xl border"></iframe>
-                `;
+                        <iframe src="${url}" class="h-[650px] w-full rounded-xl border"></iframe>`;
                 } else {
                     container.innerHTML += `
-                    <div class="rounded-lg border bg-gray-50 p-4">
-                        <a href="${url}"
-                            target="_blank"
-                            class="text-blue-600 hover:underline">
-                            Download ${file.split('/').pop()}
-                        </a>
-                    </div>
-                `;
+                        <div class="rounded-lg border bg-gray-50 p-4 flex justify-between items-center">
+                            <span class="text-sm text-gray-600 font-medium">${file.split('/').pop()}</span>
+                            <a href="${url}" target="_blank" class="text-indigo-600 font-semibold hover:underline text-sm">
+                                Download File
+                            </a>
+                        </div>`;
                 }
             });
 
@@ -281,9 +255,9 @@
             modal.classList.add('flex');
         }
 
+        // Fungsi Close Modal
         function closeFileModal() {
             let modal = document.getElementById('fileModal');
-
             modal.classList.add('hidden');
             modal.classList.remove('flex');
         }
