@@ -275,6 +275,7 @@
                             <thead class="bg-gray-50">
                                 <tr>
                                     <th class="px-4 py-3 font-semibold text-gray-900">No</th>
+                                    <th class="px-4 py-3 font-semibold text-gray-900 text-center">Aksi</th>
                                     <th class="px-4 py-3 font-semibold text-gray-900">Inspektor</th>
                                     <th class="px-4 py-3 font-semibold text-gray-900">No Koil</th>
                                     <th class="px-4 py-3 font-semibold text-gray-900">Hasil Tensile</th>
@@ -282,32 +283,12 @@
                                     <th class="px-4 py-3 font-semibold text-gray-900">Hasil Lilit</th>
                                     <th class="px-4 py-3 font-semibold text-gray-900">Hasil Puntir</th>
                                     <th class="px-4 py-3 font-semibold text-gray-900 text-center">Created At</th>
-                                    <th class="px-4 py-3 font-semibold text-gray-900">Actions</th>
                                 </tr>
                             </thead>
                             <tbody class="divide-y divide-gray-200">
                                 @forelse ($incomingbahanbaku->mechanicalTests as $test)
                                     <tr class="hover:bg-gray-50 transition-colors">
                                         <td class="px-4 py-3">{{ $loop->iteration }}</td>
-                                        <td class="px-4 py-3">{{ $test->user->name ?? 'N/A' }}</td>
-                                        <td class="px-4 py-3">{{ $test->nomor_koil }}</td>
-                                        <td class="px-4 py-3">{{ $test->hasil_tensile }} Mpa</td>
-                                        <td class="px-4 py-3">{{ $test->hasil_coatingweight }} g/m<sup>2</sup></td>
-                                        <td class="px-4 py-3">
-                                            @if ($test->hasil_lilit === 'OK')
-                                                <span
-                                                    class="inline-flex items-center px-2 py-1 text-xs font-semibold text-green-800 bg-green-200 rounded-full">
-                                                    OK
-                                                </span>
-                                            @elseif($test->hasil_lilit === 'CRACK')
-                                                <span
-                                                    class="inline-flex items-center px-2 py-1 text-xs font-semibold text-red-800 bg-red-200 rounded-full">
-                                                    CRACK
-                                                </span>
-                                            @endif
-                                        </td>
-                                        <td class="px-4 py-3">{{ $test->hasil_puntir }} kali</td>
-                                        <td class="px-4 py-3 text-center bg-blue-50/30">{{ $test->created_at }}</td>
                                         <td class="px-4 py-3">
                                             <div class="flex items-center justify-center gap-2">
                                                 <!-- Edit -->
@@ -341,6 +322,25 @@
                                                 </form>
                                             </div>
                                         </td>
+                                        <td class="px-4 py-3">{{ $test->user->name ?? 'N/A' }}</td>
+                                        <td class="px-4 py-3">{{ $test->nomor_koil }}</td>
+                                        <td class="px-4 py-3">{{ $test->hasil_tensile }} Mpa</td>
+                                        <td class="px-4 py-3">{{ $test->hasil_coatingweight }} g/m<sup>2</sup></td>
+                                        <td class="px-4 py-3">
+                                            @if ($test->hasil_lilit === 'OK')
+                                                <span
+                                                    class="inline-flex items-center px-2 py-1 text-xs font-semibold text-green-800 bg-green-200 rounded-full">
+                                                    OK
+                                                </span>
+                                            @elseif($test->hasil_lilit === 'CRACK')
+                                                <span
+                                                    class="inline-flex items-center px-2 py-1 text-xs font-semibold text-red-800 bg-red-200 rounded-full">
+                                                    CRACK
+                                                </span>
+                                            @endif
+                                        </td>
+                                        <td class="px-4 py-3">{{ $test->hasil_puntir }} kali</td>
+                                        <td class="px-4 py-3 text-center bg-blue-50/30">{{ $test->created_at }}</td>
                                     </tr>
                                 @empty
                                     <tr>
