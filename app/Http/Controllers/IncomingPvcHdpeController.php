@@ -235,4 +235,89 @@ class IncomingPvcHdpeController extends Controller
 
         return redirect()->route('incomingpvchdpe.index')->with('success', 'Data incoming berhasil dihapus');
     }
+
+    public function destroyInspeksi($id)
+    {
+        // 1. Cari data inspeksi berdasarkan ID
+        // Sesuaikan nama Model 'IncomingPvcHdpeInspeksi' dengan yang ada di sitemmu
+        $inspeksi = IncomingPvcHdpeInspeksi::findOrFail($id);
+
+        try {
+            // 2. Hapus file/gambar lampiran dari storage jika ada
+            if ($inspeksi->files) {
+                foreach ($inspeksi->files as $file) {
+                    // Proteksi jika data tersimpan sebagai array didalam array
+                    $actualPath = is_array($file) ? ($file[0] ?? '') : $file;
+
+                    if (!empty($actualPath) && Storage::disk('public')->exists($actualPath)) {
+                        Storage::disk('public')->delete($actualPath);
+                    }
+                }
+            }
+
+            // 3. Hapus data dari database
+            $inspeksi->delete();
+
+            return redirect()->back()->with('success', 'Item inspeksi PVC/HDPE berhasil dihapus.');
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Gagal menghapus data: ' . $e->getMessage());
+        }
+    }
+
+
+
+    // 1. Method untuk menampilkan halaman edit
+    public function editInspeksi($incomingpvchdpe_id, $inspeksi_id)
+    {
+        // Cari data inspeksi child berdasarkan ID
+        $inspeksi = IncomingPvcHdpeInspeksi::findOrFail($inspeksi_id);
+
+        // Lempar data ke view edit yang kita buat sebelumnya
+        return view('incomingpvchdpe.inspeksi.edit', compact('inspeksi'));
+    }
+
+    // 2. Method untuk memproses update data ke database
+    public function updateInspeksi(Request $request, $id)
+    {
+        $inspeksi = IncomingPvcHdpeInspeksi::findOrFail($id);
+
+        $validated = $request->validate([
+            'warna' => 'nullable|string',
+            'status' => 'required|string|in:OK,NG',
+            'keterangan' => 'nullable|string',
+            'files.*' => 'image|mimes:jpg,jpeg,png,webp|max:2048',
+        ]);
+
+        // Ambil default berkas lama jika ada
+        $arrFiles = $inspeksi->files ?? [];
+
+        // Jika operator mengunggah file/gambar baru
+        if ($request->hasFile('files')) {
+            // Hapus file fisik lama di storage agar hemat ruang disk
+            if (!empty($inspeksi->files)) {
+                foreach ($inspeksi->files as $oldFile) {
+                    $actualPath = is_array($oldFile) ? ($oldFile[0] ?? '') : $oldFile;
+                    if (!empty($actualPath) && Storage::disk('public')->exists($actualPath)) {
+                        Storage::disk('public')->delete($actualPath);
+                    }
+                }
+            }
+
+            // Simpan file-file baru
+            $arrFiles = [];
+            foreach ($request->file('files') as $file) {
+                $path = $file->store('incoming_pvc_hdpe', 'public');
+                $arrFiles[] = $path;
+            }
+        }
+
+        $validated['files'] = $arrFiles;
+
+        // Jalankan update ke database
+        $inspeksi->update($validated);
+
+        return redirect()
+            ->route('incomingpvchdpe.show', $inspeksi->incoming_pvc_hdpe_id) // Sesuaikan nama foreign key induknya
+            ->with('success', 'Data inspeksi PVC/HDPE berhasil diperbarui!');
+    }
 }

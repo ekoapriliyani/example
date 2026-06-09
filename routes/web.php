@@ -619,6 +619,17 @@ Route::middleware(['auth'])->group(function () {
 
         Route::post('incomingpvchdpe/{id}/inspeksi', 'storeInspeksi')
             ->name('incomingpvchdpe.inspeksi.store');
+
+        Route::delete('/incomingpvchdpe/inspeksi/{id}', 'destroyInspeksi')
+            ->name('incomingpvchdpe.inspeksi.destroy');
+
+        // Rute untuk buka halaman form edit
+        Route::get('/incomingpvchdpe/{incomingpvchdpe}/inspeksi/{inspeksi}/edit', [IncomingPvcHdpeController::class, 'editInspeksi'])
+            ->name('incomingpvchdpe.inspeksi.edit');
+
+        // Rute untuk memproses data update (gunakan PUT/PATCH)
+        Route::put('/incomingpvchdpe/inspeksi/{id}', [IncomingPvcHdpeController::class, 'updateInspeksi'])
+            ->name('incomingpvchdpe.inspeksi.update');
     });
 
 
