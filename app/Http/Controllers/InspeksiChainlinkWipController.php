@@ -147,7 +147,7 @@ class InspeksiChainlinkWipController extends Controller
             'diameter_luar' => 'required',
             'type' => 'required',
             'model' => 'required',
-            'warna' => 'required',
+            'warna' => '',
             'visual' => 'required',
             'weight' => 'required',
             'status' => 'required',
