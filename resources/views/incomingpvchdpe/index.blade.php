@@ -31,7 +31,7 @@
                         </span>
                         <input type="text" name="search" value="{{ request('search') }}"
                             class="block w-full pl-10 pr-3 py-2 border border-gray-300 rounded-md leading-5 bg-white placeholder-gray-500 focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                            placeholder="Cari nomor inspeksi, supplier atau tanggal...">
+                            placeholder="Cari nomor inspeksi atau tanggal...">
                     </div>
                     <button type="submit"
                         class="inline-flex items-center px-4 py-2 bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 transition ease-in-out duration-150">
@@ -54,7 +54,7 @@
                                 <thead class="bg-gray-50">
                                     <tr>
                                         <th class="px-4 py-3 font-semibold text-gray-900 text-left w-16">No</th>
-                                        <th class="px-4 py-3 font-semibold text-gray-900 text-left w-32">Aksi</th>
+                                        <th class="px-4 py-3 font-semibold text-gray-900 text-left">Aksi</th>
                                         <th class="px-4 py-3 font-semibold text-gray-900 text-left">Tanggal</th>
                                         <th class="px-4 py-3 font-semibold text-gray-900 text-left">Nomor Inspeksi</th>
                                         <th class="px-4 py-3 font-semibold text-gray-900 text-left">Supplier</th>
@@ -69,10 +69,10 @@
                                     @forelse ($data as $item)
                                         <tr class="hover:bg-gray-50 transition-colors">
                                             <td class="px-4 py-3 font-medium text-gray-900">
-                                                {{ $loop->iteration + ($data->firstItem() - 1) }}
-                                            </td>
-                                            <td class="px-4 py-3 whitespace-nowrap">
+                                                {{ $loop->iteration }}</td>
+                                            <td class="px-4 py-3">
                                                 <div class="flex items-center justify-start gap-2">
+                                                    <!-- View -->
                                                     <a href="{{ route('incomingpvchdpe.show', $item->id) }}"
                                                         class="inline-flex h-8 w-8 items-center justify-center rounded bg-indigo-50 text-indigo-700 hover:bg-indigo-100 transition"
                                                         title="View Details">
@@ -86,6 +86,7 @@
                                                         </svg>
                                                     </a>
 
+                                                    <!-- Edit -->
                                                     <a href="{{ route('incomingpvchdpe.edit', $item->id) }}"
                                                         class="inline-flex h-8 w-8 items-center justify-center rounded bg-yellow-50 text-yellow-700 hover:bg-yellow-100 transition"
                                                         title="Edit">
@@ -100,6 +101,7 @@
                                                         </svg>
                                                     </a>
 
+                                                    <!-- Delete -->
                                                     <button type="button"
                                                         onclick="confirmDelete({{ $item->id }}, '{{ $item->nomor_inspeksi }}')"
                                                         class="inline-flex h-8 w-8 items-center justify-center rounded bg-red-50 text-red-700 hover:bg-red-100 transition"
@@ -120,71 +122,62 @@
                                                 </div>
                                             </td>
 
-                                            <td class="px-4 py-3 font-medium text-gray-900">{{ $item->tanggal }}</td>
-                                            <td class="px-4 py-3 font-semibold text-gray-900">
-                                                {{ $item->nomor_inspeksi }}</td>
-                                            <td class="px-4 py-3 text-gray-700">{{ $item->supplier->nama ?? 'N/A' }}
+                                            <td class="px-4 py-3 font-medium text-gray-900">{{ $item->tanggal }}
                                             </td>
-                                            <td class="px-4 py-3 text-gray-700">{{ $item->no_po }}</td>
-                                            <td class="px-4 py-3 text-gray-700">{{ $item->no_sj }}</td>
-                                            <td class="px-4 py-3 text-gray-600">{{ $item->certificate }}</td>
+                                            <td class="px-4 py-3 font-medium text-gray-900">
+                                                {{ $item->nomor_inspeksi }}
+                                            </td>
+                                            <td class="px-4 py-3 font-medium text-gray-900">
+                                                {{ $item->supplier->nama }}
+                                            </td>
+                                            <td class="px-4 py-3 font-medium text-gray-900">
+                                                {{ $item->no_po }}
+                                            </td>
+                                            <td class="px-4 py-3 font-medium text-gray-900">{{ $item->no_sj }}
+                                            </td>
+                                            <td class="px-4 py-3 font-medium text-gray-900">{{ $item->certificate }}
+                                            </td>
                                             <td class="px-4 py-3">
-                                                <button type="button"
-                                                    class="text-sm text-indigo-600 font-semibold hover:underline"
+                                                <button type="button" class="text-sm text-indigo-600 hover:underline"
                                                     onclick="toggleImage({{ $item->id }})">
                                                     Lihat Gambar
                                                 </button>
                                             </td>
 
+                                            <!-- Modal -->
                                             <div id="image-{{ $item->id }}"
                                                 class="hidden fixed inset-0 bg-gray-900 bg-opacity-50 flex items-center justify-center z-50">
                                                 <div
                                                     class="bg-white rounded-lg shadow-lg w-3/4 p-6 max-h-[80vh] overflow-y-auto">
-                                                    <h3 class="text-lg font-semibold mb-4 text-gray-800">File Lampiran
-                                                        Inspeksi: <span
-                                                            class="text-indigo-600">{{ $item->nomor_inspeksi }}</span>
-                                                    </h3>
+                                                    <h3 class="text-lg font-semibold mb-4">File Inspeksi:
+                                                        {{ $item->certificate }}</h3>
 
-                                                    @if ($item->files && count($item->files))
+                                                    @if ($item->files)
                                                         <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
                                                             @foreach ($item->files as $file)
-                                                                @php
-                                                                    $actualFile = is_array($file)
-                                                                        ? $file[0] ?? ''
-                                                                        : $file;
-                                                                    $ext = !empty($actualFile)
-                                                                        ? pathinfo(
-                                                                            (string) $actualFile,
-                                                                            PATHINFO_EXTENSION,
-                                                                        )
-                                                                        : '';
-                                                                @endphp
+                                                                @php $ext = pathinfo($file, PATHINFO_EXTENSION); @endphp
 
-                                                                @if (!empty($actualFile))
-                                                                    @if (in_array(strtolower($ext), ['jpg', 'jpeg', 'png', 'webp']))
-                                                                        <img src="{{ asset('storage/' . $actualFile) }}"
-                                                                            alt="File Image"
-                                                                            class="w-full h-40 object-cover rounded border cursor-pointer hover:opacity-90 transition"
-                                                                            onclick="previewImage('{{ asset('storage/' . $actualFile) }}')" />
-                                                                    @else
-                                                                        <a href="{{ asset('storage/' . $actualFile) }}"
-                                                                            target="_blank"
-                                                                            class="flex items-center justify-center p-4 border rounded bg-gray-50 text-blue-600 hover:underline font-medium text-sm">
-                                                                            Lihat Dokumen
-                                                                            ({{ strtoupper($ext) ?: 'FILE' }})
-                                                                        </a>
-                                                                    @endif
+                                                                @if (in_array($ext, ['jpg', 'jpeg', 'png']))
+                                                                    <img src="{{ asset('storage/' . $file) }}"
+                                                                        alt="File Image"
+                                                                        class="w-full h-40 object-cover rounded border cursor-pointer"
+                                                                        onclick="previewImage('{{ asset('storage/' . $file) }}')" />
+                                                                @else
+                                                                    <a href="{{ asset('storage/' . $file) }}"
+                                                                        target="_blank"
+                                                                        class="block text-blue-600 hover:underline">
+                                                                        Lihat File ({{ strtoupper($ext) }})
+                                                                    </a>
                                                                 @endif
                                                             @endforeach
                                                         </div>
                                                     @else
-                                                        <p class="text-gray-400 italic">Tidak ada file yang diupload.
-                                                        </p>
+                                                        <p class="text-gray-400 italic">Tidak ada file diupload.</p>
                                                     @endif
 
-                                                    <div class="mt-6 text-right">
+                                                    <div class="mt-4 text-right">
                                                         <button onclick="toggleImage({{ $item->id }})"
-                                                            class="px-4 py-2 bg-gray-200 text-gray-700 rounded-md hover:bg-gray-300 font-medium transition">
+                                                            class="px-4 py-2 bg-gray-200 rounded hover:bg-gray-300">
                                                             Tutup
                                                         </button>
                                                     </div>
@@ -193,8 +186,8 @@
                                         </tr>
                                     @empty
                                         <tr>
-                                            <td colspan="9" class="px-4 py-8 text-center text-gray-500 italic">
-                                                Belum ada data rekaman inspeksi PVC / HDPE.
+                                            <td colspan="4" class="px-4 py-8 text-center text-gray-500 italic">
+                                                Belum ada data inspeksi.
                                             </td>
                                         </tr>
                                     @endforelse
@@ -203,9 +196,9 @@
                         </div>
                     </div>
 
-                    <div class="mt-4">
+                    {{-- <div class="mt-4">
                         {{ $data->links() }}
-                    </div>
+                    </div> --}}
                 </div>
             </div>
         </div>
@@ -213,7 +206,7 @@
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
-        // Notifikasi Toast Flash Success Handler
+        // Notifikasi Sukses
         @if (session('success'))
             Swal.fire({
                 icon: 'success',
@@ -225,11 +218,11 @@
             });
         @endif
 
-        // Interceptor Konfirmasi Hapus SweetAlert2
+        // Konfirmasi Hapus
         function confirmDelete(id, name) {
             Swal.fire({
                 title: 'Hapus data inspeksi?',
-                text: "Seluruh record nomor " + name + " akan dihapus permanen dari sistem!",
+                text: "Nomor " + name + " akan dihapus secara permanen!",
                 icon: 'warning',
                 showCancelButton: true,
                 confirmButtonColor: '#dc2626',
@@ -245,23 +238,19 @@
         }
     </script>
     <script>
-        // Toggler Tampilan Open-Close Modal Ringkas
         function toggleImage(id) {
             const modal = document.getElementById('image-' + id);
-            if (modal) modal.classList.toggle('hidden');
+            modal.classList.toggle('hidden');
         }
 
-        // Tampilan Zoom Layar Penuh Gambar Lampiran saat Diklik
         function previewImage(src) {
             const preview = document.createElement('div');
-            preview.className = "fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50 p-4";
+            preview.className = "fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50";
             preview.innerHTML = `
-                <div class="relative max-w-full max-h-full">
-                    <img src="${src}" class="max-h-[90vh] max-w-[90vw] rounded shadow-2xl object-contain" />
-                    <button onclick="this.parentElement.parentElement.remove()" 
-                        class="absolute -top-10 right-0 bg-white text-gray-800 font-bold px-3 py-1 rounded shadow hover:bg-gray-100 transition">✕ Close</button>
-                </div>
-            `;
+        <img src="${src}" class="max-h-[90vh] max-w-[90vw] rounded shadow-lg" />
+        <button onclick="this.parentElement.remove()" 
+            class="absolute top-4 right-4 bg-white px-3 py-1 rounded">Close</button>
+    `;
             document.body.appendChild(preview);
         }
     </script>
