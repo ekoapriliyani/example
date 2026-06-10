@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <div class="flex items-center justify-between">
-            <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+            <h2 class="text-xl font-semibold leading-tight text-gray-800">
                 {{ __('Input Hasil Inspeksi WIP') }}
             </h2>
             <p class="text-sm text-gray-500">
@@ -11,8 +11,8 @@
     </x-slot>
 
     <div class="py-12">
-        <div class="max-w-4xl mx-auto sm:px-6 lg:px-8">
-            <div class="mb-6 bg-blue-50 border-l-4 border-blue-400 p-4 rounded-r-lg shadow-sm">
+        <div class="mx-auto max-w-4xl sm:px-6 lg:px-8">
+            <div class="mb-6 rounded-r-lg border-l-4 border-blue-400 bg-blue-50 p-4 shadow-sm">
                 <div class="flex">
                     <div class="flex-shrink-0">
                         <svg class="h-5 w-5 text-blue-400" fill="currentColor" viewBox="0 0 20 20">
@@ -30,7 +30,7 @@
                 </div>
             </div>
 
-            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg border border-gray-200">
+            <div class="overflow-hidden border border-gray-200 bg-white shadow-sm sm:rounded-lg">
                 <div class="p-8">
                     <form action="{{ route('inspeksi_gabionframe_wip.store') }}" method="POST"
                         enctype="multipart/form-data" class="space-y-6">
@@ -38,7 +38,7 @@
                         <input type="hidden" name="inspeksi_gabionframe_id" value="{{ $inspeksiGabionframe->id }}">
                         <input type="hidden" name="user_id" value="{{ auth()->id() }}">
 
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="grid grid-cols-1 gap-6 md:grid-cols-2">
                             <div>
                                 <x-input-label for="no_material" :value="__('Nomor Material')" />
                                 <x-text-input id="no_material" name="no_material" type="number"
@@ -55,14 +55,14 @@
                             </div>
                         </div>
 
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="grid grid-cols-1 gap-6 md:grid-cols-2">
                             <div>
                                 <x-input-label for="p_act" :value="__('P Act')" />
                                 <div class="relative mt-1">
                                     <x-text-input id="p_act" name="p_act" type="number" step="0.01"
                                         class="block w-full pr-12" :value="old('p_act')" placeholder="0.00" />
                                     <div
-                                        class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none text-gray-400 text-sm">
+                                        class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3 text-sm text-gray-400">
                                         mm
                                     </div>
                                 </div>
@@ -74,11 +74,23 @@
                                     <x-text-input id="l_act" name="l_act" type="number" step="0.01"
                                         class="block w-full pr-12" :value="old('l_act')" placeholder="0.00" />
                                     <div
-                                        class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none text-gray-400 text-sm">
+                                        class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3 text-sm text-gray-400">
                                         mm
                                     </div>
                                 </div>
                                 <x-input-error class="mt-2" :messages="$errors->get('l_act')" />
+                            </div>
+                            <div>
+                                <x-input-label for="t_act" :value="__('T Act')" />
+                                <div class="relative mt-1">
+                                    <x-text-input id="t_act" name="t_act" type="number" step="0.01"
+                                        class="block w-full pr-12" :value="old('t_act')" placeholder="0.00" />
+                                    <div
+                                        class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3 text-sm text-gray-400">
+                                        mm
+                                    </div>
+                                </div>
+                                <x-input-error class="mt-2" :messages="$errors->get('t_act')" />
                             </div>
                             <div>
                                 <x-input-label for="d_kwtGal_anyam" :value="__('D Kawat Galvanized Anyam')" />
@@ -87,7 +99,7 @@
                                         step="0.01" class="block w-full pr-12" :value="old('d_kwtGal_anyam')"
                                         placeholder="0.00" />
                                     <div
-                                        class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none text-gray-400 text-sm">
+                                        class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3 text-sm text-gray-400">
                                         mm
                                     </div>
                                 </div>
@@ -100,7 +112,7 @@
                                         step="0.01" class="block w-full pr-12" :value="old('d_kwtGal_frame')"
                                         placeholder="0.00" />
                                     <div
-                                        class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none text-gray-400 text-sm">
+                                        class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3 text-sm text-gray-400">
                                         mm
                                     </div>
                                 </div>
@@ -113,7 +125,7 @@
                                         step="0.01" class="block w-full pr-12" :value="old('d_kwtPvc_anyam')"
                                         placeholder="0.00" />
                                     <div
-                                        class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none text-gray-400 text-sm">
+                                        class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3 text-sm text-gray-400">
                                         mm
                                     </div>
                                 </div>
@@ -126,7 +138,7 @@
                                         step="0.01" class="block w-full pr-12" :value="old('d_kwtPvc_frame')"
                                         placeholder="0.00" />
                                     <div
-                                        class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none text-gray-400 text-sm">
+                                        class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3 text-sm text-gray-400">
                                         mm
                                     </div>
                                 </div>
@@ -139,7 +151,7 @@
                                     <x-text-input id="mesh1" name="mesh1" type="number" step="0.01"
                                         class="block w-full pr-12" :value="old('mesh1')" placeholder="0.00" />
                                     <div
-                                        class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none text-gray-400 text-sm">
+                                        class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3 text-sm text-gray-400">
                                         mm
                                     </div>
                                 </div>
@@ -152,7 +164,7 @@
                                     <x-text-input id="mesh2" name="mesh2" type="number" step="0.01"
                                         class="block w-full pr-12" :value="old('mesh2')" placeholder="0.00" />
                                     <div
-                                        class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none text-gray-400 text-sm">
+                                        class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3 text-sm text-gray-400">
                                         mm
                                     </div>
                                 </div>
@@ -162,7 +174,7 @@
                             <div>
                                 <x-input-label for="visual" :value="__('Visual')" />
                                 <select id="visual" name="visual"
-                                    class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+                                    class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
                                     required>
                                     <option value="OK" {{ old('visual') == 'OK' ? 'selected' : '' }}>OK</option>
                                     <option value="NG" {{ old('visual') == 'NG' ? 'selected' : '' }}>NG</option>
@@ -172,7 +184,7 @@
                             <div>
                                 <x-input-label for="status" :value="__('Status')" />
                                 <select id="status" name="status"
-                                    class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+                                    class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
                                     required>
                                     <option value="OK" {{ old('status') == 'OK' ? 'selected' : '' }}>OK</option>
                                     <option value="NG" {{ old('status') == 'NG' ? 'selected' : '' }}>NG</option>
@@ -180,14 +192,14 @@
                                 <x-input-error class="mt-2" :messages="$errors->get('status')" />
                             </div>
                         </div>
-                        <div class="md:col-span-2 border-t border-gray-200 pt-6">
-                            <h3 class="font-semibold text-gray-700 mb-4">Detail Inspeksi</h3>
+                        <div class="border-t border-gray-200 pt-6 md:col-span-2">
+                            <h3 class="mb-4 font-semibold text-gray-700">Detail Inspeksi</h3>
                             <div id="detail-wrapper" class="space-y-4">
-                                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                                <div class="grid grid-cols-1 gap-4 md:grid-cols-3">
                                     <div>
                                         <x-input-label for="detail_description_0" :value="__('Description')" />
                                         <select id="detail_description_0" name="detail_description[]"
-                                            class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
+                                            class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
                                             <option value="">-- Pilih Detail --</option>
                                             <option value="CRACK/PEEL OFF/MENGELUPAS">CRACK/PEEL OFF/MENGELUPAS
                                             </option>
@@ -208,7 +220,7 @@
                                     <div>
                                         <x-input-label for="detail_description2_0" :value="__('Description 2')" />
                                         <select id="detail_description2_0" name="detail_description2[]"
-                                            class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
+                                            class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
                                             <option value="">-- Pilih Detail --</option>
                                             <option value="CRACK/PEEL OFF/MENGELUPAS">CRACK/PEEL OFF/MENGELUPAS
                                             </option>
@@ -235,7 +247,7 @@
                             </div>
                             <div class="mt-4">
                                 <button type="button" id="add-detail"
-                                    class="px-3 py-1 bg-indigo-600 text-white rounded-md text-sm hover:bg-indigo-700">
+                                    class="rounded-md bg-indigo-600 px-3 py-1 text-sm text-white hover:bg-indigo-700">
                                     + Tambah Detail
                                 </button>
                             </div>
@@ -243,23 +255,23 @@
                             <div class="mt-4">
                                 <x-input-label for="files" :value="__('Upload Gambar / File')" />
                                 <input id="files" name="files[]" type="file"
-                                    class="mt-1 block w-full border-gray-300 rounded-md shadow-sm" multiple
+                                    class="mt-1 block w-full rounded-md border-gray-300 shadow-sm" multiple
                                     accept="image/*,.pdf,.doc,.docx,.xls,.xlsx">
                                 {{-- <x-input-error class="mt-2" :messages="$errors->get('files')" />
                                 <x-input-error class="mt-2" :messages="$errors->get('files.*')" /> --}}
                                 @error('files')
-                                    <div class="text-red-500 text-sm mt-2">{{ $message }}</div>
+                                    <div class="mt-2 text-sm text-red-500">{{ $message }}</div>
                                 @enderror
                                 @error('files.*')
-                                    <div class="text-red-500 text-sm mt-2">{{ $message }}</div>
+                                    <div class="mt-2 text-sm text-red-500">{{ $message }}</div>
                                 @enderror
                             </div>
 
                         </div>
 
-                        <div class="flex items-center justify-end gap-4 pt-6 border-t border-gray-100">
+                        <div class="flex items-center justify-end gap-4 border-t border-gray-100 pt-6">
                             <a href="{{ route('inspeksi_gabionframe.show', $inspeksiGabionframe->id) }}"
-                                class="inline-flex items-center px-4 py-2 bg-white border border-gray-300 rounded-md font-semibold text-xs text-gray-700 uppercase tracking-widest shadow-sm hover:bg-gray-50 transition ease-in-out duration-150">
+                                class="inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-xs font-semibold uppercase tracking-widest text-gray-700 shadow-sm transition duration-150 ease-in-out hover:bg-gray-50">
                                 {{ __('Batal') }}
                             </a>
 

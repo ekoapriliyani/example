@@ -42,49 +42,55 @@
                             <div>
                                 <x-input-label for="p_act" :value="__('P Act')" />
                                 <x-text-input id="p_act" name="p_act" type="number" step="0.01"
-                                    class="mt-1 block w-full" :value="old('p_act', $wip->p_act)" required />
+                                    class="mt-1 block w-full" :value="old('p_act', $wip->p_act)" />
                                 <x-input-error class="mt-2" :messages="$errors->get('p_act')" />
                             </div>
                             <div>
                                 <x-input-label for="l_act" :value="__('L Act')" />
                                 <x-text-input id="l_act" name="l_act" type="number" step="0.01"
-                                    class="mt-1 block w-full" :value="old('l_act', $wip->l_act)" required />
+                                    class="mt-1 block w-full" :value="old('l_act', $wip->l_act)" />
                                 <x-input-error class="mt-2" :messages="$errors->get('l_act')" />
+                            </div>
+                            <div>
+                                <x-input-label for="t_act" :value="__('T Act')" />
+                                <x-text-input id="t_act" name="t_act" type="number" step="0.01"
+                                    class="mt-1 block w-full" :value="old('t_act', $wip->t_act)" />
+                                <x-input-error class="mt-2" :messages="$errors->get('t_act')" />
                             </div>
                             <div>
                                 <x-input-label for="d_kwtGal_anyam" :value="__('D Kwt Gal Anyam')" />
                                 <x-text-input id="d_kwtGal_anyam" name="d_kwtGal_anyam" type="number" step="0.01"
-                                    class="mt-1 block w-full" :value="old('d_kwtGal_anyam', $wip->d_kwtGal_anyam)" required />
+                                    class="mt-1 block w-full" :value="old('d_kwtGal_anyam', $wip->d_kwtGal_anyam)" />
                                 <x-input-error class="mt-2" :messages="$errors->get('d_kwtGal_anyam')" />
                             </div>
                             <div>
                                 <x-input-label for="d_kwtGal_frame" :value="__('D Kwt Gal Frame')" />
                                 <x-text-input id="d_kwtGal_frame" name="d_kwtGal_frame" type="number" step="0.01"
-                                    class="mt-1 block w-full" :value="old('d_kwtGal_frame', $wip->d_kwtGal_frame)" required />
+                                    class="mt-1 block w-full" :value="old('d_kwtGal_frame', $wip->d_kwtGal_frame)" />
                                 <x-input-error class="mt-2" :messages="$errors->get('d_kwtGal_frame')" />
                             </div>
                             <div>
                                 <x-input-label for="d_kwtPvc_anyam" :value="__('D Kwt PVC Anyam')" />
                                 <x-text-input id="d_kwtPvc_anyam" name="d_kwtPvc_anyam" type="number" step="0.01"
-                                    class="mt-1 block w-full" :value="old('d_kwtPvc_anyam', $wip->d_kwtPvc_anyam)" required />
+                                    class="mt-1 block w-full" :value="old('d_kwtPvc_anyam', $wip->d_kwtPvc_anyam)" />
                                 <x-input-error class="mt-2" :messages="$errors->get('d_kwtPvc_anyam')" />
                             </div>
                             <div>
                                 <x-input-label for="d_kwtPvc_frame" :value="__('D Kwt PVC Frame')" />
                                 <x-text-input id="d_kwtPvc_frame" name="d_kwtPvc_frame" type="number" step="0.01"
-                                    class="mt-1 block w-full" :value="old('d_kwtPvc_frame', $wip->d_kwtPvc_frame)" required />
+                                    class="mt-1 block w-full" :value="old('d_kwtPvc_frame', $wip->d_kwtPvc_frame)" />
                                 <x-input-error class="mt-2" :messages="$errors->get('d_kwtPvc_frame')" />
                             </div>
                             <div>
                                 <x-input-label for="mesh1" :value="__('Mesh 1')" />
                                 <x-text-input id="mesh1" name="mesh1" type="number" step="0.01"
-                                    class="mt-1 block w-full" :value="old('mesh1', $wip->mesh1)" required />
+                                    class="mt-1 block w-full" :value="old('mesh1', $wip->mesh1)" />
                                 <x-input-error class="mt-2" :messages="$errors->get('mesh1')" />
                             </div>
                             <div>
                                 <x-input-label for="mesh2" :value="__('Mesh 2')" />
                                 <x-text-input id="mesh2" name="mesh2" type="number" step="0.01"
-                                    class="mt-1 block w-full" :value="old('mesh2', $wip->mesh2)" required />
+                                    class="mt-1 block w-full" :value="old('mesh2', $wip->mesh2)" />
                                 <x-input-error class="mt-2" :messages="$errors->get('mesh2')" />
                             </div>
 

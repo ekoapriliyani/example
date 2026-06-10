@@ -14,6 +14,7 @@ class InspeksiGabionframeWip extends Model
         'nama_operator',
         'p_act',
         'l_act',
+        't_act',
         'd_kwtGal_anyam',
         'd_kwtGal_frame',
         'd_kwtPvc_anyam',

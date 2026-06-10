@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('nama_operator');
             $table->decimal('p_act', 8, 2)->nullable();
             $table->decimal('l_act', 8, 2)->nullable();
+            $table->decimal('t_act', 8, 2)->nullable();
             $table->decimal('d_kwtGal_anyam', 8, 2)->nullable();
             $table->decimal('d_kwtGal_frame', 8, 2)->nullable();
             $table->decimal('d_kwtPvc_anyam', 8, 2)->nullable();
