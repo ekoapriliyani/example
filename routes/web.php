@@ -13,6 +13,8 @@ use App\Http\Controllers\InspeksiCtWipController;
 use App\Http\Controllers\InspeksiFencingController;
 use App\Http\Controllers\InspeksiFencingFgController;
 use App\Http\Controllers\InspeksiFencingWipController;
+use App\Http\Controllers\InspeksiGabionanyamController;
+use App\Http\Controllers\InspeksiGabionanyamWipController;
 use App\Http\Controllers\InspeksiGabionframeController;
 use App\Http\Controllers\InspeksiGabionframeWipController;
 use App\Http\Controllers\InspeksiKawatDuriController;
@@ -126,6 +128,7 @@ Route::middleware(['auth'])->group(function () {
         'inspeksi_wf'   => InspeksiWfController::class,
         'inspeksi_shearing'   => InspeksiShearingController::class,
         'inspeksi_gabionframe'   => InspeksiGabionframeController::class,
+        'inspeksi_gabionanyam'   => InspeksiGabionanyamController::class,
         'inspeksi_kawat_duri' => InspeksiKawatDuriController::class,
         'inspeksi_pvc' => InspeksiPvcController::class,
         'inspeksi_chainlink' => InspeksiChainlinkController::class,
@@ -365,6 +368,30 @@ Route::middleware(['auth'])->group(function () {
 
     Route::delete('insepeksi_gabionframe/wip/{wip}', [InspeksiGabionframeWipController::class, 'destroy'])
         ->name('inspeksi_gabionframe_wip.destroy');
+
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Gabionanyam
+    |--------------------------------------------------------------------------
+    */
+
+    // WIP
+    Route::get('/inspeksi_gabionanyam/{inspeksi_gabionanyam}/wip', [InspeksiGabionanyamWipController::class, 'create'])
+        ->name('inspeksi_gabionanyam.wip');
+
+    Route::post('/inspeksi_gabionanyam/wip', [InspeksiGabionanyamWipController::class, 'store'])
+        ->name('inspeksi_gabionanyam_wip.store');
+
+    Route::get('insepeksi_gabionanyam/wip/{wip}/edit', [InspeksiGabionanyamWipController::class, 'edit'])
+        ->name('inspeksi_gabionanyam_wip.edit');
+
+    Route::put('insepeksi_gabionanyam/wip/{wip}', [InspeksiGabionanyamWipController::class, 'update'])
+        ->name('inspeksi_gabionanyam_wip.update');
+
+    Route::delete('insepeksi_gabionanyam/wip/{wip}', [InspeksiGabionanyamWipController::class, 'destroy'])
+        ->name('inspeksi_gabionanyam_wip.destroy');
 
 
 

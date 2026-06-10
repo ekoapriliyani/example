@@ -16,7 +16,6 @@ class InspeksiGabionframeController extends Controller
     public function index(Request $request)
     {
         $search = $request->input('search');
-
         $data = InspeksiGabionframe::with(['pro', 'mesin'])
             ->when($search, function ($query, $search) {
                 return $query->where('nomor_inspeksi', 'like', "%{$search}%");
