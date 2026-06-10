@@ -53,7 +53,7 @@ class SybaseService
             FROM DBA.Beva_vShipmentBI
             WHERE trno IS NOT NULL
             AND description IS NOT NULL
-            AND Status = 'Open'
+            AND YEAR(trdate) >= 2026
             ORDER BY trno
         ";
 

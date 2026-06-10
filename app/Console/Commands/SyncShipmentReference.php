@@ -2,35 +2,40 @@
 
 namespace App\Console\Commands;
 
-use App\Models\Pro;
+use App\Models\Shipment; // <-- Pastikan nama Model target Anda sudah benar di sini
 use App\Services\SybaseService;
 use Illuminate\Console\Command;
 
-class SyncProReference extends Command
+class SyncShipmentReference extends Command
 {
-    protected $signature = 'sync:pro-reference';
-    protected $description = 'Sync data PRO dari Sybase ke MySQL';
+    protected $signature = 'sync:shipment-reference';
+    protected $description = 'Sync data Shipment dari Sybase ke MySQL';
 
     public function handle(SybaseService $sybaseService)
     {
         try {
-            $this->info('Memulai sync data PRO...');
-            $rows = $sybaseService->getAllProData();
+            $this->info('Memulai sync data shipment...');
+
+            // Memanggil fungsi baru yang sudah kita tes di Tinker tadi
+            $rows = $sybaseService->getShipmentData();
 
             $total = 0;
 
             foreach ($rows as $row) {
                 $trno = $this->cleanText($row['trno'] ?? '');
+                $custname = $this->cleanText($row['custname'] ?? '');
                 $description = $this->cleanText($row['description'] ?? '');
-                $qty = $row['Qty_ordered'] ?? $row['qty_ordered'] ?? null;
+                $qty = $row['qt'] ?? $row['QT'] ?? null; // Menyesuaikan kolom 'qt' dari hasil tes Tinker
 
                 if ($trno === '') {
                     continue;
                 }
 
-                Pro::updateOrCreate(
-                    ['pro_id' => $trno],
+                // Melakukan upsert ke tabel MySQL berdasarkan trno (shipment_id)
+                Shipment::updateOrCreate(
+                    ['shipment_id' => $trno], // <-- Sesuaikan nama primary key/unique key di tabel MySQL Anda
                     [
+                        'custname' => $custname,
                         'description' => $description,
                         'qty' => $qty,
                     ]
@@ -39,9 +44,9 @@ class SyncProReference extends Command
                 $total++;
             }
 
-            $this->info("Sync selesai. Total data: {$total}");
+            $this->info("Sync selesai. Total data shipment: {$total}");
         } catch (\Throwable $e) {
-            $this->error('Sync gagal: ' . $e->getMessage());
+            $this->error('Sync shipment gagal: ' . $e->getMessage());
         }
 
         return self::SUCCESS;

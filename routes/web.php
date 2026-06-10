@@ -46,6 +46,7 @@ use App\Http\Controllers\ProductWmController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\SheetGalvanizeController;
+use App\Http\Controllers\ShipmentController;
 use App\Http\Controllers\SubkonController;
 use App\Http\Controllers\SupplierController;
 use Illuminate\Support\Facades\Artisan;
@@ -111,6 +112,7 @@ Route::middleware(['auth'])->group(function () {
         'productct'         => ProductCtController::class,
         'productRazor'       => ProductRazorController::class,
         'pro'                => ProController::class,
+        'shipment'          => ShipmentController::class,
         'project'            => ProjectController::class,
         'incomingbahanbaku'  => IncomingBahanBakuController::class,
         'incomingpvchdpe'    => IncomingPvcHdpeController::class,
