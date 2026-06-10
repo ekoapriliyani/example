@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('inspeksi_gabionanyams', function (Blueprint $table) {
             $table->id();
+            $table->string('nomor_inspeksi')->unique();
             $table->date('tanggal');
             $table->foreignId('pro_id')->constrained('pros');
             $table->integer('shift');

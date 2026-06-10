@@ -10,6 +10,7 @@ class InspeksiGabionanyam extends Model
     protected $table = 'inspeksi_gabionanyams';
 
     protected $fillable = [
+        'nomor_inspeksi',
         'tanggal',
         'pro_id',
         'shift',

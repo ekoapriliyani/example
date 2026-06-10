@@ -57,4 +57,19 @@ class Pro extends Model
     {
         return $this->hasMany(InspeksiCt::class);
     }
+
+    public function inspeksiRazorpackings()
+    {
+        return $this->hasMany(InspeksiRazorpacking::class);
+    }
+
+    public function inspeksiGabionframes()
+    {
+        return $this->hasMany(InspeksiGabionframe::class);
+    }
+
+    public function inspeksiGabionanyams()
+    {
+        return $this->hasMany(InspeksiGabionanyam::class);
+    }
 }

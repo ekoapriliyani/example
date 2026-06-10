@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\InspeksiGabionanyam;
+use App\Models\Mesin;
+use App\Models\Pro;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class InspeksiGabionanyamController extends Controller
@@ -29,7 +32,31 @@ class InspeksiGabionanyamController extends Controller
      */
     public function create()
     {
-        //
+        // 1. Ambil format Tahun dan Bulan saat ini (Contoh: 202606)
+        $tahunBulan = Carbon::now()->format('Ym');
+        $prefix = "INSANY{$tahunBulan}";
+
+        // 2. PERBAIKAN: Urutkan berdasarkan 'id' desc agar mendapatkan rekor TERAKHIR yang benar-benar masuk database
+        $lastRecord = InspeksiGabionanyam::where('nomor_inspeksi', 'like', "{$prefix}%")
+            ->orderBy('id', 'desc')
+            ->first();
+
+        $nextNumber = 1;
+        if ($lastRecord) {
+            // Ambil string nomor aslinya, buang prefix-nya
+            $lastNumberStr = str_replace($prefix, '', $lastRecord->nomor_inspeksi);
+            $nextNumber = (int) $lastNumberStr + 1;
+        }
+
+        // 3. PERBAIKAN: Gunakan str_pad agar nomor urut konsisten memiliki panjang 3 digit (001, 002, dst)
+        $paddedNumber = str_pad($nextNumber, 3, '0', STR_PAD_LEFT);
+        $nextNomor = "{$prefix}{$paddedNumber}"; // Hasil: INSANY202606001
+
+        // 4. Ambil data mesin dan PRO
+        $mesins = Mesin::orderBy('nama_mesin')->get();
+        $pros = Pro::orderByDesc('pro_id')->get();
+
+        return view('inspeksi_gabionanyam.create', compact('nextNomor', 'pros', 'mesins'));
     }
 
     /**
@@ -37,7 +64,38 @@ class InspeksiGabionanyamController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validated = $request->validate([
+            'nomor_inspeksi' => 'required|string|max:255|unique:inspeksi_gabionanyams,nomor_inspeksi',
+            'tanggal' => 'required|date',
+            'pro_id' => 'required|exists:pros,id',
+            'shift' => 'required|string|max:255',
+            'mesin_id' => 'required|exists:mesins,id',
+            'total_prod' => 'nullable|numeric',
+            'satuan' => 'required|string',
+        ]);
+
+        $today = now()->format('Ymd');
+        $lastInspeksi = \App\Models\InspeksiGabionanyam::whereDate('created_at', now())
+            ->orderBy('id', 'desc')
+            ->first();
+
+        if ($lastInspeksi) {
+            // Ambil 3 digit terakhir dari nomor_inspeksi terakhir, lalu tambahkan 1
+            $lastNumber = (int) substr($lastInspeksi->nomor_inspeksi, -3);
+            $nextNumber = str_pad($lastNumber + 1, 3, '0', STR_PAD_LEFT);
+        } else {
+            $nextNumber = '001';
+        }
+
+        $fixNomorInspeksi = "INSANY" . $today . $nextNumber;
+
+        // 3. Masukkan nomor yang sudah pasti aman dan unik ke dalam array data validasi
+        $validated['nomor_inspeksi'] = $fixNomorInspeksi;
+
+        // 4. Simpan ke database
+        InspeksiGabionanyam::create($validated);
+
+        return redirect()->route('inspeksi_gabionanyam.index')->with('success', 'Data inspeksi gabionanyam berhasil disimpan.');
     }
 
     /**
@@ -51,24 +109,42 @@ class InspeksiGabionanyamController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(InspeksiGabionanyam $inspeksiGabionanyam)
     {
-        //
+        return view('inspeksi_gabionanyam.edit', [
+            'inspeksiGabionanyam' => $inspeksiGabionanyam,
+            'pros' => Pro::orderByDesc('pro_id')->get(),
+            'mesins' => Mesin::orderBy('mesin_id')->get(),
+        ]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, InspeksiGabionanyam $inspeksiGabionanyam)
     {
-        //
+        $request->validate([
+            'nomor_inspeksi' => 'required|unique:inspeksi_gabionanyams,nomor_inspeksi,' . $inspeksiGabionanyam->id,
+            'tanggal' => 'required|date',
+            'pro_id' => 'required|exists:pros,id',
+            'shift' => 'required|string|max:255',
+            'mesin_id' => 'required|exists:mesins,id',
+            'total_prod' => 'nullable|numeric',
+            'satuan' => 'required|string',
+        ]);
+
+        $inspeksiGabionanyam->update($request->all());
+
+        return redirect()->route('inspeksi_gabionanyam.index')->with('success', 'Data berhasil diperbarui.');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(InspeksiGabionanyam $inspeksiGabionanyam)
     {
-        //
+        $inspeksiGabionanyam->delete();
+
+        return redirect()->route('inspeksi_gabionanyam.index')->with('success', 'Data inspeksi gabionanyam berhasil dihapus.');
     }
 }
