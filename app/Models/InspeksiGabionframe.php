@@ -14,6 +14,9 @@ class InspeksiGabionframe extends Model
         'mesin_id',
         'total_prod',
         'satuan',
+        'approval_status',
+        'approved_by',
+        'approved_at',
     ];
 
     public function pro()
