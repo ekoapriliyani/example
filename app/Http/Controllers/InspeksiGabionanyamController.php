@@ -101,9 +101,10 @@ class InspeksiGabionanyamController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(InspeksiGabionanyam $inspeksiGabionanyam)
     {
-        //
+        $inspeksiGabionanyam->load(['pro', 'mesin', 'inspeksiGabionanyamWip']);
+        return view('inspeksi_gabionanyam.show', compact('inspeksiGabionanyam'));
     }
 
     /**
@@ -146,5 +147,37 @@ class InspeksiGabionanyamController extends Controller
         $inspeksiGabionanyam->delete();
 
         return redirect()->route('inspeksi_gabionanyam.index')->with('success', 'Data inspeksi gabionanyam berhasil dihapus.');
+    }
+
+
+    public function toggleApproval($id)
+    {
+        if (! in_array(auth()->user()->role, ['supervisor', 'manager', 'administrator'])) {
+            abort(403, 'Tidak punya akses.');
+        }
+
+        $inspeksi = InspeksiGabionanyam::findOrFail($id);
+
+        if ($inspeksi->isApproved()) {
+            // UNAPPROVE
+            $inspeksi->update([
+                'approval_status' => 'PENDING',
+                'approved_by' => null,
+                'approved_at' => null,
+            ]);
+
+            $message = 'Approval dibatalkan.';
+        } else {
+            // APPROVE
+            $inspeksi->update([
+                'approval_status' => 'APPROVED',
+                'approved_by' => auth()->id(),
+                'approved_at' => now(),
+            ]);
+
+            $message = 'Data berhasil di-approve.';
+        }
+
+        return back()->with('success', $message);
     }
 }

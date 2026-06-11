@@ -806,6 +806,9 @@ Route::middleware([
 
     Route::patch('/inspeksi-gabionframe/{id}/toggle-approval', [InspeksiGabionframeController::class, 'toggleApproval'])
         ->name('inspeksi-gabionframe.toggle');
+
+    Route::patch('/inspeksi-gabionanyam/{id}/toggle-approval', [InspeksiGabionanyamController::class, 'toggleApproval'])
+        ->name('inspeksi-gabionanyam.toggle');
 });
 
 

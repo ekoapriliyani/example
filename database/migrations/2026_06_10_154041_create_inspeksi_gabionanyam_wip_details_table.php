@@ -13,6 +13,15 @@ return new class extends Migration
     {
         Schema::create('inspeksi_gabionanyam_wip_details', function (Blueprint $table) {
             $table->id();
+            // relasi ke tabel utama
+            $table->foreignId('inspeksi_gabionanyam_wip_id')
+                ->constrained('inspeksi_gabionanyam_wips')
+                ->onDelete('cascade')
+                ->name('fk_gabionanyam_wip_details');
+            // field detail
+            $table->string('description')->nullable();
+            $table->string('description2')->nullable();
+            $table->integer('qty')->nullable();
             $table->timestamps();
         });
     }
