@@ -98,14 +98,10 @@
                                             unit</option>
                                         <option value="pcs" {{ old('satuan') == 'pcs' ? 'selected' : '' }}>pcs
                                         </option>
-                                        <option value="kg" {{ old('satuan') == 'kg' ? 'selected' : '' }}>kg
-                                        </option>
                                         <option value="roll" {{ old('satuan') == 'roll' ? 'selected' : '' }}>
                                             roll</option>
                                         <option value="lembar" {{ old('satuan') == 'lembar' ? 'selected' : '' }}>
                                             lembar</option>
-                                        <option value="ton" {{ old('satuan') == 'ton' ? 'selected' : '' }}>ton
-                                        </option>
                                     </select>
                                 </div>
                             </div>
