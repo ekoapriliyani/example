@@ -20,21 +20,31 @@ class IncomingBahanBaku extends Model
         'jenis_kawat',
         'certificate',
         'files',
+        'approval_status',
+        'approved_by',
+        'approved_at',
     ];
     protected $casts = [
         'files' => 'array', // otomatis decode JSON ke array
     ];
 
-    public function supplier(){
+    public function supplier()
+    {
         return $this->belongsTo(Supplier::class);
     }
 
-    public function incomingbahanbakuinspeksi() {
+    public function incomingbahanbakuinspeksi()
+    {
         return $this->hasMany(IncomingBahanBakuInspeksi::class);
     }
 
     public function mechanicalTests()
     {
         return $this->hasMany(MechanicalTest::class, 'incoming_bahan_baku_id');
+    }
+
+    public function isApproved()
+    {
+        return $this->approval_status === 'APPROVED';
     }
 }

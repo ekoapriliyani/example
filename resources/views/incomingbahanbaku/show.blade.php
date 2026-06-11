@@ -9,19 +9,46 @@
                     class="inline-flex items-center px-4 py-2 bg-white border border-gray-300 rounded-md font-semibold text-xs text-gray-700 uppercase tracking-widest shadow-sm hover:bg-gray-50 transition ease-in-out duration-150">
                     Kembali
                 </a>
-                <a href="{{ route('incomingbahanbaku.inspeksi', $incomingbahanbaku->id) }}"
-                    class="inline-flex items-center gap-2 rounded-md bg-blue-600 px-4 py-2 text-sm font-semibold text-white hover:bg-blue-700 transition shadow-sm">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="size-4" fill="none" viewBox="0 0 24 24"
-                        stroke="currentColor" stroke-width="2">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
-                    </svg>
-                    Tambah Inspeksi
-                </a>
-                <a href="{{ route('incomingbahanbaku.mechanicaltest', $incomingbahanbaku->id) }}"
-                    class="inline-flex items-center gap-2 rounded-md bg-green-700 px-4 py-2 text-sm font-semibold text-white hover:bg-green-800 transition shadow-sm">
-                    Mechanical Test
-                </a>
+
+                @php
+                    $isApproved = $incomingbahanbaku->approval_status === 'APPROVED';
+                @endphp
+
+                {{-- Tambah Inspeksi --}}
+                @if ($isApproved)
+                    <button type="button" disabled
+                        class="inline-flex cursor-not-allowed items-center gap-2 rounded-md bg-gray-400 px-4 py-2 text-sm font-semibold text-white opacity-60 shadow-sm">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="size-4" fill="none" viewBox="0 0 24 24"
+                            stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+                        </svg>
+                        Tambah Inspeksi
+                    </button>
+                @else
+                    <a href="{{ route('incomingbahanbaku.inspeksi', $incomingbahanbaku->id) }}"
+                        class="inline-flex items-center gap-2 rounded-md bg-blue-600 px-4 py-2 text-sm font-semibold text-white hover:bg-blue-700 transition shadow-sm">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="size-4" fill="none" viewBox="0 0 24 24"
+                            stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+                        </svg>
+                        Tambah Inspeksi
+                    </a>
+                @endif
+
+                {{-- Mechanical Test --}}
+                @if ($isApproved)
+                    <button type="button" disabled
+                        class="inline-flex cursor-not-allowed items-center gap-2 rounded-md bg-gray-400 px-4 py-2 text-sm font-semibold text-white opacity-60 shadow-sm">
+                        Mechanical Test
+                    </button>
+                @else
+                    <a href="{{ route('incomingbahanbaku.mechanicaltest', $incomingbahanbaku->id) }}"
+                        class="inline-flex items-center gap-2 rounded-md bg-green-700 px-4 py-2 text-sm font-semibold text-white hover:bg-green-800 transition shadow-sm">
+                        Mechanical Test
+                    </a>
+                @endif
             </div>
+
         </div>
     </x-slot>
 
@@ -365,6 +392,72 @@
         </div>
     @endforeach
 
+    {{-- section approval --}}
+    <div class="overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-sm">
+        <div class="p-6">
+            <div class="flex flex-col gap-5 md:flex-row md:items-center md:justify-between">
+                <!-- Left -->
+                <div class="flex items-start gap-4">
+                    <div
+                        class="flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-br from-green-100 to-emerald-50 text-green-600 shadow-sm">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7" fill="none" viewBox="0 0 24 24"
+                            stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-bold text-gray-900">
+                            Approval Incoming Bahan Baku
+                        </h3>
+                        <p class="mt-1 text-sm text-gray-500">
+                            Review data inspeksi sebelum melakukan approval.
+                        </p>
+                    </div>
+                </div>
+                <!-- Middle + Right -->
+                <div class="flex items-center gap-4">
+                    <!-- Status -->
+                    @if ($incomingbahanbaku->isApproved())
+                        <span
+                            class="inline-flex items-center gap-2 rounded-full border border-green-200 bg-green-50 px-4 py-2 text-sm font-semibold text-green-700">
+                            <span class="h-2.5 w-2.5 rounded-full bg-green-500"></span>
+                            Approved
+                        </span>
+                    @else
+                        <span
+                            class="inline-flex items-center gap-2 rounded-full border border-yellow-200 bg-yellow-50 px-4 py-2 text-sm font-semibold text-yellow-700">
+                            <span class="h-2.5 w-2.5 rounded-full bg-yellow-500"></span>
+                            Waiting Approval
+                        </span>
+                    @endif
+                    <!-- Button -->
+                    @if (in_array(auth()->user()->role, ['supervisor', 'manager', 'administrator']))
+                        <form id="approval-form-{{ $incomingbahanbaku->id }}"
+                            action="{{ route('incomingbahanbaku.toggle', $incomingbahanbaku->id) }}" method="POST"
+                            class="hidden">
+                            @csrf
+                            @method('PATCH')
+                        </form>
+                        <button type="button"
+                            onclick="confirmApproval({{ $incomingbahanbaku->id }}, '{{ $incomingbahanbaku->isApproved() ? 'unapprove' : 'approve' }}')"
+                            class="{{ $incomingbahanbaku->isApproved()
+                                ? 'bg-orange-500 text-white hover:bg-orange-600'
+                                : 'bg-green-600 text-white hover:bg-green-700' }} inline-flex items-center gap-2 rounded-xl px-5 py-2.5 text-sm font-semibold shadow-sm transition">
+                            @if ($incomingbahanbaku->isApproved())
+                                <span class="text-base">↺</span>
+                                Unapprove
+                            @else
+                                <span class="text-base">✓</span>
+                                Approve
+                            @endif
+                        </button>
+                    @endif
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script>
         function toggleImage(id) {
             const modal = document.getElementById('image-' + id);
@@ -389,6 +482,27 @@
                 timerProgressBar: true,
             });
         @endif
+
+        function confirmApproval(id, type) {
+            let isUnapprove = type === 'unapprove';
+
+            Swal.fire({
+                title: isUnapprove ? 'Batalkan approval?' : 'Approve data?',
+                text: isUnapprove ?
+                    "Status akan kembali ke Pending." : "Data akan disetujui.",
+                icon: isUnapprove ? 'warning' : 'question',
+                showCancelButton: true,
+                confirmButtonColor: isUnapprove ? '#f97316' : '#16a34a',
+                cancelButtonColor: '#4f46e5',
+                confirmButtonText: isUnapprove ? 'Ya, Unapprove!' : 'Ya, Approve!',
+                cancelButtonText: 'Batal',
+                reverseButtons: true
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    document.getElementById('approval-form-' + id).submit();
+                }
+            })
+        }
 
         document.querySelectorAll('.form-delete').forEach(form => {
             form.addEventListener('submit', function(e) {

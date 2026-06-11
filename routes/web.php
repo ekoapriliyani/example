@@ -809,6 +809,9 @@ Route::middleware([
 
     Route::patch('/inspeksi-gabionanyam/{id}/toggle-approval', [InspeksiGabionanyamController::class, 'toggleApproval'])
         ->name('inspeksi-gabionanyam.toggle');
+
+    Route::patch('/incomingbahanbaku/{id}/toggle-approval', [IncomingBahanBakuController::class, 'toggleApproval'])
+        ->name('incomingbahanbaku.toggle');
 });
 
 

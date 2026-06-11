@@ -19,11 +19,16 @@ return new class extends Migration
             $table->string('no_po');
             $table->string('no_sj');
             $table->integer('jml_koil');
-            $table->decimal('d_kawat', 8,2)->nullable();
-            $table->decimal('tol', 8,2)->nullable();
+            $table->decimal('d_kawat', 8, 2)->nullable();
+            $table->decimal('tol', 8, 2)->nullable();
             $table->string('jenis_kawat');
             $table->string('certificate')->nullable();
             $table->json('files')->nullable();
+
+            // Approval
+            $table->string('approval_status')->default('PENDING');
+            $table->foreignId('approved_by')->nullable()->constrained('users')->nullOnDelete();
+            $table->timestamp('approved_at')->nullable();
             $table->timestamps();
         });
     }
