@@ -17,6 +17,8 @@ use App\Http\Controllers\InspeksiGabionanyamController;
 use App\Http\Controllers\InspeksiGabionanyamWipController;
 use App\Http\Controllers\InspeksiGabionframeController;
 use App\Http\Controllers\InspeksiGabionframeWipController;
+use App\Http\Controllers\InspeksiGabionrakitController;
+use App\Http\Controllers\InspeksiGabionrakitWipController;
 use App\Http\Controllers\InspeksiKawatDuriController;
 use App\Http\Controllers\InspeksiKawatDuriFgController;
 use App\Http\Controllers\InspeksiKawatDuriWipController;
@@ -129,6 +131,7 @@ Route::middleware(['auth'])->group(function () {
         'inspeksi_shearing'   => InspeksiShearingController::class,
         'inspeksi_gabionframe'   => InspeksiGabionframeController::class,
         'inspeksi_gabionanyam'   => InspeksiGabionanyamController::class,
+        'inspeksi_gabionrakit'   => InspeksiGabionrakitController::class,
         'inspeksi_kawat_duri' => InspeksiKawatDuriController::class,
         'inspeksi_pvc' => InspeksiPvcController::class,
         'inspeksi_chainlink' => InspeksiChainlinkController::class,
@@ -392,6 +395,29 @@ Route::middleware(['auth'])->group(function () {
 
     Route::delete('insepeksi_gabionanyam/wip/{wip}', [InspeksiGabionanyamWipController::class, 'destroy'])
         ->name('inspeksi_gabionanyam_wip.destroy');
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Gabionrakit
+    |--------------------------------------------------------------------------
+    */
+
+    // WIP
+    Route::get('/inspeksi_gabionrakit/{inspeksi_gabionrakit}/wip', [InspeksiGabionrakitWipController::class, 'create'])
+        ->name('inspeksi_gabionrakit.wip');
+
+    Route::post('/inspeksi_gabionrakit/wip', [InspeksiGabionrakitWipController::class, 'store'])
+        ->name('inspeksi_gabionrakit_wip.store');
+
+    Route::get('insepeksi_gabionrakit/wip/{wip}/edit', [InspeksiGabionrakitWipController::class, 'edit'])
+        ->name('inspeksi_gabionrakit_wip.edit');
+
+    Route::put('insepeksi_gabionrakit/wip/{wip}', [InspeksiGabionrakitWipController::class, 'update'])
+        ->name('inspeksi_gabionrakit_wip.update');
+
+    Route::delete('insepeksi_gabionrakit/wip/{wip}', [InspeksiGabionrakitWipController::class, 'destroy'])
+        ->name('inspeksi_gabionrakit_wip.destroy');
 
 
 
@@ -809,6 +835,9 @@ Route::middleware([
 
     Route::patch('/inspeksi-gabionanyam/{id}/toggle-approval', [InspeksiGabionanyamController::class, 'toggleApproval'])
         ->name('inspeksi-gabionanyam.toggle');
+
+    Route::patch('/inspeksi-gabionrakit/{id}/toggle-approval', [InspeksiGabionrakitController::class, 'toggleApproval'])
+        ->name('inspeksi-gabionrakit.toggle');
 
     Route::patch('/incomingbahanbaku/{id}/toggle-approval', [IncomingBahanBakuController::class, 'toggleApproval'])
         ->name('incomingbahanbaku.toggle');

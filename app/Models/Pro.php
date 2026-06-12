@@ -72,4 +72,9 @@ class Pro extends Model
     {
         return $this->hasMany(InspeksiGabionanyam::class);
     }
+
+    public function inspeksiGabionrakits()
+    {
+        return $this->hasMany(Gabionrakit::class);
+    }
 }

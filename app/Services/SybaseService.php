@@ -50,7 +50,7 @@ class SybaseService
                 custname,
                 description,
                 qt
-            FROM DBA.Beva_vShipmentBI
+            FROM DBA.Beva_vShipmentQC
             WHERE trno IS NOT NULL
             AND description IS NOT NULL
             AND YEAR(trdate) >= 2026
