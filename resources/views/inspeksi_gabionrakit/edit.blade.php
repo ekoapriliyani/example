@@ -92,7 +92,7 @@
                         <div class="">
                             <x-input-label for="ukuran" :value="__('Ukuran')" />
                             <x-text-input id="ukuran" name="ukuran" type="text" class="mt-1 block w-full"
-                                value="{{ old('ukuran', $inspeksiGabionrakit->ukuran) }}" required />
+                                value="{{ old('ukuran', $inspeksiGabionrakit->ukuran) }}" />
                             <x-input-error class="mt-2" :messages="$errors->get('ukuran')" />
                         </div>
                         <div>
