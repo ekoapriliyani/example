@@ -132,7 +132,7 @@ class InspeksiGabionrakitController extends Controller
             'pro_id' => 'required|exists:pros,id',
             'shift' => 'required|string|max:255',
             'diameter' => 'nullable|numeric',
-            'ukuran' => 'nullable|numeric',
+            'ukuran' => 'nullable',
             'mesin_id' => 'required|exists:mesins,id',
             'total_prod' => 'nullable|numeric',
             'satuan' => 'required|string',

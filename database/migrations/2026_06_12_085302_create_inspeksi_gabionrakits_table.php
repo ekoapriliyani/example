@@ -18,7 +18,7 @@ return new class extends Migration
             $table->foreignId('pro_id')->constrained('pros');
             $table->integer('shift');
             $table->decimal('diameter', 8, 2)->nullable();
-            $table->decimal('ukuran', 8, 2)->nullable();
+            $table->string('ukuran')->nullable();
             $table->foreignId('mesin_id')->nullable()->constrained('mesins');
             $table->decimal('total_prod', 8, 2)->nullable();
             $table->string('satuan');

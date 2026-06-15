@@ -79,8 +79,8 @@
                         </div>
                         <div class="">
                             <x-input-label for="ukuran" :value="__('Ukuran')" />
-                            <x-text-input id="ukuran" name="ukuran" type="number" step="0.01"
-                                class="mt-1 block w-full" value="{{ old('ukuran') }}" />
+                            <x-text-input id="ukuran" name="ukuran" type="text" class="mt-1 block w-full"
+                                value="{{ old('ukuran') }}" />
                             <x-input-error class="mt-2" :messages="$errors->get('ukuran')" />
                         </div>
                         <div>
