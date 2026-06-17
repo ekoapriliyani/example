@@ -11,6 +11,7 @@ class InspeksiGabionanyamWip extends Model
         'user_id',
         'no_material',
         'nama_operator',
+        'type',
         'l1_act',
         'l2_act',
         'd_anyam',

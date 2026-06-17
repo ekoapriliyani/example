@@ -12,6 +12,7 @@ class InspeksiGabionframeWip extends Model
         'user_id',
         'no_material',
         'nama_operator',
+        'type',
         'p_act',
         'l_act',
         't_act',

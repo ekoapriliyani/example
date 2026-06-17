@@ -40,6 +40,41 @@
                                 <x-input-error class="mt-2" :messages="$errors->get('nama_operator')" />
                             </div>
                             <div>
+                                <x-input-label for="type" :value="__('Type')" />
+                                <select id="type" name="type"
+                                    class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+                                    required>
+                                    <option value="">-- Pilih type --</option>
+                                    <option value="Heavy Galvanized"
+                                        {{ old('type', $wip->type) == 'Heavy Galvanized' ? 'selected' : '' }}>
+                                        Heavy Galvanized
+                                    </option>
+                                    <option value="PVC" {{ old('type', $wip->type) == 'PVC' ? 'selected' : '' }}>
+                                        PVC
+                                    </option>
+                                    <option value="HDPE" {{ old('type', $wip->type) == 'HDPE' ? 'selected' : '' }}>
+                                        HDPE
+                                    </option>
+                                    <option value="Bezilum Class 1"
+                                        {{ old('type', $wip->type) == 'Bezilum Class 1' ? 'selected' : '' }}>
+                                        Bezilum Class 1
+                                    </option>
+                                    <option value="Bezilum Class 2"
+                                        {{ old('type', $wip->type) == 'Bezilum Class 2' ? 'selected' : '' }}>
+                                        Bezilum Class 2
+                                    </option>
+                                    <option value="Bezilum Class 3"
+                                        {{ old('type', $wip->type) == 'Bezilum Class 3' ? 'selected' : '' }}>
+                                        Bezilum Class 3
+                                    </option>
+                                    <option value="Light Galvanized"
+                                        {{ old('type', $wip->type) == 'Light Galvanized' ? 'selected' : '' }}>
+                                        Light Galvanized
+                                    </option>
+                                </select>
+                                <x-input-error class="mt-2" :messages="$errors->get('type')" />
+                            </div>
+                            <div>
                                 <x-input-label for="l1_act" :value="__('Lebar 1 Act')" />
                                 <x-text-input id="l1_act" name="l1_act" type="number" step="0.01"
                                     class="mt-1 block w-full" :value="old('l1_act', $wip->l1_act)" />
@@ -106,10 +141,12 @@
                                     class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
                                     required>
                                     <option value="">-- Pilih visual --</option>
-                                    <option value="OK" {{ old('visual', $wip->visual) == 'OK' ? 'selected' : '' }}>
+                                    <option value="OK"
+                                        {{ old('visual', $wip->visual) == 'OK' ? 'selected' : '' }}>
                                         OK
                                     </option>
-                                    <option value="NG" {{ old('visual', $wip->visual) == 'NG' ? 'selected' : '' }}>
+                                    <option value="NG"
+                                        {{ old('visual', $wip->visual) == 'NG' ? 'selected' : '' }}>
                                         NG
                                     </option>
                                 </select>
@@ -122,10 +159,12 @@
                                     class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
                                     required>
                                     <option value="">-- Pilih status --</option>
-                                    <option value="OK" {{ old('status', $wip->status) == 'OK' ? 'selected' : '' }}>
+                                    <option value="OK"
+                                        {{ old('status', $wip->status) == 'OK' ? 'selected' : '' }}>
                                         OK
                                     </option>
-                                    <option value="NG" {{ old('status', $wip->status) == 'NG' ? 'selected' : '' }}>
+                                    <option value="NG"
+                                        {{ old('status', $wip->status) == 'NG' ? 'selected' : '' }}>
                                         NG
                                     </option>
                                 </select>

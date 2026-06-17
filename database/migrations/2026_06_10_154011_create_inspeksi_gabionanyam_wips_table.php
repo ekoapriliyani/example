@@ -17,6 +17,7 @@ return new class extends Migration
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
             $table->string('no_material')->nullable();
             $table->string('nama_operator');
+            $table->string('type');
             $table->decimal('l1_act', 8, 2)->nullable();
             $table->decimal('l2_act', 8, 2)->nullable();
             $table->decimal('d_anyam', 8, 2)->nullable();

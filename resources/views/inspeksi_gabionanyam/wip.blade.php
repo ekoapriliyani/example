@@ -53,6 +53,41 @@
                                     placeholder="Nama operator mesin" />
                                 <x-input-error class="mt-2" :messages="$errors->get('nama_operator')" />
                             </div>
+
+                            <div>
+                                <x-input-label for="type" :value="__('Type')" />
+                                <select id="type" name="type"
+                                    class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+                                    required>
+                                    <option value="Heavy Galvanized"
+                                        {{ old('type') == 'Heavy Galvanized' ? 'selected' : '' }}>
+                                        Heavy Galvanized
+                                    </option>
+                                    <option value="PVC" {{ old('type') == 'PVC' ? 'selected' : '' }}>
+                                        PVC
+                                    </option>
+                                    <option value="HDPE" {{ old('type') == 'HDPE' ? 'selected' : '' }}>
+                                        HDPE
+                                    </option>
+                                    <option value="Bezilum Class 1"
+                                        {{ old('type') == 'Bezilum Class 1' ? 'selected' : '' }}>
+                                        Bezilum Class 1
+                                    </option>
+                                    <option value="Bezilum Class 2"
+                                        {{ old('type') == 'Bezilum Class 2' ? 'selected' : '' }}>
+                                        Bezilum Class 2
+                                    </option>
+                                    <option value="Bezilum Class 3"
+                                        {{ old('type') == 'Bezilum Class 3' ? 'selected' : '' }}>
+                                        Bezilum Class 3
+                                    </option>
+                                    <option value="Light Galvanized"
+                                        {{ old('type') == 'Light Galvanized' ? 'selected' : '' }}>
+                                        Light Galvanized
+                                    </option>
+                                </select>
+                                <x-input-error class="mt-2" :messages="$errors->get('type')" />
+                            </div>
                         </div>
 
                         <div class="grid grid-cols-1 gap-6 md:grid-cols-2">

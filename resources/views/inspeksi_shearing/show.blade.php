@@ -112,6 +112,7 @@
                                     <th class="px-4 py-3 font-semibold text-gray-900">Inspektor</th>
                                     <th class="px-4 py-3 font-semibold text-gray-900">No. Material</th>
                                     <th class="px-4 py-3 font-semibold text-gray-900">Operator</th>
+                                    <th class="px-4 py-3 font-semibold text-gray-900">Type</th>
                                     <th class="px-4 py-3 font-semibold text-gray-900">P Potong</th>
                                     <th class="px-4 py-3 font-semibold text-gray-900">L Potong</th>
                                     <th class="px-4 py-3 font-semibold text-gray-900">Mesh 1</th>
@@ -192,6 +193,7 @@
                                         <td class="px-4 py-3">{{ $wip->user->name ?? 'N/A' }}</td>
                                         <td class="px-4 py-3 font-medium">{{ $wip->no_material }}</td>
                                         <td class="px-4 py-3">{{ $wip->nama_operator }}</td>
+                                        <td class="bg-blue-50/30 px-4 py-3 text-center">{{ $wip->type }}</td>
                                         <td class="bg-blue-50/30 px-4 py-3 text-center">{{ $wip->p_potong }}</td>
                                         <td class="bg-blue-50/30 px-4 py-3 text-center">{{ $wip->l_potong }}</td>
                                         <td class="bg-blue-50/30 px-4 py-3 text-center">{{ $wip->mesh1 }}</td>

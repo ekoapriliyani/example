@@ -113,6 +113,7 @@
                                     <th class="px-4 py-3 font-semibold text-gray-900">Inspektor</th>
                                     <th class="px-4 py-3 font-semibold text-gray-900">No. Material</th>
                                     <th class="px-4 py-3 font-semibold text-gray-900">Operator</th>
+                                    <th class="px-4 py-3 font-semibold text-gray-900">Type</th>
                                     <th class="px-4 py-3 font-semibold text-gray-900">L1 Act</th>
                                     <th class="px-4 py-3 font-semibold text-gray-900">L2 Act</th>
                                     <th class="px-4 py-3 font-semibold text-gray-900">D Anyam</th>
@@ -198,6 +199,7 @@
                                         <td class="px-4 py-3">{{ $wip->user->name ?? 'N/A' }}</td>
                                         <td class="px-4 py-3 font-medium">{{ $wip->no_material }}</td>
                                         <td class="px-4 py-3">{{ $wip->nama_operator }}</td>
+                                        <td class="bg-blue-50/30 px-4 py-3 text-center">{{ $wip->type }}</td>
                                         <td class="bg-blue-50/30 px-4 py-3 text-center">{{ $wip->l1_act }}</td>
                                         <td class="bg-blue-50/30 px-4 py-3 text-center">{{ $wip->l2_act }}</td>
                                         <td class="bg-blue-50/30 px-4 py-3 text-center">{{ $wip->d_anyam }}</td>
