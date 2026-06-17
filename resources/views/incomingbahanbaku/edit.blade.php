@@ -143,6 +143,20 @@
                                     <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                                 @enderror
                             </div>
+
+                            <div>
+                                <label class="mb-1 block text-sm font-medium text-gray-700">
+                                    Certificate
+                                </label>
+                                <input type="number" name="certificate"
+                                    value="{{ old('certificate', $data->certificate) }}" step="0.01"
+                                    class="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
+
+                                @error('certificate')
+                                    <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                                @enderror
+                            </div>
+
                             <div class="md:col-span-2">
                                 <label class="mb-2 block text-sm font-medium text-gray-700">
                                     File / Gambar Lama
