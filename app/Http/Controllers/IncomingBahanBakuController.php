@@ -173,6 +173,7 @@ class IncomingBahanBakuController extends Controller
             'jml_koil' => 'required',
             'd_kawat' => 'required',
             'tol' => 'required',
+            'certificate' => 'nullable',
             'jenis_kawat' => 'required',
 
             'files.*' => 'nullable|file|max:5120',
