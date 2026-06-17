@@ -99,13 +99,13 @@
                                 <x-input-error class="mt-2" :messages="$errors->get('d_frame')" />
                             </div>
                             <div>
-                                <x-input-label for="d_anyam_pvc" :value="__('Diameter Anyam PVC')" />
+                                <x-input-label for="d_anyam_pvc" :value="__('Diameter Anyam PVC/HDPE')" />
                                 <x-text-input id="d_anyam_pvc" name="d_anyam_pvc" type="number" step="0.01"
                                     class="mt-1 block w-full" :value="old('d_anyam_pvc', $wip->d_anyam_pvc)" />
                                 <x-input-error class="mt-2" :messages="$errors->get('d_anyam_pvc')" />
                             </div>
                             <div>
-                                <x-input-label for="d_frame_pvc" :value="__('Diameter Frame PVC')" />
+                                <x-input-label for="d_frame_pvc" :value="__('Diameter Frame PVC/HDPE')" />
                                 <x-text-input id="d_frame_pvc" name="d_frame_pvc" type="number" step="0.01"
                                     class="mt-1 block w-full" :value="old('d_frame_pvc', $wip->d_frame_pvc)" />
                                 <x-input-error class="mt-2" :messages="$errors->get('d_frame_pvc')" />

@@ -153,7 +153,7 @@
                                 <x-input-error class="mt-2" :messages="$errors->get('d_kwtGal_frame')" />
                             </div>
                             <div>
-                                <x-input-label for="d_kwtPvc_anyam" :value="__('D Kawat PVC Anyam')" />
+                                <x-input-label for="d_kwtPvc_anyam" :value="__('D Kawat PVC/HDPE Anyam')" />
                                 <div class="relative mt-1">
                                     <x-text-input id="d_kwtPvc_anyam" name="d_kwtPvc_anyam" type="number"
                                         step="0.01" class="block w-full pr-12" :value="old('d_kwtPvc_anyam')"
@@ -166,7 +166,7 @@
                                 <x-input-error class="mt-2" :messages="$errors->get('d_kwtPvc_anyam')" />
                             </div>
                             <div>
-                                <x-input-label for="d_kwtPvc_frame" :value="__('D Kawat PVC Frame')" />
+                                <x-input-label for="d_kwtPvc_frame" :value="__('D Kawat PVC/HDPE Frame')" />
                                 <div class="relative mt-1">
                                     <x-text-input id="d_kwtPvc_frame" name="d_kwtPvc_frame" type="number"
                                         step="0.01" class="block w-full pr-12" :value="old('d_kwtPvc_frame')"

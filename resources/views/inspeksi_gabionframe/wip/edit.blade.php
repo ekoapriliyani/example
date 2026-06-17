@@ -105,13 +105,13 @@
                                 <x-input-error class="mt-2" :messages="$errors->get('d_kwtGal_frame')" />
                             </div>
                             <div>
-                                <x-input-label for="d_kwtPvc_anyam" :value="__('D Kwt PVC Anyam')" />
+                                <x-input-label for="d_kwtPvc_anyam" :value="__('D Kwt PVC/HDPE Anyam')" />
                                 <x-text-input id="d_kwtPvc_anyam" name="d_kwtPvc_anyam" type="number" step="0.01"
                                     class="mt-1 block w-full" :value="old('d_kwtPvc_anyam', $wip->d_kwtPvc_anyam)" />
                                 <x-input-error class="mt-2" :messages="$errors->get('d_kwtPvc_anyam')" />
                             </div>
                             <div>
-                                <x-input-label for="d_kwtPvc_frame" :value="__('D Kwt PVC Frame')" />
+                                <x-input-label for="d_kwtPvc_frame" :value="__('D Kwt PVC/HDPE Frame')" />
                                 <x-text-input id="d_kwtPvc_frame" name="d_kwtPvc_frame" type="number" step="0.01"
                                     class="mt-1 block w-full" :value="old('d_kwtPvc_frame', $wip->d_kwtPvc_frame)" />
                                 <x-input-error class="mt-2" :messages="$errors->get('d_kwtPvc_frame')" />
