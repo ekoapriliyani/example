@@ -156,7 +156,7 @@ class InspeksiKawatDuriWipController extends Controller
 
         $wip = InspeksiKawatDuriWip::findOrFail($id);
         $wip->update([
-            'user_id'               => Auth::id(),
+            // 'user_id'               => Auth::id(),
             'no_material'           => $validated['no_material'],
             'nama_operator'         => $validated['nama_operator'],
             'd_inti_kd' => $validated['d_inti_kd'],
