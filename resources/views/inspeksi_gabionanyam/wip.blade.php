@@ -92,7 +92,7 @@
 
                         <div class="grid grid-cols-1 gap-6 md:grid-cols-2">
                             <div>
-                                <x-input-label for="l1_act" :value="__('Lebar 1 act')" />
+                                <x-input-label for="l1_act" :value="__('Lebar')" />
                                 <div class="relative mt-1">
                                     <x-text-input id="l1_act" name="l1_act" type="number" step="0.01"
                                         class="block w-full pr-12" :value="old('l1_act')" placeholder="0.00" />
@@ -103,7 +103,7 @@
                                 </div>
                                 <x-input-error class="mt-2" :messages="$errors->get('l1_act')" />
                             </div>
-                            <div>
+                            {{-- <div>
                                 <x-input-label for="l2_act" :value="__('Lebar 2 act')" />
                                 <div class="relative mt-1">
                                     <x-text-input id="l2_act" name="l2_act" type="number" step="0.01"
@@ -114,7 +114,7 @@
                                     </div>
                                 </div>
                                 <x-input-error class="mt-2" :messages="$errors->get('l2_act')" />
-                            </div>
+                            </div> --}}
                             <div>
                                 <x-input-label for="d_anyam" :value="__('Diameter Anyam')" />
                                 <div class="relative mt-1">

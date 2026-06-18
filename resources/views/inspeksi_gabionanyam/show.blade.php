@@ -114,8 +114,8 @@
                                     <th class="px-4 py-3 font-semibold text-gray-900">No. Material</th>
                                     <th class="px-4 py-3 font-semibold text-gray-900">Operator</th>
                                     <th class="px-4 py-3 font-semibold text-gray-900">Type</th>
-                                    <th class="px-4 py-3 font-semibold text-gray-900">L1 Act</th>
-                                    <th class="px-4 py-3 font-semibold text-gray-900">L2 Act</th>
+                                    <th class="px-4 py-3 font-semibold text-gray-900">L Act</th>
+                                    {{-- <th class="px-4 py-3 font-semibold text-gray-900">L2 Act</th> --}}
                                     <th class="px-4 py-3 font-semibold text-gray-900">D Anyam</th>
                                     <th class="px-4 py-3 font-semibold text-gray-900">D Frame</th>
                                     <th class="px-4 py-3 font-semibold text-gray-900">D Anyam PVC</th>
@@ -201,7 +201,7 @@
                                         <td class="px-4 py-3">{{ $wip->nama_operator }}</td>
                                         <td class="bg-blue-50/30 px-4 py-3 text-center">{{ $wip->type }}</td>
                                         <td class="bg-blue-50/30 px-4 py-3 text-center">{{ $wip->l1_act }}</td>
-                                        <td class="bg-blue-50/30 px-4 py-3 text-center">{{ $wip->l2_act }}</td>
+                                        {{-- <td class="bg-blue-50/30 px-4 py-3 text-center">{{ $wip->l2_act }}</td> --}}
                                         <td class="bg-blue-50/30 px-4 py-3 text-center">{{ $wip->d_anyam }}</td>
                                         <td class="bg-blue-50/30 px-4 py-3 text-center">{{ $wip->d_frame }}</td>
                                         <td class="bg-blue-50/30 px-4 py-3 text-center">{{ $wip->d_anyam_pvc }}</td>
