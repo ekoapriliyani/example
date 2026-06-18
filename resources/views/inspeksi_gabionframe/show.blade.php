@@ -116,7 +116,7 @@
                                     <th class="px-4 py-3 font-semibold text-gray-900">Type</th>
                                     <th class="px-4 py-3 font-semibold text-gray-900">P Act</th>
                                     <th class="px-4 py-3 font-semibold text-gray-900">L Act</th>
-                                    <th class="px-4 py-3 font-semibold text-gray-900">T Act</th>
+                                    {{-- <th class="px-4 py-3 font-semibold text-gray-900">T Act</th> --}}
                                     <th class="px-4 py-3 font-semibold text-gray-900">D Kawat Galv Anyam</th>
                                     <th class="px-4 py-3 font-semibold text-gray-900">D Kawat Galv Frame</th>
                                     <th class="px-4 py-3 font-semibold text-gray-900">D Kawat PVC Anyam</th>
@@ -201,7 +201,7 @@
                                         <td class="bg-blue-50/30 px-4 py-3 text-center">{{ $wip->type }}</td>
                                         <td class="bg-blue-50/30 px-4 py-3 text-center">{{ $wip->p_act }}</td>
                                         <td class="bg-blue-50/30 px-4 py-3 text-center">{{ $wip->l_act }}</td>
-                                        <td class="bg-blue-50/30 px-4 py-3 text-center">{{ $wip->t_act }}</td>
+                                        {{-- <td class="bg-blue-50/30 px-4 py-3 text-center">{{ $wip->t_act }}</td> --}}
                                         <td class="bg-blue-50/30 px-4 py-3 text-center">{{ $wip->d_kwtGal_anyam }}
                                         </td>
                                         <td class="bg-blue-50/30 px-4 py-3 text-center">{{ $wip->d_kwtGal_frame }}

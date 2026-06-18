@@ -86,12 +86,12 @@
                                     class="mt-1 block w-full" :value="old('l_act', $wip->l_act)" />
                                 <x-input-error class="mt-2" :messages="$errors->get('l_act')" />
                             </div>
-                            <div>
+                            {{-- <div>
                                 <x-input-label for="t_act" :value="__('T Act')" />
                                 <x-text-input id="t_act" name="t_act" type="number" step="0.01"
                                     class="mt-1 block w-full" :value="old('t_act', $wip->t_act)" />
                                 <x-input-error class="mt-2" :messages="$errors->get('t_act')" />
-                            </div>
+                            </div> --}}
                             <div>
                                 <x-input-label for="d_kwtGal_anyam" :value="__('D Kwt Gal Anyam')" />
                                 <x-text-input id="d_kwtGal_anyam" name="d_kwtGal_anyam" type="number" step="0.01"

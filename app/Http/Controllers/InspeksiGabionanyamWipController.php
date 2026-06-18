@@ -168,7 +168,7 @@ class InspeksiGabionanyamWipController extends Controller
 
         $wip = InspeksiGabionanyamWip::findOrFail($id);
         $wip->update([
-            'user_id'               => Auth::id(),
+            // 'user_id'               => Auth::id(),
             'no_material'           => $validated['no_material'],
             'nama_operator'         => $validated['nama_operator'],
             'type'         => $validated['type'],

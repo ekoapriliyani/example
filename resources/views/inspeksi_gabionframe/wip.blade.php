@@ -114,7 +114,7 @@
                                 </div>
                                 <x-input-error class="mt-2" :messages="$errors->get('l_act')" />
                             </div>
-                            <div>
+                            {{-- <div>
                                 <x-input-label for="t_act" :value="__('T Act')" />
                                 <div class="relative mt-1">
                                     <x-text-input id="t_act" name="t_act" type="number" step="0.01"
@@ -125,7 +125,7 @@
                                     </div>
                                 </div>
                                 <x-input-error class="mt-2" :messages="$errors->get('t_act')" />
-                            </div>
+                            </div> --}}
                             <div>
                                 <x-input-label for="d_kwtGal_anyam" :value="__('D Kawat Galvanized Anyam')" />
                                 <div class="relative mt-1">
