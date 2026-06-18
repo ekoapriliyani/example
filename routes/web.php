@@ -17,6 +17,8 @@ use App\Http\Controllers\InspeksiGabionanyamController;
 use App\Http\Controllers\InspeksiGabionanyamWipController;
 use App\Http\Controllers\InspeksiGabionframeController;
 use App\Http\Controllers\InspeksiGabionframeWipController;
+use App\Http\Controllers\InspeksiGabionpackingController;
+use App\Http\Controllers\InspeksiGabionpackingFgController;
 use App\Http\Controllers\InspeksiGabionrakitController;
 use App\Http\Controllers\InspeksiGabionrakitWipController;
 use App\Http\Controllers\InspeksiKawatDuriController;
@@ -139,6 +141,7 @@ Route::middleware(['auth'])->group(function () {
         'inspeksi_pound' => InspeksiPoundController::class,
         'inspeksi_klip' => InspeksiKlipController::class,
         'inspeksi_razorpacking' => InspeksiRazorpackingController::class,
+        'inspeksi_gabionpacking' => InspeksiGabionpackingController::class,
     ]);
 
 
@@ -520,6 +523,30 @@ Route::middleware(['auth'])->group(function () {
 
 
 
+    /*
+    |--------------------------------------------------------------------------
+    | Gabionpacking
+    |--------------------------------------------------------------------------
+    */
+
+    // FG
+    Route::get('/inspeksi_gabionpacking/{inspeksi_gabionpacking}/fg', [InspeksiGabionpackingFgController::class, 'create'])
+        ->name('inspeksi_gabionpacking.fg');
+
+    Route::post('/inspeksi_gabionpacking/fg', [InspeksiGabionpackingFgController::class, 'store'])
+        ->name('inspeksi_gabionpacking_fg.store');
+
+    Route::get('insepeksi_gabionpacking/fg/{fg}/edit', [InspeksiGabionpackingFgController::class, 'edit'])
+        ->name('inspeksi_gabionpacking_fg.edit');
+
+    Route::put('insepeksi_gabionpacking/fg/{fg}', [InspeksiGabionpackingFgController::class, 'update'])
+        ->name('inspeksi_gabionpacking_fg.update');
+
+    Route::delete('insepeksi_gabionpacking/fg/{fg}', [InspeksiGabionpackingFgController::class, 'destroy'])
+        ->name('inspeksi_gabionpacking_fg.destroy');
+
+
+
 
     /*
     |--------------------------------------------------------------------------
@@ -813,6 +840,10 @@ Route::middleware([
 
     Route::patch('/inspeksi-razorpacking/{id}/toggle-approval', [InspeksiRazorpackingController::class, 'toggleApproval'])
         ->name('inspeksi-razorpacking.toggle');
+
+    Route::patch('/inspeksi-gabionpacking/{id}/toggle-approval', [InspeksiGabionpackingController::class, 'toggleApproval'])
+        ->name('inspeksi-gabionpacking.toggle');
+
 
     Route::patch('/inspeksi-kawat-duri/{id}/toggle-approval', [InspeksiKawatDuriController::class, 'toggleApproval'])
         ->name('inspeksi-kawat-duri.toggle');

@@ -45,6 +45,7 @@
                                 <x-dropdown-link :href="route('inspeksi_gabionframe.index')">Gabion Frame</x-dropdown-link>
                                 <x-dropdown-link :href="route('inspeksi_gabionanyam.index')">Gabion Anyam</x-dropdown-link>
                                 <x-dropdown-link :href="route('inspeksi_gabionrakit.index')">Gabion Rakit</x-dropdown-link>
+                                <x-dropdown-link :href="route('inspeksi_gabionpacking.index')">Gabion Packing</x-dropdown-link>
                             </x-slot>
                         </x-dropdown>
                     </div>
@@ -222,6 +223,7 @@
                 <x-responsive-nav-link :href="route('inspeksi_gabionframe.index')">Gabion Frame</x-responsive-nav-link>
                 <x-responsive-nav-link :href="route('inspeksi_gabionanyam.index')">Gabion Anyam</x-responsive-nav-link>
                 <x-responsive-nav-link :href="route('inspeksi_gabionrakit.index')">Gabion Rakit</x-responsive-nav-link>
+                <x-responsive-nav-link :href="route('inspeksi_gabionpacking.index')">Gabion Packing</x-responsive-nav-link>
             </div>
             <div class="border-t border-gray-200 pt-2">
                 <div class="px-4 text-xs font-semibold uppercase text-gray-400">Inspeksi Incoming</div>

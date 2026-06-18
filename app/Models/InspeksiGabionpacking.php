@@ -27,4 +27,9 @@ class InspeksiGabionpacking extends Model
     {
         return $this->approval_status === 'APPROVED';
     }
+
+    public function inspeksiGabionpackingFg()
+    {
+        return $this->hasMany(InspeksiGabionpackingFg::class, 'inspeksi_gabionpacking_id');
+    }
 }
