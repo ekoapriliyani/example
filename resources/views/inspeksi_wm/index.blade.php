@@ -20,31 +20,66 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
 
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg border border-gray-200 p-6">
-                <form action="{{ route('inspeksi_wm.index') }}" method="GET" class="flex gap-2">
-                    <div class="relative flex-1 max-w-md">
-                        <span class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                <form action="{{ route('inspeksi_wm.index') }}" method="GET"
+                    class="flex flex-col gap-4 sm:flex-row sm:items-end sm:flex-wrap">
+
+                    <div class="relative flex-1 min-w-[250px]">
+                        <label for="search" class="block text-sm font-medium text-gray-700 mb-1">Pencarian</label>
+                        <span
+                            class="absolute inset-y-0 bottom-0 left-0 flex items-center pl-3 pointer-events-none pb-1">
                             <svg class="w-4 h-4 text-gray-400" xmlns="http://www.w3.org/2000/svg" fill="none"
                                 viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                     d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                             </svg>
                         </span>
-                        <input type="text" name="search" value="{{ request('search') }}"
+                        <input type="text" name="search" id="search" value="{{ request('search') }}"
                             class="block w-full pl-10 pr-3 py-2 border border-gray-300 rounded-md leading-5 bg-white placeholder-gray-500 focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                            placeholder="Cari nomor inspeksi atau tanggal...">
+                            placeholder="Cari nomor inspeksi atau deskripsi...">
                     </div>
-                    <button type="submit"
-                        class="inline-flex items-center px-4 py-2 bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 transition ease-in-out duration-150">
-                        Cari
-                    </button>
-                    @if (request('search'))
-                        <a href="{{ route('inspeksi_wm.index') }}"
-                            class="inline-flex items-center px-4 py-2 bg-white border border-gray-300 rounded-md font-semibold text-xs text-gray-700 uppercase tracking-widest shadow-sm hover:bg-gray-50 transition ease-in-out duration-150">
-                            Reset
-                        </a>
-                    @endif
+
+                    <div class="w-full sm:w-48">
+                        <label for="status" class="block text-sm font-medium text-gray-700 mb-1">Status</label>
+                        <select name="status" id="status"
+                            class="block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                            <option value="">Semua Status</option>
+                            <option value="pending" {{ request('status') == 'pending' ? 'selected' : '' }}>Pending
+                            </option>
+                            <option value="approved" {{ request('status') == 'approved' ? 'selected' : '' }}>Approved
+                            </option>
+                        </select>
+                    </div>
+
+                    <div class="w-full sm:w-40">
+                        <label for="start_date" class="block text-sm font-medium text-gray-700 mb-1">Dari
+                            Tanggal</label>
+                        <input type="date" name="start_date" id="start_date" value="{{ request('start_date') }}"
+                            class="block w-full py-2 px-3 border border-gray-300 rounded-md leading-5 bg-white focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                    </div>
+
+                    <div class="w-full sm:w-40">
+                        <label for="end_date" class="block text-sm font-medium text-gray-700 mb-1">Sampai
+                            Tanggal</label>
+                        <input type="date" name="end_date" id="end_date" value="{{ request('end_date') }}"
+                            class="block w-full py-2 px-3 border border-gray-300 rounded-md leading-5 bg-white focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                    </div>
+
+                    <div class="flex gap-2 w-full sm:w-auto">
+                        <button type="submit"
+                            class="inline-flex items-center justify-center px-4 py-2 bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 transition ease-in-out duration-150 w-full sm:w-auto">
+                            Cari
+                        </button>
+
+                        @if (request('search') || request('status') || request('start_date') || request('end_date'))
+                            <a href="{{ route('inspeksi_wm.index') }}"
+                                class="inline-flex items-center justify-center px-4 py-2 bg-white border border-gray-300 rounded-md font-semibold text-xs text-gray-700 uppercase tracking-widest shadow-sm hover:bg-gray-50 transition ease-in-out duration-150 w-full sm:w-auto">
+                                Reset
+                            </a>
+                        @endif
+                    </div>
                 </form>
             </div>
+
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg border border-gray-200">
                 <div class="p-6 text-gray-900">
                     <div class="overflow-hidden rounded-lg border border-gray-200">
@@ -75,21 +110,20 @@
                                                 {{ $loop->iteration + ($data->firstItem() - 1) }}</td>
                                             <td class="px-4 py-3">
                                                 <div class="flex items-center justify-end gap-2">
-                                                    <!-- View (selalu tampil) -->
                                                     <a href="{{ route('inspeksi_wm.show', $item->id) }}"
                                                         class="inline-flex h-8 w-8 items-center justify-center rounded bg-indigo-50 text-indigo-700 hover:bg-indigo-100 transition"
                                                         title="View Details">
                                                         <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4"
                                                             fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                             <path stroke-linecap="round" stroke-linejoin="round"
-                                                                stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                                                                stroke-width="2"
+                                                                d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
                                                             <path stroke-linecap="round" stroke-linejoin="round"
                                                                 stroke-width="2"
                                                                 d="M2.458 12C3.732 7.943 7.523 5 12 5c4.477 0 8.268 2.943 9.542 7-1.274 4.057-5.065 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
                                                         </svg>
                                                     </a>
                                                     @if (!$item->isApproved())
-                                                        <!-- Edit -->
                                                         <a href="{{ route('inspeksi_wm.edit', $item->id) }}"
                                                             class="inline-flex h-8 w-8 items-center justify-center rounded bg-yellow-50 text-yellow-700 hover:bg-yellow-100 transition"
                                                             title="Edit">
@@ -104,7 +138,6 @@
                                                                     d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z" />
                                                             </svg>
                                                         </a>
-                                                        <!-- Delete -->
                                                         <button type="button"
                                                             onclick="confirmDelete({{ $item->id }}, '{{ $item->nomor_inspeksi }}')"
                                                             class="inline-flex h-8 w-8 items-center justify-center rounded bg-red-50 text-red-700 hover:bg-red-100 transition"
@@ -124,7 +157,6 @@
                                                             @method('DELETE')
                                                         </form>
                                                     @else
-                                                        <!-- Lock badge -->
                                                         <span
                                                             class="inline-flex items-center gap-1 rounded-full bg-gray-100 px-3 py-1 text-xs font-semibold text-gray-500"
                                                             title="Data terkunci karena sudah approved">
@@ -178,7 +210,7 @@
                                         </tr>
                                     @empty
                                         <tr>
-                                            <td colspan="4" class="px-4 py-8 text-center text-gray-500 italic">
+                                            <td colspan="14" class="px-4 py-8 text-center text-gray-500 italic">
                                                 Belum ada data inspeksi.
                                             </td>
                                         </tr>

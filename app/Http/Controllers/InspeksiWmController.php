@@ -16,11 +16,41 @@ class InspeksiWmController extends Controller
      */
     public function index(Request $request)
     {
+        // Menangkap semua request filter
         $search = $request->input('search');
+        $status = $request->input('status'); // nilainya 'pending' atau 'approved' dari form
+        $startDate = $request->input('start_date');
+        $endDate = $request->input('end_date');
 
         $data = InspeksiWm::with(['pro', 'mesin'])
+            // Filter Pencarian (Search)
             ->when($search, function ($query, $search) {
-                return $query->where('nomor_inspeksi', 'like', "%{$search}%");
+                return $query->where(function ($q) use ($search) {
+                    $q->where('nomor_inspeksi', 'like', "%{$search}%")
+                        ->orWhereHas('pro', function ($proQuery) use ($search) {
+                            $proQuery->where('description', 'like', "%{$search}%");
+                        });
+                });
+            })
+            // Filter Status menggunakan kolom 'approval_status'
+            ->when($status, function ($query, $status) {
+                if ($status === 'approved') {
+                    return $query->where('approval_status', 'APPROVED');
+                } elseif ($status === 'pending') {
+                    // Bisa menggunakan orWhereNull untuk berjaga-jaga jika ada data lama yang masih kosong
+                    return $query->where(function ($q) {
+                        $q->where('approval_status', 'PENDING')
+                            ->orWhereNull('approval_status');
+                    });
+                }
+            })
+            // Filter Range Tanggal (Start Date)
+            ->when($startDate, function ($query, $startDate) {
+                return $query->whereDate('tanggal', '>=', $startDate);
+            })
+            // Filter Range Tanggal (End Date)
+            ->when($endDate, function ($query, $endDate) {
+                return $query->whereDate('tanggal', '<=', $endDate);
             })
             ->latest()
             ->paginate(10)
@@ -28,7 +58,6 @@ class InspeksiWmController extends Controller
 
         return view('inspeksi_wm.index', compact('data'));
     }
-
     /**
      * Show the form for creating a new resource.
      */
