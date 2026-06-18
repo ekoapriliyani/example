@@ -51,7 +51,7 @@ class InspeksiPoundWipController extends Controller
         if (!Auth::check()) {
             return redirect()->back()->with('error', 'Sesi login berakhir. Silakan login kembali.');
         }
-        $slitting = InspeksiPoundWip::create([
+        $pound = InspeksiPoundWip::create([
             'inspeksi_pound_id' => $validated['inspeksi_pound_id'],
             'user_id' => Auth::id(),
             'no_material' => $validated['no_material'],
@@ -74,7 +74,7 @@ class InspeksiPoundWipController extends Controller
             foreach ($request->file('files') as $file) {
                 $paths[] = $file->store('uploads/inspeksi_wip', 'public');
             }
-            $slitting->update([
+            $pound->update([
                 'files' => $paths
             ]);
         }
@@ -86,7 +86,7 @@ class InspeksiPoundWipController extends Controller
 
         foreach ($descriptions as $i => $description) {
             if (!empty($description)) {
-                $slitting->details()->create([
+                $pound->details()->create([
                     'description'  => $description,
                     'description2' => $descriptions2[$i] ?? null,
                     'qty'          => $qty[$i] ?? null,
