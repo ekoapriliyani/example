@@ -21,6 +21,16 @@ return new class extends Migration
             $table->decimal('d_kawat_inti')->nullable();
             $table->decimal('toleransi')->nullable();
 
+            // temperatur
+            $table->decimal('c1', 8, 2)->nullable();
+            $table->decimal('c2', 8, 2)->nullable();
+            $table->decimal('c3', 8, 2)->nullable();
+            $table->decimal('c4', 8, 2)->nullable();
+            $table->decimal('ch', 8, 2)->nullable();
+
+            $table->decimal('total_prod', 8, 2)->nullable();
+            $table->string('satuan');
+
 
             // Approval
             $table->string('approval_status')->default('PENDING');
