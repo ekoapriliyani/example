@@ -60,12 +60,37 @@
                             </div>
                         </div>
                         <div class="grid grid-cols-1 gap-6 md:grid-cols-3">
+                            {{-- KOLOM NOMOR MATERIAL + SCANNER --}}
                             <div>
                                 <x-input-label for="no_material" :value="__('Nomor Material')" />
-                                <x-text-input id="no_material" name="no_material" type="number"
-                                    class="mt-1 block w-full" :value="old('no_material')" required
-                                    placeholder="Masukkan kode material" />
+                                <div class="mt-1 flex gap-2">
+                                    <x-text-input id="no_material" name="no_material" type="text"
+                                        class="block w-full" :value="old('no_material')" required
+                                        placeholder="Masukkan atau scan kode" />
+
+                                    <button type="button" id="btn-scan"
+                                        class="inline-flex items-center rounded-md border border-transparent bg-indigo-600 px-3 py-2 text-xs font-semibold uppercase tracking-widest text-white ring-indigo-300 transition duration-150 ease-in-out hover:bg-indigo-700 focus:border-indigo-900 focus:outline-none focus:ring active:bg-indigo-900 disabled:opacity-25">
+                                        <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                                            xmlns="http://www.w3.org/2000/svg">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                d="M12 4v1m6 11h2m-6 0h-2v4m0-11v3m0 0h.01M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z">
+                                            </path>
+                                        </svg>
+                                        <span class="ml-1 hidden sm:inline">Scan</span>
+                                    </button>
+                                </div>
                                 <x-input-error class="mt-2" :messages="$errors->get('no_material')" />
+
+                                {{-- KONTAINER UNTUK KAMERA SCANNER (HIDDEN SECARA DEFAULT) --}}
+                                <div id="scanner-container" class="mt-4 hidden rounded-lg border bg-gray-50 p-4">
+                                    <div class="mb-2 flex items-center justify-between">
+                                        <span class="text-sm font-semibold text-gray-700">Kamera Scanner Aktif</span>
+                                        <button type="button" id="btn-close-scanner"
+                                            class="text-xs text-red-600 hover:underline">Tutup Kamera</button>
+                                    </div>
+                                    <div id="reader" class="mx-auto w-full overflow-hidden rounded-md"
+                                        style="max-width: 400px;"></div>
+                                </div>
                             </div>
                             <div>
                                 <x-input-label for="nama_operator" :value="__('Nama Operator')" />
@@ -328,7 +353,86 @@
         </div>
     </div>
 
+    {{-- MEMANGGIL LIBRARY SCANNER BARCODE UNTUK WEB (Html5-Qrcode) VIA CDN --}}
+    <script src="https://unpkg.com/html5-qrcode" type="text/javascript"></script>
     <script>
+        // --- LOGIK BARCODE SCANNER ---
+        let html5QrcodeScanner = null;
+
+        document.getElementById('btn-scan').addEventListener('click', function() {
+            const container = document.getElementById('scanner-container');
+
+            // Toggle container tampilan kamera
+            if (container.classList.contains('hidden')) {
+                container.classList.remove('hidden');
+                startScanner();
+            } else {
+                stopScanner();
+                container.classList.add('hidden');
+            }
+        });
+
+        document.getElementById('btn-close-scanner').addEventListener('click', function() {
+            stopScanner();
+            document.getElementById('scanner-container').add('hidden');
+        });
+
+        function startScanner() {
+            // Inisialisasi scanner pada elemen #reader
+            html5QrcodeScanner = new Html5Qrcode("reader");
+
+            const config = {
+                fps: 10, // Kecepatan frame per detik
+                qrbox: {
+                    width: 250,
+                    height: 150
+                } // Ukuran kotak target scan (persegi panjang cocok untuk barcode)
+            };
+
+            // Menjalankan kamera belakang secara default ('environment')
+            html5QrcodeScanner.start({
+                    facingMode: "environment"
+                },
+                config,
+                onScanSuccess,
+                onScanFailure
+            ).catch((err) => {
+                alert("Gagal mengakses kamera: " + err);
+                document.getElementById('scanner-container').classList.add('hidden');
+            });
+        }
+
+        function onScanSuccess(decodedText, decodedResult) {
+            // Memasukkan hasil scan ke input nomor material
+            document.getElementById('no_material').value = decodedText;
+
+            // Hentikan kamera setelah berhasil scan
+            stopScanner();
+            document.getElementById('scanner-container').classList.add('hidden');
+
+            // Berikan efek flash hijau tipis penanda sukses
+            const inputField = document.getElementById('no_material');
+            inputField.classList.add('border-green-500', 'ring', 'ring-green-200');
+            setTimeout(() => {
+                inputField.classList.remove('border-green-500', 'ring', 'ring-green-200');
+            }, 1500);
+        }
+
+        function onScanFailure(error) {
+            // Kegagalan scan berkala diabaikan karena kamera terus mencari kode aktif
+            console.warn(`Pencarian barcode gagal: ${error}`);
+        }
+
+        function stopScanner() {
+            if (html5QrcodeScanner) {
+                html5QrcodeScanner.stop().then(() => {
+                    html5QrcodeScanner = null;
+                }).catch((err) => {
+                    console.error("Gagal mematikan kamera.", err);
+                });
+            }
+        }
+        // add detail
         document.getElementById('add-detail').addEventListener('click', function() {
             let wrapper = document.getElementById('detail-wrapper');
             let index = wrapper.children.length;
