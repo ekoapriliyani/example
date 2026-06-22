@@ -80,50 +80,42 @@
                                     <option value="1.6">1.6</option>
                                     <option value="1.8">1.8</option>
                                     <option value="2">2</option>
+                                    <option value="2.2">2.2</option>
                                     <option value="2.5">2.5</option>
                                     <option value="2.7">2.7</option>
                                     <option value="3">3</option>
                                     <option value="3.2">3.2</option>
                                     <option value="3.4">3.4</option>
                                     <option value="4">4</option>
-                                    <option value="5.6">5.6</option>
-                                    <option value="8">8</option>
                                 </select>
                             </div>
                             <x-input-error class="mt-2" :messages="$errors->get('d_kawat_inti')" />
                         </div>
 
                         <div class="">
-                            <x-input-label for="toleransi" :value="__('Toleransi')" />
+                            <x-input-label for="d_kawat_pvc" :value="__('Diameter Kawat PVC')" />
                             <div class="relative mt-1">
-                                <x-text-input id="toleransi" name="toleransi" type="number" step="0.01"
-                                    class="block w-full pr-12" :value="old('toleransi')" />
+                                <x-text-input id="d_kawat_pvc" name="d_kawat_pvc" type="number" step="0.01"
+                                    class="block w-full pr-12" :value="old('d_kawat_pvc')" />
                             </div>
-                            <x-input-error class="mt-2" :messages="$errors->get('toleransi')" />
+                            <x-input-error class="mt-2" :messages="$errors->get('d_kawat_pvc')" />
                         </div>
-                        <div class="">
-                            <x-input-label for="c1" :value="__('Cylinder 1')" />
+
+                        <div>
+                            <x-input-label for="type_coating" :value="__('Type Coating')" />
                             <div class="relative mt-1">
-                                <x-text-input id="c1" name="c1" type="number" step="0.01"
-                                    class="block w-full pr-12" :value="old('c1')" />
+                                <select id="type_coating" name="type_coating"
+                                    class="block w-full border rounded px-3 py-2">
+                                    <option value="">-- Pilih Type --</option>
+                                    <option value="EP">EP</option>
+                                    <option value="LG">LG</option>
+                                    <option value="HG">HG</option>
+                                    <option value="Bezilum Class 1">Bezilum Class 1</option>
+                                    <option value="Bezilum Class 2">Bezilum Class 2</option>
+                                    <option value="Bezilum Class 3">Bezilum Class 3</option>
+                                </select>
                             </div>
-                            <x-input-error class="mt-2" :messages="$errors->get('c1')" />
-                        </div>
-                        <div class="">
-                            <x-input-label for="c2" :value="__('Cylinder 2')" />
-                            <div class="relative mt-1">
-                                <x-text-input id="c2" name="c2" type="number" step="0.01"
-                                    class="block w-full pr-12" :value="old('c2')" />
-                            </div>
-                            <x-input-error class="mt-2" :messages="$errors->get('c2')" />
-                        </div>
-                        <div class="">
-                            <x-input-label for="c3" :value="__('Cylinder 3')" />
-                            <div class="relative mt-1">
-                                <x-text-input id="c3" name="c3" type="number" step="0.01"
-                                    class="block w-full pr-12" :value="old('c3')" />
-                            </div>
-                            <x-input-error class="mt-2" :messages="$errors->get('c3')" />
+                            <x-input-error class="mt-2" :messages="$errors->get('type_coating')" />
                         </div>
 
                         <div>
