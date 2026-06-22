@@ -17,7 +17,6 @@
 
                     <form action="{{ route('inspeksi_pvc.store') }}" method="POST" class="space-y-6">
                         @csrf
-
                         <div>
                             <x-input-label for="nomor_inspeksi" :value="__('Nomor Inspeksi (Otomatis)')" />
                             <x-text-input id="nomor_inspeksi" name="nomor_inspeksi" type="text"
@@ -54,7 +53,6 @@
                             <x-text-input id="pro_qty" type="text" class="mt-1 block w-full bg-gray-100"
                                 value="{{ old('pro_qty') }}" readonly />
                         </div>
-
 
                         <div>
                             <x-input-label for="shift" :value="__('Shift')" />

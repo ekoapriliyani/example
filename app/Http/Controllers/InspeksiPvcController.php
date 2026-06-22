@@ -82,7 +82,7 @@ class InspeksiPvcController extends Controller
 
         // 3. PERBAIKAN: Gunakan str_pad agar nomor urut konsisten memiliki panjang 3 digit (001, 002, dst)
         $paddedNumber = str_pad($nextNumber, 3, '0', STR_PAD_LEFT);
-        $nextNomor = "{$prefix}{$paddedNumber}"; // Hasil: INSWM202606001
+        $nextNomor = "{$prefix}{$paddedNumber}"; // Hasil: INSPVC202606001
 
         // 4. Ambil data mesin dan PRO
         $mesins = Mesin::orderBy('nama_mesin')->get();
@@ -96,7 +96,46 @@ class InspeksiPvcController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validated = $request->validate([
+            'tanggal' => 'required|date',
+            'pro_id' => 'required|exists:pros,id',
+            'shift' => 'required',
+            'd_kawat_inti' => 'required',
+            'd_kawat_pvc' => 'required',
+            'type_coating' => 'required',
+            'mesin_id' => 'nullable|exists:mesins,id',
+            'total_prod' => 'nullable|numeric',
+            'satuan' => 'required',
+        ]);
+
+        // 1. Generate ulang nomor inspeksi tepat sebelum menyimpan demi menghindari duplikasi data
+        $tahunBulan = Carbon::now()->format('Ym');
+        $prefix = "INSPVC{$tahunBulan}";
+
+        $lastRecord = InspeksiPvc::where('nomor_inspeksi', 'like', "{$prefix}%")
+            ->orderBy('id', 'desc')
+            ->first();
+
+        $nextNumber = 1;
+        if ($lastRecord) {
+            $lastNumberStr = str_replace($prefix, '', $lastRecord->nomor_inspeksi);
+            $nextNumber = (int) $lastNumberStr + 1;
+        }
+
+        $paddedNumber = str_pad($nextNumber, 3, '0', STR_PAD_LEFT);
+        $fixNomorInspeksi = "{$prefix}{$paddedNumber}";
+
+        // 2. Masukkan nomor yang sudah pasti aman dan sinkron ke array data
+        $validated['nomor_inspeksi'] = $fixNomorInspeksi;
+        $validated['mesin_id'] = $validated['mesin_id'] ?? null;
+        $validated['total_prod'] = $validated['total_prod'] ?? null;
+
+        // 3. Simpan ke database menggunakan data yang sudah tervalidasi
+        InspeksiPvc::create($validated);
+
+        return redirect()
+            ->route('inspeksi_pvc.index')
+            ->with('success', "Inspeksi {$fixNomorInspeksi} berhasil disimpan");
     }
 
     /**
@@ -110,9 +149,12 @@ class InspeksiPvcController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(InspeksiPvc $inspeksi_pvc)
     {
-        //
+        $pros = Pro::orderByDesc('pro_id')->get();
+        $mesins = Mesin::orderBy('nama_mesin')->get();
+
+        return view('inspeksi_pvc.edit', compact('inspeksi_pvc', 'pros', 'mesins'));
     }
 
     /**
@@ -128,6 +170,17 @@ class InspeksiPvcController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        if (! in_array(auth()->user()->role, ['supervisor', 'manager', 'administrator'])) {
+            abort(403, 'Tidak punya akses hapus.');
+        }
+
+        $data = InspeksiPvc::findOrFail($id);
+
+        if ($data->isApproved()) {
+            return back()->with('error', 'Data sudah di-approve, tidak bisa dihapus.');
+        }
+
+        $data->delete();
+        return back()->with('success', 'Data berhasil dihapus.');
     }
 }
