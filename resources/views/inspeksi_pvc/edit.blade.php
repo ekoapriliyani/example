@@ -73,11 +73,51 @@
                         </div>
 
                         <div>
-                            <x-input-label for="d_kawat_inti" :value="__('Diameter Kawat Inti')" />
-                            <x-text-input id="d_kawat_inti" name="d_kawat_inti" type="text"
-                                class="mt-1 block w-full bg-gray-100"
-                                value="{{ old('d_kawat_inti', $inspeksi_pvc->d_kawat_inti) }}" />
+                            <x-input-label for="d_kawat_inti" :value="__('d_kawat_inti')" />
+                            <select id="d_kawat_inti" name="d_kawat_inti"
+                                class="mt-1 block w-full border-gray-300 rounded-md shadow-sm" required>
+                                <option value="">-- Pilih d_kawat_inti --</option>
+                                <option value="1.6"
+                                    {{ old('d_kawat_inti', $inspeksi_pvc->d_kawat_inti) == '1.6' ? 'selected' : '' }}>
+                                    1.6
+                                </option>
+                                <option value="1.8"
+                                    {{ old('d_kawat_inti', $inspeksi_pvc->d_kawat_inti) == '1.8' ? 'selected' : '' }}>
+                                    1.8
+                                </option>
+                                <option value="2"
+                                    {{ old('d_kawat_inti', $inspeksi_pvc->d_kawat_inti) == '2' ? 'selected' : '' }}>2
+                                </option>
+                                <option value="2.2"
+                                    {{ old('d_kawat_inti', $inspeksi_pvc->d_kawat_inti) == '2.2' ? 'selected' : '' }}>
+                                    2.2
+                                </option>
+                                <option value="2.5"
+                                    {{ old('d_kawat_inti', $inspeksi_pvc->d_kawat_inti) == '2.5' ? 'selected' : '' }}>
+                                    2.5
+                                </option>
+                                <option value="2.7"
+                                    {{ old('d_kawat_inti', $inspeksi_pvc->d_kawat_inti) == '2.7' ? 'selected' : '' }}>
+                                    2.7
+                                </option>
+                                <option value="3"
+                                    {{ old('d_kawat_inti', $inspeksi_pvc->d_kawat_inti) == '3' ? 'selected' : '' }}>3
+                                </option>
+                                <option value="3.2"
+                                    {{ old('d_kawat_inti', $inspeksi_pvc->d_kawat_inti) == '3.2' ? 'selected' : '' }}>
+                                    3.2
+                                </option>
+                                <option value="3.4"
+                                    {{ old('d_kawat_inti', $inspeksi_pvc->d_kawat_inti) == '3.4' ? 'selected' : '' }}>
+                                    3.4
+                                </option>
+                                <option value="4"
+                                    {{ old('d_kawat_inti', $inspeksi_pvc->d_kawat_inti) == '4' ? 'selected' : '' }}>4
+                                </option>
+                            </select>
+                            <x-input-error class="mt-2" :messages="$errors->get('d_kawat_inti')" />
                         </div>
+
                         <div>
                             <x-input-label for="d_kawat_pvc" :value="__('Diameter Kawat PVC')" />
                             <x-text-input id="d_kawat_pvc" name="d_kawat_pvc" type="text"

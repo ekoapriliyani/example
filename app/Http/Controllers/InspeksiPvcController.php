@@ -141,9 +141,10 @@ class InspeksiPvcController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(InspeksiPvc $inspeksi_pvc)
     {
-        //
+        $inspeksi_pvc->load(['pro', 'mesin', 'inspeksiPvcWip']);
+        return view('inspeksi_pvc.show', ['inspeksi_pvc' => $inspeksi_pvc]);
     }
 
     /**
@@ -160,9 +161,35 @@ class InspeksiPvcController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, InspeksiPvc $inspeksi_pvc)
     {
-        //
+        $validated = $request->validate([
+            'tanggal' => 'required|date',
+            'pro_id' => 'required|exists:pros,id',
+            'shift' => 'required',
+            'd_kawat_inti' => '',
+            'd_kawat_pvc' => '',
+            'type_coating' => 'required',
+            'total_prod' => 'nullable|numeric',
+            'satuan' => 'required',
+            'mesin_id' => 'nullable|exists:mesins,id',
+        ]);
+
+        $inspeksi_pvc->update([
+            'tanggal' => $validated['tanggal'],
+            'pro_id' => $validated['pro_id'],
+            'shift' => $validated['shift'],
+            'd_kawat_inti' => $validated['d_kawat_inti'],
+            'd_kawat_pvc' => $validated['d_kawat_pvc'],
+            'type_coating' => $validated['type_coating'],
+            'mesin_id' => $validated['mesin_id'] ?? null,
+            'total_prod' => $validated['total_prod'] ?? null,
+            'satuan' => $validated['satuan'] ?? null,
+        ]);
+
+        return redirect()
+            ->route('inspeksi_pvc.index')
+            ->with('success', 'Data inspeksi berhasil diperbarui');
     }
 
     /**

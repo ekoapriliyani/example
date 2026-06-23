@@ -36,4 +36,9 @@ class InspeksiPvc extends Model
     {
         return $this->belongsTo(Pro::class);
     }
+
+    public function inspeksiPvcWip()
+    {
+        return $this->hasMany(InspeksiPvcWip::class);
+    }
 }

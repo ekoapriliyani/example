@@ -92,12 +92,13 @@
                                         <th class="px-4 py-3 font-semibold text-gray-900 text-left">Nomor Inspeksi</th>
                                         <th class="px-4 py-3 font-semibold text-gray-900 text-left">Tanggal</th>
                                         <th class="px-4 py-3 font-semibold text-gray-900 text-left">Shift</th>
+                                        <th class="px-4 py-3 font-semibold text-gray-900 text-left">D Kawat Inti</th>
+                                        <th class="px-4 py-3 font-semibold text-gray-900 text-left">D Kawat PVC</th>
                                         <th class="px-4 py-3 font-semibold text-gray-900 text-left">PRO Number</th>
                                         <th class="px-4 py-3 font-semibold text-gray-900 text-left">Description</th>
                                         <th class="px-4 py-3 font-semibold text-gray-900 text-left">QTY Ordered</th>
                                         <th class="px-4 py-3 font-semibold text-gray-900 text-left">Total Prod</th>
                                         <th class="px-4 py-3 font-semibold text-gray-900 text-left">Satuan</th>
-                                        <th class="px-4 py-3 font-semibold text-gray-900 text-left">Grade</th>
                                         <th class="px-4 py-3 font-semibold text-gray-900 text-left">Type Coating</th>
                                         <th class="px-4 py-3 font-semibold text-gray-900 text-left">Mesin</th>
                                         <th class="px-4 py-3 font-semibold text-gray-900 text-right">Status</th>
@@ -171,7 +172,10 @@
                                             <td class="px-4 py-3 font-medium text-gray-900">
                                                 {{ $item->tanggal }}
                                             </td>
-                                            <td class="px-4 py-3 font-medium text-gray-900">{{ $item->shift }}
+                                            <td class="px-4 py-3 font-medium text-gray-900">{{ $item->shift }}</td>
+                                            <td class="px-4 py-3 font-medium text-gray-900">{{ $item->d_kawat_inti }}
+                                            </td>
+                                            <td class="px-4 py-3 font-medium text-gray-900">{{ $item->d_kawat_pvc }}
                                             </td>
                                             <td class="px-4 py-3 font-medium text-gray-900">{{ $item->pro->pro_id }}
                                             </td>
@@ -185,8 +189,6 @@
                                             </td>
                                             <td class="px-4 py-3">
                                                 {{ $item->satuan }}
-                                            </td>
-                                            <td class="px-4 py-3 font-medium text-gray-900">{{ $item->grade }}
                                             </td>
                                             <td class="px-4 py-3 font-medium text-gray-900">{{ $item->type_coating }}
                                             </td>

@@ -142,7 +142,6 @@ class InspeksiWmController extends Controller
     public function show(InspeksiWm $inspeksi_wm)
     {
         $inspeksi_wm->load(['pro', 'mesin', 'inspeksiWmWip', 'inspeksiWmFg']);
-
         return view('inspeksi_wm.show', ['inspeksi_wm' => $inspeksi_wm]);
     }
 
