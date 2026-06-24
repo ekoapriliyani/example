@@ -29,6 +29,7 @@ use App\Http\Controllers\InspeksiKlipWipController;
 use App\Http\Controllers\InspeksiPoundController;
 use App\Http\Controllers\InspeksiPoundWipController;
 use App\Http\Controllers\InspeksiPvcController;
+use App\Http\Controllers\InspeksiPvcWipController;
 use App\Http\Controllers\InspeksiRazorpackingController;
 use App\Http\Controllers\InspeksiRazorpackingFgController;
 use App\Http\Controllers\InspeksiShearingController;
@@ -57,6 +58,7 @@ use App\Http\Controllers\SubkonController;
 use App\Http\Controllers\SupplierController;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
+
 
 
 
@@ -310,6 +312,29 @@ Route::middleware(['auth'])->group(function () {
 
     Route::delete('insepeksi_wf/wip/{wip}', [InspeksiWfWipController::class, 'destroy'])
         ->name('inspeksi_wf_wip.destroy');
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | PVC
+    |--------------------------------------------------------------------------
+    */
+
+    // WIP
+    Route::get('/inspeksi_pvc/{inspeksi_pvc}/wip', [InspeksiPvcWipController::class, 'create'])
+        ->name('inspeksi_pvc.wip');
+
+    Route::post('/inspeksi_pvc/wip', [InspeksiPvcWipController::class, 'store'])
+        ->name('inspeksi_pvc_wip.store');
+
+    Route::get('insepeksi_pvc/wip/{wip}/edit', [InspeksiPvcWipController::class, 'edit'])
+        ->name('inspeksi_pvc_wip.edit');
+
+    Route::put('insepeksi_pvc/wip/{wip}', [InspeksiPvcWipController::class, 'update'])
+        ->name('inspeksi_pvc_wip.update');
+
+    Route::delete('insepeksi_pvc/wip/{wip}', [InspeksiPvcWipController::class, 'destroy'])
+        ->name('inspeksi_pvc_wip.destroy');
 
 
 
@@ -822,6 +847,9 @@ Route::middleware([
 
     Route::patch('/inspeksi-wf/{id}/toggle-approval', [InspeksiWfController::class, 'toggleApproval'])
         ->name('inspeksi-wf.toggle');
+
+    Route::patch('/inspeksi-pvc/{id}/toggle-approval', [InspeksiPvcController::class, 'toggleApproval'])
+        ->name('inspeksi-pvc.toggle');
 
     // Route::patch('/inspeksi-bending/{id}/toggle-approval', [InspeksiBendingController::class, 'toggleApproval'])
     //     ->name('inspeksi-bending.toggle');
