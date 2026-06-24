@@ -13,6 +13,12 @@ return new class extends Migration
     {
         Schema::create('inspeksi_pvc_wip_details', function (Blueprint $table) {
             $table->id();
+            // relasi ke tabel utama
+            $table->foreignId('inspeksi_pvc_wip_id')->constrained('inspeksi_pvc_wips')->onDelete('cascade');
+            // field detail
+            $table->string('description')->nullable();
+            $table->string('description2')->nullable();
+            $table->integer('qty')->nullable();
             $table->timestamps();
         });
     }
