@@ -21,6 +21,7 @@ return new class extends Migration
             $table->decimal('d_kawat_inti')->nullable();
             $table->decimal('d_kawat_pvc')->nullable();
             $table->string('type_coating');
+            $table->string('type_lapisan');
             $table->decimal('total_prod', 8, 2)->nullable();
             $table->string('satuan');
 

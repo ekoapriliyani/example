@@ -147,7 +147,7 @@
                                 <x-input-label for="d_kawat_inti" :value="__('Diameter Kawat Inti')" />
                                 <div class="relative mt-1">
                                     <x-text-input id="d_kawat_inti" name="d_kawat_inti" type="number"
-                                        step="1" class="block w-full pr-12" :value="old('d_kawat_inti')" required
+                                        step="0.01" class="block w-full pr-12" :value="old('d_kawat_inti')" required
                                         placeholder="0.00" />
                                     <div
                                         class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3 text-sm text-gray-400">
@@ -157,9 +157,9 @@
                                 <x-input-error class="mt-2" :messages="$errors->get('d_kawat_inti')" />
                             </div>
                             <div>
-                                <x-input-label for="d_kawat_pvc" :value="__('Diameter Kawat PVC')" />
+                                <x-input-label for="d_kawat_pvc" :value="__('Diameter Kawat PVC/HDPE')" />
                                 <div class="relative mt-1">
-                                    <x-text-input id="d_kawat_pvc" name="d_kawat_pvc" type="number" step="1"
+                                    <x-text-input id="d_kawat_pvc" name="d_kawat_pvc" type="number" step="0.01"
                                         class="block w-full pr-12" :value="old('d_kawat_pvc')" required placeholder="0.00" />
                                     <div
                                         class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3 text-sm text-gray-400">
@@ -172,7 +172,7 @@
                                 <x-input-label for="penyimpangan" :value="__('Penyimpangan')" />
                                 <div class="relative mt-1">
                                     <x-text-input id="penyimpangan" name="penyimpangan" type="number"
-                                        step="1" class="block w-full pr-12" :value="old('penyimpangan')" required
+                                        step="0.01" class="block w-full pr-12" :value="old('penyimpangan')" required
                                         placeholder="0.00" />
                                     <div
                                         class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3 text-sm text-gray-400">

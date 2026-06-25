@@ -15,6 +15,7 @@ class InspeksiPvc extends Model
         'd_kawat_inti',
         'd_kawat_pvc',
         'type_coating',
+        'type_lapisan',
         'total_prod',
         'satuan',
         'approval_status',
