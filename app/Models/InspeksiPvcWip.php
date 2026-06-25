@@ -10,6 +10,7 @@ class InspeksiPvcWip extends Model
         'inspeksi_pvc_id',
         'user_id',
         'no_material',
+        'no_material2',
         'nama_operator',
         'c1',
         'c2',

@@ -16,6 +16,7 @@ return new class extends Migration
             $table->foreignId('inspeksi_pvc_id')->constrained('inspeksi_pvcs')->onDelete('cascade'); // relasi ke header
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
             $table->string('no_material');
+            $table->string('no_material2');
             $table->string('nama_operator');
             $table->decimal('c1', 8, 2)->nullable();
             $table->decimal('c2', 8, 2)->nullable();

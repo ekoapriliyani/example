@@ -28,10 +28,16 @@
 
                         <div class="grid grid-cols-2 gap-6 md:grid-cols-2">
                             <div>
-                                <x-input-label for="no_material" :value="__('No. Material')" />
+                                <x-input-label for="no_material" :value="__('No. Material Kawat')" />
                                 <x-text-input id="no_material" name="no_material" type="text"
                                     class="mt-1 block w-full" :value="old('no_material', $wip->no_material)" required />
                                 <x-input-error class="mt-2" :messages="$errors->get('no_material')" />
+                            </div>
+                            <div>
+                                <x-input-label for="no_material2" :value="__('No. Material Bubuk')" />
+                                <x-text-input id="no_material2" name="no_material2" type="text"
+                                    class="mt-1 block w-full" :value="old('no_material2', $wip->no_material2)" required />
+                                <x-input-error class="mt-2" :messages="$errors->get('no_material2')" />
                             </div>
                             <div>
                                 <x-input-label for="nama_operator" :value="__('Nama Operator')" />
@@ -101,13 +107,16 @@
                                     <option value="Biru" {{ old('warna', $wip->warna) == 'Biru' ? 'selected' : '' }}>
                                         Biru
                                     </option>
-                                    <option value="Hijau" {{ old('warna', $wip->warna) == 'Hijau' ? 'selected' : '' }}>
+                                    <option value="Hijau"
+                                        {{ old('warna', $wip->warna) == 'Hijau' ? 'selected' : '' }}>
                                         Hijau
                                     </option>
-                                    <option value="Hitam" {{ old('warna', $wip->warna) == 'Hitam' ? 'selected' : '' }}>
+                                    <option value="Hitam"
+                                        {{ old('warna', $wip->warna) == 'Hitam' ? 'selected' : '' }}>
                                         Hitam
                                     </option>
-                                    <option value="Putih" {{ old('warna', $wip->warna) == 'Putih' ? 'selected' : '' }}>
+                                    <option value="Putih"
+                                        {{ old('warna', $wip->warna) == 'Putih' ? 'selected' : '' }}>
                                         Putih
                                     </option>
                                 </select>

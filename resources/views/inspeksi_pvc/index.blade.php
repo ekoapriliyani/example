@@ -99,7 +99,8 @@
                                         <th class="px-4 py-3 font-semibold text-gray-900 text-left">QTY Ordered</th>
                                         <th class="px-4 py-3 font-semibold text-gray-900 text-left">Total Prod</th>
                                         <th class="px-4 py-3 font-semibold text-gray-900 text-left">Satuan</th>
-                                        <th class="px-4 py-3 font-semibold text-gray-900 text-left">Type Coating</th>
+                                        <th class="px-4 py-3 font-semibold text-gray-900 text-left">Type Kawat</th>
+                                        <th class="px-4 py-3 font-semibold text-gray-900 text-left">Type Lapisan</th>
                                         <th class="px-4 py-3 font-semibold text-gray-900 text-left">Mesin</th>
                                         <th class="px-4 py-3 font-semibold text-gray-900 text-right">Status</th>
                                     </tr>
@@ -191,6 +192,8 @@
                                                 {{ $item->satuan }}
                                             </td>
                                             <td class="px-4 py-3 font-medium text-gray-900">{{ $item->type_coating }}
+                                            </td>
+                                            <td class="px-4 py-3 font-medium text-gray-900">{{ $item->type_lapisan }}
                                             </td>
                                             <td class="px-4 py-3 font-medium text-gray-900">
                                                 {{ $item->mesin->mesin_id }}

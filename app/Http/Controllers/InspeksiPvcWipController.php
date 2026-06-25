@@ -35,6 +35,7 @@ class InspeksiPvcWipController extends Controller
         $validated = $request->validate([
             'inspeksi_pvc_id'    => 'required|exists:inspeksi_pvcs,id',
             'no_material'       => 'required|string|max:255',
+            'no_material2'       => 'required|string|max:255',
             'nama_operator'     => 'required|string|max:255',
             'c1'       => 'required|numeric',
             'c2'       => 'required|numeric',
@@ -64,6 +65,7 @@ class InspeksiPvcWipController extends Controller
             'inspeksi_pvc_id'   => $validated['inspeksi_pvc_id'],
             'user_id'          => Auth::id(),
             'no_material'      => $validated['no_material'],
+            'no_material2'      => $validated['no_material2'],
             'nama_operator'    => $validated['nama_operator'],
             'c1'    => $validated['c1'],
             'c2'    => $validated['c2'],
@@ -135,6 +137,7 @@ class InspeksiPvcWipController extends Controller
     {
         $request->validate([
             'no_material'       => 'required|string|max:255',
+            'no_material2'       => 'required|string|max:255',
             'nama_operator'     => 'required|string|max:255',
             'c1'       => 'required|numeric',
             'c2'       => 'required|numeric',
@@ -155,6 +158,7 @@ class InspeksiPvcWipController extends Controller
         $wip = InspeksiPvcWip::findOrFail($id);
         $wip->update([
             'no_material' => $request->no_material,
+            'no_material2' => $request->no_material2,
             'nama_operator' => $request->nama_operator,
             'c1' => $request->c1,
             'c2' => $request->c2,
