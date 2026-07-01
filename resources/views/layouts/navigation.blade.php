@@ -76,6 +76,11 @@
                         </x-dropdown>
                     </div>
 
+                    {{-- outgoing --}}
+                    <x-nav-link :href="route('outgoing.index')" :active="request()->routeIs('outgoing.index')">
+                        {{ __('Outgoing') }}
+                    </x-nav-link>
+
                     <div class="hidden sm:ms-4 sm:flex sm:items-center">
                         <x-dropdown align="left" width="48">
                             <x-slot name="trigger">

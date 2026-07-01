@@ -45,6 +45,7 @@ use App\Http\Controllers\InspeksiWmWipController;
 use App\Http\Controllers\LabController;
 use App\Http\Controllers\MaterialController;
 use App\Http\Controllers\MesinController;
+use App\Http\Controllers\OutgoingController;
 use App\Http\Controllers\ProController;
 use App\Http\Controllers\ProductCtController;
 use App\Http\Controllers\ProductFencingController;
@@ -58,6 +59,7 @@ use App\Http\Controllers\SubkonController;
 use App\Http\Controllers\SupplierController;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
+
 
 
 
@@ -123,6 +125,7 @@ Route::middleware(['auth'])->group(function () {
         'shipment'          => ShipmentController::class,
         'project'            => ProjectController::class,
         'incomingbahanbaku'  => IncomingBahanBakuController::class,
+        'outgoing'  => OutgoingController::class,
         'incomingpvchdpe'    => IncomingPvcHdpeController::class,
         'incomingproject'    => IncomingProjectController::class,
         'sheetgalvanize'     => SheetGalvanizeController::class,
