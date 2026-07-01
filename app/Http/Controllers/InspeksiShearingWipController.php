@@ -151,7 +151,7 @@ class InspeksiShearingWipController extends Controller
 
         $wip = InspeksiShearingWip::findOrFail($id);
         $wip->update([
-            'user_id'               => Auth::id(),
+            // 'user_id'               => Auth::id(),
             'no_material'           => $validated['no_material'],
             'nama_operator'         => $validated['nama_operator'],
             'p_potong'         => $validated['p_potong'],
