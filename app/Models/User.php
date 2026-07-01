@@ -112,4 +112,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(InspeksiWfWip::class);
     }
+
+    public function outgoings()
+    {
+        return $this->hasMany(Outgoing::class);
+    }
 }

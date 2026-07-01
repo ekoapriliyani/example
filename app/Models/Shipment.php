@@ -12,4 +12,9 @@ class Shipment extends Model
         'custname',
         'qty',
     ];
+
+    public function outgoings()
+    {
+        return $this->hasMany(Outgoing::class);
+    }
 }

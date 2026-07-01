@@ -82,7 +82,7 @@
                                 <x-input-error class="mt-2" :messages="$errors->get('d_kawat_inti')" />
                             </div>
                             <div>
-                                <x-input-label for="d_kawat_pvc" :value="__('D Kawat PVC')" />
+                                <x-input-label for="d_kawat_pvc" :value="__('D Kawat PVC/HDPE')" />
                                 <x-text-input id="d_kawat_pvc" name="d_kawat_pvc" type="number" step="0.01"
                                     class="mt-1 block w-full" :value="old('d_kawat_pvc', $wip->d_kawat_pvc)" required />
                                 <x-input-error class="mt-2" :messages="$errors->get('d_kawat_pvc')" />
