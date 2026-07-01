@@ -2,7 +2,7 @@
     <x-slot name="header">
         <div class="flex items-center justify-between">
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-                {{ __('Daftar Inspeksi pvc') }}
+                {{ __('Daftar Inspeksi PVC/HDPE') }}
             </h2>
 
             <a href="{{ route('inspeksi_pvc.create') }}"
@@ -93,7 +93,8 @@
                                         <th class="px-4 py-3 font-semibold text-gray-900 text-left">Tanggal</th>
                                         <th class="px-4 py-3 font-semibold text-gray-900 text-left">Shift</th>
                                         <th class="px-4 py-3 font-semibold text-gray-900 text-left">D Kawat Inti</th>
-                                        <th class="px-4 py-3 font-semibold text-gray-900 text-left">D Kawat PVC</th>
+                                        <th class="px-4 py-3 font-semibold text-gray-900 text-left">D Kawat PVC/HDPE
+                                        </th>
                                         <th class="px-4 py-3 font-semibold text-gray-900 text-left">PRO Number</th>
                                         <th class="px-4 py-3 font-semibold text-gray-900 text-left">Description</th>
                                         <th class="px-4 py-3 font-semibold text-gray-900 text-left">QTY Ordered</th>
