@@ -119,7 +119,7 @@
                                     <th class="px-4 py-3 font-semibold text-gray-900">C4</th>
                                     <th class="px-4 py-3 font-semibold text-gray-900">CH</th>
                                     <th class="px-4 py-3 font-semibold text-gray-900">D Kawat Inti</th>
-                                    <th class="px-4 py-3 font-semibold text-gray-900">D Kawat PVC</th>
+                                    <th class="px-4 py-3 font-semibold text-gray-900">D Kawat PVC/HDPE</th>
                                     <th class="px-4 py-3 font-semibold text-gray-900">Penyimpangan</th>
                                     <th class="px-4 py-3 font-semibold text-gray-900">Warna</th>
                                     <th class="px-4 py-3 font-semibold text-gray-900">Uji Lilit</th>
