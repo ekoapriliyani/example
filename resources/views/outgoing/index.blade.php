@@ -56,15 +56,12 @@
                                         <th class="w-16 px-4 py-3 text-left font-semibold text-gray-900">No</th>
                                         <th class="px-4 py-3 text-left font-semibold text-gray-900">Aksi</th>
                                         <th class="px-4 py-3 text-left font-semibold text-gray-900">Tanggal</th>
-                                        <th class="px-4 py-3 text-left font-semibold text-gray-900">Nomor Inspeksi</th>
-                                        <th class="px-4 py-3 text-left font-semibold text-gray-900">Supplier</th>
-                                        <th class="px-4 py-3 text-left font-semibold text-gray-900">No PO</th>
-                                        <th class="px-4 py-3 text-left font-semibold text-gray-900">No SJ</th>
-                                        <th class="px-4 py-3 text-left font-semibold text-gray-900">Jml Koil</th>
-                                        <th class="px-4 py-3 text-left font-semibold text-gray-900">D Kawat</th>
-                                        <th class="px-4 py-3 text-left font-semibold text-gray-900">Tol Kawat</th>
-                                        <th class="px-4 py-3 text-left font-semibold text-gray-900">Jenis Kawat</th>
-                                        <th class="px-4 py-3 text-left font-semibold text-gray-900">Certificate</th>
+                                        <th class="px-4 py-3 text-left font-semibold text-gray-900">No Inspeksi</th>
+                                        <th class="px-4 py-3 text-left font-semibold text-gray-900">No Shipment</th>
+                                        <th class="px-4 py-3 text-left font-semibold text-gray-900">Lokasi</th>
+                                        <th class="px-4 py-3 text-left font-semibold text-gray-900">No Kendaraan</th>
+                                        <th class="px-4 py-3 text-left font-semibold text-gray-900">Keterangan</th>
+                                        <th class="px-4 py-3 text-left font-semibold text-gray-900">Inspector</th>
                                         <th class="px-4 py-3 text-center font-semibold text-gray-900">Files</th>
                                         <th class="px-4 py-3 text-center font-semibold text-gray-900">Status</th>
                                         <th class="px-4 py-3 text-left font-semibold text-gray-900">Created At</th>
@@ -155,15 +152,15 @@
                                             <td class="px-4 py-3 font-medium text-gray-900">
                                                 {{ $item->nomor_inspeksi }}</td>
                                             <td class="px-4 py-3 font-medium text-gray-900">
-                                                {{ $item->supplier->nama ?? 'N/A' }}</td>
+                                                {{ $item->shipment->custname ?? 'N/A' }}</td>
                                             <td class="px-4 py-3 font-medium text-gray-900">{{ $item->no_po }}</td>
-                                            <td class="px-4 py-3 font-medium text-gray-900">{{ $item->no_sj }}</td>
-                                            <td class="px-4 py-3 font-medium text-gray-900">{{ $item->jml_koil }}</td>
-                                            <td class="px-4 py-3 font-medium text-gray-900">{{ $item->d_kawat }}</td>
-                                            <td class="px-4 py-3 font-medium text-gray-900">{{ $item->tol }}</td>
-                                            <td class="px-4 py-3 font-medium text-gray-900">{{ $item->jenis_kawat }}
+                                            <td class="px-4 py-3 font-medium text-gray-900">{{ $item->lokasi }}</td>
+                                            <td class="px-4 py-3 font-medium text-gray-900">{{ $item->no_kendaraan }}
                                             </td>
-                                            <td class="px-4 py-3 font-medium text-gray-900">{{ $item->certificate }}
+                                            <td class="px-4 py-3 font-medium text-gray-900">{{ $item->keterangan }}
+                                            </td>
+                                            <td class="px-4 py-3 font-medium text-gray-900">
+                                                {{ $item->user->name ?? 'N/A' }}</td>
                                             </td>
                                             <td class="whitespace-nowrap px-4 py-3 text-center">
                                                 @if ($item->files && count($item->files))

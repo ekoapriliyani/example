@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Outgoing;
+use App\Models\Shipment;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class OutgoingController extends Controller
@@ -30,7 +32,30 @@ class OutgoingController extends Controller
      */
     public function create()
     {
-        //
+        // 1. Ambil format Tahun dan Bulan saat ini (Contoh: 202606)
+        $tahunBulan = Carbon::now()->format('Ym');
+        $prefix = "OUT{$tahunBulan}";
+
+        // 2. PERBAIKAN: Urutkan berdasarkan 'id' desc agar mendapatkan rekor TERAKHIR yang valid
+        $lastRecord = Outgoing::where('nomor_inspeksi', 'like', "{$prefix}%")
+            ->orderBy('id', 'desc')
+            ->first();
+
+        $nextNumber = 1;
+        if ($lastRecord) {
+            // Ambil string nomor aslinya, buang prefix-nya
+            $lastNumberStr = str_replace($prefix, '', $lastRecord->nomor_inspeksi);
+            $nextNumber = (int) $lastNumberStr + 1;
+        }
+
+        // 3. PERBAIKAN: Gunakan str_pad agar nomor urut konsisten memiliki panjang 3 digit (001, 002, dst)
+        $paddedNumber = str_pad($nextNumber, 3, '0', STR_PAD_LEFT);
+        $nextNomor = "{$prefix}{$paddedNumber}"; // Hasil: OUT202606001
+
+        // 4. Ambil data Shipment
+        $shipments = Shipment::orderBy('shipment_id')->get();
+
+        return view('outgoing.create', compact('nextNomor', 'shipments'));
     }
 
     /**
