@@ -44,80 +44,28 @@
                             <x-input-error class="mt-2" :messages="$errors->get('shipment_id')" />
                         </div>
                         <div>
-                            <x-input-label for="no_po" :value="__('No PO')" />
+                            <x-input-label for="lokasi" :value="__('Lokasi')" />
                             <div class="relative mt-1">
-                                <x-text-input id="no_po" name="no_po" type="text" class="block w-full pr-12"
-                                    :value="old('no_po')" />
+                                <x-text-input id="lokasi" name="lokasi" type="text" class="block w-full pr-12"
+                                    :value="old('lokasi')" />
                             </div>
-                            <x-input-error class="mt-2" :messages="$errors->get('no_po')" />
+                            <x-input-error class="mt-2" :messages="$errors->get('lokasi')" />
                         </div>
                         <div>
-                            <x-input-label for="no_sj" :value="__('No SJ')" />
+                            <x-input-label for="no_kendaraan" :value="__('No Kendaraan')" />
                             <div class="relative mt-1">
-                                <x-text-input id="no_sj" name="no_sj" type="text" class="block w-full pr-12"
-                                    :value="old('no_sj')" />
+                                <x-text-input id="no_kendaraan" name="no_kendaraan" type="text"
+                                    class="block w-full pr-12" :value="old('no_kendaraan')" />
                             </div>
-                            <x-input-error class="mt-2" :messages="$errors->get('no_sj')" />
+                            <x-input-error class="mt-2" :messages="$errors->get('no_kendaraan')" />
                         </div>
                         <div>
-                            <x-input-label for="jml_koil" :value="__('Jml Koil')" />
+                            <x-input-label for="keterangan" :value="__('Keterangan')" />
                             <div class="relative mt-1">
-                                <x-text-input id="jml_koil" name="jml_koil" type="number" class="block w-full pr-12"
-                                    :value="old('jml_koil')" />
+                                <x-text-input id="keterangan" name="keterangan" type="text"
+                                    class="block w-full pr-12" :value="old('keterangan')" />
                             </div>
-                            <x-input-error class="mt-2" :messages="$errors->get('jml_koil')" />
-                        </div>
-                        <div>
-                            <x-input-label for="d_kawat" :value="__('D Kawat')" />
-                            <div class="relative mt-1">
-                                <select id="d_kawat" name="d_kawat" class="block w-full border rounded px-3 py-2">
-                                    <option value="">-- Pilih Diameter --</option>
-                                    <option value="1.6">1.6</option>
-                                    <option value="1.8">1.8</option>
-                                    <option value="2">2</option>
-                                    <option value="2.5">2.5</option>
-                                    <option value="2.7">2.7</option>
-                                    <option value="3">3</option>
-                                    <option value="3.2">3.2</option>
-                                    <option value="3.4">3.4</option>
-                                    <option value="3.8">3.8</option>
-                                    <option value="4">4</option>
-                                    <option value="5">5</option>
-                                    <option value="5.6">5.6</option>
-                                    <option value="8">8</option>
-                                </select>
-                            </div>
-                            <x-input-error class="mt-2" :messages="$errors->get('d_kawat')" />
-                        </div>
-                        <div>
-                            <x-input-label for="tol" :value="__('Toleransi')" />
-                            <div class="relative mt-1">
-                                <x-text-input id="tol" name="tol" type="number" step="0.01"
-                                    class="block w-full pr-12" :value="old('tol')" />
-                            </div>
-                            <x-input-error class="mt-2" :messages="$errors->get('tol')" />
-                        </div>
-                        <div>
-                            <x-input-label for="jenis_kawat" :value="__('Jenis Kawat')" />
-                            <select id="jenis_kawat" name="jenis_kawat"
-                                class="mt-1 block w-full border-gray-300 rounded-md shadow-sm" required>
-                                <option value="">-- Jenis Kawat --</option>
-                                <option value="LG">LG</option>
-                                <option value="HG">HG</option>
-                                <option value="ULTRA">ULTRA</option>
-                                <option value="BLACK WIRE">BLACK WIRE</option>
-                                <option value="BEZILUM">BEZILUM</option>
-                                <option value="EP">EP</option>
-                            </select>
-                            <x-input-error class="mt-2" :messages="$errors->get('jenis_kawat')" />
-                        </div>
-                        <div>
-                            <x-input-label for="certificate" :value="__('Certificate')" />
-                            <div class="relative mt-1">
-                                <x-text-input id="certificate" name="certificate" type="text"
-                                    class="block w-full pr-12" :value="old('certificate')" />
-                            </div>
-                            <x-input-error class="mt-2" :messages="$errors->get('certificate')" />
+                            <x-input-error class="mt-2" :messages="$errors->get('keterangan')" />
                         </div>
                         <div class="mt-4">
                             <x-input-label for="files" :value="__('Upload File')" />

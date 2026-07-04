@@ -58,6 +58,7 @@
                                         <th class="px-4 py-3 text-left font-semibold text-gray-900">Tanggal</th>
                                         <th class="px-4 py-3 text-left font-semibold text-gray-900">No Inspeksi</th>
                                         <th class="px-4 py-3 text-left font-semibold text-gray-900">No Shipment</th>
+                                        <th class="px-4 py-3 text-left font-semibold text-gray-900">Customer</th>
                                         <th class="px-4 py-3 text-left font-semibold text-gray-900">Lokasi</th>
                                         <th class="px-4 py-3 text-left font-semibold text-gray-900">No Kendaraan</th>
                                         <th class="px-4 py-3 text-left font-semibold text-gray-900">Keterangan</th>
@@ -152,8 +153,9 @@
                                             <td class="px-4 py-3 font-medium text-gray-900">
                                                 {{ $item->nomor_inspeksi }}</td>
                                             <td class="px-4 py-3 font-medium text-gray-900">
+                                                {{ $item->shipment->shipment_id ?? 'N/A' }}</td>
+                                            <td class="px-4 py-3 font-medium text-gray-900">
                                                 {{ $item->shipment->custname ?? 'N/A' }}</td>
-                                            <td class="px-4 py-3 font-medium text-gray-900">{{ $item->no_po }}</td>
                                             <td class="px-4 py-3 font-medium text-gray-900">{{ $item->lokasi }}</td>
                                             <td class="px-4 py-3 font-medium text-gray-900">{{ $item->no_kendaraan }}
                                             </td>

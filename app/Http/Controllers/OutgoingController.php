@@ -6,6 +6,7 @@ use App\Models\Outgoing;
 use App\Models\Shipment;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class OutgoingController extends Controller
 {
@@ -63,7 +64,57 @@ class OutgoingController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validated = $request->validate([
+            'tanggal' => 'required',
+            'shipment_id' => 'required',
+            'lokasi' => 'required',
+            'keterangan' => 'nullable',
+            'no_kendaraan' => 'required',
+            'files' => 'nullable|array',
+            'files.*' => 'nullable|image|max:20480',
+        ]);
+
+        // 1. Generate ulang nomor inspeksi tepat sebelum menyimpan demi menghindari duplikasi data
+        $tahunBulan = Carbon::now()->format('Ym');
+        $prefix = "OUT{$tahunBulan}";
+
+        $lastRecord = Outgoing::where('nomor_inspeksi', 'like', "{$prefix}%")
+            ->orderBy('id', 'desc')
+            ->first();
+
+        $nextNumber = 1;
+        if ($lastRecord) {
+            $lastNumberStr = str_replace($prefix, '', $lastRecord->nomor_inspeksi);
+            $nextNumber = (int) $lastNumberStr + 1;
+        }
+
+        $paddedNumber = str_pad($nextNumber, 3, '0', STR_PAD_LEFT);
+        $fixNomorInspeksi = "{$prefix}{$paddedNumber}";
+
+        // 2. Masukkan nomor inspeksi DAN user_id yang sedang login ke array validated
+        $validated['nomor_inspeksi'] = $fixNomorInspeksi;
+        $validated['user_id'] = auth()->id(); // <--- Tambahkan baris ini
+
+        // 3. Simpan data utama ke database
+        $out = Outgoing::create($validated);
+
+        // 4. Proses upload file jika ada
+        if ($request->hasFile('files')) {
+            $paths = [];
+            foreach ($request->file('files') as $file) {
+                $name = time() . '_' . uniqid() . '.' . $file->getClientOriginalExtension();
+                $paths[] = $file->storeAs(
+                    'uploads/outgoing',
+                    $name,
+                    'public'
+                );
+            }
+            $out->update([
+                'files' => $paths
+            ]);
+        }
+
+        return redirect()->route('outgoing.index')->with('success', "Data outgoing {$fixNomorInspeksi} berhasil disimpan");
     }
 
     /**
@@ -79,7 +130,9 @@ class OutgoingController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $data = Outgoing::findOrFail($id);
+        $shipments = Shipment::orderBy('shipment_id')->get();
+        return view('outgoing.edit', compact('data', 'shipments'));
     }
 
     /**
@@ -87,7 +140,63 @@ class OutgoingController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $validated = $request->validate([
+            'tanggal' => 'required',
+            'shipment_id' => 'required',
+            'lokasi' => 'required',
+            'no_kendaraan' => 'required',
+            'keterangan' => 'nullable',
+            'files' => 'nullable|array',
+            'files.*' => 'nullable|file|max:5120',
+        ]);
+
+        $item = Outgoing::findOrFail($id);
+
+        // update data utama
+        $item->update($validated);
+
+        /*
+        |--------------------------------------------------------------------------
+        | Replace File Lama Dengan File Baru
+        |--------------------------------------------------------------------------
+        */
+
+        if ($request->hasFile('files')) {
+
+            // hapus file lama
+            if (!empty($item->files)) {
+                foreach ($item->files as $oldFile) {
+
+                    if (is_array($oldFile)) {
+                        foreach ($oldFile as $filePath) {
+                            if (is_string($filePath) && Storage::disk('public')->exists($filePath)) {
+                                Storage::disk('public')->delete($filePath);
+                            }
+                        }
+                    } else {
+                        if (is_string($oldFile) && Storage::disk('public')->exists($oldFile)) {
+                            Storage::disk('public')->delete($oldFile);
+                        }
+                    }
+                }
+            }
+            // upload file baru
+            $paths = [];
+            foreach ($request->file('files') as $file) {
+                $name = time() . '_' . uniqid() . '.' . $file->getClientOriginalExtension();
+                $paths[] = $file->storeAs(
+                    'uploads/outgoing',
+                    $name,
+                    'public'
+                );
+            }
+            $item->update([
+                'files' => $paths,
+            ]);
+        }
+        return redirect()
+            ->route('outgoing.index')
+            ->with('success', 'Data berhasil diupdate');
     }
 
     /**
@@ -95,6 +204,52 @@ class OutgoingController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $item = Outgoing::findOrFail($id);
+
+        // hapus file dari storage
+        if (!empty($item->files)) {
+            foreach ($item->files as $filePath) {
+                if (is_string($filePath) && Storage::disk('public')->exists($filePath)) {
+                    Storage::disk('public')->delete($filePath);
+                }
+            }
+        }
+        // hapus data
+        $item->delete();
+
+        return redirect()
+            ->route('outgoing.index')
+            ->with('success', 'Data berhasil dihapus');
+    }
+
+    public function toggleApproval($id)
+    {
+        if (! in_array(auth()->user()->role, ['supervisor', 'manager', 'administrator'])) {
+            abort(403, 'Tidak punya akses.');
+        }
+
+        $inspeksi = Outgoing::findOrFail($id);
+
+        if ($inspeksi->isApproved()) {
+            // UNAPPROVE
+            $inspeksi->update([
+                'approval_status' => 'PENDING',
+                'approved_by' => null,
+                'approved_at' => null,
+            ]);
+
+            $message = 'Approval dibatalkan.';
+        } else {
+            // APPROVE
+            $inspeksi->update([
+                'approval_status' => 'APPROVED',
+                'approved_by' => auth()->id(),
+                'approved_at' => now(),
+            ]);
+
+            $message = 'Data berhasil di-approve.';
+        }
+
+        return back()->with('success', $message);
     }
 }

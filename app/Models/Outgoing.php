@@ -20,6 +20,10 @@ class Outgoing extends Model
         'approved_at',
     ];
 
+    protected $casts = [
+        'files' => 'array', // Laravel otomatis mengubah Array <-> JSON string di database
+    ];
+
     public function shipment()
     {
         return $this->belongsTo(Shipment::class);
@@ -28,5 +32,10 @@ class Outgoing extends Model
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function isApproved()
+    {
+        return $this->approval_status === 'APPROVED';
     }
 }
