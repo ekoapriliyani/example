@@ -120,9 +120,10 @@ class OutgoingController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Outgoing $outgoing)
     {
-        //
+        $outgoing->load('shipment');
+        return view('outgoing.show', compact('outgoing'));
     }
 
     /**
@@ -221,6 +222,16 @@ class OutgoingController extends Controller
             ->route('outgoing.index')
             ->with('success', 'Data berhasil dihapus');
     }
+
+
+    public function createInspeksi($id)
+    {
+        $outgoing = Outgoing::findOrFail($id);
+        $shipments = Shipment::all();
+
+        return view('outgoing.inspeksi_create', compact('outgoing', 'shipments'));
+    }
+
 
     public function toggleApproval($id)
     {

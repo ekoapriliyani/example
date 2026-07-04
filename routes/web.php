@@ -718,6 +718,37 @@ Route::middleware(['auth'])->group(function () {
 
     /*
     |--------------------------------------------------------------------------
+    | Outgoing - Inspeksi
+    |--------------------------------------------------------------------------
+    */
+
+    Route::controller(OutgoingController::class)->group(function () {
+
+        Route::get('outgoing/{id}/inspeksi', 'createInspeksi')
+            ->name('outgoing.inspeksi');
+
+        Route::post('outgoing/{id}/inspeksi', 'storeInspeksi')
+            ->name('outgoing.inspeksi.store');
+
+        Route::get(
+            'outgoing/{outgoing}/inspeksi/{inspeksi}/edit',
+            'editInspeksi'
+        )->name('outgoing.inspeksi.edit');
+
+        Route::put(
+            'outgoing/{outgoing}/inspeksi/{inspeksi}',
+            'updateInspeksi'
+        )->name('outgoing.inspeksi.update');
+
+        Route::delete(
+            'outgoing/inspeksi/{inspeksi}',
+            'destroyInspeksi'
+        )->name('outgoing.inspeksi.destroy');
+    });
+
+
+    /*
+    |--------------------------------------------------------------------------
     | Incoming PVC HDPE
     |--------------------------------------------------------------------------
     */
@@ -903,6 +934,9 @@ Route::middleware([
 
     Route::patch('/incomingbahanbaku/{id}/toggle-approval', [IncomingBahanBakuController::class, 'toggleApproval'])
         ->name('incomingbahanbaku.toggle');
+
+    Route::patch('/outgoing/{id}/toggle-approval', [OutgoingController::class, 'toggleApproval'])
+        ->name('outgoing.toggle');
 });
 
 

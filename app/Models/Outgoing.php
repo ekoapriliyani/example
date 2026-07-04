@@ -34,6 +34,11 @@ class Outgoing extends Model
         return $this->belongsTo(User::class);
     }
 
+    public function outgoinginspeksi()
+    {
+        return $this->hasMany(OutgoingInspeksi::class);
+    }
+
     public function isApproved()
     {
         return $this->approval_status === 'APPROVED';
