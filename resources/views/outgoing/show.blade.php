@@ -82,6 +82,10 @@
                                 <dt class="text-sm font-medium text-gray-500 italic">No Kendaraan</dt>
                                 <dd class="text-lg font-semibold text-gray-900">{{ $outgoing->no_kendaraan }}</dd>
                             </div>
+                            <div>
+                                <dt class="text-sm font-medium text-gray-500 italic">Keterangan</dt>
+                                <dd class="text-lg font-semibold text-gray-900">{{ $outgoing->keterangan }}</dd>
+                            </div>
                         </dl>
                     </div>
                 </div>
