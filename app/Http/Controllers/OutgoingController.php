@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Outgoing;
+use App\Models\OutgoingInspeksi;
 use App\Models\Shipment;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -260,6 +261,47 @@ class OutgoingController extends Controller
 
         return redirect()->route('outgoing.show', ['outgoing' => $outgoing->id])
             ->with('success', "Data inspeksi berhasil disimpan");
+    }
+
+    public function editInspeksi(Outgoing $outgoing, OutgoingInspeksi $inspeksi)
+    {
+        return view(
+            'outgoing.inspeksi.edit',
+            compact('outgoing', 'inspeksi')
+        );
+    }
+
+    public function updateInspeksi(Request $request, $outgoing_id, $inspeksi_id)
+    {
+        // 1. Validasi data input
+        $validated = $request->validate([
+            'label'      => 'required|in:OK,NG',
+            'karat'      => 'required|in:OK,NG',
+            'penyok'     => 'required|in:OK,NG',
+            'kotor'      => 'required|in:OK,NG',
+            'galvanized' => 'required|in:OK,NG',
+            'lasan'      => 'required|in:OK,NG',
+            'mesh'       => 'required|in:OK,NG',
+            'pvc'        => 'required|in:OK,NG',
+            'packing'    => 'required|in:OK,NG',
+            'qty'        => 'required|in:OK,NG',
+        ]);
+
+        // 2. Gunakan updateOrCreate agar fleksibel (jika id = 0, dia otomatis bikin baru)
+        \App\Models\OutgoingInspeksi::updateOrCreate(
+            ['outgoing_id' => $outgoing_id], // Kondisi pencarian data berdasarkan induknya
+            array_merge($validated, ['user_id' => auth()->id()]) // Data yang diupdate / dimasukkan
+        );
+
+        return redirect()->route('outgoing.show', $outgoing_id)->with('success', 'Data inspeksi berhasil diperbarui!');
+    }
+
+    public function destroyInspeksi($id)
+    {
+        $inspeksi = OutgoingInspeksi::findOrFail($id);
+        // Hapus data inspeksi
+        $inspeksi->delete();
+        return redirect()->back()->with('success', 'Data inspeksi berhasil dihapus');
     }
 
 

@@ -28,7 +28,6 @@ return new class extends Migration
             $table->enum('packing', ['OK', 'NG']);
             $table->enum('qty', ['OK', 'NG']);
             $table->json('files')->nullable(); // simpan array path file upload
-
             $table->timestamps();
         });
     }
