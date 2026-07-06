@@ -116,7 +116,6 @@
                                     <th class="px-4 py-3 font-semibold text-gray-900">PVC</th>
                                     <th class="px-4 py-3 font-semibold text-gray-900">Packing</th>
                                     <th class="px-4 py-3 font-semibold text-gray-900">QTY</th>
-                                    <th class="px-4 py-3 font-semibold text-gray-900">Gambar</th>
                                     <th class="px-4 py-3 font-semibold text-gray-900 text-center">Created At</th>
                                 </tr>
                             </thead>
@@ -155,7 +154,6 @@
                                             </div>
                                         </td>
                                         <td class="px-4 py-3">{{ $inc->user->name ?? 'N/A' }}</td>
-                                        <td class="px-4 py-3 font-semibold">{{ $inc->no_koil }}</td>
                                         <td class="px-4 py-3">{{ $inc->label }}</td>
                                         <td class="px-4 py-3">{{ $inc->karat }}</td>
                                         <td class="px-4 py-3">{{ $inc->penyok }}</td>
@@ -166,20 +164,13 @@
                                         <td class="px-4 py-3">{{ $inc->pvc }}</td>
                                         <td class="px-4 py-3">{{ $inc->packing }}</td>
                                         <td class="px-4 py-3">{{ $inc->qty }}</td>
-                                        <td class="px-4 py-3">
-                                            <button type="button"
-                                                class="text-sm text-indigo-600 font-semibold hover:underline"
-                                                onclick="toggleImage({{ $inc->id }})">
-                                                Lihat Gambar
-                                            </button>
-                                        </td>
                                         <td class="px-4 py-3 text-center text-xs text-gray-500">{{ $inc->created_at }}
                                         </td>
                                     </tr>
                                 @empty
                                     <tr>
                                         <td colspan="14" class="px-4 py-8 text-center text-gray-400 italic">Belum
-                                            ada data Inspeksi Incoming Bahan Baku.</td>
+                                            ada data Inspeksi Outgoing</td>
                                     </tr>
                                 @endforelse
                             </tbody>

@@ -232,6 +232,36 @@ class OutgoingController extends Controller
         return view('outgoing.inspeksi_create', compact('outgoing', 'shipments'));
     }
 
+    public function storeInspeksi(Request $request, $id)
+    {
+        $outgoing = Outgoing::findOrFail($id);
+
+        $validated = $request->validate([
+            'label' => 'required|in:OK,NG',
+            'karat' => 'required|in:OK,NG',
+            'penyok' => 'required|in:OK,NG',
+            'kotor' => 'required|in:OK,NG',
+            'galvanized' => 'required|in:OK,NG',
+            'lasan' => 'required|in:OK,NG',
+            'mesh' => 'required|in:OK,NG',
+            'pvc' => 'required|in:OK,NG',
+            'packing' => 'required|in:OK,NG',
+            'qty' => 'required|in:OK,NG',
+            'files' => 'nullable|array',
+            'files.*' => 'nullable|file|max:5120', // Maksimal 5MB per file
+        ]);
+
+        // Tambahkan user_id yang sedang login
+        $validated['user_id'] = auth()->id();
+        $validated['outgoing_id'] = $outgoing->id;
+
+        // Simpan data inspeksi
+        $inspeksi = $outgoing->outgoinginspeksi()->create($validated);
+
+        return redirect()->route('outgoing.show', ['outgoing' => $outgoing->id])
+            ->with('success', "Data inspeksi berhasil disimpan");
+    }
+
 
     public function toggleApproval($id)
     {
