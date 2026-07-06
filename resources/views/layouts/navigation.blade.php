@@ -158,7 +158,8 @@
                                 </button>
                             </x-slot>
                             <x-slot name="content">
-                                {{-- <x-dropdown-link :href="route('project.index')">Project</x-dropdown-link> --}}
+                                {{-- <x-dropdown-link :href="route('inspeksi_fabrication.index')">Fabrication</x-dropdown-link>
+                                <x-dropdown-link :href="route('inspeksi_coating.index')">Coating</x-dropdown-link> --}}
                             </x-slot>
                         </x-dropdown>
                     </div>
@@ -260,7 +261,8 @@
 
             <div class="border-t border-gray-200 pt-2">
                 <div class="px-4 text-xs font-semibold uppercase text-gray-400">Inspeksi Project</div>
-                {{-- <x-responsive-nav-link :href="route('project.index')">Project</x-responsive-nav-link> --}}
+                {{-- <x-responsive-nav-link :href="route('inspeksi_fabrication.index')">Fabrication</x-responsive-nav-link>
+                <x-responsive-nav-link :href="route('inspeksi_coating.index')">Coating</x-responsive-nav-link> --}}
             </div>
         </div>
     </div>
