@@ -15,7 +15,9 @@ return new class extends Migration
             $table->id();
             $table->date('tanggal');
             $table->string('nomor_inspeksi');
-            $table->foreignId('shipment_id')->constrained('shipments')->onDelete('cascade');
+            $table->foreignId('shipment_id')->nullable()->constrained('shipments')->onDelete('cascade');
+            $table->string('produk')->nullable();
+            $table->string('no_do')->nullable();
             $table->string('lokasi');
             $table->string('no_kendaraan')->nullable();
             $table->string('keterangan')->nullable();

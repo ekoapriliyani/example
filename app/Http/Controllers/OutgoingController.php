@@ -67,7 +67,9 @@ class OutgoingController extends Controller
     {
         $validated = $request->validate([
             'tanggal' => 'required',
-            'shipment_id' => 'required',
+            'shipment_id' => 'nullable',
+            'no_do' => 'nullable',
+            'produk' => 'nullable',
             'lokasi' => 'required',
             'keterangan' => 'nullable',
             'no_kendaraan' => 'required',
@@ -144,7 +146,9 @@ class OutgoingController extends Controller
     {
         $validated = $request->validate([
             'tanggal' => 'required',
-            'shipment_id' => 'required',
+            'shipment_id' => 'nullable',
+            'no_do' => 'nullable',
+            'produk' => 'nullable',
             'lokasi' => 'required',
             'no_kendaraan' => 'required',
             'keterangan' => 'nullable',
@@ -259,6 +263,15 @@ class OutgoingController extends Controller
         // Simpan data inspeksi
         $inspeksi = $outgoing->outgoinginspeksi()->create($validated);
 
+        // simpan file multiple ke kolom JSON
+        if ($request->hasFile('files')) {
+            $paths = [];
+            foreach ($request->file('files') as $file) {
+                $paths[] = $file->store('uploads/outgoing', 'public');
+            }
+            $inspeksi->update(['files' => $paths]);
+        }
+
         return redirect()->route('outgoing.show', ['outgoing' => $outgoing->id])
             ->with('success', "Data inspeksi berhasil disimpan");
     }
@@ -273,7 +286,7 @@ class OutgoingController extends Controller
 
     public function updateInspeksi(Request $request, $outgoing_id, $inspeksi_id)
     {
-        // 1. Validasi data input
+        // 1. Validasi data input (Termasuk validasi file)
         $validated = $request->validate([
             'label'      => 'required|in:OK,NG',
             'karat'      => 'required|in:OK,NG',
@@ -285,15 +298,44 @@ class OutgoingController extends Controller
             'pvc'        => 'required|in:OK,NG',
             'packing'    => 'required|in:OK,NG',
             'qty'        => 'required|in:OK,NG',
+            'files'      => 'nullable|array',
+            'files.*'    => 'nullable|image|max:20480',
         ]);
 
-        // 2. Gunakan updateOrCreate agar fleksibel (jika id = 0, dia otomatis bikin baru)
-        \App\Models\OutgoingInspeksi::updateOrCreate(
-            ['outgoing_id' => $outgoing_id], // Kondisi pencarian data berdasarkan induknya
-            array_merge($validated, ['user_id' => auth()->id()]) // Data yang diupdate / dimasukkan
+        // Cari data inspeksi yang sudah ada (jika ada) untuk proses hapus file lama
+        $inspeksi = OutgoingInspeksi::where('outgoing_id', $outgoing_id)->first();
+
+        if ($request->hasFile('files')) {
+            // Hapus file lama jika sebelumnya sudah ada datanya di DB
+            if ($inspeksi && $inspeksi->files) {
+                foreach ($inspeksi->files as $oldFile) {
+                    Storage::disk('public')->delete($oldFile);
+                }
+            }
+
+            $uploadedFiles = [];
+            foreach ($request->file('files') as $file) {
+                // Menggunakan storeAs agar nama file unik seperti di method store sebelumnya
+                $name = time() . '_' . uniqid() . '.' . $file->getClientOriginalExtension();
+                $path = $file->storeAs(
+                    'uploads/outgoing',
+                    $name,
+                    'public'
+                );
+                $uploadedFiles[] = $path;
+            }
+
+            // Masukkan array path baru ke data yang akan disimpan
+            $validated['files'] = $uploadedFiles;
+        }
+
+        // 2. Simpan atau perbarui data inspeksi checklist QC
+        $inspeksiData = OutgoingInspeksi::updateOrCreate(
+            ['outgoing_id' => $outgoing_id],
+            array_merge($validated, ['user_id' => auth()->id()])
         );
 
-        return redirect()->route('outgoing.show', $outgoing_id)->with('success', 'Data inspeksi berhasil diperbarui!');
+        return redirect()->route('outgoing.show', $outgoing_id)->with('success', 'Data inspeksi dan dokumentasi berhasil diperbarui!');
     }
 
     public function destroyInspeksi($id)

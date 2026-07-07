@@ -55,16 +55,24 @@
                                 <dt class="text-sm font-medium text-gray-500 italic">Tanggal</dt>
                                 <dd class="text-lg font-semibold text-gray-900">{{ $outgoing->tanggal }}</dd>
                             </div>
-                            <div>
+                            {{-- <div>
                                 <dt class="text-sm font-medium text-gray-500 italic">Shipment</dt>
                                 <dd class="text-lg font-semibold text-gray-900">{{ $outgoing->shipment->shipment_id }}
                                 </dd>
+                            </div> --}}
+                            <div>
+                                <dt class="text-sm font-medium text-gray-500 italic">Nomor DO</dt>
+                                <dd class="text-lg font-semibold text-gray-900">{{ $outgoing->no_do }}</dd>
                             </div>
                             <div>
                                 <dt class="text-sm font-medium text-gray-500 italic">Lokasi</dt>
                                 <dd class="text-lg font-semibold text-gray-900">{{ $outgoing->lokasi }}</dd>
                             </div>
                             <div>
+                                <dt class="text-sm font-medium text-gray-500 italic">Produk</dt>
+                                <dd class="text-lg font-semibold text-gray-900">{{ $outgoing->produk }}</dd>
+                            </div>
+                            {{-- <div>
                                 <dt class="text-sm font-medium text-gray-500 italic">Customer</dt>
                                 <dd class="text-lg font-semibold text-gray-900">{{ $outgoing->shipment->custname }}</dd>
                             </div>
@@ -72,12 +80,12 @@
                                 <dt class="text-sm font-medium text-gray-500 italic">Barang</dt>
                                 <dd class="text-lg font-semibold text-gray-900">{{ $outgoing->shipment->description }}
                                 </dd>
-                            </div>
-                            <div>
+                            </div> --}}
+                            {{-- <div>
                                 <dt class="text-sm font-medium text-gray-500 italic">QTY</dt>
                                 <dd class="text-lg font-semibold text-gray-900">{{ $outgoing->shipment->qty }}
                                 </dd>
-                            </div>
+                            </div> --}}
                             <div>
                                 <dt class="text-sm font-medium text-gray-500 italic">No Kendaraan</dt>
                                 <dd class="text-lg font-semibold text-gray-900">{{ $outgoing->no_kendaraan }}</dd>
@@ -120,6 +128,7 @@
                                     <th class="px-4 py-3 font-semibold text-gray-900">PVC</th>
                                     <th class="px-4 py-3 font-semibold text-gray-900">Packing</th>
                                     <th class="px-4 py-3 font-semibold text-gray-900">QTY</th>
+                                    <th class="px-4 py-3 font-semibold text-gray-900">Gambar</th>
                                     <th class="px-4 py-3 font-semibold text-gray-900 text-center">Created At</th>
                                 </tr>
                             </thead>
@@ -168,6 +177,13 @@
                                         <td class="px-4 py-3">{{ $inc->pvc }}</td>
                                         <td class="px-4 py-3">{{ $inc->packing }}</td>
                                         <td class="px-4 py-3">{{ $inc->qty }}</td>
+                                        <td class="px-4 py-3">
+                                            <button type="button"
+                                                class="text-sm text-indigo-600 font-semibold hover:underline"
+                                                onclick="toggleImage({{ $inc->id }})">
+                                                Lihat Gambar
+                                            </button>
+                                        </td>
                                         <td class="px-4 py-3 text-center text-xs text-gray-500">{{ $inc->created_at }}
                                         </td>
                                     </tr>

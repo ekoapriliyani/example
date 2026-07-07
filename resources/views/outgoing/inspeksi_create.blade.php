@@ -79,6 +79,19 @@
                                 </tbody>
                             </table>
                         </div>
+                        {{-- upload file --}}
+                        <div class="mt-4">
+                            <x-input-label for="files" :value="__('Upload File')" />
+                            <input id="files" name="files[]" type="file"
+                                class="mt-1 block w-full border-gray-300 rounded-md shadow-sm" multiple>
+                            @error('files')
+                                <div class="text-red-500 text-sm mt-2">{{ $message }}</div>
+                            @enderror
+
+                            @error('files.*')
+                                <div class="text-red-500 text-sm mt-2">{{ $message }}</div>
+                            @enderror
+                        </div>
                     </div>
 
                     {{-- Tombol Aksi --}}

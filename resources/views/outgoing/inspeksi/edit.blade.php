@@ -90,6 +90,19 @@
                                 </tbody>
                             </table>
                         </div>
+                        <!-- File/Gambar -->
+                        <div class="mb-4">
+                            <label>Upload Gambar</label>
+                            <input type="file" name="files[]" multiple class="w-full rounded border px-3 py-2">
+                            @if ($inspeksi->files)
+                                <div class="mt-3 flex flex-wrap gap-3">
+                                    @foreach ($inspeksi->files as $file)
+                                        <img src="{{ asset('storage/' . $file) }}"
+                                            class="h-24 w-24 rounded border object-cover">
+                                    @endforeach
+                                </div>
+                            @endif
+                        </div>
                     </div>
 
                     <div class="flex justify-end gap-2 pt-4 mt-6 border-t border-gray-100">

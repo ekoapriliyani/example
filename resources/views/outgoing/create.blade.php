@@ -29,7 +29,7 @@
                                 value="{{ old('tanggal', now()->format('Y-m-d')) }}" required />
                             <x-input-error class="mt-2" :messages="$errors->get('tanggal')" />
                         </div>
-                        <div>
+                        {{-- <div>
                             <x-input-label for="shipment_id" :value="__('Pilih shipment')" />
                             <select id="shipment_id" name="shipment_id"
                                 class="mt-1 block w-full border-gray-300 rounded-md shadow-sm" required>
@@ -42,7 +42,26 @@
                                 @endforeach
                             </select>
                             <x-input-error class="mt-2" :messages="$errors->get('shipment_id')" />
+                        </div> --}}
+
+                        <div>
+                            <x-input-label for="no_do" :value="__('Nomor DO')" />
+                            <div class="relative mt-1">
+                                <x-text-input id="no_do" name="no_do" type="text" class="block w-full pr-12"
+                                    :value="old('no_do')" />
+                            </div>
+                            <x-input-error class="mt-2" :messages="$errors->get('no_do')" />
                         </div>
+
+                        <div>
+                            <x-input-label for="produk" :value="__('Produk')" />
+                            <div class="relative mt-1">
+                                <x-text-input id="produk" name="produk" type="text" class="block w-full pr-12"
+                                    :value="old('produk')" />
+                            </div>
+                            <x-input-error class="mt-2" :messages="$errors->get('produk')" />
+                        </div>
+
                         <div>
                             <x-input-label for="lokasi" :value="__('Lokasi')" />
                             <div class="relative mt-1">
@@ -68,7 +87,7 @@
                             <x-input-error class="mt-2" :messages="$errors->get('keterangan')" />
                         </div>
                         <div class="mt-4">
-                            <x-input-label for="files" :value="__('Upload File')" />
+                            <x-input-label for="files" :value="__('Upload Surat Jalan')" />
 
                             <input id="files" name="files[]" type="file" accept="image/*,.pdf"
                                 class="mt-1 block w-full border-gray-300 rounded-md shadow-sm" multiple>

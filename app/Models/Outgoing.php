@@ -10,6 +10,8 @@ class Outgoing extends Model
         'tanggal',
         'nomor_inspeksi',
         'shipment_id',
+        'no_do',
+        'produk',
         'lokasi',
         'no_kendaraan',
         'keterangan',
