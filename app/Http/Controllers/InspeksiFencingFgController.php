@@ -121,6 +121,11 @@ class InspeksiFencingFgController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $fg = InspeksiFencingFg::findOrFail($id);
+        $inspeksiFencingId = $fg->inspeksi_fencing_id; // Simpan ID inspeksi_fencing sebelum menghapus FG
+        $fg->delete();
+
+        return redirect()->route('inspeksi_fencing.show', $inspeksiFencingId)
+            ->with('success', 'Data FG berhasil dihapus');
     }
 }
