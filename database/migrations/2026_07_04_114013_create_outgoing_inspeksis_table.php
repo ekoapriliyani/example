@@ -16,18 +16,19 @@ return new class extends Migration
             $table->foreignId('outgoing_id')->constrained('outgoings')->onDelete('cascade');
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
 
-            // Optimasi: Gunakan enum untuk memastikan input hanya berisi 'OK' atau 'NG'
-            $table->enum('label', ['OK', 'NG']);
-            $table->enum('karat', ['OK', 'NG']);
-            $table->enum('penyok', ['OK', 'NG']);
-            $table->enum('kotor', ['OK', 'NG']);
-            $table->enum('galvanized', ['OK', 'NG']);
-            $table->enum('lasan', ['OK', 'NG']);
-            $table->enum('mesh', ['OK', 'NG']);
-            $table->enum('pvc', ['OK', 'NG']);
-            $table->enum('packing', ['OK', 'NG']);
-            $table->enum('qty', ['OK', 'NG']);
-            $table->json('files')->nullable(); // simpan array path file upload
+            // Perbaikan: Tambahkan opsi '-' ke dalam enum dan berikan default('-')
+            $table->enum('label', ['OK', 'NG', '-'])->default('-');
+            $table->enum('karat', ['OK', 'NG', '-'])->default('-');
+            $table->enum('penyok', ['OK', 'NG', '-'])->default('-');
+            $table->enum('kotor', ['OK', 'NG', '-'])->default('-');
+            $table->enum('galvanized', ['OK', 'NG', '-'])->default('-');
+            $table->enum('lasan', ['OK', 'NG', '-'])->default('-');
+            $table->enum('mesh', ['OK', 'NG', '-'])->default('-');
+            $table->enum('pvc', ['OK', 'NG', '-'])->default('-');
+            $table->enum('packing', ['OK', 'NG', '-'])->default('-');
+            $table->enum('qty', ['OK', 'NG', '-'])->default('-');
+
+            $table->json('files')->nullable();
             $table->timestamps();
         });
     }

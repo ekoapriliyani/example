@@ -242,18 +242,18 @@ class OutgoingController extends Controller
         $outgoing = Outgoing::findOrFail($id);
 
         $validated = $request->validate([
-            'label' => 'required|in:OK,NG',
-            'karat' => 'required|in:OK,NG',
-            'penyok' => 'required|in:OK,NG',
-            'kotor' => 'required|in:OK,NG',
-            'galvanized' => 'required|in:OK,NG',
-            'lasan' => 'required|in:OK,NG',
-            'mesh' => 'required|in:OK,NG',
-            'pvc' => 'required|in:OK,NG',
-            'packing' => 'required|in:OK,NG',
-            'qty' => 'required|in:OK,NG',
-            'files' => 'nullable|array',
-            'files.*' => 'nullable|file|max:5120', // Maksimal 5MB per file
+            'label'      => 'required|in:OK,NG,-', // <-- Tambahkan ,- di sini
+            'karat'      => 'required|in:OK,NG,-',
+            'penyok'     => 'required|in:OK,NG,-',
+            'kotor'      => 'required|in:OK,NG,-',
+            'galvanized' => 'required|in:OK,NG,-',
+            'lasan'      => 'required|in:OK,NG,-',
+            'mesh'       => 'required|in:OK,NG,-', // <-- Ini yang menyebabkan error tadi
+            'pvc'        => 'required|in:OK,NG,-',
+            'packing'    => 'required|in:OK,NG,-',
+            'qty'        => 'required|in:OK,NG,-',
+            'files'      => 'nullable|array',
+            'files.*'    => 'nullable|image|max:20480',
         ]);
 
         // Tambahkan user_id yang sedang login
@@ -288,16 +288,16 @@ class OutgoingController extends Controller
     {
         // 1. Validasi data input (Termasuk validasi file)
         $validated = $request->validate([
-            'label'      => 'required|in:OK,NG',
-            'karat'      => 'required|in:OK,NG',
-            'penyok'     => 'required|in:OK,NG',
-            'kotor'      => 'required|in:OK,NG',
-            'galvanized' => 'required|in:OK,NG',
-            'lasan'      => 'required|in:OK,NG',
-            'mesh'       => 'required|in:OK,NG',
-            'pvc'        => 'required|in:OK,NG',
-            'packing'    => 'required|in:OK,NG',
-            'qty'        => 'required|in:OK,NG',
+            'label'      => 'required|in:OK,NG,-',
+            'karat'      => 'required|in:OK,NG,-',
+            'penyok'     => 'required|in:OK,NG,-',
+            'kotor'      => 'required|in:OK,NG,-',
+            'galvanized' => 'required|in:OK,NG,-',
+            'lasan'      => 'required|in:OK,NG,-',
+            'mesh'       => 'required|in:OK,NG,-',
+            'pvc'        => 'required|in:OK,NG,-',
+            'packing'    => 'required|in:OK,NG,-',
+            'qty'        => 'required|in:OK,NG,-',
             'files'      => 'nullable|array',
             'files.*'    => 'nullable|image|max:20480',
         ]);
