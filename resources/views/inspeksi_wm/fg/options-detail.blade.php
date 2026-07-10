@@ -16,6 +16,7 @@
         'TINGGI OUT',
         'TRIMING',
         'WHITE RUST',
+        'DOUBLE CROSS WIRE',
     ];
 @endphp
 
