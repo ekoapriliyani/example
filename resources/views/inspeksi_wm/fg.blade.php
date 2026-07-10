@@ -84,47 +84,14 @@
                                         <x-input-label for="detail_description_0" :value="__('Description')" />
                                         <select id="detail_description_0" name="detail_description[]"
                                             class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
-                                            <option value="">-- Pilih Detail --</option>
-                                            <option value="CRACK/PEEL OFF/MENGELUPAS">CRACK/PEEL OFF/MENGELUPAS</option>
-                                            <option value="CW/LW PENDEK">CW/LW PENDEK</option>
-                                            <option value="DIAGONAL OUT">DIAGONAL OUT</option>
-                                            <option value="DIAMETER OUT">DIAMETER OUT</option>
-                                            <option value="KARAT">KARAT</option>
-                                            <option value="LASAN LEPAS">LASAN LEPAS</option>
-                                            <option value="LEBAR OUT">LEBAR OUT</option>
-                                            <option value="MESH OUT / TIDAK SIMETRIS">MESH OUT / TIDAK SIMETRIS</option>
-                                            <option value="OVERHANG OUT">OVERHANG OUT</option>
-                                            <option value="PANJANG OUT">PANJANG OUT</option>
-                                            <option value="PATAH/PUTUS">PATAH/PUTUS</option>
-                                            <option value="PENYOK/RUSAK">PENYOK/RUSAK</option>
-                                            <option value="SALAH TEKUK BENDING">SALAH TEKUK BENDING</option>
-                                            <option value="TINGGI OUT">TINGGI OUT</option>
-                                            <option value="TRIMING">TRIMING</option>
-                                            <option value="WHITE RUST">WHITE RUST</option>
+                                            @include('inspeksi_wm.fg.options-detail', ['selected' => null])
                                         </select>
                                     </div>
                                     <div>
                                         <x-input-label for="detail_description2_0" :value="__('Description 2')" />
                                         <select id="detail_description2_0" name="detail_description2[]"
                                             class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
-                                            <option value="">-- Pilih Detail --</option>
-                                            <option value="CRACK/PEEL OFF/MENGELUPAS">CRACK/PEEL OFF/MENGELUPAS</option>
-                                            <option value="CW/LW PENDEK">CW/LW PENDEK</option>
-                                            <option value="DIAGONAL OUT">DIAGONAL OUT</option>
-                                            <option value="DIAMETER OUT">DIAMETER OUT</option>
-                                            <option value="KARAT">KARAT</option>
-                                            <option value="LASAN LEPAS">LASAN LEPAS</option>
-                                            <option value="LEBAR OUT">LEBAR OUT</option>
-                                            <option value="MESH OUT / TIDAK SIMETRIS">MESH OUT / TIDAK SIMETRIS
-                                            </option>
-                                            <option value="OVERHANG OUT">OVERHANG OUT</option>
-                                            <option value="PANJANG OUT">PANJANG OUT</option>
-                                            <option value="PATAH/PUTUS">PATAH/PUTUS</option>
-                                            <option value="PENYOK/RUSAK">PENYOK/RUSAK</option>
-                                            <option value="SALAH TEKUK BENDING">SALAH TEKUK BENDING</option>
-                                            <option value="TINGGI OUT">TINGGI OUT</option>
-                                            <option value="TRIMING">TRIMING</option>
-                                            <option value="WHITE RUST">WHITE RUST</option>
+                                            @include('inspeksi_wm.fg.options-detail', ['selected' => null])
                                         </select>
                                     </div>
                                     <div>
@@ -167,64 +134,36 @@
         </div>
     </div>
     <script>
+        const optionsDetail = `@include('inspeksi_wm.fg.options-detail', ['selected' => null])`;
+
         document.getElementById('add-detail').addEventListener('click', function() {
-            let wrapper = document.getElementById('detail-wrapper');
-            let index = wrapper.children.length;
-            let newDetail = `
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+            const wrapper = document.getElementById('detail-wrapper');
+
+            const html = `
+        <div class="detail-row grid grid-cols-1 gap-4 md:grid-cols-3">
             <div>
-                <label for="detail_description_${index}" class="block text-sm font-medium text-gray-700">Description</label>
-                <select id="detail_description_${index}" name="detail_description[]"
-                    class="mt-1 block w-full border-gray-300 rounded-md shadow-sm">
-                    <option value="">-- Pilih Detail --</option>
-                    <option value="CRACK/PEEL OFF/MENGELUPAS">CRACK/PEEL OFF/MENGELUPAS</option>
-                    <option value="CW/LW PENDEK">CW/LW PENDEK</option>
-                    <option value="DIAGONAL OUT">DIAGONAL OUT</option>
-                    <option value="DIAMETER OUT">DIAMETER OUT</option>
-                    <option value="KARAT">KARAT</option>
-                    <option value="LASAN LEPAS">LASAN LEPAS</option>
-                    <option value="LEBAR OUT">LEBAR OUT</option>
-                    <option value="MESH OUT / TIDAK SIMETRIS">MESH OUT / TIDAK SIMETRIS</option>
-                    <option value="OVERHANG OUT">OVERHANG OUT</option>
-                    <option value="PANJANG OUT">PANJANG OUT</option>
-                    <option value="PATAH/PUTUS">PATAH/PUTUS</option>
-                    <option value="PENYOK/RUSAK">PENYOK/RUSAK</option>
-                    <option value="SALAH TEKUK BENDING">SALAH TEKUK BENDING</option>
-                    <option value="TINGGI OUT">TINGGI OUT</option>
-                    <option value="TRIMING">TRIMING</option>
-                    <option value="WHITE RUST">WHITE RUST</option>
+                <label class="block text-sm font-medium text-gray-700">Description</label>
+                <select name="detail_description[]"
+                    class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
+                    ${optionsDetail}
                 </select>
             </div>
             <div>
-                <label for="detail_description2_${index}" class="block text-sm font-medium text-gray-700">Description 2</label>
-                <select id="detail_description2_${index}" name="detail_description2[]"
-                    class="mt-1 block w-full border-gray-300 rounded-md shadow-sm">
-                    <option value="">-- Pilih Detail --</option>
-                    <option value="CRACK/PEEL OFF/MENGELUPAS">CRACK/PEEL OFF/MENGELUPAS</option>
-                    <option value="CW/LW PENDEK">CW/LW PENDEK</option>
-                    <option value="DIAGONAL OUT">DIAGONAL OUT</option>
-                    <option value="DIAMETER OUT">DIAMETER OUT</option>
-                    <option value="KARAT">KARAT</option>
-                    <option value="LASAN LEPAS">LASAN LEPAS</option>
-                    <option value="LEBAR OUT">LEBAR OUT</option>
-                    <option value="MESH OUT / TIDAK SIMETRIS">MESH OUT / TIDAK SIMETRIS</option>
-                    <option value="OVERHANG OUT">OVERHANG OUT</option>
-                    <option value="PANJANG OUT">PANJANG OUT</option>
-                    <option value="PATAH/PUTUS">PATAH/PUTUS</option>
-                    <option value="PENYOK/RUSAK">PENYOK/RUSAK</option>
-                    <option value="SALAH TEKUK BENDING">SALAH TEKUK BENDING</option>
-                    <option value="TINGGI OUT">TINGGI OUT</option>
-                    <option value="TRIMING">TRIMING</option>
-                    <option value="WHITE RUST">WHITE RUST</option>
+                <label class="block text-sm font-medium text-gray-700">Description 2</label>
+                <select name="detail_description2[]"
+                    class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
+                    ${optionsDetail}
                 </select>
             </div>
             <div>
-                <label for="detail_qty_${index}" class="block text-sm font-medium text-gray-700">QTY</label>
-                <input id="detail_qty_${index}" name="detail_qty[]" type="number"
-                    class="mt-1 block w-full border-gray-300 rounded-md shadow-sm" placeholder="QTY" />
+                <label class="block text-sm font-medium text-gray-700">QTY</label>
+                <input name="detail_qty[]" type="number"
+                    class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+                    placeholder="QTY">
             </div>
         </div>`;
-            wrapper.insertAdjacentHTML('beforeend', newDetail);
+
+            wrapper.insertAdjacentHTML('beforeend', html);
         });
     </script>
 </x-app-layout>

@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Models\InspeksiWm;
 use App\Models\Mesin;
 use App\Models\Pro;
-use App\Models\ProductWm;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 
@@ -63,31 +62,14 @@ class InspeksiWmController extends Controller
      */
     public function create()
     {
-        // 1. Ambil format Tahun dan Bulan saat ini (Contoh: 202606)
-        $tahunBulan = Carbon::now()->format('Ym');
-        $prefix = "INSWM{$tahunBulan}";
-
-        // 2. PERBAIKAN: Urutkan berdasarkan 'id' desc agar mendapatkan rekor TERAKHIR yang valid
-        $lastRecord = InspeksiWm::where('nomor_inspeksi', 'like', "{$prefix}%")
-            ->orderBy('id', 'desc')
-            ->first();
-
-        $nextNumber = 1;
-        if ($lastRecord) {
-            // Ambil string nomor aslinya, buang prefix-nya
-            $lastNumberStr = str_replace($prefix, '', $lastRecord->nomor_inspeksi);
-            $nextNumber = (int) $lastNumberStr + 1;
-        }
-
-        // 3. PERBAIKAN: Gunakan str_pad agar nomor urut konsisten memiliki panjang 3 digit (001, 002, dst)
-        $paddedNumber = str_pad($nextNumber, 3, '0', STR_PAD_LEFT);
-        $nextNomor = "{$prefix}{$paddedNumber}"; // Hasil: INSWM202606001
-
-        // 4. Ambil data mesin dan PRO
         $mesins = Mesin::orderBy('nama_mesin')->get();
         $pros = Pro::orderByDesc('pro_id')->get();
 
-        return view('inspeksi_wm.create', compact('nextNomor', 'pros', 'mesins'));
+        return view('inspeksi_wm.create', [
+            'nextNomor' => $this->generateNomorInspeksi(),
+            'pros' => $pros,
+            'mesins' => $mesins,
+        ]);
     }
 
     /**
@@ -106,34 +88,15 @@ class InspeksiWmController extends Controller
             'satuan' => 'required',
         ]);
 
-        // 1. Generate ulang nomor inspeksi tepat sebelum menyimpan demi menghindari duplikasi data
-        $tahunBulan = Carbon::now()->format('Ym');
-        $prefix = "INSWM{$tahunBulan}";
+        $nomorInspeksi = $this->generateNomorInspeksi();
 
-        $lastRecord = InspeksiWm::where('nomor_inspeksi', 'like', "{$prefix}%")
-            ->orderBy('id', 'desc')
-            ->first();
+        $validated['nomor_inspeksi'] = $nomorInspeksi;
 
-        $nextNumber = 1;
-        if ($lastRecord) {
-            $lastNumberStr = str_replace($prefix, '', $lastRecord->nomor_inspeksi);
-            $nextNumber = (int) $lastNumberStr + 1;
-        }
-
-        $paddedNumber = str_pad($nextNumber, 3, '0', STR_PAD_LEFT);
-        $fixNomorInspeksi = "{$prefix}{$paddedNumber}";
-
-        // 2. Masukkan nomor yang sudah pasti aman dan sinkron ke array data
-        $validated['nomor_inspeksi'] = $fixNomorInspeksi;
-        $validated['mesin_id'] = $validated['mesin_id'] ?? null;
-        $validated['total_prod'] = $validated['total_prod'] ?? null;
-
-        // 3. Simpan ke database menggunakan data yang sudah tervalidasi
         InspeksiWm::create($validated);
 
         return redirect()
             ->route('inspeksi_wm.index')
-            ->with('success', "Inspeksi {$fixNomorInspeksi} berhasil disimpan");
+            ->with('success', "Inspeksi {$nomorInspeksi} berhasil disimpan");
     }
 
     /**
@@ -173,17 +136,7 @@ class InspeksiWmController extends Controller
             'mesin_id' => 'nullable|exists:mesins,id',
         ]);
 
-        $inspeksi_wm->update([
-            'tanggal' => $validated['tanggal'],
-            'pro_id' => $validated['pro_id'],
-            'shift' => $validated['shift'],
-            'grade' => $validated['grade'],
-            'type_coating' => $validated['type_coating'],
-            'shear_strength' => $validated['shear_strength'] ?? null,
-            'mesin_id' => $validated['mesin_id'] ?? null,
-            'total_prod' => $validated['total_prod'] ?? null,
-            'satuan' => $validated['satuan'] ?? null,
-        ]);
+        $inspeksi_wm->update($validated);
 
         return redirect()
             ->route('inspeksi_wm.index')
@@ -193,19 +146,15 @@ class InspeksiWmController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy($id)
+    public function destroy(InspeksiWm $inspeksi_wm)
     {
-        if (! in_array(auth()->user()->role, ['supervisor', 'manager', 'administrator'])) {
-            abort(403, 'Tidak punya akses hapus.');
-        }
+        $this->authorizeRole(['supervisor', 'manager', 'administrator']);
 
-        $data = InspeksiWm::findOrFail($id);
-
-        if ($data->isApproved()) {
+        if ($inspeksi_wm->isApproved()) {
             return back()->with('error', 'Data sudah di-approve, tidak bisa dihapus.');
         }
 
-        $data->delete();
+        $inspeksi_wm->delete();
 
         return back()->with('success', 'Data berhasil dihapus.');
     }
@@ -234,9 +183,7 @@ class InspeksiWmController extends Controller
 
     public function toggleApproval($id)
     {
-        if (! in_array(auth()->user()->role, ['supervisor', 'manager', 'administrator'])) {
-            abort(403, 'Tidak punya akses.');
-        }
+        $this->authorizeRole(['supervisor', 'manager', 'administrator']);
 
         $inspeksi = InspeksiWm::findOrFail($id);
 
@@ -261,5 +208,30 @@ class InspeksiWmController extends Controller
         }
 
         return back()->with('success', $message);
+    }
+
+    private function generateNomorInspeksi(): string
+    {
+        $tahunBulan = Carbon::now()->format('Ym');
+        $prefix = "INSWM{$tahunBulan}";
+
+        $lastRecord = InspeksiWm::where('nomor_inspeksi', 'like', "{$prefix}%")
+            ->orderBy('id', 'desc')
+            ->first();
+
+        $nextNumber = 1;
+        if ($lastRecord) {
+            $lastNumberStr = str_replace($prefix, '', $lastRecord->nomor_inspeksi);
+            $nextNumber = (int) $lastNumberStr + 1;
+        }
+
+        return "{$prefix}" . str_pad($nextNumber, 3, '0', STR_PAD_LEFT);
+    }
+
+    private function authorizeRole(array $roles): void
+    {
+        if (! in_array(auth()->user()->role, $roles)) {
+            abort(403, 'Tidak punya akses.');
+        }
     }
 }

@@ -149,7 +149,8 @@
                             <h3 class="mb-4 font-semibold text-gray-700">Detail Inspeksi</h3>
                             <div id="detail-wrapper" class="space-y-4">
                                 @forelse ($fg->details as $detail)
-                                    <div class="detail-row grid grid-cols-1 gap-4 md:grid-cols-3">
+                                    <div class="detail-row grid grid-cols-1 gap-4 md:grid-cols-4">
+                                        <input type="hidden" name="detail_id[]" value="{{ $detail->id }}">
                                         <div>
                                             <x-input-label :value="__('Description')" />
                                             <select name="detail_description[]"
@@ -174,9 +175,18 @@
                                                 value="{{ old('detail_qty.' . $loop->index, $detail->qty) }}"
                                                 placeholder="QTY" />
                                         </div>
+                                        <div class="flex items-end">
+                                            <button type="button" title="Hapus"
+                                                class="remove-detail rounded-md bg-red-500 p-2 text-white hover:bg-red-600 disabled:opacity-50 disabled:cursor-not-allowed">
+                                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                                                </svg>
+                                            </button>
+                                        </div>
                                     </div>
                                 @empty
-                                    <div class="detail-row grid grid-cols-1 gap-4 md:grid-cols-3">
+                                    <div class="detail-row grid grid-cols-1 gap-4 md:grid-cols-4">
+                                        <input type="hidden" name="detail_id[]" value="">
                                         <div>
                                             <x-input-label :value="__('Description')" />
                                             <select name="detail_description[]"
@@ -199,6 +209,14 @@
                                             <x-input-label :value="__('QTY')" />
                                             <x-text-input name="detail_qty[]" type="number" class="mt-1 block w-full"
                                                 placeholder="QTY" />
+                                        </div>
+                                        <div class="flex items-end">
+                                            <button type="button" title="Hapus"
+                                                class="remove-detail rounded-md bg-red-500 p-2 text-white hover:bg-red-600 disabled:opacity-50 disabled:cursor-not-allowed">
+                                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                                                </svg>
+                                            </button>
                                         </div>
                                     </div>
                                 @endforelse
@@ -230,11 +248,24 @@
     <script>
         const optionsDetail = `@include('inspeksi_wm.fg.options-detail', ['selected' => null])`;
 
+        function updateRemoveButtons() {
+            const rows = document.querySelectorAll('#detail-wrapper .detail-row');
+            rows.forEach(row => {
+                const btn = row.querySelector('.remove-detail');
+                if (btn) {
+                    btn.disabled = rows.length <= 1;
+                    btn.classList.toggle('opacity-50', rows.length <= 1);
+                    btn.classList.toggle('cursor-not-allowed', rows.length <= 1);
+                }
+            });
+        }
+
         document.getElementById('add-detail').addEventListener('click', function() {
             const wrapper = document.getElementById('detail-wrapper');
 
             const html = `
-            <div class="detail-row grid grid-cols-1 gap-4 md:grid-cols-3">
+            <div class="detail-row grid grid-cols-1 gap-4 md:grid-cols-4">
+                <input type="hidden" name="detail_id[]" value="">
                 <div>
                     <label class="block text-sm font-medium text-gray-700">Description</label>
                     <select name="detail_description[]"
@@ -257,10 +288,32 @@
                         class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
                         placeholder="QTY">
                 </div>
+                <div class="flex items-end">
+                    <button type="button" title="Hapus"
+                        class="remove-detail rounded-md bg-red-500 p-2 text-white hover:bg-red-600 disabled:opacity-50 disabled:cursor-not-allowed">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                        </svg>
+                    </button>
+                </div>
             </div>
         `;
 
             wrapper.insertAdjacentHTML('beforeend', html);
+            updateRemoveButtons();
         });
+
+        document.getElementById('detail-wrapper').addEventListener('click', function(e) {
+            if (e.target.classList.contains('remove-detail')) {
+                const row = e.target.closest('.detail-row');
+                const rows = document.querySelectorAll('#detail-wrapper .detail-row');
+                if (rows.length > 1) {
+                    row.remove();
+                    updateRemoveButtons();
+                }
+            }
+        });
+
+        updateRemoveButtons();
     </script>
 </x-app-layout>

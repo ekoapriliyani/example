@@ -18,6 +18,7 @@ class InspeksiWmFg extends Model
         'weight',
         'packing',
         'label',
+        'lot_number',
         'files',
     ];
     protected $casts = [

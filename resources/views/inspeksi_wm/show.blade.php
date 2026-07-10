@@ -289,6 +289,7 @@
                                 <tr>
                                     <th class="px-4 py-3 font-semibold text-gray-900">No</th>
                                     <th class="px-4 py-3 font-semibold text-gray-900">Aksi</th>
+                                    <th class="px-4 py-3 font-semibold text-gray-900">Lot Number</th>
                                     <th class="px-4 py-3 font-semibold text-gray-900">Inspektor</th>
                                     <th class="px-4 py-3 font-semibold text-gray-900">Status</th>
                                     <th class="px-4 py-3 font-semibold text-gray-900">Quantity</th>
@@ -363,6 +364,7 @@
                                                 @endif
                                             </div>
                                         </td>
+                                        <td class="px-4 py-3 font-medium">{{ $fg->lot_number }}</td>
                                         <td class="px-4 py-3 font-medium">{{ $fg->user->name }}</td>
                                         <td class="px-4 py-3 font-medium">
                                             @if ($fg->status === 'OK')
