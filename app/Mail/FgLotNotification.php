@@ -37,8 +37,10 @@ class FgLotNotification extends Mailable
                 'proId' => $pro?->pro_id,
                 'status' => $this->fg->status,
                 'qty' => $this->fg->qty,
+                'weight' => $this->fg->weight,
                 'tanggal' => $inspeksiWm->tanggal,
                 'user' => $this->fg->user?->name,
+                'details' => $this->fg->details,
             ],
         );
     }

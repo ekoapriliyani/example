@@ -217,6 +217,6 @@ class InspeksiWmFgController extends Controller
 
         $recipients = User::whereIn('role', [User::SUPERVISOR, User::MANAGER])->get();
 
-        Mail::to($recipients)->send(new FgLotNotification($fg->fresh(['inspeksiWm.pro', 'user'])));
+        Mail::to($recipients)->send(new FgLotNotification($fg->fresh(['inspeksiWm.pro', 'user', 'details'])));
     }
 }
