@@ -159,7 +159,15 @@ class OutgoingController extends Controller
         $item = Outgoing::findOrFail($id);
 
         // update data utama
-        $item->update($validated);
+        $item->update([
+            'tanggal' => $validated['tanggal'],
+            // 'shipment_id' => $validated['shipment_id'],
+            'no_do' => $validated['no_do'],
+            'produk' => $validated['produk'],
+            'lokasi' => $validated['lokasi'],
+            'no_kendaraan' => $validated['no_kendaraan'],
+            'keterangan' => $validated['keterangan'],
+        ]);
 
         /*
         |--------------------------------------------------------------------------
@@ -240,7 +248,6 @@ class OutgoingController extends Controller
     public function storeInspeksi(Request $request, $id)
     {
         $outgoing = Outgoing::findOrFail($id);
-
         $validated = $request->validate([
             'label'      => 'required|in:OK,NG,-', // <-- Tambahkan ,- di sini
             'karat'      => 'required|in:OK,NG,-',
@@ -330,9 +337,9 @@ class OutgoingController extends Controller
         }
 
         // 2. Simpan atau perbarui data inspeksi checklist QC
-        $inspeksiData = OutgoingInspeksi::updateOrCreate(
+        OutgoingInspeksi::updateOrCreate(
             ['outgoing_id' => $outgoing_id],
-            array_merge($validated, ['user_id' => auth()->id()])
+            $validated
         );
 
         return redirect()->route('outgoing.show', $outgoing_id)->with('success', 'Data inspeksi dan dokumentasi berhasil diperbarui!');
