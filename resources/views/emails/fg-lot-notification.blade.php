@@ -113,14 +113,14 @@
                     <td colspan="2" style="padding-top: 16px; font-weight: 700; color: #374151;">Detail Inspeksi</td>
                 </tr>
                 @forelse ($details as $detail)
-                <tr>
-                    <td style="padding-left: 12px;">{{ $detail->description }}</td>
-                    <td>{{ $detail->description2 }}{{ $detail->qty ? ' (' . $detail->qty . ')' : '' }}</td>
-                </tr>
+                    <tr>
+                        <td style="padding-left: 12px;">{{ $detail->description }}</td>
+                        <td>{{ $detail->description2 }}{{ $detail->qty ? ' (' . $detail->qty . ')' : '' }}</td>
+                    </tr>
                 @empty
-                <tr>
-                    <td style="padding-left: 12px; color: #9ca3af;" colspan="2">Tidak ada detail</td>
-                </tr>
+                    <tr>
+                        <td style="padding-left: 12px; color: #9ca3af;" colspan="2">Tidak ada detail</td>
+                    </tr>
                 @endforelse
             </table>
         </div>

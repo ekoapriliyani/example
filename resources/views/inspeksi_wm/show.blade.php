@@ -362,9 +362,37 @@
                                                         </button>
                                                     </form>
                                                 @endif
+                                                {{-- QR Code --}}
+                                                @if ($fg->lot_number)
+                                                    <a href="{{ route('inspeksi_wm_fg.qrcode', $fg->id) }}"
+                                                        target="_blank"
+                                                        class="inline-flex items-center rounded-md bg-blue-100 p-2 text-blue-600 transition hover:bg-blue-200"
+                                                        title="Cetak QR Code">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v1m6 11h2m-6 0h-2v4m0-11v3m0 0h.01M12 12h4.01M16 20h4M4 12h4m12 0h.01M5 8h2a1 1 0 001-1V5a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1zm12 0h2a1 1 0 001-1V5a1 1 0 00-1-1h-2a1 1 0 00-1 1v2a1 1 0 001 1zM5 20h2a1 1 0 001-1v-2a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1z" />
+                                                        </svg>
+                                                    </a>
+                                                @endif
+                                                {{-- Handling --}}
+                                                @if (in_array($fg->status, ['NG', 'REJECT']))
+                                                    <button type="button"
+                                                        onclick="toggleHandling({{ $fg->id }})"
+                                                        class="inline-flex items-center rounded-md bg-orange-100 p-2 text-orange-600 transition hover:bg-orange-200"
+                                                        title="Handling">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+                                                        </svg>
+                                                    </button>
+                                                @endif
                                             </div>
                                         </td>
-                                        <td class="px-4 py-3 font-medium">{{ $fg->lot_number }}</td>
+                                        <td class="px-4 py-3 font-medium">
+                                            @if ($fg->lot_number)
+                                                <span class="text-blue-600">{{ $fg->lot_number }}</span>
+                                            @else
+                                                <span class="text-gray-400">-</span>
+                                            @endif
+                                        </td>
                                         <td class="px-4 py-3 font-medium">{{ $fg->user->name }}</td>
                                         <td class="px-4 py-3 font-medium">
                                             @if ($fg->status === 'OK')
@@ -535,45 +563,206 @@
                             </div>
                         @endforeach
 
-                        {{-- modal gambar wip --}}
-                        @foreach ($inspeksi_wm->inspeksiWmWip as $wip)
-                            <div id="image2-{{ $wip->id }}"
-                                class="fixed inset-0 flex hidden items-center justify-center bg-gray-900 bg-opacity-50">
-                                <div class="max-h-[80vh] w-3/4 overflow-y-auto rounded-lg bg-white p-6 shadow-lg">
-                                    {{-- <h3 class="text-lg font-semibold mb-4">Gambar WIP: {{ $wip->batch_number }}</h3> --}}
+        {{-- modal gambar wip --}}
+        @foreach ($inspeksi_wm->inspeksiWmWip as $wip)
+            <div id="image2-{{ $wip->id }}"
+                class="fixed inset-0 flex hidden items-center justify-center bg-gray-900 bg-opacity-50">
+                <div class="max-h-[80vh] w-3/4 overflow-y-auto rounded-lg bg-white p-6 shadow-lg">
+                    {{-- <h3 class="text-lg font-semibold mb-4">Gambar WIP: {{ $wip->batch_number }}</h3> --}}
 
-                                    @if ($wip->files)
-                                        <div class="space-y-4">
-                                            @foreach ($wip->files as $file)
-                                                @php $ext = pathinfo($file, PATHINFO_EXTENSION); @endphp
+                    @if ($wip->files)
+                        <div class="space-y-4">
+                            @foreach ($wip->files as $file)
+                                @php $ext = pathinfo($file, PATHINFO_EXTENSION); @endphp
 
-                                                @if (in_array($ext, ['jpg', 'jpeg', 'png']))
-                                                    <img src="{{ asset('storage/' . $file) }}" alt="Wip Image"
-                                                        class="max-h-64 w-full rounded border object-contain" />
-                                                @else
-                                                    <a href="{{ asset('storage/' . $file) }}" target="_blank"
-                                                        class="block text-blue-600 hover:underline">
-                                                        Lihat File ({{ strtoupper($ext) }})
-                                                    </a>
-                                                @endif
-                                            @endforeach
-                                        </div>
-                                    @else
-                                        <p class="italic text-gray-400">Tidak ada gambar diupload.</p>
-                                    @endif
+                                @if (in_array($ext, ['jpg', 'jpeg', 'png']))
+                                    <img src="{{ asset('storage/' . $file) }}" alt="Wip Image"
+                                        class="max-h-64 w-full rounded border object-contain" />
+                                @else
+                                    <a href="{{ asset('storage/' . $file) }}" target="_blank"
+                                        class="block text-blue-600 hover:underline">
+                                        Lihat File ({{ strtoupper($ext) }})
+                                    </a>
+                                @endif
+                            @endforeach
+                        </div>
+                    @else
+                        <p class="italic text-gray-400">Tidak ada gambar diupload.</p>
+                    @endif
 
-                                    <div class="mt-4 text-right">
-                                        <button onclick="toggleImage2({{ $wip->id }})"
-                                            class="rounded bg-gray-200 px-4 py-2 hover:bg-gray-300">
-                                            Tutup
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                        @endforeach
+                    <div class="mt-4 text-right">
+                        <button onclick="toggleImage2({{ $wip->id }})"
+                            class="rounded bg-gray-200 px-4 py-2 hover:bg-gray-300">
+                            Tutup
+                        </button>
                     </div>
                 </div>
             </div>
+        @endforeach
+
+        {{-- modal handling fg --}}
+        @foreach ($inspeksi_wm->inspeksiWmFg as $fg)
+            @if (in_array($fg->status, ['NG', 'REJECT']))
+                <div id="handling-{{ $fg->id }}"
+                    class="fixed inset-0 flex hidden items-center justify-center bg-gray-900 bg-opacity-50 z-50">
+                    <div class="max-h-[90vh] w-3/4 overflow-y-auto rounded-lg bg-white p-6 shadow-lg">
+                        <div class="mb-4 flex items-center justify-between border-b pb-3">
+                            <h3 class="text-lg font-semibold">
+                                Handling Lot: <span class="text-blue-600">{{ $fg->lot_number }}</span>
+                            </h3>
+                            <button onclick="toggleHandling({{ $fg->id }})"
+                                class="rounded bg-gray-200 px-3 py-1 text-sm hover:bg-gray-300">
+                                Tutup
+                            </button>
+                        </div>
+
+                        {{-- Info Lot --}}
+                        <div class="mb-4 grid grid-cols-4 gap-4 rounded bg-gray-50 p-3 text-sm">
+                            <div><span class="font-semibold">Status:</span> {{ $fg->status }}</div>
+                            <div><span class="font-semibold">Qty:</span> {{ $fg->qty }}</div>
+                            <div><span class="font-semibold">Weight:</span> {{ $fg->weight }} Kg</div>
+                            <div><span class="font-semibold">Lot:</span> {{ $fg->lot_number }}</div>
+                        </div>
+
+                        {{-- Riwayat Handling --}}
+                        @if ($fg->handlings->isNotEmpty())
+                            <div class="mb-4">
+                                <h4 class="mb-2 text-sm font-semibold text-gray-700">Riwayat Handling</h4>
+                                <div class="overflow-x-auto rounded border">
+                                    <table class="min-w-full divide-y divide-gray-200 text-left text-xs">
+                                        <thead class="bg-gray-50">
+                                            <tr>
+                                                <th class="px-3 py-2">Tanggal</th>
+                                                <th class="px-3 py-2">User</th>
+                                                <th class="px-3 py-2">Catatan</th>
+                                                <th class="px-3 py-2">Status</th>
+                                                <th class="px-3 py-2">Qty</th>
+                                                <th class="px-3 py-2">Weight</th>
+                                                <th class="px-3 py-2">Aksi</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody class="divide-y divide-gray-200">
+                                            @foreach ($fg->handlings as $handling)
+                                                @foreach ($handling->details as $detail)
+                                                    <tr class="hover:bg-gray-50">
+                                                        <td class="px-3 py-2">{{ $handling->tanggal }}</td>
+                                                        <td class="px-3 py-2">{{ $handling->user->name }}</td>
+                                                        <td class="px-3 py-2 max-w-[150px] truncate">{{ $handling->catatan ?? '-' }}</td>
+                                                        <td class="px-3 py-2">
+                                                            <span class="rounded px-2 py-0.5 text-xs font-medium
+                                                                {{ $detail->status === 'OK' ? 'bg-green-100 text-green-800' : '' }}
+                                                                {{ $detail->status === 'NG' ? 'bg-yellow-100 text-yellow-800' : '' }}
+                                                                {{ $detail->status === 'REJECT' ? 'bg-red-100 text-red-800' : '' }}
+                                                                {{ $detail->status === 'REPAIR' ? 'bg-blue-100 text-blue-800' : '' }}
+                                                                {{ $detail->status === 'SCRAP' ? 'bg-gray-100 text-gray-800' : '' }}
+                                                                {{ $detail->status === 'DOWNGRADE' ? 'bg-purple-100 text-purple-800' : '' }}">
+                                                                {{ $detail->status }}
+                                                            </span>
+                                                        </td>
+                                                        <td class="px-3 py-2">{{ $detail->qty }}</td>
+                                                        <td class="px-3 py-2">{{ $detail->weight }} Kg</td>
+                                                        <td class="px-3 py-2">
+                                                            @if ($loop->first)
+                                                                <form action="{{ route('inspeksi_wm_fg_handling.destroy', [$fg->id, $handling->id]) }}"
+                                                                    method="POST"
+                                                                    onsubmit="return confirm('Hapus handling ini?');">
+                                                                    @csrf @method('DELETE')
+                                                                    <button type="submit" class="text-red-600 hover:underline">Hapus</button>
+                                                                </form>
+                                                            @endif
+                                                        </td>
+                                                    </tr>
+                                                @endforeach
+                                            @endforeach
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        @endif
+
+                        {{-- Form Handling Baru --}}
+                        <form action="{{ route('inspeksi_wm_fg_handling.store', $fg->id) }}" method="POST">
+                            @csrf
+                            <div class="mb-3 grid grid-cols-2 gap-3">
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700">Tanggal</label>
+                                    <input type="date" name="tanggal" value="{{ date('Y-m-d') }}" required
+                                        class="mt-1 block w-full rounded border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 text-sm">
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700">Catatan</label>
+                                    <input type="text" name="catatan" placeholder="Opsional"
+                                        class="mt-1 block w-full rounded border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 text-sm">
+                                </div>
+                            </div>
+
+                            <div class="mb-3 flex items-center justify-between">
+                                <h4 class="text-sm font-semibold text-gray-700">Detail Handling</h4>
+                                <button type="button" onclick="addHandlingRow({{ $fg->id }})"
+                                    class="inline-flex items-center gap-1 rounded bg-indigo-100 px-3 py-1 text-xs font-medium text-indigo-700 hover:bg-indigo-200">
+                                    + Tambah Baris
+                                </button>
+                            </div>
+
+                            <div class="overflow-x-auto rounded border">
+                                <table class="min-w-full divide-y divide-gray-200 text-left text-sm">
+                                    <thead class="bg-gray-50">
+                                        <tr>
+                                            <th class="px-3 py-2 text-xs font-semibold text-gray-700">Status</th>
+                                            <th class="px-3 py-2 text-xs font-semibold text-gray-700">Qty</th>
+                                            <th class="px-3 py-2 text-xs font-semibold text-gray-700">Weight (Kg)</th>
+                                            <th class="px-3 py-2 text-xs font-semibold text-gray-700">Aksi</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="handling-details-{{ $fg->id }}" class="divide-y divide-gray-200">
+                                        <tr class="handling-row">
+                                            <td class="px-3 py-2">
+                                                <select name="details[0][status]" required
+                                                    class="block w-full rounded border-gray-300 text-sm focus:border-indigo-500 focus:ring-indigo-500">
+                                                    <option value="">Pilih Status</option>
+                                                    <option value="OK">OK</option>
+                                                    <option value="NG">NG</option>
+                                                    <option value="REJECT">REJECT</option>
+                                                    <option value="REPAIR">REPAIR</option>
+                                                    <option value="SCRAP">SCRAP</option>
+                                                    <option value="DOWNGRADE">DOWNGRADE</option>
+                                                </select>
+                                            </td>
+                                            <td class="px-3 py-2">
+                                                <input type="number" name="details[0][qty]" min="0" value="0" required
+                                                    class="block w-24 rounded border-gray-300 text-sm focus:border-indigo-500 focus:ring-indigo-500">
+                                            </td>
+                                            <td class="px-3 py-2">
+                                                <input type="number" name="details[0][weight]" min="0" step="0.01" value="0" required
+                                                    class="block w-28 rounded border-gray-300 text-sm focus:border-indigo-500 focus:ring-indigo-500">
+                                            </td>
+                                            <td class="px-3 py-2">
+                                                <button type="button" onclick="this.closest('tr').remove()"
+                                                    class="text-red-600 hover:underline text-xs">Hapus</button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <div class="mt-4 flex justify-end gap-2">
+                                <button type="button" onclick="toggleHandling({{ $fg->id }})"
+                                    class="rounded border border-gray-300 bg-white px-4 py-2 text-sm text-gray-700 hover:bg-gray-50">
+                                    Batal
+                                </button>
+                                <button type="submit"
+                                    class="rounded bg-orange-600 px-4 py-2 text-sm text-white hover:bg-orange-700">
+                                    Simpan Handling
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            @endif
+        @endforeach
+                    </div>  {{-- End overflow-x-auto --}}
+                </div>  {{-- End p-6 --}}
+            </div>  {{-- End FG card --}}
 
             {{-- section approval --}}
             <div class="overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-sm">
@@ -669,11 +858,54 @@
             modal.classList.toggle('hidden');
         }
     </script>
+    <script>
+        function toggleHandling(id) {
+            const modal = document.getElementById('handling-' + id);
+            modal.classList.toggle('hidden');
+        }
+
+        let handlingRowIndex = {};
+        function addHandlingRow(fgId) {
+            if (!handlingRowIndex[fgId]) {
+                handlingRowIndex[fgId] = document.querySelectorAll('#handling-details-' + fgId + ' tr').length;
+            }
+            const idx = handlingRowIndex[fgId]++;
+            const tbody = document.getElementById('handling-details-' + fgId);
+            const tr = document.createElement('tr');
+            tr.className = 'handling-row';
+            tr.innerHTML = `
+                <td class="px-3 py-2">
+                    <select name="details[${idx}][status]" required
+                        class="block w-full rounded border-gray-300 text-sm focus:border-indigo-500 focus:ring-indigo-500">
+                        <option value="">Pilih Status</option>
+                        <option value="OK">OK</option>
+                        <option value="NG">NG</option>
+                        <option value="REJECT">REJECT</option>
+                        <option value="REPAIR">REPAIR</option>
+                        <option value="SCRAP">SCRAP</option>
+                        <option value="DOWNGRADE">DOWNGRADE</option>
+                    </select>
+                </td>
+                <td class="px-3 py-2">
+                    <input type="number" name="details[${idx}][qty]" min="0" value="0" required
+                        class="block w-24 rounded border-gray-300 text-sm focus:border-indigo-500 focus:ring-indigo-500">
+                </td>
+                <td class="px-3 py-2">
+                    <input type="number" name="details[${idx}][weight]" min="0" step="0.01" value="0" required
+                        class="block w-28 rounded border-gray-300 text-sm focus:border-indigo-500 focus:ring-indigo-500">
+                </td>
+                <td class="px-3 py-2">
+                    <button type="button" onclick="this.closest('tr').remove()"
+                        class="text-red-600 hover:underline text-xs">Hapus</button>
+                </td>
+            `;
+            tbody.appendChild(tr);
+        }
+    </script>
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <script>
-        // Notifikasi Sukses
         @if (session('success'))
             Swal.fire({
                 icon: 'success',
@@ -681,6 +913,17 @@
                 text: "{{ session('success') }}",
                 showConfirmButton: false,
                 timer: 2000,
+                timerProgressBar: true,
+            });
+        @endif
+
+        @if (session('error'))
+            Swal.fire({
+                icon: 'error',
+                title: 'Gagal!',
+                text: "{{ session('error') }}",
+                showConfirmButton: false,
+                timer: 3000,
                 timerProgressBar: true,
             });
         @endif

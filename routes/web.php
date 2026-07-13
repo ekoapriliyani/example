@@ -41,6 +41,7 @@ use App\Http\Controllers\InspeksiWfController;
 use App\Http\Controllers\InspeksiWfWipController;
 use App\Http\Controllers\InspeksiWmController;
 use App\Http\Controllers\InspeksiWmFgController;
+use App\Http\Controllers\InspeksiWmFgHandlingController;
 use App\Http\Controllers\InspeksiWmWipController;
 use App\Http\Controllers\LabController;
 use App\Http\Controllers\MaterialController;
@@ -211,7 +212,16 @@ Route::middleware(['auth'])->group(function () {
     Route::delete('insepeksi_wm/fg/{fg}', [InspeksiWmFgController::class, 'destroy'])
         ->name('inspeksi_wm_fg.destroy');
 
+    // FG QR Code
+    Route::get('inspeksi_wm/fg/{fg}/qrcode', [InspeksiWmFgController::class, 'printQrcode'])
+        ->name('inspeksi_wm_fg.qrcode');
 
+    // FG Handling
+    Route::post('inspeksi_wm/fg/{fg}/handling', [InspeksiWmFgHandlingController::class, 'store'])
+        ->name('inspeksi_wm_fg_handling.store');
+
+    Route::delete('inspeksi_wm/fg/{fg}/handling/{handling}', [InspeksiWmFgHandlingController::class, 'destroy'])
+        ->name('inspeksi_wm_fg_handling.destroy');
 
     /*
     |--------------------------------------------------------------------------

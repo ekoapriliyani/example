@@ -40,4 +40,9 @@ class InspeksiWmFg extends Model
     {
         return $this->hasMany(InspeksiWmFgDetail::class);
     }
+
+    public function handlings()
+    {
+        return $this->hasMany(InspeksiWmFgHandling::class);
+    }
 }

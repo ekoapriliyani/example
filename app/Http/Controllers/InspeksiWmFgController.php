@@ -11,6 +11,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Storage;
+use SimpleSoftwareIO\QrCode\Facades\QrCode;
 
 class InspeksiWmFgController extends Controller
 {
@@ -218,5 +219,25 @@ class InspeksiWmFgController extends Controller
         $recipients = User::whereIn('role', [User::SUPERVISOR, User::MANAGER])->get();
 
         Mail::to($recipients)->send(new FgLotNotification($fg->fresh(['inspeksiWm.pro', 'user', 'details'])));
+    }
+
+    public function printQrcode(InspeksiWmFg $fg)
+    {
+        $fg->load('inspeksiWm.pro');
+
+        $qrContent = "Nomor Inspeksi: {$fg->inspeksiWm->nomor_inspeksi}\nLot Number: {$fg->lot_number}";
+
+        $qrSvg = QrCode::format('svg')
+            ->size(400)
+            ->margin(1)
+            ->errorCorrection('M')
+            ->generate($qrContent);
+
+        return view('inspeksi_wm.fg.qrcode', [
+            'fg' => $fg,
+            'qrSvg' => $qrSvg,
+            'inspeksiWm' => $fg->inspeksiWm,
+            'pro' => $fg->inspeksiWm->pro,
+        ]);
     }
 }
