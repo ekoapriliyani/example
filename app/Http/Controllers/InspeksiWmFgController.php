@@ -229,9 +229,10 @@ class InspeksiWmFgController extends Controller
         $qrContent = "Nomor Inspeksi: {$fg->inspeksiWm->nomor_inspeksi}\nLot Number: {$fg->lot_number}";
 
         $options = new QROptions([
-            'outputType' => QRCode::OUTPUT_MARKUP_SVG,
             'scale' => 10,
-            'margin' => 1,
+            'quietzoneSize' => 1,
+            'outputBase64' => false,
+            'svgAddXmlHeader' => false,
         ]);
         $qrSvg = (new QRCode($options))->render($qrContent);
 
