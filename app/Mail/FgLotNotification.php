@@ -35,6 +35,8 @@ class FgLotNotification extends Mailable
                 'lotNumber' => $this->fg->lot_number,
                 'nomorInspeksi' => $inspeksiWm->nomor_inspeksi,
                 'proId' => $pro?->pro_id,
+                'description' => $pro?->description,
+                'namaMesin' => $inspeksiWm->mesin?->nama_mesin,
                 'status' => $this->fg->status,
                 'qty' => $this->fg->qty,
                 'weight' => $this->fg->weight,

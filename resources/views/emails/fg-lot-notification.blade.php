@@ -82,6 +82,14 @@
                     <td>{{ $proId }}</td>
                 </tr>
                 <tr>
+                    <td>Description Barang</td>
+                    <td>{{ $description ?? '-' }}</td>
+                </tr>
+                <tr>
+                    <td>Nama Mesin</td>
+                    <td>{{ $namaMesin ?? '-' }}</td>
+                </tr>
+                <tr>
                     <td>Status</td>
                     <td>{{ $status }}</td>
                 </tr>
