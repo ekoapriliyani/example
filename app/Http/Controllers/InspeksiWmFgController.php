@@ -11,7 +11,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Storage;
-use SimpleSoftwareIO\QrCode\Facades\QrCode;
+use chillerlan\QRCode\QRCode;
+use chillerlan\QRCode\QROptions;
 
 class InspeksiWmFgController extends Controller
 {
@@ -227,11 +228,12 @@ class InspeksiWmFgController extends Controller
 
         $qrContent = "Nomor Inspeksi: {$fg->inspeksiWm->nomor_inspeksi}\nLot Number: {$fg->lot_number}";
 
-        $qrSvg = QrCode::format('svg')
-            ->size(400)
-            ->margin(1)
-            ->errorCorrection('M')
-            ->generate($qrContent);
+        $options = new QROptions([
+            'outputType' => QRCode::OUTPUT_MARKUP_SVG,
+            'scale' => 10,
+            'margin' => 1,
+        ]);
+        $qrSvg = (new QRCode($options))->render($qrContent);
 
         return view('inspeksi_wm.fg.qrcode', [
             'fg' => $fg,
