@@ -10,6 +10,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use chillerlan\QRCode\QRCode;
 use chillerlan\QRCode\QROptions;
@@ -193,17 +194,17 @@ class InspeksiWmFgController extends Controller
         $tahunBulan = now()->format('Ym');
         $prefixWithDate = "{$prefix}-{$tahunBulan}-";
 
-        $lastRecord = InspeksiWmFg::where('lot_number', 'like', "{$prefixWithDate}%")
-            ->orderBy('id', 'desc')
-            ->first();
+        return DB::transaction(function () use ($prefixWithDate) {
+            $maxSeq = DB::table('inspeksi_wm_fgs')
+                ->where('lot_number', 'like', "{$prefixWithDate}%")
+                ->whereNotNull('lot_number')
+                ->lockForUpdate()
+                ->max(DB::raw("CAST(REPLACE(lot_number, '{$prefixWithDate}', '') AS UNSIGNED)"));
 
-        $nextNumber = 1;
-        if ($lastRecord) {
-            $lastNumberStr = str_replace($prefixWithDate, '', $lastRecord->lot_number);
-            $nextNumber = (int) $lastNumberStr + 1;
-        }
+            $nextNumber = ($maxSeq ?: 0) + 1;
 
-        return "{$prefixWithDate}" . str_pad($nextNumber, 3, '0', STR_PAD_LEFT);
+            return $prefixWithDate . str_pad($nextNumber, 5, '0', STR_PAD_LEFT);
+        });
     }
 
     private function handleLotNumberAndNotify(InspeksiWmFg $fg): void
@@ -224,9 +225,20 @@ class InspeksiWmFgController extends Controller
 
     public function printQrcode(InspeksiWmFg $fg)
     {
-        $fg->load('inspeksiWm.pro');
+        $fg->load('inspeksiWm.pro', 'details');
 
-        $qrContent = "Nomor Inspeksi: {$fg->inspeksiWm->nomor_inspeksi}\nLot Number: {$fg->lot_number}";
+        $qrContent = "Lot Number: {$fg->lot_number}\n"
+            . "No. Inspeksi: {$fg->inspeksiWm->nomor_inspeksi}\n"
+            . "PRO: {$fg->inspeksiWm->pro->pro_id}\n"
+            . "Desc: {$fg->inspeksiWm->pro->description}\n"
+            . "Qty: {$fg->qty} | Weight: {$fg->weight} Kg\n"
+            . "Alasan:\n";
+
+        foreach ($fg->details as $d) {
+            $qrContent .= "- {$d->description}";
+            if ($d->description2) $qrContent .= " — {$d->description2}";
+            $qrContent .= "\n";
+        }
 
         $options = new QROptions([
             'scale' => 10,
