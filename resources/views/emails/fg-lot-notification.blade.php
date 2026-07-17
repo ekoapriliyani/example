@@ -17,7 +17,6 @@
         }
 
         .header {
-            background: #dc2626;
             color: white;
             padding: 20px;
             border-radius: 8px 8px 0 0;
@@ -63,8 +62,11 @@
 
 <body>
     <div class="container">
-        <div class="header">
-            <h1>Notifikasi Lot Number {{ $status }}</h1>
+        <div class="header" style="background: {{ $status === 'REJECT' ? '#dc2626' : '#d97706' }};">
+            <h1>Notifikasi Lot Number</h1>
+            <span style="display: inline-block; margin-top: 8px; padding: 4px 14px; border-radius: 4px; font-size: 14px; font-weight: 700; background: {{ $status === 'REJECT' ? '#fca5a5' : '#fde68a' }}; color: {{ $status === 'REJECT' ? '#7f1d1d' : '#78350f' }};">
+                {{ $status }}
+            </span>
         </div>
         <div class="body">
             <p>Berikut adalah detail Lot Number yang telah diterbitkan:</p>

@@ -206,10 +206,9 @@
                 </button>
             </div>
         </div>
-    </div>
 
-    <div :class="{ 'block': open, 'hidden': !open }" class="hidden sm:hidden">
-        <div class="space-y-1 pb-3 pt-2">
+        <div :class="{ 'block': open, 'hidden': !open }" class="hidden sm:hidden">
+            <div class="space-y-1 pb-3 pt-2">
             <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">Dashboard</x-responsive-nav-link>
 
             <div class="border-t border-gray-200 pt-2">
@@ -266,4 +265,5 @@
             </div>
         </div>
     </div>
+</div>
 </nav>
