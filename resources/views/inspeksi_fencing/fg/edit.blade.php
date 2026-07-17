@@ -7,7 +7,7 @@
             <p class="text-sm text-gray-500">
                 Ref:
                 <span class="font-mono font-bold text-indigo-600">
-                    {{ $inspeksi_bending->nomor_inspeksi }}
+                    {{ $inspeksiFencing->nomor_inspeksi }}
                 </span>
             </p>
         </div>
@@ -17,14 +17,11 @@
         <div class="mx-auto max-w-4xl sm:px-6 lg:px-8">
             <div class="overflow-hidden border border-gray-200 bg-white shadow-sm sm:rounded-lg">
                 <div class="p-8">
-                    <form action="{{ route('inspeksi_bending_fg.update', $fg->id) }}" method="POST"
+                    <form action="{{ route('inspeksi_fencing_fg.update', $fg->id) }}" method="POST"
                         enctype="multipart/form-data" class="space-y-6">
                         @csrf
                         @method('PUT')
 
-                        <input type="hidden" name="inspeksi_fg_id"
-                            value="{{ old('inspeksi_fencing_id', $fg->inspeksi_fencing_id) }}">
-                        <input type="hidden" name="user_id" value="{{ auth()->id() }}">
                         <div class="grid grid-cols-1 gap-6 md:grid-cols-2">
                             <div>
                                 <x-input-label for="type" :value="__('Type')" />
@@ -207,7 +204,8 @@
                             <h3 class="mb-4 font-semibold text-gray-700">Detail Inspeksi</h3>
                             <div id="detail-wrapper" class="space-y-4">
                                 @forelse ($fg->details as $detail)
-                                    <div class="detail-row grid grid-cols-1 gap-4 md:grid-cols-3">
+                                    <div class="detail-row grid grid-cols-1 gap-4 md:grid-cols-4">
+                                        <input type="hidden" name="detail_id[]" value="{{ $detail->id }}">
                                         <div>
                                             <x-input-label :value="__('Description')" />
                                             <select name="detail_description[]"
@@ -235,7 +233,8 @@
                                         </div>
                                     </div>
                                 @empty
-                                    <div class="detail-row grid grid-cols-1 gap-4 md:grid-cols-3">
+                                    <div class="detail-row grid grid-cols-1 gap-4 md:grid-cols-4">
+                                        <input type="hidden" name="detail_id[]" value="">
                                         <div>
                                             <x-input-label :value="__('Description')" />
                                             <select name="detail_description[]"
@@ -271,7 +270,7 @@
 
 
                         <div class="flex items-center justify-end gap-4 border-t border-gray-100 pt-6">
-                            <a href="{{ route('inspeksi_bending.show', $inspeksi_bending->id) }}"
+                            <a href="{{ route('inspeksi_fencing.show', $inspeksiFencing->id) }}"
                                 class="inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-xs font-semibold uppercase tracking-widest text-gray-700 shadow-sm hover:bg-gray-50">
                                 {{ __('Batal') }}
                             </a>
