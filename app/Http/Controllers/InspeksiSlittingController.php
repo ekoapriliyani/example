@@ -17,10 +17,34 @@ class InspeksiSlittingController extends Controller
     public function index(Request $request)
     {
         $search = $request->input('search');
+        $status = $request->input('status');
+        $startDate = $request->input('start_date');
+        $endDate = $request->input('end_date');
 
         $data = InspeksiSlitting::with(['pro', 'mesin'])
             ->when($search, function ($query, $search) {
-                return $query->where('nomor_inspeksi', 'like', "%{$search}%");
+                return $query->where(function ($q) use ($search) {
+                    $q->where('nomor_inspeksi', 'like', "%{$search}%")
+                        ->orWhereHas('pro', function ($proQuery) use ($search) {
+                            $proQuery->where('description', 'like', "%{$search}%");
+                        });
+                });
+            })
+            ->when($status, function ($query, $status) {
+                if ($status === 'approved') {
+                    return $query->where('approval_status', 'APPROVED');
+                } elseif ($status === 'pending') {
+                    return $query->where(function ($q) {
+                        $q->where('approval_status', 'PENDING')
+                            ->orWhereNull('approval_status');
+                    });
+                }
+            })
+            ->when($startDate, function ($query, $startDate) {
+                return $query->whereDate('tanggal', '>=', $startDate);
+            })
+            ->when($endDate, function ($query, $endDate) {
+                return $query->whereDate('tanggal', '<=', $endDate);
             })
             ->latest()
             ->paginate(10)
