@@ -109,6 +109,9 @@
                                 <option value="EP"
                                     {{ old('type_coating', $inspeksiKawatDuri->type_coating) == 'EP' ? 'selected' : '' }}>
                                     EP</option>
+                                <option value="PVC"
+                                    {{ old('type_coating', $inspeksiKawatDuri->type_coating) == 'PVC' ? 'selected' : '' }}>
+                                    PVC</option>
                             </select>
                             <x-input-error class="mt-2" :messages="$errors->get('type_coating')" />
                         </div>
