@@ -52,6 +52,7 @@ use App\Http\Controllers\ProductCtController;
 use App\Http\Controllers\ProductFencingController;
 use App\Http\Controllers\ProductRazorController;
 use App\Http\Controllers\ProductWmController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\SheetGalvanizeController;
@@ -71,9 +72,7 @@ use Illuminate\Support\Facades\Route;
 |--------------------------------------------------------------------------
 */
 
-Route::get('/', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+Route::get('/', [DashboardController::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard');
 
 
 /*
