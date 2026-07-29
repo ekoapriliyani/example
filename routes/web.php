@@ -54,6 +54,7 @@ use App\Http\Controllers\ProductRazorController;
 use App\Http\Controllers\ProductWmController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\SheetGalvanizeController;
 use App\Http\Controllers\ShipmentController;
@@ -106,7 +107,6 @@ Route::middleware(['auth'])->group(function () {
 
         Route::get('/profile', 'edit')->name('profile.edit');
         Route::patch('/profile', 'update')->name('profile.update');
-        Route::delete('/profile', 'destroy')->name('profile.destroy');
     });
 
 
@@ -946,6 +946,10 @@ Route::middleware([
 
     Route::patch('/outgoing/{id}/toggle-approval', [OutgoingController::class, 'toggleApproval'])
         ->name('outgoing.toggle');
+});
+
+Route::middleware(['role:administrator,manager'])->group(function () {
+    Route::resource('users', UserController::class)->except(['show']);
 });
 
 

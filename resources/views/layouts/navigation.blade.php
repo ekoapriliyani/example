@@ -109,7 +109,9 @@
                                 <x-dropdown-link :href="route('productct.index')">Product CTCL</x-dropdown-link>
                                 <x-dropdown-link :href="route('productrazor.index')">Product Razor</x-dropdown-link>
                                 <x-dropdown-link :href="route('project.index')">Project</x-dropdown-link>
-                                {{-- <x-dropdown-link :href="route('user.index')">User</x-dropdown-link> --}}
+                                @if (auth()->user()->hasAnyRole(['administrator', 'manager']))
+                                    <x-dropdown-link :href="route('users.index')">Users</x-dropdown-link>
+                                @endif
                             </x-slot>
                         </x-dropdown>
                     </div>
@@ -132,7 +134,6 @@
                             <x-slot name="content">
                                 <x-dropdown-link :href="route('pro.index')">PRO</x-dropdown-link>
                                 <x-dropdown-link :href="route('shipment.index')">Shipment</x-dropdown-link>
-                                {{-- <x-dropdown-link :href="route('user.index')">User</x-dropdown-link> --}}
                             </x-slot>
                         </x-dropdown>
                     </div>
@@ -221,6 +222,9 @@
                     <x-responsive-nav-link :href="route('productct.index')">Product CTCL</x-responsive-nav-link>
                     <x-responsive-nav-link :href="route('productrazor.index')">Product Razor</x-responsive-nav-link>
                     <x-responsive-nav-link :href="route('project.index')">Project</x-responsive-nav-link>
+                    @if (auth()->user()->hasAnyRole(['administrator', 'manager']))
+                        <x-responsive-nav-link :href="route('users.index')">Users</x-responsive-nav-link>
+                    @endif
                 </div>
 
                 <div class="border-t border-gray-200 pt-2">
