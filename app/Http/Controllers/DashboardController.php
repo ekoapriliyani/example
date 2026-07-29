@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 
 class DashboardController extends Controller
 {
@@ -149,5 +150,15 @@ class DashboardController extends Controller
         return view('dashboard', compact(
             'module', 'modules', 'config', 'totalInspeksi', 'pendingApproval', 'approved', 'pendingList'
         ));
+    }
+
+    public function syncPro()
+    {
+        $cmd = sprintf('php %s sync:pro-reference > /dev/null 2>&1 &', base_path('artisan'));
+        exec($cmd);
+
+        Cache::forever('last_sync_at', now()->toIso8601String());
+
+        return back()->with('success', 'Sync PRO Reference sedang diproses di background.');
     }
 }

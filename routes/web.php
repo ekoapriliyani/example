@@ -82,11 +82,8 @@ Route::get('/', [DashboardController::class, 'index'])->middleware(['auth', 'ver
 |--------------------------------------------------------------------------
 */
 
-Route::post('/sync-pro-reference', function () {
-    Artisan::call('sync:pro-reference');
-
-    return back()->with('success', Artisan::output());
-})->middleware(['auth'])->name('sync.pro.reference');
+Route::post('/sync-pro-reference', [DashboardController::class, 'syncPro'])
+    ->middleware(['auth'])->name('sync.pro.reference');
 
 
 /*

@@ -70,6 +70,40 @@
                 </div>
             </div>
 
+            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg border border-gray-200 p-4">
+                <div class="flex items-center justify-between">
+                    <div class="flex items-center gap-3">
+                        <div class="p-2 rounded-full bg-indigo-50 text-indigo-600">
+                            <svg class="size-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+                            </svg>
+                        </div>
+                        <div>
+                            <p class="text-sm font-semibold text-gray-700">Sync PRO Reference</p>
+                            <p class="text-xs text-gray-500">
+                                @php $lastSync = Cache::get('last_sync_at'); @endphp
+                                @if ($lastSync && is_string($lastSync))
+                                    Terakhir sync: {{ \Carbon\Carbon::parse($lastSync)->diffForHumans() }}
+                                @else
+                                    Belum pernah sync
+                                @endif
+                            </p>
+                        </div>
+                    </div>
+                    <form action="{{ route('sync.pro.reference') }}" method="POST">
+                        @csrf
+                        <button type="submit"
+                            onclick="this.disabled=true; this.innerText='Sync...'; this.form.submit()"
+                            class="inline-flex items-center gap-2 px-4 py-2 bg-indigo-600 text-white text-sm font-semibold rounded-md hover:bg-indigo-700 transition">
+                            <svg class="size-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+                            </svg>
+                            Sync Now
+                        </button>
+                    </form>
+                </div>
+            </div>
+
             @if ($pendingList->isNotEmpty())
                 <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg border border-gray-200">
                     <div class="p-6">

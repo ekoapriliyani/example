@@ -142,33 +142,47 @@
                                         <td class="px-4 py-3">{{ $loop->iteration }}</td>
                                         <td class="px-4 py-3">
                                             <div class="flex items-center justify-center gap-2">
-                                                <a href="{{ route('incomingbahanbaku.inspeksi.edit', ['incomingbahanbaku' => $incomingbahanbaku->id, 'inspeksi' => $inc->id]) }}"
-                                                    class="flex items-center justify-center rounded bg-yellow-50 p-2 text-yellow-700 hover:bg-yellow-100 transition">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4"
-                                                        fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                        <path stroke-linecap="round" stroke-linejoin="round"
-                                                            stroke-width="2"
-                                                            d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5" />
-                                                        <path stroke-linecap="round" stroke-linejoin="round"
-                                                            stroke-width="2"
-                                                            d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z" />
-                                                    </svg>
-                                                </a>
-                                                <form
-                                                    action="{{ route('incomingbahanbaku.inspeksi.destroy', $inc->id) }}"
-                                                    method="POST" class="form-delete inline">
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    <button type="submit"
-                                                        class="flex items-center justify-center rounded bg-red-50 p-2 text-red-700 hover:bg-red-100 transition">
+                                                @if ($isApproved)
+                                                    <span class="flex items-center justify-center rounded bg-gray-100 p-2 text-gray-400 cursor-not-allowed">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5" />
+                                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z" />
+                                                        </svg>
+                                                    </span>
+                                                    <span class="flex items-center justify-center rounded bg-gray-100 p-2 text-gray-400 cursor-not-allowed">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3" />
+                                                        </svg>
+                                                    </span>
+                                                @else
+                                                    <a href="{{ route('incomingbahanbaku.inspeksi.edit', ['incomingbahanbaku' => $incomingbahanbaku->id, 'inspeksi' => $inc->id]) }}"
+                                                        class="flex items-center justify-center rounded bg-yellow-50 p-2 text-yellow-700 hover:bg-yellow-100 transition">
                                                         <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4"
                                                             fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                             <path stroke-linecap="round" stroke-linejoin="round"
                                                                 stroke-width="2"
-                                                                d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3" />
+                                                                d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5" />
+                                                            <path stroke-linecap="round" stroke-linejoin="round"
+                                                                stroke-width="2"
+                                                                d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z" />
                                                         </svg>
-                                                    </button>
-                                                </form>
+                                                    </a>
+                                                    <form
+                                                        action="{{ route('incomingbahanbaku.inspeksi.destroy', $inc->id) }}"
+                                                        method="POST" class="form-delete inline">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <button type="submit"
+                                                            class="flex items-center justify-center rounded bg-red-50 p-2 text-red-700 hover:bg-red-100 transition">
+                                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4"
+                                                                fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                                <path stroke-linecap="round" stroke-linejoin="round"
+                                                                    stroke-width="2"
+                                                                    d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3" />
+                                                            </svg>
+                                                        </button>
+                                                    </form>
+                                                @endif
                                             </div>
                                         </td>
                                         <td class="px-4 py-3">{{ $inc->user->name ?? 'N/A' }}</td>
@@ -251,33 +265,47 @@
                                         <td class="px-4 py-3">{{ $loop->iteration }}</td>
                                         <td class="px-4 py-3">
                                             <div class="flex items-center justify-center gap-2">
-                                                <a href="{{ route('incomingbahanbaku.mechanical_test.edit', ['incomingbahanbaku' => $incomingbahanbaku->id, 'mechanicalTest' => $test->id]) }}"
-                                                    class="flex items-center justify-center rounded bg-yellow-50 p-2 text-yellow-700 hover:bg-yellow-100 transition">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4"
-                                                        fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                        <path stroke-linecap="round" stroke-linejoin="round"
-                                                            stroke-width="2"
-                                                            d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5" />
-                                                        <path stroke-linecap="round" stroke-linejoin="round"
-                                                            stroke-width="2"
-                                                            d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z" />
-                                                    </svg>
-                                                </a>
-                                                <form
-                                                    action="{{ route('incomingbahanbaku.mechanical_test.destroy', $test->id) }}"
-                                                    method="POST" class="form-delete inline">
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    <button type="submit"
-                                                        class="flex items-center justify-center rounded bg-red-50 p-2 text-red-700 hover:bg-red-100 transition">
+                                                @if ($isApproved)
+                                                    <span class="flex items-center justify-center rounded bg-gray-100 p-2 text-gray-400 cursor-not-allowed">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5" />
+                                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z" />
+                                                        </svg>
+                                                    </span>
+                                                    <span class="flex items-center justify-center rounded bg-gray-100 p-2 text-gray-400 cursor-not-allowed">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3" />
+                                                        </svg>
+                                                    </span>
+                                                @else
+                                                    <a href="{{ route('incomingbahanbaku.mechanical_test.edit', ['incomingbahanbaku' => $incomingbahanbaku->id, 'mechanicalTest' => $test->id]) }}"
+                                                        class="flex items-center justify-center rounded bg-yellow-50 p-2 text-yellow-700 hover:bg-yellow-100 transition">
                                                         <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4"
                                                             fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                             <path stroke-linecap="round" stroke-linejoin="round"
                                                                 stroke-width="2"
-                                                                d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3" />
+                                                                d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5" />
+                                                            <path stroke-linecap="round" stroke-linejoin="round"
+                                                                stroke-width="2"
+                                                                d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z" />
                                                         </svg>
-                                                    </button>
-                                                </form>
+                                                    </a>
+                                                    <form
+                                                        action="{{ route('incomingbahanbaku.mechanical_test.destroy', $test->id) }}"
+                                                        method="POST" class="form-delete inline">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <button type="submit"
+                                                            class="flex items-center justify-center rounded bg-red-50 p-2 text-red-700 hover:bg-red-100 transition">
+                                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4"
+                                                                fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                                <path stroke-linecap="round" stroke-linejoin="round"
+                                                                    stroke-width="2"
+                                                                    d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3" />
+                                                            </svg>
+                                                        </button>
+                                                    </form>
+                                                @endif
                                             </div>
                                         </td>
                                         <td class="px-4 py-3">
