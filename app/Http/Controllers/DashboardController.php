@@ -16,14 +16,14 @@ class DashboardController extends Controller
             'toggle_route' => 'inspeksi-wm.toggle',
         ],
         'wf' => [
-            'label' => 'Wiremesh Fence (WF)',
+            'label' => 'Wafios (WF)',
             'model' => \App\Models\InspeksiWf::class,
             'wip_relation' => 'inspeksiWfWip',
             'resource_prefix' => 'inspeksi_wf',
             'toggle_route' => 'inspeksi-wf.toggle',
         ],
         'ct' => [
-            'label' => 'Concertina (CT)',
+            'label' => 'CTCL',
             'model' => \App\Models\InspeksiCt::class,
             'wip_relation' => 'inspeksiCtWip',
             'resource_prefix' => 'inspeksi_ct',
@@ -142,13 +142,19 @@ class DashboardController extends Controller
             ->orderBy('tanggal', 'desc')
             ->get();
 
-        $modules = collect($this->modules)->map(fn ($m, $key) => [
+        $modules = collect($this->modules)->map(fn($m, $key) => [
             'key' => $key,
             'label' => $m['label'],
         ]);
 
         return view('dashboard', compact(
-            'module', 'modules', 'config', 'totalInspeksi', 'pendingApproval', 'approved', 'pendingList'
+            'module',
+            'modules',
+            'config',
+            'totalInspeksi',
+            'pendingApproval',
+            'approved',
+            'pendingList'
         ));
     }
 
