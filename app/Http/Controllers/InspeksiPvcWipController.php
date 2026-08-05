@@ -47,6 +47,8 @@ class InspeksiPvcWipController extends Controller
             'penyimpangan'       => 'required|numeric',
             'warna'    => 'required',
             'uji_lilit'    => 'required|in:OK,NG',
+            'uji_kerekatan' => 'nullable|numeric',
+            'elongation'   => 'nullable|numeric',
             'visual'    => 'required|in:OK,NG',
             'detail_name'       => 'nullable|array',
             'detail_name.*'     => 'nullable|string|max:255',
@@ -77,6 +79,8 @@ class InspeksiPvcWipController extends Controller
             'penyimpangan'    => $validated['penyimpangan'],
             'warna'    => $validated['warna'],
             'uji_lilit'    => $validated['uji_lilit'],
+            'uji_kerekatan' => $validated['uji_kerekatan'] ?? null,
+            'elongation'   => $validated['elongation'] ?? null,
             'visual'   => $validated['visual'],
         ]);
 
@@ -149,6 +153,8 @@ class InspeksiPvcWipController extends Controller
             'penyimpangan'       => 'required|numeric',
             'warna'       => 'required',
             'uji_lilit'       => 'required',
+            'uji_kerekatan' => 'nullable|numeric',
+            'elongation'    => 'nullable|numeric',
             'visual'    => 'required|in:OK,NG',
             'detail_name'       => 'nullable|array',
             'detail_name.*'     => 'nullable|string|max:255',
@@ -169,6 +175,8 @@ class InspeksiPvcWipController extends Controller
             'd_kawat_pvc' => $request->d_kawat_pvc,
             'warna' => $request->warna,
             'uji_lilit' => $request->uji_lilit,
+            'uji_kerekatan' => $request->uji_kerekatan,
+            'elongation' => $request->elongation,
             'visual' => $request->visual,
         ]);
         if ($request->hasFile('files')) {

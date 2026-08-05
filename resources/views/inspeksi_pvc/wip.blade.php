@@ -229,6 +229,31 @@
                                 </div>
 
                                 <div>
+                                    <x-input-label for="uji_kerekatan" :value="__('Uji Kerekatan')" />
+                                    <div class="relative mt-1">
+                                        <x-text-input id="uji_kerekatan" name="uji_kerekatan" type="number"
+                                            step="0.01" class="block w-full pr-12 py-3" :value="old('uji_kerekatan')"
+                                            placeholder="0.00" />
+                                        <div
+                                            class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3 text-sm text-gray-400">
+                                            kgf</div>
+                                    </div>
+                                    <x-input-error class="mt-2" :messages="$errors->get('uji_kerekatan')" />
+                                </div>
+
+                                <div>
+                                    <x-input-label for="elongation" :value="__('Elongation')" />
+                                    <div class="relative mt-1">
+                                        <x-text-input id="elongation" name="elongation" type="number" step="0.01"
+                                            class="block w-full pr-12 py-3" :value="old('elongation')" placeholder="0.00" />
+                                        <div
+                                            class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3 text-sm text-gray-400">
+                                            mm</div>
+                                    </div>
+                                    <x-input-error class="mt-2" :messages="$errors->get('elongation')" />
+                                </div>
+
+                                <div>
                                     <x-input-label for="visual" :value="__('Visual')" />
                                     <select id="visual" name="visual"
                                         class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500 py-3">

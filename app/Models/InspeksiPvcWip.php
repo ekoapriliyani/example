@@ -22,6 +22,8 @@ class InspeksiPvcWip extends Model
         'penyimpangan',
         'warna',
         'uji_lilit',
+        'uji_kerekatan',
+        'elongation',
         'visual',
         'files',
     ];

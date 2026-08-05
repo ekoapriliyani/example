@@ -123,6 +123,8 @@
                                     <th class="px-4 py-3 font-semibold text-gray-900">Penyimpangan</th>
                                     <th class="px-4 py-3 font-semibold text-gray-900">Warna</th>
                                     <th class="px-4 py-3 font-semibold text-gray-900">Uji Lilit</th>
+                                    <th class="px-4 py-3 font-semibold text-gray-900">Uji Kerekatan</th>
+                                    <th class="px-4 py-3 font-semibold text-gray-900">Elongation</th>
                                     <th class="px-4 py-3 font-semibold text-gray-900">Visual</th>
                                     <th class="px-4 py-3 font-semibold text-gray-900">Detail</th>
                                     <th class="px-4 py-3 font-semibold text-gray-900">Gambar</th>
@@ -213,6 +215,10 @@
                                         <td class="bg-blue-50/30 px-4 py-3 text-center">{{ $wip->penyimpangan }}</td>
                                         <td class="bg-blue-50/30 px-4 py-3 text-center">{{ $wip->warna }}</td>
                                         <td class="bg-blue-50/30 px-4 py-3 text-center">{{ $wip->uji_lilit }}</td>
+                                        <td class="bg-blue-50/30 px-4 py-3 text-center">{{ $wip->uji_kerekatan ?? '-' }}
+                                        </td>
+                                        <td class="bg-blue-50/30 px-4 py-3 text-center">{{ $wip->elongation ?? '-' }}
+                                        </td>
                                         <td class="bg-blue-50/30 px-4 py-3 text-center">{{ $wip->visual }}
                                         </td>
                                         <td class="px-4 py-3">
