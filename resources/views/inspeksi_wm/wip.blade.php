@@ -239,6 +239,8 @@
                                         <select id="detail_description_0" name="detail_description[]"
                                             class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
                                             <option value="">-- Pilih Detail --</option>
+                                            <option value="CW PENDEK">CW/LW PENDEK</option>
+                                            <option value="LW PENDEK">CW/LW PENDEK</option>
                                             <option value="CRACK/PEEL OFF/MENGELUPAS">CRACK/PEEL OFF/MENGELUPAS
                                             </option>
                                             <option value="CW/LW PENDEK">CW/LW PENDEK</option>
@@ -265,6 +267,8 @@
                                         <select id="detail_description2_0" name="detail_description2[]"
                                             class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
                                             <option value="">-- Pilih Detail --</option>
+                                            <option value="CW PENDEK">CW/LW PENDEK</option>
+                                            <option value="LW PENDEK">CW/LW PENDEK</option>
                                             <option value="CRACK/PEEL OFF/MENGELUPAS">CRACK/PEEL OFF/MENGELUPAS
                                             </option>
                                             <option value="CW/LW PENDEK">CW/LW PENDEK</option>
