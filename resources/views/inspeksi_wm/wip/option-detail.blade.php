@@ -3,7 +3,6 @@
         'CW PENDEK',
         'LW PENDEK',
         'CRACK/PEEL OFF/MENGELUPAS',
-        'CW/LW PENDEK',
         'DIAGONAL OUT',
         'DIAMETER OUT',
         'KARAT',

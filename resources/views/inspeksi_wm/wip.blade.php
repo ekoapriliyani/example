@@ -243,7 +243,6 @@
                                             <option value="LW PENDEK">LW PENDEK</option>
                                             <option value="CRACK/PEEL OFF/MENGELUPAS">CRACK/PEEL OFF/MENGELUPAS
                                             </option>
-                                            <option value="CW/LW PENDEK">CW/LW PENDEK</option>
                                             <option value="DIAGONAL OUT">DIAGONAL OUT</option>
                                             <option value="DIAMETER OUT">DIAMETER OUT</option>
                                             <option value="KARAT">KARAT</option>
@@ -271,7 +270,6 @@
                                             <option value="LW PENDEK">LW PENDEK</option>
                                             <option value="CRACK/PEEL OFF/MENGELUPAS">CRACK/PEEL OFF/MENGELUPAS
                                             </option>
-                                            <option value="CW/LW PENDEK">CW/LW PENDEK</option>
                                             <option value="DIAGONAL OUT">DIAGONAL OUT</option>
                                             <option value="DIAMETER OUT">DIAMETER OUT</option>
                                             <option value="KARAT">KARAT</option>
