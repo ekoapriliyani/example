@@ -51,13 +51,27 @@
                                     class="mt-1 block w-full" :value="old('p_produk', $wip->p_produk)" required />
                                 <x-input-error class="mt-2" :messages="$errors->get('p_produk')" />
                             </div>
-                            <div>
-                                <x-input-label for="l_produk" :value="__('L Produk')" />
-                                <x-text-input id="l_produk" name="l_produk" type="number" step="0.01"
-                                    class="mt-1 block w-full" :value="old('l_produk', $wip->l_produk)" required />
-                                <x-input-error class="mt-2" :messages="$errors->get('l_produk')" />
-                            </div>
+                        </div>
 
+                        {{-- SECTION L PRODUK (5 PENGECEKAN) --}}
+                        <div class="rounded-lg border border-indigo-100 bg-indigo-50/40 p-6">
+                            <h3 class="mb-4 font-semibold text-gray-700">
+                                L Produk
+                                <span class="text-xs font-normal text-gray-400">(5 Pengecekan)</span>
+                            </h3>
+                            <div class="grid grid-cols-1 gap-6 md:grid-cols-5">
+                                @for ($i = 1; $i <= 5; $i++)
+                                <div>
+                                    <x-input-label for="l_produk_{{ $i }}" :value="__('L Produk ' . $i)" />
+                                    <x-text-input id="l_produk_{{ $i }}" name="l_produk_{{ $i }}" type="number" step="0.01"
+                                        class="mt-1 block w-full" :value="old('l_produk_{{ $i }}', $wip->{'l_produk_' . $i})" />
+                                    <x-input-error class="mt-2" :messages="$errors->get('l_produk_{{ $i }}')" />
+                                </div>
+                                @endfor
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-3 gap-6 md:grid-cols-3">
                             <div>
                                 <x-input-label for="t_produk" :value="__('T Produk')" />
                                 <x-text-input id="t_produk" name="t_produk" type="number" step="0.01"

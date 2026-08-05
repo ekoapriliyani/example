@@ -136,7 +136,7 @@
                                     <th class="px-4 py-3 font-semibold text-gray-900">Operator</th>
                                     <th class="px-4 py-3 font-semibold text-gray-900">D Kawat Act</th>
                                     <th class="px-4 py-3 font-semibold text-gray-900">P Produk</th>
-                                    <th class="px-4 py-3 font-semibold text-gray-900">L Produk</th>
+                                    <th colspan="5" class="px-4 py-3 text-center font-semibold text-gray-900">L Produk</th>
                                     <th class="px-4 py-3 font-semibold text-gray-900">T Produk</th>
                                     <th class="px-4 py-3 font-semibold text-gray-900">Mesh 1</th>
                                     <th class="px-4 py-3 font-semibold text-gray-900">Mesh 2</th>
@@ -222,7 +222,11 @@
                                         <td class="px-4 py-3">{{ $wip->nama_operator }}</td>
                                         <td class="px-4 py-3">{{ $wip->d_kawat_act }}</td>
                                         <td class="bg-blue-50/30 px-4 py-3 text-center">{{ $wip->p_produk }}</td>
-                                        <td class="bg-blue-50/30 px-4 py-3 text-center">{{ $wip->l_produk }}</td>
+                                        <td class="bg-blue-50/30 px-4 py-3 text-center">{{ $wip->l_produk_1 }}</td>
+                                        <td class="bg-blue-50/30 px-4 py-3 text-center">{{ $wip->l_produk_2 }}</td>
+                                        <td class="bg-blue-50/30 px-4 py-3 text-center">{{ $wip->l_produk_3 }}</td>
+                                        <td class="bg-blue-50/30 px-4 py-3 text-center">{{ $wip->l_produk_4 }}</td>
+                                        <td class="bg-blue-50/30 px-4 py-3 text-center">{{ $wip->l_produk_5 }}</td>
                                         <td class="bg-blue-50/30 px-4 py-3 text-center">{{ $wip->t_produk }}</td>
                                         <td class="bg-blue-50/30 px-4 py-3 text-center">{{ $wip->mesh1 }}</td>
                                         <td class="bg-blue-50/30 px-4 py-3 text-center">{{ $wip->mesh2 }}</td>

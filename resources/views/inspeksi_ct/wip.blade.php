@@ -123,18 +123,33 @@
                                 </div>
                                 <x-input-error class="mt-2" :messages="$errors->get('p_produk')" />
                             </div>
-                            <div>
-                                <x-input-label for="l_produk" :value="__('Lebar Produk')" />
-                                <div class="relative mt-1">
-                                    <x-text-input id="l_produk" name="l_produk" type="number" step="0.01"
-                                        class="block w-full pr-12" :value="old('l_produk')" required placeholder="0.00" />
-                                    <div
-                                        class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3 text-sm text-gray-400">
-                                        mm
+                        </div>
+
+                        {{-- SECTION L PRODUK (5 PENGECEKAN) --}}
+                        <div class="rounded-lg border border-indigo-100 bg-indigo-50/40 p-6">
+                            <h3 class="mb-4 font-semibold text-gray-700">
+                                L Produk
+                                <span class="text-xs font-normal text-gray-400">(5 Pengecekan)</span>
+                            </h3>
+                            <div class="grid grid-cols-1 gap-6 md:grid-cols-5">
+                                @for ($i = 1; $i <= 5; $i++)
+                                <div>
+                                    <x-input-label for="l_produk_{{ $i }}" :value="__('L Produk ' . $i)" />
+                                    <div class="relative mt-1">
+                                        <x-text-input id="l_produk_{{ $i }}" name="l_produk_{{ $i }}" type="number" step="0.01"
+                                            class="block w-full pr-12" :value="old('l_produk_{{ $i }}')" placeholder="0.00" />
+                                        <div
+                                            class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3 text-sm text-gray-400">
+                                            mm
+                                        </div>
                                     </div>
+                                    <x-input-error class="mt-2" :messages="$errors->get('l_produk_{{ $i }}')" />
                                 </div>
-                                <x-input-error class="mt-2" :messages="$errors->get('l_produk')" />
+                                @endfor
                             </div>
+                        </div>
+
+                        <div class="grid grid-cols-1 gap-6 md:grid-cols-3">
                             <div>
                                 <x-input-label for="t_produk" :value="__('Tinggi Produk')" />
                                 <div class="relative mt-1">
