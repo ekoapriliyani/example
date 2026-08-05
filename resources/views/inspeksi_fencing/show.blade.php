@@ -293,6 +293,7 @@
                                 <tr>
                                     <th class="px-4 py-3 font-semibold text-gray-900">No</th>
                                     <th class="px-4 py-3 font-semibold text-gray-900">Aksi</th>
+                                    <th class="px-4 py-3 font-semibold text-gray-900">Lot Number</th>
                                     <th class="px-4 py-3 font-semibold text-gray-900">Inspektor</th>
                                     <th class="px-4 py-3 font-semibold text-gray-900">Type</th>
                                     <th class="px-4 py-3 font-semibold text-gray-900">Status</th>
@@ -381,7 +382,31 @@
                                                     </form>
                                                 @endif
 
+                                                {{-- QR Code --}}
+                                                @if ($fg->lot_number)
+                                                    <a href="{{ route('inspeksi_fencing_fg.qrcode', $fg->id) }}"
+                                                        target="_blank"
+                                                        class="inline-flex items-center rounded-md bg-blue-100 p-2 text-blue-600 transition hover:bg-blue-200"
+                                                        title="Cetak QR Code">
+
+                                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5"
+                                                            fill="none" viewBox="0 0 24 24" stroke="currentColor">
+
+                                                            <path stroke-linecap="round" stroke-linejoin="round"
+                                                                stroke-width="2"
+                                                                d="M12 4v1m6 11h2m-6 0h-2v4m0-11v3m0 0h.01M12 12h4.01M16 20h4M4 12h4m12 0h.01M5 8h2a1 1 0 001-1V5a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1zm12 0h2a1 1 0 001-1V5a1 1 0 00-1-1h-2a1 1 0 00-1 1v2a1 1 0 001 1zM5 20h2a1 1 0 001-1v-2a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1z" />
+                                                        </svg>
+                                                    </a>
+                                                @endif
+
                                             </div>
+                                        </td>
+                                        <td class="px-4 py-3 font-medium">
+                                            @if ($fg->lot_number)
+                                                <span class="text-blue-600">{{ $fg->lot_number }}</span>
+                                            @else
+                                                <span class="text-gray-400">-</span>
+                                            @endif
                                         </td>
                                         <td class="px-4 py-3 font-medium">{{ $fg->user->name }}</td>
                                         <td class="px-4 py-3">{{ $fg->type }}</td>

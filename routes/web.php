@@ -257,6 +257,10 @@ Route::middleware(['auth'])->group(function () {
     Route::delete('insepeksi_ct/fg/{fg}', [InspeksiCtFgController::class, 'destroy'])
         ->name('inspeksi_ct_fg.destroy');
 
+    // FG QR Code
+    Route::get('inspeksi_ct/fg/{fg}/qrcode', [InspeksiCtFgController::class, 'printQrcode'])
+        ->name('inspeksi_ct_fg.qrcode');
+
 
 
 
@@ -297,6 +301,10 @@ Route::middleware(['auth'])->group(function () {
 
     Route::delete('insepeksi_fencing/fg/{fg}', [InspeksiFencingFgController::class, 'destroy'])
         ->name('inspeksi_fencing_fg.destroy');
+
+    // FG QR Code
+    Route::get('inspeksi_fencing/fg/{fg}/qrcode', [InspeksiFencingFgController::class, 'printQrcode'])
+        ->name('inspeksi_fencing_fg.qrcode');
 
 
 

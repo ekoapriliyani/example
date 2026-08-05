@@ -2,12 +2,18 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\FencingFgLotNotification;
 use App\Models\InspeksiFencing;
 use App\Models\InspeksiFencingFg;
 use App\Models\InspeksiFencingFgDetail;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Storage;
+use chillerlan\QRCode\QRCode;
+use chillerlan\QRCode\QROptions;
 
 class InspeksiFencingFgController extends Controller
 {
@@ -90,6 +96,9 @@ class InspeksiFencingFgController extends Controller
                 ]);
             }
         }
+
+        $this->handleLotNumberAndNotify($fg);
+
         return redirect()->route('inspeksi_fencing.show', $validated['inspeksi_fencing_id'])
             ->with('success', 'Data FG berhasil disimpan.');
     }
@@ -201,6 +210,8 @@ class InspeksiFencingFgController extends Controller
             }
         }
 
+        $this->handleLotNumberAndNotify($fg);
+
         return redirect()
             ->route('inspeksi_fencing.show', $fg->inspeksi_fencing_id)
             ->with('success', 'Data FG berhasil diupdate.');
@@ -217,5 +228,73 @@ class InspeksiFencingFgController extends Controller
 
         return redirect()->route('inspeksi_fencing.show', $inspeksiFencingId)
             ->with('success', 'Data FG berhasil dihapus');
+    }
+
+    private function generateLotNumber(string $prefix): string
+    {
+        $tahunBulan = now()->format('Ym');
+        $prefixWithDate = "{$prefix}-{$tahunBulan}-";
+
+        return DB::transaction(function () use ($prefixWithDate) {
+            $maxSeq = DB::table('inspeksi_fencing_fgs')
+                ->where('lot_number', 'like', "{$prefixWithDate}%")
+                ->whereNotNull('lot_number')
+                ->lockForUpdate()
+                ->max(DB::raw("CAST(REPLACE(lot_number, '{$prefixWithDate}', '') AS UNSIGNED)"));
+
+            $nextNumber = ($maxSeq ?: 0) + 1;
+
+            return $prefixWithDate . str_pad($nextNumber, 5, '0', STR_PAD_LEFT);
+        });
+    }
+
+    private function handleLotNumberAndNotify(InspeksiFencingFg $fg): void
+    {
+        if (!in_array($fg->status, ['NG', 'REJECT']) || $fg->lot_number) {
+            return;
+        }
+
+        $prefix = $fg->status === 'NG' ? 'NG-FEN' : 'REJ-FEN';
+        $lotNumber = $this->generateLotNumber($prefix);
+
+        $fg->updateQuietly(['lot_number' => $lotNumber]);
+
+        $recipients = User::whereIn('role', [User::SUPERVISOR, User::MANAGER])->get();
+
+        Mail::to($recipients)->send(new FencingFgLotNotification($fg->fresh(['inspeksiFencing.pro', 'inspeksiFencing.mesin', 'user', 'details'])));
+    }
+
+    public function printQrcode(InspeksiFencingFg $fg)
+    {
+        $fg->load('inspeksiFencing.pro', 'details');
+
+        $qrContent = "Lot Number: {$fg->lot_number}\n"
+            . "No. Inspeksi: {$fg->inspeksiFencing->nomor_inspeksi}\n"
+            . "PRO: {$fg->inspeksiFencing->pro->pro_id}\n"
+            . "Desc: {$fg->inspeksiFencing->pro->description}\n"
+            . "Type: {$fg->type}\n"
+            . "Qty: {$fg->qty} | Weight: {$fg->weight} Kg\n"
+            . "Alasan:\n";
+
+        foreach ($fg->details as $d) {
+            $qrContent .= "- {$d->description}";
+            if ($d->description2) $qrContent .= " — {$d->description2}";
+            $qrContent .= "\n";
+        }
+
+        $options = new QROptions([
+            'scale' => 10,
+            'quietzoneSize' => 1,
+            'outputBase64' => false,
+            'svgAddXmlHeader' => false,
+        ]);
+        $qrSvg = (new QRCode($options))->render($qrContent);
+
+        return view('inspeksi_fencing.fg.qrcode', [
+            'fg' => $fg,
+            'qrSvg' => $qrSvg,
+            'inspeksiFencing' => $fg->inspeksiFencing,
+            'pro' => $fg->inspeksiFencing->pro,
+        ]);
     }
 }
