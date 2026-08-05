@@ -92,6 +92,10 @@
                     <td>{{ $namaMesin ?? '-' }}</td>
                 </tr>
                 <tr>
+                    <td>Shift</td>
+                    <td>{{ $shift ?? '-' }}</td>
+                </tr>
+                <tr>
                     <td>Status</td>
                     <td>{{ $status }}</td>
                 </tr>
