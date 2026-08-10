@@ -11,8 +11,10 @@
                 </a>
                 <button type="button" onclick="printInspeksi()"
                     class="inline-flex items-center gap-2 rounded-md border border-gray-300 bg-white px-4 py-2 text-xs font-semibold uppercase tracking-widest text-gray-700 shadow-sm transition duration-150 ease-in-out hover:bg-gray-50">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z" />
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24"
+                        stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                            d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z" />
                     </svg>
                     Cetak
                 </button>
@@ -375,8 +377,11 @@
                                                         target="_blank"
                                                         class="inline-flex items-center rounded-md bg-blue-100 p-2 text-blue-600 transition hover:bg-blue-200"
                                                         title="Cetak QR Code">
-                                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v1m6 11h2m-6 0h-2v4m0-11v3m0 0h.01M12 12h4.01M16 20h4M4 12h4m12 0h.01M5 8h2a1 1 0 001-1V5a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1zm12 0h2a1 1 0 001-1V5a1 1 0 00-1-1h-2a1 1 0 00-1 1v2a1 1 0 001 1zM5 20h2a1 1 0 001-1v-2a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1z" />
+                                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5"
+                                                            fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                            <path stroke-linecap="round" stroke-linejoin="round"
+                                                                stroke-width="2"
+                                                                d="M12 4v1m6 11h2m-6 0h-2v4m0-11v3m0 0h.01M12 12h4.01M16 20h4M4 12h4m12 0h.01M5 8h2a1 1 0 001-1V5a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1zm12 0h2a1 1 0 001-1V5a1 1 0 00-1-1h-2a1 1 0 00-1 1v2a1 1 0 001 1zM5 20h2a1 1 0 001-1v-2a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1z" />
                                                         </svg>
                                                     </a>
                                                 @endif
@@ -386,8 +391,11 @@
                                                         onclick="toggleHandling({{ $fg->id }})"
                                                         class="inline-flex items-center rounded-md bg-orange-100 p-2 text-orange-600 transition hover:bg-orange-200"
                                                         title="Handling">
-                                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+                                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5"
+                                                            fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                            <path stroke-linecap="round" stroke-linejoin="round"
+                                                                stroke-width="2"
+                                                                d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
                                                         </svg>
                                                     </button>
                                                 @endif
@@ -570,206 +578,229 @@
                             </div>
                         @endforeach
 
-        {{-- modal gambar wip --}}
-        @foreach ($inspeksi_wm->inspeksiWmWip as $wip)
-            <div id="image2-{{ $wip->id }}"
-                class="fixed inset-0 flex hidden items-center justify-center bg-gray-900 bg-opacity-50">
-                <div class="max-h-[80vh] w-3/4 overflow-y-auto rounded-lg bg-white p-6 shadow-lg">
-                    {{-- <h3 class="text-lg font-semibold mb-4">Gambar WIP: {{ $wip->batch_number }}</h3> --}}
+                        {{-- modal gambar wip --}}
+                        @foreach ($inspeksi_wm->inspeksiWmWip as $wip)
+                            <div id="image2-{{ $wip->id }}"
+                                class="fixed inset-0 flex hidden items-center justify-center bg-gray-900 bg-opacity-50">
+                                <div class="max-h-[80vh] w-3/4 overflow-y-auto rounded-lg bg-white p-6 shadow-lg">
+                                    {{-- <h3 class="text-lg font-semibold mb-4">Gambar WIP: {{ $wip->batch_number }}</h3> --}}
 
-                    @if ($wip->files)
-                        <div class="space-y-4">
-                            @foreach ($wip->files as $file)
-                                @php $ext = pathinfo($file, PATHINFO_EXTENSION); @endphp
+                                    @if ($wip->files)
+                                        <div class="space-y-4">
+                                            @foreach ($wip->files as $file)
+                                                @php $ext = pathinfo($file, PATHINFO_EXTENSION); @endphp
 
-                                @if (in_array($ext, ['jpg', 'jpeg', 'png']))
-                                    <img src="{{ asset('storage/' . $file) }}" alt="Wip Image"
-                                        class="max-h-64 w-full rounded border object-contain" />
-                                @else
-                                    <a href="{{ asset('storage/' . $file) }}" target="_blank"
-                                        class="block text-blue-600 hover:underline">
-                                        Lihat File ({{ strtoupper($ext) }})
-                                    </a>
-                                @endif
-                            @endforeach
-                        </div>
-                    @else
-                        <p class="italic text-gray-400">Tidak ada gambar diupload.</p>
-                    @endif
+                                                @if (in_array($ext, ['jpg', 'jpeg', 'png']))
+                                                    <img src="{{ asset('storage/' . $file) }}" alt="Wip Image"
+                                                        class="max-h-64 w-full rounded border object-contain" />
+                                                @else
+                                                    <a href="{{ asset('storage/' . $file) }}" target="_blank"
+                                                        class="block text-blue-600 hover:underline">
+                                                        Lihat File ({{ strtoupper($ext) }})
+                                                    </a>
+                                                @endif
+                                            @endforeach
+                                        </div>
+                                    @else
+                                        <p class="italic text-gray-400">Tidak ada gambar diupload.</p>
+                                    @endif
 
-                    <div class="mt-4 text-right">
-                        <button onclick="toggleImage2({{ $wip->id }})"
-                            class="rounded bg-gray-200 px-4 py-2 hover:bg-gray-300">
-                            Tutup
-                        </button>
-                    </div>
-                </div>
-            </div>
-        @endforeach
+                                    <div class="mt-4 text-right">
+                                        <button onclick="toggleImage2({{ $wip->id }})"
+                                            class="rounded bg-gray-200 px-4 py-2 hover:bg-gray-300">
+                                            Tutup
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        @endforeach
 
-        {{-- modal handling fg --}}
-        @foreach ($inspeksi_wm->inspeksiWmFg as $fg)
-            @if (in_array($fg->status, ['NG', 'REJECT']))
-                <div id="handling-{{ $fg->id }}"
-                    class="fixed inset-0 flex hidden items-center justify-center bg-gray-900 bg-opacity-50 z-50">
-                    <div class="max-h-[90vh] w-3/4 overflow-y-auto rounded-lg bg-white p-6 shadow-lg">
-                        <div class="mb-4 flex items-center justify-between border-b pb-3">
-                            <h3 class="text-lg font-semibold">
-                                Handling Lot: <span class="text-blue-600">{{ $fg->lot_number }}</span>
-                            </h3>
-                            <button onclick="toggleHandling({{ $fg->id }})"
-                                class="rounded bg-gray-200 px-3 py-1 text-sm hover:bg-gray-300">
-                                Tutup
-                            </button>
-                        </div>
+                        {{-- modal handling fg --}}
+                        @foreach ($inspeksi_wm->inspeksiWmFg as $fg)
+                            @if (in_array($fg->status, ['NG', 'REJECT']))
+                                <div id="handling-{{ $fg->id }}"
+                                    class="fixed inset-0 flex hidden items-center justify-center bg-gray-900 bg-opacity-50 z-50">
+                                    <div class="max-h-[90vh] w-3/4 overflow-y-auto rounded-lg bg-white p-6 shadow-lg">
+                                        <div class="mb-4 flex items-center justify-between border-b pb-3">
+                                            <h3 class="text-lg font-semibold">
+                                                Handling Lot: <span class="text-blue-600">{{ $fg->lot_number }}</span>
+                                            </h3>
+                                            <button onclick="toggleHandling({{ $fg->id }})"
+                                                class="rounded bg-gray-200 px-3 py-1 text-sm hover:bg-gray-300">
+                                                Tutup
+                                            </button>
+                                        </div>
 
-                        {{-- Info Lot --}}
-                        <div class="mb-4 grid grid-cols-4 gap-4 rounded bg-gray-50 p-3 text-sm">
-                            <div><span class="font-semibold">Status:</span> {{ $fg->status }}</div>
-                            <div><span class="font-semibold">Qty:</span> {{ $fg->qty }}</div>
-                            <div><span class="font-semibold">Weight:</span> {{ $fg->weight }} Kg</div>
-                            <div><span class="font-semibold">Lot:</span> {{ $fg->lot_number }}</div>
-                        </div>
+                                        {{-- Info Lot --}}
+                                        <div class="mb-4 grid grid-cols-4 gap-4 rounded bg-gray-50 p-3 text-sm">
+                                            <div><span class="font-semibold">Status:</span> {{ $fg->status }}</div>
+                                            <div><span class="font-semibold">Qty:</span> {{ $fg->qty }}</div>
+                                            <div><span class="font-semibold">Weight:</span> {{ $fg->weight }} Kg
+                                            </div>
+                                            <div><span class="font-semibold">Lot:</span> {{ $fg->lot_number }}</div>
+                                        </div>
 
-                        {{-- Riwayat Handling --}}
-                        @if ($fg->handlings->isNotEmpty())
-                            <div class="mb-4">
-                                <h4 class="mb-2 text-sm font-semibold text-gray-700">Riwayat Handling</h4>
-                                <div class="overflow-x-auto rounded border">
-                                    <table class="min-w-full divide-y divide-gray-200 text-left text-xs">
-                                        <thead class="bg-gray-50">
-                                            <tr>
-                                                <th class="px-3 py-2">Tanggal</th>
-                                                <th class="px-3 py-2">User</th>
-                                                <th class="px-3 py-2">Catatan</th>
-                                                <th class="px-3 py-2">Status</th>
-                                                <th class="px-3 py-2">Qty</th>
-                                                <th class="px-3 py-2">Weight</th>
-                                                <th class="px-3 py-2">Aksi</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody class="divide-y divide-gray-200">
-                                            @foreach ($fg->handlings as $handling)
-                                                @foreach ($handling->details as $detail)
-                                                    <tr class="hover:bg-gray-50">
-                                                        <td class="px-3 py-2">{{ $handling->tanggal }}</td>
-                                                        <td class="px-3 py-2">{{ $handling->user->name }}</td>
-                                                        <td class="px-3 py-2 max-w-[150px] truncate">{{ $handling->catatan ?? '-' }}</td>
-                                                        <td class="px-3 py-2">
-                                                            <span class="rounded px-2 py-0.5 text-xs font-medium
+                                        {{-- Riwayat Handling --}}
+                                        @if ($fg->handlings->isNotEmpty())
+                                            <div class="mb-4">
+                                                <h4 class="mb-2 text-sm font-semibold text-gray-700">Riwayat Handling
+                                                </h4>
+                                                <div class="overflow-x-auto rounded border">
+                                                    <table
+                                                        class="min-w-full divide-y divide-gray-200 text-left text-xs">
+                                                        <thead class="bg-gray-50">
+                                                            <tr>
+                                                                <th class="px-3 py-2">Tanggal</th>
+                                                                <th class="px-3 py-2">User</th>
+                                                                <th class="px-3 py-2">Catatan</th>
+                                                                <th class="px-3 py-2">Status</th>
+                                                                <th class="px-3 py-2">Qty</th>
+                                                                <th class="px-3 py-2">Weight</th>
+                                                                <th class="px-3 py-2">Aksi</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody class="divide-y divide-gray-200">
+                                                            @foreach ($fg->handlings as $handling)
+                                                                @foreach ($handling->details as $detail)
+                                                                    <tr class="hover:bg-gray-50">
+                                                                        <td class="px-3 py-2">{{ $handling->tanggal }}
+                                                                        </td>
+                                                                        <td class="px-3 py-2">
+                                                                            {{ $handling->user->name }}</td>
+                                                                        <td class="px-3 py-2 max-w-[150px] truncate">
+                                                                            {{ $handling->catatan ?? '-' }}</td>
+                                                                        <td class="px-3 py-2">
+                                                                            <span
+                                                                                class="rounded px-2 py-0.5 text-xs font-medium
                                                                 {{ $detail->status === 'OK' ? 'bg-green-100 text-green-800' : '' }}
                                                                 {{ $detail->status === 'NG' ? 'bg-yellow-100 text-yellow-800' : '' }}
                                                                 {{ $detail->status === 'REJECT' ? 'bg-red-100 text-red-800' : '' }}
                                                                 {{ $detail->status === 'REPAIR' ? 'bg-blue-100 text-blue-800' : '' }}
                                                                 {{ $detail->status === 'SCRAP' ? 'bg-gray-100 text-gray-800' : '' }}
                                                                 {{ $detail->status === 'DOWNGRADE' ? 'bg-purple-100 text-purple-800' : '' }}">
-                                                                {{ $detail->status }}
-                                                            </span>
-                                                        </td>
-                                                        <td class="px-3 py-2">{{ $detail->qty }}</td>
-                                                        <td class="px-3 py-2">{{ $detail->weight }} Kg</td>
-                                                        <td class="px-3 py-2">
-                                                            @if ($loop->first)
-                                                                <form action="{{ route('inspeksi_wm_fg_handling.destroy', [$fg->id, $handling->id]) }}"
-                                                                    method="POST"
-                                                                    onsubmit="return confirm('Hapus handling ini?');">
-                                                                    @csrf @method('DELETE')
-                                                                    <button type="submit" class="text-red-600 hover:underline">Hapus</button>
-                                                                </form>
-                                                            @endif
-                                                        </td>
-                                                    </tr>
-                                                @endforeach
-                                            @endforeach
-                                        </tbody>
-                                    </table>
+                                                                                {{ $detail->status }}
+                                                                            </span>
+                                                                        </td>
+                                                                        <td class="px-3 py-2">{{ $detail->qty }}</td>
+                                                                        <td class="px-3 py-2">{{ $detail->weight }} Kg
+                                                                        </td>
+                                                                        <td class="px-3 py-2">
+                                                                            @if ($loop->first)
+                                                                                <form
+                                                                                    action="{{ route('inspeksi_wm_fg_handling.destroy', [$fg->id, $handling->id]) }}"
+                                                                                    method="POST"
+                                                                                    onsubmit="return confirm('Hapus handling ini?');">
+                                                                                    @csrf @method('DELETE')
+                                                                                    <button type="submit"
+                                                                                        class="text-red-600 hover:underline">Hapus</button>
+                                                                                </form>
+                                                                            @endif
+                                                                        </td>
+                                                                    </tr>
+                                                                @endforeach
+                                                            @endforeach
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        @endif
+
+                                        {{-- Form Handling Baru --}}
+                                        <form action="{{ route('inspeksi_wm_fg_handling.store', $fg->id) }}"
+                                            method="POST">
+                                            @csrf
+                                            <div class="mb-3 grid grid-cols-2 gap-3">
+                                                <div>
+                                                    <label
+                                                        class="block text-sm font-medium text-gray-700">Tanggal</label>
+                                                    <input type="date" name="tanggal" value="{{ date('Y-m-d') }}"
+                                                        required
+                                                        class="mt-1 block w-full rounded border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 text-sm">
+                                                </div>
+                                                <div>
+                                                    <label
+                                                        class="block text-sm font-medium text-gray-700">Catatan</label>
+                                                    <input type="text" name="catatan" placeholder="Opsional"
+                                                        class="mt-1 block w-full rounded border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 text-sm">
+                                                </div>
+                                            </div>
+
+                                            <div class="mb-3 flex items-center justify-between">
+                                                <h4 class="text-sm font-semibold text-gray-700">Detail Handling</h4>
+                                                <button type="button" onclick="addHandlingRow({{ $fg->id }})"
+                                                    class="inline-flex items-center gap-1 rounded bg-indigo-100 px-3 py-1 text-xs font-medium text-indigo-700 hover:bg-indigo-200">
+                                                    + Tambah Baris
+                                                </button>
+                                            </div>
+
+                                            <div class="overflow-x-auto rounded border">
+                                                <table class="min-w-full divide-y divide-gray-200 text-left text-sm">
+                                                    <thead class="bg-gray-50">
+                                                        <tr>
+                                                            <th class="px-3 py-2 text-xs font-semibold text-gray-700">
+                                                                Status</th>
+                                                            <th class="px-3 py-2 text-xs font-semibold text-gray-700">
+                                                                Qty</th>
+                                                            <th class="px-3 py-2 text-xs font-semibold text-gray-700">
+                                                                Weight (Kg)</th>
+                                                            <th class="px-3 py-2 text-xs font-semibold text-gray-700">
+                                                                Aksi</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody id="handling-details-{{ $fg->id }}"
+                                                        class="divide-y divide-gray-200">
+                                                        <tr class="handling-row">
+                                                            <td class="px-3 py-2">
+                                                                <select name="details[0][status]" required
+                                                                    class="block w-full rounded border-gray-300 text-sm focus:border-indigo-500 focus:ring-indigo-500">
+                                                                    <option value="">Pilih Status</option>
+                                                                    <option value="OK">OK</option>
+                                                                    <option value="NG">NG</option>
+                                                                    <option value="REJECT">REJECT</option>
+                                                                    <option value="REPAIR">REPAIR</option>
+                                                                    <option value="SCRAP">SCRAP</option>
+                                                                    <option value="DOWNGRADE">DOWNGRADE</option>
+                                                                </select>
+                                                            </td>
+                                                            <td class="px-3 py-2">
+                                                                <input type="number" name="details[0][qty]"
+                                                                    min="0" value="0" required
+                                                                    class="block w-24 rounded border-gray-300 text-sm focus:border-indigo-500 focus:ring-indigo-500">
+                                                            </td>
+                                                            <td class="px-3 py-2">
+                                                                <input type="number" name="details[0][weight]"
+                                                                    min="0" step="0.01" value="0"
+                                                                    required
+                                                                    class="block w-28 rounded border-gray-300 text-sm focus:border-indigo-500 focus:ring-indigo-500">
+                                                            </td>
+                                                            <td class="px-3 py-2">
+                                                                <button type="button"
+                                                                    onclick="this.closest('tr').remove()"
+                                                                    class="text-red-600 hover:underline text-xs">Hapus</button>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+
+                                            <div class="mt-4 flex justify-end gap-2">
+                                                <button type="button" onclick="toggleHandling({{ $fg->id }})"
+                                                    class="rounded border border-gray-300 bg-white px-4 py-2 text-sm text-gray-700 hover:bg-gray-50">
+                                                    Batal
+                                                </button>
+                                                <button type="submit"
+                                                    class="rounded bg-orange-600 px-4 py-2 text-sm text-white hover:bg-orange-700">
+                                                    Simpan Handling
+                                                </button>
+                                            </div>
+                                        </form>
+                                    </div>
                                 </div>
-                            </div>
-                        @endif
-
-                        {{-- Form Handling Baru --}}
-                        <form action="{{ route('inspeksi_wm_fg_handling.store', $fg->id) }}" method="POST">
-                            @csrf
-                            <div class="mb-3 grid grid-cols-2 gap-3">
-                                <div>
-                                    <label class="block text-sm font-medium text-gray-700">Tanggal</label>
-                                    <input type="date" name="tanggal" value="{{ date('Y-m-d') }}" required
-                                        class="mt-1 block w-full rounded border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 text-sm">
-                                </div>
-                                <div>
-                                    <label class="block text-sm font-medium text-gray-700">Catatan</label>
-                                    <input type="text" name="catatan" placeholder="Opsional"
-                                        class="mt-1 block w-full rounded border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 text-sm">
-                                </div>
-                            </div>
-
-                            <div class="mb-3 flex items-center justify-between">
-                                <h4 class="text-sm font-semibold text-gray-700">Detail Handling</h4>
-                                <button type="button" onclick="addHandlingRow({{ $fg->id }})"
-                                    class="inline-flex items-center gap-1 rounded bg-indigo-100 px-3 py-1 text-xs font-medium text-indigo-700 hover:bg-indigo-200">
-                                    + Tambah Baris
-                                </button>
-                            </div>
-
-                            <div class="overflow-x-auto rounded border">
-                                <table class="min-w-full divide-y divide-gray-200 text-left text-sm">
-                                    <thead class="bg-gray-50">
-                                        <tr>
-                                            <th class="px-3 py-2 text-xs font-semibold text-gray-700">Status</th>
-                                            <th class="px-3 py-2 text-xs font-semibold text-gray-700">Qty</th>
-                                            <th class="px-3 py-2 text-xs font-semibold text-gray-700">Weight (Kg)</th>
-                                            <th class="px-3 py-2 text-xs font-semibold text-gray-700">Aksi</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody id="handling-details-{{ $fg->id }}" class="divide-y divide-gray-200">
-                                        <tr class="handling-row">
-                                            <td class="px-3 py-2">
-                                                <select name="details[0][status]" required
-                                                    class="block w-full rounded border-gray-300 text-sm focus:border-indigo-500 focus:ring-indigo-500">
-                                                    <option value="">Pilih Status</option>
-                                                    <option value="OK">OK</option>
-                                                    <option value="NG">NG</option>
-                                                    <option value="REJECT">REJECT</option>
-                                                    <option value="REPAIR">REPAIR</option>
-                                                    <option value="SCRAP">SCRAP</option>
-                                                    <option value="DOWNGRADE">DOWNGRADE</option>
-                                                </select>
-                                            </td>
-                                            <td class="px-3 py-2">
-                                                <input type="number" name="details[0][qty]" min="0" value="0" required
-                                                    class="block w-24 rounded border-gray-300 text-sm focus:border-indigo-500 focus:ring-indigo-500">
-                                            </td>
-                                            <td class="px-3 py-2">
-                                                <input type="number" name="details[0][weight]" min="0" step="0.01" value="0" required
-                                                    class="block w-28 rounded border-gray-300 text-sm focus:border-indigo-500 focus:ring-indigo-500">
-                                            </td>
-                                            <td class="px-3 py-2">
-                                                <button type="button" onclick="this.closest('tr').remove()"
-                                                    class="text-red-600 hover:underline text-xs">Hapus</button>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-
-                            <div class="mt-4 flex justify-end gap-2">
-                                <button type="button" onclick="toggleHandling({{ $fg->id }})"
-                                    class="rounded border border-gray-300 bg-white px-4 py-2 text-sm text-gray-700 hover:bg-gray-50">
-                                    Batal
-                                </button>
-                                <button type="submit"
-                                    class="rounded bg-orange-600 px-4 py-2 text-sm text-white hover:bg-orange-700">
-                                    Simpan Handling
-                                </button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            @endif
-        @endforeach
-                    </div>  {{-- End overflow-x-auto --}}
-                </div>  {{-- End p-6 --}}
-            </div>  {{-- End FG card --}}
+                            @endif
+                        @endforeach
+                    </div> {{-- End overflow-x-auto --}}
+                </div> {{-- End p-6 --}}
+            </div> {{-- End FG card --}}
 
             {{-- section approval --}}
             <div class="overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-sm">
@@ -837,7 +868,7 @@
                 </div>
             </div>
         </div>
-        </div>
+    </div>
     </div>
 
     {{-- ==================== PRINT SECTION ==================== --}}
@@ -847,19 +878,23 @@
                 size: landscape;
                 margin: 10mm;
             }
+
             body * {
                 visibility: hidden;
             }
+
             #print-section,
             #print-section * {
                 visibility: visible;
             }
+
             #print-section {
                 position: absolute;
                 left: 0;
                 top: 0;
                 width: 100%;
             }
+
             #print-section.hidden {
                 display: block !important;
             }
@@ -867,16 +902,21 @@
     </style>
     <div id="print-section" class="hidden">
         {{-- Header --}}
-        <table width="100%" cellpadding="5" cellspacing="0" style="border-collapse: collapse; margin-bottom: 10px;">
+        <table width="100%" cellpadding="5" cellspacing="0"
+            style="border-collapse: collapse; margin-bottom: 10px;">
             <tr>
-                <td style="width: 70%; vertical-align: top;">
-                    <h1 style="font-size: 18pt; font-weight: bold; margin: 0; font-family: Arial, sans-serif;">LAPORAN INSPEKSI WIREMESH</h1>
+                <td style="width: 20%; vertical-align: middle;">
+                    <img src="{{ asset('img/logobeva.png') }}" alt="Logo" style="height: 60px; width: auto;" />
                 </td>
-                <td style="width: 30%; vertical-align: top; text-align: right; font-family: Arial, sans-serif; font-size: 11pt;">
+                <td style="width: 60%; vertical-align: middle; text-align: center;">
+                    <h1 style="font-size: 18pt; font-weight: bold; margin: 0; font-family: Arial, sans-serif;">LAPORAN
+                        INSPEKSI HARIAN WIREMESH</h1>
+                </td>
+                <td
+                    style="width: 20%; vertical-align: top; text-align: right; font-family: Arial, sans-serif; font-size: 11pt;">
                     <table cellpadding="3" cellspacing="0" style="border: 1px solid #000; margin-left: auto;">
                         <tr>
-                            <td style="font-size: 10pt;">Dokumen No.</td>
-                            <td style="font-weight: bold; font-size: 10pt;">: BM-F-QC-11 R00</td>
+                            <td style="font-weight: bold; font-size: 10pt;">BM-F-QC-11 R00</td>
                         </tr>
                     </table>
                 </td>
@@ -886,7 +926,8 @@
         <hr style="border: 1px solid #000; margin-bottom: 15px;">
 
         {{-- Data Header --}}
-        <table width="100%" cellpadding="5" cellspacing="0" style="border-collapse: collapse; margin-bottom: 20px; font-family: Arial, sans-serif; font-size: 11pt;">
+        <table width="100%" cellpadding="5" cellspacing="0"
+            style="border-collapse: collapse; margin-bottom: 20px; font-family: Arial, sans-serif; font-size: 11pt;">
             <tr>
                 <td style="width: 20%; font-weight: bold;">Tanggal</td>
                 <td style="width: 30%;">: {{ now()->format('d/m/Y') }}</td>
@@ -921,51 +962,74 @@
 
         {{-- Tabel WIP --}}
         <div style="margin-bottom: 20px;">
-            <h3 style="font-family: Arial, sans-serif; font-size: 12pt; font-weight: bold; margin-bottom: 8px;">Hasil Inspeksi WIP</h3>
-            <table width="100%" cellpadding="4" cellspacing="0" style="border-collapse: collapse; font-family: Arial, sans-serif; font-size: 9pt; border: 1px solid #000;">
+            <h3 style="font-family: Arial, sans-serif; font-size: 12pt; font-weight: bold; margin-bottom: 8px;">Hasil
+                Inspeksi WIP</h3>
+            <table width="100%" cellpadding="4" cellspacing="0"
+                style="border-collapse: collapse; font-family: Arial, sans-serif; font-size: 9pt; border: 1px solid #000;">
                 <thead>
                     <tr style="background-color: #f0f0f0;">
                         <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 3%;">No</th>
                         <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 8%;">Inspektor</th>
-                        <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 8%;">No. Material</th>
+                        <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 8%;">No. Material
+                        </th>
                         <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 8%;">Operator</th>
-                        <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 6%;">D. Kawat Act</th>
-                        <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 6%;">Selisih Diagonal</th>
+                        <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 6%;">D. Kawat Act
+                        </th>
+                        <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 6%;">Selisih
+                            Diagonal</th>
                         <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 6%;">P Produk</th>
                         <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 6%;">L Produk</th>
                         <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 6%;">P Mesh</th>
                         <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 6%;">L Mesh</th>
-                        <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 7%;">Torsi Strength</th>
+                        <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 7%;">Torsi Strength
+                        </th>
                         <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 6%;">Dimensi</th>
                         <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 6%;">Visual</th>
-                        <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 7%;">Shear Strength</th>
+                        <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 7%;">Shear Strength
+                        </th>
                         <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 5%;">Weight</th>
-                        <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 8%;">Created At</th>
+                        <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 8%;">Created At
+                        </th>
                     </tr>
                 </thead>
                 <tbody>
                     @forelse ($inspeksi_wm->inspeksiWmWip as $wip)
                         <tr>
-                            <td style="border: 1px solid #000; padding: 4px; text-align: center;">{{ $loop->iteration }}</td>
+                            <td style="border: 1px solid #000; padding: 4px; text-align: center;">
+                                {{ $loop->iteration }}</td>
                             <td style="border: 1px solid #000; padding: 4px;">{{ $wip->user->name ?? 'N/A' }}</td>
                             <td style="border: 1px solid #000; padding: 4px;">{{ $wip->no_material }}</td>
                             <td style="border: 1px solid #000; padding: 4px;">{{ $wip->nama_operator }}</td>
-                            <td style="border: 1px solid #000; padding: 4px; text-align: center;">{{ $wip->d_kawat_act }}</td>
-                            <td style="border: 1px solid #000; padding: 4px; text-align: center;">{{ $wip->selisih_diagonal }}</td>
-                            <td style="border: 1px solid #000; padding: 4px; text-align: center;">{{ $wip->p_product_act }}</td>
-                            <td style="border: 1px solid #000; padding: 4px; text-align: center;">{{ $wip->l_product_act }}</td>
-                            <td style="border: 1px solid #000; padding: 4px; text-align: center;">{{ $wip->p_mesh_act }}</td>
-                            <td style="border: 1px solid #000; padding: 4px; text-align: center;">{{ $wip->l_mesh_act }}</td>
-                            <td style="border: 1px solid #000; padding: 4px; text-align: center;">{{ $wip->torsi_strength }}</td>
-                            <td style="border: 1px solid #000; padding: 4px; text-align: center;">{{ $wip->status_dimensi }}</td>
-                            <td style="border: 1px solid #000; padding: 4px; text-align: center;">{{ $wip->visual }}</td>
-                            <td style="border: 1px solid #000; padding: 4px; text-align: center;">{{ $wip->shear_strength }}</td>
-                            <td style="border: 1px solid #000; padding: 4px; text-align: center;">{{ $wip->weight }}</td>
-                            <td style="border: 1px solid #000; padding: 4px; text-align: center;">{{ $wip->created_at->format('d/m/Y') }}</td>
+                            <td style="border: 1px solid #000; padding: 4px; text-align: center;">
+                                {{ $wip->d_kawat_act }}</td>
+                            <td style="border: 1px solid #000; padding: 4px; text-align: center;">
+                                {{ $wip->selisih_diagonal }}</td>
+                            <td style="border: 1px solid #000; padding: 4px; text-align: center;">
+                                {{ $wip->p_product_act }}</td>
+                            <td style="border: 1px solid #000; padding: 4px; text-align: center;">
+                                {{ $wip->l_product_act }}</td>
+                            <td style="border: 1px solid #000; padding: 4px; text-align: center;">
+                                {{ $wip->p_mesh_act }}</td>
+                            <td style="border: 1px solid #000; padding: 4px; text-align: center;">
+                                {{ $wip->l_mesh_act }}</td>
+                            <td style="border: 1px solid #000; padding: 4px; text-align: center;">
+                                {{ $wip->torsi_strength }}</td>
+                            <td style="border: 1px solid #000; padding: 4px; text-align: center;">
+                                {{ $wip->status_dimensi }}</td>
+                            <td style="border: 1px solid #000; padding: 4px; text-align: center;">{{ $wip->visual }}
+                            </td>
+                            <td style="border: 1px solid #000; padding: 4px; text-align: center;">
+                                {{ $wip->shear_strength }}</td>
+                            <td style="border: 1px solid #000; padding: 4px; text-align: center;">{{ $wip->weight }}
+                            </td>
+                            <td style="border: 1px solid #000; padding: 4px; text-align: center;">
+                                {{ $wip->created_at->format('d/m/Y') }}</td>
                         </tr>
                     @empty
                         <tr>
-                            <td colspan="16" style="border: 1px solid #000; padding: 8px; text-align: center; font-style: italic;">Belum ada data WIP</td>
+                            <td colspan="16"
+                                style="border: 1px solid #000; padding: 8px; text-align: center; font-style: italic;">
+                                Belum ada data WIP</td>
                         </tr>
                     @endforelse
                 </tbody>
@@ -974,37 +1038,49 @@
 
         {{-- Tabel FG --}}
         <div style="margin-bottom: 20px;">
-            <h3 style="font-family: Arial, sans-serif; font-size: 12pt; font-weight: bold; margin-bottom: 8px;">Hasil Inspeksi Finished Goods (FG)</h3>
-            <table width="100%" cellpadding="4" cellspacing="0" style="border-collapse: collapse; font-family: Arial, sans-serif; font-size: 9pt; border: 1px solid #000;">
+            <h3 style="font-family: Arial, sans-serif; font-size: 12pt; font-weight: bold; margin-bottom: 8px;">Hasil
+                Inspeksi Finished Goods (FG)</h3>
+            <table width="100%" cellpadding="4" cellspacing="0"
+                style="border-collapse: collapse; font-family: Arial, sans-serif; font-size: 9pt; border: 1px solid #000;">
                 <thead>
                     <tr style="background-color: #f0f0f0;">
                         <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 5%;">No</th>
-                        <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 12%;">Lot Number</th>
-                        <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 12%;">Inspektor</th>
+                        <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 12%;">Lot Number
+                        </th>
+                        <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 12%;">Inspektor
+                        </th>
                         <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 10%;">Status</th>
                         <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 10%;">Quantity</th>
                         <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 10%;">Weight</th>
                         <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 10%;">Packing</th>
                         <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 10%;">Label</th>
-                        <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 12%;">Created At</th>
+                        <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 12%;">Created At
+                        </th>
                     </tr>
                 </thead>
                 <tbody>
                     @forelse ($inspeksi_wm->inspeksiWmFg as $fg)
                         <tr>
-                            <td style="border: 1px solid #000; padding: 4px; text-align: center;">{{ $loop->iteration }}</td>
+                            <td style="border: 1px solid #000; padding: 4px; text-align: center;">
+                                {{ $loop->iteration }}</td>
                             <td style="border: 1px solid #000; padding: 4px;">{{ $fg->lot_number ?? '-' }}</td>
                             <td style="border: 1px solid #000; padding: 4px;">{{ $fg->user->name }}</td>
-                            <td style="border: 1px solid #000; padding: 4px; text-align: center;">{{ $fg->status }}</td>
-                            <td style="border: 1px solid #000; padding: 4px; text-align: center;">{{ $fg->qty }}</td>
-                            <td style="border: 1px solid #000; padding: 4px; text-align: center;">{{ $fg->weight }} Kg</td>
+                            <td style="border: 1px solid #000; padding: 4px; text-align: center;">{{ $fg->status }}
+                            </td>
+                            <td style="border: 1px solid #000; padding: 4px; text-align: center;">{{ $fg->qty }}
+                            </td>
+                            <td style="border: 1px solid #000; padding: 4px; text-align: center;">{{ $fg->weight }}
+                                Kg</td>
                             <td style="border: 1px solid #000; padding: 4px;">{{ $fg->packing }}</td>
                             <td style="border: 1px solid #000; padding: 4px;">{{ $fg->label }}</td>
-                            <td style="border: 1px solid #000; padding: 4px; text-align: center;">{{ $fg->created_at->format('d/m/Y') }}</td>
+                            <td style="border: 1px solid #000; padding: 4px; text-align: center;">
+                                {{ $fg->created_at->format('d/m/Y') }}</td>
                         </tr>
                     @empty
                         <tr>
-                            <td colspan="9" style="border: 1px solid #000; padding: 8px; text-align: center; font-style: italic;">Belum ada data FG</td>
+                            <td colspan="9"
+                                style="border: 1px solid #000; padding: 8px; text-align: center; font-style: italic;">
+                                Belum ada data FG</td>
                         </tr>
                     @endforelse
                 </tbody>
@@ -1012,18 +1088,21 @@
         </div>
 
         {{-- Tanda Tangan --}}
-        <table width="100%" cellpadding="10" cellspacing="0" style="border-collapse: collapse; font-family: Arial, sans-serif; font-size: 11pt; margin-top: 40px;">
+        <table width="100%" cellpadding="10" cellspacing="0"
+            style="border-collapse: collapse; font-family: Arial, sans-serif; font-size: 11pt; margin-top: 40px;">
             <tr>
                 <td style="width: 50%; vertical-align: top;">
                     <p style="margin: 0 0 5px 0; font-weight: bold;">Dibuat oleh:</p>
                     <br><br><br>
-                    <p style="margin: 0; border-top: 1px solid #000; width: 200px; padding-top: 5px;">{{ $inspeksi_wm->inspeksiWmWip->first()->user->name ?? '.................' }}</p>
+                    <p style="margin: 0; border-top: 1px solid #000; width: 200px; padding-top: 5px;">
+                        {{ $inspeksi_wm->inspeksiWmWip->first()->user->name ?? '.................' }}</p>
                     <p style="margin: 2px 0 0 0; font-style: italic;">Inspektor</p>
                 </td>
                 <td style="width: 50%; vertical-align: top;">
-                    <p style="margin: 0 0 5px 0; font-weight: bold;">Mengetahui:</p>
+                    <p style="margin: 0 0 5px 0; font-weight: bold;">Disetujui Oleh:</p>
                     <br><br><br>
-                    <p style="margin: 0; border-top: 1px solid #000; width: 200px; padding-top: 5px;">{{ $inspeksi_wm->approved_by ?? '.................' }}</p>
+                    <p style="margin: 0; border-top: 1px solid #000; width: 200px; padding-top: 5px;">
+                        {{ $inspeksi_wm->approver->name ?? '.................' }}</p>
                     <p style="margin: 2px 0 0 0; font-style: italic;">Supervisor / Manager</p>
                 </td>
             </tr>
@@ -1062,6 +1141,7 @@
         }
 
         let handlingRowIndex = {};
+
         function addHandlingRow(fgId) {
             if (!handlingRowIndex[fgId]) {
                 handlingRowIndex[fgId] = document.querySelectorAll('#handling-details-' + fgId + ' tr').length;
