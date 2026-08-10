@@ -2,19 +2,19 @@
 
 namespace App\Mail;
 
-use App\Models\InspeksiWmFg;
+use App\Models\InspeksiCtFg;
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
 
-class FgLotNotification extends Mailable
+class CtFgLotNotification extends Mailable
 {
     use Queueable, SerializesModels;
 
     public function __construct(
-        public InspeksiWmFg $fg,
+        public InspeksiCtFg $fg,
     ) {}
 
     public function envelope(): Envelope
@@ -26,22 +26,22 @@ class FgLotNotification extends Mailable
 
     public function content(): Content
     {
-        $inspeksiWm = $this->fg->inspeksiWm;
-        $pro = $inspeksiWm->pro;
+        $inspeksiCt = $this->fg->inspeksiCt;
+        $pro = $inspeksiCt->pro;
 
         return new Content(
             html: 'emails.fg-lot-notification',
             with: [
                 'lotNumber' => $this->fg->lot_number,
-                'nomorInspeksi' => $inspeksiWm->nomor_inspeksi,
-                'shift' => $inspeksiWm->shift,
+                'nomorInspeksi' => $inspeksiCt->nomor_inspeksi,
+                'shift' => $inspeksiCt->shift,
                 'proId' => $pro?->pro_id,
                 'description' => $pro?->description,
-                'namaMesin' => $inspeksiWm->mesin?->nama_mesin,
+                'namaMesin' => $inspeksiCt->mesin?->nama_mesin,
                 'status' => $this->fg->status,
                 'qty' => $this->fg->qty,
                 'weight' => $this->fg->weight,
-                'tanggal' => $inspeksiWm->tanggal,
+                'tanggal' => $inspeksiCt->tanggal,
                 'user' => $this->fg->user?->name,
                 'details' => $this->fg->details,
             ],

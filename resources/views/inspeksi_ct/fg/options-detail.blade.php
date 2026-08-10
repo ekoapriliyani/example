@@ -1,7 +1,8 @@
 @php
     $options = [
         'CRACK/PEEL OFF/MENGELUPAS',
-        'CW/LW PENDEK',
+        'CW PENDEK',
+        'LW PENDEK',
         'DIAGONAL OUT',
         'DIAMETER OUT',
         'DROSS/KASAR/KOTORAN',

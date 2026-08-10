@@ -16,6 +16,7 @@ class InspeksiFencingFg extends Model
         'packing',
         'label',
         'status',
+        'lot_number',
         'qty',
         'weight',
         'files',

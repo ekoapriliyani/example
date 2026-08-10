@@ -1,0 +1,23 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class extends Migration
+{
+    public function up(): void
+    {
+        Schema::table('inspeksi_pvc_wips', function (Blueprint $table) {
+            $table->decimal('uji_kerekatan', 8, 2)->nullable()->after('uji_lilit');
+            $table->decimal('elongation', 8, 2)->nullable()->after('uji_kerekatan');
+        });
+    }
+
+    public function down(): void
+    {
+        Schema::table('inspeksi_pvc_wips', function (Blueprint $table) {
+            $table->dropColumn(['uji_kerekatan', 'elongation']);
+        });
+    }
+};

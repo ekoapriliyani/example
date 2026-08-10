@@ -141,6 +141,18 @@
                                 <x-input-error class="mt-2" :messages="$errors->get('uji_lilit')" />
                             </div>
                             <div>
+                                <x-input-label for="uji_kerekatan" :value="__('Uji Kerekatan')" />
+                                <x-text-input id="uji_kerekatan" name="uji_kerekatan" type="number" step="0.01"
+                                    class="mt-1 block w-full" :value="old('uji_kerekatan', $wip->uji_kerekatan)" placeholder="0.00" />
+                                <x-input-error class="mt-2" :messages="$errors->get('uji_kerekatan')" />
+                            </div>
+                            <div>
+                                <x-input-label for="elongation" :value="__('Elongation')" />
+                                <x-text-input id="elongation" name="elongation" type="number" step="0.01"
+                                    class="mt-1 block w-full" :value="old('elongation', $wip->elongation)" placeholder="0.00" />
+                                <x-input-error class="mt-2" :messages="$errors->get('elongation')" />
+                            </div>
+                            <div>
                                 <x-input-label for="visual" :value="__('Visual')" />
                                 <select id="visual" name="visual"
                                     class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
