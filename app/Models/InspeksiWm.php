@@ -51,6 +51,11 @@ class InspeksiWm extends Model
         return $this->belongsTo(Pro::class);
     }
 
+    public function approver()
+    {
+        return $this->belongsTo(User::class, 'approved_by');
+    }
+
     // public function productWm()
     // {
     //     return $this->belongsTo(ProductWm::class, 'product_wm_ref_id');
