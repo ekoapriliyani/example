@@ -229,6 +229,7 @@ class InspeksiWmFgController extends Controller
 
         $qrContent = "Lot Number: {$fg->lot_number}\n"
             . "No. Inspeksi: {$fg->inspeksiWm->nomor_inspeksi}\n"
+            . "Shift: {$fg->inspeksiWm->shift}\n"
             . "PRO: {$fg->inspeksiWm->pro->pro_id}\n"
             . "Desc: {$fg->inspeksiWm->pro->description}\n"
             . "Qty: {$fg->qty} | Weight: {$fg->weight} Kg\n"

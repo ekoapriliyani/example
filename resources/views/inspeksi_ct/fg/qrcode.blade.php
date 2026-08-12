@@ -33,6 +33,8 @@
         <div class="caption">
             <div class="lot">{{ $fg->lot_number }}</div>
             <div class="row"><span class="label">No:</span> {{ $inspeksiCt->nomor_inspeksi }}</div>
+            <div class="row"><span class="label">Shift:</span> {{ $inspeksiCt->shift }}</div>
+            <div class="row"><span class="label">Mesin:</span> {{ $inspeksiCt->mesin->mesin_id }}</div>
             <div class="row"><span class="label">PRO:</span> {{ $pro->pro_id }}</div>
             <div class="row"><span class="label">Desc:</span> {{ $pro->description }}</div>
             <div class="row"><span class="label">Qty:</span> {{ $fg->qty }} | <span class="label">W:</span> {{ $fg->weight }} Kg</div>
