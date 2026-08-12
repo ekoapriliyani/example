@@ -53,6 +53,7 @@ use App\Http\Controllers\ProductFencingController;
 use App\Http\Controllers\ProductRazorController;
 use App\Http\Controllers\ProductWmController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\DaftarNgRejectController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ProjectController;
@@ -105,6 +106,15 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/profile', 'edit')->name('profile.edit');
         Route::patch('/profile', 'update')->name('profile.update');
     });
+
+    /*
+    |--------------------------------------------------------------------------
+    | Daftar NG/REJECT
+    |--------------------------------------------------------------------------
+    */
+
+    Route::get('/daftar-ng-reject', [DaftarNgRejectController::class, 'index'])
+        ->name('daftar_ng_reject.index');
 
 
     /*

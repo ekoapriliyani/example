@@ -83,6 +83,10 @@
                         {{ __('Outgoing') }}
                     </x-nav-link>
 
+                    <x-nav-link :href="route('daftar_ng_reject.index')" :active="request()->routeIs('daftar_ng_reject.index')">
+                        {{ __('Daftar NG/REJECT') }}
+                    </x-nav-link>
+
                     <div class="hidden sm:ms-4 sm:flex sm:items-center">
                         <x-dropdown align="left" width="48">
                             <x-slot name="trigger">
@@ -184,6 +188,7 @@
         <div :class="{ 'block': open, 'hidden': !open }" class="hidden sm:hidden">
             <div class="space-y-1 pb-3 pt-2">
                 <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">Dashboard</x-responsive-nav-link>
+                <x-responsive-nav-link :href="route('daftar_ng_reject.index')" :active="request()->routeIs('daftar_ng_reject.index')">Daftar NG/REJECT</x-responsive-nav-link>
                 <div class="border-t border-gray-200 pt-2">
                     <div class="px-4 text-xs font-semibold uppercase text-gray-400">Inspeksi Incoming</div>
                     <x-responsive-nav-link :href="route('incomingbahanbaku.index')">Bahan Baku</x-responsive-nav-link>
