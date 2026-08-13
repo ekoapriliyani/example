@@ -40,6 +40,11 @@ class InspeksiCt extends Model
         return $this->hasMany(InspeksiCtFg::class);
     }
 
+    public function approver()
+    {
+        return $this->belongsTo(User::class, 'approved_by');
+    }
+
     public function isApproved()
     {
         return $this->approval_status === 'APPROVED';

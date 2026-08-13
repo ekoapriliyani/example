@@ -40,6 +40,11 @@ class InspeksiFencing extends Model
         return $this->hasMany(InspeksiFencingFg::class, 'inspeksi_fencing_id');
     }
 
+    public function approver()
+    {
+        return $this->belongsTo(User::class, 'approved_by');
+    }
+
     public function isApproved()
     {
         return $this->approval_status === 'APPROVED';

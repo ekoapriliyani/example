@@ -9,6 +9,15 @@
                     class="inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-xs font-semibold uppercase tracking-widest text-gray-700 shadow-sm transition duration-150 ease-in-out hover:bg-gray-50">
                     Kembali
                 </a>
+                <button type="button" onclick="printInspeksi()"
+                    class="inline-flex items-center gap-2 rounded-md border border-gray-300 bg-white px-4 py-2 text-xs font-semibold uppercase tracking-widest text-gray-700 shadow-sm transition duration-150 ease-in-out hover:bg-gray-50">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24"
+                        stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                            d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z" />
+                    </svg>
+                    Cetak
+                </button>
                 @php
                     $isApproved = $inspeksi_fencing->approval_status === 'APPROVED';
                 @endphp
@@ -691,6 +700,260 @@
     </div>
     </div>
 
+    {{-- ==================== PRINT SECTION ==================== --}}
+    <style>
+        @media print {
+            @page {
+                size: landscape;
+                margin: 10mm;
+            }
+
+            body * {
+                visibility: hidden;
+            }
+
+            #print-section,
+            #print-section * {
+                visibility: visible;
+            }
+
+            #print-section {
+                position: absolute;
+                left: 0;
+                top: 0;
+                width: 100%;
+            }
+
+            #print-section.hidden {
+                display: block !important;
+            }
+        }
+    </style>
+    <div id="print-section" class="hidden">
+        {{-- Header --}}
+        <table width="100%" cellpadding="5" cellspacing="0"
+            style="border-collapse: collapse; margin-bottom: 10px;">
+            <tr>
+                <td style="width: 20%; vertical-align: middle;">
+                    <img src="{{ asset('img/logobeva.png') }}" alt="Logo" style="height: 60px; width: auto;" />
+                </td>
+                <td style="width: 60%; vertical-align: middle; text-align: center;">
+                    <h1 style="font-size: 18pt; font-weight: bold; margin: 0; font-family: Arial, sans-serif;">LAPORAN
+                        INSPEKSI HARIAN FENCING</h1>
+                </td>
+                <td
+                    style="width: 20%; vertical-align: top; text-align: right; font-family: Arial, sans-serif; font-size: 11pt;">
+                    <table cellpadding="3" cellspacing="0" style="border: 1px solid #000; margin-left: auto;">
+                        <tr>
+                            <td style="font-weight: bold; font-size: 10pt;">BM-F-QC-XX R00</td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+        </table>
+
+        <hr style="border: 1px solid #000; margin-bottom: 15px;">
+
+        {{-- Data Header --}}
+        <table width="100%" cellpadding="5" cellspacing="0"
+            style="border-collapse: collapse; margin-bottom: 20px; font-family: Arial, sans-serif; font-size: 11pt;">
+            <tr>
+                <td style="width: 20%; font-weight: bold;">Tanggal</td>
+                <td style="width: 30%;">: {{ now()->format('d/m/Y') }}</td>
+                <td style="width: 20%; font-weight: bold;">No Inspeksi</td>
+                <td style="width: 30%;">: {{ $inspeksi_fencing->nomor_inspeksi }}</td>
+            </tr>
+            <tr>
+                <td style="font-weight: bold;">PRO Number</td>
+                <td>: {{ $inspeksi_fencing->pro->pro_id }}</td>
+                <td style="font-weight: bold;">Description</td>
+                <td>: {{ $inspeksi_fencing->pro->description }}</td>
+            </tr>
+            <tr>
+                <td style="font-weight: bold;">QTY Ordered</td>
+                <td>: {{ $inspeksi_fencing->pro->qty }}</td>
+                <td style="font-weight: bold;">Total Prod Per Shift</td>
+                <td>: {{ $inspeksi_fencing->total_prod }} {{ $inspeksi_fencing->satuan }}</td>
+            </tr>
+            <tr>
+                <td style="font-weight: bold;">Shift</td>
+                <td>: {{ $inspeksi_fencing->shift }}</td>
+                <td style="font-weight: bold;">Mesin</td>
+                <td>: {{ $inspeksi_fencing->mesin->nama_mesin }}</td>
+            </tr>
+        </table>
+
+        {{-- Tabel WIP --}}
+        <div style="margin-bottom: 20px;">
+            <h3 style="font-family: Arial, sans-serif; font-size: 12pt; font-weight: bold; margin-bottom: 8px;">Hasil
+                Inspeksi WIP</h3>
+            <table width="100%" cellpadding="4" cellspacing="0"
+                style="border-collapse: collapse; font-family: Arial, sans-serif; font-size: 9pt; border: 1px solid #000;">
+                <thead>
+                    <tr style="background-color: #f0f0f0;">
+                        <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 3%;">No</th>
+                        <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 7%;">Inspektor</th>
+                        <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 7%;">No. Material
+                        </th>
+                        <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 7%;">Operator</th>
+                        <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 5%;">D Kawat</th>
+                        <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 5%;">P Produk</th>
+                        <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 5%;">L Produk</th>
+                        <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 5%;">T Produk</th>
+                        <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 5%;">Mesh 1</th>
+                        <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 5%;">Mesh 2</th>
+                        <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 5%;">Mesh 3</th>
+                        <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 5%;">Mesh 4</th>
+                        <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 5%;">Mesh 5</th>
+                        <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 5%;">Mesh 6</th>
+                        <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 5%;">Diagonal</th>
+                        <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 5%;">Shear</th>
+                        <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 5%;">Overhang</th>
+                        <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 6%;">Crosswire</th>
+                        <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 5%;">Visual</th>
+                        <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 5%;">Status</th>
+                        <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 8%;">Created At</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @forelse ($inspeksi_fencing->inspeksiFencingWip as $wip)
+                        <tr>
+                            <td style="border: 1px solid #000; padding: 4px; text-align: center;">
+                                {{ $loop->iteration }}</td>
+                            <td style="border: 1px solid #000; padding: 4px;">{{ $wip->user->name ?? 'N/A' }}</td>
+                            <td style="border: 1px solid #000; padding: 4px;">{{ $wip->no_material }}</td>
+                            <td style="border: 1px solid #000; padding: 4px;">{{ $wip->nama_operator }}</td>
+                            <td style="border: 1px solid #000; padding: 4px; text-align: center;">
+                                {{ $wip->d_kawat_act }}</td>
+                            <td style="border: 1px solid #000; padding: 4px; text-align: center;">
+                                {{ $wip->p_product_act }}</td>
+                            <td style="border: 1px solid #000; padding: 4px; text-align: center;">
+                                {{ $wip->l_product_act }}</td>
+                            <td style="border: 1px solid #000; padding: 4px; text-align: center;">
+                                {{ $wip->t_product_act }}</td>
+                            <td style="border: 1px solid #000; padding: 4px; text-align: center;">{{ $wip->mesh1 }}
+                            </td>
+                            <td style="border: 1px solid #000; padding: 4px; text-align: center;">{{ $wip->mesh2 }}
+                            </td>
+                            <td style="border: 1px solid #000; padding: 4px; text-align: center;">{{ $wip->mesh3 }}
+                            </td>
+                            <td style="border: 1px solid #000; padding: 4px; text-align: center;">{{ $wip->mesh4 }}
+                            </td>
+                            <td style="border: 1px solid #000; padding: 4px; text-align: center;">{{ $wip->mesh5 }}
+                            </td>
+                            <td style="border: 1px solid #000; padding: 4px; text-align: center;">{{ $wip->mesh6 }}
+                            </td>
+                            <td style="border: 1px solid #000; padding: 4px; text-align: center;">{{ $wip->diagonal }}
+                            </td>
+                            <td style="border: 1px solid #000; padding: 4px; text-align: center;">
+                                {{ $wip->shear_strength }}</td>
+                            <td style="border: 1px solid #000; padding: 4px; text-align: center;">{{ $wip->overhang }}
+                            </td>
+                            <td style="border: 1px solid #000; padding: 4px; text-align: center;">
+                                {{ $wip->matchingcrosswire }}</td>
+                            <td style="border: 1px solid #000; padding: 4px; text-align: center;">{{ $wip->visual }}
+                            </td>
+                            <td style="border: 1px solid #000; padding: 4px; text-align: center;">{{ $wip->status }}
+                            </td>
+                            <td style="border: 1px solid #000; padding: 4px; text-align: center;">
+                                {{ $wip->created_at->format('d/m/Y') }}</td>
+                        </tr>
+                    @empty
+                        <tr>
+                            <td colspan="21"
+                                style="border: 1px solid #000; padding: 8px; text-align: center; font-style: italic;">
+                                Belum ada data WIP</td>
+                        </tr>
+                    @endforelse
+                </tbody>
+            </table>
+        </div>
+
+        {{-- Tabel FG --}}
+        <div style="margin-bottom: 20px;">
+            <h3 style="font-family: Arial, sans-serif; font-size: 12pt; font-weight: bold; margin-bottom: 8px;">Hasil
+                Inspeksi Finished Goods (FG)</h3>
+            <table width="100%" cellpadding="4" cellspacing="0"
+                style="border-collapse: collapse; font-family: Arial, sans-serif; font-size: 9pt; border: 1px solid #000;">
+                <thead>
+                    <tr style="background-color: #f0f0f0;">
+                        <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 4%;">No</th>
+                        <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 11%;">Lot Number
+                        </th>
+                        <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 11%;">Inspektor
+                        </th>
+                        <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 7%;">Type</th>
+                        <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 8%;">Status</th>
+                        <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 10%;">Coating
+                            Thick.</th>
+                        <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 9%;">Daya Rekat</th>
+                        <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 7%;">Visual</th>
+                        <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 8%;">Packing</th>
+                        <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 8%;">Label</th>
+                        <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 8%;">Qty</th>
+                        <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 9%;">Weight</th>
+                        <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 9%;">Created At
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @forelse ($inspeksi_fencing->inspeksiFencingFg as $fg)
+                        <tr>
+                            <td style="border: 1px solid #000; padding: 4px; text-align: center;">
+                                {{ $loop->iteration }}</td>
+                            <td style="border: 1px solid #000; padding: 4px;">{{ $fg->lot_number ?? '-' }}</td>
+                            <td style="border: 1px solid #000; padding: 4px;">{{ $fg->user->name }}</td>
+                            <td style="border: 1px solid #000; padding: 4px;">{{ $fg->type }}</td>
+                            <td style="border: 1px solid #000; padding: 4px; text-align: center;">{{ $fg->status }}
+                            </td>
+                            <td style="border: 1px solid #000; padding: 4px; text-align: center;">
+                                {{ $fg->coating_thickness }}</td>
+                            <td style="border: 1px solid #000; padding: 4px; text-align: center;">{{ $fg->daya_rekat }}
+                            </td>
+                            <td style="border: 1px solid #000; padding: 4px; text-align: center;">{{ $fg->visual }}
+                            </td>
+                            <td style="border: 1px solid #000; padding: 4px;">{{ $fg->packing }}</td>
+                            <td style="border: 1px solid #000; padding: 4px;">{{ $fg->label }}</td>
+                            <td style="border: 1px solid #000; padding: 4px; text-align: center;">{{ $fg->qty }}
+                            </td>
+                            <td style="border: 1px solid #000; padding: 4px; text-align: center;">{{ $fg->weight }}
+                                Kg</td>
+                            <td style="border: 1px solid #000; padding: 4px; text-align: center;">
+                                {{ $fg->created_at->format('d/m/Y') }}</td>
+                        </tr>
+                    @empty
+                        <tr>
+                            <td colspan="13"
+                                style="border: 1px solid #000; padding: 8px; text-align: center; font-style: italic;">
+                                Belum ada data FG</td>
+                        </tr>
+                    @endforelse
+                </tbody>
+            </table>
+        </div>
+
+        {{-- Tanda Tangan --}}
+        <table width="100%" cellpadding="10" cellspacing="0"
+            style="border-collapse: collapse; font-family: Arial, sans-serif; font-size: 11pt; margin-top: 40px;">
+            <tr>
+                <td style="width: 50%; vertical-align: top;">
+                    <p style="margin: 0 0 5px 0; font-weight: bold;">Dibuat oleh:</p>
+                    <br><br><br>
+                    <p style="margin: 0; border-top: 1px solid #000; width: 200px; padding-top: 5px;">
+                        {{ $inspeksi_fencing->inspeksiFencingWip->first()->user->name ?? '.................' }}</p>
+                    <p style="margin: 2px 0 0 0; font-style: italic;">Inspektor</p>
+                </td>
+                <td style="width: 50%; vertical-align: top;">
+                    <p style="margin: 0 0 5px 0; font-weight: bold;">Disetujui Oleh:</p>
+                    <br><br><br>
+                    <p style="margin: 0; border-top: 1px solid #000; width: 200px; padding-top: 5px;">
+                        {{ $inspeksi_fencing->approver->name ?? '.................' }}</p>
+                    <p style="margin: 2px 0 0 0; font-style: italic;">Supervisor / Manager</p>
+                </td>
+            </tr>
+        </table>
+    </div>
+    {{-- ==================== END PRINT SECTION ==================== --}}
 
     <script>
         function toggleDetail(id) {
@@ -797,5 +1060,11 @@
                 });
             });
         });
+    </script>
+
+    <script>
+        function printInspeksi() {
+            window.print();
+        }
     </script>
 </x-app-layout>
