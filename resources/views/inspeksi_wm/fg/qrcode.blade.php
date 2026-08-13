@@ -60,6 +60,12 @@
             font-weight: 600;
         }
 
+        /* Penambahan CSS untuk membuat nilai tabel tebal/bold */
+        .value {
+            font-weight: bold;
+            /* atau font-weight: 700; */
+        }
+
         .alasan {
             margin-top: 0.5mm;
         }
@@ -70,6 +76,8 @@
 
         .alasan-item {
             padding-left: 2mm;
+            font-weight: bold;
+            /* Ditambahkan juga jika ingin detail inspeksi ikut cetak tebal */
         }
 
         @media screen {
@@ -83,21 +91,75 @@
 
 <body>
     <div class="container">
-        <div class="qr-code">{!! $qrSvg !!}</div>
+        <div class="qr-code">
+            {!! $qrSvg !!}
+        </div>
         <div class="caption">
-            <div class="lot">{{ $fg->lot_number }}</div>
-            <div class="row"><span class="label">No:</span> {{ $inspeksiWm->nomor_inspeksi }}</div>
-            <div class="row"><span class="label">Shift:</span> {{ $inspeksiWm->shift }}</div>
-            <div class="row"><span class="label">Mesin:</span> {{ $inspeksiWm->mesin->mesin_id }}</div>
-            <div class="row"><span class="label">PRO:</span> {{ $pro->pro_id }}</div>
-            <div class="row"><span class="label">Desc:</span> {{ $pro->description }}</div>
-            <div class="row"><span class="label">Qty:</span> {{ $fg->qty }} | <span class="label">W:</span>
-                {{ $fg->weight }} Kg</div>
+            <table class="info-table">
+                <tr>
+                    <td class="">Lot Number</td>
+                    <td class="separator">:</td>
+                    <td class="value">{{ $fg->lot_number }}</td>
+                </tr>
+                <tr>
+                    <td class="">Nomor Inspeksi</td>
+                    <td class="separator">:</td>
+                    <td class="value">{{ $inspeksiWm->nomor_inspeksi }}</td>
+                </tr>
+                <tr>
+                    <td class="">PRO ID</td>
+                    <td class="separator">:</td>
+                    <td class="value">{{ $pro->pro_id }}</td>
+                </tr>
+                <tr>
+                    <td class="">Description Barang</td>
+                    <td class="separator">:</td>
+                    <td class="value">{{ $pro->description }}</td>
+                </tr>
+                <tr>
+                    <td class="">Nama Mesin</td>
+                    <td class="separator">:</td>
+                    <td class="value">
+                        {{ $inspeksiWm->mesin->mesin_id }}
+                    </td>
+                </tr>
+                <tr>
+                    <td class="">Shift</td>
+                    <td class="separator">:</td>
+                    <td class="value">{{ $inspeksiWm->shift }}</td>
+                </tr>
+                <tr>
+                    <td class="">Status</td>
+                    <td class="separator">:</td>
+                    <td class="value">{{ $fg->status }}</td>
+                </tr>
+                <tr>
+                    <td class="">Quantity</td>
+                    <td class="separator">:</td>
+                    <td class="value">{{ $fg->qty }}</td>
+                </tr>
+                <tr>
+                    <td class="">Weight</td>
+                    <td class="separator">:</td>
+                    <td class="value">{{ $fg->weight }} Kg</td>
+                </tr>
+                <tr>
+                    <td class="">Tanggal</td>
+                    <td class="separator">:</td>
+                    <td class="value">{{ $inspeksiWm->tanggal }}</td>
+                </tr>
+                <tr>
+                    <td class="">Inspector</td>
+                    <td class="separator">:</td>
+                    <td class="value">{{ $fg->user->name }}</td>
+                </tr>
+            </table>
+
             @if ($fg->details->isNotEmpty())
                 <div class="alasan">
-                    <div class="alasan-title">Alasan:</div>
+                    <div class="">Detail Inspeksi :</div>
                     @foreach ($fg->details as $detail)
-                        <div class="alasan-item">•
+                        <div class="alasan-item">
                             {{ $detail->description }}{{ $detail->description2 ? ' — ' . $detail->description2 : '' }}
                         </div>
                     @endforeach

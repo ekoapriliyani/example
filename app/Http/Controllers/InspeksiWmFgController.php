@@ -227,22 +227,9 @@ class InspeksiWmFgController extends Controller
     {
         $fg->load('inspeksiWm.pro', 'details');
 
-        $qrContent = "Lot Number: {$fg->lot_number}\n"
-            . "No. Inspeksi: {$fg->inspeksiWm->nomor_inspeksi}\n"
-            . "Shift: {$fg->inspeksiWm->shift}\n"
-            . "PRO: {$fg->inspeksiWm->pro->pro_id}\n"
-            . "Desc: {$fg->inspeksiWm->pro->description}\n"
-            . "Qty: {$fg->qty} | Weight: {$fg->weight} Kg\n"
-            . "Alasan:\n";
-
-        foreach ($fg->details as $d) {
-            $qrContent .= "- {$d->description}";
-            if ($d->description2) $qrContent .= " — {$d->description2}";
-            $qrContent .= "\n";
-        }
-
+        $qrContent = "{$fg->lot_number}";
         $options = new QROptions([
-            'scale' => 10,
+            'scale' => 14,
             'quietzoneSize' => 1,
             'outputBase64' => false,
             'svgAddXmlHeader' => false,
