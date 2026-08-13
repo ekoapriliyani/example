@@ -25,6 +25,7 @@
             font-size: 7pt;
             line-height: 1.3;
             padding: 2mm 3mm;
+            overflow: hidden;
         }
 
         .container {
@@ -32,6 +33,8 @@
             align-items: center;
             gap: 3mm;
             width: 100%;
+            page-break-inside: avoid;
+            break-inside: avoid;
         }
 
         .qr-code svg {
@@ -169,6 +172,18 @@
     </div>
     <script>
         window.onload = function() {
+            var caption = document.querySelector('.caption');
+            if (!caption) {
+                window.print();
+                return;
+            }
+            var bodyStyle = getComputedStyle(document.body);
+            var available = document.body.clientHeight
+                - parseFloat(bodyStyle.paddingTop)
+                - parseFloat(bodyStyle.paddingBottom);
+            if (caption.scrollHeight > available) {
+                caption.style.zoom = (available / caption.scrollHeight);
+            }
             window.print();
         }
     </script>
