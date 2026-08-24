@@ -9,6 +9,15 @@
                     class="inline-flex items-center px-4 py-2 bg-white border border-gray-300 rounded-md font-semibold text-xs text-gray-700 uppercase tracking-widest shadow-sm hover:bg-gray-50 transition ease-in-out duration-150">
                     Kembali
                 </a>
+                <button type="button" onclick="printInspeksi()"
+                    class="inline-flex items-center gap-2 rounded-md border border-gray-300 bg-white px-4 py-2 text-xs font-semibold uppercase tracking-widest text-gray-700 shadow-sm transition duration-150 ease-in-out hover:bg-gray-50">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24"
+                        stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                            d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z" />
+                    </svg>
+                    Cetak
+                </button>
 
                 @php
                     $isApproved = $incomingbahanbaku->approval_status === 'APPROVED';
@@ -420,6 +429,237 @@
         </div>
     @endforeach
 
+    {{-- ==================== PRINT SECTION ==================== --}}
+    <style>
+        @media print {
+            @page {
+                size: landscape;
+                margin: 10mm;
+            }
+
+            body * {
+                visibility: hidden;
+            }
+
+            #print-section,
+            #print-section * {
+                visibility: visible;
+            }
+
+            #print-section {
+                position: absolute;
+                left: 0;
+                top: 0;
+                width: 100%;
+            }
+
+            #print-section.hidden {
+                display: block !important;
+            }
+        }
+    </style>
+    <div id="print-section" class="hidden">
+        {{-- Header --}}
+        <table width="100%" cellpadding="5" cellspacing="0"
+            style="border-collapse: collapse; margin-bottom: 10px;">
+            <tr>
+                <td style="width: 20%; vertical-align: middle;">
+                    <img src="{{ asset('img/logobeva.png') }}" alt="Logo" style="height: 60px; width: auto;" />
+                </td>
+                <td style="width: 60%; vertical-align: middle; text-align: center;">
+                    <h1 style="font-size: 18pt; font-weight: bold; margin: 0; font-family: Arial, sans-serif;">LAPORAN
+                        INSPEKSI INCOMING BAHAN BAKU</h1>
+                </td>
+                <td
+                    style="width: 20%; vertical-align: top; text-align: right; font-family: Arial, sans-serif; font-size: 11pt;">
+                    <table cellpadding="3" cellspacing="0" style="border: 1px solid #000; margin-left: auto;">
+                        <tr>
+                            <td style="font-weight: bold; font-size: 10pt;">BM-F-QC-XX R00</td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+        </table>
+
+        <hr style="border: 1px solid #000; margin-bottom: 15px;">
+
+        {{-- Data Header --}}
+        <table width="100%" cellpadding="5" cellspacing="0"
+            style="border-collapse: collapse; margin-bottom: 20px; font-family: Arial, sans-serif; font-size: 11pt;">
+            <tr>
+                <td style="width: 20%; font-weight: bold;">Tanggal</td>
+                <td style="width: 30%;">: {{ now()->format('d/m/Y') }}</td>
+                <td style="width: 20%; font-weight: bold;">No Inspeksi</td>
+                <td style="width: 30%;">: {{ $incomingbahanbaku->nomor_inspeksi }}</td>
+            </tr>
+            <tr>
+                <td style="font-weight: bold;">Supplier</td>
+                <td>: {{ $incomingbahanbaku->supplier->nama }}</td>
+                <td style="font-weight: bold;">No PO</td>
+                <td>: {{ $incomingbahanbaku->no_po }}</td>
+            </tr>
+            <tr>
+                <td style="font-weight: bold;">No SJ</td>
+                <td>: {{ $incomingbahanbaku->no_sj }}</td>
+                <td style="font-weight: bold;">Jml Koil</td>
+                <td>: {{ $incomingbahanbaku->jml_koil }}</td>
+            </tr>
+            <tr>
+                <td style="font-weight: bold;">D Kawat</td>
+                <td>: {{ $incomingbahanbaku->d_kawat }} mm</td>
+                <td style="font-weight: bold;">Toleransi</td>
+                <td>: {{ $incomingbahanbaku->tol }}</td>
+            </tr>
+            <tr>
+                <td style="font-weight: bold;">Jenis Kawat</td>
+                <td>: {{ $incomingbahanbaku->jenis_kawat }}</td>
+                <td></td>
+                <td></td>
+            </tr>
+        </table>
+
+        {{-- Tabel Inspeksi --}}
+        <div style="margin-bottom: 20px;">
+            <h3 style="font-family: Arial, sans-serif; font-size: 12pt; font-weight: bold; margin-bottom: 8px;">Hasil
+                Inspeksi Incoming Bahan Baku</h3>
+            <table width="100%" cellpadding="4" cellspacing="0"
+                style="border-collapse: collapse; font-family: Arial, sans-serif; font-size: 9pt; border: 1px solid #000;">
+                <thead>
+                    <tr style="background-color: #f0f0f0;">
+                        <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 3%;">No</th>
+                        <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 10%;">Inspektor</th>
+                        <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 8%;">No Koil</th>
+                        <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 6%;">D1</th>
+                        <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 6%;">D2</th>
+                        <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 6%;">D3</th>
+                        <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 8%;">Rata Rata</th>
+                        <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 7%;">Dimensi</th>
+                        <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 7%;">Visual</th>
+                        <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 12%;">Description 1
+                        </th>
+                        <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 12%;">Description 2
+                        </th>
+                        <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 8%;">Created At
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @forelse ($incomingbahanbaku->incomingbahanbakuinspeksi as $inc)
+                        <tr>
+                            <td style="border: 1px solid #000; padding: 4px; text-align: center;">
+                                {{ $loop->iteration }}</td>
+                            <td style="border: 1px solid #000; padding: 4px;">{{ $inc->user->name ?? 'N/A' }}</td>
+                            <td style="border: 1px solid #000; padding: 4px;">{{ $inc->no_koil }}</td>
+                            <td style="border: 1px solid #000; padding: 4px; text-align: center;">{{ $inc->d1 }}</td>
+                            <td style="border: 1px solid #000; padding: 4px; text-align: center;">{{ $inc->d2 }}</td>
+                            <td style="border: 1px solid #000; padding: 4px; text-align: center;">{{ $inc->d3 }}</td>
+                            <td style="border: 1px solid #000; padding: 4px; text-align: center;">
+                                {{ $inc->rata_rata }}</td>
+                            <td style="border: 1px solid #000; padding: 4px; text-align: center;">
+                                {{ $inc->dimensi }}</td>
+                            <td style="border: 1px solid #000; padding: 4px; text-align: center;">{{ $inc->visual }}
+                            </td>
+                            <td style="border: 1px solid #000; padding: 4px;">{{ $inc->description1 }}</td>
+                            <td style="border: 1px solid #000; padding: 4px;">{{ $inc->description2 }}</td>
+                            <td style="border: 1px solid #000; padding: 4px; text-align: center;">
+                                {{ \Carbon\Carbon::parse($inc->created_at)->format('d/m/Y') }}</td>
+                        </tr>
+                    @empty
+                        <tr>
+                            <td colspan="12"
+                                style="border: 1px solid #000; padding: 8px; text-align: center; font-style: italic;">
+                                Belum ada data Inspeksi Incoming Bahan Baku</td>
+                        </tr>
+                    @endforelse
+                </tbody>
+            </table>
+        </div>
+
+        {{-- Tabel Mechanical Test --}}
+        <div style="margin-bottom: 20px;">
+            <h3 style="font-family: Arial, sans-serif; font-size: 12pt; font-weight: bold; margin-bottom: 8px;">Hasil
+                Mechanical Test</h3>
+            <table width="100%" cellpadding="4" cellspacing="0"
+                style="border-collapse: collapse; font-family: Arial, sans-serif; font-size: 9pt; border: 1px solid #000;">
+                <thead>
+                    <tr style="background-color: #f0f0f0;">
+                        <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 3%;">No</th>
+                        <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 7%;">Status</th>
+                        <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 10%;">Inspektor</th>
+                        <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 8%;">No Koil</th>
+                        <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 10%;">Hasil Tensile
+                        </th>
+                        <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 10%;">Coating Weight
+                        </th>
+                        <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 8%;">Hasil Lilit
+                        </th>
+                        <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 8%;">Hasil Puntir
+                        </th>
+                        <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 12%;">Description 1
+                        </th>
+                        <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 12%;">Description 2
+                        </th>
+                        <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 8%;">Created At
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @forelse ($incomingbahanbaku->mechanicalTests as $test)
+                        <tr>
+                            <td style="border: 1px solid #000; padding: 4px; text-align: center;">
+                                {{ $loop->iteration }}</td>
+                            <td style="border: 1px solid #000; padding: 4px; text-align: center;">
+                                {{ $test->status ?? 'N/A' }}</td>
+                            <td style="border: 1px solid #000; padding: 4px;">{{ $test->user->name ?? 'N/A' }}</td>
+                            <td style="border: 1px solid #000; padding: 4px;">{{ $test->nomor_koil }}</td>
+                            <td style="border: 1px solid #000; padding: 4px; text-align: center;">
+                                {{ $test->hasil_tensile }} Mpa</td>
+                            <td style="border: 1px solid #000; padding: 4px; text-align: center;">
+                                {{ $test->hasil_coatingweight }} g/m<sup>2</sup></td>
+                            <td style="border: 1px solid #000; padding: 4px; text-align: center;">
+                                {{ $test->hasil_lilit }}</td>
+                            <td style="border: 1px solid #000; padding: 4px; text-align: center;">
+                                {{ $test->hasil_puntir }} kali</td>
+                            <td style="border: 1px solid #000; padding: 4px;">{{ $test->description1 }}</td>
+                            <td style="border: 1px solid #000; padding: 4px;">{{ $test->description2 }}</td>
+                            <td style="border: 1px solid #000; padding: 4px; text-align: center;">
+                                {{ \Carbon\Carbon::parse($test->created_at)->format('d/m/Y') }}</td>
+                        </tr>
+                    @empty
+                        <tr>
+                            <td colspan="11"
+                                style="border: 1px solid #000; padding: 8px; text-align: center; font-style: italic;">
+                                Belum ada data Mechanical Test</td>
+                        </tr>
+                    @endforelse
+                </tbody>
+            </table>
+        </div>
+
+        {{-- Tanda Tangan --}}
+        <table width="100%" cellpadding="10" cellspacing="0"
+            style="border-collapse: collapse; font-family: Arial, sans-serif; font-size: 11pt; margin-top: 40px;">
+            <tr>
+                <td style="width: 50%; vertical-align: top;">
+                    <p style="margin: 0 0 5px 0; font-weight: bold;">Dibuat oleh:</p>
+                    <br><br><br>
+                    <p style="margin: 0; border-top: 1px solid #000; width: 200px; padding-top: 5px;">
+                        {{ $incomingbahanbaku->incomingbahanbakuinspeksi->first()->user->name ?? '.................' }}
+                    </p>
+                    <p style="margin: 2px 0 0 0; font-style: italic;">Inspektor</p>
+                </td>
+                <td style="width: 50%; vertical-align: top;">
+                    <p style="margin: 0 0 5px 0; font-weight: bold;">Disetujui Oleh:</p>
+                    <br><br><br>
+                    <p style="margin: 0; border-top: 1px solid #000; width: 200px; padding-top: 5px;">
+                        {{ $incomingbahanbaku->approver->name ?? '.................' }}</p>
+                    <p style="margin: 2px 0 0 0; font-style: italic;">Supervisor / Manager</p>
+                </td>
+            </tr>
+        </table>
+    </div>
+    {{-- ==================== END PRINT SECTION ==================== --}}
+
     {{-- section approval --}}
     <div class="overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-sm">
         <div class="p-6">
@@ -495,6 +735,10 @@
         function toggleImage2(id) {
             const modal = document.getElementById('image2-' + id);
             if (modal) modal.classList.toggle('hidden');
+        }
+
+        function printInspeksi() {
+            window.print();
         }
     </script>
 

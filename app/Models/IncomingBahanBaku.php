@@ -43,6 +43,11 @@ class IncomingBahanBaku extends Model
         return $this->hasMany(MechanicalTest::class, 'incoming_bahan_baku_id');
     }
 
+    public function approver()
+    {
+        return $this->belongsTo(User::class, 'approved_by');
+    }
+
     public function isApproved()
     {
         return $this->approval_status === 'APPROVED';
