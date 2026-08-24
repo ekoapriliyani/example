@@ -127,8 +127,8 @@
                                     {{-- <th class="px-4 py-3 font-semibold text-gray-900">L2 Act</th> --}}
                                     <th class="px-4 py-3 font-semibold text-gray-900">D Anyam</th>
                                     <th class="px-4 py-3 font-semibold text-gray-900">D Frame</th>
-                                    <th class="px-4 py-3 font-semibold text-gray-900">D Anyam PVC</th>
-                                    <th class="px-4 py-3 font-semibold text-gray-900">D Frame PVC</th>
+                                    <th class="px-4 py-3 font-semibold text-gray-900">D Anyam PVC/HDPE</th>
+                                    <th class="px-4 py-3 font-semibold text-gray-900">D Frame PVC/HDPE</th>
                                     <th class="px-4 py-3 font-semibold text-gray-900">Mesh 1</th>
                                     <th class="px-4 py-3 font-semibold text-gray-900">Mesh 2</th>
                                     <th class="px-4 py-3 font-semibold text-gray-900">P Lilitan</th>
@@ -581,21 +581,26 @@
                     <tr style="background-color: #f0f0f0;">
                         <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 3%;">No</th>
                         <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 7%;">Inspektor</th>
-                        <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 7%;">No. Material</th>
+                        <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 7%;">No. Material
+                        </th>
                         <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 7%;">Operator</th>
                         <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 5%;">Type</th>
                         <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 5%;">L Act</th>
                         <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 6%;">D Anyam</th>
                         <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 6%;">D Frame</th>
-                        <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 6%;">D Anyam PVC</th>
-                        <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 6%;">D Frame PVC</th>
+                        <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 6%;">D Anyam PVC
+                        </th>
+                        <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 6%;">D Frame PVC
+                        </th>
                         <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 5%;">Mesh 1</th>
                         <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 5%;">Mesh 2</th>
                         <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 6%;">P Lilitan</th>
-                        <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 6%;">Jml Lilitan</th>
+                        <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 6%;">Jml Lilitan
+                        </th>
                         <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 6%;">Visual</th>
                         <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 6%;">Status</th>
-                        <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 7%;">Created At</th>
+                        <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 7%;">Created At
+                        </th>
                     </tr>
                 </thead>
                 <tbody>
@@ -606,18 +611,30 @@
                             <td style="border: 1px solid #000; padding: 4px;">{{ $wip->user->name ?? 'N/A' }}</td>
                             <td style="border: 1px solid #000; padding: 4px;">{{ $wip->no_material }}</td>
                             <td style="border: 1px solid #000; padding: 4px;">{{ $wip->nama_operator }}</td>
-                            <td style="border: 1px solid #000; padding: 4px; text-align: center;">{{ $wip->type }}</td>
-                            <td style="border: 1px solid #000; padding: 4px; text-align: center;">{{ $wip->l1_act }}</td>
-                            <td style="border: 1px solid #000; padding: 4px; text-align: center;">{{ $wip->d_anyam }}</td>
-                            <td style="border: 1px solid #000; padding: 4px; text-align: center;">{{ $wip->d_frame }}</td>
-                            <td style="border: 1px solid #000; padding: 4px; text-align: center;">{{ $wip->d_anyam_pvc }}</td>
-                            <td style="border: 1px solid #000; padding: 4px; text-align: center;">{{ $wip->d_frame_pvc }}</td>
-                            <td style="border: 1px solid #000; padding: 4px; text-align: center;">{{ $wip->mesh1 }}</td>
-                            <td style="border: 1px solid #000; padding: 4px; text-align: center;">{{ $wip->mesh2 }}</td>
-                            <td style="border: 1px solid #000; padding: 4px; text-align: center;">{{ $wip->p_lilitan }}</td>
-                            <td style="border: 1px solid #000; padding: 4px; text-align: center;">{{ $wip->jml_lilitan }}</td>
-                            <td style="border: 1px solid #000; padding: 4px; text-align: center;">{{ $wip->visual }}</td>
-                            <td style="border: 1px solid #000; padding: 4px; text-align: center;">{{ $wip->status }}</td>
+                            <td style="border: 1px solid #000; padding: 4px; text-align: center;">{{ $wip->type }}
+                            </td>
+                            <td style="border: 1px solid #000; padding: 4px; text-align: center;">{{ $wip->l1_act }}
+                            </td>
+                            <td style="border: 1px solid #000; padding: 4px; text-align: center;">{{ $wip->d_anyam }}
+                            </td>
+                            <td style="border: 1px solid #000; padding: 4px; text-align: center;">{{ $wip->d_frame }}
+                            </td>
+                            <td style="border: 1px solid #000; padding: 4px; text-align: center;">
+                                {{ $wip->d_anyam_pvc }}</td>
+                            <td style="border: 1px solid #000; padding: 4px; text-align: center;">
+                                {{ $wip->d_frame_pvc }}</td>
+                            <td style="border: 1px solid #000; padding: 4px; text-align: center;">{{ $wip->mesh1 }}
+                            </td>
+                            <td style="border: 1px solid #000; padding: 4px; text-align: center;">{{ $wip->mesh2 }}
+                            </td>
+                            <td style="border: 1px solid #000; padding: 4px; text-align: center;">
+                                {{ $wip->p_lilitan }}</td>
+                            <td style="border: 1px solid #000; padding: 4px; text-align: center;">
+                                {{ $wip->jml_lilitan }}</td>
+                            <td style="border: 1px solid #000; padding: 4px; text-align: center;">{{ $wip->visual }}
+                            </td>
+                            <td style="border: 1px solid #000; padding: 4px; text-align: center;">{{ $wip->status }}
+                            </td>
                             <td style="border: 1px solid #000; padding: 4px; text-align: center;">
                                 {{ $wip->created_at->format('d/m/Y') }}</td>
                         </tr>
@@ -640,7 +657,8 @@
                     <p style="margin: 0 0 5px 0; font-weight: bold;">Dibuat oleh:</p>
                     <br><br><br>
                     <p style="margin: 0; border-top: 1px solid #000; width: 200px; padding-top: 5px;">
-                        {{ $inspeksiGabionanyam->inspeksiGabionanyamWip->first()->user->name ?? '.................' }}</p>
+                        {{ $inspeksiGabionanyam->inspeksiGabionanyamWip->first()->user->name ?? '.................' }}
+                    </p>
                     <p style="margin: 2px 0 0 0; font-style: italic;">Inspektor</p>
                 </td>
                 <td style="width: 50%; vertical-align: top;">
