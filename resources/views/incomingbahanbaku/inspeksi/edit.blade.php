@@ -60,15 +60,17 @@
                             <label>Dimensi</label>
 
                             <select name="dimensi" class="w-full rounded border px-3 py-2">
-
                                 <option value="OK"
                                     {{ old('dimensi', $inspeksi->dimensi) == 'OK' ? 'selected' : '' }}>
                                     OK
                                 </option>
-
                                 <option value="NG"
                                     {{ old('dimensi', $inspeksi->dimensi) == 'NG' ? 'selected' : '' }}>
                                     NG
+                                </option>
+                                <option value="REJECT"
+                                    {{ old('dimensi', $inspeksi->dimensi) == 'REJECT' ? 'selected' : '' }}>
+                                    REJECT
                                 </option>
 
                             </select>
@@ -77,17 +79,17 @@
                         <!-- Visual -->
                         <div class="mb-4">
                             <label>Visual</label>
-
                             <select name="visual" class="w-full rounded border px-3 py-2">
-
                                 <option value="OK" {{ old('visual', $inspeksi->visual) == 'OK' ? 'selected' : '' }}>
                                     OK
                                 </option>
-
                                 <option value="NG" {{ old('visual', $inspeksi->visual) == 'NG' ? 'selected' : '' }}>
                                     NG
                                 </option>
-
+                                <option value="REJECT"
+                                    {{ old('visual', $inspeksi->visual) == 'REJECT' ? 'selected' : '' }}>
+                                    REJECT
+                                </option>
                             </select>
                         </div>
 

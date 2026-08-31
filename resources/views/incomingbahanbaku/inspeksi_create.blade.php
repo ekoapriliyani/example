@@ -69,6 +69,8 @@
                             <select id="dimensi" name="dimensi" class="w-full border rounded px-3 py-2">
                                 <option value="OK" {{ old('dimensi') == 'OK' ? 'selected' : '' }}>OK</option>
                                 <option value="NG" {{ old('dimensi') == 'NG' ? 'selected' : '' }}>NG</option>
+                                <option value="REJECT" {{ old('dimensi') == 'REJECT' ? 'selected' : '' }}>REJECT
+                                </option>
                             </select>
                         </div>
 
@@ -77,6 +79,7 @@
                             <select id="visual" name="visual" class="w-full border rounded px-3 py-2">
                                 <option value="OK" {{ old('visual') == 'OK' ? 'selected' : '' }}>OK</option>
                                 <option value="NG" {{ old('visual') == 'NG' ? 'selected' : '' }}>NG</option>
+                                <option value="REJECT" {{ old('visual') == 'REJECT' ? 'selected' : '' }}>REJECT</option>
                             </select>
                         </div>
 
@@ -120,7 +123,8 @@
                                     DESKRIPSI --</option>
                                 <option value="KARAT" {{ old('description2') == 'KARAT' ? 'selected' : '' }}>KARAT
                                 </option>
-                                <option value="WHITE RUST" {{ old('description2') == 'WHITE RUST' ? 'selected' : '' }}>
+                                <option value="WHITE RUST"
+                                    {{ old('description2') == 'WHITE RUST' ? 'selected' : '' }}>
                                     WHITE RUST</option>
                                 <option value="CRACK/FLAKING"
                                     {{ old('description2') == 'CRACK/FLAKING' ? 'selected' : '' }}>CRACK/FLAKING
