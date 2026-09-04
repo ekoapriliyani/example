@@ -140,7 +140,8 @@
                             <label for="status" class="block text-sm font-medium text-gray-700 mb-1">Status</label>
                             <select id="status" name="status" class="w-full border rounded px-3 py-2">
                                 <option value="OK" {{ old('status') == 'OK' ? 'selected' : '' }}>OK</option>
-                                <option value="NG" {{ old('status') == 'NG' ? 'selected' : '' }}>NG
+                                <option value="NG" {{ old('status') == 'NG' ? 'selected' : '' }}>NG</option>
+                                <option value="REJECT" {{ old('status') == 'REJECT' ? 'selected' : '' }}>REJECT
                                 </option>
                             </select>
                         </div>

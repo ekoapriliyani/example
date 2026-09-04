@@ -40,6 +40,10 @@
                                     <option value="NG"
                                         {{ old('status', $mechanicalTest->status) == 'NG' ? 'selected' : '' }}>NG (Not
                                         Good)</option>
+                                    <option value="REJECT"
+                                        {{ old('status', $mechanicalTest->status) == 'REJECT' ? 'selected' : '' }}>
+                                        REJECT
+                                    </option>
                                 </select>
                                 <x-input-error class="mt-2" :messages="$errors->get('status')" />
                             </div>
