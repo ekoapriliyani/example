@@ -39,6 +39,29 @@ class SybaseService
         return $pdo->query($sql)->fetchAll();
     }
 
+    // shipment BI data
+    public function getShipmentBIData(): array
+    {
+        $pdo = $this->connect();
+
+        $sql = "
+            SELECT DISTINCT
+                trno,
+                SoNO,
+                custname,
+                itemid,
+                description,
+                qt,
+                Nopol
+            FROM DBA.Beva_vShipmentQC
+            WHERE trno IS NOT NULL
+            AND description IS NOT NULL
+            ORDER BY trno
+        ";
+
+        return $pdo->query($sql)->fetchAll();
+    }
+
     // shipment data
     public function getShipmentData(): array
     {

@@ -58,6 +58,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\SheetGalvanizeController;
+use App\Http\Controllers\ShipmentBiController;
 use App\Http\Controllers\ShipmentController;
 use App\Http\Controllers\SubkonController;
 use App\Http\Controllers\SupplierController;
@@ -168,6 +169,15 @@ Route::middleware(['auth'])->group(function () {
 
     Route::post('project/import', [ProjectController::class, 'import'])
         ->name('project.import');
+
+    /*
+    |--------------------------------------------------------------------------
+    | Shipment BI (Sybase)
+    |--------------------------------------------------------------------------
+    */
+
+    Route::get('shipment-bi', [ShipmentBiController::class, 'index'])
+        ->name('shipment_bi.index');
 
 
     /*
