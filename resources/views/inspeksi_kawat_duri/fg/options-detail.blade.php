@@ -11,7 +11,6 @@
         'PVC/HDPE MIRING',
         'PVC/HDPE PECAH/SOBEK',
         'WHITE RUST',
-        'SOBEK PECAH SALUT',
     ];
 @endphp
 
