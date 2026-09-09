@@ -179,6 +179,7 @@
                     <option value="TEBAL BLADE OUT">TEBAL BLADE OUT</option>
                     <option value="TRIMING">TRIMING</option>
                     <option value="WHITE RUST">WHITE RUST</option>
+                    <option value="SOBEK PECAH SALUT">SOBEK PECAH SALUT</option>
                 </select>
             </div>
             <div>
@@ -202,6 +203,7 @@
                     <option value="TEBAL BLADE OUT">TEBAL BLADE OUT</option>
                     <option value="TRIMING">TRIMING</option>
                     <option value="WHITE RUST">WHITE RUST</option>
+                    <option value="SOBEK PECAH SALUT">SOBEK PECAH SALUT</option>
                 </select>
             </div>
             <div>

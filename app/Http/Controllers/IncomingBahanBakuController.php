@@ -2,13 +2,17 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\InspeksiBbLotNotification;
 use App\Models\IncomingBahanBaku;
 use App\Models\IncomingBahanBakuInspeksi;
 use App\Models\MechanicalTest;
 use App\Models\Supplier;
+use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Storage;
 
 class IncomingBahanBakuController extends Controller
@@ -307,6 +311,11 @@ class IncomingBahanBakuController extends Controller
             $insbb->update(['files' => $paths]);
         }
 
+        // lot number & email notification untuk NG/REJECT
+        if (in_array($insbb->dimensi, ['NG', 'REJECT']) || in_array($insbb->visual, ['NG', 'REJECT'])) {
+            $this->handleLotNumberAndNotify($insbb);
+        }
+
         return redirect()
             ->route('incomingbahanbaku.show', $id)
             ->with('success', 'Data inspeksi berhasil ditambahkan');
@@ -365,6 +374,11 @@ class IncomingBahanBakuController extends Controller
         }
 
         $inspeksi->update($validated);
+
+        // lot number & email notification untuk NG/REJECT
+        if (in_array($inspeksi->dimensi, ['NG', 'REJECT']) || in_array($inspeksi->visual, ['NG', 'REJECT'])) {
+            $this->handleLotNumberAndNotify($inspeksi);
+        }
 
         return redirect()
             ->route('incomingbahanbaku.show', $incomingbahanbaku->id)
@@ -539,5 +553,41 @@ class IncomingBahanBakuController extends Controller
         }
 
         return back()->with('success', $message);
+    }
+
+    private function generateLotNumber(string $prefix): string
+    {
+        $tahunBulan = now()->format('Ym');
+        $prefixWithDate = "{$prefix}-{$tahunBulan}-";
+
+        return DB::transaction(function () use ($prefixWithDate) {
+            $maxSeq = DB::table('incoming_bahan_baku_inspeksis')
+                ->where('lot_number', 'like', "{$prefixWithDate}%")
+                ->whereNotNull('lot_number')
+                ->lockForUpdate()
+                ->max(DB::raw("CAST(REPLACE(lot_number, '{$prefixWithDate}', '') AS UNSIGNED)"));
+
+            $nextNumber = ($maxSeq ?: 0) + 1;
+
+            return $prefixWithDate . str_pad($nextNumber, 5, '0', STR_PAD_LEFT);
+        });
+    }
+
+    private function handleLotNumberAndNotify(IncomingBahanBakuInspeksi $insbb): void
+    {
+        if ($insbb->lot_number) {
+            return;
+        }
+
+        $isReject = $insbb->dimensi === 'REJECT' || $insbb->visual === 'REJECT';
+        $prefix = $isReject ? 'REJ-BB' : 'NG-BB';
+        $lotNumber = $this->generateLotNumber($prefix);
+
+        $insbb->updateQuietly(['lot_number' => $lotNumber]);
+
+        $recipients = User::whereIn('role', [User::SUPERVISOR, User::MANAGER])->get();
+
+        $insbb->load(['incomingbahanbaku.supplier', 'user']);
+        Mail::to($recipients)->send(new InspeksiBbLotNotification($insbb));
     }
 }

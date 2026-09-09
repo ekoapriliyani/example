@@ -19,6 +19,7 @@ class IncomingBahanBakuInspeksi extends Model
         // 'keterangan',
         'description1',
         'description2',
+        'lot_number',
         'files',
     ];
 

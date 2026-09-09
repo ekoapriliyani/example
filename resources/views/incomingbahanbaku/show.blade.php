@@ -141,6 +141,7 @@
                                     <th class="px-4 py-3 font-semibold text-gray-900">Visual</th>
                                     <th class="px-4 py-3 font-semibold text-gray-900">Description 1</th>
                                     <th class="px-4 py-3 font-semibold text-gray-900">Description 2</th>
+                                    <th class="px-4 py-3 font-semibold text-gray-900">Lot Number</th>
                                     <th class="px-4 py-3 font-semibold text-gray-900">Gambar</th>
                                     <th class="px-4 py-3 font-semibold text-gray-900 text-center">Created At</th>
                                 </tr>
@@ -215,6 +216,15 @@
                                         <td class="px-4 py-3 text-gray-600">{{ $inc->description1 }}</td>
                                         <td class="px-4 py-3 text-gray-600">{{ $inc->description2 }}</td>
                                         <td class="px-4 py-3">
+                                            @if ($inc->lot_number)
+                                                <span class="inline-flex items-center px-2 py-1 text-xs font-semibold rounded-full text-blue-800 bg-blue-200">
+                                                    {{ $inc->lot_number }}
+                                                </span>
+                                            @else
+                                                <span class="text-gray-400">-</span>
+                                            @endif
+                                        </td>
+                                        <td class="px-4 py-3">
                                             <button type="button"
                                                 class="text-sm text-indigo-600 font-semibold hover:underline"
                                                 onclick="toggleImage({{ $inc->id }})">
@@ -226,7 +236,7 @@
                                     </tr>
                                 @empty
                                     <tr>
-                                        <td colspan="14" class="px-4 py-8 text-center text-gray-400 italic">Belum
+                                        <td colspan="15" class="px-4 py-8 text-center text-gray-400 italic">Belum
                                             ada data Inspeksi Incoming Bahan Baku.</td>
                                     </tr>
                                 @endforelse
@@ -539,6 +549,8 @@
                         </th>
                         <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 12%;">Description 2
                         </th>
+                        <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 10%;">Lot Number
+                        </th>
                         <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 8%;">Created At
                         </th>
                     </tr>
@@ -561,12 +573,13 @@
                             </td>
                             <td style="border: 1px solid #000; padding: 4px;">{{ $inc->description1 }}</td>
                             <td style="border: 1px solid #000; padding: 4px;">{{ $inc->description2 }}</td>
+                            <td style="border: 1px solid #000; padding: 4px; text-align: center;">{{ $inc->lot_number ?? '-' }}</td>
                             <td style="border: 1px solid #000; padding: 4px; text-align: center;">
                                 {{ \Carbon\Carbon::parse($inc->created_at)->format('d/m/Y') }}</td>
                         </tr>
                     @empty
                         <tr>
-                            <td colspan="12"
+                            <td colspan="13"
                                 style="border: 1px solid #000; padding: 8px; text-align: center; font-style: italic;">
                                 Belum ada data Inspeksi Incoming Bahan Baku</td>
                         </tr>
