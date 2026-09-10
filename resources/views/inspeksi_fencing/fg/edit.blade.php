@@ -35,6 +35,15 @@
                                         {{ old('type', $fg->type) == 'POWDER COATING' ? 'selected' : '' }}>
                                         POWDER COATING
                                     </option>
+                                    <option value="LG" {{ old('type', $fg->type) == 'LG' ? 'selected' : '' }}>
+                                        LG
+                                    </option>
+                                    <option value="HG" {{ old('type', $fg->type) == 'HG' ? 'selected' : '' }}>
+                                        HG
+                                    </option>
+                                    <option value="BEZILUM" {{ old('type', $fg->type) == 'BEZILUM' ? 'selected' : '' }}>
+                                        BEZILUM
+                                    </option>
                                 </select>
                                 <x-input-error class="mt-2" :messages="$errors->get('type')" />
                             </div>

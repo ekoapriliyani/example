@@ -34,6 +34,24 @@
                                             class="w-4 h-4 text-indigo-600 border-gray-300 focus:ring-indigo-500">
                                         <span class="ml-2 text-sm text-gray-700">POWDER COATING</span>
                                     </label>
+                                    <label for="type_lg" class="inline-flex items-center cursor-pointer">
+                                        <input type="radio" id="type_lg" name="type" value="LG"
+                                            {{ old('type') == 'LG' ? 'checked' : '' }}
+                                            class="w-4 h-4 text-indigo-600 border-gray-300 focus:ring-indigo-500">
+                                        <span class="ml-2 text-sm text-gray-700">LG</span>
+                                    </label>
+                                    <label for="type_hg" class="inline-flex items-center cursor-pointer">
+                                        <input type="radio" id="type_hg" name="type" value="HG"
+                                            {{ old('type') == 'HG' ? 'checked' : '' }}
+                                            class="w-4 h-4 text-indigo-600 border-gray-300 focus:ring-indigo-500">
+                                        <span class="ml-2 text-sm text-gray-700">HG</span>
+                                    </label>
+                                    <label for="type_bezilum" class="inline-flex items-center cursor-pointer">
+                                        <input type="radio" id="type_bezilum" name="type" value="BEZILUM"
+                                            {{ old('type') == 'BEZILUM' ? 'checked' : '' }}
+                                            class="w-4 h-4 text-indigo-600 border-gray-300 focus:ring-indigo-500">
+                                        <span class="ml-2 text-sm text-gray-700">BEZILUM</span>
+                                    </label>
                                 </div>
                                 <x-input-error class="mt-2" :messages="$errors->get('type')" />
                             </div>
