@@ -2,6 +2,7 @@
 
 namespace App\Mail;
 
+use App\Models\IncomingBahanBaku;
 use App\Models\IncomingBahanBakuInspeksi;
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
@@ -29,7 +30,7 @@ class InspeksiBbLotNotification extends Mailable
 
     public function content(): Content
     {
-        $insbb = $this->inspeksi->incomingbahanbaku;
+        $insbb = IncomingBahanBaku::with('supplier')->find($this->inspeksi->incoming_bahan_baku_id);
         $status = $this->inspeksi->dimensi === 'REJECT' || $this->inspeksi->visual === 'REJECT'
             ? 'REJECT' : 'NG';
 
@@ -54,7 +55,7 @@ class InspeksiBbLotNotification extends Mailable
                 'visual'         => $this->inspeksi->visual,
                 'description1'   => $this->inspeksi->description1,
                 'description2'   => $this->inspeksi->description2,
-                'user'           => $this->inspeksi->user?->name,
+                'user'           => \App\Models\User::find($this->inspeksi->user_id)?->name ?? '-',
             ],
         );
     }
