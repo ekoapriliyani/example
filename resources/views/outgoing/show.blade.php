@@ -48,44 +48,36 @@
                         <dl class="grid grid-cols-3 gap-x-8 gap-y-4 sm:grid-cols-4">
                             <div>
                                 <dt class="text-sm font-medium text-gray-500 italic">Nomor Inspeksi</dt>
-                                <dd class="text-lg font-bold text-indigo-600">{{ $outgoing->nomor_inspeksi }}
-                                </dd>
+                                <dd class="text-lg font-bold text-indigo-600">{{ $outgoing->nomor_inspeksi }}</dd>
                             </div>
                             <div>
                                 <dt class="text-sm font-medium text-gray-500 italic">Tanggal</dt>
                                 <dd class="text-lg font-semibold text-gray-900">{{ $outgoing->tanggal }}</dd>
                             </div>
-                            {{-- <div>
-                                <dt class="text-sm font-medium text-gray-500 italic">Shipment</dt>
-                                <dd class="text-lg font-semibold text-gray-900">{{ $outgoing->shipment->shipment_id }}
-                                </dd>
-                            </div> --}}
+                            <div>
+                                <dt class="text-sm font-medium text-gray-500 italic">Shipment ID</dt>
+                                <dd class="text-lg font-semibold text-gray-900">{{ $outgoing->shipment_id ?? '-' }}</dd>
+                            </div>
+                            <div>
+                                <dt class="text-sm font-medium text-gray-500 italic">Sales Order</dt>
+                                <dd class="text-lg font-semibold text-gray-900">{{ $outgoing->so ?? '-' }}</dd>
+                            </div>
                             <div>
                                 <dt class="text-sm font-medium text-gray-500 italic">Nomor DO</dt>
                                 <dd class="text-lg font-semibold text-gray-900">{{ $outgoing->no_do }}</dd>
                             </div>
                             <div>
-                                <dt class="text-sm font-medium text-gray-500 italic">Lokasi</dt>
-                                <dd class="text-lg font-semibold text-gray-900">{{ $outgoing->lokasi }}</dd>
-                            </div>
-                            <div>
                                 <dt class="text-sm font-medium text-gray-500 italic">Produk</dt>
                                 <dd class="text-lg font-semibold text-gray-900">{{ $outgoing->produk }}</dd>
                             </div>
-                            {{-- <div>
-                                <dt class="text-sm font-medium text-gray-500 italic">Customer</dt>
-                                <dd class="text-lg font-semibold text-gray-900">{{ $outgoing->shipment->custname }}</dd>
+                            <div>
+                                <dt class="text-sm font-medium text-gray-500 italic">Qty</dt>
+                                <dd class="text-lg font-semibold text-gray-900">{{ $outgoing->qty ?? '-' }}</dd>
                             </div>
                             <div>
-                                <dt class="text-sm font-medium text-gray-500 italic">Barang</dt>
-                                <dd class="text-lg font-semibold text-gray-900">{{ $outgoing->shipment->description }}
-                                </dd>
-                            </div> --}}
-                            {{-- <div>
-                                <dt class="text-sm font-medium text-gray-500 italic">QTY</dt>
-                                <dd class="text-lg font-semibold text-gray-900">{{ $outgoing->shipment->qty }}
-                                </dd>
-                            </div> --}}
+                                <dt class="text-sm font-medium text-gray-500 italic">Lokasi</dt>
+                                <dd class="text-lg font-semibold text-gray-900">{{ $outgoing->lokasi }}</dd>
+                            </div>
                             <div>
                                 <dt class="text-sm font-medium text-gray-500 italic">No Kendaraan</dt>
                                 <dd class="text-lg font-semibold text-gray-900">{{ $outgoing->no_kendaraan }}</dd>

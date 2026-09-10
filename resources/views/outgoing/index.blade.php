@@ -57,8 +57,11 @@
                                         <th class="px-4 py-3 text-left font-semibold text-gray-900">Aksi</th>
                                         <th class="px-4 py-3 text-left font-semibold text-gray-900">Tanggal</th>
                                         <th class="px-4 py-3 text-left font-semibold text-gray-900">No Inspeksi</th>
+                                        <th class="px-4 py-3 text-left font-semibold text-gray-900">Shipment ID</th>
+                                        <th class="px-4 py-3 text-left font-semibold text-gray-900">SO</th>
                                         <th class="px-4 py-3 text-left font-semibold text-gray-900">No DO</th>
-                                        {{-- <th class="px-4 py-3 text-left font-semibold text-gray-900">Customer</th> --}}
+                                        <th class="px-4 py-3 text-left font-semibold text-gray-900">Produk</th>
+                                        <th class="px-4 py-3 text-left font-semibold text-gray-900">Qty</th>
                                         <th class="px-4 py-3 text-left font-semibold text-gray-900">Lokasi</th>
                                         <th class="px-4 py-3 text-left font-semibold text-gray-900">No Kendaraan</th>
                                         <th class="px-4 py-3 text-left font-semibold text-gray-900">Keterangan</th>
@@ -152,16 +155,14 @@
                                                 {{ \Carbon\Carbon::parse($item->tanggal)->format('d/m/Y') }}</td>
                                             <td class="px-4 py-3 font-medium text-gray-900">
                                                 {{ $item->nomor_inspeksi }}</td>
-                                            {{-- <td class="px-4 py-3 font-medium text-gray-900">
-                                                {{ $item->shipment->shipment_id ?? 'N/A' }}</td>
-                                            <td class="px-4 py-3 font-medium text-gray-900">
-                                                {{ $item->shipment->custname ?? 'N/A' }}</td> --}}
+                                            <td class="px-4 py-3 font-medium text-gray-900">{{ $item->shipment_id ?? '-' }}</td>
+                                            <td class="px-4 py-3 font-medium text-gray-900">{{ $item->so ?? '-' }}</td>
                                             <td class="px-4 py-3 font-medium text-gray-900">{{ $item->no_do }}</td>
+                                            <td class="px-4 py-3 font-medium text-gray-900">{{ $item->produk }}</td>
+                                            <td class="px-4 py-3 font-medium text-gray-900">{{ $item->qty ?? '-' }}</td>
                                             <td class="px-4 py-3 font-medium text-gray-900">{{ $item->lokasi }}</td>
-                                            <td class="px-4 py-3 font-medium text-gray-900">{{ $item->no_kendaraan }}
-                                            </td>
-                                            <td class="px-4 py-3 font-medium text-gray-900">{{ $item->keterangan }}
-                                            </td>
+                                            <td class="px-4 py-3 font-medium text-gray-900">{{ $item->no_kendaraan }}</td>
+                                            <td class="px-4 py-3 font-medium text-gray-900">{{ $item->keterangan }}</td>
                                             <td class="px-4 py-3 font-medium text-gray-900">
                                                 {{ $item->user->name ?? 'N/A' }}</td>
                                             </td>
@@ -200,7 +201,7 @@
                                         </tr>
                                     @empty
                                         <tr>
-                                            <td colspan="14" class="px-4 py-8 text-center italic text-gray-500">
+                                            <td colspan="16" class="px-4 py-8 text-center italic text-gray-500">
                                                 Belum ada data inspeksi bahan baku.
                                             </td>
                                         </tr>

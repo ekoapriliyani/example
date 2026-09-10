@@ -4,7 +4,6 @@
             <h2 class="text-xl font-semibold leading-tight text-gray-800">
                 Edit Inspeksi Outgoing
             </h2>
-
             <a href="{{ route('outgoing.index') }}"
                 class="inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-xs font-semibold uppercase tracking-widest text-gray-700 shadow-sm transition hover:bg-gray-50">
                 Kembali
@@ -21,81 +20,93 @@
                         enctype="multipart/form-data">
                         @csrf
                         @method('PUT')
+
                         <div class="grid grid-cols-1 gap-6 md:grid-cols-2">
                             <div>
-                                <label class="mb-1 block text-sm font-medium text-gray-700">
-                                    Nomor Inspeksi
-                                </label>
+                                <label class="mb-1 block text-sm font-medium text-gray-700">Nomor Inspeksi</label>
                                 <input type="text" name="nomor_inspeksi" readonly
                                     value="{{ old('nomor_inspeksi', $data->nomor_inspeksi) }}"
-                                    class="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-                                    required>
-                                @error('nomor_inspeksi')
-                                    <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
-                                @enderror
+                                    class="block w-full rounded-md border-gray-300 bg-gray-100 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
                             </div>
 
                             <div>
-                                <label class="mb-1 block text-sm font-medium text-gray-700">
-                                    Tanggal
-                                </label>
-                                <input type="date" name="tanggal" value="{{ old('tanggal', $data->tanggal) }}"
+                                <label class="mb-1 block text-sm font-medium text-gray-700">Tanggal</label>
+                                <input type="date" name="tanggal"
+                                    value="{{ old('tanggal', $data->tanggal) }}"
                                     class="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                                     required>
-
                                 @error('tanggal')
                                     <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                                 @enderror
                             </div>
 
-                            {{-- <div>
-                                <label class="mb-1 block text-sm font-medium text-gray-700">
-                                    Shipment
-                                </label>
-                                <select name="shipment_id" id="shipment_id" required>
-                                    <option value=""></option>
-                                    <!-- Biarkan kosong agar placeholder select2 berfungsi -->
-                                    @foreach ($shipments as $shipment)
-                                        <option value="{{ $shipment->id }}"
-                                            {{ old('shipment_id', $data->shipment_id ?? '') == $shipment->id ? 'selected' : '' }}>
-                                            {{ $shipment->shipment_id }} - {{ $shipment->custname }}
+                            <div class="md:col-span-2">
+                                <label class="mb-1 block text-sm font-medium text-gray-700">Shipment ID</label>
+                                <select id="shipment_id" name="shipment_id"
+                                    class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
+                                    <option value="">-- Pilih Shipment --</option>
+                                    @foreach ($shipmentBIData as $row)
+                                        <option value="{{ $row['trno'] }}"
+                                            data-so="{{ $row['SoNO'] }}"
+                                            data-produk="{{ $row['description'] }}"
+                                            data-qty="{{ $row['qt'] }}"
+                                            data-nopol="{{ $row['Nopol'] }}"
+                                            {{ old('shipment_id', $data->shipment_id) == $row['trno'] ? 'selected' : '' }}>
+                                            {{ $row['trno'] }} - {{ $row['description'] }} - {{ $row['qt'] }}
                                         </option>
                                     @endforeach
                                 </select>
                                 @error('shipment_id')
                                     <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                                 @enderror
-                            </div> --}}
+                            </div>
 
                             <div>
-                                <label class="mb-1 block text-sm font-medium text-gray-700">
-                                    Nomor DO
-                                </label>
-                                <input type="text" name="no_do" value="{{ old('no_do', $data->no_do) }}"
+                                <label class="mb-1 block text-sm font-medium text-gray-700">Sales Order</label>
+                                <input type="text" name="so" id="so"
+                                    value="{{ old('so', $data->so) }}"
                                     class="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-                                    required>
+                                    autocomplete="off">
+                                @error('so')
+                                    <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                                @enderror
+                            </div>
+
+                            <div>
+                                <label class="mb-1 block text-sm font-medium text-gray-700">Nomor DO</label>
+                                <input type="text" name="no_do"
+                                    value="{{ old('no_do', $data->no_do) }}"
+                                    class="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                                    autocomplete="off">
                                 @error('no_do')
                                     <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                                 @enderror
                             </div>
 
                             <div>
-                                <label class="mb-1 block text-sm font-medium text-gray-700">
-                                    Produk
-                                </label>
-                                <input type="text" name="produk" value="{{ old('produk', $data->produk) }}"
-                                    class="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-                                    required>
+                                <label class="mb-1 block text-sm font-medium text-gray-700">Produk</label>
+                                <input type="text" name="produk" id="produk"
+                                    value="{{ old('produk', $data->produk) }}"
+                                    class="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
                                 @error('produk')
                                     <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                                 @enderror
                             </div>
 
                             <div>
-                                <label class="mb-1 block text-sm font-medium text-gray-700">
-                                    Lokasi
-                                </label>
-                                <input type="text" name="lokasi" value="{{ old('lokasi', $data->lokasi) }}"
+                                <label class="mb-1 block text-sm font-medium text-gray-700">Qty</label>
+                                <input type="number" step="0.01" name="qty" id="qty"
+                                    value="{{ old('qty', $data->qty) }}"
+                                    class="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
+                                @error('qty')
+                                    <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                                @enderror
+                            </div>
+
+                            <div>
+                                <label class="mb-1 block text-sm font-medium text-gray-700">Lokasi</label>
+                                <input type="text" name="lokasi"
+                                    value="{{ old('lokasi', $data->lokasi) }}"
                                     class="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                                     required>
                                 @error('lokasi')
@@ -104,10 +115,8 @@
                             </div>
 
                             <div>
-                                <label class="mb-1 block text-sm font-medium text-gray-700">
-                                    No Kendaraan
-                                </label>
-                                <input type="text" name="no_kendaraan"
+                                <label class="mb-1 block text-sm font-medium text-gray-700">No Kendaraan</label>
+                                <input type="text" name="no_kendaraan" id="no_kendaraan"
                                     value="{{ old('no_kendaraan', $data->no_kendaraan) }}"
                                     class="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                                     required>
@@ -117,22 +126,17 @@
                             </div>
 
                             <div>
-                                <label class="mb-1 block text-sm font-medium text-gray-700">
-                                    Keterangan
-                                </label>
+                                <label class="mb-1 block text-sm font-medium text-gray-700">Keterangan</label>
                                 <input type="text" name="keterangan"
                                     value="{{ old('keterangan', $data->keterangan) }}"
                                     class="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
-
                                 @error('keterangan')
                                     <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                                 @enderror
                             </div>
 
                             <div class="md:col-span-2">
-                                <label class="mb-2 block text-sm font-medium text-gray-700">
-                                    File / Gambar Lama
-                                </label>
+                                <label class="mb-2 block text-sm font-medium text-gray-700">File / Gambar Lama</label>
                                 @if ($data->files && count($data->files))
                                     <div class="grid grid-cols-1 gap-4 md:grid-cols-2">
                                         @foreach ($data->files as $file)
@@ -158,17 +162,14 @@
                                         @endforeach
                                     </div>
                                 @else
-                                    <p
-                                        class="rounded-md border border-dashed border-gray-300 p-4 text-sm italic text-gray-400">
+                                    <p class="rounded-md border border-dashed border-gray-300 p-4 text-sm italic text-gray-400">
                                         Tidak ada surat jalan lama.
                                     </p>
                                 @endif
                             </div>
 
                             <div class="md:col-span-2">
-                                <label class="mb-1 block text-sm font-medium text-gray-700">
-                                    Upload Surat Jalan Baru
-                                </label>
+                                <label class="mb-1 block text-sm font-medium text-gray-700">Upload Surat Jalan Baru</label>
                                 <input type="file" name="files[]" multiple
                                     class="block w-full rounded-md border border-gray-300 p-2 text-sm shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
                                 <p class="mt-1 text-xs text-gray-500">
@@ -179,6 +180,7 @@
                                 @enderror
                             </div>
                         </div>
+
                         <div class="mt-8 flex justify-end gap-2">
                             <a href="{{ route('outgoing.index') }}"
                                 class="inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-xs font-semibold uppercase tracking-widest text-gray-700 shadow-sm transition hover:bg-gray-50">
@@ -194,6 +196,7 @@
             </div>
         </div>
     </div>
+
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
@@ -201,9 +204,22 @@
     <script>
         $(document).ready(function() {
             $('#shipment_id').select2({
-                placeholder: '-- Pilih shipment --',
+                placeholder: '-- Pilih Shipment --',
                 allowClear: true,
                 width: '100%'
+            });
+
+            $('#shipment_id').on('change', function() {
+                var selected = $(this).find(':selected');
+                var so = selected.data('so') || '';
+                var produk = selected.data('produk') || '';
+                var qty = selected.data('qty') || '';
+                var nopol = selected.data('nopol') || '';
+
+                $('#so').val(so);
+                $('#produk').val(produk);
+                $('#qty').val(qty);
+                $('#no_kendaraan').val(nopol);
             });
         });
     </script>

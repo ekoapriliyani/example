@@ -45,10 +45,38 @@
                         </div> --}}
 
                         <div>
+                            <x-input-label for="shipment_id" :value="__('Shipment ID')" />
+                            <select id="shipment_id" name="shipment_id"
+                                class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
+                                <option value="">-- Pilih Shipment --</option>
+                                @foreach ($shipmentBIData as $row)
+                                    <option value="{{ $row['trno'] }}"
+                                        data-so="{{ $row['SoNO'] }}"
+                                        data-produk="{{ $row['description'] }}"
+                                        data-qty="{{ $row['qt'] }}"
+                                        data-nopol="{{ $row['Nopol'] }}"
+                                        {{ old('shipment_id') == $row['trno'] ? 'selected' : '' }}>
+                                        {{ $row['trno'] }} - {{ $row['description'] }} - {{ $row['qt'] }}
+                                    </option>
+                                @endforeach
+                            </select>
+                            <x-input-error class="mt-2" :messages="$errors->get('shipment_id')" />
+                        </div>
+
+                        <div>
+                            <x-input-label for="so" :value="__('Sales Order')" />
+                            <div class="relative mt-1">
+                                <x-text-input id="so" name="so" type="text" class="block w-full pr-12"
+                                    :value="old('so')" />
+                            </div>
+                            <x-input-error class="mt-2" :messages="$errors->get('so')" />
+                        </div>
+
+                        <div>
                             <x-input-label for="no_do" :value="__('Nomor DO')" />
                             <div class="relative mt-1">
                                 <x-text-input id="no_do" name="no_do" type="text" class="block w-full pr-12"
-                                    :value="old('no_do')" />
+                                    :value="old('no_do')" autocomplete="off" />
                             </div>
                             <x-input-error class="mt-2" :messages="$errors->get('no_do')" />
                         </div>
@@ -60,6 +88,15 @@
                                     :value="old('produk')" />
                             </div>
                             <x-input-error class="mt-2" :messages="$errors->get('produk')" />
+                        </div>
+
+                        <div>
+                            <x-input-label for="qty" :value="__('Qty')" />
+                            <div class="relative mt-1">
+                                <x-text-input id="qty" name="qty" type="number" step="0.01" class="block w-full pr-12"
+                                    :value="old('qty')" />
+                            </div>
+                            <x-input-error class="mt-2" :messages="$errors->get('qty')" />
                         </div>
 
                         <div>
@@ -125,9 +162,22 @@
         $(document).ready(function() {
 
             $('#shipment_id').select2({
-                placeholder: '-- Pilih shipment --',
+                placeholder: '-- Pilih Shipment --',
                 allowClear: true,
                 width: '100%'
+            });
+
+            $('#shipment_id').on('change', function() {
+                var selected = $(this).find(':selected');
+                var so = selected.data('so') || '';
+                var produk = selected.data('produk') || '';
+                var qty = selected.data('qty') || '';
+                var nopol = selected.data('nopol') || '';
+
+                $('#so').val(so);
+                $('#produk').val(produk);
+                $('#qty').val(qty);
+                $('#no_kendaraan').val(nopol);
             });
         });
     </script>

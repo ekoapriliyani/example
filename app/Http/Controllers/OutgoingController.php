@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Outgoing;
 use App\Models\OutgoingInspeksi;
 use App\Models\Shipment;
+use App\Services\SybaseService;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -32,7 +33,7 @@ class OutgoingController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create(SybaseService $sybaseService)
     {
         // 1. Ambil format Tahun dan Bulan saat ini (Contoh: 202606)
         $tahunBulan = Carbon::now()->format('Ym');
@@ -54,10 +55,10 @@ class OutgoingController extends Controller
         $paddedNumber = str_pad($nextNumber, 3, '0', STR_PAD_LEFT);
         $nextNomor = "{$prefix}{$paddedNumber}"; // Hasil: OUT202606001
 
-        // 4. Ambil data Shipment
-        $shipments = Shipment::orderBy('shipment_id')->get();
+        // 4. Ambil data Shipment dari Sybase BI
+        $shipmentBIData = $sybaseService->getShipmentBIData();
 
-        return view('outgoing.create', compact('nextNomor', 'shipments'));
+        return view('outgoing.create', compact('nextNomor', 'shipmentBIData'));
     }
 
     /**
@@ -67,9 +68,11 @@ class OutgoingController extends Controller
     {
         $validated = $request->validate([
             'tanggal' => 'required',
-            'shipment_id' => 'nullable',
+            'shipment_id' => 'nullable|string',
+            'so' => 'nullable|string',
             'no_do' => 'nullable',
             'produk' => 'nullable',
+            'qty' => 'nullable|numeric',
             'lokasi' => 'required',
             'keterangan' => 'nullable',
             'no_kendaraan' => 'required',
@@ -132,11 +135,11 @@ class OutgoingController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(string $id, SybaseService $sybaseService)
     {
         $data = Outgoing::findOrFail($id);
-        $shipments = Shipment::orderBy('shipment_id')->get();
-        return view('outgoing.edit', compact('data', 'shipments'));
+        $shipmentBIData = $sybaseService->getShipmentBIData();
+        return view('outgoing.edit', compact('data', 'shipmentBIData'));
     }
 
     /**
@@ -146,9 +149,11 @@ class OutgoingController extends Controller
     {
         $validated = $request->validate([
             'tanggal' => 'required',
-            'shipment_id' => 'nullable',
+            'shipment_id' => 'nullable|string',
+            'so' => 'nullable|string',
             'no_do' => 'nullable',
             'produk' => 'nullable',
+            'qty' => 'nullable|numeric',
             'lokasi' => 'required',
             'no_kendaraan' => 'required',
             'keterangan' => 'nullable',

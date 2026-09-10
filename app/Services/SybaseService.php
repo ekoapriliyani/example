@@ -45,7 +45,7 @@ class SybaseService
         $pdo = $this->connect();
 
         $sql = "
-            SELECT DISTINCT
+            SELECT
                 trno,
                 SoNO,
                 custname,
