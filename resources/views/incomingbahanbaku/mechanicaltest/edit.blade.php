@@ -96,24 +96,9 @@
                                 <option value=""
                                     {{ old('description1', $mechanicalTest->description1) == '' ? 'selected' : '' }}>--
                                     PILIH DESKRIPSI --</option>
-                                <option value="KARAT"
-                                    {{ old('description1', $mechanicalTest->description1) == 'KARAT' ? 'selected' : '' }}>
-                                    KARAT</option>
-                                <option value="WHITE RUST"
-                                    {{ old('description1', $mechanicalTest->description1) == 'WHITE RUST' ? 'selected' : '' }}>
-                                    WHITE RUST</option>
                                 <option value="CRACK/FLAKING"
                                     {{ old('description1', $mechanicalTest->description1) == 'CRACK/FLAKING' ? 'selected' : '' }}>
                                     CRACK/FLAKING</option>
-                                <option value="RUAS BAMBU"
-                                    {{ old('description1', $mechanicalTest->description1) == 'RUAS BAMBU' ? 'selected' : '' }}>
-                                    RUAS BAMBU</option>
-                                <option value="BINTIK HITAM"
-                                    {{ old('description1', $mechanicalTest->description1) == 'BINTIK HITAM' ? 'selected' : '' }}>
-                                    BINTIK HITAM</option>
-                                <option value="DIAMETER OUT"
-                                    {{ old('description1', $mechanicalTest->description1) == 'DIAMETER OUT' ? 'selected' : '' }}>
-                                    DIAMETER OUT</option>
                                 <option value="TENSILE OUT"
                                     {{ old('description1', $mechanicalTest->description1) == 'TENSILE OUT' ? 'selected' : '' }}>
                                     TENSILE OUT</option>
@@ -123,9 +108,6 @@
                                 <option value="PUNTIR OUT"
                                     {{ old('description1', $mechanicalTest->description1) == 'PUNTIR OUT' ? 'selected' : '' }}>
                                     PUNTIR OUT</option>
-                                <option value="LILIT OUT"
-                                    {{ old('description1', $mechanicalTest->description1) == 'LILIT OUT' ? 'selected' : '' }}>
-                                    LILIT OUT</option>
                             </select>
                             <x-input-error class="mt-2" :messages="$errors->get('description1')" />
                         </div>
@@ -140,24 +122,9 @@
                                 <option value=""
                                     {{ old('description2', $mechanicalTest->description2) == '' ? 'selected' : '' }}>--
                                     PILIH DESKRIPSI --</option>
-                                <option value="KARAT"
-                                    {{ old('description2', $mechanicalTest->description2) == 'KARAT' ? 'selected' : '' }}>
-                                    KARAT</option>
-                                <option value="WHITE RUST"
-                                    {{ old('description2', $mechanicalTest->description2) == 'WHITE RUST' ? 'selected' : '' }}>
-                                    WHITE RUST</option>
                                 <option value="CRACK/FLAKING"
                                     {{ old('description2', $mechanicalTest->description2) == 'CRACK/FLAKING' ? 'selected' : '' }}>
                                     CRACK/FLAKING</option>
-                                <option value="RUAS BAMBU"
-                                    {{ old('description2', $mechanicalTest->description2) == 'RUAS BAMBU' ? 'selected' : '' }}>
-                                    RUAS BAMBU</option>
-                                <option value="BINTIK HITAM"
-                                    {{ old('description2', $mechanicalTest->description2) == 'BINTIK HITAM' ? 'selected' : '' }}>
-                                    BINTIK HITAM</option>
-                                <option value="DIAMETER OUT"
-                                    {{ old('description2', $mechanicalTest->description2) == 'DIAMETER OUT' ? 'selected' : '' }}>
-                                    DIAMETER OUT</option>
                                 <option value="TENSILE OUT"
                                     {{ old('description2', $mechanicalTest->description2) == 'TENSILE OUT' ? 'selected' : '' }}>
                                     TENSILE OUT</option>
@@ -167,9 +134,6 @@
                                 <option value="PUNTIR OUT"
                                     {{ old('description2', $mechanicalTest->description2) == 'PUNTIR OUT' ? 'selected' : '' }}>
                                     PUNTIR OUT</option>
-                                <option value="LILIT OUT"
-                                    {{ old('description2', $mechanicalTest->description2) == 'LILIT OUT' ? 'selected' : '' }}>
-                                    LILIT OUT</option>
                             </select>
                             <x-input-error class="mt-2" :messages="$errors->get('description2')" />
                         </div>
