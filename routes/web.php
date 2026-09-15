@@ -54,6 +54,7 @@ use App\Http\Controllers\ProductRazorController;
 use App\Http\Controllers\ProductWmController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DaftarNgRejectController;
+use App\Http\Controllers\LksController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ProjectController;
@@ -975,6 +976,25 @@ Route::middleware([
 
 Route::middleware(['role:administrator,manager'])->group(function () {
     Route::resource('users', UserController::class)->except(['show']);
+});
+
+/*
+|--------------------------------------------------------------------------
+| LKS (Laporan Ketidaksesuaian)
+|--------------------------------------------------------------------------
+*/
+Route::middleware(['auth'])->prefix('lks')->name('lks.')->group(function () {
+    Route::get('/', [LksController::class, 'index'])->name('index');
+    Route::get('/create', [LksController::class, 'create'])->name('create');
+    Route::post('/', [LksController::class, 'store'])->name('store');
+    Route::get('/{lks}', [LksController::class, 'show'])->name('show');
+    Route::get('/{lks}/edit', [LksController::class, 'edit'])->name('edit');
+    Route::put('/{lks}', [LksController::class, 'update'])->name('update');
+    Route::delete('/{lks}', [LksController::class, 'destroy'])->name('destroy');
+    Route::patch('/{lks}/approve', [LksController::class, 'approve'])->name('approve');
+    Route::patch('/{lks}/close', [LksController::class, 'close'])->name('close');
+    Route::patch('/{lks}/open', [LksController::class, 'open'])->name('open');
+    Route::get('/api/lots', [LksController::class, 'getLotsApi'])->name('api.lots');
 });
 
 

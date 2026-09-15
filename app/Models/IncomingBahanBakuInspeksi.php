@@ -29,7 +29,7 @@ class IncomingBahanBakuInspeksi extends Model
 
     public function incomingbahanbaku()
     {
-        return $this->belongsTo(IncomingBahanBaku::class);
+        return $this->belongsTo(IncomingBahanBaku::class, 'incoming_bahan_baku_id');
     }
 
     public function user()
