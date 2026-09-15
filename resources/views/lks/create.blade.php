@@ -179,7 +179,7 @@
                     </td>
                 </tr>`;
 
-            fetch(`{{ route('lks.api.lots') }}?supplier_id=${supplierId}&bulan=${bulan}`, {
+            fetch(`{{ route('lks.api.lots', [], false) }}?supplier_id=${supplierId}&bulan=${bulan}`, {
                     credentials: 'same-origin',
                     headers: {
                         'X-Requested-With': 'XMLHttpRequest',
