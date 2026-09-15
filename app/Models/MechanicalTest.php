@@ -17,6 +17,7 @@ class MechanicalTest extends Model
         'status',
         'description1',
         'description2',
+        'lot_number',
         'files',
     ];
 

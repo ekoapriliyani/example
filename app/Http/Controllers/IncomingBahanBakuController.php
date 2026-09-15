@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Mail\InspeksiBbLotNotification;
+use App\Mail\MechanicalTestLotNotification;
 use App\Models\IncomingBahanBaku;
 use App\Models\IncomingBahanBakuInspeksi;
 use App\Models\MechanicalTest;
@@ -447,6 +448,11 @@ class IncomingBahanBakuController extends Controller
             $mechanicalTest->update(['files' => $paths]);
         }
 
+        // lot number & email notification untuk NG/REJECT
+        if (in_array($mechanicalTest->status, ['NG', 'REJECT'])) {
+            $this->handleLotNumberAndNotifyMechanical($mechanicalTest);
+        }
+
         return redirect()
             ->route('incomingbahanbaku.show', $id)
             ->with('success', 'Data mechanical test berhasil ditambahkan');
@@ -506,6 +512,11 @@ class IncomingBahanBakuController extends Controller
 
         // 4. Jalankan perintah update massal ke database
         $mechanicalTest->update($validated);
+
+        // lot number & email notification untuk NG/REJECT
+        if (in_array($mechanicalTest->status, ['NG', 'REJECT'])) {
+            $this->handleLotNumberAndNotifyMechanical($mechanicalTest);
+        }
 
         return redirect()
             ->route('incomingbahanbaku.show', $mechanicalTest->incoming_bahan_baku_id)
@@ -589,5 +600,41 @@ class IncomingBahanBakuController extends Controller
 
         $insbb->load(['incomingbahanbaku.supplier', 'user']);
         Mail::to($recipients)->send(new InspeksiBbLotNotification($insbb));
+    }
+
+    private function generateLotNumberMechanical(string $prefix): string
+    {
+        $tahunBulan = now()->format('Ym');
+        $prefixWithDate = "{$prefix}-{$tahunBulan}-";
+
+        return DB::transaction(function () use ($prefixWithDate) {
+            $maxSeq = DB::table('mechanical_tests')
+                ->where('lot_number', 'like', "{$prefixWithDate}%")
+                ->whereNotNull('lot_number')
+                ->lockForUpdate()
+                ->max(DB::raw("CAST(REPLACE(lot_number, '{$prefixWithDate}', '') AS UNSIGNED)"));
+
+            $nextNumber = ($maxSeq ?: 0) + 1;
+
+            return $prefixWithDate . str_pad($nextNumber, 5, '0', STR_PAD_LEFT);
+        });
+    }
+
+    private function handleLotNumberAndNotifyMechanical(MechanicalTest $test): void
+    {
+        if ($test->lot_number) {
+            return;
+        }
+
+        $isReject = $test->status === 'REJECT';
+        $prefix = $isReject ? 'REJ-BB' : 'NG-BB';
+        $lotNumber = $this->generateLotNumberMechanical($prefix);
+
+        $test->updateQuietly(['lot_number' => $lotNumber]);
+
+        $recipients = User::whereIn('role', [User::SUPERVISOR, User::MANAGER])->get();
+
+        $test->load(['incomingBahanBaku.supplier', 'user']);
+        Mail::to($recipients)->send(new MechanicalTestLotNotification($test));
     }
 }
