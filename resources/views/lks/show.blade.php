@@ -78,17 +78,21 @@
                             </div>
                             <div>
                                 <dt class="text-sm font-medium text-gray-500 italic">Tanggal</dt>
-                                <dd class="text-lg font-semibold text-gray-900">{{ \Carbon\Carbon::parse($lks->tanggal)->format('d/m/Y') }}</dd>
+                                <dd class="text-lg font-semibold text-gray-900">
+                                    {{ \Carbon\Carbon::parse($lks->tanggal)->format('d/m/Y') }}</dd>
                             </div>
                             <div>
                                 <dt class="text-sm font-medium text-gray-500 italic">Status</dt>
                                 <dd>
                                     @if ($lks->isDraft())
-                                        <span class="inline-block rounded bg-yellow-100 px-3 py-1 text-sm font-semibold text-yellow-700">DRAFT</span>
+                                        <span
+                                            class="inline-block rounded bg-yellow-100 px-3 py-1 text-sm font-semibold text-yellow-700">DRAFT</span>
                                     @elseif ($lks->isApproved())
-                                        <span class="inline-block rounded bg-green-100 px-3 py-1 text-sm font-semibold text-green-700">APPROVED</span>
+                                        <span
+                                            class="inline-block rounded bg-green-100 px-3 py-1 text-sm font-semibold text-green-700">APPROVED</span>
                                     @else
-                                        <span class="inline-block rounded bg-gray-100 px-3 py-1 text-sm font-semibold text-gray-700">CLOSED</span>
+                                        <span
+                                            class="inline-block rounded bg-gray-100 px-3 py-1 text-sm font-semibold text-gray-700">CLOSED</span>
                                     @endif
                                 </dd>
                             </div>
@@ -119,8 +123,8 @@
                             <thead class="bg-gray-50">
                                 <tr>
                                     <th class="px-4 py-3 font-semibold text-gray-900">No</th>
-                                    <th class="px-4 py-3 font-semibold text-gray-900">Lot Number</th>
-                                    <th class="px-4 py-3 font-semibold text-gray-900">Sumber</th>
+                                    <th class="px-4 py-3 font-semibold text-gray-900">No PO</th>
+                                    <th class="px-4 py-3 font-semibold text-gray-900">No RCR</th>
                                     <th class="px-4 py-3 font-semibold text-gray-900">No Koil</th>
                                     <th class="px-4 py-3 font-semibold text-gray-900">Status</th>
                                     <th class="px-4 py-3 font-semibold text-gray-900">Description 1</th>
@@ -132,23 +136,23 @@
                                 @forelse ($lks->details as $detail)
                                     <tr class="hover:bg-gray-50 transition-colors">
                                         <td class="px-4 py-3">{{ $loop->iteration }}</td>
-                                        <td class="px-4 py-3 font-semibold text-indigo-600">{{ $detail->lot_number }}</td>
+                                        <td class="px-4 py-3 font-semibold text-indigo-600">...
+                                        </td>
                                         <td class="px-4 py-3">
-                                            <span class="inline-flex items-center px-2 py-1 text-xs font-semibold rounded-full
-                                                {{ $detail->sumber === 'inspeksi' ? 'text-blue-800 bg-blue-200' : 'text-green-800 bg-green-200' }}">
-                                                {{ ucfirst($detail->sumber) }}
-                                            </span>
+                                            ...
                                         </td>
                                         <td class="px-4 py-3 font-medium">{{ $detail->no_koil ?? '-' }}</td>
                                         <td class="px-4 py-3">
-                                            <span class="inline-flex items-center px-2 py-1 text-xs font-semibold rounded-full
+                                            <span
+                                                class="inline-flex items-center px-2 py-1 text-xs font-semibold rounded-full
                                                 {{ $detail->status === 'REJECT' ? 'text-red-800 bg-red-200' : 'text-yellow-800 bg-yellow-200' }}">
                                                 {{ $detail->status }}
                                             </span>
                                         </td>
                                         <td class="px-4 py-3 text-gray-600">{{ $detail->description1 ?? '-' }}</td>
                                         <td class="px-4 py-3 text-gray-600">{{ $detail->description2 ?? '-' }}</td>
-                                        <td class="px-4 py-3 text-xs text-gray-500">{{ $detail->tanggal_inspeksi ?? '-' }}</td>
+                                        <td class="px-4 py-3 text-xs text-gray-500">
+                                            {{ $detail->tanggal_inspeksi ?? '-' }}</td>
                                     </tr>
                                 @empty
                                     <tr>
@@ -173,15 +177,30 @@
                 size: landscape;
                 margin: 10mm;
             }
-            body * { visibility: hidden; }
-            #print-section, #print-section * { visibility: visible; }
-            #print-section { position: absolute; left: 0; top: 0; width: 100%; }
-            #print-section.hidden { display: block !important; }
+
+            body * {
+                visibility: hidden;
+            }
+
+            #print-section,
+            #print-section * {
+                visibility: visible;
+            }
+
+            #print-section {
+                position: absolute;
+                left: 0;
+                top: 0;
+                width: 100%;
+            }
+
+            #print-section.hidden {
+                display: block !important;
+            }
         }
     </style>
     <div id="print-section" class="hidden">
-        <table width="100%" cellpadding="5" cellspacing="0"
-            style="border-collapse: collapse; margin-bottom: 10px;">
+        <table width="100%" cellpadding="5" cellspacing="0" style="border-collapse: collapse; margin-bottom: 10px;">
             <tr>
                 <td style="width: 20%; vertical-align: middle;">
                     <img src="{{ asset('img/logobeva.png') }}" alt="Logo" style="height: 60px; width: auto;" />
@@ -190,7 +209,8 @@
                     <h1 style="font-size: 18pt; font-weight: bold; margin: 0; font-family: Arial, sans-serif;">
                         LAPORAN KETIDAKSESUAIAN (LKS)</h1>
                 </td>
-                <td style="width: 20%; vertical-align: top; text-align: right; font-family: Arial, sans-serif; font-size: 11pt;">
+                <td
+                    style="width: 20%; vertical-align: top; text-align: right; font-family: Arial, sans-serif; font-size: 11pt;">
                     <table cellpadding="3" cellspacing="0" style="border: 1px solid #000; margin-left: auto;">
                         <tr>
                             <td style="font-weight: bold; font-size: 10pt;">BM-F-QC-XX R00</td>
@@ -230,30 +250,41 @@
                 <thead>
                     <tr style="background-color: #f0f0f0;">
                         <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 3%;">No</th>
-                        <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 15%;">Lot Number</th>
+                        <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 15%;">Lot Number
+                        </th>
                         <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 10%;">Sumber</th>
                         <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 10%;">No Koil</th>
                         <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 8%;">Status</th>
-                        <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 15%;">Description 1</th>
-                        <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 15%;">Description 2</th>
-                        <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 12%;">Tanggal Inspeksi</th>
+                        <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 15%;">Description 1
+                        </th>
+                        <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 15%;">Description 2
+                        </th>
+                        <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 12%;">Tanggal
+                            Inspeksi</th>
                     </tr>
                 </thead>
                 <tbody>
                     @forelse ($lks->details as $detail)
                         <tr>
-                            <td style="border: 1px solid #000; padding: 4px; text-align: center;">{{ $loop->iteration }}</td>
-                            <td style="border: 1px solid #000; padding: 4px; text-align: center;">{{ $detail->lot_number }}</td>
-                            <td style="border: 1px solid #000; padding: 4px; text-align: center;">{{ ucfirst($detail->sumber) }}</td>
-                            <td style="border: 1px solid #000; padding: 4px; text-align: center;">{{ $detail->no_koil ?? '-' }}</td>
-                            <td style="border: 1px solid #000; padding: 4px; text-align: center;">{{ $detail->status }}</td>
+                            <td style="border: 1px solid #000; padding: 4px; text-align: center;">
+                                {{ $loop->iteration }}</td>
+                            <td style="border: 1px solid #000; padding: 4px; text-align: center;">
+                                {{ $detail->lot_number }}</td>
+                            <td style="border: 1px solid #000; padding: 4px; text-align: center;">
+                                {{ ucfirst($detail->sumber) }}</td>
+                            <td style="border: 1px solid #000; padding: 4px; text-align: center;">
+                                {{ $detail->no_koil ?? '-' }}</td>
+                            <td style="border: 1px solid #000; padding: 4px; text-align: center;">
+                                {{ $detail->status }}</td>
                             <td style="border: 1px solid #000; padding: 4px;">{{ $detail->description1 ?? '-' }}</td>
                             <td style="border: 1px solid #000; padding: 4px;">{{ $detail->description2 ?? '-' }}</td>
-                            <td style="border: 1px solid #000; padding: 4px; text-align: center;">{{ $detail->tanggal_inspeksi ?? '-' }}</td>
+                            <td style="border: 1px solid #000; padding: 4px; text-align: center;">
+                                {{ $detail->tanggal_inspeksi ?? '-' }}</td>
                         </tr>
                     @empty
                         <tr>
-                            <td colspan="8" style="border: 1px solid #000; padding: 8px; text-align: center; font-style: italic;">
+                            <td colspan="8"
+                                style="border: 1px solid #000; padding: 8px; text-align: center; font-style: italic;">
                                 Belum ada detail lot number</td>
                         </tr>
                     @endforelse

@@ -153,15 +153,25 @@
                                         <td class="px-4 py-3">
                                             <div class="flex items-center justify-center gap-2">
                                                 @if ($isApproved)
-                                                    <span class="flex items-center justify-center rounded bg-gray-100 p-2 text-gray-400 cursor-not-allowed">
-                                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5" />
-                                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z" />
+                                                    <span
+                                                        class="flex items-center justify-center rounded bg-gray-100 p-2 text-gray-400 cursor-not-allowed">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4"
+                                                            fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                            <path stroke-linecap="round" stroke-linejoin="round"
+                                                                stroke-width="2"
+                                                                d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5" />
+                                                            <path stroke-linecap="round" stroke-linejoin="round"
+                                                                stroke-width="2"
+                                                                d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z" />
                                                         </svg>
                                                     </span>
-                                                    <span class="flex items-center justify-center rounded bg-gray-100 p-2 text-gray-400 cursor-not-allowed">
-                                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3" />
+                                                    <span
+                                                        class="flex items-center justify-center rounded bg-gray-100 p-2 text-gray-400 cursor-not-allowed">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4"
+                                                            fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                            <path stroke-linecap="round" stroke-linejoin="round"
+                                                                stroke-width="2"
+                                                                d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3" />
                                                         </svg>
                                                     </span>
                                                 @else
@@ -185,7 +195,8 @@
                                                         <button type="submit"
                                                             class="flex items-center justify-center rounded bg-red-50 p-2 text-red-700 hover:bg-red-100 transition">
                                                             <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4"
-                                                                fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                                fill="none" viewBox="0 0 24 24"
+                                                                stroke="currentColor">
                                                                 <path stroke-linecap="round" stroke-linejoin="round"
                                                                     stroke-width="2"
                                                                     d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3" />
@@ -217,7 +228,8 @@
                                         <td class="px-4 py-3 text-gray-600">{{ $inc->description2 }}</td>
                                         <td class="px-4 py-3">
                                             @if ($inc->lot_number)
-                                                <span class="inline-flex items-center px-2 py-1 text-xs font-semibold rounded-full text-blue-800 bg-blue-200">
+                                                <span
+                                                    class="inline-flex items-center px-2 py-1 text-xs font-semibold rounded-full text-blue-800 bg-blue-200">
                                                     {{ $inc->lot_number }}
                                                 </span>
                                             @else
@@ -286,15 +298,25 @@
                                         <td class="px-4 py-3">
                                             <div class="flex items-center justify-center gap-2">
                                                 @if ($isApproved)
-                                                    <span class="flex items-center justify-center rounded bg-gray-100 p-2 text-gray-400 cursor-not-allowed">
-                                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5" />
-                                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z" />
+                                                    <span
+                                                        class="flex items-center justify-center rounded bg-gray-100 p-2 text-gray-400 cursor-not-allowed">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4"
+                                                            fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                            <path stroke-linecap="round" stroke-linejoin="round"
+                                                                stroke-width="2"
+                                                                d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5" />
+                                                            <path stroke-linecap="round" stroke-linejoin="round"
+                                                                stroke-width="2"
+                                                                d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z" />
                                                         </svg>
                                                     </span>
-                                                    <span class="flex items-center justify-center rounded bg-gray-100 p-2 text-gray-400 cursor-not-allowed">
-                                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3" />
+                                                    <span
+                                                        class="flex items-center justify-center rounded bg-gray-100 p-2 text-gray-400 cursor-not-allowed">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4"
+                                                            fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                            <path stroke-linecap="round" stroke-linejoin="round"
+                                                                stroke-width="2"
+                                                                d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3" />
                                                         </svg>
                                                     </span>
                                                 @else
@@ -318,7 +340,8 @@
                                                         <button type="submit"
                                                             class="flex items-center justify-center rounded bg-red-50 p-2 text-red-700 hover:bg-red-100 transition">
                                                             <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4"
-                                                                fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                                fill="none" viewBox="0 0 24 24"
+                                                                stroke="currentColor">
                                                                 <path stroke-linecap="round" stroke-linejoin="round"
                                                                     stroke-width="2"
                                                                     d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3" />
@@ -349,7 +372,8 @@
                                         <td class="px-4 py-3 text-gray-600">{{ $test->description2 }}</td>
                                         <td class="px-4 py-3">
                                             @if ($test->lot_number)
-                                                <span class="inline-flex items-center px-2 py-1 text-xs font-semibold rounded-full text-blue-800 bg-blue-200">
+                                                <span
+                                                    class="inline-flex items-center px-2 py-1 text-xs font-semibold rounded-full text-blue-800 bg-blue-200">
                                                     {{ $test->lot_number }}
                                                 </span>
                                             @else
@@ -547,7 +571,8 @@
                 <thead>
                     <tr style="background-color: #f0f0f0;">
                         <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 3%;">No</th>
-                        <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 10%;">Inspektor</th>
+                        <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 10%;">Inspektor
+                        </th>
                         <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 8%;">No Koil</th>
                         <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 6%;">D1</th>
                         <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 6%;">D2</th>
@@ -572,9 +597,12 @@
                                 {{ $loop->iteration }}</td>
                             <td style="border: 1px solid #000; padding: 4px;">{{ $inc->user->name ?? 'N/A' }}</td>
                             <td style="border: 1px solid #000; padding: 4px;">{{ $inc->no_koil }}</td>
-                            <td style="border: 1px solid #000; padding: 4px; text-align: center;">{{ $inc->d1 }}</td>
-                            <td style="border: 1px solid #000; padding: 4px; text-align: center;">{{ $inc->d2 }}</td>
-                            <td style="border: 1px solid #000; padding: 4px; text-align: center;">{{ $inc->d3 }}</td>
+                            <td style="border: 1px solid #000; padding: 4px; text-align: center;">{{ $inc->d1 }}
+                            </td>
+                            <td style="border: 1px solid #000; padding: 4px; text-align: center;">{{ $inc->d2 }}
+                            </td>
+                            <td style="border: 1px solid #000; padding: 4px; text-align: center;">{{ $inc->d3 }}
+                            </td>
                             <td style="border: 1px solid #000; padding: 4px; text-align: center;">
                                 {{ $inc->rata_rata }}</td>
                             <td style="border: 1px solid #000; padding: 4px; text-align: center;">
@@ -583,7 +611,8 @@
                             </td>
                             <td style="border: 1px solid #000; padding: 4px;">{{ $inc->description1 }}</td>
                             <td style="border: 1px solid #000; padding: 4px;">{{ $inc->description2 }}</td>
-                            <td style="border: 1px solid #000; padding: 4px; text-align: center;">{{ $inc->lot_number ?? '-' }}</td>
+                            <td style="border: 1px solid #000; padding: 4px; text-align: center;">
+                                {{ $inc->lot_number ?? '-' }}</td>
                             <td style="border: 1px solid #000; padding: 4px; text-align: center;">
                                 {{ \Carbon\Carbon::parse($inc->created_at)->format('d/m/Y') }}</td>
                         </tr>
@@ -608,11 +637,13 @@
                     <tr style="background-color: #f0f0f0;">
                         <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 3%;">No</th>
                         <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 7%;">Status</th>
-                        <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 10%;">Inspektor</th>
+                        <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 10%;">Inspektor
+                        </th>
                         <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 8%;">No Koil</th>
                         <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 10%;">Hasil Tensile
                         </th>
-                        <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 10%;">Coating Weight
+                        <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 10%;">Coating
+                            Weight
                         </th>
                         <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 8%;">Hasil Lilit
                         </th>
@@ -647,7 +678,8 @@
                                 {{ $test->hasil_puntir }} kali</td>
                             <td style="border: 1px solid #000; padding: 4px;">{{ $test->description1 }}</td>
                             <td style="border: 1px solid #000; padding: 4px;">{{ $test->description2 }}</td>
-                            <td style="border: 1px solid #000; padding: 4px; text-align: center;">{{ $test->lot_number ?? '-' }}</td>
+                            <td style="border: 1px solid #000; padding: 4px; text-align: center;">
+                                {{ $test->lot_number ?? '-' }}</td>
                             <td style="border: 1px solid #000; padding: 4px; text-align: center;">
                                 {{ \Carbon\Carbon::parse($test->created_at)->format('d/m/Y') }}</td>
                         </tr>

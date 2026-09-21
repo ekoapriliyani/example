@@ -62,7 +62,29 @@ class SybaseService
         return $pdo->query($sql)->fetchAll();
     }
 
-    // shipment data
+    public function getReceivingBIData(): array
+    {
+        $pdo = $this->connect();
+
+        $sql = "
+            SELECT
+                trno,
+                OrderNo,
+                description,
+                TotalKoil,
+                TotalTonase
+            FROM DBA.Beva_vRecevingBahanBakuQC
+            WHERE trno IS NOT NULL
+            AND description IS NOT NULL
+            ORDER BY trno
+        ";
+
+        return $pdo->query($sql)->fetchAll();
+    }
+
+
+
+    // shipment data lama
     public function getShipmentData(): array
     {
         $pdo = $this->connect();
