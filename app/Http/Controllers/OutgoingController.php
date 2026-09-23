@@ -18,12 +18,33 @@ class OutgoingController extends Controller
     public function index(Request $request)
     {
         $search = $request->input('search');
-        $data = Outgoing::with('shipment') // Eager loading relasi shipment
+        $status = $request->input('status');
+        $startDate = $request->input('start_date');
+        $endDate = $request->input('end_date');
+
+        $data = Outgoing::with('shipment')
             ->when($search, function ($query, $search) {
                 return $query->where('nomor_inspeksi', 'like', "%{$search}%")
-                    ->orWhere('tanggal', 'like', "%{$search}%");
+                    ->orWhere('no_do', 'like', "%{$search}%")
+                    ->orWhere('produk', 'like', "%{$search}%");
             })
-            ->orderBy('created_at', 'desc') // Lebih aman menggunakan parameter waktu pembuatan data
+            ->when($status, function ($query, $status) {
+                if ($status === 'approved') {
+                    return $query->where('approval_status', 'APPROVED');
+                } elseif ($status === 'pending') {
+                    return $query->where(function ($q) {
+                        $q->where('approval_status', 'PENDING')
+                            ->orWhereNull('approval_status');
+                    });
+                }
+            })
+            ->when($startDate, function ($query, $startDate) {
+                return $query->whereDate('tanggal', '>=', $startDate);
+            })
+            ->when($endDate, function ($query, $endDate) {
+                return $query->whereDate('tanggal', '<=', $endDate);
+            })
+            ->orderBy('created_at', 'desc')
             ->paginate(10)
             ->withQueryString();
 

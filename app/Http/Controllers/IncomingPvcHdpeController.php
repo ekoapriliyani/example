@@ -15,10 +15,32 @@ class IncomingPvcHdpeController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $data = IncomingPvcHdpe::all();
-        return view('incomingpvchdpe.index', ['data' => $data]);
+        $search = $request->input('search');
+        $startDate = $request->input('start_date');
+        $endDate = $request->input('end_date');
+
+        $data = IncomingPvcHdpe::with('supplier')
+            ->when($search, function ($query, $search) {
+                return $query->where('nomor_inspeksi', 'like', "%{$search}%")
+                    ->orWhere('no_po', 'like', "%{$search}%")
+                    ->orWhere('no_sj', 'like', "%{$search}%")
+                    ->orWhereHas('supplier', function ($q) use ($search) {
+                        $q->where('nama', 'like', "%{$search}%");
+                    });
+            })
+            ->when($startDate, function ($query, $startDate) {
+                return $query->whereDate('tanggal', '>=', $startDate);
+            })
+            ->when($endDate, function ($query, $endDate) {
+                return $query->whereDate('tanggal', '<=', $endDate);
+            })
+            ->orderBy('created_at', 'desc')
+            ->paginate(10)
+            ->withQueryString();
+
+        return view('incomingpvchdpe.index', compact('data'));
     }
 
     /**
