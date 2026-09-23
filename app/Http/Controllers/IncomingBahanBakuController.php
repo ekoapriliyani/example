@@ -24,18 +24,36 @@ class IncomingBahanBakuController extends Controller
     public function index(Request $request)
     {
         $search = $request->input('search');
+        $status = $request->input('status');
+        $startDate = $request->input('start_date');
+        $endDate = $request->input('end_date');
 
-        $data = IncomingBahanBaku::with('supplier') // Eager loading relasi supplier
+        $data = IncomingBahanBaku::with('supplier')
             ->when($search, function ($query, $search) {
                 return $query->where('nomor_inspeksi', 'like', "%{$search}%")
-                    ->orWhere('tanggal', 'like', "%{$search}%")
                     ->orWhere('no_po', 'like', "%{$search}%")
-                    // Jika ingin mencari berdasarkan nama supplier yang berelasi
+                    ->orWhere('no_sj', 'like', "%{$search}%")
                     ->orWhereHas('supplier', function ($q) use ($search) {
                         $q->where('nama', 'like', "%{$search}%");
                     });
             })
-            ->orderBy('created_at', 'desc') // Lebih aman menggunakan parameter waktu pembuatan data
+            ->when($status, function ($query, $status) {
+                if ($status === 'approved') {
+                    return $query->where('approval_status', 'APPROVED');
+                } elseif ($status === 'pending') {
+                    return $query->where(function ($q) {
+                        $q->where('approval_status', 'PENDING')
+                            ->orWhereNull('approval_status');
+                    });
+                }
+            })
+            ->when($startDate, function ($query, $startDate) {
+                return $query->whereDate('tanggal', '>=', $startDate);
+            })
+            ->when($endDate, function ($query, $endDate) {
+                return $query->whereDate('tanggal', '<=', $endDate);
+            })
+            ->orderBy('created_at', 'desc')
             ->paginate(10)
             ->withQueryString();
 
