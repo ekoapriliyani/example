@@ -17,7 +17,9 @@ class DaftarNgRejectController extends Controller
         $wm = InspeksiWmFg::query()
             ->with('inspeksiWm.pro')
             ->whereIn('status', ['NG', 'REJECT'])
-            ->get(['id', 'lot_number', 'status', 'qty', 'inspeksi_wm_id'])
+            ->join('inspeksi_wm', 'inspeksi_wm.id', '=', 'inspeksi_wm_fg.inspeksi_wm_id')
+            ->orderBy('inspeksi_wm.tanggal', 'desc') // urutkan berdasarkan tanggal terbaru
+            ->get(['inspeksi_wm_fg.id', 'inspeksi_wm_fg.lot_number', 'inspeksi_wm_fg.status', 'inspeksi_wm_fg.qty', 'inspeksi_wm_fg.inspeksi_wm_id'])
             ->map(fn($fg) => [
                 'id' => $fg->id,
                 'lot_number' => $fg->lot_number,
@@ -29,7 +31,8 @@ class DaftarNgRejectController extends Controller
                 'pro_number' => $fg->inspeksiWm->pro->pro_id,
                 'modul' => 'WM',
                 'qrcode_url' => route('inspeksi_wm_fg.qrcode', $fg->id),
-            ])->orderByDesc('tanggal');
+            ]);
+
 
         $fencing = InspeksiFencingFg::query()
             ->with('inspeksiFencing.pro')
