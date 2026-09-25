@@ -29,7 +29,7 @@ class DaftarNgRejectController extends Controller
                 'pro_number' => $fg->inspeksiWm->pro->pro_id,
                 'modul' => 'WM',
                 'qrcode_url' => route('inspeksi_wm_fg.qrcode', $fg->id),
-            ]);
+            ])->orderByDesc('tanggal')->values();
 
         $fencing = InspeksiFencingFg::query()
             ->with('inspeksiFencing.pro')

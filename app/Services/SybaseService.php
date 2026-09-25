@@ -72,7 +72,8 @@ class SybaseService
                 OrderNo,
                 description,
                 TotalKoil,
-                TotalTonase
+                TotalTonase,
+                SuppName
             FROM DBA.Beva_vRecevingBahanBakuQC
             WHERE trno IS NOT NULL
             AND description IS NOT NULL
