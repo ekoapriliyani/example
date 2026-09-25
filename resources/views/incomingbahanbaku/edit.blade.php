@@ -39,7 +39,8 @@
                                         <input type="radio" name="jenis" value="non_reguler"
                                             {{ old('jenis', $data->jenis) == 'non_reguler' ? 'checked' : '' }}
                                             class="text-indigo-600 border-gray-300 focus:ring-indigo-500">
-                                        <span class="ml-2 text-sm text-gray-700">Non Reguler</span>
+                                        <span class="ml-2 text-sm text-gray-700">Non Reguler (Jika Stock
+                                            Opname/dll)</span>
                                     </label>
                                 </div>
 
