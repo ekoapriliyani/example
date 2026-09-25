@@ -135,6 +135,7 @@
                                     <th class="px-4 py-3 font-semibold text-gray-900">Uji Kerekatan</th>
                                     <th class="px-4 py-3 font-semibold text-gray-900">Elongation</th>
                                     <th class="px-4 py-3 font-semibold text-gray-900">Visual</th>
+                                    <th class="px-4 py-3 font-semibold text-gray-900">Status</th>
                                     <th class="px-4 py-3 font-semibold text-gray-900">Detail</th>
                                     <th class="px-4 py-3 font-semibold text-gray-900">Gambar</th>
                                     <th class="px-4 py-3 text-center font-semibold text-gray-900">Created At</th>
@@ -229,6 +230,8 @@
                                         <td class="bg-blue-50/30 px-4 py-3 text-center">{{ $wip->elongation ?? '-' }}
                                         </td>
                                         <td class="bg-blue-50/30 px-4 py-3 text-center">{{ $wip->visual }}
+                                        </td>
+                                        <td class="bg-blue-50/30 px-4 py-3 text-center">{{ $wip->status ?? '-' }}
                                         </td>
                                         <td class="px-4 py-3">
                                             <button type="button" class="text-sm text-indigo-600 hover:underline"
@@ -631,6 +634,7 @@
                         <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 5%;">Uji Kerekatan</th>
                         <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 5%;">Elongation</th>
                         <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 5%;">Visual</th>
+                        <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 5%;">Status</th>
                         <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 5%;">Created At</th>
                     </tr>
                 </thead>
@@ -656,12 +660,13 @@
                             <td style="border: 1px solid #000; padding: 4px; text-align: center;">{{ $wip->uji_kerekatan ?? '-' }}</td>
                             <td style="border: 1px solid #000; padding: 4px; text-align: center;">{{ $wip->elongation ?? '-' }}</td>
                             <td style="border: 1px solid #000; padding: 4px; text-align: center;">{{ $wip->visual }}</td>
+                            <td style="border: 1px solid #000; padding: 4px; text-align: center;">{{ $wip->status ?? '-' }}</td>
                             <td style="border: 1px solid #000; padding: 4px; text-align: center;">
                                 {{ $wip->created_at->format('d/m/Y') }}</td>
                         </tr>
                     @empty
                         <tr>
-                            <td colspan="19"
+                            <td colspan="20"
                                 style="border: 1px solid #000; padding: 8px; text-align: center; font-style: italic;">
                                 Belum ada data WIP</td>
                         </tr>

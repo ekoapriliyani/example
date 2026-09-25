@@ -50,6 +50,7 @@ class InspeksiPvcWipController extends Controller
             'uji_kerekatan' => 'nullable|numeric',
             'elongation'   => 'nullable|numeric',
             'visual'    => 'required|in:OK,NG',
+            'status'    => 'required|in:OK,NG,REJECT',
             'detail_name'       => 'nullable|array',
             'detail_name.*'     => 'nullable|string|max:255',
             'detail_description'   => 'nullable|array',
@@ -82,6 +83,7 @@ class InspeksiPvcWipController extends Controller
             'uji_kerekatan' => $validated['uji_kerekatan'] ?? null,
             'elongation'   => $validated['elongation'] ?? null,
             'visual'   => $validated['visual'],
+            'status'   => $validated['status'],
         ]);
 
         // simpan file multiple ke kolom JSON
@@ -156,6 +158,7 @@ class InspeksiPvcWipController extends Controller
             'uji_kerekatan' => 'nullable|numeric',
             'elongation'    => 'nullable|numeric',
             'visual'    => 'required|in:OK,NG',
+            'status'    => 'required|in:OK,NG,REJECT',
             'detail_name'       => 'nullable|array',
             'detail_name.*'     => 'nullable|string|max:255',
             'detail_description'   => 'nullable|array',
@@ -178,6 +181,7 @@ class InspeksiPvcWipController extends Controller
             'uji_kerekatan' => $request->uji_kerekatan,
             'elongation' => $request->elongation,
             'visual' => $request->visual,
+            'status' => $request->status,
         ]);
         if ($request->hasFile('files')) {
             if (is_array($wip->files)) {
