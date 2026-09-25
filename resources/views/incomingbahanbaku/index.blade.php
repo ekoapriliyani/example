@@ -84,6 +84,7 @@
                                         <th class="px-4 py-3 font-semibold text-gray-900 text-left w-16">No</th>
                                         <th class="px-4 py-3 font-semibold text-gray-900 text-left">Aksi</th>
                                         <th class="px-4 py-3 font-semibold text-gray-900 text-left">Tanggal</th>
+                                        <th class="px-4 py-3 font-semibold text-gray-900 text-left">Jenis</th>
                                         <th class="px-4 py-3 font-semibold text-gray-900 text-left">Nomor Inspeksi</th>
                                         <th class="px-4 py-3 font-semibold text-gray-900 text-left">Supplier</th>
                                         <th class="px-4 py-3 font-semibold text-gray-900 text-left">No PO</th>
@@ -181,6 +182,8 @@
                                             <td class="px-4 py-3 font-medium text-gray-900">
                                                 {{ \Carbon\Carbon::parse($item->tanggal)->format('d/m/Y') }}</td>
                                             <td class="px-4 py-3 font-medium text-gray-900">
+                                                {{ $item->jenis == 'non_reguler' ? 'Non Reguler' : 'Reguler' }}</td>
+                                            <td class="px-4 py-3 font-medium text-gray-900">
                                                 {{ $item->nomor_inspeksi }}</td>
                                             <td class="px-4 py-3 font-medium text-gray-900">
                                                 {{ $item->supplier->nama ?? 'N/A' }}</td>
@@ -228,7 +231,7 @@
                                         </tr>
                                     @empty
                                         <tr>
-                                            <td colspan="14" class="px-4 py-8 text-center text-gray-500 italic">
+                                            <td colspan="16" class="px-4 py-8 text-center text-gray-500 italic">
                                                 Belum ada data inspeksi bahan baku.
                                             </td>
                                         </tr>

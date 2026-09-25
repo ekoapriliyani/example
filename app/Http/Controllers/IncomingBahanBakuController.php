@@ -105,6 +105,7 @@ class IncomingBahanBakuController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
+            'jenis' => 'required|in:reguler,non_reguler',
             'tanggal' => 'required',
             'supplier_id' => 'required',
             'no_po' => 'required',
@@ -189,6 +190,7 @@ class IncomingBahanBakuController extends Controller
     public function update(Request $request, string $id)
     {
         $validated = $request->validate([
+            'jenis' => 'required|in:reguler,non_reguler',
             'tanggal' => 'required',
             'supplier_id' => 'required',
             'no_po' => 'required',

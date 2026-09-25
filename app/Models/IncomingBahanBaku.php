@@ -10,6 +10,7 @@ class IncomingBahanBaku extends Model
 {
     protected $fillable = [
         'tanggal',
+        'jenis',
         'nomor_inspeksi',
         'supplier_id',
         'no_po',

@@ -24,6 +24,30 @@
 
                         <div class="grid grid-cols-1 gap-6 md:grid-cols-2">
 
+                            <div class="md:col-span-2">
+                                <label class="mb-1 block text-sm font-medium text-gray-700">
+                                    Jenis
+                                </label>
+                                <div class="flex items-center gap-4 mt-1">
+                                    <label class="inline-flex items-center">
+                                        <input type="radio" name="jenis" value="reguler" required
+                                            {{ old('jenis', $data->jenis) == 'reguler' ? 'checked' : '' }}
+                                            class="text-indigo-600 border-gray-300 focus:ring-indigo-500">
+                                        <span class="ml-2 text-sm text-gray-700">Reguler</span>
+                                    </label>
+                                    <label class="inline-flex items-center">
+                                        <input type="radio" name="jenis" value="non_reguler"
+                                            {{ old('jenis', $data->jenis) == 'non_reguler' ? 'checked' : '' }}
+                                            class="text-indigo-600 border-gray-300 focus:ring-indigo-500">
+                                        <span class="ml-2 text-sm text-gray-700">Non Reguler</span>
+                                    </label>
+                                </div>
+
+                                @error('jenis')
+                                    <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                                @enderror
+                            </div>
+
                             <div>
                                 <label class="mb-1 block text-sm font-medium text-gray-700">
                                     Tanggal
