@@ -521,7 +521,7 @@
                     style="width: 20%; vertical-align: top; text-align: right; font-family: Arial, sans-serif; font-size: 11pt;">
                     <table cellpadding="3" cellspacing="0" style="border: 1px solid #000; margin-left: auto;">
                         <tr>
-                            <td style="font-weight: bold; font-size: 10pt;">BM-F-QC-24 R00</td>
+                            <td style="font-weight: bold; font-size: 10pt;">BM-F-QC-12 R00</td>
                         </tr>
                     </table>
                 </td>
@@ -568,13 +568,15 @@
                 <thead>
                     <tr style="background-color: #f0f0f0;">
                         <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 5%;">No</th>
-                        <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 15%;">Inspektor</th>
+                        <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 15%;">Inspektor
+                        </th>
                         <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 12%;">Status</th>
                         <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 12%;">Quantity</th>
                         <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 12%;">Weight</th>
                         <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 12%;">Label</th>
                         <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 12%;">Visual</th>
-                        <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 12%;">Created At</th>
+                        <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 12%;">Created At
+                        </th>
                     </tr>
                 </thead>
                 <tbody>
@@ -583,9 +585,12 @@
                             <td style="border: 1px solid #000; padding: 4px; text-align: center;">
                                 {{ $loop->iteration }}</td>
                             <td style="border: 1px solid #000; padding: 4px;">{{ $fg->user->name }}</td>
-                            <td style="border: 1px solid #000; padding: 4px; text-align: center;">{{ $fg->status }}</td>
-                            <td style="border: 1px solid #000; padding: 4px; text-align: center;">{{ $fg->qty }}</td>
-                            <td style="border: 1px solid #000; padding: 4px; text-align: center;">{{ $fg->weight }} Kg</td>
+                            <td style="border: 1px solid #000; padding: 4px; text-align: center;">{{ $fg->status }}
+                            </td>
+                            <td style="border: 1px solid #000; padding: 4px; text-align: center;">{{ $fg->qty }}
+                            </td>
+                            <td style="border: 1px solid #000; padding: 4px; text-align: center;">{{ $fg->weight }}
+                                Kg</td>
                             <td style="border: 1px solid #000; padding: 4px;">{{ $fg->label }}</td>
                             <td style="border: 1px solid #000; padding: 4px;">{{ $fg->visual }}</td>
                             <td style="border: 1px solid #000; padding: 4px; text-align: center;">
@@ -610,7 +615,8 @@
                     <p style="margin: 0 0 5px 0; font-weight: bold;">Dibuat oleh:</p>
                     <br><br><br>
                     <p style="margin: 0; border-top: 1px solid #000; width: 200px; padding-top: 5px;">
-                        {{ $inspeksiRazorpacking->inspeksiRazorpackingFg->first()->user->name ?? '.................' }}</p>
+                        {{ $inspeksiRazorpacking->inspeksiRazorpackingFg->first()->user->name ?? '.................' }}
+                    </p>
                     <p style="margin: 2px 0 0 0; font-style: italic;">Inspektor</p>
                 </td>
                 <td style="width: 50%; vertical-align: top;">

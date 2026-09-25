@@ -562,7 +562,7 @@
                     style="width: 20%; vertical-align: top; text-align: right; font-family: Arial, sans-serif; font-size: 11pt;">
                     <table cellpadding="3" cellspacing="0" style="border: 1px solid #000; margin-left: auto;">
                         <tr>
-                            <td style="font-weight: bold; font-size: 10pt;">BM-F-QC-19 R00</td>
+                            <td style="font-weight: bold; font-size: 10pt;">BM-F-QC-12 R00</td>
                         </tr>
                     </table>
                 </td>
@@ -610,19 +610,28 @@
                     <tr style="background-color: #f0f0f0;">
                         <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 4%;">No</th>
                         <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 8%;">Inspektor</th>
-                        <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 8%;">No. Material</th>
+                        <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 8%;">No. Material
+                        </th>
                         <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 8%;">Operator</th>
-                        <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 7%;">Jumlah Klip</th>
+                        <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 7%;">Jumlah Klip
+                        </th>
                         <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 7%;">D Razor</th>
-                        <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 7%;">Jumlah Spiral</th>
-                        <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 7%;">Jarak Klip 1</th>
-                        <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 7%;">Jarak Klip 2</th>
-                        <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 7%;">Jarak Klip 3</th>
-                        <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 7%;">Jarak Klip 4</th>
-                        <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 7%;">Jarak Klip 5</th>
+                        <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 7%;">Jumlah Spiral
+                        </th>
+                        <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 7%;">Jarak Klip 1
+                        </th>
+                        <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 7%;">Jarak Klip 2
+                        </th>
+                        <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 7%;">Jarak Klip 3
+                        </th>
+                        <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 7%;">Jarak Klip 4
+                        </th>
+                        <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 7%;">Jarak Klip 5
+                        </th>
                         <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 7%;">Visual</th>
                         <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 7%;">Status</th>
-                        <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 8%;">Created At</th>
+                        <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 8%;">Created At
+                        </th>
                     </tr>
                 </thead>
                 <tbody>
@@ -633,16 +642,26 @@
                             <td style="border: 1px solid #000; padding: 4px;">{{ $wip->user->name ?? 'N/A' }}</td>
                             <td style="border: 1px solid #000; padding: 4px;">{{ $wip->no_material }}</td>
                             <td style="border: 1px solid #000; padding: 4px;">{{ $wip->nama_operator }}</td>
-                            <td style="border: 1px solid #000; padding: 4px; text-align: center;">{{ $wip->jml_klip }}</td>
-                            <td style="border: 1px solid #000; padding: 4px; text-align: center;">{{ $wip->d_razor }}</td>
-                            <td style="border: 1px solid #000; padding: 4px; text-align: center;">{{ $wip->jml_spiral }}</td>
-                            <td style="border: 1px solid #000; padding: 4px; text-align: center;">{{ $wip->jarak_antar_klip1 }}</td>
-                            <td style="border: 1px solid #000; padding: 4px; text-align: center;">{{ $wip->jarak_antar_klip2 }}</td>
-                            <td style="border: 1px solid #000; padding: 4px; text-align: center;">{{ $wip->jarak_antar_klip3 }}</td>
-                            <td style="border: 1px solid #000; padding: 4px; text-align: center;">{{ $wip->jarak_antar_klip4 }}</td>
-                            <td style="border: 1px solid #000; padding: 4px; text-align: center;">{{ $wip->jarak_antar_klip5 }}</td>
-                            <td style="border: 1px solid #000; padding: 4px; text-align: center;">{{ $wip->visual }}</td>
-                            <td style="border: 1px solid #000; padding: 4px; text-align: center;">{{ $wip->status }}</td>
+                            <td style="border: 1px solid #000; padding: 4px; text-align: center;">{{ $wip->jml_klip }}
+                            </td>
+                            <td style="border: 1px solid #000; padding: 4px; text-align: center;">{{ $wip->d_razor }}
+                            </td>
+                            <td style="border: 1px solid #000; padding: 4px; text-align: center;">
+                                {{ $wip->jml_spiral }}</td>
+                            <td style="border: 1px solid #000; padding: 4px; text-align: center;">
+                                {{ $wip->jarak_antar_klip1 }}</td>
+                            <td style="border: 1px solid #000; padding: 4px; text-align: center;">
+                                {{ $wip->jarak_antar_klip2 }}</td>
+                            <td style="border: 1px solid #000; padding: 4px; text-align: center;">
+                                {{ $wip->jarak_antar_klip3 }}</td>
+                            <td style="border: 1px solid #000; padding: 4px; text-align: center;">
+                                {{ $wip->jarak_antar_klip4 }}</td>
+                            <td style="border: 1px solid #000; padding: 4px; text-align: center;">
+                                {{ $wip->jarak_antar_klip5 }}</td>
+                            <td style="border: 1px solid #000; padding: 4px; text-align: center;">{{ $wip->visual }}
+                            </td>
+                            <td style="border: 1px solid #000; padding: 4px; text-align: center;">{{ $wip->status }}
+                            </td>
                             <td style="border: 1px solid #000; padding: 4px; text-align: center;">
                                 {{ $wip->created_at->format('d/m/Y') }}</td>
                         </tr>

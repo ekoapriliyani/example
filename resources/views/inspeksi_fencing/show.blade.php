@@ -745,7 +745,7 @@
                     style="width: 20%; vertical-align: top; text-align: right; font-family: Arial, sans-serif; font-size: 11pt;">
                     <table cellpadding="3" cellspacing="0" style="border: 1px solid #000; margin-left: auto;">
                         <tr>
-                            <td style="font-weight: bold; font-size: 10pt;">BM-F-QC-XX R00</td>
+                            <td style="font-weight: bold; font-size: 10pt;">BM-F-QC-30 R00</td>
                         </tr>
                     </table>
                 </td>
@@ -812,7 +812,8 @@
                         <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 6%;">Crosswire</th>
                         <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 5%;">Visual</th>
                         <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 5%;">Status</th>
-                        <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 8%;">Created At</th>
+                        <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 8%;">Created At
+                        </th>
                     </tr>
                 </thead>
                 <tbody>
@@ -843,11 +844,13 @@
                             </td>
                             <td style="border: 1px solid #000; padding: 4px; text-align: center;">{{ $wip->mesh6 }}
                             </td>
-                            <td style="border: 1px solid #000; padding: 4px; text-align: center;">{{ $wip->diagonal }}
+                            <td style="border: 1px solid #000; padding: 4px; text-align: center;">
+                                {{ $wip->diagonal }}
                             </td>
                             <td style="border: 1px solid #000; padding: 4px; text-align: center;">
                                 {{ $wip->shear_strength }}</td>
-                            <td style="border: 1px solid #000; padding: 4px; text-align: center;">{{ $wip->overhang }}
+                            <td style="border: 1px solid #000; padding: 4px; text-align: center;">
+                                {{ $wip->overhang }}
                             </td>
                             <td style="border: 1px solid #000; padding: 4px; text-align: center;">
                                 {{ $wip->matchingcrosswire }}</td>
@@ -886,7 +889,8 @@
                         <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 8%;">Status</th>
                         <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 10%;">Coating
                             Thick.</th>
-                        <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 9%;">Daya Rekat</th>
+                        <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 9%;">Daya Rekat
+                        </th>
                         <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 7%;">Visual</th>
                         <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 8%;">Packing</th>
                         <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 8%;">Label</th>
@@ -908,7 +912,8 @@
                             </td>
                             <td style="border: 1px solid #000; padding: 4px; text-align: center;">
                                 {{ $fg->coating_thickness }}</td>
-                            <td style="border: 1px solid #000; padding: 4px; text-align: center;">{{ $fg->daya_rekat }}
+                            <td style="border: 1px solid #000; padding: 4px; text-align: center;">
+                                {{ $fg->daya_rekat }}
                             </td>
                             <td style="border: 1px solid #000; padding: 4px; text-align: center;">{{ $fg->visual }}
                             </td>

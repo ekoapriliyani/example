@@ -145,7 +145,8 @@
                                     <th class="px-4 py-3 font-semibold text-gray-900">Operator</th>
                                     <th class="px-4 py-3 font-semibold text-gray-900">D Kawat Act</th>
                                     <th class="px-4 py-3 font-semibold text-gray-900">P Produk</th>
-                                    <th colspan="5" class="px-4 py-3 text-center font-semibold text-gray-900">L Produk</th>
+                                    <th colspan="5" class="px-4 py-3 text-center font-semibold text-gray-900">L
+                                        Produk</th>
                                     <th class="px-4 py-3 font-semibold text-gray-900">T Produk</th>
                                     <th class="px-4 py-3 font-semibold text-gray-900">Mesh 1</th>
                                     <th class="px-4 py-3 font-semibold text-gray-900">Mesh 2</th>
@@ -728,7 +729,7 @@
                     style="width: 20%; vertical-align: top; text-align: right; font-family: Arial, sans-serif; font-size: 11pt;">
                     <table cellpadding="3" cellspacing="0" style="border: 1px solid #000; margin-left: auto;">
                         <tr>
-                            <td style="font-weight: bold; font-size: 10pt;">BM-F-QC-XX R00</td>
+                            <td style="font-weight: bold; font-size: 10pt;">BM-F-QC-29 R00</td>
                         </tr>
                     </table>
                 </td>
@@ -781,11 +782,16 @@
                         <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 7%;">Operator</th>
                         <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 5%;">D Kawat</th>
                         <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 5%;">P Produk</th>
-                        <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 5%;">L Produk 1</th>
-                        <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 5%;">L Produk 2</th>
-                        <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 5%;">L Produk 3</th>
-                        <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 5%;">L Produk 4</th>
-                        <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 5%;">L Produk 5</th>
+                        <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 5%;">L Produk 1
+                        </th>
+                        <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 5%;">L Produk 2
+                        </th>
+                        <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 5%;">L Produk 3
+                        </th>
+                        <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 5%;">L Produk 4
+                        </th>
+                        <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 5%;">L Produk 5
+                        </th>
                         <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 5%;">T Produk</th>
                         <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 5%;">Mesh 1</th>
                         <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 5%;">Mesh 2</th>
@@ -795,7 +801,8 @@
                         <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 5%;">Overhang</th>
                         <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 5%;">Visual</th>
                         <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 5%;">Status</th>
-                        <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 8%;">Created At</th>
+                        <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 8%;">Created At
+                        </th>
                     </tr>
                 </thead>
                 <tbody>
@@ -806,21 +813,28 @@
                             <td style="border: 1px solid #000; padding: 4px;">{{ $wip->user->name ?? 'N/A' }}</td>
                             <td style="border: 1px solid #000; padding: 4px;">{{ $wip->no_material }}</td>
                             <td style="border: 1px solid #000; padding: 4px;">{{ $wip->nama_operator }}</td>
-                            <td style="border: 1px solid #000; padding: 4px; text-align: center;">{{ $wip->d_kawat_act }}
+                            <td style="border: 1px solid #000; padding: 4px; text-align: center;">
+                                {{ $wip->d_kawat_act }}
                             </td>
                             <td style="border: 1px solid #000; padding: 4px; text-align: center;">{{ $wip->p_produk }}
                             </td>
-                            <td style="border: 1px solid #000; padding: 4px; text-align: center;">{{ $wip->l_produk_1 }}
+                            <td style="border: 1px solid #000; padding: 4px; text-align: center;">
+                                {{ $wip->l_produk_1 }}
                             </td>
-                            <td style="border: 1px solid #000; padding: 4px; text-align: center;">{{ $wip->l_produk_2 }}
+                            <td style="border: 1px solid #000; padding: 4px; text-align: center;">
+                                {{ $wip->l_produk_2 }}
                             </td>
-                            <td style="border: 1px solid #000; padding: 4px; text-align: center;">{{ $wip->l_produk_3 }}
+                            <td style="border: 1px solid #000; padding: 4px; text-align: center;">
+                                {{ $wip->l_produk_3 }}
                             </td>
-                            <td style="border: 1px solid #000; padding: 4px; text-align: center;">{{ $wip->l_produk_4 }}
+                            <td style="border: 1px solid #000; padding: 4px; text-align: center;">
+                                {{ $wip->l_produk_4 }}
                             </td>
-                            <td style="border: 1px solid #000; padding: 4px; text-align: center;">{{ $wip->l_produk_5 }}
+                            <td style="border: 1px solid #000; padding: 4px; text-align: center;">
+                                {{ $wip->l_produk_5 }}
                             </td>
-                            <td style="border: 1px solid #000; padding: 4px; text-align: center;">{{ $wip->t_produk }}
+                            <td style="border: 1px solid #000; padding: 4px; text-align: center;">
+                                {{ $wip->t_produk }}
                             </td>
                             <td style="border: 1px solid #000; padding: 4px; text-align: center;">{{ $wip->mesh1 }}
                             </td>
@@ -828,11 +842,13 @@
                             </td>
                             <td style="border: 1px solid #000; padding: 4px; text-align: center;">{{ $wip->mesh3 }}
                             </td>
-                            <td style="border: 1px solid #000; padding: 4px; text-align: center;">{{ $wip->diagonal }}
+                            <td style="border: 1px solid #000; padding: 4px; text-align: center;">
+                                {{ $wip->diagonal }}
                             </td>
                             <td style="border: 1px solid #000; padding: 4px; text-align: center;">
                                 {{ $wip->shear_strength }}</td>
-                            <td style="border: 1px solid #000; padding: 4px; text-align: center;">{{ $wip->overhang }}
+                            <td style="border: 1px solid #000; padding: 4px; text-align: center;">
+                                {{ $wip->overhang }}
                             </td>
                             <td style="border: 1px solid #000; padding: 4px; text-align: center;">{{ $wip->visual }}
                             </td>

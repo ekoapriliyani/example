@@ -225,7 +225,8 @@
                                         <td class="bg-blue-50/30 px-4 py-3 text-center">{{ $wip->penyimpangan }}</td>
                                         <td class="bg-blue-50/30 px-4 py-3 text-center">{{ $wip->warna }}</td>
                                         <td class="bg-blue-50/30 px-4 py-3 text-center">{{ $wip->uji_lilit }}</td>
-                                        <td class="bg-blue-50/30 px-4 py-3 text-center">{{ $wip->uji_kerekatan ?? '-' }}
+                                        <td class="bg-blue-50/30 px-4 py-3 text-center">
+                                            {{ $wip->uji_kerekatan ?? '-' }}
                                         </td>
                                         <td class="bg-blue-50/30 px-4 py-3 text-center">{{ $wip->elongation ?? '-' }}
                                         </td>
@@ -570,7 +571,7 @@
                     style="width: 20%; vertical-align: top; text-align: right; font-family: Arial, sans-serif; font-size: 11pt;">
                     <table cellpadding="3" cellspacing="0" style="border: 1px solid #000; margin-left: auto;">
                         <tr>
-                            <td style="font-weight: bold; font-size: 10pt;">BM-F-QC-20 R00</td>
+                            <td style="font-weight: bold; font-size: 10pt;">BM-F-QC-10 R01</td>
                         </tr>
                     </table>
                 </td>
@@ -618,24 +619,32 @@
                     <tr style="background-color: #f0f0f0;">
                         <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 3%;">No</th>
                         <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 6%;">Inspektor</th>
-                        <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 6%;">No. Material Kawat</th>
-                        <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 6%;">No. Material Bubuk</th>
+                        <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 6%;">No. Material
+                            Kawat</th>
+                        <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 6%;">No. Material
+                            Bubuk</th>
                         <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 6%;">Operator</th>
                         <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 4%;">C1</th>
                         <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 4%;">C2</th>
                         <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 4%;">C3</th>
                         <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 4%;">C4</th>
                         <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 4%;">CH</th>
-                        <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 5%;">D Kawat Inti</th>
-                        <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 5%;">D Kawat PVC</th>
-                        <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 6%;">Penyimpangan</th>
+                        <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 5%;">D Kawat Inti
+                        </th>
+                        <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 5%;">D Kawat PVC
+                        </th>
+                        <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 6%;">Penyimpangan
+                        </th>
                         <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 5%;">Warna</th>
                         <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 5%;">Uji Lilit</th>
-                        <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 5%;">Uji Kerekatan</th>
-                        <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 5%;">Elongation</th>
+                        <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 5%;">Uji Kerekatan
+                        </th>
+                        <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 5%;">Elongation
+                        </th>
                         <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 5%;">Visual</th>
                         <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 5%;">Status</th>
-                        <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 5%;">Created At</th>
+                        <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 5%;">Created At
+                        </th>
                     </tr>
                 </thead>
                 <tbody>
@@ -647,20 +656,34 @@
                             <td style="border: 1px solid #000; padding: 4px;">{{ $wip->no_material }}</td>
                             <td style="border: 1px solid #000; padding: 4px;">{{ $wip->no_material2 }}</td>
                             <td style="border: 1px solid #000; padding: 4px;">{{ $wip->nama_operator }}</td>
-                            <td style="border: 1px solid #000; padding: 4px; text-align: center;">{{ $wip->c1 }}</td>
-                            <td style="border: 1px solid #000; padding: 4px; text-align: center;">{{ $wip->c2 }}</td>
-                            <td style="border: 1px solid #000; padding: 4px; text-align: center;">{{ $wip->c3 }}</td>
-                            <td style="border: 1px solid #000; padding: 4px; text-align: center;">{{ $wip->c4 }}</td>
-                            <td style="border: 1px solid #000; padding: 4px; text-align: center;">{{ $wip->ch }}</td>
-                            <td style="border: 1px solid #000; padding: 4px; text-align: center;">{{ $wip->d_kawat_inti }}</td>
-                            <td style="border: 1px solid #000; padding: 4px; text-align: center;">{{ $wip->d_kawat_pvc }}</td>
-                            <td style="border: 1px solid #000; padding: 4px; text-align: center;">{{ $wip->penyimpangan }}</td>
-                            <td style="border: 1px solid #000; padding: 4px; text-align: center;">{{ $wip->warna }}</td>
-                            <td style="border: 1px solid #000; padding: 4px; text-align: center;">{{ $wip->uji_lilit }}</td>
-                            <td style="border: 1px solid #000; padding: 4px; text-align: center;">{{ $wip->uji_kerekatan ?? '-' }}</td>
-                            <td style="border: 1px solid #000; padding: 4px; text-align: center;">{{ $wip->elongation ?? '-' }}</td>
-                            <td style="border: 1px solid #000; padding: 4px; text-align: center;">{{ $wip->visual }}</td>
-                            <td style="border: 1px solid #000; padding: 4px; text-align: center;">{{ $wip->status ?? '-' }}</td>
+                            <td style="border: 1px solid #000; padding: 4px; text-align: center;">{{ $wip->c1 }}
+                            </td>
+                            <td style="border: 1px solid #000; padding: 4px; text-align: center;">{{ $wip->c2 }}
+                            </td>
+                            <td style="border: 1px solid #000; padding: 4px; text-align: center;">{{ $wip->c3 }}
+                            </td>
+                            <td style="border: 1px solid #000; padding: 4px; text-align: center;">{{ $wip->c4 }}
+                            </td>
+                            <td style="border: 1px solid #000; padding: 4px; text-align: center;">{{ $wip->ch }}
+                            </td>
+                            <td style="border: 1px solid #000; padding: 4px; text-align: center;">
+                                {{ $wip->d_kawat_inti }}</td>
+                            <td style="border: 1px solid #000; padding: 4px; text-align: center;">
+                                {{ $wip->d_kawat_pvc }}</td>
+                            <td style="border: 1px solid #000; padding: 4px; text-align: center;">
+                                {{ $wip->penyimpangan }}</td>
+                            <td style="border: 1px solid #000; padding: 4px; text-align: center;">{{ $wip->warna }}
+                            </td>
+                            <td style="border: 1px solid #000; padding: 4px; text-align: center;">
+                                {{ $wip->uji_lilit }}</td>
+                            <td style="border: 1px solid #000; padding: 4px; text-align: center;">
+                                {{ $wip->uji_kerekatan ?? '-' }}</td>
+                            <td style="border: 1px solid #000; padding: 4px; text-align: center;">
+                                {{ $wip->elongation ?? '-' }}</td>
+                            <td style="border: 1px solid #000; padding: 4px; text-align: center;">{{ $wip->visual }}
+                            </td>
+                            <td style="border: 1px solid #000; padding: 4px; text-align: center;">
+                                {{ $wip->status ?? '-' }}</td>
                             <td style="border: 1px solid #000; padding: 4px; text-align: center;">
                                 {{ $wip->created_at->format('d/m/Y') }}</td>
                         </tr>

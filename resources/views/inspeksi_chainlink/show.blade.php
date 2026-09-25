@@ -834,7 +834,7 @@
                     style="width: 20%; vertical-align: top; text-align: right; font-family: Arial, sans-serif; font-size: 11pt;">
                     <table cellpadding="3" cellspacing="0" style="border: 1px solid #000; margin-left: auto;">
                         <tr>
-                            <td style="font-weight: bold; font-size: 10pt;">BM-F-QC-22 R00</td>
+                            <td style="font-weight: bold; font-size: 10pt;">BM-F-QC-08 R00</td>
                         </tr>
                     </table>
                 </td>
@@ -894,21 +894,25 @@
                     <tr style="background-color: #f0f0f0;">
                         <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 3%;">No</th>
                         <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 7%;">Inspektor</th>
-                        <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 7%;">No. Material</th>
+                        <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 7%;">No. Material
+                        </th>
                         <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 7%;">Operator</th>
                         <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 6%;">Lebar</th>
                         <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 6%;">Panjang</th>
                         <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 6%;">P Mesh</th>
                         <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 6%;">L Mesh</th>
-                        <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 6%;">Diameter Inti</th>
-                        <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 6%;">Diameter PVC</th>
+                        <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 6%;">Diameter Inti
+                        </th>
+                        <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 6%;">Diameter PVC
+                        </th>
                         <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 5%;">Type</th>
                         <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 5%;">Model</th>
                         <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 5%;">Warna</th>
                         <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 6%;">Visual</th>
                         <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 6%;">Status</th>
                         <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 6%;">Weight</th>
-                        <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 7%;">Created At</th>
+                        <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 7%;">Created At
+                        </th>
                     </tr>
                 </thead>
                 <tbody>
@@ -919,18 +923,30 @@
                             <td style="border: 1px solid #000; padding: 4px;">{{ $wip->user->name ?? 'N/A' }}</td>
                             <td style="border: 1px solid #000; padding: 4px;">{{ $wip->no_material }}</td>
                             <td style="border: 1px solid #000; padding: 4px;">{{ $wip->nama_operator }}</td>
-                            <td style="border: 1px solid #000; padding: 4px; text-align: center;">{{ $wip->lebar }}</td>
-                            <td style="border: 1px solid #000; padding: 4px; text-align: center;">{{ $wip->panjang }}</td>
-                            <td style="border: 1px solid #000; padding: 4px; text-align: center;">{{ $wip->p_mesh }}</td>
-                            <td style="border: 1px solid #000; padding: 4px; text-align: center;">{{ $wip->l_mesh }}</td>
-                            <td style="border: 1px solid #000; padding: 4px; text-align: center;">{{ $wip->diameter_inti }}</td>
-                            <td style="border: 1px solid #000; padding: 4px; text-align: center;">{{ $wip->diameter_luar }}</td>
-                            <td style="border: 1px solid #000; padding: 4px; text-align: center;">{{ $wip->type }}</td>
-                            <td style="border: 1px solid #000; padding: 4px; text-align: center;">{{ $wip->model }}</td>
-                            <td style="border: 1px solid #000; padding: 4px; text-align: center;">{{ $wip->warna }}</td>
-                            <td style="border: 1px solid #000; padding: 4px; text-align: center;">{{ $wip->visual }}</td>
-                            <td style="border: 1px solid #000; padding: 4px; text-align: center;">{{ $wip->status }}</td>
-                            <td style="border: 1px solid #000; padding: 4px; text-align: center;">{{ $wip->weight }}</td>
+                            <td style="border: 1px solid #000; padding: 4px; text-align: center;">{{ $wip->lebar }}
+                            </td>
+                            <td style="border: 1px solid #000; padding: 4px; text-align: center;">{{ $wip->panjang }}
+                            </td>
+                            <td style="border: 1px solid #000; padding: 4px; text-align: center;">{{ $wip->p_mesh }}
+                            </td>
+                            <td style="border: 1px solid #000; padding: 4px; text-align: center;">{{ $wip->l_mesh }}
+                            </td>
+                            <td style="border: 1px solid #000; padding: 4px; text-align: center;">
+                                {{ $wip->diameter_inti }}</td>
+                            <td style="border: 1px solid #000; padding: 4px; text-align: center;">
+                                {{ $wip->diameter_luar }}</td>
+                            <td style="border: 1px solid #000; padding: 4px; text-align: center;">{{ $wip->type }}
+                            </td>
+                            <td style="border: 1px solid #000; padding: 4px; text-align: center;">{{ $wip->model }}
+                            </td>
+                            <td style="border: 1px solid #000; padding: 4px; text-align: center;">{{ $wip->warna }}
+                            </td>
+                            <td style="border: 1px solid #000; padding: 4px; text-align: center;">{{ $wip->visual }}
+                            </td>
+                            <td style="border: 1px solid #000; padding: 4px; text-align: center;">{{ $wip->status }}
+                            </td>
+                            <td style="border: 1px solid #000; padding: 4px; text-align: center;">{{ $wip->weight }}
+                            </td>
                             <td style="border: 1px solid #000; padding: 4px; text-align: center;">
                                 {{ $wip->created_at->format('d/m/Y') }}</td>
                         </tr>
@@ -954,13 +970,15 @@
                 <thead>
                     <tr style="background-color: #f0f0f0;">
                         <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 5%;">No</th>
-                        <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 15%;">Inspektor</th>
+                        <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 15%;">Inspektor
+                        </th>
                         <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 12%;">Status</th>
                         <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 12%;">Quantity</th>
                         <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 12%;">Weight</th>
                         <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 12%;">Packing</th>
                         <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 12%;">Label</th>
-                        <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 12%;">Created At</th>
+                        <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 12%;">Created At
+                        </th>
                     </tr>
                 </thead>
                 <tbody>
@@ -969,9 +987,12 @@
                             <td style="border: 1px solid #000; padding: 4px; text-align: center;">
                                 {{ $loop->iteration }}</td>
                             <td style="border: 1px solid #000; padding: 4px;">{{ $fg->user->name }}</td>
-                            <td style="border: 1px solid #000; padding: 4px; text-align: center;">{{ $fg->status }}</td>
-                            <td style="border: 1px solid #000; padding: 4px; text-align: center;">{{ $fg->qty }}</td>
-                            <td style="border: 1px solid #000; padding: 4px; text-align: center;">{{ $fg->weight }} Kg</td>
+                            <td style="border: 1px solid #000; padding: 4px; text-align: center;">{{ $fg->status }}
+                            </td>
+                            <td style="border: 1px solid #000; padding: 4px; text-align: center;">{{ $fg->qty }}
+                            </td>
+                            <td style="border: 1px solid #000; padding: 4px; text-align: center;">{{ $fg->weight }}
+                                Kg</td>
                             <td style="border: 1px solid #000; padding: 4px;">{{ $fg->packing }}</td>
                             <td style="border: 1px solid #000; padding: 4px;">{{ $fg->label }}</td>
                             <td style="border: 1px solid #000; padding: 4px; text-align: center;">
