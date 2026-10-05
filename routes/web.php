@@ -56,6 +56,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DaftarNgRejectController;
 use App\Http\Controllers\LksController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\ReceivingBiController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\SheetGalvanizeController;
@@ -179,6 +180,15 @@ Route::middleware(['auth'])->group(function () {
 
     Route::get('shipment-bi', [ShipmentBiController::class, 'index'])
         ->name('shipment_bi.index');
+
+    /*
+    |--------------------------------------------------------------------------
+    | Receiving BI (Sybase)
+    |--------------------------------------------------------------------------
+    */
+
+    Route::get('receiving-bi', [ReceivingBiController::class, 'index'])
+        ->name('receiving_bi.index');
 
 
     /*

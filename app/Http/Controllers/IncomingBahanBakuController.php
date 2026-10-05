@@ -9,6 +9,7 @@ use App\Models\IncomingBahanBakuInspeksi;
 use App\Models\MechanicalTest;
 use App\Models\Supplier;
 use App\Models\User;
+use App\Services\SybaseService;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -71,7 +72,7 @@ class IncomingBahanBakuController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create(SybaseService $sybaseService)
     {
         // 1. Ambil format Tahun dan Bulan saat ini (Contoh: 202606)
         $tahunBulan = Carbon::now()->format('Ym');
@@ -96,7 +97,10 @@ class IncomingBahanBakuController extends Controller
         // 4. Ambil data Supplier
         $suppliers = Supplier::orderBy('supplier_code')->get();
 
-        return view('incomingbahanbaku.create', compact('nextNomor', 'suppliers'));
+        // 5. Ambil data Receiving BI dari Sybase untuk field no_rcr
+        $receivingData = $sybaseService->getReceivingBIData();
+
+        return view('incomingbahanbaku.create', compact('nextNomor', 'suppliers', 'receivingData'));
     }
 
     /**
@@ -108,6 +112,8 @@ class IncomingBahanBakuController extends Controller
             'jenis' => 'required|in:reguler,non_reguler',
             'tanggal' => 'required',
             'supplier_id' => 'required',
+            'no_rcr' => 'nullable|string',
+            'description' => 'nullable|string',
             'no_po' => 'required',
             'no_sj' => 'required',
             'jml_koil' => 'required',
@@ -175,12 +181,13 @@ class IncomingBahanBakuController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(string $id, SybaseService $sybaseService)
     {
         $data = IncomingBahanBaku::findOrFail($id);
         $suppliers = Supplier::all();
+        $receivingData = $sybaseService->getReceivingBIData();
 
-        return view('incomingbahanbaku.edit', compact('data', 'suppliers'));
+        return view('incomingbahanbaku.edit', compact('data', 'suppliers', 'receivingData'));
     }
 
     /**
@@ -193,6 +200,8 @@ class IncomingBahanBakuController extends Controller
             'jenis' => 'required|in:reguler,non_reguler',
             'tanggal' => 'required',
             'supplier_id' => 'required',
+            'no_rcr' => 'nullable|string',
+            'description' => 'nullable|string',
             'no_po' => 'required',
             'no_sj' => 'required',
             'jml_koil' => 'required',

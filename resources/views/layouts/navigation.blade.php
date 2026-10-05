@@ -143,6 +143,7 @@
                                 <x-dropdown-link :href="route('pro.index')">PRO</x-dropdown-link>
                                 <x-dropdown-link :href="route('shipment.index')">Shipment</x-dropdown-link>
                                 <x-dropdown-link :href="route('shipment_bi.index')">Shipment BI</x-dropdown-link>
+                                <x-dropdown-link :href="route('receiving_bi.index')">Receiving BI</x-dropdown-link>
                             </x-slot>
                         </x-dropdown>
                     </div>
@@ -243,6 +244,7 @@
                     <x-responsive-nav-link :href="route('pro.index')">PRO</x-responsive-nav-link>
                     <x-responsive-nav-link :href="route('shipment.index')">Shipment</x-responsive-nav-link>
                     <x-responsive-nav-link :href="route('shipment_bi.index')">Shipment BI</x-responsive-nav-link>
+                    <x-responsive-nav-link :href="route('receiving_bi.index')">Receiving BI</x-responsive-nav-link>
                 </div>
             </div>
         </div>

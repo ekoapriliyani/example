@@ -62,6 +62,33 @@
                             <x-input-error class="mt-2" :messages="$errors->get('supplier_code')" />
                         </div>
                         <div>
+                            <x-input-label for="no_rcr" :value="__('No RCR')" />
+                            <select id="no_rcr" name="no_rcr"
+                                class="mt-1 block w-full border-gray-300 rounded-md shadow-sm">
+                                <option value="">-- Pilih No RCR --</option>
+                                @foreach ($receivingData as $row)
+                                    <option value="{{ $row['trno'] }}"
+                                        data-order-no="{{ $row['OrderNo'] }}"
+                                        data-description="{{ $row['description'] }}"
+                                        data-total-koil="{{ $row['TotalKoil'] }}"
+                                        {{ old('no_rcr') == $row['trno'] ? 'selected' : '' }}>
+                                        {{ $row['trno'] }} - {{ $row['OrderNo'] }} - {{ $row['description'] }} -
+                                        {{ $row['TotalKoil'] }}
+                                    </option>
+                                @endforeach
+                            </select>
+                            <x-input-error class="mt-2" :messages="$errors->get('no_rcr')" />
+                        </div>
+                        <div>
+                            <x-input-label for="description" :value="__('Description')" />
+                            <div class="relative mt-1">
+                                <textarea id="description" name="description" rows="3"
+                                    class="block w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                                    placeholder="Deskripsi...">{{ old('description') }}</textarea>
+                            </div>
+                            <x-input-error class="mt-2" :messages="$errors->get('description')" />
+                        </div>
+                        <div>
                             <x-input-label for="no_po" :value="__('No PO')" />
                             <div class="relative mt-1">
                                 <x-text-input id="no_po" name="no_po" type="text" class="block w-full pr-12"
@@ -179,6 +206,20 @@
                 placeholder: '-- Pilih Supplier --',
                 allowClear: true,
                 width: '100%'
+            });
+
+            $('#no_rcr').select2({
+                placeholder: '-- Pilih No RCR --',
+                allowClear: true,
+                width: '100%'
+            });
+
+            $('#no_rcr').on('change', function() {
+                var selected = $(this).find(':selected');
+
+                $('#no_po').val(selected.data('order-no') || '');
+                $('#description').val(selected.data('description') || '');
+                $('#jml_koil').val(selected.data('total-koil') || '');
             });
         });
     </script>

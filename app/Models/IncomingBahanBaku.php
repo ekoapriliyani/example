@@ -13,6 +13,8 @@ class IncomingBahanBaku extends Model
         'jenis',
         'nomor_inspeksi',
         'supplier_id',
+        'no_rcr',
+        'description',
         'no_po',
         'no_sj',
         'jml_koil',

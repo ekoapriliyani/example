@@ -74,7 +74,7 @@ class SybaseService
                 TotalKoil,
                 TotalTonase,
                 SuppName
-            FROM DBA.Beva_vRecevingBahanBakuQC
+            FROM DBA.Beva_vReceivingBahanBakuQC
             WHERE trno IS NOT NULL
             AND description IS NOT NULL
             ORDER BY trno
