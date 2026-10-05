@@ -84,18 +84,6 @@ class LksController extends Controller
             'lots.*' => 'string',
         ]);
 
-        // Cek apakah sudah ada LKS untuk supplier di bulan yang sama
-        $existingLks = Lks::where('supplier_id', $validated['supplier_id'])
-            ->whereYear('tanggal', substr($validated['bulan'], 0, 4))
-            ->whereMonth('tanggal', substr($validated['bulan'], 5, 2))
-            ->first();
-
-        if ($existingLks) {
-            return redirect()->back()
-                ->withInput()
-                ->with('error', "Sudah ada LKS untuk supplier ini di bulan tersebut: {$existingLks->nomor_lks}");
-        }
-
         $nomorLks = $this->generateNomorLks($validated['bulan']);
         $tanggal = Carbon::parse($validated['bulan'] . '-01');
 

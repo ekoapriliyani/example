@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\IncomingBahanBakuExport;
 use App\Mail\InspeksiBbLotNotification;
 use App\Mail\MechanicalTestLotNotification;
 use App\Models\IncomingBahanBaku;
@@ -16,6 +17,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Storage;
+use Maatwebsite\Excel\Facades\Excel;
 
 class IncomingBahanBakuController extends Controller
 {
@@ -24,12 +26,37 @@ class IncomingBahanBakuController extends Controller
      */
     public function index(Request $request)
     {
+        $data = $this->filtered($request)
+            ->paginate(10)
+            ->withQueryString();
+
+        return view('incomingbahanbaku.index', compact('data'));
+    }
+
+    /**
+     * Export listing ke Excel (.xlsx), mengikuti filter yang aktif di layar.
+     */
+    public function export(Request $request)
+    {
+        $filename = 'inspeksi-incoming-bahan-baku_' . now()->format('Y-m-d') . '.xlsx';
+
+        return Excel::download(
+            new IncomingBahanBakuExport($this->filtered($request)),
+            $filename
+        );
+    }
+
+    /**
+     * Query dasar untuk daftar inspeksi, dipakai bersama oleh index() dan export().
+     */
+    private function filtered(Request $request)
+    {
         $search = $request->input('search');
         $status = $request->input('status');
         $startDate = $request->input('start_date');
         $endDate = $request->input('end_date');
 
-        $data = IncomingBahanBaku::with('supplier')
+        return IncomingBahanBaku::with('supplier')
             ->when($search, function ($query, $search) {
                 return $query->where('nomor_inspeksi', 'like', "%{$search}%")
                     ->orWhere('no_po', 'like', "%{$search}%")
@@ -55,10 +82,7 @@ class IncomingBahanBakuController extends Controller
                 return $query->whereDate('tanggal', '<=', $endDate);
             })
             ->orderBy('created_at', 'desc')
-            ->paginate(10)
-            ->withQueryString();
-
-        return view('incomingbahanbaku.index', compact('data'));
+            ->orderBy('id', 'desc');
     }
 
 

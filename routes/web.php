@@ -122,6 +122,20 @@ Route::middleware(['auth'])->group(function () {
 
     /*
     |--------------------------------------------------------------------------
+    | Export
+    |--------------------------------------------------------------------------
+    |
+    | Dideklarasikan sebelum Route::resources agar tidak tertangkap oleh
+    | route GET incomingbahanbaku/{incomingbahanbaku} (show).
+    |
+    */
+
+    Route::get('incomingbahanbaku/export', [IncomingBahanBakuController::class, 'export'])
+        ->name('incomingbahanbaku.export');
+
+
+    /*
+    |--------------------------------------------------------------------------
     | Master Resource
     |--------------------------------------------------------------------------
     */

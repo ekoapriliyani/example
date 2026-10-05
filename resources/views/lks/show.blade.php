@@ -184,7 +184,7 @@
     <style>
         @media print {
             @page {
-                size: landscape;
+                size: portrait;
                 margin: 10mm;
             }
 
@@ -253,78 +253,157 @@
             </tr>
         </table>
 
-        <div style="margin-bottom: 20px;">
-            <h3 style="font-family: Arial, sans-serif; font-size: 12pt; font-weight: bold; margin-bottom: 8px;">
-                Detail koil NG / REJECT</h3>
-            <table width="100%" cellpadding="4" cellspacing="0"
-                style="border-collapse: collapse; font-family: Arial, sans-serif; font-size: 9pt; border: 1px solid #000;">
-                <thead>
-                    <tr style="background-color: #f0f0f0;">
-                        <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 3%;">No</th>
-                        <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 13%;">No PO
-                        </th>
-                        <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 12%;">No RCR
-                        </th>
-                        <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 15%;">
-                            Description / Nama Barang</th>
-                        <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 8%;">No Koil</th>
-                        <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 7%;">Status</th>
-                        <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 12%;">Description 1
-                        </th>
-                        <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 12%;">Description 2
-                        </th>
-                        <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 10%;">Tanggal
-                            Inspeksi</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @forelse ($lks->details as $detail)
-                        <tr>
-                            <td style="border: 1px solid #000; padding: 4px; text-align: center;">
-                                {{ $loop->iteration }}</td>
-                            <td style="border: 1px solid #000; padding: 4px; text-align: center;">
-                                {{ $detail->no_po ?? '-' }}</td>
-                            <td style="border: 1px solid #000; padding: 4px; text-align: center;">
-                                {{ $detail->no_rcr ?? '-' }}</td>
-                            <td style="border: 1px solid #000; padding: 4px;">
-                                {{ $detail->description_barang ?? '-' }}</td>
-                            <td style="border: 1px solid #000; padding: 4px; text-align: center;">
-                                {{ $detail->no_koil ?? '-' }}</td>
-                            <td style="border: 1px solid #000; padding: 4px; text-align: center;">
-                                {{ $detail->status }}</td>
-                            <td style="border: 1px solid #000; padding: 4px;">{{ $detail->description1 ?? '-' }}</td>
-                            <td style="border: 1px solid #000; padding: 4px;">{{ $detail->description2 ?? '-' }}</td>
-                            <td style="border: 1px solid #000; padding: 4px; text-align: center;">
-                                {{ $detail->tanggal_inspeksi ?? '-' }}</td>
-                        </tr>
-                    @empty
-                        <tr>
-                            <td colspan="9"
-                                style="border: 1px solid #000; padding: 8px; text-align: center; font-style: italic;">
-                                Belum ada detail koil</td>
-                        </tr>
-                    @endforelse
-                </tbody>
+        {{-- Body: 4 Poin --}}
+        <div style="margin-bottom: 10px;">
+
+            {{-- I. Temuan --}}
+            <table width="100%" cellpadding="0" cellspacing="0"
+                style="border-collapse: collapse; font-family: Arial, sans-serif; margin-bottom: 14px;">
+                <tr>
+                    <td
+                        style="border: 1px solid #000; background-color: #f0f0f0; padding: 5px 6px; font-size: 11pt; font-weight: bold; break-after: avoid; page-break-after: avoid;">
+                        I. Temuan
+                    </td>
+                </tr>
+                <tr>
+                    <td style="border: 1px solid #000; padding: 6px; vertical-align: top;">
+                        <p style="margin: 0 0 5px 0; font-size: 9.5pt; font-weight: bold;">
+                            Detail koil NG / REJECT</p>
+                        <table width="100%" cellpadding="4" cellspacing="0"
+                            style="border-collapse: collapse; font-size: 8pt; border: 1px solid #000; table-layout: fixed;">
+                            <thead style="display: table-header-group;">
+                                <tr style="background-color: #f0f0f0;">
+                                    <th
+                                        style="border: 1px solid #000; padding: 4px; text-align: center; width: 4%; word-wrap: break-word;">
+                                        No</th>
+                                    <th
+                                        style="border: 1px solid #000; padding: 4px; text-align: center; width: 12%; word-wrap: break-word;">
+                                        No PO</th>
+                                    <th
+                                        style="border: 1px solid #000; padding: 4px; text-align: center; width: 11%; word-wrap: break-word;">
+                                        No RCR</th>
+                                    <th
+                                        style="border: 1px solid #000; padding: 4px; text-align: center; width: 17%; word-wrap: break-word;">
+                                        Description / Nama Barang</th>
+                                    <th
+                                        style="border: 1px solid #000; padding: 4px; text-align: center; width: 7%; word-wrap: break-word;">
+                                        No Koil</th>
+                                    <th
+                                        style="border: 1px solid #000; padding: 4px; text-align: center; width: 8%; word-wrap: break-word;">
+                                        Status</th>
+                                    <th
+                                        style="border: 1px solid #000; padding: 4px; text-align: center; width: 14%; word-wrap: break-word;">
+                                        Description 1</th>
+                                    <th
+                                        style="border: 1px solid #000; padding: 4px; text-align: center; width: 14%; word-wrap: break-word;">
+                                        Description 2</th>
+                                    <th
+                                        style="border: 1px solid #000; padding: 4px; text-align: center; width: 13%; word-wrap: break-word;">
+                                        Tgl Inspeksi</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @forelse ($lks->details as $detail)
+                                    <tr>
+                                        <td
+                                            style="border: 1px solid #000; padding: 4px; text-align: center; word-wrap: break-word;">
+                                            {{ $loop->iteration }}</td>
+                                        <td
+                                            style="border: 1px solid #000; padding: 4px; text-align: center; word-wrap: break-word;">
+                                            {{ $detail->no_po ?? '-' }}</td>
+                                        <td
+                                            style="border: 1px solid #000; padding: 4px; text-align: center; word-wrap: break-word;">
+                                            {{ $detail->no_rcr ?? '-' }}</td>
+                                        <td style="border: 1px solid #000; padding: 4px; word-wrap: break-word;">
+                                            {{ $detail->description_barang ?? '-' }}</td>
+                                        <td
+                                            style="border: 1px solid #000; padding: 4px; text-align: center; word-wrap: break-word;">
+                                            {{ $detail->no_koil ?? '-' }}</td>
+                                        <td
+                                            style="border: 1px solid #000; padding: 4px; text-align: center; word-wrap: break-word;">
+                                            {{ $detail->status }}</td>
+                                        <td style="border: 1px solid #000; padding: 4px; word-wrap: break-word;">
+                                            {{ $detail->description1 ?? '-' }}</td>
+                                        <td style="border: 1px solid #000; padding: 4px; word-wrap: break-word;">
+                                            {{ $detail->description2 ?? '-' }}</td>
+                                        <td
+                                            style="border: 1px solid #000; padding: 4px; text-align: center; word-wrap: break-word;">
+                                            {{ $detail->tanggal_inspeksi ?? '-' }}</td>
+                                    </tr>
+                                @empty
+                                    <tr>
+                                        <td colspan="9"
+                                            style="border: 1px solid #000; padding: 8px; text-align: center; font-style: italic;">
+                                            Belum ada detail koil</td>
+                                    </tr>
+                                @endforelse
+                            </tbody>
+                        </table>
+                    </td>
+                </tr>
             </table>
+
+            {{-- II. Analisa Penyebab --}}
+            <table width="100%" cellpadding="0" cellspacing="0"
+                style="border-collapse: collapse; font-family: Arial, sans-serif; margin-bottom: 14px; page-break-inside: avoid;">
+                <tr>
+                    <td
+                        style="border: 1px solid #000; background-color: #f0f0f0; padding: 5px 6px; font-size: 11pt; font-weight: bold; break-after: avoid; page-break-after: avoid;">
+                        II. Analisa Penyebab
+                    </td>
+                </tr>
+                <tr>
+                    <td style="border: 1px solid #000; height: 70px; padding: 6px; vertical-align: top;">&nbsp;</td>
+                </tr>
+            </table>
+
+            {{-- III. Perbaikan --}}
+            <table width="100%" cellpadding="0" cellspacing="0"
+                style="border-collapse: collapse; font-family: Arial, sans-serif; margin-bottom: 14px; page-break-inside: avoid;">
+                <tr>
+                    <td
+                        style="border: 1px solid #000; background-color: #f0f0f0; padding: 5px 6px; font-size: 11pt; font-weight: bold; break-after: avoid; page-break-after: avoid;">
+                        III. Perbaikan
+                    </td>
+                </tr>
+                <tr>
+                    <td style="border: 1px solid #000; height: 70px; padding: 6px; vertical-align: top;">&nbsp;</td>
+                </tr>
+            </table>
+
+            {{-- IV. Preventive / Improvement --}}
+            <table width="100%" cellpadding="0" cellspacing="0"
+                style="border-collapse: collapse; font-family: Arial, sans-serif; margin-bottom: 14px; page-break-inside: avoid;">
+                <tr>
+                    <td
+                        style="border: 1px solid #000; background-color: #f0f0f0; padding: 5px 6px; font-size: 11pt; font-weight: bold; break-after: avoid; page-break-after: avoid;">
+                        IV. Preventive / Improvement
+                    </td>
+                </tr>
+                <tr>
+                    <td style="border: 1px solid #000; height: 70px; padding: 6px; vertical-align: top;">&nbsp;</td>
+                </tr>
+            </table>
+
         </div>
 
         {{-- Tanda Tangan --}}
         <table width="100%" cellpadding="10" cellspacing="0"
-            style="border-collapse: collapse; font-family: Arial, sans-serif; font-size: 11pt; margin-top: 40px;">
+            style="border-collapse: collapse; font-family: Arial, sans-serif; font-size: 11pt; margin-top: 40px; page-break-inside: avoid;">
             <tr>
                 <td style="width: 50%; vertical-align: top;">
                     <p style="margin: 0 0 5px 0; font-weight: bold;">Dibuat oleh:</p>
                     <br><br><br>
                     <p style="margin: 0; border-top: 1px solid #000; width: 200px; padding-top: 5px;">
                         {{ $lks->approver->name ?? '.................' }}</p>
-                    <p style="margin: 2px 0 0 0; font-style: italic;">Manager / Supervisor</p>
+                    <p style="margin: 2px 0 0 0; font-style: italic;">QC - PT Bevananda Mustika</p>
                 </td>
                 <td style="width: 50%; vertical-align: top;">
-                    <p style="margin: 0 0 5px 0; font-weight: bold;">Disetujui Oleh:</p>
+                    <p style="margin: 0 0 5px 0; font-weight: bold;">Ditindak lanjuti Oleh:</p>
                     <br><br><br>
                     <p style="margin: 0; border-top: 1px solid #000; width: 200px; padding-top: 5px;">
-                        {{ $lks->approver->name ?? '.................' }}</p>
-                    <p style="margin: 2px 0 0 0; font-style: italic;">Quality Manager</p>
+                        {{ $lks->supplier->nama ?? '.................' }}</p>
+                    <p style="margin: 2px 0 0 0; font-style: italic;">Supplier</p>
                 </td>
             </tr>
         </table>
