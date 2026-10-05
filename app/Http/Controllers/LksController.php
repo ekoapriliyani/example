@@ -128,7 +128,12 @@ class LksController extends Controller
 
     public function show(Lks $lks)
     {
-        $lks->load(['supplier', 'approver', 'details']);
+        $lks->load([
+            'supplier',
+            'approver',
+            'details.sumberInspeksi.incomingbahanbaku',
+            'details.sumberMechanical.incomingBahanBaku',
+        ]);
 
         return view('lks.show', compact('lks'));
     }
