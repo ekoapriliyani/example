@@ -82,7 +82,7 @@
                                     {{ \Carbon\Carbon::parse($lks->tanggal)->format('d/m/Y') }}</dd>
                             </div>
                             <div>
-                                <dt class="text-sm font-medium text-gray-500 italic">Status</dt>
+                                <dt class="text-sm font-medium text-gray-500 italic">Status LKS</dt>
                                 <dd>
                                     @if ($lks->isDraft())
                                         <span
