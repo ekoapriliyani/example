@@ -16,6 +16,21 @@ use Illuminate\Support\Facades\DB;
 
 class LksController extends Controller
 {
+    private const ROMAN_MONTHS = [
+        1 => 'I',
+        2 => 'II',
+        3 => 'III',
+        4 => 'IV',
+        5 => 'V',
+        6 => 'VI',
+        7 => 'VII',
+        8 => 'VIII',
+        9 => 'IX',
+        10 => 'X',
+        11 => 'XI',
+        12 => 'XII',
+    ];
+
     public function index(Request $request)
     {
         $query = Lks::with('supplier', 'approver');
@@ -69,20 +84,7 @@ class LksController extends Controller
             'lots.*' => 'string',
         ]);
 
-        // Cek apakah sudah ada LKS untuk supplier di bulan yang sama
-        $existingLks = Lks::where('supplier_id', $validated['supplier_id'])
-            ->whereYear('tanggal', substr($validated['bulan'], 0, 4))
-            ->whereMonth('tanggal', substr($validated['bulan'], 5, 2))
-            ->first();
-
-        if ($existingLks) {
-            return redirect()->back()
-                ->withInput()
-                ->with('error', "Sudah ada LKS untuk supplier ini di bulan tersebut: {$existingLks->nomor_lks}");
-        }
-
-        $supplier = Supplier::find($validated['supplier_id']);
-        $nomorLks = $this->generateNomorLks($supplier, $validated['bulan']);
+        $nomorLks = $this->generateNomorLks($validated['bulan']);
         $tanggal = Carbon::parse($validated['bulan'] . '-01');
 
         DB::beginTransaction();
@@ -128,7 +130,12 @@ class LksController extends Controller
 
     public function show(Lks $lks)
     {
-        $lks->load(['supplier', 'approver', 'details']);
+        $lks->load([
+            'supplier',
+            'approver',
+            'details.sumberInspeksi.incomingbahanbaku',
+            'details.sumberMechanical.incomingBahanBaku',
+        ]);
 
         return view('lks.show', compact('lks'));
     }
@@ -254,26 +261,22 @@ class LksController extends Controller
         }
     }
 
-    private function generateNomorLks(Supplier $supplier, string $bulan): string
+    private function generateNomorLks(string $bulan): string
     {
-        $prefix = "LKS-{$supplier->supplier_code}-" . str_replace('-', '', $bulan);
+        $tahun = substr($bulan, 0, 4);
+        $bulanNum = (int) substr($bulan, 5, 2);
+        $roman = self::ROMAN_MONTHS[$bulanNum] ?? (string) $bulanNum;
 
-        $lastRecord = Lks::where('nomor_lks', 'like', "{$prefix}%")
-            ->orderBy('id', 'desc')
-            ->first();
+        // Nomor urut 3 digit, direset setiap tahun, diambil dari tahun pada $bulan
+        $maxSeq = Lks::whereYear('tanggal', $tahun)
+            ->pluck('nomor_lks')
+            ->map(fn($nomor) => preg_match('/^(\d{3})\/LKS-QC\/PB\//', $nomor, $matches)
+                ? (int) $matches[1]
+                : null)
+            ->filter()
+            ->max() ?? 0;
 
-        $nextNumber = 1;
-        if ($lastRecord) {
-            $lastNumberStr = str_replace($prefix, '', $lastRecord->nomor_lks);
-            $nextNumber = (int) $lastNumberStr + 1;
-        }
-
-        // Jika sequence > 1, tambahkan suffix
-        if ($nextNumber > 1) {
-            return $prefix . str_pad($nextNumber, 2, '0', STR_PAD_LEFT);
-        }
-
-        return $prefix;
+        return sprintf('%03d/LKS-QC/PB/%s/%s', $maxSeq + 1, $roman, $tahun);
     }
 
     private function getAvailableLots($supplierId, $bulan): \Illuminate\Support\Collection

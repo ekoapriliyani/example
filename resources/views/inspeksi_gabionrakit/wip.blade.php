@@ -210,6 +210,8 @@
                                     required>
                                     <option value="OK" {{ old('status') == 'OK' ? 'selected' : '' }}>OK</option>
                                     <option value="NG" {{ old('status') == 'NG' ? 'selected' : '' }}>NG</option>
+                                    <option value="REJECT" {{ old('status') == 'REJECT' ? 'selected' : '' }}>REJECT
+                                    </option>
                                 </select>
                                 <x-input-error class="mt-2" :messages="$errors->get('status')" />
                             </div>

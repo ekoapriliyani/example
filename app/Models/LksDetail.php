@@ -22,4 +22,38 @@ class LksDetail extends Model
     {
         return $this->belongsTo(Lks::class);
     }
+
+    public function sumberInspeksi()
+    {
+        return $this->belongsTo(IncomingBahanBakuInspeksi::class, 'sumber_id');
+    }
+
+    public function sumberMechanical()
+    {
+        return $this->belongsTo(MechanicalTest::class, 'sumber_id');
+    }
+
+    private function incomingBahanBaku(): ?IncomingBahanBaku
+    {
+        if ($this->sumber === 'inspeksi') {
+            return $this->sumberInspeksi?->incomingbahanbaku;
+        }
+
+        return $this->sumberMechanical?->incomingBahanBaku;
+    }
+
+    public function getNoPoAttribute(): ?string
+    {
+        return $this->incomingBahanBaku()?->no_po;
+    }
+
+    public function getNoRcrAttribute(): ?string
+    {
+        return $this->incomingBahanBaku()?->no_rcr;
+    }
+
+    public function getDescriptionBarangAttribute(): ?string
+    {
+        return $this->incomingBahanBaku()?->description;
+    }
 }

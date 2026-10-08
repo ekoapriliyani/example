@@ -25,6 +25,7 @@ class InspeksiPvcWip extends Model
         'uji_kerekatan',
         'elongation',
         'visual',
+        'status',
         'files',
     ];
 

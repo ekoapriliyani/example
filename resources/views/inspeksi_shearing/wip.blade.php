@@ -191,6 +191,9 @@
                                         </option>
                                         <option value="NG" {{ old('status') == 'NG' ? 'selected' : '' }}>NG
                                         </option>
+                                        <option value="REJECT" {{ old('status') == 'REJECT' ? 'selected' : '' }}>
+                                            REJECT
+                                        </option>
                                     </select>
                                 </div>
                                 <x-input-error class="mt-2" :messages="$errors->get('status')" />

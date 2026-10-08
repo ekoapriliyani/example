@@ -535,7 +535,7 @@
                     style="width: 20%; vertical-align: top; text-align: right; font-family: Arial, sans-serif; font-size: 11pt;">
                     <table cellpadding="3" cellspacing="0" style="border: 1px solid #000; margin-left: auto;">
                         <tr>
-                            <td style="font-weight: bold; font-size: 10pt;">BM-F-QC-15 R00</td>
+                            <td style="font-weight: bold; font-size: 10pt;">BM-F-QC-04 R01</td>
                         </tr>
                     </table>
                 </td>
@@ -583,20 +583,26 @@
                     <tr style="background-color: #f0f0f0;">
                         <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 3%;">No</th>
                         <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 7%;">Inspektor</th>
-                        <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 7%;">No. Material</th>
+                        <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 7%;">No. Material
+                        </th>
                         <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 7%;">Operator</th>
                         <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 5%;">Type</th>
                         <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 5%;">P Act</th>
                         <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 5%;">L Act</th>
-                        <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 6%;">D Kwt Galv Anyam</th>
-                        <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 6%;">D Kwt Galv Frame</th>
-                        <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 6%;">D Kwt PVC Anyam</th>
-                        <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 6%;">D Kwt PVC Frame</th>
+                        <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 6%;">D Kwt Galv
+                            Anyam</th>
+                        <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 6%;">D Kwt Galv
+                            Frame</th>
+                        <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 6%;">D Kwt PVC
+                            Anyam</th>
+                        <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 6%;">D Kwt PVC
+                            Frame</th>
                         <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 5%;">Mesh 1</th>
                         <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 5%;">Mesh 2</th>
                         <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 6%;">Visual</th>
                         <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 6%;">Status</th>
-                        <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 7%;">Created At</th>
+                        <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 7%;">Created At
+                        </th>
                     </tr>
                 </thead>
                 <tbody>
@@ -607,17 +613,28 @@
                             <td style="border: 1px solid #000; padding: 4px;">{{ $wip->user->name ?? 'N/A' }}</td>
                             <td style="border: 1px solid #000; padding: 4px;">{{ $wip->no_material }}</td>
                             <td style="border: 1px solid #000; padding: 4px;">{{ $wip->nama_operator }}</td>
-                            <td style="border: 1px solid #000; padding: 4px; text-align: center;">{{ $wip->type }}</td>
-                            <td style="border: 1px solid #000; padding: 4px; text-align: center;">{{ $wip->p_act }}</td>
-                            <td style="border: 1px solid #000; padding: 4px; text-align: center;">{{ $wip->l_act }}</td>
-                            <td style="border: 1px solid #000; padding: 4px; text-align: center;">{{ $wip->d_kwtGal_anyam }}</td>
-                            <td style="border: 1px solid #000; padding: 4px; text-align: center;">{{ $wip->d_kwtGal_frame }}</td>
-                            <td style="border: 1px solid #000; padding: 4px; text-align: center;">{{ $wip->d_kwtPvc_anyam }}</td>
-                            <td style="border: 1px solid #000; padding: 4px; text-align: center;">{{ $wip->d_kwtPvc_frame }}</td>
-                            <td style="border: 1px solid #000; padding: 4px; text-align: center;">{{ $wip->mesh1 }}</td>
-                            <td style="border: 1px solid #000; padding: 4px; text-align: center;">{{ $wip->mesh2 }}</td>
-                            <td style="border: 1px solid #000; padding: 4px; text-align: center;">{{ $wip->visual }}</td>
-                            <td style="border: 1px solid #000; padding: 4px; text-align: center;">{{ $wip->status }}</td>
+                            <td style="border: 1px solid #000; padding: 4px; text-align: center;">{{ $wip->type }}
+                            </td>
+                            <td style="border: 1px solid #000; padding: 4px; text-align: center;">{{ $wip->p_act }}
+                            </td>
+                            <td style="border: 1px solid #000; padding: 4px; text-align: center;">{{ $wip->l_act }}
+                            </td>
+                            <td style="border: 1px solid #000; padding: 4px; text-align: center;">
+                                {{ $wip->d_kwtGal_anyam }}</td>
+                            <td style="border: 1px solid #000; padding: 4px; text-align: center;">
+                                {{ $wip->d_kwtGal_frame }}</td>
+                            <td style="border: 1px solid #000; padding: 4px; text-align: center;">
+                                {{ $wip->d_kwtPvc_anyam }}</td>
+                            <td style="border: 1px solid #000; padding: 4px; text-align: center;">
+                                {{ $wip->d_kwtPvc_frame }}</td>
+                            <td style="border: 1px solid #000; padding: 4px; text-align: center;">{{ $wip->mesh1 }}
+                            </td>
+                            <td style="border: 1px solid #000; padding: 4px; text-align: center;">{{ $wip->mesh2 }}
+                            </td>
+                            <td style="border: 1px solid #000; padding: 4px; text-align: center;">{{ $wip->visual }}
+                            </td>
+                            <td style="border: 1px solid #000; padding: 4px; text-align: center;">{{ $wip->status }}
+                            </td>
                             <td style="border: 1px solid #000; padding: 4px; text-align: center;">
                                 {{ $wip->created_at->format('d/m/Y') }}</td>
                         </tr>
@@ -640,7 +657,8 @@
                     <p style="margin: 0 0 5px 0; font-weight: bold;">Dibuat oleh:</p>
                     <br><br><br>
                     <p style="margin: 0; border-top: 1px solid #000; width: 200px; padding-top: 5px;">
-                        {{ $inspeksiGabionframe->inspeksiGabionframeWip->first()->user->name ?? '.................' }}</p>
+                        {{ $inspeksiGabionframe->inspeksiGabionframeWip->first()->user->name ?? '.................' }}
+                    </p>
                     <p style="margin: 2px 0 0 0; font-style: italic;">Inspektor</p>
                 </td>
                 <td style="width: 50%; vertical-align: top;">

@@ -264,6 +264,20 @@
                                     </select>
                                     <x-input-error class="mt-2" :messages="$errors->get('visual')" />
                                 </div>
+
+                                <div>
+                                    <x-input-label for="status" :value="__('Status')" />
+                                    <select id="status" name="status"
+                                        class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500 py-3">
+                                        <option value="OK" {{ old('status') == 'OK' ? 'selected' : '' }}>OK
+                                        </option>
+                                        <option value="NG" {{ old('status') == 'NG' ? 'selected' : '' }}>NG
+                                        </option>
+                                        <option value="REJECT" {{ old('status') == 'REJECT' ? 'selected' : '' }}>REJECT
+                                        </option>
+                                    </select>
+                                    <x-input-error class="mt-2" :messages="$errors->get('status')" />
+                                </div>
                             </div>
                         </div>
 

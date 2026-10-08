@@ -78,6 +78,11 @@
                                 <dd class="text-lg font-semibold text-gray-900">{{ $incomingbahanbaku->tanggal }}</dd>
                             </div>
                             <div>
+                                <dt class="text-sm font-medium text-gray-500 italic">Jenis</dt>
+                                <dd class="text-lg font-semibold text-gray-900">
+                                    {{ $incomingbahanbaku->jenis == 'non_reguler' ? 'Non Reguler' : 'Reguler' }}</dd>
+                            </div>
+                            <div>
                                 <dt class="text-sm font-medium text-gray-500 italic">Supplier</dt>
                                 <dd class="text-lg font-semibold text-gray-900">{{ $incomingbahanbaku->supplier->nama }}
                                 </dd>
@@ -555,10 +560,10 @@
                 <td>: {{ $incomingbahanbaku->tol }}</td>
             </tr>
             <tr>
+                <td style="font-weight: bold;">Jenis</td>
+                <td>: {{ $incomingbahanbaku->jenis == 'non_reguler' ? 'Non Reguler' : 'Reguler' }}</td>
                 <td style="font-weight: bold;">Jenis Kawat</td>
                 <td>: {{ $incomingbahanbaku->jenis_kawat }}</td>
-                <td></td>
-                <td></td>
             </tr>
         </table>
 

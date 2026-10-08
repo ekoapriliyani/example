@@ -24,6 +24,31 @@
 
                         <div class="grid grid-cols-1 gap-6 md:grid-cols-2">
 
+                            <div class="md:col-span-2">
+                                <label class="mb-1 block text-sm font-medium text-gray-700">
+                                    Jenis
+                                </label>
+                                <div class="flex items-center gap-4 mt-1">
+                                    <label class="inline-flex items-center">
+                                        <input type="radio" name="jenis" value="reguler" required
+                                            {{ old('jenis', $data->jenis) == 'reguler' ? 'checked' : '' }}
+                                            class="text-indigo-600 border-gray-300 focus:ring-indigo-500">
+                                        <span class="ml-2 text-sm text-gray-700">Reguler</span>
+                                    </label>
+                                    <label class="inline-flex items-center">
+                                        <input type="radio" name="jenis" value="non_reguler"
+                                            {{ old('jenis', $data->jenis) == 'non_reguler' ? 'checked' : '' }}
+                                            class="text-indigo-600 border-gray-300 focus:ring-indigo-500">
+                                        <span class="ml-2 text-sm text-gray-700">Non Reguler (Jika Stock
+                                            Opname/dll)</span>
+                                    </label>
+                                </div>
+
+                                @error('jenis')
+                                    <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                                @enderror
+                            </div>
+
                             <div>
                                 <label class="mb-1 block text-sm font-medium text-gray-700">
                                     Tanggal
@@ -55,6 +80,44 @@
                                 </select>
 
                                 @error('supplier_id')
+                                    <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                                @enderror
+                            </div>
+
+                            <div>
+                                <label class="mb-1 block text-sm font-medium text-gray-700">
+                                    No RCR
+                                </label>
+                                <select id="no_rcr" name="no_rcr"
+                                    class="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
+                                    <option value="">-- Pilih No RCR --</option>
+
+                                    @foreach ($receivingData as $row)
+                                        <option value="{{ $row['trno'] }}"
+                                            data-order-no="{{ $row['OrderNo'] }}"
+                                            data-description="{{ $row['description'] }}"
+                                            data-total-koil="{{ $row['TotalKoil'] }}"
+                                            {{ old('no_rcr', $data->no_rcr) == $row['trno'] ? 'selected' : '' }}>
+                                            {{ $row['trno'] }} - {{ $row['OrderNo'] }} - {{ $row['description'] }} -
+                                            {{ $row['TotalKoil'] }}
+                                        </option>
+                                    @endforeach
+                                </select>
+
+                                @error('no_rcr')
+                                    <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                                @enderror
+                            </div>
+
+                            <div class="md:col-span-2">
+                                <label class="mb-1 block text-sm font-medium text-gray-700">
+                                    Description
+                                </label>
+                                <textarea id="description" name="description" rows="3"
+                                    class="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                                    placeholder="Deskripsi...">{{ old('description', $data->description) }}</textarea>
+
+                                @error('description')
                                     <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                                 @enderror
                             </div>
@@ -222,4 +285,28 @@
             </div>
         </div>
     </div>
+
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
+    <script>
+        $(document).ready(function() {
+
+            $('#no_rcr').select2({
+                placeholder: '-- Pilih No RCR --',
+                allowClear: true,
+                width: '100%'
+            });
+
+            $('#no_rcr').on('change', function() {
+                var selected = $(this).find(':selected');
+
+                $('#no_po').val(selected.data('order-no') || '');
+                $('#description').val(selected.data('description') || '');
+                $('#jml_koil').val(selected.data('total-koil') || '');
+            });
+        });
+    </script>
 </x-app-layout>

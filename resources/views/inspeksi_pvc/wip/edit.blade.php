@@ -169,6 +169,27 @@
                                 </select>
                                 <x-input-error class="mt-2" :messages="$errors->get('visual')" />
                             </div>
+                            <div>
+                                <x-input-label for="status" :value="__('Status')" />
+                                <select id="status" name="status"
+                                    class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+                                    required>
+                                    <option value="">-- Pilih Status --</option>
+                                    <option value="OK"
+                                        {{ old('status', $wip->status) == 'OK' ? 'selected' : '' }}>
+                                        OK
+                                    </option>
+                                    <option value="NG"
+                                        {{ old('status', $wip->status) == 'NG' ? 'selected' : '' }}>
+                                        NG
+                                    </option>
+                                    <option value="REJECT"
+                                        {{ old('status', $wip->status) == 'REJECT' ? 'selected' : '' }}>
+                                        REJECT
+                                    </option>
+                                </select>
+                                <x-input-error class="mt-2" :messages="$errors->get('status')" />
+                            </div>
                         </div>
                         <div class="border-t border-gray-200 pt-6">
                             <h3 class="mb-4 font-semibold text-gray-700">Files</h3>

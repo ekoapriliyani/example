@@ -82,14 +82,14 @@
                                     {{ \Carbon\Carbon::parse($lks->tanggal)->format('d/m/Y') }}</dd>
                             </div>
                             <div>
-                                <dt class="text-sm font-medium italic text-gray-500">Status LKS</dt>
+                                <dt class="text-sm font-medium italic text-gray-500">Status</dt>
                                 <dd>
                                     @if ($lks->isDraft())
                                         <span
                                             class="inline-block rounded bg-yellow-100 px-3 py-1 text-sm font-semibold text-yellow-700">DRAFT</span>
                                     @elseif ($lks->isApproved())
                                         <span
-                                            class="inline-block rounded bg-green-100 px-3 py-1 text-sm font-semibold text-green-700">OPEN</span>
+                                            class="inline-block rounded bg-green-100 px-3 py-1 text-sm font-semibold text-green-700">APPROVED</span>
                                     @else
                                         <span
                                             class="inline-block rounded bg-gray-100 px-3 py-1 text-sm font-semibold text-gray-700">CLOSED</span>
@@ -97,7 +97,7 @@
                                 </dd>
                             </div>
                             <div class="col-span-3 sm:col-span-4">
-                                <dt class="text-sm font-medium italic text-gray-500">Temuan</dt>
+                                <dt class="text-sm font-medium italic text-gray-500">Keterangan</dt>
                                 <dd class="text-gray-900">{{ $lks->keterangan ?? '-' }}</dd>
                             </div>
                         </dl>

@@ -554,7 +554,7 @@
                     style="width: 20%; vertical-align: top; text-align: right; font-family: Arial, sans-serif; font-size: 11pt;">
                     <table cellpadding="3" cellspacing="0" style="border: 1px solid #000; margin-left: auto;">
                         <tr>
-                            <td style="font-weight: bold; font-size: 10pt;">BM-F-QC-17 R00</td>
+                            <td style="font-weight: bold; font-size: 10pt;">BM-F-QC-12 R00</td>
                         </tr>
                     </table>
                 </td>
@@ -601,14 +601,19 @@
                 <thead>
                     <tr style="background-color: #f0f0f0;">
                         <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 5%;">No</th>
-                        <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 10%;">Inspektor</th>
-                        <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 10%;">No. Material</th>
+                        <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 10%;">Inspektor
+                        </th>
+                        <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 10%;">No. Material
+                        </th>
                         <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 10%;">Operator</th>
-                        <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 12%;">L Sheet Galvanized</th>
-                        <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 12%;">Tebal Sheet Galvanized</th>
+                        <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 12%;">L Sheet
+                            Galvanized</th>
+                        <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 12%;">Tebal Sheet
+                            Galvanized</th>
                         <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 10%;">Visual</th>
                         <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 10%;">Status</th>
-                        <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 10%;">Created At</th>
+                        <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 10%;">Created At
+                        </th>
                     </tr>
                 </thead>
                 <tbody>
@@ -619,10 +624,14 @@
                             <td style="border: 1px solid #000; padding: 4px;">{{ $wip->user->name ?? 'N/A' }}</td>
                             <td style="border: 1px solid #000; padding: 4px;">{{ $wip->no_material }}</td>
                             <td style="border: 1px solid #000; padding: 4px;">{{ $wip->nama_operator }}</td>
-                            <td style="border: 1px solid #000; padding: 4px; text-align: center;">{{ $wip->l_sheetgalvanized }}</td>
-                            <td style="border: 1px solid #000; padding: 4px; text-align: center;">{{ $wip->tebal_sheetgalvanized }}</td>
-                            <td style="border: 1px solid #000; padding: 4px; text-align: center;">{{ $wip->visual }}</td>
-                            <td style="border: 1px solid #000; padding: 4px; text-align: center;">{{ $wip->status }}</td>
+                            <td style="border: 1px solid #000; padding: 4px; text-align: center;">
+                                {{ $wip->l_sheetgalvanized }}</td>
+                            <td style="border: 1px solid #000; padding: 4px; text-align: center;">
+                                {{ $wip->tebal_sheetgalvanized }}</td>
+                            <td style="border: 1px solid #000; padding: 4px; text-align: center;">{{ $wip->visual }}
+                            </td>
+                            <td style="border: 1px solid #000; padding: 4px; text-align: center;">{{ $wip->status }}
+                            </td>
                             <td style="border: 1px solid #000; padding: 4px; text-align: center;">
                                 {{ $wip->created_at->format('d/m/Y') }}</td>
                         </tr>

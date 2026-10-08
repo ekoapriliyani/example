@@ -799,7 +799,7 @@
                     style="width: 20%; vertical-align: top; text-align: right; font-family: Arial, sans-serif; font-size: 11pt;">
                     <table cellpadding="3" cellspacing="0" style="border: 1px solid #000; margin-left: auto;">
                         <tr>
-                            <td style="font-weight: bold; font-size: 10pt;">BM-F-QC-21 R00</td>
+                            <td style="font-weight: bold; font-size: 10pt;">BM-F-QC-09 R00</td>
                         </tr>
                     </table>
                 </td>
@@ -853,19 +853,28 @@
                     <tr style="background-color: #f0f0f0;">
                         <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 3%;">No</th>
                         <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 7%;">Inspektor</th>
-                        <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 7%;">No. Material</th>
+                        <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 7%;">No. Material
+                        </th>
                         <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 7%;">Operator</th>
-                        <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 7%;">D. Inti KD</th>
+                        <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 7%;">D. Inti KD
+                        </th>
                         <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 7%;">D. PVC KD</th>
-                        <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 7%;">D. Inti Kwt Jalinan</th>
-                        <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 7%;">D. PVC Kwt Jalinan</th>
-                        <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 7%;">Jarak Duri</th>
-                        <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 7%;">Jml Jalinan Duri</th>
-                        <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 7%;">Sudut Ujung Duri</th>
+                        <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 7%;">D. Inti Kwt
+                            Jalinan</th>
+                        <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 7%;">D. PVC Kwt
+                            Jalinan</th>
+                        <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 7%;">Jarak Duri
+                        </th>
+                        <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 7%;">Jml Jalinan
+                            Duri</th>
+                        <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 7%;">Sudut Ujung
+                            Duri</th>
                         <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 6%;">Weight</th>
-                        <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 6%;">Jml Counter</th>
+                        <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 6%;">Jml Counter
+                        </th>
                         <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 6%;">Status</th>
-                        <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 7%;">Created At</th>
+                        <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 7%;">Created At
+                        </th>
                     </tr>
                 </thead>
                 <tbody>
@@ -876,16 +885,26 @@
                             <td style="border: 1px solid #000; padding: 4px;">{{ $wip->user->name ?? 'N/A' }}</td>
                             <td style="border: 1px solid #000; padding: 4px;">{{ $wip->no_material }}</td>
                             <td style="border: 1px solid #000; padding: 4px;">{{ $wip->nama_operator }}</td>
-                            <td style="border: 1px solid #000; padding: 4px; text-align: center;">{{ $wip->d_inti_kd }}</td>
-                            <td style="border: 1px solid #000; padding: 4px; text-align: center;">{{ $wip->d_pvc_kd }}</td>
-                            <td style="border: 1px solid #000; padding: 4px; text-align: center;">{{ $wip->d_inti_kj }}</td>
-                            <td style="border: 1px solid #000; padding: 4px; text-align: center;">{{ $wip->d_pvc_kj }}</td>
-                            <td style="border: 1px solid #000; padding: 4px; text-align: center;">{{ $wip->jarak_duri }}</td>
-                            <td style="border: 1px solid #000; padding: 4px; text-align: center;">{{ $wip->jml_jalinan_duri }}</td>
-                            <td style="border: 1px solid #000; padding: 4px; text-align: center;">{{ $wip->sudut_ujung_duri }}</td>
-                            <td style="border: 1px solid #000; padding: 4px; text-align: center;">{{ $wip->weight }}</td>
-                            <td style="border: 1px solid #000; padding: 4px; text-align: center;">{{ $wip->jml_counter }}</td>
-                            <td style="border: 1px solid #000; padding: 4px; text-align: center;">{{ $wip->status }}</td>
+                            <td style="border: 1px solid #000; padding: 4px; text-align: center;">
+                                {{ $wip->d_inti_kd }}</td>
+                            <td style="border: 1px solid #000; padding: 4px; text-align: center;">{{ $wip->d_pvc_kd }}
+                            </td>
+                            <td style="border: 1px solid #000; padding: 4px; text-align: center;">
+                                {{ $wip->d_inti_kj }}</td>
+                            <td style="border: 1px solid #000; padding: 4px; text-align: center;">{{ $wip->d_pvc_kj }}
+                            </td>
+                            <td style="border: 1px solid #000; padding: 4px; text-align: center;">
+                                {{ $wip->jarak_duri }}</td>
+                            <td style="border: 1px solid #000; padding: 4px; text-align: center;">
+                                {{ $wip->jml_jalinan_duri }}</td>
+                            <td style="border: 1px solid #000; padding: 4px; text-align: center;">
+                                {{ $wip->sudut_ujung_duri }}</td>
+                            <td style="border: 1px solid #000; padding: 4px; text-align: center;">{{ $wip->weight }}
+                            </td>
+                            <td style="border: 1px solid #000; padding: 4px; text-align: center;">
+                                {{ $wip->jml_counter }}</td>
+                            <td style="border: 1px solid #000; padding: 4px; text-align: center;">{{ $wip->status }}
+                            </td>
                             <td style="border: 1px solid #000; padding: 4px; text-align: center;">
                                 {{ $wip->created_at->format('d/m/Y') }}</td>
                         </tr>
@@ -909,13 +928,15 @@
                 <thead>
                     <tr style="background-color: #f0f0f0;">
                         <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 5%;">No</th>
-                        <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 15%;">Inspektor</th>
+                        <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 15%;">Inspektor
+                        </th>
                         <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 12%;">Status</th>
                         <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 12%;">Quantity</th>
                         <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 12%;">Weight</th>
                         <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 12%;">Packing</th>
                         <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 12%;">Label</th>
-                        <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 12%;">Created At</th>
+                        <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 12%;">Created At
+                        </th>
                     </tr>
                 </thead>
                 <tbody>
@@ -924,9 +945,12 @@
                             <td style="border: 1px solid #000; padding: 4px; text-align: center;">
                                 {{ $loop->iteration }}</td>
                             <td style="border: 1px solid #000; padding: 4px;">{{ $fg->user->name }}</td>
-                            <td style="border: 1px solid #000; padding: 4px; text-align: center;">{{ $fg->status }}</td>
-                            <td style="border: 1px solid #000; padding: 4px; text-align: center;">{{ $fg->qty }}</td>
-                            <td style="border: 1px solid #000; padding: 4px; text-align: center;">{{ $fg->weight }} Kg</td>
+                            <td style="border: 1px solid #000; padding: 4px; text-align: center;">{{ $fg->status }}
+                            </td>
+                            <td style="border: 1px solid #000; padding: 4px; text-align: center;">{{ $fg->qty }}
+                            </td>
+                            <td style="border: 1px solid #000; padding: 4px; text-align: center;">{{ $fg->weight }}
+                                Kg</td>
                             <td style="border: 1px solid #000; padding: 4px;">{{ $fg->packing }}</td>
                             <td style="border: 1px solid #000; padding: 4px;">{{ $fg->label }}</td>
                             <td style="border: 1px solid #000; padding: 4px; text-align: center;">

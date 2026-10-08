@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\IncomingBahanBakuExport;
 use App\Mail\InspeksiBbLotNotification;
 use App\Mail\MechanicalTestLotNotification;
 use App\Models\IncomingBahanBaku;
@@ -9,12 +10,14 @@ use App\Models\IncomingBahanBakuInspeksi;
 use App\Models\MechanicalTest;
 use App\Models\Supplier;
 use App\Models\User;
+use App\Services\SybaseService;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Storage;
+use Maatwebsite\Excel\Facades\Excel;
 
 class IncomingBahanBakuController extends Controller
 {
@@ -23,12 +26,37 @@ class IncomingBahanBakuController extends Controller
      */
     public function index(Request $request)
     {
+        $data = $this->filtered($request)
+            ->paginate(10)
+            ->withQueryString();
+
+        return view('incomingbahanbaku.index', compact('data'));
+    }
+
+    /**
+     * Export listing ke Excel (.xlsx), mengikuti filter yang aktif di layar.
+     */
+    public function export(Request $request)
+    {
+        $filename = 'inspeksi-incoming-bahan-baku_' . now()->format('Y-m-d') . '.xlsx';
+
+        return Excel::download(
+            new IncomingBahanBakuExport($this->filtered($request)),
+            $filename
+        );
+    }
+
+    /**
+     * Query dasar untuk daftar inspeksi, dipakai bersama oleh index() dan export().
+     */
+    private function filtered(Request $request)
+    {
         $search = $request->input('search');
         $status = $request->input('status');
         $startDate = $request->input('start_date');
         $endDate = $request->input('end_date');
 
-        $data = IncomingBahanBaku::with('supplier')
+        return IncomingBahanBaku::with('supplier')
             ->when($search, function ($query, $search) {
                 return $query->where('nomor_inspeksi', 'like', "%{$search}%")
                     ->orWhere('no_po', 'like', "%{$search}%")
@@ -54,10 +82,7 @@ class IncomingBahanBakuController extends Controller
                 return $query->whereDate('tanggal', '<=', $endDate);
             })
             ->orderBy('created_at', 'desc')
-            ->paginate(10)
-            ->withQueryString();
-
-        return view('incomingbahanbaku.index', compact('data'));
+            ->orderBy('id', 'desc');
     }
 
 
@@ -71,7 +96,7 @@ class IncomingBahanBakuController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create(SybaseService $sybaseService)
     {
         // 1. Ambil format Tahun dan Bulan saat ini (Contoh: 202606)
         $tahunBulan = Carbon::now()->format('Ym');
@@ -96,7 +121,10 @@ class IncomingBahanBakuController extends Controller
         // 4. Ambil data Supplier
         $suppliers = Supplier::orderBy('supplier_code')->get();
 
-        return view('incomingbahanbaku.create', compact('nextNomor', 'suppliers'));
+        // 5. Ambil data Receiving BI dari Sybase untuk field no_rcr
+        $receivingData = $sybaseService->getReceivingBIData();
+
+        return view('incomingbahanbaku.create', compact('nextNomor', 'suppliers', 'receivingData'));
     }
 
     /**
@@ -105,8 +133,11 @@ class IncomingBahanBakuController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
+            'jenis' => 'required|in:reguler,non_reguler',
             'tanggal' => 'required',
             'supplier_id' => 'required',
+            'no_rcr' => 'nullable|string',
+            'description' => 'nullable|string',
             'no_po' => 'required',
             'no_sj' => 'required',
             'jml_koil' => 'required',
@@ -174,12 +205,13 @@ class IncomingBahanBakuController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(string $id, SybaseService $sybaseService)
     {
         $data = IncomingBahanBaku::findOrFail($id);
         $suppliers = Supplier::all();
+        $receivingData = $sybaseService->getReceivingBIData();
 
-        return view('incomingbahanbaku.edit', compact('data', 'suppliers'));
+        return view('incomingbahanbaku.edit', compact('data', 'suppliers', 'receivingData'));
     }
 
     /**
@@ -189,8 +221,11 @@ class IncomingBahanBakuController extends Controller
     public function update(Request $request, string $id)
     {
         $validated = $request->validate([
+            'jenis' => 'required|in:reguler,non_reguler',
             'tanggal' => 'required',
             'supplier_id' => 'required',
+            'no_rcr' => 'nullable|string',
+            'description' => 'nullable|string',
             'no_po' => 'required',
             'no_sj' => 'required',
             'jml_koil' => 'required',

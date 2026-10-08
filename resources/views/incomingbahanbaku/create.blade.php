@@ -11,13 +11,31 @@
                 <div class="p-8 text-gray-900">
                     <div class="mb-6">
                         <p class="text-sm text-gray-600">
-                            xxxxxxx
+                            Incoming Bahan Baku
                         </p>
                     </div>
 
                     <form action="{{ route('incomingbahanbaku.store') }}" method="POST" class="space-y-6"
                         enctype="multipart/form-data">
                         @csrf
+                        <div class="mt-2">
+                            <x-input-label for="jenis" :value="__('Jenis')" />
+                            <div class="flex items-center gap-4 mt-1">
+                                <label class="inline-flex items-center">
+                                    <input type="radio" name="jenis" value="reguler" required
+                                        {{ old('jenis', 'reguler') == 'reguler' ? 'checked' : '' }}
+                                        class="text-indigo-600 border-gray-300 focus:ring-indigo-500">
+                                    <span class="ml-2 text-sm text-gray-700">Reguler</span>
+                                </label>
+                                <label class="inline-flex items-center">
+                                    <input type="radio" name="jenis" value="non_reguler"
+                                        {{ old('jenis') == 'non_reguler' ? 'checked' : '' }}
+                                        class="text-indigo-600 border-gray-300 focus:ring-indigo-500">
+                                    <span class="ml-2 text-sm text-gray-700">Non Reguler (Jika Stock Opname/dll)</span>
+                                </label>
+                            </div>
+                            <x-input-error class="mt-2" :messages="$errors->get('jenis')" />
+                        </div>
                         <div>
                             <x-input-label for="nomor_inspeksi" :value="__('Nomor Inspeksi (Otomatis)')" />
                             <x-text-input id="nomor_inspeksi" name="nomor_inspeksi" type="text"
@@ -42,6 +60,33 @@
                                 @endforeach
                             </select>
                             <x-input-error class="mt-2" :messages="$errors->get('supplier_code')" />
+                        </div>
+                        <div>
+                            <x-input-label for="no_rcr" :value="__('No RCR')" />
+                            <select id="no_rcr" name="no_rcr"
+                                class="mt-1 block w-full border-gray-300 rounded-md shadow-sm">
+                                <option value="">-- Pilih No RCR --</option>
+                                @foreach ($receivingData as $row)
+                                    <option value="{{ $row['trno'] }}"
+                                        data-order-no="{{ $row['OrderNo'] }}"
+                                        data-description="{{ $row['description'] }}"
+                                        data-total-koil="{{ $row['TotalKoil'] }}"
+                                        {{ old('no_rcr') == $row['trno'] ? 'selected' : '' }}>
+                                        {{ $row['trno'] }} - {{ $row['OrderNo'] }} - {{ $row['description'] }} -
+                                        {{ $row['TotalKoil'] }}
+                                    </option>
+                                @endforeach
+                            </select>
+                            <x-input-error class="mt-2" :messages="$errors->get('no_rcr')" />
+                        </div>
+                        <div>
+                            <x-input-label for="description" :value="__('Description')" />
+                            <div class="relative mt-1">
+                                <textarea id="description" name="description" rows="3"
+                                    class="block w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                                    placeholder="Deskripsi...">{{ old('description') }}</textarea>
+                            </div>
+                            <x-input-error class="mt-2" :messages="$errors->get('description')" />
                         </div>
                         <div>
                             <x-input-label for="no_po" :value="__('No PO')" />
@@ -161,6 +206,20 @@
                 placeholder: '-- Pilih Supplier --',
                 allowClear: true,
                 width: '100%'
+            });
+
+            $('#no_rcr').select2({
+                placeholder: '-- Pilih No RCR --',
+                allowClear: true,
+                width: '100%'
+            });
+
+            $('#no_rcr').on('change', function() {
+                var selected = $(this).find(':selected');
+
+                $('#no_po').val(selected.data('order-no') || '');
+                $('#description').val(selected.data('description') || '');
+                $('#jml_koil').val(selected.data('total-koil') || '');
             });
         });
     </script>

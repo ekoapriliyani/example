@@ -129,6 +129,10 @@
                                     <option value="NG" {{ old('status', $wip->status) == 'NG' ? 'selected' : '' }}>
                                         NG
                                     </option>
+                                    <option value="REJECT"
+                                        {{ old('status', $wip->status) == 'REJECT' ? 'selected' : '' }}>
+                                        REJECT
+                                    </option>
                                 </select>
                                 <x-input-error class="mt-2" :messages="$errors->get('status')" />
                             </div>
