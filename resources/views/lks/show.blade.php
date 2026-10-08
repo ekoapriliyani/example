@@ -1,12 +1,12 @@
 <x-app-layout>
     <x-slot name="header">
         <div class="flex items-center justify-between">
-            <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+            <h2 class="text-xl font-semibold leading-tight text-gray-800">
                 {{ __('Detail LKS') }}
             </h2>
             <div class="flex gap-2">
                 <a href="{{ route('lks.index') }}"
-                    class="inline-flex items-center px-4 py-2 bg-white border border-gray-300 rounded-md font-semibold text-xs text-gray-700 uppercase tracking-widest shadow-sm hover:bg-gray-50 transition ease-in-out duration-150">
+                    class="inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-xs font-semibold uppercase tracking-widest text-gray-700 shadow-sm transition duration-150 ease-in-out hover:bg-gray-50">
                     Kembali
                 </a>
                 <button type="button" onclick="printLks()"
@@ -23,7 +23,7 @@
                         @csrf
                         @method('PATCH')
                         <button type="submit"
-                            class="inline-flex items-center gap-2 rounded-md bg-green-600 px-4 py-2 text-sm font-semibold text-white hover:bg-green-700 transition shadow-sm">
+                            class="inline-flex items-center gap-2 rounded-md bg-green-600 px-4 py-2 text-sm font-semibold text-white shadow-sm transition hover:bg-green-700">
                             <span class="text-base">✓</span> Approve
                         </button>
                     </form>
@@ -33,7 +33,7 @@
                         @csrf
                         @method('PATCH')
                         <button type="submit"
-                            class="inline-flex items-center gap-2 rounded-md bg-orange-500 px-4 py-2 text-sm font-semibold text-white hover:bg-orange-600 transition shadow-sm">
+                            class="inline-flex items-center gap-2 rounded-md bg-orange-500 px-4 py-2 text-sm font-semibold text-white shadow-sm transition hover:bg-orange-600">
                             <span class="text-base">↺</span> Unapprove
                         </button>
                     </form>
@@ -41,7 +41,7 @@
                         @csrf
                         @method('PATCH')
                         <button type="submit"
-                            class="inline-flex items-center gap-2 rounded-md bg-gray-600 px-4 py-2 text-sm font-semibold text-white hover:bg-gray-700 transition shadow-sm">
+                            class="inline-flex items-center gap-2 rounded-md bg-gray-600 px-4 py-2 text-sm font-semibold text-white shadow-sm transition hover:bg-gray-700">
                             Close LKS
                         </button>
                     </form>
@@ -51,7 +51,7 @@
                         @csrf
                         @method('PATCH')
                         <button type="submit"
-                            class="inline-flex items-center gap-2 rounded-md bg-blue-600 px-4 py-2 text-sm font-semibold text-white hover:bg-blue-700 transition shadow-sm">
+                            class="inline-flex items-center gap-2 rounded-md bg-blue-600 px-4 py-2 text-sm font-semibold text-white shadow-sm transition hover:bg-blue-700">
                             <span class="text-base">🔓</span> Open LKS
                         </button>
                     </form>
@@ -61,35 +61,35 @@
     </x-slot>
 
     <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-8">
+        <div class="mx-auto max-w-7xl space-y-8 sm:px-6 lg:px-8">
 
             {{-- Info LKS --}}
-            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg border border-gray-200">
+            <div class="overflow-hidden border border-gray-200 bg-white shadow-sm sm:rounded-lg">
                 <div class="p-6 sm:p-8">
-                    <div class="flex justify-between items-start">
+                    <div class="flex items-start justify-between">
                         <dl class="grid grid-cols-3 gap-x-8 gap-y-4 sm:grid-cols-4">
                             <div>
-                                <dt class="text-sm font-medium text-gray-500 italic">Nomor LKS</dt>
+                                <dt class="text-sm font-medium italic text-gray-500">Nomor LKS</dt>
                                 <dd class="text-lg font-bold text-indigo-600">{{ $lks->nomor_lks }}</dd>
                             </div>
                             <div>
-                                <dt class="text-sm font-medium text-gray-500 italic">Supplier</dt>
+                                <dt class="text-sm font-medium italic text-gray-500">Supplier</dt>
                                 <dd class="text-lg font-semibold text-gray-900">{{ $lks->supplier->nama ?? 'N/A' }}</dd>
                             </div>
                             <div>
-                                <dt class="text-sm font-medium text-gray-500 italic">Tanggal</dt>
+                                <dt class="text-sm font-medium italic text-gray-500">Tanggal</dt>
                                 <dd class="text-lg font-semibold text-gray-900">
                                     {{ \Carbon\Carbon::parse($lks->tanggal)->format('d/m/Y') }}</dd>
                             </div>
                             <div>
-                                <dt class="text-sm font-medium text-gray-500 italic">Status</dt>
+                                <dt class="text-sm font-medium italic text-gray-500">Status LKS</dt>
                                 <dd>
                                     @if ($lks->isDraft())
                                         <span
                                             class="inline-block rounded bg-yellow-100 px-3 py-1 text-sm font-semibold text-yellow-700">DRAFT</span>
                                     @elseif ($lks->isApproved())
                                         <span
-                                            class="inline-block rounded bg-green-100 px-3 py-1 text-sm font-semibold text-green-700">APPROVED</span>
+                                            class="inline-block rounded bg-green-100 px-3 py-1 text-sm font-semibold text-green-700">OPEN</span>
                                     @else
                                         <span
                                             class="inline-block rounded bg-gray-100 px-3 py-1 text-sm font-semibold text-gray-700">CLOSED</span>
@@ -97,7 +97,7 @@
                                 </dd>
                             </div>
                             <div class="col-span-3 sm:col-span-4">
-                                <dt class="text-sm font-medium text-gray-500 italic">Keterangan</dt>
+                                <dt class="text-sm font-medium italic text-gray-500">Temuan</dt>
                                 <dd class="text-gray-900">{{ $lks->keterangan ?? '-' }}</dd>
                             </div>
                         </dl>
@@ -106,10 +106,10 @@
             </div>
 
             {{-- Tabel Detail Lot --}}
-            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg border border-gray-200">
+            <div class="overflow-hidden border border-gray-200 bg-white shadow-sm sm:rounded-lg">
                 <div class="p-6">
-                    <div class="flex items-center gap-2 mb-4">
-                        <div class="p-2 bg-red-100 rounded-lg text-red-600">
+                    <div class="mb-4 flex items-center gap-2">
+                        <div class="rounded-lg bg-red-100 p-2 text-red-600">
                             <svg xmlns="http://www.w3.org/2000/svg" class="size-5" fill="none" viewBox="0 0 24 24"
                                 stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -119,7 +119,7 @@
                         <h3 class="text-lg font-bold text-gray-800">Detail Lot Number NG / REJECT</h3>
                     </div>
                     <div class="overflow-x-auto rounded-lg border border-gray-200">
-                        <table class="min-w-full divide-y divide-gray-200 text-sm text-left">
+                        <table class="min-w-full divide-y divide-gray-200 text-left text-sm">
                             <thead class="bg-gray-50">
                                 <tr>
                                     <th class="px-4 py-3 font-semibold text-gray-900">No</th>
@@ -134,7 +134,7 @@
                             </thead>
                             <tbody class="divide-y divide-gray-200">
                                 @forelse ($lks->details as $detail)
-                                    <tr class="hover:bg-gray-50 transition-colors">
+                                    <tr class="transition-colors hover:bg-gray-50">
                                         <td class="px-4 py-3">{{ $loop->iteration }}</td>
                                         <td class="px-4 py-3 font-semibold text-indigo-600">...
                                         </td>
@@ -144,8 +144,7 @@
                                         <td class="px-4 py-3 font-medium">{{ $detail->no_koil ?? '-' }}</td>
                                         <td class="px-4 py-3">
                                             <span
-                                                class="inline-flex items-center px-2 py-1 text-xs font-semibold rounded-full
-                                                {{ $detail->status === 'REJECT' ? 'text-red-800 bg-red-200' : 'text-yellow-800 bg-yellow-200' }}">
+                                                class="{{ $detail->status === 'REJECT' ? 'text-red-800 bg-red-200' : 'text-yellow-800 bg-yellow-200' }} inline-flex items-center rounded-full px-2 py-1 text-xs font-semibold">
                                                 {{ $detail->status }}
                                             </span>
                                         </td>
@@ -156,7 +155,7 @@
                                     </tr>
                                 @empty
                                     <tr>
-                                        <td colspan="8" class="px-4 py-8 text-center text-gray-400 italic">
+                                        <td colspan="8" class="px-4 py-8 text-center italic text-gray-400">
                                             Belum ada detail lot number.
                                         </td>
                                     </tr>
