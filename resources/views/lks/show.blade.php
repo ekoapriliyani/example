@@ -211,7 +211,8 @@
         }
     </style>
     <div id="print-section" class="hidden">
-        <table width="100%" cellpadding="5" cellspacing="0" style="border-collapse: collapse; margin-bottom: 10px;">
+        <table width="100%" cellpadding="5" cellspacing="0"
+            style="border-collapse: collapse; margin-bottom: 10px;">
             <tr>
                 <td style="width: 22%; vertical-align: middle;">
                     <img src="{{ asset('img/logobeva.png') }}" alt="Logo" style="height: 50px; width: auto;" />
@@ -224,7 +225,7 @@
                     style="width: 22%; vertical-align: top; text-align: right; font-family: Arial, sans-serif; font-size: 11pt;">
                     <table cellpadding="3" cellspacing="0" style="border: 1px solid #000; margin-left: auto;">
                         <tr>
-                            <td style="font-weight: bold; font-size: 9pt;">BM-F-QC-XX R00</td>
+                            <td style="font-weight: bold; font-size: 9pt;">BM-F-QC-32 R00</td>
                         </tr>
                     </table>
                 </td>
@@ -244,8 +245,14 @@
             <tr>
                 <td style="font-weight: bold;">Supplier</td>
                 <td>: {{ $lks->supplier->nama ?? 'N/A' }}</td>
-                <td style="font-weight: bold;">Status</td>
+                <td style="font-weight: bold;">Status LKS</td>
                 <td>: {{ $lks->status }}</td>
+            </tr>
+            <tr>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td style="font-weight: bold;">Tanggal Batas Menjawab</td>
+                <td>: {{ \Carbon\Carbon::parse($lks->tanggal)->addWeek()->format('d/m/Y') }}</td>
             </tr>
         </table>
 
@@ -254,7 +261,8 @@
             <div class="print-section-title"
                 style="background-color: #f0f0f0; border-bottom: 1px solid #000; padding: 5px 8px; font-size: 11pt; font-weight: bold;">
                 I. Temuan</div>
-            <div style="padding: 8px; font-size: 11pt; min-height: 25mm; white-space: pre-wrap;">{{ $lks->keterangan ?? '-' }}</div>
+            <div style="padding: 8px; font-size: 11pt; min-height: 25mm; white-space: pre-wrap;">
+                {{ $lks->keterangan ?? '-' }}</div>
         </div>
 
         {{-- Section II. Rincian --}}
@@ -272,15 +280,16 @@
                             </th>
                             <th style="border: 1px solid #000; padding: 4px; text-align: center; width: 10%;">No RCR
                             </th>
-                            <th style="border: 1px solid #000; padding: 4px; text-align: center; width: 20%;">Description /
+                            <th style="border: 1px solid #000; padding: 4px; text-align: center; width: 20%;">
+                                Description /
                                 Barang</th>
                             <th style="border: 1px solid #000; padding: 4px; text-align: center; width: 10%;">No Koil
                             </th>
-                            <th style="border: 1px solid #000; padding: 4px; text-align: center; width: 9%;">Status
+                            <th style="border: 1px solid #000; padding: 4px; text-align: center; width: 9%;">Status LKS
                             </th>
-                            <th style="border: 1px solid #000; padding: 4px; text-align: center; width: 12%;">Desc 1
+                            <th style="border: 1px solid #000; padding: 4px; text-align: center; width: 12%;">Defect 1
                             </th>
-                            <th style="border: 1px solid #000; padding: 4px; text-align: center; width: 12%;">Desc 2
+                            <th style="border: 1px solid #000; padding: 4px; text-align: center; width: 12%;">Defect 2
                             </th>
                             <th style="border: 1px solid #000; padding: 4px; text-align: center; width: 10%;">Tgl
                                 Inspeksi</th>
@@ -301,8 +310,10 @@
                                     {{ $detail->no_koil ?? '-' }}</td>
                                 <td style="border: 1px solid #000; padding: 4px; text-align: center;">
                                     {{ $detail->status }}</td>
-                                <td style="border: 1px solid #000; padding: 4px;">{{ $detail->description1 ?? '-' }}</td>
-                                <td style="border: 1px solid #000; padding: 4px;">{{ $detail->description2 ?? '-' }}</td>
+                                <td style="border: 1px solid #000; padding: 4px;">{{ $detail->description1 ?? '-' }}
+                                </td>
+                                <td style="border: 1px solid #000; padding: 4px;">{{ $detail->description2 ?? '-' }}
+                                </td>
                                 <td style="border: 1px solid #000; padding: 4px; text-align: center;">
                                     {{ $detail->tanggal_inspeksi ?? '-' }}</td>
                             </tr>
@@ -351,14 +362,14 @@
                     <br><br><br>
                     <p style="margin: 0; border-top: 1px solid #000; width: 200px; padding-top: 5px;">
                         {{ $lks->approver->name ?? '.................' }}</p>
-                    <p style="margin: 2px 0 0 0; font-style: italic;">Manager / Supervisor</p>
+                    <p style="margin: 2px 0 0 0; font-style: italic;">QC - PT Bevananda Mustika</p>
                 </td>
                 <td style="width: 50%; vertical-align: top;">
-                    <p style="margin: 0 0 5px 0; font-weight: bold;">Disetujui Oleh:</p>
+                    <p style="margin: 0 0 5px 0; font-weight: bold;">Ditindak lanjuti oleh:</p>
                     <br><br><br>
                     <p style="margin: 0; border-top: 1px solid #000; width: 200px; padding-top: 5px;">
-                        {{ $lks->approver->name ?? '.................' }}</p>
-                    <p style="margin: 2px 0 0 0; font-style: italic;">Quality Manager</p>
+                        {{ $lks->supplier->nama ?? '.................' }}</p>
+                    <p style="margin: 2px 0 0 0; font-style: italic;">Supplier</p>
                 </td>
             </tr>
         </table>
