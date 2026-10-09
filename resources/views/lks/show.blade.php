@@ -125,6 +125,7 @@
                                     <th class="px-4 py-3 font-semibold text-gray-900">No</th>
                                     <th class="px-4 py-3 font-semibold text-gray-900">No PO</th>
                                     <th class="px-4 py-3 font-semibold text-gray-900">No RCR</th>
+                                    <th class="px-4 py-3 font-semibold text-gray-900">Description / Barang</th>
                                     <th class="px-4 py-3 font-semibold text-gray-900">No Koil</th>
                                     <th class="px-4 py-3 font-semibold text-gray-900">Status LKS</th>
                                     <th class="px-4 py-3 font-semibold text-gray-900">Description 1</th>
@@ -136,10 +137,14 @@
                                 @forelse ($lks->details as $detail)
                                     <tr class="transition-colors hover:bg-gray-50">
                                         <td class="px-4 py-3">{{ $loop->iteration }}</td>
-                                        <td class="px-4 py-3 font-semibold text-indigo-600">...
+                                        <td class="px-4 py-3 font-semibold text-indigo-600">
+                                            {{ $detail->no_po ?? '-' }}
                                         </td>
                                         <td class="px-4 py-3">
-                                            ...
+                                            {{ $detail->no_rcr ?? '-' }}
+                                        </td>
+                                        <td class="px-4 py-3 text-gray-600">
+                                            {{ $detail->description_barang ?? '-' }}
                                         </td>
                                         <td class="px-4 py-3 font-medium">{{ $detail->no_koil ?? '-' }}</td>
                                         <td class="px-4 py-3">
@@ -155,7 +160,7 @@
                                     </tr>
                                 @empty
                                     <tr>
-                                        <td colspan="8" class="px-4 py-8 text-center italic text-gray-400">
+                                        <td colspan="9" class="px-4 py-8 text-center italic text-gray-400">
                                             Belum ada detail lot number.
                                         </td>
                                     </tr>
@@ -173,7 +178,7 @@
     <style>
         @media print {
             @page {
-                size: landscape;
+                size: portrait;
                 margin: 10mm;
             }
 
@@ -184,6 +189,8 @@
             #print-section,
             #print-section * {
                 visibility: visible;
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
             }
 
             #print-section {
@@ -196,23 +203,28 @@
             #print-section.hidden {
                 display: block !important;
             }
+
+            .print-section-title {
+                page-break-inside: avoid;
+                break-inside: avoid;
+            }
         }
     </style>
     <div id="print-section" class="hidden">
         <table width="100%" cellpadding="5" cellspacing="0" style="border-collapse: collapse; margin-bottom: 10px;">
             <tr>
-                <td style="width: 20%; vertical-align: middle;">
-                    <img src="{{ asset('img/logobeva.png') }}" alt="Logo" style="height: 60px; width: auto;" />
+                <td style="width: 22%; vertical-align: middle;">
+                    <img src="{{ asset('img/logobeva.png') }}" alt="Logo" style="height: 50px; width: auto;" />
                 </td>
-                <td style="width: 60%; vertical-align: middle; text-align: center;">
-                    <h1 style="font-size: 18pt; font-weight: bold; margin: 0; font-family: Arial, sans-serif;">
+                <td style="width: 56%; vertical-align: middle; text-align: center;">
+                    <h1 style="font-size: 16pt; font-weight: bold; margin: 0; font-family: Arial, sans-serif;">
                         LAPORAN KETIDAKSESUAIAN (LKS)</h1>
                 </td>
                 <td
-                    style="width: 20%; vertical-align: top; text-align: right; font-family: Arial, sans-serif; font-size: 11pt;">
+                    style="width: 22%; vertical-align: top; text-align: right; font-family: Arial, sans-serif; font-size: 11pt;">
                     <table cellpadding="3" cellspacing="0" style="border: 1px solid #000; margin-left: auto;">
                         <tr>
-                            <td style="font-weight: bold; font-size: 10pt;">BM-F-QC-XX R00</td>
+                            <td style="font-weight: bold; font-size: 9pt;">BM-F-QC-XX R00</td>
                         </tr>
                     </table>
                 </td>
@@ -232,68 +244,107 @@
             <tr>
                 <td style="font-weight: bold;">Supplier</td>
                 <td>: {{ $lks->supplier->nama ?? 'N/A' }}</td>
-                <td style="font-weight: bold;">Status LKS</td>
+                <td style="font-weight: bold;">Status</td>
                 <td>: {{ $lks->status }}</td>
-            </tr>
-            <tr>
-                <td style="font-weight: bold;">Keterangan</td>
-                <td colspan="3">: {{ $lks->keterangan ?? '-' }}</td>
             </tr>
         </table>
 
-        <div style="margin-bottom: 20px;">
-            <h3 style="font-family: Arial, sans-serif; font-size: 12pt; font-weight: bold; margin-bottom: 8px;">
-                Detail Lot Number NG / REJECT</h3>
-            <table width="100%" cellpadding="4" cellspacing="0"
-                style="border-collapse: collapse; font-family: Arial, sans-serif; font-size: 9pt; border: 1px solid #000;">
-                <thead>
-                    <tr style="background-color: #f0f0f0;">
-                        <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 3%;">No</th>
-                        <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 15%;">Lot Number
-                        </th>
-                        <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 10%;">Sumber</th>
-                        <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 10%;">No Koil</th>
-                        <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 8%;">Status</th>
-                        <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 15%;">Description 1
-                        </th>
-                        <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 15%;">Description 2
-                        </th>
-                        <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 12%;">Tanggal
-                            Inspeksi</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @forelse ($lks->details as $detail)
-                        <tr>
-                            <td style="border: 1px solid #000; padding: 4px; text-align: center;">
-                                {{ $loop->iteration }}</td>
-                            <td style="border: 1px solid #000; padding: 4px; text-align: center;">
-                                {{ $detail->lot_number }}</td>
-                            <td style="border: 1px solid #000; padding: 4px; text-align: center;">
-                                {{ ucfirst($detail->sumber) }}</td>
-                            <td style="border: 1px solid #000; padding: 4px; text-align: center;">
-                                {{ $detail->no_koil ?? '-' }}</td>
-                            <td style="border: 1px solid #000; padding: 4px; text-align: center;">
-                                {{ $detail->status }}</td>
-                            <td style="border: 1px solid #000; padding: 4px;">{{ $detail->description1 ?? '-' }}</td>
-                            <td style="border: 1px solid #000; padding: 4px;">{{ $detail->description2 ?? '-' }}</td>
-                            <td style="border: 1px solid #000; padding: 4px; text-align: center;">
-                                {{ $detail->tanggal_inspeksi ?? '-' }}</td>
+        {{-- Section I. Temuan --}}
+        <div style="border: 1px solid #000; margin-bottom: 12px; font-family: Arial, sans-serif;">
+            <div class="print-section-title"
+                style="background-color: #f0f0f0; border-bottom: 1px solid #000; padding: 5px 8px; font-size: 11pt; font-weight: bold;">
+                I. Temuan</div>
+            <div style="padding: 8px; font-size: 11pt; min-height: 25mm; white-space: pre-wrap;">{{ $lks->keterangan ?? '-' }}</div>
+        </div>
+
+        {{-- Section II. Rincian --}}
+        <div style="border: 1px solid #000; margin-bottom: 12px; font-family: Arial, sans-serif;">
+            <div class="print-section-title"
+                style="background-color: #f0f0f0; border-bottom: 1px solid #000; padding: 5px 8px; font-size: 11pt; font-weight: bold;">
+                II. Rincian</div>
+            <div style="padding: 6px;">
+                <table width="100%" cellpadding="4" cellspacing="0"
+                    style="border-collapse: collapse; font-size: 8pt; border: 1px solid #000;">
+                    <thead>
+                        <tr style="background-color: #f7f7f7;">
+                            <th style="border: 1px solid #000; padding: 4px; text-align: center; width: 5%;">No</th>
+                            <th style="border: 1px solid #000; padding: 4px; text-align: center; width: 12%;">No PO
+                            </th>
+                            <th style="border: 1px solid #000; padding: 4px; text-align: center; width: 10%;">No RCR
+                            </th>
+                            <th style="border: 1px solid #000; padding: 4px; text-align: center; width: 20%;">Description /
+                                Barang</th>
+                            <th style="border: 1px solid #000; padding: 4px; text-align: center; width: 10%;">No Koil
+                            </th>
+                            <th style="border: 1px solid #000; padding: 4px; text-align: center; width: 9%;">Status
+                            </th>
+                            <th style="border: 1px solid #000; padding: 4px; text-align: center; width: 12%;">Desc 1
+                            </th>
+                            <th style="border: 1px solid #000; padding: 4px; text-align: center; width: 12%;">Desc 2
+                            </th>
+                            <th style="border: 1px solid #000; padding: 4px; text-align: center; width: 10%;">Tgl
+                                Inspeksi</th>
                         </tr>
-                    @empty
-                        <tr>
-                            <td colspan="8"
-                                style="border: 1px solid #000; padding: 8px; text-align: center; font-style: italic;">
-                                Belum ada detail lot number</td>
-                        </tr>
-                    @endforelse
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody>
+                        @forelse ($lks->details as $detail)
+                            <tr>
+                                <td style="border: 1px solid #000; padding: 4px; text-align: center;">
+                                    {{ $loop->iteration }}</td>
+                                <td style="border: 1px solid #000; padding: 4px; text-align: center;">
+                                    {{ $detail->no_po ?? '-' }}</td>
+                                <td style="border: 1px solid #000; padding: 4px; text-align: center;">
+                                    {{ $detail->no_rcr ?? '-' }}</td>
+                                <td style="border: 1px solid #000; padding: 4px;">
+                                    {{ $detail->description_barang ?? '-' }}</td>
+                                <td style="border: 1px solid #000; padding: 4px; text-align: center;">
+                                    {{ $detail->no_koil ?? '-' }}</td>
+                                <td style="border: 1px solid #000; padding: 4px; text-align: center;">
+                                    {{ $detail->status }}</td>
+                                <td style="border: 1px solid #000; padding: 4px;">{{ $detail->description1 ?? '-' }}</td>
+                                <td style="border: 1px solid #000; padding: 4px;">{{ $detail->description2 ?? '-' }}</td>
+                                <td style="border: 1px solid #000; padding: 4px; text-align: center;">
+                                    {{ $detail->tanggal_inspeksi ?? '-' }}</td>
+                            </tr>
+                        @empty
+                            <tr>
+                                <td colspan="9"
+                                    style="border: 1px solid #000; padding: 8px; text-align: center; font-style: italic;">
+                                    Belum ada detail lot number</td>
+                            </tr>
+                        @endforelse
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        {{-- Section III. Analisa Penyebab --}}
+        <div style="border: 1px solid #000; margin-bottom: 12px; font-family: Arial, sans-serif;">
+            <div class="print-section-title"
+                style="background-color: #f0f0f0; border-bottom: 1px solid #000; padding: 5px 8px; font-size: 11pt; font-weight: bold;">
+                III. Analisa Penyebab</div>
+            <div style="height: 35mm;"></div>
+        </div>
+
+        {{-- Section IV. Perbaikan --}}
+        <div style="border: 1px solid #000; margin-bottom: 12px; font-family: Arial, sans-serif;">
+            <div class="print-section-title"
+                style="background-color: #f0f0f0; border-bottom: 1px solid #000; padding: 5px 8px; font-size: 11pt; font-weight: bold;">
+                IV. Perbaikan</div>
+            <div style="height: 35mm;"></div>
+        </div>
+
+        {{-- Section V. Preventive / Improvement --}}
+        <div style="border: 1px solid #000; margin-bottom: 12px; font-family: Arial, sans-serif;">
+            <div class="print-section-title"
+                style="background-color: #f0f0f0; border-bottom: 1px solid #000; padding: 5px 8px; font-size: 11pt; font-weight: bold;">
+                V. Preventive / Improvement</div>
+            <div style="height: 35mm;"></div>
         </div>
 
         {{-- Tanda Tangan --}}
         <table width="100%" cellpadding="10" cellspacing="0"
-            style="border-collapse: collapse; font-family: Arial, sans-serif; font-size: 11pt; margin-top: 40px;">
+            style="border-collapse: collapse; font-family: Arial, sans-serif; font-size: 11pt; margin-top: 20px;">
             <tr>
                 <td style="width: 50%; vertical-align: top;">
                     <p style="margin: 0 0 5px 0; font-weight: bold;">Dibuat oleh:</p>
