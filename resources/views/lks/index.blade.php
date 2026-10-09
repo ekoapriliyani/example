@@ -41,6 +41,8 @@
                         <option value="">Semua Status</option>
                         <option value="DRAFT" {{ request('status') === 'DRAFT' ? 'selected' : '' }}>DRAFT</option>
                         <option value="APPROVED" {{ request('status') === 'APPROVED' ? 'selected' : '' }}>APPROVED</option>
+                        <option value="OPEN" {{ request('status') === 'OPEN' ? 'selected' : '' }}>OPEN</option>
+                        <option value="SPECIAL ACCEPT" {{ request('status') === 'SPECIAL ACCEPT' ? 'selected' : '' }}>SPECIAL ACCEPT</option>
                         <option value="CLOSED" {{ request('status') === 'CLOSED' ? 'selected' : '' }}>CLOSED</option>
                     </select>
                     <button type="submit"
@@ -159,6 +161,16 @@
                                                     <span
                                                         class="inline-block rounded bg-green-100 px-3 py-1 text-xs font-semibold text-green-700">
                                                         APPROVED
+                                                    </span>
+                                                @elseif ($lks->isOpen())
+                                                    <span
+                                                        class="inline-block rounded bg-blue-100 px-3 py-1 text-xs font-semibold text-blue-700">
+                                                        OPEN
+                                                    </span>
+                                                @elseif ($lks->isSpecialAccept())
+                                                    <span
+                                                        class="inline-block rounded bg-purple-100 px-3 py-1 text-xs font-semibold text-purple-700">
+                                                        SPECIAL ACCEPT
                                                     </span>
                                                 @else
                                                     <span

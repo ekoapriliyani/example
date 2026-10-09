@@ -1018,6 +1018,8 @@ Route::middleware(['auth'])->prefix('lks')->name('lks.')->group(function () {
     Route::patch('/{lks}/approve', [LksController::class, 'approve'])->name('approve');
     Route::patch('/{lks}/close', [LksController::class, 'close'])->name('close');
     Route::patch('/{lks}/open', [LksController::class, 'open'])->name('open');
+    Route::patch('/{lks}/special-accept', [LksController::class, 'specialAccept'])->name('special-accept');
+    Route::patch('/{lks}/unspecial-accept', [LksController::class, 'unSpecialAccept'])->name('unspecial-accept');
     Route::get('/api/lots', [LksController::class, 'getLotsApi'])->name('api.lots');
 });
 

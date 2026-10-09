@@ -188,7 +188,7 @@ class LksController extends Controller
             abort(403, 'Tidak punya akses.');
         }
 
-        if ($lks->isApproved()) {
+        if ($lks->isApproved() || $lks->isOpen()) {
             // Unapprove → kembali ke DRAFT
             $lks->update([
                 'status' => 'DRAFT',
@@ -198,14 +198,16 @@ class LksController extends Controller
 
             $message = 'Approval LKS dibatalkan.';
         } else {
-            // Approve
+            // Approve: tandai APPROVED + approver, lalu otomatis dibuka menjadi OPEN
             $lks->update([
                 'status' => 'APPROVED',
                 'approved_by' => auth()->id(),
                 'approved_at' => now(),
             ]);
 
-            $message = "LKS {$lks->nomor_lks} berhasil di-approve";
+            $lks->update(['status' => 'OPEN']);
+
+            $message = "LKS {$lks->nomor_lks} berhasil di-approve dan dibuka (OPEN)";
         }
 
         return back()->with('success', $message);
@@ -217,9 +219,9 @@ class LksController extends Controller
             abort(403, 'Tidak punya akses.');
         }
 
-        if (!$lks->isApproved()) {
+        if (!in_array($lks->status, ['APPROVED', 'OPEN', 'SPECIAL ACCEPT'])) {
             return redirect()->route('lks.show', $lks->id)
-                ->with('error', 'LKS harus di-approve terlebih dahulu sebelum di-close');
+                ->with('error', 'LKS harus berstatus APPROVED, OPEN, atau SPECIAL ACCEPT sebelum di-close');
         }
 
         $lks->update(['status' => 'CLOSED']);
@@ -238,9 +240,41 @@ class LksController extends Controller
                 ->with('error', 'Hanya LKS dengan status CLOSED yang bisa di-open');
         }
 
-        $lks->update(['status' => 'APPROVED']);
+        $lks->update(['status' => 'OPEN']);
 
-        return back()->with('success', "LKS {$lks->nomor_lks} berhasil di-open kembali");
+        return back()->with('success', "LKS {$lks->nomor_lks} berhasil di-open kembali (OPEN)");
+    }
+
+    public function specialAccept(Lks $lks)
+    {
+        if (!in_array(auth()->user()->role, ['supervisor', 'manager', 'administrator'])) {
+            abort(403, 'Tidak punya akses.');
+        }
+
+        if (!$lks->isApproved() && !$lks->isOpen()) {
+            return redirect()->route('lks.show', $lks->id)
+                ->with('error', 'Hanya LKS dengan status APPROVED atau OPEN yang bisa di-special accept');
+        }
+
+        $lks->update(['status' => 'SPECIAL ACCEPT']);
+
+        return back()->with('success', "LKS {$lks->nomor_lks} di-set SPECIAL ACCEPT");
+    }
+
+    public function unSpecialAccept(Lks $lks)
+    {
+        if (!in_array(auth()->user()->role, ['supervisor', 'manager', 'administrator'])) {
+            abort(403, 'Tidak punya akses.');
+        }
+
+        if (!$lks->isSpecialAccept()) {
+            return redirect()->route('lks.show', $lks->id)
+                ->with('error', 'Hanya LKS dengan status SPECIAL ACCEPT yang bisa dikembalikan');
+        }
+
+        $lks->update(['status' => 'OPEN']);
+
+        return back()->with('success', "Status LKS {$lks->nomor_lks} kembali ke OPEN");
     }
 
     public function getLotsApi(Request $request)

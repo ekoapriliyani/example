@@ -42,6 +42,16 @@ class Lks extends Model
         return $this->status === 'APPROVED';
     }
 
+    public function isOpen(): bool
+    {
+        return $this->status === 'OPEN';
+    }
+
+    public function isSpecialAccept(): bool
+    {
+        return $this->status === 'SPECIAL ACCEPT';
+    }
+
     public function isClosed(): bool
     {
         return $this->status === 'CLOSED';

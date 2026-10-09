@@ -18,7 +18,8 @@
                     </svg>
                     Cetak
                 </button>
-                @if ($lks->isDraft() && in_array(auth()->user()->role, ['supervisor', 'manager', 'administrator']))
+                @php $canManage = in_array(auth()->user()->role, ['supervisor', 'manager', 'administrator']); @endphp
+                @if ($canManage && $lks->isDraft())
                     <form action="{{ route('lks.approve', $lks->id) }}" method="POST" class="inline">
                         @csrf
                         @method('PATCH')
@@ -28,7 +29,7 @@
                         </button>
                     </form>
                 @endif
-                @if ($lks->isApproved() && in_array(auth()->user()->role, ['supervisor', 'manager', 'administrator']))
+                @if ($canManage && ($lks->isApproved() || $lks->isOpen()))
                     <form action="{{ route('lks.approve', $lks->id) }}" method="POST" class="inline">
                         @csrf
                         @method('PATCH')
@@ -37,6 +38,26 @@
                             <span class="text-base">↺</span> Unapprove
                         </button>
                     </form>
+                    <form action="{{ route('lks.special-accept', $lks->id) }}" method="POST" class="inline">
+                        @csrf
+                        @method('PATCH')
+                        <button type="submit"
+                            class="inline-flex items-center gap-2 rounded-md bg-purple-600 px-4 py-2 text-sm font-semibold text-white shadow-sm transition hover:bg-purple-700">
+                            <span class="text-base">★</span> Special Accept
+                        </button>
+                    </form>
+                @endif
+                @if ($canManage && $lks->isApproved())
+                    <form action="{{ route('lks.open', $lks->id) }}" method="POST" class="inline">
+                        @csrf
+                        @method('PATCH')
+                        <button type="submit"
+                            class="inline-flex items-center gap-2 rounded-md bg-blue-600 px-4 py-2 text-sm font-semibold text-white shadow-sm transition hover:bg-blue-700">
+                            <span class="text-base">🔓</span> Open LKS
+                        </button>
+                    </form>
+                @endif
+                @if ($canManage && in_array($lks->status, ['APPROVED', 'OPEN', 'SPECIAL ACCEPT']))
                     <form action="{{ route('lks.close', $lks->id) }}" method="POST" class="inline">
                         @csrf
                         @method('PATCH')
@@ -46,7 +67,17 @@
                         </button>
                     </form>
                 @endif
-                @if ($lks->isClosed() && in_array(auth()->user()->role, ['supervisor', 'manager', 'administrator']))
+                @if ($canManage && $lks->isSpecialAccept())
+                    <form action="{{ route('lks.unspecial-accept', $lks->id) }}" method="POST" class="inline">
+                        @csrf
+                        @method('PATCH')
+                        <button type="submit"
+                            class="inline-flex items-center gap-2 rounded-md bg-indigo-600 px-4 py-2 text-sm font-semibold text-white shadow-sm transition hover:bg-indigo-700">
+                            <span class="text-base">↩</span> Kembali (OPEN)
+                        </button>
+                    </form>
+                @endif
+                @if ($canManage && $lks->isClosed())
                     <form action="{{ route('lks.open', $lks->id) }}" method="POST" class="inline">
                         @csrf
                         @method('PATCH')
@@ -90,6 +121,12 @@
                                     @elseif ($lks->isApproved())
                                         <span
                                             class="inline-block rounded bg-green-100 px-3 py-1 text-sm font-semibold text-green-700">APPROVED</span>
+                                    @elseif ($lks->isOpen())
+                                        <span
+                                            class="inline-block rounded bg-blue-100 px-3 py-1 text-sm font-semibold text-blue-700">OPEN</span>
+                                    @elseif ($lks->isSpecialAccept())
+                                        <span
+                                            class="inline-block rounded bg-purple-100 px-3 py-1 text-sm font-semibold text-purple-700">SPECIAL ACCEPT</span>
                                     @else
                                         <span
                                             class="inline-block rounded bg-gray-100 px-3 py-1 text-sm font-semibold text-gray-700">CLOSED</span>
