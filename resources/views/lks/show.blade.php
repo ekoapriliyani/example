@@ -82,7 +82,7 @@
                                     {{ \Carbon\Carbon::parse($lks->tanggal)->format('d/m/Y') }}</dd>
                             </div>
                             <div>
-                                <dt class="text-sm font-medium italic text-gray-500">Status</dt>
+                                <dt class="text-sm font-medium italic text-gray-500">Status LKS</dt>
                                 <dd>
                                     @if ($lks->isDraft())
                                         <span
@@ -126,7 +126,7 @@
                                     <th class="px-4 py-3 font-semibold text-gray-900">No PO</th>
                                     <th class="px-4 py-3 font-semibold text-gray-900">No RCR</th>
                                     <th class="px-4 py-3 font-semibold text-gray-900">No Koil</th>
-                                    <th class="px-4 py-3 font-semibold text-gray-900">Status</th>
+                                    <th class="px-4 py-3 font-semibold text-gray-900">Status LKS</th>
                                     <th class="px-4 py-3 font-semibold text-gray-900">Description 1</th>
                                     <th class="px-4 py-3 font-semibold text-gray-900">Description 2</th>
                                     <th class="px-4 py-3 font-semibold text-gray-900">Tanggal Inspeksi</th>
@@ -232,7 +232,7 @@
             <tr>
                 <td style="font-weight: bold;">Supplier</td>
                 <td>: {{ $lks->supplier->nama ?? 'N/A' }}</td>
-                <td style="font-weight: bold;">Status</td>
+                <td style="font-weight: bold;">Status LKS</td>
                 <td>: {{ $lks->status }}</td>
             </tr>
             <tr>
