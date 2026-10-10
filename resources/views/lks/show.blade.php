@@ -435,17 +435,17 @@
             style="border-collapse: collapse; margin-bottom: 10px;">
             <tr>
                 <td style="width: 22%; vertical-align: middle;">
-                    <img src="{{ asset('img/logobeva.png') }}" alt="Logo" style="height: 50px; width: auto;" />
+                    <img src="{{ asset('img/logobeva.png') }}" alt="Logo" style="height: 60px; width: auto;" />
                 </td>
                 <td style="width: 56%; vertical-align: middle; text-align: center;">
-                    <h1 style="font-size: 16pt; font-weight: bold; margin: 0; font-family: Arial, sans-serif;">
+                    <h1 style="font-size: 18pt; font-weight: bold; margin: 0; font-family: Arial, sans-serif;">
                         LAPORAN KETIDAKSESUAIAN (LKS)</h1>
                 </td>
                 <td
-                    style="width: 22%; vertical-align: top; text-align: right; font-family: Arial, sans-serif; font-size: 11pt;">
+                    style="width: 22%; vertical-align: top; text-align: right; font-family: Arial, sans-serif; font-size: 12pt;">
                     <table cellpadding="3" cellspacing="0" style="border: 1px solid #000; margin-left: auto;">
                         <tr>
-                            <td style="font-weight: bold; font-size: 9pt;">BM-F-QC-32 R00</td>
+                            <td style="font-weight: bold; font-size: 11pt;">BM-F-QC-32 R00</td>
                         </tr>
                     </table>
                 </td>
@@ -455,7 +455,7 @@
         <hr style="border: 1px solid #000; margin-bottom: 15px;">
 
         <table width="100%" cellpadding="5" cellspacing="0"
-            style="border-collapse: collapse; margin-bottom: 20px; font-family: Arial, sans-serif; font-size: 11pt;">
+            style="border-collapse: collapse; margin-bottom: 20px; font-family: Arial, sans-serif; font-size: 12pt;">
             <tr>
                 <td style="width: 20%; font-weight: bold;">Nomor LKS</td>
                 <td style="width: 30%;">: {{ $lks->nomor_lks }}</td>
@@ -479,20 +479,20 @@
         {{-- Section I. Temuan --}}
         <div style="border: 1px solid #000; margin-bottom: 12px; font-family: Arial, sans-serif;">
             <div class="print-section-title"
-                style="background-color: #f0f0f0; border-bottom: 1px solid #000; padding: 5px 8px; font-size: 11pt; font-weight: bold;">
+                style="background-color: #f0f0f0; border-bottom: 1px solid #000; padding: 5px 8px; font-size: 12pt; font-weight: bold;">
                 I. Temuan</div>
-            <div style="padding: 8px; font-size: 11pt; min-height: 25mm; white-space: pre-wrap;">
+            <div style="padding: 8px; font-size: 12pt; min-height: 20mm; white-space: pre-wrap;">
                 {{ $lks->keterangan ?? '-' }}</div>
         </div>
 
         {{-- Section II. Rincian --}}
         <div style="border: 1px solid #000; margin-bottom: 12px; font-family: Arial, sans-serif;">
             <div class="print-section-title"
-                style="background-color: #f0f0f0; border-bottom: 1px solid #000; padding: 5px 8px; font-size: 11pt; font-weight: bold;">
+                style="background-color: #f0f0f0; border-bottom: 1px solid #000; padding: 5px 8px; font-size: 12pt; font-weight: bold;">
                 II. Rincian</div>
             <div style="padding: 6px;">
                 <table width="100%" cellpadding="4" cellspacing="0"
-                    style="border-collapse: collapse; font-size: 8pt; border: 1px solid #000;">
+                    style="border-collapse: collapse; font-size: 10pt; border: 1px solid #000;">
                     <thead>
                         <tr style="background-color: #f7f7f7;">
                             <th style="border: 1px solid #000; padding: 4px; text-align: center; width: 4%;">No</th>
@@ -543,7 +543,7 @@
                                 </td>
                                 <td style="border: 1px solid #000; padding: 4px; text-align: center;">
                                     {{ $detail->tanggal_inspeksi ?? '-' }}</td>
-                                <td style="border: 1px solid #000; padding: 4px; font-size: 7pt; line-height: 1.35;">
+                                <td style="border: 1px solid #000; padding: 4px; font-size: 9pt; line-height: 1.35;">
                                     @if ($printInspeksi)
                                         D1 {{ $printInspeksi->d1 ?? '-' }} |
                                         D2 {{ $printInspeksi->d2 ?? '-' }} |
@@ -574,41 +574,41 @@
         {{-- Section III. Analisa Penyebab --}}
         <div style="border: 1px solid #000; margin-bottom: 12px; font-family: Arial, sans-serif;">
             <div class="print-section-title"
-                style="background-color: #f0f0f0; border-bottom: 1px solid #000; padding: 5px 8px; font-size: 11pt; font-weight: bold;">
+                style="background-color: #f0f0f0; border-bottom: 1px solid #000; padding: 5px 8px; font-size: 12pt; font-weight: bold;">
                 III. Analisa Penyebab</div>
-            <div style="height: 35mm;"></div>
+            <div style="height: 24mm;"></div>
         </div>
 
         {{-- Section IV. Perbaikan --}}
         <div style="border: 1px solid #000; margin-bottom: 12px; font-family: Arial, sans-serif;">
             <div class="print-section-title"
-                style="background-color: #f0f0f0; border-bottom: 1px solid #000; padding: 5px 8px; font-size: 11pt; font-weight: bold;">
+                style="background-color: #f0f0f0; border-bottom: 1px solid #000; padding: 5px 8px; font-size: 12pt; font-weight: bold;">
                 IV. Perbaikan</div>
-            <div style="height: 35mm;"></div>
+            <div style="height: 24mm;"></div>
         </div>
 
         {{-- Section V. Preventive / Improvement --}}
         <div style="border: 1px solid #000; margin-bottom: 12px; font-family: Arial, sans-serif;">
             <div class="print-section-title"
-                style="background-color: #f0f0f0; border-bottom: 1px solid #000; padding: 5px 8px; font-size: 11pt; font-weight: bold;">
+                style="background-color: #f0f0f0; border-bottom: 1px solid #000; padding: 5px 8px; font-size: 12pt; font-weight: bold;">
                 V. Preventive / Improvement</div>
-            <div style="height: 35mm;"></div>
+            <div style="height: 24mm;"></div>
         </div>
 
         {{-- Tanda Tangan --}}
         <table width="100%" cellpadding="10" cellspacing="0"
-            style="border-collapse: collapse; font-family: Arial, sans-serif; font-size: 11pt; margin-top: 20px;">
+            style="border-collapse: collapse; font-family: Arial, sans-serif; font-size: 12pt; margin-top: 20px;">
             <tr>
                 <td style="width: 50%; vertical-align: top;">
                     <p style="margin: 0 0 5px 0; font-weight: bold;">Dibuat oleh:</p>
-                    <br><br><br>
+                    <br><br>
                     <p style="margin: 0; border-top: 1px solid #000; width: 200px; padding-top: 5px;">
                         {{ $lks->approver->name ?? '.................' }}</p>
                     <p style="margin: 2px 0 0 0; font-style: italic;">QC - PT Bevananda Mustika</p>
                 </td>
                 <td style="width: 50%; vertical-align: top;">
                     <p style="margin: 0 0 5px 0; font-weight: bold;">Ditindak lanjuti oleh:</p>
-                    <br><br><br>
+                    <br><br>
                     <p style="margin: 0; border-top: 1px solid #000; width: 200px; padding-top: 5px;">
                         {{ $lks->supplier->nama ?? '.................' }}</p>
                     <p style="margin: 2px 0 0 0; font-style: italic;">Supplier</p>
@@ -625,17 +625,17 @@
                     <tr>
                         <td style="width: 22%; vertical-align: middle;">
                             <img src="{{ asset('img/logobeva.png') }}" alt="Logo"
-                                style="height: 40px; width: auto;" />
+                                style="height: 50px; width: auto;" />
                         </td>
                         <td style="width: 56%; text-align: center; vertical-align: middle;">
-                            <h1 style="font-size: 14pt; font-weight: bold; margin: 0;">LAMPIRAN GAMBAR</h1>
-                            <div style="font-size: 10pt; margin-top: 2px;">Laporan Ketidaksesuaian (LKS)</div>
+                            <h1 style="font-size: 16pt; font-weight: bold; margin: 0;">LAMPIRAN GAMBAR</h1>
+                            <div style="font-size: 12pt; margin-top: 2px;">Laporan Ketidaksesuaian (LKS)</div>
                         </td>
-                        <td style="width: 22%; vertical-align: top; text-align: right; font-size: 10pt;">
+                        <td style="width: 22%; vertical-align: top; text-align: right; font-size: 12pt;">
                             <table cellpadding="3" cellspacing="0"
                                 style="border: 1px solid #000; margin-left: auto;">
                                 <tr>
-                                    <td style="font-weight: bold; font-size: 9pt;">BM-F-QC-32 R00</td>
+                                    <td style="font-weight: bold; font-size: 11pt;">BM-F-QC-32 R00</td>
                                 </tr>
                             </table>
                         </td>
@@ -645,7 +645,7 @@
                 <hr style="border: 1px solid #000; margin-bottom: 8px;">
 
                 <table width="100%" cellpadding="4" cellspacing="0"
-                    style="border-collapse: collapse; font-size: 10pt; margin-bottom: 10px;">
+                    style="border-collapse: collapse; font-size: 12pt; margin-bottom: 10px;">
                     <tr>
                         <td style="width: 15%; font-weight: bold;">Nomor LKS</td>
                         <td style="width: 35%;">: {{ $lks->nomor_lks }}</td>
@@ -663,7 +663,7 @@
                 @foreach ($lampiranPrint as $lampiranIdx => $lampiran)
                     {{-- Label per lot: dijaga agar tidak pindah halaman sendirian --}}
                     <div
-                        style="page-break-inside: avoid; break-inside: avoid; border: 1px solid #000; background-color: #f7f7f7; padding: 4px 6px; font-size: 10pt; font-weight: bold; margin-bottom: 4px;">
+                        style="page-break-inside: avoid; break-inside: avoid; border: 1px solid #000; background-color: #f7f7f7; padding: 4px 6px; font-size: 12pt; font-weight: bold; margin-bottom: 4px;">
                         {{ $lampiranIdx + 1 }}. Lot: {{ $lampiran['lot_number'] ?? '-' }}
                         (No Koil: {{ $lampiran['no_koil'] ?? '-' }})
                         — Sumber: {{ $lampiran['sumber'] === 'mechanical' ? 'Mechanical Test' : 'Inspeksi Incoming' }}
@@ -680,7 +680,7 @@
                                             style="text-align: center; vertical-align: top; padding: 4px;">
                                             <img src="{{ asset('storage/' . $imagePath) }}" alt="Lampiran"
                                                 style="max-width: 100%; max-height: 55mm; height: auto; object-fit: contain; border: 1px solid #666;" />
-                                            <div style="font-size: 7pt; margin-top: 2px; color: #333;">
+                                            <div style="font-size: 9pt; margin-top: 2px; color: #333;">
                                                 {{ basename($imagePath) }}
                                             </div>
                                         </td>
@@ -694,7 +694,7 @@
                     @endif
 
                     @if (!empty($lampiran['dokumens']))
-                        <div style="font-size: 9pt; margin: 0 0 10px 0; padding: 0 6px;">
+                        <div style="font-size: 11pt; margin: 0 0 10px 0; padding: 0 6px;">
                             File lampiran:
                             @foreach ($lampiran['dokumens'] as $docIdx => $docPath)
                                 {{ $docIdx > 0 ? ', ' : '' }}{{ basename($docPath) }}
