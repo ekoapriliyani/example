@@ -340,6 +340,64 @@
             }
         }
     </style>
+
+    @php
+        // Siapkan daftar lampiran per detail untuk halaman cetak ke-2.
+        // File yang tidak ada di storage dilewati agar tidak mencetak ikon gambar rusak.
+        $lampiranPrint = [];
+
+        foreach ($lks->details as $detail) {
+            $cetakSumber = $detail->sumber === 'inspeksi'
+                ? $detail->sumberInspeksi
+                : ($detail->sumber === 'mechanical' ? $detail->sumberMechanical : null);
+
+            $cetakFiles = $cetakSumber?->files ?? [];
+            if (!is_array($cetakFiles)) {
+                continue;
+            }
+
+            $cetakImages = [];
+            $cetakDokumens = [];
+
+            foreach ($cetakFiles as $cetakFile) {
+                $cetakPath = is_array($cetakFile) ? ($cetakFile[0] ?? '') : $cetakFile;
+                if (empty($cetakPath)) {
+                    continue;
+                }
+
+                if (!\Illuminate\Support\Facades\Storage::disk('public')->exists($cetakPath)) {
+                    continue; // file hilang -> dilewati
+                }
+
+                $cetakExt = strtolower(pathinfo($cetakPath, PATHINFO_EXTENSION));
+                if (in_array($cetakExt, ['jpg', 'jpeg', 'png', 'webp'], true)) {
+                    $cetakImages[] = $cetakPath;
+                } else {
+                    $cetakDokumens[] = $cetakPath; // PDF dll -> hanya teks
+                }
+            }
+
+            if ($cetakImages || $cetakDokumens) {
+                $lampiranPrint[] = [
+                    'lot_number' => $detail->lot_number,
+                    'no_koil'    => $detail->no_koil,
+                    'sumber'     => $detail->sumber,
+                    'images'     => $cetakImages,
+                    'dokumens'   => $cetakDokumens,
+                ];
+            }
+        }
+
+        // Halaman lampiran hanya dibuat bila ada minimal 1 gambar yang bisa dicetak
+        $adaGambarCetak = false;
+        foreach ($lampiranPrint as $cetakItem) {
+            if (!empty($cetakItem['images'])) {
+                $adaGambarCetak = true;
+                break;
+            }
+        }
+    @endphp
+
     <div id="print-section" class="hidden">
         <table width="100%" cellpadding="5" cellspacing="0"
             style="border-collapse: collapse; margin-bottom: 10px;">
@@ -405,28 +463,35 @@
                     style="border-collapse: collapse; font-size: 8pt; border: 1px solid #000;">
                     <thead>
                         <tr style="background-color: #f7f7f7;">
-                            <th style="border: 1px solid #000; padding: 4px; text-align: center; width: 5%;">No</th>
-                            <th style="border: 1px solid #000; padding: 4px; text-align: center; width: 12%;">No PO
+                            <th style="border: 1px solid #000; padding: 4px; text-align: center; width: 4%;">No</th>
+                            <th style="border: 1px solid #000; padding: 4px; text-align: center; width: 9%;">No PO
                             </th>
-                            <th style="border: 1px solid #000; padding: 4px; text-align: center; width: 10%;">No RCR
+                            <th style="border: 1px solid #000; padding: 4px; text-align: center; width: 8%;">No RCR
                             </th>
-                            <th style="border: 1px solid #000; padding: 4px; text-align: center; width: 20%;">
+                            <th style="border: 1px solid #000; padding: 4px; text-align: center; width: 13%;">
                                 Description /
                                 Barang</th>
-                            <th style="border: 1px solid #000; padding: 4px; text-align: center; width: 10%;">No Koil
+                            <th style="border: 1px solid #000; padding: 4px; text-align: center; width: 8%;">No Koil
                             </th>
-                            <th style="border: 1px solid #000; padding: 4px; text-align: center; width: 9%;">Status LKS
+                            <th style="border: 1px solid #000; padding: 4px; text-align: center; width: 8%;">Status LKS
                             </th>
-                            <th style="border: 1px solid #000; padding: 4px; text-align: center; width: 12%;">Defect 1
+                            <th style="border: 1px solid #000; padding: 4px; text-align: center; width: 10%;">Defect 1
                             </th>
-                            <th style="border: 1px solid #000; padding: 4px; text-align: center; width: 12%;">Defect 2
+                            <th style="border: 1px solid #000; padding: 4px; text-align: center; width: 10%;">Defect 2
                             </th>
-                            <th style="border: 1px solid #000; padding: 4px; text-align: center; width: 10%;">Tgl
+                            <th style="border: 1px solid #000; padding: 4px; text-align: center; width: 8%;">Tgl
+                                Inspeksi</th>
+                            <th style="border: 1px solid #000; padding: 4px; text-align: center; width: 22%;">Hasil
                                 Inspeksi</th>
                         </tr>
                     </thead>
                     <tbody>
                         @forelse ($lks->details as $detail)
+                            @php
+                                // Guard sumber: sumberInspeksi & sumberMechanical sama-sama memakai sumber_id
+                                $printInspeksi = $detail->sumber === 'inspeksi' ? $detail->sumberInspeksi : null;
+                                $printMechanical = $detail->sumber === 'mechanical' ? $detail->sumberMechanical : null;
+                            @endphp
                             <tr>
                                 <td style="border: 1px solid #000; padding: 4px; text-align: center;">
                                     {{ $loop->iteration }}</td>
@@ -446,10 +511,25 @@
                                 </td>
                                 <td style="border: 1px solid #000; padding: 4px; text-align: center;">
                                     {{ $detail->tanggal_inspeksi ?? '-' }}</td>
+                                <td style="border: 1px solid #000; padding: 4px; font-size: 7pt; line-height: 1.35;">
+                                    @if ($printInspeksi)
+                                        D1 {{ $printInspeksi->d1 ?? '-' }} |
+                                        D2 {{ $printInspeksi->d2 ?? '-' }} |
+                                        D3 {{ $printInspeksi->d3 ?? '-' }}<br>
+                                        Avg {{ $printInspeksi->rata_rata ?? '-' }}
+                                    @elseif ($printMechanical)
+                                        Tensile {{ $printMechanical->hasil_tensile ?? '-' }} Mpa |
+                                        Coating {{ $printMechanical->hasil_coatingweight ?? '-' }} g/m²<br>
+                                        Lilit {{ $printMechanical->hasil_lilit ?? '-' }} |
+                                        Puntir {{ $printMechanical->hasil_puntir ?? '-' }} kali
+                                    @else
+                                        -
+                                    @endif
+                                </td>
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="9"
+                                <td colspan="10"
                                     style="border: 1px solid #000; padding: 8px; text-align: center; font-style: italic;">
                                     Belum ada detail lot number</td>
                             </tr>
@@ -503,6 +583,92 @@
                 </td>
             </tr>
         </table>
+
+        {{-- ==================== HALAMAN 2: LAMPIRAN GAMBAR ==================== --}}
+        @if ($adaGambarCetak)
+            <div style="page-break-before: always; break-before: page; font-family: Arial, sans-serif;">
+
+                <table width="100%" cellpadding="5" cellspacing="0" style="border-collapse: collapse; margin-bottom: 4px;">
+                    <tr>
+                        <td style="width: 22%; vertical-align: middle;">
+                            <img src="{{ asset('img/logobeva.png') }}" alt="Logo" style="height: 40px; width: auto;" />
+                        </td>
+                        <td style="width: 56%; text-align: center; vertical-align: middle;">
+                            <h1 style="font-size: 14pt; font-weight: bold; margin: 0;">LAMPIRAN GAMBAR</h1>
+                            <div style="font-size: 10pt; margin-top: 2px;">Laporan Ketidaksesuaian (LKS)</div>
+                        </td>
+                        <td style="width: 22%; vertical-align: top; text-align: right; font-size: 10pt;">
+                            <table cellpadding="3" cellspacing="0" style="border: 1px solid #000; margin-left: auto;">
+                                <tr>
+                                    <td style="font-weight: bold; font-size: 9pt;">BM-F-QC-32 R00</td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                </table>
+
+                <hr style="border: 1px solid #000; margin-bottom: 8px;">
+
+                <table width="100%" cellpadding="4" cellspacing="0"
+                    style="border-collapse: collapse; font-size: 10pt; margin-bottom: 10px;">
+                    <tr>
+                        <td style="width: 15%; font-weight: bold;">Nomor LKS</td>
+                        <td style="width: 35%;">: {{ $lks->nomor_lks }}</td>
+                        <td style="width: 15%; font-weight: bold;">Tanggal</td>
+                        <td style="width: 35%;">: {{ \Carbon\Carbon::parse($lks->tanggal)->format('d/m/Y') }}</td>
+                    </tr>
+                    <tr>
+                        <td style="font-weight: bold;">Supplier</td>
+                        <td>: {{ $lks->supplier->nama ?? 'N/A' }}</td>
+                        <td style="font-weight: bold;">Jumlah Lampiran</td>
+                        <td>: {{ collect($lampiranPrint)->pluck('images')->flatten()->count() }} gambar</td>
+                    </tr>
+                </table>
+
+                @foreach ($lampiranPrint as $lampiranIdx => $lampiran)
+                    {{-- Label per lot: dijaga agar tidak pindah halaman sendirian --}}
+                    <div style="page-break-inside: avoid; break-inside: avoid; border: 1px solid #000; background-color: #f7f7f7; padding: 4px 6px; font-size: 10pt; font-weight: bold; margin-bottom: 4px;">
+                        {{ $lampiranIdx + 1 }}. Lot: {{ $lampiran['lot_number'] ?? '-' }}
+                        (No Koil: {{ $lampiran['no_koil'] ?? '-' }})
+                        — Sumber: {{ $lampiran['sumber'] === 'mechanical' ? 'Mechanical Test' : 'Inspeksi Incoming' }}
+                    </div>
+
+                    @if (!empty($lampiran['images']))
+                        <table width="100%" cellpadding="4" cellspacing="0" style="border-collapse: collapse; margin-bottom: 4px;">
+                            @foreach (array_chunk($lampiran['images'], 2) as $pair)
+                                {{-- Tiap baris pasangan gambar tidak boleh terpotong --}}
+                                <tr style="page-break-inside: avoid; break-inside: avoid;">
+                                    @foreach ($pair as $imagePath)
+                                        <td width="50%" style="text-align: center; vertical-align: top; padding: 4px;">
+                                            <img src="{{ asset('storage/' . $imagePath) }}" alt="Lampiran"
+                                                style="max-width: 100%; max-height: 55mm; height: auto; object-fit: contain; border: 1px solid #666;" />
+                                            <div style="font-size: 7pt; margin-top: 2px; color: #333;">
+                                                {{ basename($imagePath) }}
+                                            </div>
+                                        </td>
+                                    @endforeach
+                                    @if (count($pair) === 1)
+                                        <td width="50%" style="padding: 4px;">&nbsp;</td>
+                                    @endif
+                                </tr>
+                            @endforeach
+                        </table>
+                    @endif
+
+                    @if (!empty($lampiran['dokumens']))
+                        <div style="font-size: 9pt; margin: 0 0 10px 0; padding: 0 6px;">
+                            File lampiran:
+                            @foreach ($lampiran['dokumens'] as $docIdx => $docPath)
+                                {{ $docIdx > 0 ? ', ' : '' }}{{ basename($docPath) }}
+                            @endforeach
+                        </div>
+                    @else
+                        <div style="margin-bottom: 10px;"></div>
+                    @endif
+                @endforeach
+
+            </div>
+        @endif
     </div>
 
     {{-- Modal Gambar Lampiran --}}
@@ -533,11 +699,34 @@
         @endif
 
         function printLks() {
-            document.getElementById('print-section').classList.remove('hidden');
-            window.print();
-            setTimeout(() => {
-                document.getElementById('print-section').classList.add('hidden');
-            }, 500);
+            const printSection = document.getElementById('print-section');
+            printSection.classList.remove('hidden');
+
+            const restore = () => {
+                setTimeout(() => printSection.classList.add('hidden'), 500);
+            };
+
+            // Pastikan semua gambar lampiran sudah termuat sebelum dialog cetak muncul,
+            // agar tidak tercetak kotak kosong.
+            const images = Array.from(printSection.querySelectorAll('img'));
+            const pending = images
+                .filter(img => !img.complete)
+                .map(img => new Promise(resolve => {
+                    img.addEventListener('load', resolve, { once: true });
+                    img.addEventListener('error', resolve, { once: true });
+                }));
+
+            const allLoaded = pending.length
+                ? Promise.race([
+                    Promise.all(pending),
+                    new Promise(resolve => setTimeout(resolve, 3000)), // batas tunggu
+                ])
+                : Promise.resolve();
+
+            allLoaded.then(() => {
+                window.print();
+                restore();
+            });
         }
 
         // ==================== Hasil Inspeksi (expandable) ====================
