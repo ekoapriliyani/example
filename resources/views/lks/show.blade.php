@@ -105,7 +105,8 @@
                             </div>
                             <div>
                                 <dt class="text-sm font-medium italic text-gray-500">Supplier</dt>
-                                <dd class="text-lg font-semibold text-gray-900">{{ $lks->supplier->nama ?? 'N/A' }}</dd>
+                                <dd class="text-lg font-semibold text-gray-900">{{ $lks->supplier->nama ?? 'N/A' }}
+                                </dd>
                             </div>
                             <div>
                                 <dt class="text-sm font-medium italic text-gray-500">Tanggal</dt>
@@ -126,7 +127,8 @@
                                             class="inline-block rounded bg-blue-100 px-3 py-1 text-sm font-semibold text-blue-700">OPEN</span>
                                     @elseif ($lks->isSpecialAccept())
                                         <span
-                                            class="inline-block rounded bg-purple-100 px-3 py-1 text-sm font-semibold text-purple-700">SPECIAL ACCEPT</span>
+                                            class="inline-block rounded bg-purple-100 px-3 py-1 text-sm font-semibold text-purple-700">SPECIAL
+                                            ACCEPT</span>
                                     @else
                                         <span
                                             class="inline-block rounded bg-gray-100 px-3 py-1 text-sm font-semibold text-gray-700">CLOSED</span>
@@ -177,8 +179,9 @@
                                         // sumberInspeksi & sumberMechanical sama-sama memakai kolom sumber_id,
                                         // jadi wajib difilter berdasarkan kolom sumber agar tidak salah baca.
                                         $inspeksi = $detail->sumber === 'inspeksi' ? $detail->sumberInspeksi : null;
-                                        $mechanical = $detail->sumber === 'mechanical' ? $detail->sumberMechanical : null;
-                                        $lampiran = $inspeksi?->files ?? $mechanical?->files ?? [];
+                                        $mechanical =
+                                            $detail->sumber === 'mechanical' ? $detail->sumberMechanical : null;
+                                        $lampiran = $inspeksi?->files ?? ($mechanical?->files ?? []);
                                         $jumlahGambar = is_array($lampiran) ? count($lampiran) : 0;
                                     @endphp
                                     <tr class="transition-colors hover:bg-gray-50">
@@ -203,7 +206,7 @@
                                         <td class="px-4 py-3 text-gray-600">{{ $detail->description2 ?? '-' }}</td>
                                         <td class="px-4 py-3 text-xs text-gray-500">
                                             {{ $detail->tanggal_inspeksi ?? '-' }}</td>
-                                        <td class="px-4 py-3 text-center whitespace-nowrap">
+                                        <td class="whitespace-nowrap px-4 py-3 text-center">
                                             <button type="button"
                                                 class="btn-detail text-xs font-semibold text-indigo-600 hover:underline"
                                                 data-target="lks-detail-{{ $loop->index }}">
@@ -211,7 +214,7 @@
                                             </button>
                                             @if ($jumlahGambar > 0)
                                                 <button type="button"
-                                                    class="btn-gambar ml-2 inline-flex items-center px-2 py-1 text-xs font-semibold rounded-lg bg-indigo-50 text-indigo-700 hover:bg-indigo-100 transition"
+                                                    class="btn-gambar ml-2 inline-flex items-center rounded-lg bg-indigo-50 px-2 py-1 text-xs font-semibold text-indigo-700 transition hover:bg-indigo-100"
                                                     data-title="{{ $detail->lot_number }}"
                                                     data-files="{{ json_encode($lampiran) }}">
                                                     Gambar ({{ $jumlahGambar }})
@@ -222,35 +225,46 @@
                                     <tr id="lks-detail-{{ $loop->index }}" class="detail-row hidden bg-gray-50">
                                         <td colspan="10" class="px-4 py-3">
                                             @if ($inspeksi)
-                                                <div class="flex flex-wrap items-start justify-between gap-4 rounded-lg border border-gray-200 bg-white p-4 shadow-sm">
+                                                <div
+                                                    class="flex flex-wrap items-start justify-between gap-4 rounded-lg border border-gray-200 bg-white p-4 shadow-sm">
                                                     <div>
-                                                        <span class="mb-2 block text-xs font-bold uppercase tracking-wide text-gray-500">Hasil Inspeksi Incoming</span>
+                                                        <span
+                                                            class="mb-2 block text-xs font-bold uppercase tracking-wide text-gray-500">Hasil
+                                                            Inspeksi Incoming</span>
                                                         <div class="flex flex-wrap items-end gap-x-8 gap-y-3">
                                                             <div>
                                                                 <span class="block text-xs text-gray-500">D1</span>
-                                                                <span class="font-semibold text-gray-800">{{ $inspeksi->d1 ?? '-' }}</span>
+                                                                <span
+                                                                    class="font-semibold text-gray-800">{{ $inspeksi->d1 ?? '-' }}</span>
                                                             </div>
                                                             <div>
                                                                 <span class="block text-xs text-gray-500">D2</span>
-                                                                <span class="font-semibold text-gray-800">{{ $inspeksi->d2 ?? '-' }}</span>
+                                                                <span
+                                                                    class="font-semibold text-gray-800">{{ $inspeksi->d2 ?? '-' }}</span>
                                                             </div>
                                                             <div>
                                                                 <span class="block text-xs text-gray-500">D3</span>
-                                                                <span class="font-semibold text-gray-800">{{ $inspeksi->d3 ?? '-' }}</span>
+                                                                <span
+                                                                    class="font-semibold text-gray-800">{{ $inspeksi->d3 ?? '-' }}</span>
                                                             </div>
                                                             <div>
-                                                                <span class="block text-xs text-gray-500">Rata-rata</span>
-                                                                <span class="font-semibold text-indigo-600">{{ $inspeksi->rata_rata ?? '-' }}</span>
+                                                                <span
+                                                                    class="block text-xs text-gray-500">Rata-rata</span>
+                                                                <span
+                                                                    class="font-semibold text-indigo-600">{{ $inspeksi->rata_rata ?? '-' }}</span>
                                                             </div>
                                                             <div>
-                                                                <span class="block text-xs text-gray-500">Dimensi</span>
-                                                                <span class="inline-flex items-center rounded-full px-2 py-1 text-xs font-semibold {{ ($inspeksi->dimensi ?? '') === 'OK' ? 'text-green-800 bg-green-200' : 'text-yellow-800 bg-yellow-200' }}">
+                                                                <span
+                                                                    class="block text-xs text-gray-500">Dimensi</span>
+                                                                <span
+                                                                    class="{{ ($inspeksi->dimensi ?? '') === 'OK' ? 'text-green-800 bg-green-200' : 'text-yellow-800 bg-yellow-200' }} inline-flex items-center rounded-full px-2 py-1 text-xs font-semibold">
                                                                     {{ $inspeksi->dimensi ?? '-' }}
                                                                 </span>
                                                             </div>
                                                             <div>
                                                                 <span class="block text-xs text-gray-500">Visual</span>
-                                                                <span class="inline-flex items-center rounded-full px-2 py-1 text-xs font-semibold {{ ($inspeksi->visual ?? '') === 'OK' ? 'text-green-800 bg-green-200' : 'text-yellow-800 bg-yellow-200' }}">
+                                                                <span
+                                                                    class="{{ ($inspeksi->visual ?? '') === 'OK' ? 'text-green-800 bg-green-200' : 'text-yellow-800 bg-yellow-200' }} inline-flex items-center rounded-full px-2 py-1 text-xs font-semibold">
                                                                     {{ $inspeksi->visual ?? '-' }}
                                                                 </span>
                                                             </div>
@@ -258,33 +272,48 @@
                                                     </div>
                                                 </div>
                                             @elseif ($mechanical)
-                                                <div class="flex flex-wrap items-start justify-between gap-4 rounded-lg border border-gray-200 bg-white p-4 shadow-sm">
+                                                <div
+                                                    class="flex flex-wrap items-start justify-between gap-4 rounded-lg border border-gray-200 bg-white p-4 shadow-sm">
                                                     <div>
-                                                        <span class="mb-2 block text-xs font-bold uppercase tracking-wide text-gray-500">Hasil Mechanical Test</span>
+                                                        <span
+                                                            class="mb-2 block text-xs font-bold uppercase tracking-wide text-gray-500">Hasil
+                                                            Mechanical Test</span>
                                                         <div class="flex flex-wrap items-end gap-x-8 gap-y-3">
                                                             <div>
-                                                                <span class="block text-xs text-gray-500">Hasil Tensile</span>
-                                                                <span class="font-semibold text-gray-800">{{ $mechanical->hasil_tensile ?? '-' }} Mpa</span>
+                                                                <span class="block text-xs text-gray-500">Hasil
+                                                                    Tensile</span>
+                                                                <span
+                                                                    class="font-semibold text-gray-800">{{ $mechanical->hasil_tensile ?? '-' }}
+                                                                    Mpa</span>
                                                             </div>
                                                             <div>
-                                                                <span class="block text-xs text-gray-500">Coating Weight</span>
-                                                                <span class="font-semibold text-gray-800">{{ $mechanical->hasil_coatingweight ?? '-' }} g/m²</span>
+                                                                <span class="block text-xs text-gray-500">Coating
+                                                                    Weight</span>
+                                                                <span
+                                                                    class="font-semibold text-gray-800">{{ $mechanical->hasil_coatingweight ?? '-' }}
+                                                                    g/m²</span>
                                                             </div>
                                                             <div>
-                                                                <span class="block text-xs text-gray-500">Hasil Lilit</span>
-                                                                <span class="inline-flex items-center rounded-full px-2 py-1 text-xs font-semibold {{ ($mechanical->hasil_lilit ?? '') === 'OK' ? 'text-green-800 bg-green-200' : 'text-red-800 bg-red-200' }}">
+                                                                <span class="block text-xs text-gray-500">Hasil
+                                                                    Lilit</span>
+                                                                <span
+                                                                    class="{{ ($mechanical->hasil_lilit ?? '') === 'OK' ? 'text-green-800 bg-green-200' : 'text-red-800 bg-red-200' }} inline-flex items-center rounded-full px-2 py-1 text-xs font-semibold">
                                                                     {{ $mechanical->hasil_lilit ?? '-' }}
                                                                 </span>
                                                             </div>
                                                             <div>
-                                                                <span class="block text-xs text-gray-500">Hasil Puntir</span>
-                                                                <span class="font-semibold text-gray-800">{{ $mechanical->hasil_puntir ?? '-' }} kali</span>
+                                                                <span class="block text-xs text-gray-500">Hasil
+                                                                    Puntir</span>
+                                                                <span
+                                                                    class="font-semibold text-gray-800">{{ $mechanical->hasil_puntir ?? '-' }}
+                                                                    kali</span>
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </div>
                                             @else
-                                                <span class="text-xs italic text-gray-400">Data hasil inspeksi tidak ditemukan (sumber: {{ $detail->sumber ?? '-' }}).</span>
+                                                <span class="text-xs italic text-gray-400">Data hasil inspeksi tidak
+                                                    ditemukan (sumber: {{ $detail->sumber ?? '-' }}).</span>
                                             @endif
                                         </td>
                                     </tr>
@@ -347,9 +376,12 @@
         $lampiranPrint = [];
 
         foreach ($lks->details as $detail) {
-            $cetakSumber = $detail->sumber === 'inspeksi'
-                ? $detail->sumberInspeksi
-                : ($detail->sumber === 'mechanical' ? $detail->sumberMechanical : null);
+            $cetakSumber =
+                $detail->sumber === 'inspeksi'
+                    ? $detail->sumberInspeksi
+                    : ($detail->sumber === 'mechanical'
+                        ? $detail->sumberMechanical
+                        : null);
 
             $cetakFiles = $cetakSumber?->files ?? [];
             if (!is_array($cetakFiles)) {
@@ -360,7 +392,7 @@
             $cetakDokumens = [];
 
             foreach ($cetakFiles as $cetakFile) {
-                $cetakPath = is_array($cetakFile) ? ($cetakFile[0] ?? '') : $cetakFile;
+                $cetakPath = is_array($cetakFile) ? $cetakFile[0] ?? '' : $cetakFile;
                 if (empty($cetakPath)) {
                     continue;
                 }
@@ -380,10 +412,10 @@
             if ($cetakImages || $cetakDokumens) {
                 $lampiranPrint[] = [
                     'lot_number' => $detail->lot_number,
-                    'no_koil'    => $detail->no_koil,
-                    'sumber'     => $detail->sumber,
-                    'images'     => $cetakImages,
-                    'dokumens'   => $cetakDokumens,
+                    'no_koil' => $detail->no_koil,
+                    'sumber' => $detail->sumber,
+                    'images' => $cetakImages,
+                    'dokumens' => $cetakDokumens,
                 ];
             }
         }
@@ -473,8 +505,8 @@
                                 Barang</th>
                             <th style="border: 1px solid #000; padding: 4px; text-align: center; width: 8%;">No Koil
                             </th>
-                            <th style="border: 1px solid #000; padding: 4px; text-align: center; width: 8%;">Status LKS
-                            </th>
+                            {{-- <th style="border: 1px solid #000; padding: 4px; text-align: center; width: 8%;">Status
+                            </th> --}}
                             <th style="border: 1px solid #000; padding: 4px; text-align: center; width: 10%;">Defect 1
                             </th>
                             <th style="border: 1px solid #000; padding: 4px; text-align: center; width: 10%;">Defect 2
@@ -503,8 +535,8 @@
                                     {{ $detail->description_barang ?? '-' }}</td>
                                 <td style="border: 1px solid #000; padding: 4px; text-align: center;">
                                     {{ $detail->no_koil ?? '-' }}</td>
-                                <td style="border: 1px solid #000; padding: 4px; text-align: center;">
-                                    {{ $detail->status }}</td>
+                                {{-- <td style="border: 1px solid #000; padding: 4px; text-align: center;">
+                                    {{ $detail->status }}</td> --}}
                                 <td style="border: 1px solid #000; padding: 4px;">{{ $detail->description1 ?? '-' }}
                                 </td>
                                 <td style="border: 1px solid #000; padding: 4px;">{{ $detail->description2 ?? '-' }}
@@ -588,17 +620,20 @@
         @if ($adaGambarCetak)
             <div style="page-break-before: always; break-before: page; font-family: Arial, sans-serif;">
 
-                <table width="100%" cellpadding="5" cellspacing="0" style="border-collapse: collapse; margin-bottom: 4px;">
+                <table width="100%" cellpadding="5" cellspacing="0"
+                    style="border-collapse: collapse; margin-bottom: 4px;">
                     <tr>
                         <td style="width: 22%; vertical-align: middle;">
-                            <img src="{{ asset('img/logobeva.png') }}" alt="Logo" style="height: 40px; width: auto;" />
+                            <img src="{{ asset('img/logobeva.png') }}" alt="Logo"
+                                style="height: 40px; width: auto;" />
                         </td>
                         <td style="width: 56%; text-align: center; vertical-align: middle;">
                             <h1 style="font-size: 14pt; font-weight: bold; margin: 0;">LAMPIRAN GAMBAR</h1>
                             <div style="font-size: 10pt; margin-top: 2px;">Laporan Ketidaksesuaian (LKS)</div>
                         </td>
                         <td style="width: 22%; vertical-align: top; text-align: right; font-size: 10pt;">
-                            <table cellpadding="3" cellspacing="0" style="border: 1px solid #000; margin-left: auto;">
+                            <table cellpadding="3" cellspacing="0"
+                                style="border: 1px solid #000; margin-left: auto;">
                                 <tr>
                                     <td style="font-weight: bold; font-size: 9pt;">BM-F-QC-32 R00</td>
                                 </tr>
@@ -627,19 +662,22 @@
 
                 @foreach ($lampiranPrint as $lampiranIdx => $lampiran)
                     {{-- Label per lot: dijaga agar tidak pindah halaman sendirian --}}
-                    <div style="page-break-inside: avoid; break-inside: avoid; border: 1px solid #000; background-color: #f7f7f7; padding: 4px 6px; font-size: 10pt; font-weight: bold; margin-bottom: 4px;">
+                    <div
+                        style="page-break-inside: avoid; break-inside: avoid; border: 1px solid #000; background-color: #f7f7f7; padding: 4px 6px; font-size: 10pt; font-weight: bold; margin-bottom: 4px;">
                         {{ $lampiranIdx + 1 }}. Lot: {{ $lampiran['lot_number'] ?? '-' }}
                         (No Koil: {{ $lampiran['no_koil'] ?? '-' }})
                         — Sumber: {{ $lampiran['sumber'] === 'mechanical' ? 'Mechanical Test' : 'Inspeksi Incoming' }}
                     </div>
 
                     @if (!empty($lampiran['images']))
-                        <table width="100%" cellpadding="4" cellspacing="0" style="border-collapse: collapse; margin-bottom: 4px;">
+                        <table width="100%" cellpadding="4" cellspacing="0"
+                            style="border-collapse: collapse; margin-bottom: 4px;">
                             @foreach (array_chunk($lampiran['images'], 2) as $pair)
                                 {{-- Tiap baris pasangan gambar tidak boleh terpotong --}}
                                 <tr style="page-break-inside: avoid; break-inside: avoid;">
                                     @foreach ($pair as $imagePath)
-                                        <td width="50%" style="text-align: center; vertical-align: top; padding: 4px;">
+                                        <td width="50%"
+                                            style="text-align: center; vertical-align: top; padding: 4px;">
                                             <img src="{{ asset('storage/' . $imagePath) }}" alt="Lampiran"
                                                 style="max-width: 100%; max-height: 55mm; height: auto; object-fit: contain; border: 1px solid #666;" />
                                             <div style="font-size: 7pt; margin-top: 2px; color: #333;">
@@ -672,15 +710,16 @@
     </div>
 
     {{-- Modal Gambar Lampiran --}}
-    <div id="lks-image-modal" class="hidden fixed inset-0 bg-gray-900 bg-opacity-50 flex items-center justify-center z-50">
-        <div class="bg-white rounded-lg shadow-lg w-3/4 p-6 max-h-[80vh] overflow-y-auto">
-            <h3 class="text-lg font-semibold mb-4 text-gray-800">
+    <div id="lks-image-modal"
+        class="fixed inset-0 z-50 flex hidden items-center justify-center bg-gray-900 bg-opacity-50">
+        <div class="max-h-[80vh] w-3/4 overflow-y-auto rounded-lg bg-white p-6 shadow-lg">
+            <h3 class="mb-4 text-lg font-semibold text-gray-800">
                 Gambar Lampiran: <span class="text-indigo-600" id="lks-modal-title">-</span>
             </h3>
-            <div id="lks-modal-grid" class="grid grid-cols-1 md:grid-cols-2 gap-4"></div>
+            <div id="lks-modal-grid" class="grid grid-cols-1 gap-4 md:grid-cols-2"></div>
             <div class="mt-6 text-right">
                 <button type="button" id="lks-modal-close"
-                    class="px-4 py-2 bg-gray-200 text-gray-700 rounded-md hover:bg-gray-300 font-medium transition">Tutup</button>
+                    class="rounded-md bg-gray-200 px-4 py-2 font-medium text-gray-700 transition hover:bg-gray-300">Tutup</button>
             </div>
         </div>
     </div>
@@ -712,16 +751,20 @@
             const pending = images
                 .filter(img => !img.complete)
                 .map(img => new Promise(resolve => {
-                    img.addEventListener('load', resolve, { once: true });
-                    img.addEventListener('error', resolve, { once: true });
+                    img.addEventListener('load', resolve, {
+                        once: true
+                    });
+                    img.addEventListener('error', resolve, {
+                        once: true
+                    });
                 }));
 
-            const allLoaded = pending.length
-                ? Promise.race([
+            const allLoaded = pending.length ?
+                Promise.race([
                     Promise.all(pending),
                     new Promise(resolve => setTimeout(resolve, 3000)), // batas tunggu
-                ])
-                : Promise.resolve();
+                ]) :
+                Promise.resolve();
 
             allLoaded.then(() => {
                 window.print();
