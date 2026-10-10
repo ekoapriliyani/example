@@ -346,6 +346,14 @@ class LksController extends Controller
                     'description1' => $item->description1,
                     'description2' => $item->description2,
                     'tanggal_inspeksi' => $item->created_at->format('Y-m-d'),
+                    // Hasil inspeksi (dimensi)
+                    'd1' => $item->d1,
+                    'd2' => $item->d2,
+                    'd3' => $item->d3,
+                    'rata_rata' => $item->rata_rata,
+                    'dimensi' => $item->dimensi,
+                    'visual' => $item->visual,
+                    'files' => $item->files ?? [],
                 ];
             });
 
@@ -367,6 +375,12 @@ class LksController extends Controller
                     'description1' => $item->description1,
                     'description2' => $item->description2,
                     'tanggal_inspeksi' => $item->created_at->format('Y-m-d'),
+                    // Hasil mechanical test
+                    'hasil_tensile' => $item->hasil_tensile,
+                    'hasil_coatingweight' => $item->hasil_coatingweight,
+                    'hasil_lilit' => $item->hasil_lilit,
+                    'hasil_puntir' => $item->hasil_puntir,
+                    'files' => $item->files ?? [],
                 ];
             });
 

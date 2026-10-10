@@ -168,10 +168,19 @@
                                     <th class="px-4 py-3 font-semibold text-gray-900">Description 1</th>
                                     <th class="px-4 py-3 font-semibold text-gray-900">Description 2</th>
                                     <th class="px-4 py-3 font-semibold text-gray-900">Tanggal Inspeksi</th>
+                                    <th class="px-4 py-3 font-semibold text-gray-900">Hasil Inspeksi</th>
                                 </tr>
                             </thead>
-                            <tbody class="divide-y divide-gray-200">
+                            <tbody class="divide-y divide-gray-200" id="lks-details-body">
                                 @forelse ($lks->details as $detail)
+                                    @php
+                                        // sumberInspeksi & sumberMechanical sama-sama memakai kolom sumber_id,
+                                        // jadi wajib difilter berdasarkan kolom sumber agar tidak salah baca.
+                                        $inspeksi = $detail->sumber === 'inspeksi' ? $detail->sumberInspeksi : null;
+                                        $mechanical = $detail->sumber === 'mechanical' ? $detail->sumberMechanical : null;
+                                        $lampiran = $inspeksi?->files ?? $mechanical?->files ?? [];
+                                        $jumlahGambar = is_array($lampiran) ? count($lampiran) : 0;
+                                    @endphp
                                     <tr class="transition-colors hover:bg-gray-50">
                                         <td class="px-4 py-3">{{ $loop->iteration }}</td>
                                         <td class="px-4 py-3 font-semibold text-indigo-600">
@@ -194,10 +203,94 @@
                                         <td class="px-4 py-3 text-gray-600">{{ $detail->description2 ?? '-' }}</td>
                                         <td class="px-4 py-3 text-xs text-gray-500">
                                             {{ $detail->tanggal_inspeksi ?? '-' }}</td>
+                                        <td class="px-4 py-3 text-center whitespace-nowrap">
+                                            <button type="button"
+                                                class="btn-detail text-xs font-semibold text-indigo-600 hover:underline"
+                                                data-target="lks-detail-{{ $loop->index }}">
+                                                Lihat Hasil ▾
+                                            </button>
+                                            @if ($jumlahGambar > 0)
+                                                <button type="button"
+                                                    class="btn-gambar ml-2 inline-flex items-center px-2 py-1 text-xs font-semibold rounded-lg bg-indigo-50 text-indigo-700 hover:bg-indigo-100 transition"
+                                                    data-title="{{ $detail->lot_number }}"
+                                                    data-files="{{ json_encode($lampiran) }}">
+                                                    Gambar ({{ $jumlahGambar }})
+                                                </button>
+                                            @endif
+                                        </td>
+                                    </tr>
+                                    <tr id="lks-detail-{{ $loop->index }}" class="detail-row hidden bg-gray-50">
+                                        <td colspan="10" class="px-4 py-3">
+                                            @if ($inspeksi)
+                                                <div class="flex flex-wrap items-start justify-between gap-4 rounded-lg border border-gray-200 bg-white p-4 shadow-sm">
+                                                    <div>
+                                                        <span class="mb-2 block text-xs font-bold uppercase tracking-wide text-gray-500">Hasil Inspeksi Incoming</span>
+                                                        <div class="flex flex-wrap items-end gap-x-8 gap-y-3">
+                                                            <div>
+                                                                <span class="block text-xs text-gray-500">D1</span>
+                                                                <span class="font-semibold text-gray-800">{{ $inspeksi->d1 ?? '-' }}</span>
+                                                            </div>
+                                                            <div>
+                                                                <span class="block text-xs text-gray-500">D2</span>
+                                                                <span class="font-semibold text-gray-800">{{ $inspeksi->d2 ?? '-' }}</span>
+                                                            </div>
+                                                            <div>
+                                                                <span class="block text-xs text-gray-500">D3</span>
+                                                                <span class="font-semibold text-gray-800">{{ $inspeksi->d3 ?? '-' }}</span>
+                                                            </div>
+                                                            <div>
+                                                                <span class="block text-xs text-gray-500">Rata-rata</span>
+                                                                <span class="font-semibold text-indigo-600">{{ $inspeksi->rata_rata ?? '-' }}</span>
+                                                            </div>
+                                                            <div>
+                                                                <span class="block text-xs text-gray-500">Dimensi</span>
+                                                                <span class="inline-flex items-center rounded-full px-2 py-1 text-xs font-semibold {{ ($inspeksi->dimensi ?? '') === 'OK' ? 'text-green-800 bg-green-200' : 'text-yellow-800 bg-yellow-200' }}">
+                                                                    {{ $inspeksi->dimensi ?? '-' }}
+                                                                </span>
+                                                            </div>
+                                                            <div>
+                                                                <span class="block text-xs text-gray-500">Visual</span>
+                                                                <span class="inline-flex items-center rounded-full px-2 py-1 text-xs font-semibold {{ ($inspeksi->visual ?? '') === 'OK' ? 'text-green-800 bg-green-200' : 'text-yellow-800 bg-yellow-200' }}">
+                                                                    {{ $inspeksi->visual ?? '-' }}
+                                                                </span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            @elseif ($mechanical)
+                                                <div class="flex flex-wrap items-start justify-between gap-4 rounded-lg border border-gray-200 bg-white p-4 shadow-sm">
+                                                    <div>
+                                                        <span class="mb-2 block text-xs font-bold uppercase tracking-wide text-gray-500">Hasil Mechanical Test</span>
+                                                        <div class="flex flex-wrap items-end gap-x-8 gap-y-3">
+                                                            <div>
+                                                                <span class="block text-xs text-gray-500">Hasil Tensile</span>
+                                                                <span class="font-semibold text-gray-800">{{ $mechanical->hasil_tensile ?? '-' }} Mpa</span>
+                                                            </div>
+                                                            <div>
+                                                                <span class="block text-xs text-gray-500">Coating Weight</span>
+                                                                <span class="font-semibold text-gray-800">{{ $mechanical->hasil_coatingweight ?? '-' }} g/m²</span>
+                                                            </div>
+                                                            <div>
+                                                                <span class="block text-xs text-gray-500">Hasil Lilit</span>
+                                                                <span class="inline-flex items-center rounded-full px-2 py-1 text-xs font-semibold {{ ($mechanical->hasil_lilit ?? '') === 'OK' ? 'text-green-800 bg-green-200' : 'text-red-800 bg-red-200' }}">
+                                                                    {{ $mechanical->hasil_lilit ?? '-' }}
+                                                                </span>
+                                                            </div>
+                                                            <div>
+                                                                <span class="block text-xs text-gray-500">Hasil Puntir</span>
+                                                                <span class="font-semibold text-gray-800">{{ $mechanical->hasil_puntir ?? '-' }} kali</span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            @else
+                                                <span class="text-xs italic text-gray-400">Data hasil inspeksi tidak ditemukan (sumber: {{ $detail->sumber ?? '-' }}).</span>
+                                            @endif
+                                        </td>
                                     </tr>
                                 @empty
                                     <tr>
-                                        <td colspan="9" class="px-4 py-8 text-center italic text-gray-400">
+                                        <td colspan="10" class="px-4 py-8 text-center italic text-gray-400">
                                             Belum ada detail lot number.
                                         </td>
                                     </tr>
@@ -412,6 +505,20 @@
         </table>
     </div>
 
+    {{-- Modal Gambar Lampiran --}}
+    <div id="lks-image-modal" class="hidden fixed inset-0 bg-gray-900 bg-opacity-50 flex items-center justify-center z-50">
+        <div class="bg-white rounded-lg shadow-lg w-3/4 p-6 max-h-[80vh] overflow-y-auto">
+            <h3 class="text-lg font-semibold mb-4 text-gray-800">
+                Gambar Lampiran: <span class="text-indigo-600" id="lks-modal-title">-</span>
+            </h3>
+            <div id="lks-modal-grid" class="grid grid-cols-1 md:grid-cols-2 gap-4"></div>
+            <div class="mt-6 text-right">
+                <button type="button" id="lks-modal-close"
+                    class="px-4 py-2 bg-gray-200 text-gray-700 rounded-md hover:bg-gray-300 font-medium transition">Tutup</button>
+            </div>
+        </div>
+    </div>
+
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
         @if (session('success'))
@@ -432,5 +539,93 @@
                 document.getElementById('print-section').classList.add('hidden');
             }, 500);
         }
+
+        // ==================== Hasil Inspeksi (expandable) ====================
+        const STORAGE_BASE = '{{ asset('storage') }}';
+        const IMAGE_EXT = ['jpg', 'jpeg', 'png', 'webp'];
+
+        const detailsBody = document.getElementById('lks-details-body');
+        const imageModal = document.getElementById('lks-image-modal');
+        const modalTitle = document.getElementById('lks-modal-title');
+        const modalGrid = document.getElementById('lks-modal-grid');
+
+        function esc(value) {
+            if (value === null || value === undefined || value === '') return '-';
+            return String(value)
+                .replace(/&/g, '&amp;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;')
+                .replace(/"/g, '&quot;');
+        }
+
+        function storageUrl(path) {
+            return STORAGE_BASE + '/' + String(path).replace(/^\/+/, '');
+        }
+
+        function openImageModal(files, title) {
+            modalTitle.textContent = title || '-';
+
+            if (!files || files.length === 0) {
+                modalGrid.innerHTML = '<p class="text-gray-400 italic col-span-2">Tidak ada file yang diupload.</p>';
+            } else {
+                modalGrid.innerHTML = files.map(file => {
+                    const path = Array.isArray(file) ? (file[0] ?? '') : file;
+                    if (!path) return '';
+
+                    const ext = (String(path).split('.').pop() || '').toLowerCase();
+                    const url = esc(storageUrl(path));
+
+                    if (IMAGE_EXT.includes(ext)) {
+                        return `<img src="${url}" alt="Lampiran"
+                            class="w-full h-64 object-contain rounded border shadow-sm" />`;
+                    }
+
+                    return `<a href="${url}" target="_blank"
+                        class="flex items-center justify-center p-4 border rounded bg-gray-50 text-indigo-600 hover:underline font-medium">
+                        Lihat File (${esc(ext.toUpperCase() || 'DOC')})
+                    </a>`;
+                }).join('');
+            }
+
+            imageModal.classList.remove('hidden');
+        }
+
+        function closeImageModal() {
+            imageModal.classList.add('hidden');
+            modalGrid.innerHTML = '';
+        }
+
+        if (detailsBody) {
+            detailsBody.addEventListener('click', function(e) {
+                const btnDetail = e.target.closest('.btn-detail');
+                if (btnDetail) {
+                    const row = document.getElementById(btnDetail.dataset.target);
+                    if (row) {
+                        const hidden = row.classList.toggle('hidden');
+                        btnDetail.textContent = hidden ? 'Lihat Hasil ▾' : 'Sembunyikan ▴';
+                    }
+                    return;
+                }
+
+                const btnGambar = e.target.closest('.btn-gambar');
+                if (btnGambar) {
+                    let files = [];
+                    try {
+                        files = JSON.parse(btnGambar.dataset.files || '[]');
+                    } catch (err) {
+                        console.error('Gagal membaca daftar gambar:', err);
+                    }
+                    openImageModal(files, btnGambar.dataset.title);
+                }
+            });
+        }
+
+        document.getElementById('lks-modal-close').addEventListener('click', closeImageModal);
+        imageModal.addEventListener('click', function(e) {
+            if (e.target === imageModal) closeImageModal();
+        });
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && !imageModal.classList.contains('hidden')) closeImageModal();
+        });
     </script>
 </x-app-layout>
