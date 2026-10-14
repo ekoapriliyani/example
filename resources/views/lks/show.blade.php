@@ -576,7 +576,7 @@
             <div class="print-section-title"
                 style="background-color: #f0f0f0; border-bottom: 1px solid #000; padding: 5px 8px; font-size: 12pt; font-weight: bold;">
                 III. Analisa Penyebab</div>
-            <div style="height: 24mm;"></div>
+            <div style="min-height: 45mm;"></div>
         </div>
 
         {{-- Section IV. Perbaikan --}}
@@ -584,7 +584,7 @@
             <div class="print-section-title"
                 style="background-color: #f0f0f0; border-bottom: 1px solid #000; padding: 5px 8px; font-size: 12pt; font-weight: bold;">
                 IV. Perbaikan</div>
-            <div style="height: 24mm;"></div>
+            <div style="min-height: 45mm;"></div>
         </div>
 
         {{-- Section V. Preventive / Improvement --}}
@@ -592,12 +592,12 @@
             <div class="print-section-title"
                 style="background-color: #f0f0f0; border-bottom: 1px solid #000; padding: 5px 8px; font-size: 12pt; font-weight: bold;">
                 V. Preventive / Improvement</div>
-            <div style="height: 24mm;"></div>
+            <div style="min-height: 45mm;"></div>
         </div>
 
         {{-- Tanda Tangan --}}
         <table width="100%" cellpadding="10" cellspacing="0"
-            style="border-collapse: collapse; font-family: Arial, sans-serif; font-size: 12pt; margin-top: 20px;">
+            style="border-collapse: collapse; font-family: Arial, sans-serif; font-size: 12pt; margin-top: 20px; page-break-inside: avoid; break-inside: avoid;">
             <tr>
                 <td style="width: 50%; vertical-align: top;">
                     <p style="margin: 0 0 5px 0; font-weight: bold;">Dibuat oleh:</p>
