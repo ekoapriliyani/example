@@ -663,7 +663,7 @@
                 @foreach ($lampiranPrint as $lampiranIdx => $lampiran)
                     {{-- Label per lot: dijaga agar tidak pindah halaman sendirian --}}
                     <div
-                        style="page-break-inside: avoid; break-inside: avoid; border: 1px solid #000; background-color: #f7f7f7; padding: 4px 6px; font-size: 12pt; font-weight: bold; margin-bottom: 4px;">
+                        style="page-break-inside: avoid; break-inside: avoid; page-break-after: avoid; break-after: avoid; border: 1px solid #000; background-color: #f7f7f7; padding: 4px 6px; font-size: 12pt; font-weight: bold; margin-bottom: 4px;">
                         {{ $lampiranIdx + 1 }}. Lot: {{ $lampiran['lot_number'] ?? '-' }}
                         (No Koil: {{ $lampiran['no_koil'] ?? '-' }})
                         — Sumber: {{ $lampiran['sumber'] === 'mechanical' ? 'Mechanical Test' : 'Inspeksi Incoming' }}
@@ -672,22 +672,16 @@
                     @if (!empty($lampiran['images']))
                         <table width="100%" cellpadding="4" cellspacing="0"
                             style="border-collapse: collapse; margin-bottom: 4px;">
-                            @foreach (array_chunk($lampiran['images'], 2) as $pair)
-                                {{-- Tiap baris pasangan gambar tidak boleh terpotong --}}
+                            @foreach ($lampiran['images'] as $imagePath)
+                                {{-- 1 gambar per baris (1 kolom), lebar penuh & tidak boleh terpotong --}}
                                 <tr style="page-break-inside: avoid; break-inside: avoid;">
-                                    @foreach ($pair as $imagePath)
-                                        <td width="50%"
-                                            style="text-align: center; vertical-align: top; padding: 4px;">
-                                            <img src="{{ asset('storage/' . $imagePath) }}" alt="Lampiran"
-                                                style="max-width: 100%; max-height: 55mm; height: auto; object-fit: contain; border: 1px solid #666;" />
-                                            <div style="font-size: 9pt; margin-top: 2px; color: #333;">
-                                                {{ basename($imagePath) }}
-                                            </div>
-                                        </td>
-                                    @endforeach
-                                    @if (count($pair) === 1)
-                                        <td width="50%" style="padding: 4px;">&nbsp;</td>
-                                    @endif
+                                    <td style="text-align: center; vertical-align: top; padding: 6px;">
+                                        <img src="{{ asset('storage/' . $imagePath) }}" alt="Lampiran"
+                                            style="max-width: 100%; max-height: 165mm; height: auto; object-fit: contain; border: 1px solid #666;" />
+                                        <div style="font-size: 10pt; margin-top: 3px; color: #333;">
+                                            {{ basename($imagePath) }}
+                                        </div>
+                                    </td>
                                 </tr>
                             @endforeach
                         </table>
