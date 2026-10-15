@@ -44,6 +44,7 @@ use App\Http\Controllers\InspeksiWmFgController;
 use App\Http\Controllers\InspeksiWmFgHandlingController;
 use App\Http\Controllers\InspeksiWmWipController;
 use App\Http\Controllers\LabController;
+use App\Http\Controllers\LaporanIncomingController;
 use App\Http\Controllers\MaterialController;
 use App\Http\Controllers\MesinController;
 use App\Http\Controllers\OutgoingController;
@@ -132,6 +133,19 @@ Route::middleware(['auth'])->group(function () {
 
     Route::get('incomingbahanbaku/export', [IncomingBahanBakuController::class, 'export'])
         ->name('incomingbahanbaku.export');
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Laporan
+    |--------------------------------------------------------------------------
+    */
+
+    Route::get('laporan/incoming', [LaporanIncomingController::class, 'index'])
+        ->name('laporan.incoming');
+
+    Route::get('laporan/incoming/export', [LaporanIncomingController::class, 'export'])
+        ->name('laporan.incoming.export');
 
 
     /*
