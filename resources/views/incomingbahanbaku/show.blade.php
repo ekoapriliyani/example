@@ -1,12 +1,12 @@
 <x-app-layout>
     <x-slot name="header">
         <div class="flex items-center justify-between">
-            <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+            <h2 class="text-xl font-semibold leading-tight text-gray-800">
                 {{ __('Detail Inspeksi Incoming') }}
             </h2>
             <div class="flex gap-2">
                 <a href="{{ route('incomingbahanbaku.index') }}"
-                    class="inline-flex items-center px-4 py-2 bg-white border border-gray-300 rounded-md font-semibold text-xs text-gray-700 uppercase tracking-widest shadow-sm hover:bg-gray-50 transition ease-in-out duration-150">
+                    class="inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-xs font-semibold uppercase tracking-widest text-gray-700 shadow-sm transition duration-150 ease-in-out hover:bg-gray-50">
                     Kembali
                 </a>
                 <button type="button" onclick="printInspeksi()"
@@ -35,7 +35,7 @@
                     </button>
                 @else
                     <a href="{{ route('incomingbahanbaku.inspeksi', $incomingbahanbaku->id) }}"
-                        class="inline-flex items-center gap-2 rounded-md bg-blue-600 px-4 py-2 text-sm font-semibold text-white hover:bg-blue-700 transition shadow-sm">
+                        class="inline-flex items-center gap-2 rounded-md bg-blue-600 px-4 py-2 text-sm font-semibold text-white shadow-sm transition hover:bg-blue-700">
                         <svg xmlns="http://www.w3.org/2000/svg" class="size-4" fill="none" viewBox="0 0 24 24"
                             stroke="currentColor" stroke-width="2">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
@@ -52,7 +52,7 @@
                     </button>
                 @else
                     <a href="{{ route('incomingbahanbaku.mechanicaltest', $incomingbahanbaku->id) }}"
-                        class="inline-flex items-center gap-2 rounded-md bg-green-700 px-4 py-2 text-sm font-semibold text-white hover:bg-green-800 transition shadow-sm">
+                        class="inline-flex items-center gap-2 rounded-md bg-green-700 px-4 py-2 text-sm font-semibold text-white shadow-sm transition hover:bg-green-800">
                         Mechanical Test
                     </a>
                 @endif
@@ -62,54 +62,54 @@
     </x-slot>
 
     <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-8">
+        <div class="mx-auto max-w-7xl space-y-8 sm:px-6 lg:px-8">
 
-            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg border border-gray-200">
+            <div class="overflow-hidden border border-gray-200 bg-white shadow-sm sm:rounded-lg">
                 <div class="p-6 sm:p-8">
-                    <div class="flex justify-between items-start">
+                    <div class="flex items-start justify-between">
                         <dl class="grid grid-cols-3 gap-x-8 gap-y-4 sm:grid-cols-4">
                             <div>
-                                <dt class="text-sm font-medium text-gray-500 italic">Nomor Inspeksi</dt>
+                                <dt class="text-sm font-medium italic text-gray-500">Nomor Inspeksi</dt>
                                 <dd class="text-lg font-bold text-indigo-600">{{ $incomingbahanbaku->nomor_inspeksi }}
                                 </dd>
                             </div>
                             <div>
-                                <dt class="text-sm font-medium text-gray-500 italic">Tanggal</dt>
+                                <dt class="text-sm font-medium italic text-gray-500">Tanggal</dt>
                                 <dd class="text-lg font-semibold text-gray-900">{{ $incomingbahanbaku->tanggal }}</dd>
                             </div>
                             <div>
-                                <dt class="text-sm font-medium text-gray-500 italic">Jenis</dt>
+                                <dt class="text-sm font-medium italic text-gray-500">Jenis</dt>
                                 <dd class="text-lg font-semibold text-gray-900">
                                     {{ $incomingbahanbaku->jenis == 'non_reguler' ? 'Non Reguler' : 'Reguler' }}</dd>
                             </div>
                             <div>
-                                <dt class="text-sm font-medium text-gray-500 italic">Supplier</dt>
+                                <dt class="text-sm font-medium italic text-gray-500">Supplier</dt>
                                 <dd class="text-lg font-semibold text-gray-900">{{ $incomingbahanbaku->supplier->nama }}
                                 </dd>
                             </div>
                             <div>
-                                <dt class="text-sm font-medium text-gray-500 italic">No PO</dt>
+                                <dt class="text-sm font-medium italic text-gray-500">No PO</dt>
                                 <dd class="text-lg font-semibold text-gray-900">{{ $incomingbahanbaku->no_po }}</dd>
                             </div>
                             <div>
-                                <dt class="text-sm font-medium text-gray-500 italic">No SJ</dt>
+                                <dt class="text-sm font-medium italic text-gray-500">No SJ</dt>
                                 <dd class="text-lg font-semibold text-gray-900">{{ $incomingbahanbaku->no_sj }}</dd>
                             </div>
                             <div>
-                                <dt class="text-sm font-medium text-gray-500 italic">Jml Koil</dt>
+                                <dt class="text-sm font-medium italic text-gray-500">Jml Koil</dt>
                                 <dd class="text-lg font-semibold text-gray-900">{{ $incomingbahanbaku->jml_koil }}</dd>
                             </div>
                             <div>
-                                <dt class="text-sm font-medium text-gray-500 italic">D Kawat</dt>
+                                <dt class="text-sm font-medium italic text-gray-500">D Kawat</dt>
                                 <dd class="text-lg font-semibold text-gray-900">{{ $incomingbahanbaku->d_kawat }} mm
                                 </dd>
                             </div>
                             <div>
-                                <dt class="text-sm font-medium text-gray-500 italic">Toleransi</dt>
+                                <dt class="text-sm font-medium italic text-gray-500">Toleransi</dt>
                                 <dd class="text-lg font-semibold text-gray-900">{{ $incomingbahanbaku->tol }}</dd>
                             </div>
                             <div>
-                                <dt class="text-sm font-medium text-gray-500 italic">Jenis Kawat</dt>
+                                <dt class="text-sm font-medium italic text-gray-500">Jenis Kawat</dt>
                                 <dd class="text-lg font-semibold text-gray-900">{{ $incomingbahanbaku->jenis_kawat }}
                                 </dd>
                             </div>
@@ -118,10 +118,10 @@
                 </div>
             </div>
 
-            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg border border-gray-200">
+            <div class="overflow-hidden border border-gray-200 bg-white shadow-sm sm:rounded-lg">
                 <div class="p-6">
-                    <div class="flex items-center gap-2 mb-4">
-                        <div class="p-2 bg-blue-100 rounded-lg text-blue-600">
+                    <div class="mb-4 flex items-center gap-2">
+                        <div class="rounded-lg bg-blue-100 p-2 text-blue-600">
                             <svg xmlns="http://www.w3.org/2000/svg" class="size-5" fill="none" viewBox="0 0 24 24"
                                 stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -131,11 +131,11 @@
                         <h3 class="text-lg font-bold text-gray-800">Hasil Inspeksi Incoming Bahan Baku</h3>
                     </div>
                     <div class="overflow-x-auto rounded-lg border border-gray-200">
-                        <table class="min-w-full divide-y divide-gray-200 text-sm text-left">
+                        <table class="min-w-full divide-y divide-gray-200 text-left text-sm">
                             <thead class="bg-gray-50">
                                 <tr>
                                     <th class="px-4 py-3 font-semibold text-gray-900">No</th>
-                                    <th class="px-4 py-3 font-semibold text-gray-900 text-center">Aksi</th>
+                                    <th class="px-4 py-3 text-center font-semibold text-gray-900">Aksi</th>
                                     <th class="px-4 py-3 font-semibold text-gray-900">Inspektor</th>
                                     <th class="px-4 py-3 font-semibold text-gray-900">No Koil</th>
                                     <th class="px-4 py-3 font-semibold text-gray-900">D1</th>
@@ -148,18 +148,18 @@
                                     <th class="px-4 py-3 font-semibold text-gray-900">Description 2</th>
                                     <th class="px-4 py-3 font-semibold text-gray-900">Lot Number</th>
                                     <th class="px-4 py-3 font-semibold text-gray-900">Gambar</th>
-                                    <th class="px-4 py-3 font-semibold text-gray-900 text-center">Created At</th>
+                                    <th class="px-4 py-3 text-center font-semibold text-gray-900">Created At</th>
                                 </tr>
                             </thead>
                             <tbody class="divide-y divide-gray-200">
                                 @forelse ($incomingbahanbaku->incomingbahanbakuinspeksi as $inc)
-                                    <tr class="hover:bg-gray-50 transition-colors">
+                                    <tr class="transition-colors hover:bg-gray-50">
                                         <td class="px-4 py-3">{{ $loop->iteration }}</td>
                                         <td class="px-4 py-3">
                                             <div class="flex items-center justify-center gap-2">
                                                 @if ($isApproved)
                                                     <span
-                                                        class="flex items-center justify-center rounded bg-gray-100 p-2 text-gray-400 cursor-not-allowed">
+                                                        class="flex cursor-not-allowed items-center justify-center rounded bg-gray-100 p-2 text-gray-400">
                                                         <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4"
                                                             fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                             <path stroke-linecap="round" stroke-linejoin="round"
@@ -171,7 +171,7 @@
                                                         </svg>
                                                     </span>
                                                     <span
-                                                        class="flex items-center justify-center rounded bg-gray-100 p-2 text-gray-400 cursor-not-allowed">
+                                                        class="flex cursor-not-allowed items-center justify-center rounded bg-gray-100 p-2 text-gray-400">
                                                         <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4"
                                                             fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                             <path stroke-linecap="round" stroke-linejoin="round"
@@ -181,7 +181,7 @@
                                                     </span>
                                                 @else
                                                     <a href="{{ route('incomingbahanbaku.inspeksi.edit', ['incomingbahanbaku' => $incomingbahanbaku->id, 'inspeksi' => $inc->id]) }}"
-                                                        class="flex items-center justify-center rounded bg-yellow-50 p-2 text-yellow-700 hover:bg-yellow-100 transition">
+                                                        class="flex items-center justify-center rounded bg-yellow-50 p-2 text-yellow-700 transition hover:bg-yellow-100">
                                                         <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4"
                                                             fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                             <path stroke-linecap="round" stroke-linejoin="round"
@@ -198,7 +198,7 @@
                                                         @csrf
                                                         @method('DELETE')
                                                         <button type="submit"
-                                                            class="flex items-center justify-center rounded bg-red-50 p-2 text-red-700 hover:bg-red-100 transition">
+                                                            class="flex items-center justify-center rounded bg-red-50 p-2 text-red-700 transition hover:bg-red-100">
                                                             <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4"
                                                                 fill="none" viewBox="0 0 24 24"
                                                                 stroke="currentColor">
@@ -219,13 +219,13 @@
                                         <td class="px-4 py-3 font-medium text-indigo-600">{{ $inc->rata_rata }}</td>
                                         <td class="px-4 py-3">
                                             <span
-                                                class="inline-flex items-center px-2 py-1 text-xs font-semibold rounded-full {{ $inc->dimensi === 'OK' ? 'text-green-800 bg-green-200' : 'text-yellow-800 bg-yellow-200' }}">
+                                                class="{{ $inc->dimensi === 'OK' ? 'text-green-800 bg-green-200' : 'text-yellow-800 bg-yellow-200' }} inline-flex items-center rounded-full px-2 py-1 text-xs font-semibold">
                                                 {{ $inc->dimensi }}
                                             </span>
                                         </td>
                                         <td class="px-4 py-3">
                                             <span
-                                                class="inline-flex items-center px-2 py-1 text-xs font-semibold rounded-full {{ $inc->visual === 'OK' ? 'text-green-800 bg-green-200' : 'text-yellow-800 bg-yellow-200' }}">
+                                                class="{{ $inc->visual === 'OK' ? 'text-green-800 bg-green-200' : 'text-yellow-800 bg-yellow-200' }} inline-flex items-center rounded-full px-2 py-1 text-xs font-semibold">
                                                 {{ $inc->visual }}
                                             </span>
                                         </td>
@@ -234,7 +234,7 @@
                                         <td class="px-4 py-3">
                                             @if ($inc->lot_number)
                                                 <span
-                                                    class="inline-flex items-center px-2 py-1 text-xs font-semibold rounded-full text-blue-800 bg-blue-200">
+                                                    class="inline-flex items-center rounded-full bg-blue-200 px-2 py-1 text-xs font-semibold text-blue-800">
                                                     {{ $inc->lot_number }}
                                                 </span>
                                             @else
@@ -243,7 +243,7 @@
                                         </td>
                                         <td class="px-4 py-3">
                                             <button type="button"
-                                                class="text-sm text-indigo-600 font-semibold hover:underline"
+                                                class="text-sm font-semibold text-indigo-600 hover:underline"
                                                 onclick="toggleImage({{ $inc->id }})">
                                                 Lihat Gambar
                                             </button>
@@ -253,7 +253,7 @@
                                     </tr>
                                 @empty
                                     <tr>
-                                        <td colspan="15" class="px-4 py-8 text-center text-gray-400 italic">Belum
+                                        <td colspan="15" class="px-4 py-8 text-center italic text-gray-400">Belum
                                             ada data Inspeksi Incoming Bahan Baku.</td>
                                     </tr>
                                 @endforelse
@@ -263,10 +263,10 @@
                 </div>
             </div>
 
-            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg border border-gray-200">
+            <div class="overflow-hidden border border-gray-200 bg-white shadow-sm sm:rounded-lg">
                 <div class="p-6">
-                    <div class="flex items-center gap-2 mb-4">
-                        <div class="p-2 bg-green-100 rounded-lg text-green-600">
+                    <div class="mb-4 flex items-center gap-2">
+                        <div class="rounded-lg bg-green-100 p-2 text-green-600">
                             <svg xmlns="http://www.w3.org/2000/svg" class="size-5" fill="none"
                                 viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -277,11 +277,11 @@
                     </div>
 
                     <div class="overflow-x-auto rounded-lg border border-gray-200">
-                        <table class="min-w-full divide-y divide-gray-200 text-sm text-left">
+                        <table class="min-w-full divide-y divide-gray-200 text-left text-sm">
                             <thead class="bg-gray-50">
                                 <tr>
                                     <th class="px-4 py-3 font-semibold text-gray-900">No</th>
-                                    <th class="px-4 py-3 font-semibold text-gray-900 text-center">Aksi</th>
+                                    <th class="px-4 py-3 text-center font-semibold text-gray-900">Aksi</th>
                                     <th class="px-4 py-3 font-semibold text-gray-900">Status</th>
                                     <th class="px-4 py-3 font-semibold text-gray-900">Inspektor</th>
                                     <th class="px-4 py-3 font-semibold text-gray-900">No Koil</th>
@@ -293,18 +293,18 @@
                                     <th class="px-4 py-3 font-semibold text-gray-900">Description 2</th>
                                     <th class="px-4 py-3 font-semibold text-gray-900">Lot Number</th>
                                     <th class="px-4 py-3 font-semibold text-gray-900">Gambar</th>
-                                    <th class="px-4 py-3 font-semibold text-gray-900 text-center">Created At</th>
+                                    <th class="px-4 py-3 text-center font-semibold text-gray-900">Created At</th>
                                 </tr>
                             </thead>
                             <tbody class="divide-y divide-gray-200">
                                 @forelse ($incomingbahanbaku->mechanicalTests as $test)
-                                    <tr class="hover:bg-gray-50 transition-colors">
+                                    <tr class="transition-colors hover:bg-gray-50">
                                         <td class="px-4 py-3">{{ $loop->iteration }}</td>
                                         <td class="px-4 py-3">
                                             <div class="flex items-center justify-center gap-2">
                                                 @if ($isApproved)
                                                     <span
-                                                        class="flex items-center justify-center rounded bg-gray-100 p-2 text-gray-400 cursor-not-allowed">
+                                                        class="flex cursor-not-allowed items-center justify-center rounded bg-gray-100 p-2 text-gray-400">
                                                         <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4"
                                                             fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                             <path stroke-linecap="round" stroke-linejoin="round"
@@ -316,7 +316,7 @@
                                                         </svg>
                                                     </span>
                                                     <span
-                                                        class="flex items-center justify-center rounded bg-gray-100 p-2 text-gray-400 cursor-not-allowed">
+                                                        class="flex cursor-not-allowed items-center justify-center rounded bg-gray-100 p-2 text-gray-400">
                                                         <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4"
                                                             fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                             <path stroke-linecap="round" stroke-linejoin="round"
@@ -326,7 +326,7 @@
                                                     </span>
                                                 @else
                                                     <a href="{{ route('incomingbahanbaku.mechanical_test.edit', ['incomingbahanbaku' => $incomingbahanbaku->id, 'mechanicalTest' => $test->id]) }}"
-                                                        class="flex items-center justify-center rounded bg-yellow-50 p-2 text-yellow-700 hover:bg-yellow-100 transition">
+                                                        class="flex items-center justify-center rounded bg-yellow-50 p-2 text-yellow-700 transition hover:bg-yellow-100">
                                                         <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4"
                                                             fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                             <path stroke-linecap="round" stroke-linejoin="round"
@@ -343,7 +343,7 @@
                                                         @csrf
                                                         @method('DELETE')
                                                         <button type="submit"
-                                                            class="flex items-center justify-center rounded bg-red-50 p-2 text-red-700 hover:bg-red-100 transition">
+                                                            class="flex items-center justify-center rounded bg-red-50 p-2 text-red-700 transition hover:bg-red-100">
                                                             <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4"
                                                                 fill="none" viewBox="0 0 24 24"
                                                                 stroke="currentColor">
@@ -358,7 +358,7 @@
                                         </td>
                                         <td class="px-4 py-3">
                                             <span
-                                                class="inline-flex items-center px-2 py-1 text-xs font-semibold rounded-full {{ $test->status === 'OK' ? 'text-green-800 bg-green-200' : 'text-yellow-800 bg-yellow-200' }}">
+                                                class="{{ $test->status === 'OK' ? 'text-green-800 bg-green-200' : 'text-yellow-800 bg-yellow-200' }} inline-flex items-center rounded-full px-2 py-1 text-xs font-semibold">
                                                 {{ $test->status ?? 'N/A' }}
                                             </span>
                                         </td>
@@ -368,7 +368,7 @@
                                         <td class="px-4 py-3">{{ $test->hasil_coatingweight }} g/m<sup>2</sup></td>
                                         <td class="px-4 py-3">
                                             <span
-                                                class="inline-flex items-center px-2 py-1 text-xs font-semibold rounded-full {{ $test->hasil_lilit === 'OK' ? 'text-green-800 bg-green-200' : 'text-red-800 bg-red-200' }}">
+                                                class="{{ $test->hasil_lilit === 'OK' ? 'text-green-800 bg-green-200' : 'text-red-800 bg-red-200' }} inline-flex items-center rounded-full px-2 py-1 text-xs font-semibold">
                                                 {{ $test->hasil_lilit }}
                                             </span>
                                         </td>
@@ -378,7 +378,7 @@
                                         <td class="px-4 py-3">
                                             @if ($test->lot_number)
                                                 <span
-                                                    class="inline-flex items-center px-2 py-1 text-xs font-semibold rounded-full text-blue-800 bg-blue-200">
+                                                    class="inline-flex items-center rounded-full bg-blue-200 px-2 py-1 text-xs font-semibold text-blue-800">
                                                     {{ $test->lot_number }}
                                                 </span>
                                             @else
@@ -387,7 +387,7 @@
                                         </td>
                                         <td class="px-4 py-3">
                                             <button type="button"
-                                                class="text-sm text-indigo-600 font-semibold hover:underline"
+                                                class="text-sm font-semibold text-indigo-600 hover:underline"
                                                 onclick="toggleImage2({{ $test->id }})">
                                                 Lihat Gambar
                                             </button>
@@ -397,7 +397,7 @@
                                     </tr>
                                 @empty
                                     <tr>
-                                        <td colspan="14" class="px-4 py-8 text-center text-gray-400 italic">Belum
+                                        <td colspan="14" class="px-4 py-8 text-center italic text-gray-400">Belum
                                             ada data Mechanical Test.</td>
                                     </tr>
                                 @endforelse
@@ -412,31 +412,31 @@
 
     @foreach ($incomingbahanbaku->incomingbahanbakuinspeksi as $inc)
         <div id="image-{{ $inc->id }}"
-            class="hidden fixed inset-0 bg-gray-900 bg-opacity-50 flex items-center justify-center z-50">
-            <div class="bg-white rounded-lg shadow-lg w-3/4 p-6 max-h-[80vh] overflow-y-auto">
-                <h3 class="text-lg font-semibold mb-4 text-gray-800">Gambar Incoming No Koil: <span
+            class="fixed inset-0 z-50 flex hidden items-center justify-center bg-gray-900 bg-opacity-50">
+            <div class="max-h-[80vh] w-3/4 overflow-y-auto rounded-lg bg-white p-6 shadow-lg">
+                <h3 class="mb-4 text-lg font-semibold text-gray-800">Gambar Incoming No Koil: <span
                         class="text-indigo-600">{{ $inc->no_koil }}</span></h3>
                 @if ($inc->files)
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div class="grid grid-cols-1 gap-4 md:grid-cols-2">
                         @foreach ($inc->files as $file)
                             @php $ext = pathinfo($file, PATHINFO_EXTENSION); @endphp
                             @if (in_array(strtolower($ext), ['jpg', 'jpeg', 'png', 'webp']))
                                 <img src="{{ asset('storage/' . $file) }}" alt="Incoming Image"
-                                    class="w-full h-64 object-contain rounded border shadow-sm" />
+                                    class="h-64 w-full rounded border object-contain shadow-sm" />
                             @else
                                 <a href="{{ asset('storage/' . $file) }}" target="_blank"
-                                    class="flex items-center justify-center p-4 border rounded bg-gray-50 text-indigo-600 hover:underline font-medium">
+                                    class="flex items-center justify-center rounded border bg-gray-50 p-4 font-medium text-indigo-600 hover:underline">
                                     Lihat File ({{ strtoupper($ext) }})
                                 </a>
                             @endif
                         @endforeach
                     </div>
                 @else
-                    <p class="text-gray-400 italic">Tidak ada file yang diupload.</p>
+                    <p class="italic text-gray-400">Tidak ada file yang diupload.</p>
                 @endif
                 <div class="mt-6 text-right">
                     <button onclick="toggleImage({{ $inc->id }})"
-                        class="px-4 py-2 bg-gray-200 text-gray-700 rounded-md hover:bg-gray-300 font-medium transition">Tutup</button>
+                        class="rounded-md bg-gray-200 px-4 py-2 font-medium text-gray-700 transition hover:bg-gray-300">Tutup</button>
                 </div>
             </div>
         </div>
@@ -444,12 +444,12 @@
 
     @foreach ($incomingbahanbaku->mechanicalTests as $test)
         <div id="image2-{{ $test->id }}"
-            class="hidden fixed inset-0 bg-gray-900 bg-opacity-50 flex items-center justify-center z-50">
-            <div class="bg-white rounded-lg shadow-lg w-3/4 p-6 max-h-[80vh] overflow-y-auto">
-                <h3 class="text-lg font-semibold mb-4 text-gray-800">Gambar Mechanical Test No Koil: <span
+            class="fixed inset-0 z-50 flex hidden items-center justify-center bg-gray-900 bg-opacity-50">
+            <div class="max-h-[80vh] w-3/4 overflow-y-auto rounded-lg bg-white p-6 shadow-lg">
+                <h3 class="mb-4 text-lg font-semibold text-gray-800">Gambar Mechanical Test No Koil: <span
                         class="text-green-700">{{ $test->nomor_koil }}</span></h3>
                 @if ($test->files)
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div class="grid grid-cols-1 gap-4 md:grid-cols-2">
                         @foreach ($test->files as $file)
                             @php
                                 $actualFile = is_array($file) ? $file[0] ?? '' : $file;
@@ -459,10 +459,10 @@
                             @if (!empty($actualFile))
                                 @if (in_array(strtolower($ext), ['jpg', 'jpeg', 'png', 'webp']))
                                     <img src="{{ asset('storage/' . $actualFile) }}" alt="Mechanical Test Image"
-                                        class="w-full h-64 object-contain rounded border shadow-sm" />
+                                        class="h-64 w-full rounded border object-contain shadow-sm" />
                                 @else
                                     <a href="{{ asset('storage/' . $actualFile) }}" target="_blank"
-                                        class="flex items-center justify-center p-4 border rounded bg-gray-50 text-green-700 hover:underline font-medium">
+                                        class="flex items-center justify-center rounded border bg-gray-50 p-4 font-medium text-green-700 hover:underline">
                                         Lihat File ({{ strtoupper($ext) ?: 'DOC' }})
                                     </a>
                                 @endif
@@ -472,7 +472,7 @@
                 @endif
                 <div class="mt-6 text-right">
                     <button onclick="toggleImage2({{ $test->id }})"
-                        class="px-4 py-2 bg-gray-200 text-gray-700 rounded-md hover:bg-gray-300 font-medium transition">Tutup</button>
+                        class="rounded-md bg-gray-200 px-4 py-2 font-medium text-gray-700 transition hover:bg-gray-300">Tutup</button>
                 </div>
             </div>
         </div>
@@ -523,7 +523,7 @@
                     style="width: 20%; vertical-align: top; text-align: right; font-family: Arial, sans-serif; font-size: 11pt;">
                     <table cellpadding="3" cellspacing="0" style="border: 1px solid #000; margin-left: auto;">
                         <tr>
-                            <td style="font-weight: bold; font-size: 10pt;">BM-F-QC-XX R00</td>
+                            <td style="font-weight: bold; font-size: 10pt;">BM-F-QC-17 R00</td>
                         </tr>
                     </table>
                 </td>
