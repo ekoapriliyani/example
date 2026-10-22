@@ -715,7 +715,8 @@
                     <p style="margin: 0 0 5px 0; font-weight: bold;">Disetujui Oleh:</p>
                     <br><br><br>
                     <p style="margin: 0; border-top: 1px solid #000; width: 200px; padding-top: 5px;">
-                        {{ $incomingbahanbaku->approver->name ?? '.................' }}</p>
+                        {{-- {{ $incomingbahanbaku->approver->name ?? '.................' }}</p> --}}
+                        M Zuhdi</p>
                     <p style="margin: 2px 0 0 0; font-style: italic;">Supervisor / Manager</p>
                 </td>
             </tr>
