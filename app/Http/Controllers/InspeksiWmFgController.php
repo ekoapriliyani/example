@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
+use Intervention\Image\Laravel\Facades\Image;
 use chillerlan\QRCode\QRCode;
 use chillerlan\QRCode\QROptions;
 
@@ -53,7 +54,16 @@ class InspeksiWmFgController extends Controller
         if ($request->hasFile('files')) {
             $paths = [];
             foreach ($request->file('files') as $file) {
-                $paths[] = $file->store('inspeksi_wm_fg', 'public');
+                if (in_array($file->getClientOriginalExtension(), ['jpg', 'jpeg', 'png', 'webp'])) {
+                    $img = Image::read($file);
+                    // Resize to max width 1200, auto height, and optimize quality
+                    $compressed = $img->scale(width: 1200)->encodeByExtension($file->getClientOriginalExtension(), quality: 75);
+                    $filename = 'inspeksi_wm_fg/' . uniqid() . '.' . $file->getClientOriginalExtension();
+                    Storage::disk('public')->put($filename, $compressed);
+                    $paths[] = $filename;
+                } else {
+                    $paths[] = $file->store('inspeksi_wm_fg', 'public');
+                }
             }
             $fg->update(['files' => $paths]);
         }
@@ -130,7 +140,15 @@ class InspeksiWmFgController extends Controller
 
             $newFiles = [];
             foreach ($request->file('files') as $file) {
-                $newFiles[] = $file->store('inspeksi_wm_fg', 'public');
+                if (in_array($file->getClientOriginalExtension(), ['jpg', 'jpeg', 'png', 'webp'])) {
+                    $img = Image::read($file);
+                    $compressed = $img->scale(width: 1200)->encodeByExtension($file->getClientOriginalExtension(), quality: 75);
+                    $filename = 'inspeksi_wm_fg/' . uniqid() . '.' . $file->getClientOriginalExtension();
+                    Storage::disk('public')->put($filename, $compressed);
+                    $newFiles[] = $filename;
+                } else {
+                    $newFiles[] = $file->store('inspeksi_wm_fg', 'public');
+                }
             }
             $fg->update(['files' => $newFiles]);
         }
