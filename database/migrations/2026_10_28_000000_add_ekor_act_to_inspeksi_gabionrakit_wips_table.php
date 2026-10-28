@@ -1,0 +1,28 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class extends Migration
+{
+    /**
+     * Run the migrations.
+     */
+    public function up(): void
+    {
+        Schema::table('inspeksi_gabionrakit_wips', function (Blueprint $table) {
+            $table->decimal('ekor_act', 8, 2)->nullable()->after('nama_operator');
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     */
+    public function down(): void
+    {
+        Schema::table('inspeksi_gabionrakit_wips', function (Blueprint $table) {
+            $table->dropColumn('ekor_act');
+        });
+    }
+};

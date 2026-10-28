@@ -11,6 +11,7 @@ class InspeksiGabionrakitWip extends Model
         'user_id',
         'no_material',
         'nama_operator',
+        'ekor_act',
         'p_act',
         'l_act',
         't_act',
