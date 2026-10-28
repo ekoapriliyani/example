@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\IncomingPvcHdpe;
 use App\Models\IncomingPvcHdpeInspeksi;
 use App\Models\Supplier;
+use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -284,6 +285,37 @@ class IncomingPvcHdpeController extends Controller
         } catch (\Exception $e) {
             return redirect()->back()->with('error', 'Gagal menghapus data: ' . $e->getMessage());
         }
+    }
+
+    public function toggleApproval($id)
+    {
+        if (! in_array(auth()->user()->role, ['supervisor', 'manager', 'administrator'])) {
+            abort(403, 'Tidak punya akses.');
+        }
+
+        $incomingpvchdpe = IncomingPvcHdpe::findOrFail($id);
+
+        if ($incomingpvchdpe->isApproved()) {
+            // UNAPPROVE
+            $incomingpvchdpe->update([
+                'approval_status' => 'PENDING',
+                'approved_by' => null,
+                'approved_at' => null,
+            ]);
+
+            $message = 'Approval dibatalkan.';
+        } else {
+            // APPROVE
+            $incomingpvchdpe->update([
+                'approval_status' => 'APPROVED',
+                'approved_by' => auth()->id(),
+                'approved_at' => now(),
+            ]);
+
+            $message = 'Data berhasil di-approve.';
+        }
+
+        return back()->with('success', $message);
     }
 
 

@@ -14,6 +14,9 @@ class IncomingPvcHdpe extends Model
         'no_sj',
         'certificate',
         'files',
+        'approval_status',
+        'approved_by',
+        'approved_at',
     ];
 
     protected $casts = [
@@ -28,5 +31,15 @@ class IncomingPvcHdpe extends Model
     public function incomingPvcHdpeInspeksi()
     {
         return $this->hasMany(IncomingPvcHdpeInspeksi::class);
+    }
+
+    public function approver()
+    {
+        return $this->belongsTo(User::class, 'approved_by');
+    }
+
+    public function isApproved()
+    {
+        return $this->approval_status === 'APPROVED';
     }
 }

@@ -844,6 +844,9 @@ Route::middleware(['auth'])->group(function () {
         // Rute untuk memproses data update (gunakan PUT/PATCH)
         Route::put('/incomingpvchdpe/inspeksi/{id}', [IncomingPvcHdpeController::class, 'updateInspeksi'])
             ->name('incomingpvchdpe.inspeksi.update');
+
+        Route::patch('/incomingpvchdpe/{id}/toggle-approval', [IncomingPvcHdpeController::class, 'toggleApproval'])
+            ->name('incomingpvchdpe.toggle');
     });
 
 
