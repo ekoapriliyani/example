@@ -79,6 +79,18 @@
                                     placeholder="Nama operator mesin" />
                                 <x-input-error class="mt-2" :messages="$errors->get('nama_operator')" />
                             </div>
+                            <div>
+                                <x-input-label for="ekor_act" :value="__('Panjang Ekor Act.')" />
+                                <div class="relative mt-1">
+                                    <x-text-input id="ekor_act" name="ekor_act" type="number" step="0.01"
+                                        class="block w-full pr-12" :value="old('ekor_act')" placeholder="0.00" />
+                                    <div
+                                        class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3 text-sm text-gray-400">
+                                        mm
+                                    </div>
+                                </div>
+                                <x-input-error class="mt-2" :messages="$errors->get('ekor_act')" />
+                            </div>
                         </div>
 
                         <div class="grid grid-cols-1 gap-6 md:grid-cols-2">

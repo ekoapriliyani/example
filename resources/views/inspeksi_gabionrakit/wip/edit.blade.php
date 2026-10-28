@@ -40,6 +40,12 @@
                                 <x-input-error class="mt-2" :messages="$errors->get('nama_operator')" />
                             </div>
                             <div>
+                                <x-input-label for="ekor_act" :value="__('Panjang Ekor Act.')" />
+                                <x-text-input id="ekor_act" name="ekor_act" type="number" step="0.01"
+                                    class="mt-1 block w-full" :value="old('ekor_act', $wip->ekor_act)" />
+                                <x-input-error class="mt-2" :messages="$errors->get('ekor_act')" />
+                            </div>
+                            <div>
                                 <x-input-label for="p_act" :value="__('P Act')" />
                                 <x-text-input id="p_act" name="p_act" type="number" step="0.01"
                                     class="mt-1 block w-full" :value="old('p_act', $wip->p_act)" />
