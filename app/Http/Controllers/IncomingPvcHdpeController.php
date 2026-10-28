@@ -19,6 +19,7 @@ class IncomingPvcHdpeController extends Controller
     public function index(Request $request)
     {
         $search = $request->input('search');
+        $status = $request->input('status');
         $startDate = $request->input('start_date');
         $endDate = $request->input('end_date');
 
@@ -30,6 +31,16 @@ class IncomingPvcHdpeController extends Controller
                     ->orWhereHas('supplier', function ($q) use ($search) {
                         $q->where('nama', 'like', "%{$search}%");
                     });
+            })
+            ->when($status, function ($query, $status) {
+                if ($status === 'approved') {
+                    return $query->where('approval_status', 'APPROVED');
+                } elseif ($status === 'pending') {
+                    return $query->where(function ($q) {
+                        $q->where('approval_status', 'PENDING')
+                            ->orWhereNull('approval_status');
+                    });
+                }
             })
             ->when($startDate, function ($query, $startDate) {
                 return $query->whereDate('tanggal', '>=', $startDate);
