@@ -14,6 +14,9 @@ class SheetGalvanize extends Model
         'certificate',
         'files',
         'supplier_id',
+        'approval_status',
+        'approved_by',
+        'approved_at',
     ];
 
     protected $casts = [
@@ -27,5 +30,15 @@ class SheetGalvanize extends Model
     public function inspeksiSheetGalvanizes()
     {
         return $this->hasMany(InspeksiSheetGalvanize::class, 'sheet_galvanize_id');
+    }
+
+    public function approver()
+    {
+        return $this->belongsTo(User::class, 'approved_by');
+    }
+
+    public function isApproved()
+    {
+        return $this->approval_status === 'APPROVED';
     }
 }

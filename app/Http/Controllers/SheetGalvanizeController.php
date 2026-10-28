@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\InspeksiSheetGalvanize;
 use App\Models\SheetGalvanize;
 use App\Models\Supplier;
+use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -18,6 +19,7 @@ class SheetGalvanizeController extends Controller
     public function index(Request $request)
     {
         $search = $request->input('search');
+        $status = $request->input('status');
         $startDate = $request->input('start_date');
         $endDate = $request->input('end_date');
 
@@ -29,6 +31,16 @@ class SheetGalvanizeController extends Controller
                     ->orWhereHas('supplier', function ($q) use ($search) {
                         $q->where('nama', 'like', "%{$search}%");
                     });
+            })
+            ->when($status, function ($query, $status) {
+                if ($status === 'approved') {
+                    return $query->where('approval_status', 'APPROVED');
+                } elseif ($status === 'pending') {
+                    return $query->where(function ($q) {
+                        $q->where('approval_status', 'PENDING')
+                            ->orWhereNull('approval_status');
+                    });
+                }
             })
             ->when($startDate, function ($query, $startDate) {
                 return $query->whereDate('tanggal', '>=', $startDate);
@@ -320,5 +332,36 @@ class SheetGalvanizeController extends Controller
         return redirect()
             ->route('sheetgalvanize.show', $sheetGalvanizeId)
             ->with('success', 'Data inspeksi berhasil dihapus.');
+    }
+
+    public function toggleApproval($id)
+    {
+        if (! in_array(auth()->user()->role, ['supervisor', 'manager', 'administrator'])) {
+            abort(403, 'Tidak punya akses.');
+        }
+
+        $sheetgalvanize = SheetGalvanize::findOrFail($id);
+
+        if ($sheetgalvanize->isApproved()) {
+            // UNAPPROVE
+            $sheetgalvanize->update([
+                'approval_status' => 'PENDING',
+                'approved_by' => null,
+                'approved_at' => null,
+            ]);
+
+            $message = 'Approval dibatalkan.';
+        } else {
+            // APPROVE
+            $sheetgalvanize->update([
+                'approval_status' => 'APPROVED',
+                'approved_by' => auth()->id(),
+                'approved_at' => now(),
+            ]);
+
+            $message = 'Data berhasil di-approve.';
+        }
+
+        return back()->with('success', $message);
     }
 }

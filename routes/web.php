@@ -892,6 +892,9 @@ Route::middleware(['auth'])->group(function () {
             'sheetgalvanize/inspeksi/{inspeksi}',
             'updateInspeksi'
         )->name('sheetgalvanize.inspeksi.update');
+
+        Route::patch('/sheetgalvanize/{id}/toggle-approval', [SheetGalvanizeController::class, 'toggleApproval'])
+            ->name('sheetgalvanize.toggle');
     });
 });
 
