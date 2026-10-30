@@ -14,6 +14,7 @@ class InspeksiChainlinkFg extends Model
         'label',
         'qty',
         'weight',
+        'lot_number',
         'files',
     ];
 
