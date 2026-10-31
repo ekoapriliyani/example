@@ -14,6 +14,7 @@ class InspeksiGabionpackingFg extends Model
         'weight',
         'visual',
         'label',
+        'lot_number',
         'files',
     ];
 
