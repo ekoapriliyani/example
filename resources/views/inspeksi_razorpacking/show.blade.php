@@ -120,6 +120,7 @@
                                     <th class="px-4 py-3 font-semibold text-gray-900">Weight</th>
                                     <th class="px-4 py-3 font-semibold text-gray-900">Label</th>
                                     <th class="px-4 py-3 font-semibold text-gray-900">Visual</th>
+                                    <th class="px-4 py-3 font-semibold text-gray-900">Lot Number</th>
                                     <th class="px-4 py-3 font-semibold text-gray-900">Detail</th>
                                     <th class="px-4 py-3 font-semibold text-gray-900">Gambar</th>
                                     <th class="px-4 py-3 font-semibold text-gray-900">Created At</th>
@@ -217,6 +218,9 @@
                                         <td class="px-4 py-3">{{ $fg->weight }} Kg</td>
                                         <td class="px-4 py-3">{{ $fg->visual }}</td>
                                         <td class="px-4 py-3">{{ $fg->label }}</td>
+                                        <td class="px-4 py-3 font-medium">
+                                            {{ $fg->lot_number ?? '-' }}
+                                        </td>
                                         <td class="px-4 py-3">
                                             <button type="button" class="text-sm text-indigo-600 hover:underline"
                                                 onclick="toggleDetail({{ $fg->id }})">
@@ -233,7 +237,7 @@
                                     </tr>
                                 @empty
                                     <tr>
-                                        <td colspan="2" class="px-4 py-8 text-center italic text-gray-400">Belum
+                                        <td colspan="3" class="px-4 py-8 text-center italic text-gray-400">Belum
                                             ada data FG untuk inspeksi ini.</td>
                                     </tr>
                                 @endforelse
@@ -575,6 +579,7 @@
                         <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 12%;">Weight</th>
                         <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 12%;">Label</th>
                         <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 12%;">Visual</th>
+                        <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 15%;">Lot Number</th>
                         <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 12%;">Created At
                         </th>
                     </tr>
@@ -594,11 +599,14 @@
                             <td style="border: 1px solid #000; padding: 4px;">{{ $fg->label }}</td>
                             <td style="border: 1px solid #000; padding: 4px;">{{ $fg->visual }}</td>
                             <td style="border: 1px solid #000; padding: 4px; text-align: center;">
+                                {{ $fg->lot_number ?? '-' }}
+                            </td>
+                            <td style="border: 1px solid #000; padding: 4px; text-align: center;">
                                 {{ $fg->created_at->format('d/m/Y') }}</td>
                         </tr>
                     @empty
                         <tr>
-                            <td colspan="8"
+                            <td colspan="9"
                                 style="border: 1px solid #000; padding: 8px; text-align: center; font-style: italic;">
                                 Belum ada data FG</td>
                         </tr>

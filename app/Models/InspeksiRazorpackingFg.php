@@ -14,6 +14,7 @@ class InspeksiRazorpackingFg extends Model
         'weight',
         'visual',
         'label',
+        'lot_number',
         'files',
     ];
 

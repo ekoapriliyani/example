@@ -14,6 +14,7 @@ class InspeksiKawatDuriFg extends Model
         'weight',
         'packing',
         'label',
+        'lot_number',
         'files',
     ];
     protected $casts = [

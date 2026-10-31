@@ -4,9 +4,13 @@ namespace App\Http\Controllers;
 
 use App\Models\InspeksiRazorpacking;
 use App\Models\InspeksiRazorpackingFg;
+use App\Mail\RpFgLotNotification;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\DB;
 
 class InspeksiRazorpackingFgController extends Controller
 {
@@ -79,6 +83,8 @@ class InspeksiRazorpackingFgController extends Controller
                 ]);
             }
         }
+        $this->handleLotNumberAndNotify($fg);
+
         return redirect()->route('inspeksi_razorpacking.show', $validated['inspeksi_razorpacking_id'])->with('success', 'Data FG berhasil disimpan.');
     }
 
@@ -162,6 +168,8 @@ class InspeksiRazorpackingFgController extends Controller
                 ]);
             }
         }
+        $this->handleLotNumberAndNotify($fg);
+
         return redirect()
             ->route('inspeksi_razorpacking.show', $fg->inspeksi_razorpacking_id)
             ->with('success', 'Data FG berhasil diupdate.');
@@ -178,5 +186,41 @@ class InspeksiRazorpackingFgController extends Controller
 
         return redirect()->route('inspeksi_razorpacking.show', $inspeksiRazorpackingId)
             ->with('success', 'Data FG berhasil dihapus');
+    }
+
+    private function generateLotNumber(string $prefix): string
+    {
+        $tahunBulan = now()->format('Ym');
+        $prefixWithDate = "{$prefix}-{$tahunBulan}-";
+
+        return DB::transaction(function () use ($prefixWithDate) {
+            $maxSeq = DB::table('inspeksi_razorpacking_fgs')
+                ->where('lot_number', 'like', "{$prefixWithDate}%")
+                ->whereNotNull('lot_number')
+                ->lockForUpdate()
+                ->max(DB::raw("CAST(REPLACE(lot_number, '{$prefixWithDate}', '') AS UNSIGNED)"));
+
+            $nextNumber = ($maxSeq ?: 0) + 1;
+
+            return $prefixWithDate . str_pad($nextNumber, 5, '0', STR_PAD_LEFT);
+        });
+    }
+
+    private function handleLotNumberAndNotify(InspeksiRazorpackingFg $fg): void
+    {
+        if (!in_array($fg->status, ['NG', 'REJECT']) || $fg->lot_number) {
+            return;
+        }
+
+        $prefix = $fg->status === 'NG' ? 'NG-RP' : 'REJ-RP';
+        $lotNumber = $this->generateLotNumber($prefix);
+
+        $fg->updateQuietly(['lot_number' => $lotNumber]);
+
+        $recipients = User::whereIn('role', [User::SUPERVISOR, User::MANAGER])->get();
+
+        Mail::to($recipients)->send(new RpFgLotNotification(
+            $fg->fresh(['inspeksiRazorpacking.pro', 'user', 'details'])
+        ));
     }
 }

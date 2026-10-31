@@ -4,9 +4,13 @@ namespace App\Http\Controllers;
 
 use App\Models\InspeksiKawatDuri;
 use App\Models\InspeksiKawatDuriFg;
+use App\Mail\KdFgLotNotification;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\DB;
 
 class InspeksiKawatDuriFgController extends Controller
 {
@@ -81,6 +85,8 @@ class InspeksiKawatDuriFgController extends Controller
                 ]);
             }
         }
+
+        $this->handleLotNumberAndNotify($fg);
 
         return redirect()->route('inspeksi_kawat_duri.show', $validated['inspeksi_kawat_duri_id'])
             ->with('success', 'Data FG berhasil disimpan.');
@@ -167,6 +173,8 @@ class InspeksiKawatDuriFgController extends Controller
             }
         }
 
+        $this->handleLotNumberAndNotify($fg);
+
         return redirect()
             ->route('inspeksi_kawat_duri.show', $fg->inspeksi_kawat_duri_id)
             ->with('success', 'Data FG berhasil diupdate.');
@@ -183,5 +191,41 @@ class InspeksiKawatDuriFgController extends Controller
 
         return redirect()->route('inspeksi_kawat_duri.show', $inspeksiKawatDuriId)
             ->with('success', 'Data FG berhasil dihapus');
+    }
+
+    private function generateLotNumber(string $prefix): string
+    {
+        $tahunBulan = now()->format('Ym');
+        $prefixWithDate = "{$prefix}-{$tahunBulan}-";
+
+        return DB::transaction(function () use ($prefixWithDate) {
+            $maxSeq = DB::table('inspeksi_kawat_duri_fgs')
+                ->where('lot_number', 'like', "{$prefixWithDate}%")
+                ->whereNotNull('lot_number')
+                ->lockForUpdate()
+                ->max(DB::raw("CAST(REPLACE(lot_number, '{$prefixWithDate}', '') AS UNSIGNED)"));
+
+            $nextNumber = ($maxSeq ?: 0) + 1;
+
+            return $prefixWithDate . str_pad($nextNumber, 5, '0', STR_PAD_LEFT);
+        });
+    }
+
+    private function handleLotNumberAndNotify(InspeksiKawatDuriFg $fg): void
+    {
+        if (!in_array($fg->status, ['NG', 'REJECT']) || $fg->lot_number) {
+            return;
+        }
+
+        $prefix = $fg->status === 'NG' ? 'NG-KD' : 'REJ-KD';
+        $lotNumber = $this->generateLotNumber($prefix);
+
+        $fg->updateQuietly(['lot_number' => $lotNumber]);
+
+        $recipients = User::whereIn('role', [User::SUPERVISOR, User::MANAGER])->get();
+
+        Mail::to($recipients)->send(new KdFgLotNotification(
+            $fg->fresh(['inspeksiKawatDuri.pro', 'user', 'inspeksiKdFgDetails'])
+        ));
     }
 }
