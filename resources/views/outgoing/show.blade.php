@@ -9,6 +9,15 @@
                     class="inline-flex items-center px-4 py-2 bg-white border border-gray-300 rounded-md font-semibold text-xs text-gray-700 uppercase tracking-widest shadow-sm hover:bg-gray-50 transition ease-in-out duration-150">
                     Kembali
                 </a>
+                <button type="button" onclick="printInspeksi()"
+                    class="inline-flex items-center gap-2 rounded-md border border-gray-300 bg-white px-4 py-2 text-xs font-semibold uppercase tracking-widest text-gray-700 shadow-sm transition duration-150 ease-in-out hover:bg-gray-50">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24"
+                        stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                            d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 002 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z" />
+                    </svg>
+                    Cetak
+                </button>
 
                 @php
                     $isApproved = $outgoing->approval_status === 'APPROVED';
@@ -357,5 +366,174 @@
                 });
             });
         });
+
+        function printInspeksi() {
+            window.print();
+        }
     </script>
+
+    {{-- ==================== PRINT SECTION ==================== --}}
+    <style>
+        @media print {
+            @page {
+                size: landscape;
+                margin: 10mm;
+            }
+
+            body * {
+                visibility: hidden;
+            }
+
+            #print-section,
+            #print-section * {
+                visibility: visible;
+            }
+
+            #print-section {
+                position: absolute;
+                left: 0;
+                top: 0;
+                width: 100%;
+            }
+
+            #print-section.hidden {
+                display: block !important;
+            }
+        }
+    </style>
+    <div id="print-section" class="hidden">
+        {{-- Header --}}
+        <table width="100%" cellpadding="5" cellspacing="0"
+            style="border-collapse: collapse; margin-bottom: 10px;">
+            <tr>
+                <td style="width: 20%; vertical-align: middle;">
+                    <img src="{{ asset('img/logobeva.png') }}" alt="Logo" style="height: 60px; width: auto;" />
+                </td>
+                <td style="width: 60%; vertical-align: middle; text-align: center;">
+                    <h1 style="font-size: 18pt; font-weight: bold; margin: 0; font-family: Arial, sans-serif;">LAPORAN
+                        INSPEKSI OUTGOING</h1>
+                </td>
+                <td
+                    style="width: 20%; vertical-align: top; text-align: right; font-family: Arial, sans-serif; font-size: 11pt;">
+                    <table cellpadding="3" cellspacing="0" style="border: 1px solid #000; margin-left: auto;">
+                        <tr>
+                            <td style="font-weight: bold; font-size: 10pt;">BM-F-QC-XX R00</td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+        </table>
+
+        <hr style="border: 1px solid #000; margin-bottom: 15px;">
+
+        {{-- Data Header --}}
+        <table width="100%" cellpadding="5" cellspacing="0"
+            style="border-collapse: collapse; margin-bottom: 20px; font-family: Arial, sans-serif; font-size: 11pt;">
+            <tr>
+                <td style="width: 20%; font-weight: bold;">Tanggal</td>
+                <td style="width: 30%;">: {{ now()->format('d/m/Y') }}</td>
+                <td style="width: 20%; font-weight: bold;">No Inspeksi</td>
+                <td style="width: 30%;">: {{ $outgoing->nomor_inspeksi }}</td>
+            </tr>
+            <tr>
+                <td style="font-weight: bold;">Shipment ID</td>
+                <td>: {{ $outgoing->shipment_id ?? '-' }}</td>
+                <td style="font-weight: bold;">Sales Order</td>
+                <td>: {{ $outgoing->so ?? '-' }}</td>
+            </tr>
+            <tr>
+                <td style="font-weight: bold;">Nomor DO</td>
+                <td>: {{ $outgoing->no_do }}</td>
+                <td style="font-weight: bold;">Produk</td>
+                <td>: {{ $outgoing->produk }}</td>
+            </tr>
+            <tr>
+                <td style="font-weight: bold;">Qty</td>
+                <td>: {{ $outgoing->qty ?? '-' }}</td>
+                <td style="font-weight: bold;">Lokasi</td>
+                <td>: {{ $outgoing->lokasi }}</td>
+            </tr>
+            <tr>
+                <td style="font-weight: bold;">No Kendaraan</td>
+                <td>: {{ $outgoing->no_kendaraan }}</td>
+                <td style="font-weight: bold;">Keterangan</td>
+                <td>: {{ $outgoing->keterangan }}</td>
+            </tr>
+        </table>
+
+        {{-- Tabel Hasil Inspeksi Outgoing --}}
+        <div style="margin-bottom: 20px;">
+            <h3 style="font-family: Arial, sans-serif; font-size: 12pt; font-weight: bold; margin-bottom: 8px;">Hasil
+                Inspeksi Outgoing</h3>
+            <table width="100%" cellpadding="4" cellspacing="0"
+                style="border-collapse: collapse; font-family: Arial, sans-serif; font-size: 9pt; border: 1px solid #000;">
+                <thead>
+                    <tr style="background-color: #f0f0f0;">
+                        <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 3%;">No</th>
+                        <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 10%;">Inspektor</th>
+                        <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 8%;">Label</th>
+                        <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 8%;">Karat</th>
+                        <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 8%;">Penyok</th>
+                        <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 8%;">Kotor</th>
+                        <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 10%;">Galvanized</th>
+                        <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 8%;">Lasan</th>
+                        <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 8%;">Mesh</th>
+                        <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 8%;">PVC</th>
+                        <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 10%;">Packing</th>
+                        <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 8%;">QTY</th>
+                        <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 10%;">Created At</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @forelse ($outgoing->outgoinginspeksi as $inc)
+                        <tr>
+                            <td style="border: 1px solid #000; padding: 4px; text-align: center;">
+                                {{ $loop->iteration }}</td>
+                            <td style="border: 1px solid #000; padding: 4px;">{{ $inc->user->name ?? 'N/A' }}</td>
+                            <td style="border: 1px solid #000; padding: 4px;">{{ $inc->label }}</td>
+                            <td style="border: 1px solid #000; padding: 4px;">{{ $inc->karat }}</td>
+                            <td style="border: 1px solid #000; padding: 4px;">{{ $inc->penyok }}</td>
+                            <td style="border: 1px solid #000; padding: 4px;">{{ $inc->kotor }}</td>
+                            <td style="border: 1px solid #000; padding: 4px;">{{ $inc->galvanized }}</td>
+                            <td style="border: 1px solid #000; padding: 4px;">{{ $inc->lasan }}</td>
+                            <td style="border: 1px solid #000; padding: 4px;">{{ $inc->mesh }}</td>
+                            <td style="border: 1px solid #000; padding: 4px;">{{ $inc->pvc }}</td>
+                            <td style="border: 1px solid #000; padding: 4px;">{{ $inc->packing }}</td>
+                            <td style="border: 1px solid #000; padding: 4px; text-align: center;">{{ $inc->qty }}</td>
+                            <td style="border: 1px solid #000; padding: 4px; text-align: center;">
+                                {{ \Carbon\Carbon::parse($inc->created_at)->format('d/m/Y') }}</td>
+                        </tr>
+                    @empty
+                        <tr>
+                            <td colspan="13"
+                                style="border: 1px solid #000; padding: 8px; text-align: center; font-style: italic;">
+                                Belum ada data Inspeksi Outgoing</td>
+                        </tr>
+                    @endforelse
+                </tbody>
+            </table>
+        </div>
+
+        {{-- Tanda Tangan --}}
+        <table width="100%" cellpadding="10" cellspacing="0"
+            style="border-collapse: collapse; font-family: Arial, sans-serif; font-size: 11pt; margin-top: 40px;">
+            <tr>
+                <td style="width: 50%; vertical-align: top;">
+                    <p style="margin: 0 0 5px 0; font-weight: bold;">Dibuat oleh:</p>
+                    <br><br><br>
+                    <p style="margin: 0; border-top: 1px solid #000; width: 200px; padding-top: 5px;">
+                        {{ $outgoing->outgoinginspeksi->first()->user->name ?? '.................' }}</p>
+                    <p style="margin: 2px 0 0 0; font-style: italic;">Inspektor</p>
+                </td>
+                <td style="width: 50%; vertical-align: top;">
+                    <p style="margin: 0 0 5px 0; font-weight: bold;">Disetujui Oleh:</p>
+                    <br><br><br>
+                    <p style="margin: 0; border-top: 1px solid #000; width: 200px; padding-top: 5px;">
+                        {{ $outgoing->approver->name ?? '.................' }}</p>
+                    <p style="margin: 2px 0 0 0; font-style: italic;">Supervisor / Manager</p>
+                </td>
+            </tr>
+        </table>
+    </div>
+    {{-- ==================== END PRINT SECTION ==================== --}}
 </x-app-layout>
