@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <div class="flex items-center justify-between">
-            <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+            <h2 class="text-xl font-semibold leading-tight text-gray-800">
                 {{ __('Edit Mechanical Test') }}
             </h2>
             <p class="text-sm text-gray-500">
@@ -11,8 +11,8 @@
     </x-slot>
 
     <div class="py-12">
-        <div class="max-w-4xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg border border-gray-200">
+        <div class="mx-auto max-w-4xl sm:px-6 lg:px-8">
+            <div class="overflow-hidden border border-gray-200 bg-white shadow-sm sm:rounded-lg">
                 <div class="p-8 text-gray-900">
 
                     <form action="{{ route('incomingbahanbaku.mechanical_test.update', $mechanicalTest->id) }}"
@@ -20,18 +20,18 @@
                         @csrf
                         @method('PUT')
 
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="grid grid-cols-1 gap-6 md:grid-cols-2">
                             <div>
                                 <x-input-label for="nomor_koil" :value="__('Nomor Koil')" />
                                 <x-text-input id="nomor_koil" name="nomor_koil" type="text"
-                                    class="mt-1 block w-full bg-gray-50" :value="old('nomor_koil', $mechanicalTest->nomor_koil)" required readonly />
+                                    class="mt-1 block w-full bg-gray-50" :value="old('nomor_koil', $mechanicalTest->nomor_koil)" required />
                                 <x-input-error class="mt-2" :messages="$errors->get('nomor_koil')" />
                             </div>
 
                             <div>
                                 <x-input-label for="status" :value="__('Status Mechanical Test')" />
                                 <select id="status" name="status"
-                                    class="mt-1 block w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm"
+                                    class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
                                     required>
                                     <option value="" disabled>-- Pilih Status --</option>
                                     <option value="OK"
@@ -65,7 +65,7 @@
                             <div>
                                 <x-input-label for="hasil_lilit" :value="__('Hasil Lilit')" />
                                 <select id="hasil_lilit" name="hasil_lilit"
-                                    class="mt-1 block w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm"
+                                    class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
                                     required>
                                     <option value="" disabled>-- Pilih Hasil Lilit --</option>
                                     <option value="OK"
@@ -88,11 +88,11 @@
 
                         <div>
                             <x-input-label for="description1">
-                                {{ __('Description 1') }} <span class="text-red-600 text-xs font-semibold">(Isi jika
+                                {{ __('Description 1') }} <span class="text-xs font-semibold text-red-600">(Isi jika
                                     NG)</span>
                             </x-input-label>
                             <select id="description1" name="description1"
-                                class="mt-1 block w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm">
+                                class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
                                 <option value=""
                                     {{ old('description1', $mechanicalTest->description1) == '' ? 'selected' : '' }}>--
                                     PILIH DESKRIPSI --</option>
@@ -114,11 +114,11 @@
 
                         <div>
                             <x-input-label for="description2">
-                                {{ __('Description 2') }} <span class="text-red-600 text-xs font-semibold">(Isi jika
+                                {{ __('Description 2') }} <span class="text-xs font-semibold text-red-600">(Isi jika
                                     NG)</span>
                             </x-input-label>
                             <select id="description2" name="description2"
-                                class="mt-1 block w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm">
+                                class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
                                 <option value=""
                                     {{ old('description2', $mechanicalTest->description2) == '' ? 'selected' : '' }}>--
                                     PILIH DESKRIPSI --</option>
@@ -138,11 +138,11 @@
                             <x-input-error class="mt-2" :messages="$errors->get('description2')" />
                         </div>
 
-                        <div class="p-4 bg-gray-50 border border-gray-200 rounded-lg space-y-4">
+                        <div class="space-y-4 rounded-lg border border-gray-200 bg-gray-50 p-4">
                             <div>
                                 <x-input-label for="files" :value="__('Upload File/Gambar Baru (Bisa Multi-upload)')" />
                                 <input type="file" id="files" name="files[]" multiple
-                                    class="mt-2 block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-indigo-50 file:text-indigo-700 hover:file:bg-indigo-100" />
+                                    class="mt-2 block w-full text-sm text-gray-500 file:mr-4 file:rounded-md file:border-0 file:bg-indigo-50 file:px-4 file:py-2 file:text-sm file:font-semibold file:text-indigo-700 hover:file:bg-indigo-100" />
                                 <p class="mt-1 text-xs text-gray-400">*Biarkan kosong jika tidak ingin mengubah dokumen
                                     lampiran gambar lama.</p>
                                 <x-input-error class="mt-2" :messages="$errors->get('files')" />
@@ -151,9 +151,9 @@
                             @if ($mechanicalTest->files && count($mechanicalTest->files))
                                 <div class="border-t border-gray-200 pt-4">
                                     <span
-                                        class="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2">Lampiran
+                                        class="mb-2 block text-xs font-semibold uppercase tracking-wider text-gray-500">Lampiran
                                         File Aktif Saat Ini:</span>
-                                    <div class="grid grid-cols-2 sm:grid-cols-3 gap-4">
+                                    <div class="grid grid-cols-2 gap-4 sm:grid-cols-3">
                                         @foreach ($mechanicalTest->files as $file)
                                             @php
                                                 // Proteksi penanganan jenis data array vs string pathinfo
@@ -165,16 +165,16 @@
 
                                             @if (!empty($actualFile))
                                                 <div
-                                                    class="relative group p-2 border border-gray-200 bg-white rounded-lg shadow-sm">
+                                                    class="group relative rounded-lg border border-gray-200 bg-white p-2 shadow-sm">
                                                     @if (in_array(strtolower($ext), ['jpg', 'jpeg', 'png', 'webp']))
                                                         <img src="{{ asset('storage/' . $actualFile) }}"
                                                             alt="Old Attachment"
-                                                            class="w-full h-32 object-contain rounded mb-1 bg-gray-50">
+                                                            class="mb-1 h-32 w-full rounded bg-gray-50 object-contain">
                                                         <span
-                                                            class="block text-[10px] text-gray-400 truncate text-center">{{ basename($actualFile) }}</span>
+                                                            class="block truncate text-center text-[10px] text-gray-400">{{ basename($actualFile) }}</span>
                                                     @else
                                                         <div
-                                                            class="w-full h-32 flex flex-col items-center justify-center bg-gray-100 rounded text-indigo-600 mb-1">
+                                                            class="mb-1 flex h-32 w-full flex-col items-center justify-center rounded bg-gray-100 text-indigo-600">
                                                             <svg xmlns="http://www.w3.org/2000/svg" class="size-8"
                                                                 fill="none" viewBox="0 0 24 24"
                                                                 stroke="currentColor">
@@ -183,12 +183,12 @@
                                                                     d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
                                                             </svg>
                                                             <span
-                                                                class="text-xs font-bold mt-1 uppercase">{{ $ext ?: 'DOC' }}
+                                                                class="mt-1 text-xs font-bold uppercase">{{ $ext ?: 'DOC' }}
                                                                 File</span>
                                                         </div>
                                                         <a href="{{ asset('storage/' . $actualFile) }}"
                                                             target="_blank"
-                                                            class="block text-[10px] text-center text-indigo-600 font-medium hover:underline truncate">
+                                                            class="block truncate text-center text-[10px] font-medium text-indigo-600 hover:underline">
                                                             View Document
                                                         </a>
                                                     @endif
@@ -200,9 +200,9 @@
                             @endif
                         </div>
 
-                        <div class="flex items-center justify-end gap-4 pt-4 border-t border-gray-100">
+                        <div class="flex items-center justify-end gap-4 border-t border-gray-100 pt-4">
                             <a href="{{ route('incomingbahanbaku.show', $mechanicalTest->incoming_bahan_baku_id) }}"
-                                class="inline-flex items-center px-4 py-2 bg-white border border-gray-300 rounded-md font-semibold text-xs text-gray-700 uppercase tracking-widest shadow-sm hover:bg-gray-50 transition ease-in-out duration-150">
+                                class="inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-xs font-semibold uppercase tracking-widest text-gray-700 shadow-sm transition duration-150 ease-in-out hover:bg-gray-50">
                                 {{ __('Batal') }}
                             </a>
 
