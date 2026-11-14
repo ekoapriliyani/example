@@ -2,15 +2,19 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\InspeksiChainlinkFg;
 use App\Models\InspeksiCtFg;
 use App\Models\InspeksiFencingFg;
+use App\Models\InspeksiGabionpackingFg;
+use App\Models\InspeksiKawatDuriFg;
+use App\Models\InspeksiRazorpackingFg;
 use App\Models\InspeksiWmFg;
 use Illuminate\Http\Request;
 use Illuminate\Pagination\LengthAwarePaginator;
 
 class DaftarNgRejectController extends Controller
 {
-    private const MODULS = ['WM', 'Fencing', 'CTCL'];
+    private const MODULS = ['WM', 'Fencing', 'CTCL', 'Chainlink', 'Kawat Duri', 'Razor Packing', 'Gabion Packing'];
     private const STATUSES = ['NG', 'REJECT'];
 
     public function index(Request $request)
@@ -93,9 +97,97 @@ class DaftarNgRejectController extends Controller
                 ])
             : collect();
 
+        $chainlink = ($modul === '' || $modul === 'Chainlink')
+            ? InspeksiChainlinkFg::query()
+                ->with('inspeksiChainlink.pro')
+                ->whereIn('status', $statuses)
+                ->when($startDate, fn($q) => $q->whereHas('inspeksiChainlink', fn($c) => $c->whereDate('tanggal', '>=', $startDate)))
+                ->when($endDate, fn($q) => $q->whereHas('inspeksiChainlink', fn($c) => $c->whereDate('tanggal', '<=', $endDate)))
+                ->get(['id', 'lot_number', 'status', 'qty', 'inspeksi_chainlink_id'])
+                ->map(fn($fg) => [
+                    'id' => $fg->id,
+                    'lot_number' => $fg->lot_number,
+                    'status' => $fg->status,
+                    'qty' => $fg->qty,
+                    'tanggal' => $fg->inspeksiChainlink->tanggal,
+                    'shift' => $fg->inspeksiChainlink->shift,
+                    'nomor_inspeksi' => $fg->inspeksiChainlink->nomor_inspeksi,
+                    'pro_number' => $fg->inspeksiChainlink->pro->pro_id,
+                    'modul' => 'Chainlink',
+                    'qrcode_url' => route('inspeksi_chainlink_fg.qrcode', $fg->id),
+                ])
+            : collect();
+
+        $kawatDuri = ($modul === '' || $modul === 'Kawat Duri')
+            ? InspeksiKawatDuriFg::query()
+                ->with('inspeksiKawatDuri.pro')
+                ->whereIn('status', $statuses)
+                ->when($startDate, fn($q) => $q->whereHas('inspeksiKawatDuri', fn($k) => $k->whereDate('tanggal', '>=', $startDate)))
+                ->when($endDate, fn($q) => $q->whereHas('inspeksiKawatDuri', fn($k) => $k->whereDate('tanggal', '<=', $endDate)))
+                ->get(['id', 'lot_number', 'status', 'qty', 'inspeksi_kawat_duri_id'])
+                ->map(fn($fg) => [
+                    'id' => $fg->id,
+                    'lot_number' => $fg->lot_number,
+                    'status' => $fg->status,
+                    'qty' => $fg->qty,
+                    'tanggal' => $fg->inspeksiKawatDuri->tanggal,
+                    'shift' => $fg->inspeksiKawatDuri->shift,
+                    'nomor_inspeksi' => $fg->inspeksiKawatDuri->nomor_inspeksi,
+                    'pro_number' => $fg->inspeksiKawatDuri->pro->pro_id,
+                    'modul' => 'Kawat Duri',
+                    'qrcode_url' => route('inspeksi_kawat_duri_fg.qrcode', $fg->id),
+                ])
+            : collect();
+
+        $razorPacking = ($modul === '' || $modul === 'Razor Packing')
+            ? InspeksiRazorpackingFg::query()
+                ->with('inspeksiRazorpacking.pro')
+                ->whereIn('status', $statuses)
+                ->when($startDate, fn($q) => $q->whereHas('inspeksiRazorpacking', fn($r) => $r->whereDate('tanggal', '>=', $startDate)))
+                ->when($endDate, fn($q) => $q->whereHas('inspeksiRazorpacking', fn($r) => $r->whereDate('tanggal', '<=', $endDate)))
+                ->get(['id', 'lot_number', 'status', 'qty', 'inspeksi_razorpacking_id'])
+                ->map(fn($fg) => [
+                    'id' => $fg->id,
+                    'lot_number' => $fg->lot_number,
+                    'status' => $fg->status,
+                    'qty' => $fg->qty,
+                    'tanggal' => $fg->inspeksiRazorpacking->tanggal,
+                    'shift' => $fg->inspeksiRazorpacking->shift,
+                    'nomor_inspeksi' => $fg->inspeksiRazorpacking->nomor_inspeksi,
+                    'pro_number' => $fg->inspeksiRazorpacking->pro->pro_id,
+                    'modul' => 'Razor Packing',
+                    'qrcode_url' => route('inspeksi_razorpacking_fg.qrcode', $fg->id),
+                ])
+            : collect();
+
+        $gabionPacking = ($modul === '' || $modul === 'Gabion Packing')
+            ? InspeksiGabionpackingFg::query()
+                ->with('inspeksiGabionpacking.pro')
+                ->whereIn('status', $statuses)
+                ->when($startDate, fn($q) => $q->whereHas('inspeksiGabionpacking', fn($g) => $g->whereDate('tanggal', '>=', $startDate)))
+                ->when($endDate, fn($q) => $q->whereHas('inspeksiGabionpacking', fn($g) => $g->whereDate('tanggal', '<=', $endDate)))
+                ->get(['id', 'lot_number', 'status', 'qty', 'inspeksi_gabionpacking_id'])
+                ->map(fn($fg) => [
+                    'id' => $fg->id,
+                    'lot_number' => $fg->lot_number,
+                    'status' => $fg->status,
+                    'qty' => $fg->qty,
+                    'tanggal' => $fg->inspeksiGabionpacking->tanggal,
+                    'shift' => $fg->inspeksiGabionpacking->shift,
+                    'nomor_inspeksi' => $fg->inspeksiGabionpacking->nomor_inspeksi,
+                    'pro_number' => $fg->inspeksiGabionpacking->pro->pro_id,
+                    'modul' => 'Gabion Packing',
+                    'qrcode_url' => route('inspeksi_gabionpacking_fg.qrcode', $fg->id),
+                ])
+            : collect();
+
         $items = $wm
             ->concat($fencing)
             ->concat($ct)
+            ->concat($chainlink)
+            ->concat($kawatDuri)
+            ->concat($razorPacking)
+            ->concat($gabionPacking)
             ->filter(fn($item) => !empty($item['lot_number']));
 
         if ($search !== '') {

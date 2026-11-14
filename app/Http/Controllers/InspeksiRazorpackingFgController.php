@@ -11,6 +11,8 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\DB;
+use chillerlan\QRCode\QRCode;
+use chillerlan\QRCode\QROptions;
 
 class InspeksiRazorpackingFgController extends Controller
 {
@@ -186,6 +188,45 @@ class InspeksiRazorpackingFgController extends Controller
 
         return redirect()->route('inspeksi_razorpacking.show', $inspeksiRazorpackingId)
             ->with('success', 'Data FG berhasil dihapus');
+    }
+
+    public function printQrcode(InspeksiRazorpackingFg $fg)
+    {
+        $fg->load(['inspeksiRazorpacking.pro', 'details', 'user']);
+
+        $inspeksiRazorpacking = $fg->inspeksiRazorpacking;
+        $pro = $inspeksiRazorpacking->pro;
+
+        $qrContent = "Lot Number: {$fg->lot_number}\n"
+            . "No. Inspeksi: {$inspeksiRazorpacking->nomor_inspeksi}\n"
+            . "PRO: {$pro->pro_id}\n"
+            . "Desc: {$pro->description}\n"
+            . "Visual: {$fg->visual}\n"
+            . "Label: {$fg->label}\n"
+            . "Qty: {$fg->qty} | Weight: {$fg->weight} Kg\n"
+            . "Status: {$fg->status}\n"
+            . "Alasan:\n";
+
+        foreach ($fg->details as $detail) {
+            $qrContent .= "- {$detail->description}";
+            if ($detail->description2) $qrContent .= " — {$detail->description2}";
+            $qrContent .= "\n";
+        }
+
+        $options = new QROptions([
+            'scale' => 10,
+            'quietzoneSize' => 1,
+            'outputBase64' => false,
+            'svgAddXmlHeader' => false,
+        ]);
+        $qrSvg = (new QRCode($options))->render($qrContent);
+
+        return view('inspeksi_razorpacking.fg.qrcode', [
+            'fg' => $fg,
+            'qrSvg' => $qrSvg,
+            'inspeksiRazorpacking' => $inspeksiRazorpacking,
+            'pro' => $pro,
+        ]);
     }
 
     private function generateLotNumber(string $prefix): string

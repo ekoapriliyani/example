@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>QR Code - {{ $fg->lot_number }}</title>
+    <style>
+        @page {
+            size: 100mm 50mm;
+            margin: 0;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            width: 100mm;
+            height: 50mm;
+            display: flex;
+            align-items: center;
+            font-family: Arial, sans-serif;
+            font-size: 7pt;
+            line-height: 1.3;
+            padding: 2mm 3mm;
+            overflow: hidden;
+        }
+
+        .container {
+            display: flex;
+            align-items: center;
+            gap: 3mm;
+            width: 100%;
+            page-break-inside: avoid;
+            break-inside: avoid;
+        }
+
+        .qr-code svg {
+            width: 28mm;
+            height: 28mm;
+            display: block;
+            flex-shrink: 0;
+        }
+
+        .caption {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .lot {
+            font-size: 9pt;
+            font-weight: 700;
+            margin-bottom: 0.5mm;
+        }
+
+        .row {
+            margin-bottom: 0.3mm;
+        }
+
+        .label {
+            font-weight: 600;
+        }
+
+        .value {
+            font-weight: bold;
+        }
+
+        .alasan {
+            margin-top: 0.5mm;
+        }
+
+        .alasan-title {
+            font-weight: 600;
+        }
+
+        .alasan-item {
+            padding-left: 2mm;
+            font-weight: bold;
+        }
+
+        @media screen {
+            body {
+                margin: 20px auto;
+                border: 1px dashed #ccc;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="qr-code">
+            {!! $qrSvg !!}
+        </div>
+        <div class="caption">
+            <table class="info-table">
+                <tr>
+                    <td class="">Lot Number</td>
+                    <td class="separator">:</td>
+                    <td class="value">{{ $fg->lot_number }}</td>
+                </tr>
+                <tr>
+                    <td class="">Nomor Inspeksi</td>
+                    <td class="separator">:</td>
+                    <td class="value">{{ $inspeksiKawatDuri->nomor_inspeksi }}</td>
+                </tr>
+                <tr>
+                    <td class="">PRO ID</td>
+                    <td class="separator">:</td>
+                    <td class="value">{{ $pro->pro_id }}</td>
+                </tr>
+                <tr>
+                    <td class="">Description Barang</td>
+                    <td class="separator">:</td>
+                    <td class="value">{{ $pro->description }}</td>
+                </tr>
+                <tr>
+                    <td class="">Nama Mesin</td>
+                    <td class="separator">:</td>
+                    <td class="value">{{ $inspeksiKawatDuri->mesin?->mesin_id }}</td>
+                </tr>
+                <tr>
+                    <td class="">Type Coating</td>
+                    <td class="separator">:</td>
+                    <td class="value">{{ $inspeksiKawatDuri->type_coating }}</td>
+                </tr>
+                <tr>
+                    <td class="">Warna</td>
+                    <td class="separator">:</td>
+                    <td class="value">{{ $inspeksiKawatDuri->warna }}</td>
+                </tr>
+                <tr>
+                    <td class="">Packing</td>
+                    <td class="separator">:</td>
+                    <td class="value">{{ $fg->packing }}</td>
+                </tr>
+                <tr>
+                    <td class="">Label</td>
+                    <td class="separator">:</td>
+                    <td class="value">{{ $fg->label }}</td>
+                </tr>
+                <tr>
+                    <td class="">Shift</td>
+                    <td class="separator">:</td>
+                    <td class="value">{{ $inspeksiKawatDuri->shift }}</td>
+                </tr>
+                <tr>
+                    <td class="">Status</td>
+                    <td class="separator">:</td>
+                    <td class="value">{{ $fg->status }}</td>
+                </tr>
+                <tr>
+                    <td class="">Quantity</td>
+                    <td class="separator">:</td>
+                    <td class="value">{{ $fg->qty }}</td>
+                </tr>
+                <tr>
+                    <td class="">Weight</td>
+                    <td class="separator">:</td>
+                    <td class="value">{{ $fg->weight }} Kg</td>
+                </tr>
+                <tr>
+                    <td class="">Tanggal</td>
+                    <td class="separator">:</td>
+                    <td class="value">{{ $inspeksiKawatDuri->tanggal }}</td>
+                </tr>
+                <tr>
+                    <td class="">Inspector</td>
+                    <td class="separator">:</td>
+                    <td class="value">{{ $fg->user?->name }}</td>
+                </tr>
+            </table>
+
+            @if ($fg->inspeksiKdFgDetails->isNotEmpty())
+                <div class="alasan">
+                    <div class="">Detail Inspeksi :</div>
+                    @foreach ($fg->inspeksiKdFgDetails as $detail)
+                        <div class="alasan-item">
+                            {{ $detail->description }}{{ $detail->description2 ? ' — ' . $detail->description2 : '' }}
+                        </div>
+                    @endforeach
+                </div>
+            @endif
+        </div>
+    </div>
+    <script>
+        window.onload = function() {
+            var caption = document.querySelector('.caption');
+            if (!caption) {
+                window.print();
+                return;
+            }
+            var bodyStyle = getComputedStyle(document.body);
+            var available = document.body.clientHeight
+                - parseFloat(bodyStyle.paddingTop)
+                - parseFloat(bodyStyle.paddingBottom);
+            if (caption.scrollHeight > available) {
+                caption.style.zoom = (available / caption.scrollHeight);
+            }
+            window.print();
+        }
+    </script>
+</body>
+
+</html>

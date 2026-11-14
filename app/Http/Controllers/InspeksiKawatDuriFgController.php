@@ -11,6 +11,8 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\DB;
+use chillerlan\QRCode\QRCode;
+use chillerlan\QRCode\QROptions;
 
 class InspeksiKawatDuriFgController extends Controller
 {
@@ -191,6 +193,47 @@ class InspeksiKawatDuriFgController extends Controller
 
         return redirect()->route('inspeksi_kawat_duri.show', $inspeksiKawatDuriId)
             ->with('success', 'Data FG berhasil dihapus');
+    }
+
+    public function printQrcode(InspeksiKawatDuriFg $fg)
+    {
+        $fg->load(['inspeksiKawatDuri.pro', 'inspeksiKawatDuri.mesin', 'inspeksiKdFgDetails', 'user']);
+
+        $inspeksiKawatDuri = $fg->inspeksiKawatDuri;
+        $pro = $inspeksiKawatDuri->pro;
+
+        $qrContent = "Lot Number: {$fg->lot_number}\n"
+            . "No. Inspeksi: {$inspeksiKawatDuri->nomor_inspeksi}\n"
+            . "PRO: {$pro->pro_id}\n"
+            . "Desc: {$pro->description}\n"
+            . "Type Coating: {$inspeksiKawatDuri->type_coating}\n"
+            . "Warna: {$inspeksiKawatDuri->warna}\n"
+            . "Packing: {$fg->packing}\n"
+            . "Label: {$fg->label}\n"
+            . "Qty: {$fg->qty} | Weight: {$fg->weight} Kg\n"
+            . "Status: {$fg->status}\n"
+            . "Alasan:\n";
+
+        foreach ($fg->inspeksiKdFgDetails as $detail) {
+            $qrContent .= "- {$detail->description}";
+            if ($detail->description2) $qrContent .= " — {$detail->description2}";
+            $qrContent .= "\n";
+        }
+
+        $options = new QROptions([
+            'scale' => 10,
+            'quietzoneSize' => 1,
+            'outputBase64' => false,
+            'svgAddXmlHeader' => false,
+        ]);
+        $qrSvg = (new QRCode($options))->render($qrContent);
+
+        return view('inspeksi_kawat_duri.fg.qrcode', [
+            'fg' => $fg,
+            'qrSvg' => $qrSvg,
+            'inspeksiKawatDuri' => $inspeksiKawatDuri,
+            'pro' => $pro,
+        ]);
     }
 
     private function generateLotNumber(string $prefix): string

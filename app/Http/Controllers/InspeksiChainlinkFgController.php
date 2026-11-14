@@ -11,6 +11,8 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\DB;
+use chillerlan\QRCode\QRCode;
+use chillerlan\QRCode\QROptions;
 
 class InspeksiChainlinkFgController extends Controller
 {
@@ -191,6 +193,45 @@ class InspeksiChainlinkFgController extends Controller
 
         return redirect()->route('inspeksi_chainlink.show', $inspeksiChainlinkId)
             ->with('success', 'Data FG berhasil dihapus');
+    }
+
+    public function printQrcode(InspeksiChainlinkFg $fg)
+    {
+        $fg->load(['inspeksiChainlink.pro', 'inspeksiChainlink.mesin', 'inspeksiChainlinkFgDetails', 'user']);
+
+        $inspeksiChainlink = $fg->inspeksiChainlink;
+        $pro = $inspeksiChainlink->pro;
+
+        $qrContent = "Lot Number: {$fg->lot_number}\n"
+            . "No. Inspeksi: {$inspeksiChainlink->nomor_inspeksi}\n"
+            . "PRO: {$pro->pro_id}\n"
+            . "Desc: {$pro->description}\n"
+            . "Packing: {$fg->packing}\n"
+            . "Label: {$fg->label}\n"
+            . "Qty: {$fg->qty} | Weight: {$fg->weight} Kg\n"
+            . "Status: {$fg->status}\n"
+            . "Alasan:\n";
+
+        foreach ($fg->inspeksiChainlinkFgDetails as $detail) {
+            $qrContent .= "- {$detail->description}";
+            if ($detail->description2) $qrContent .= " — {$detail->description2}";
+            $qrContent .= "\n";
+        }
+
+        $options = new QROptions([
+            'scale' => 10,
+            'quietzoneSize' => 1,
+            'outputBase64' => false,
+            'svgAddXmlHeader' => false,
+        ]);
+        $qrSvg = (new QRCode($options))->render($qrContent);
+
+        return view('inspeksi_chainlink.fg.qrcode', [
+            'fg' => $fg,
+            'qrSvg' => $qrSvg,
+            'inspeksiChainlink' => $inspeksiChainlink,
+            'pro' => $pro,
+        ]);
     }
 
     private function generateLotNumber(string $prefix): string

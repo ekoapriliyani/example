@@ -56,6 +56,10 @@
                             <option value="WM" {{ request('modul') === 'WM' ? 'selected' : '' }}>WM</option>
                             <option value="Fencing" {{ request('modul') === 'Fencing' ? 'selected' : '' }}>Fencing</option>
                             <option value="CTCL" {{ request('modul') === 'CTCL' ? 'selected' : '' }}>CTCL</option>
+                            <option value="Chainlink" {{ request('modul') === 'Chainlink' ? 'selected' : '' }}>Chainlink</option>
+                            <option value="Kawat Duri" {{ request('modul') === 'Kawat Duri' ? 'selected' : '' }}>Kawat Duri</option>
+                            <option value="Razor Packing" {{ request('modul') === 'Razor Packing' ? 'selected' : '' }}>Razor Packing</option>
+                            <option value="Gabion Packing" {{ request('modul') === 'Gabion Packing' ? 'selected' : '' }}>Gabion Packing</option>
                         </select>
                     </div>
 

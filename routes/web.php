@@ -622,6 +622,10 @@ Route::middleware(['auth'])->group(function () {
     Route::delete('insepeksi_razorpacking/fg/{fg}', [InspeksiRazorpackingFgController::class, 'destroy'])
         ->name('inspeksi_razorpacking_fg.destroy');
 
+    // FG QR Code
+    Route::get('inspeksi_razorpacking/fg/{fg}/qrcode', [InspeksiRazorpackingFgController::class, 'printQrcode'])
+        ->name('inspeksi_razorpacking_fg.qrcode');
+
 
 
     /*
@@ -645,6 +649,10 @@ Route::middleware(['auth'])->group(function () {
 
     Route::delete('insepeksi_gabionpacking/fg/{fg}', [InspeksiGabionpackingFgController::class, 'destroy'])
         ->name('inspeksi_gabionpacking_fg.destroy');
+
+    // FG QR Code
+    Route::get('inspeksi_gabionpacking/fg/{fg}/qrcode', [InspeksiGabionpackingFgController::class, 'printQrcode'])
+        ->name('inspeksi_gabionpacking_fg.qrcode');
 
 
 
@@ -687,6 +695,10 @@ Route::middleware(['auth'])->group(function () {
     Route::delete('insepeksi_kawat_duri/fg/{fg}', [InspeksiKawatDuriFgController::class, 'destroy'])
         ->name('inspeksi_kawat_duri_fg.destroy');
 
+    // FG QR Code
+    Route::get('inspeksi_kawat_duri/fg/{fg}/qrcode', [InspeksiKawatDuriFgController::class, 'printQrcode'])
+        ->name('inspeksi_kawat_duri_fg.qrcode');
+
 
     /*
     |--------------------------------------------------------------------------
@@ -725,6 +737,10 @@ Route::middleware(['auth'])->group(function () {
 
     Route::delete('insepeksi_chainlink/fg/{fg}', [InspeksiChainlinkFgController::class, 'destroy'])
         ->name('inspeksi_chainlink_fg.destroy');
+
+    // FG QR Code
+    Route::get('inspeksi_chainlink/fg/{fg}/qrcode', [InspeksiChainlinkFgController::class, 'printQrcode'])
+        ->name('inspeksi_chainlink_fg.qrcode');
 
 
     /*
