@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\InspeksiChainlinkFg;
 use App\Models\InspeksiCtFg;
 use App\Models\InspeksiFencingFg;
+use App\Models\InspeksiGabionanyamFg;
 use App\Models\InspeksiGabionpackingFg;
 use App\Models\InspeksiKawatDuriFg;
 use App\Models\InspeksiRazorpackingFg;
@@ -14,7 +15,7 @@ use Illuminate\Pagination\LengthAwarePaginator;
 
 class DaftarNgRejectController extends Controller
 {
-    private const MODULS = ['WM', 'Fencing', 'CTCL', 'Chainlink', 'Kawat Duri', 'Razor Packing', 'Gabion Packing'];
+    private const MODULS = ['WM', 'Fencing', 'CTCL', 'Chainlink', 'Kawat Duri', 'Razor Packing', 'Gabion Packing', 'Gabion Anyam'];
     private const STATUSES = ['NG', 'REJECT'];
 
     public function index(Request $request)
@@ -181,6 +182,27 @@ class DaftarNgRejectController extends Controller
                 ])
             : collect();
 
+        $gabionAnyam = ($modul === '' || $modul === 'Gabion Anyam')
+            ? InspeksiGabionanyamFg::query()
+                ->with('inspeksiGabionanyam.pro')
+                ->whereIn('status', $statuses)
+                ->when($startDate, fn($q) => $q->whereHas('inspeksiGabionanyam', fn($g) => $g->whereDate('tanggal', '>=', $startDate)))
+                ->when($endDate, fn($q) => $q->whereHas('inspeksiGabionanyam', fn($g) => $g->whereDate('tanggal', '<=', $endDate)))
+                ->get(['id', 'lot_number', 'status', 'qty', 'inspeksi_gabionanyam_id'])
+                ->map(fn($fg) => [
+                    'id' => $fg->id,
+                    'lot_number' => $fg->lot_number,
+                    'status' => $fg->status,
+                    'qty' => $fg->qty,
+                    'tanggal' => $fg->inspeksiGabionanyam->tanggal,
+                    'shift' => $fg->inspeksiGabionanyam->shift,
+                    'nomor_inspeksi' => $fg->inspeksiGabionanyam->nomor_inspeksi,
+                    'pro_number' => $fg->inspeksiGabionanyam->pro->pro_id,
+                    'modul' => 'Gabion Anyam',
+                    'qrcode_url' => route('inspeksi_gabionanyam_fg.qrcode', $fg->id),
+                ])
+            : collect();
+
         $items = $wm
             ->concat($fencing)
             ->concat($ct)
@@ -188,6 +210,7 @@ class DaftarNgRejectController extends Controller
             ->concat($kawatDuri)
             ->concat($razorPacking)
             ->concat($gabionPacking)
+            ->concat($gabionAnyam)
             ->filter(fn($item) => !empty($item['lot_number']));
 
         if ($search !== '') {

@@ -128,7 +128,16 @@ class InspeksiGabionanyamController extends Controller
      */
     public function show(InspeksiGabionanyam $inspeksiGabionanyam)
     {
-        $inspeksiGabionanyam->load(['pro', 'mesin', 'inspeksiGabionanyamWip']);
+        $inspeksiGabionanyam->load([
+            'pro',
+            'mesin',
+            'approver',
+            'inspeksiGabionanyamWip',
+            'inspeksiGabionanyamFg.details',
+            'inspeksiGabionanyamFg.user',
+            'inspeksiGabionanyamFg.handlings.details',
+            'inspeksiGabionanyamFg.handlings.user',
+        ]);
         return view('inspeksi_gabionanyam.show', compact('inspeksiGabionanyam'));
     }
 

@@ -14,6 +14,8 @@ use App\Http\Controllers\InspeksiFencingController;
 use App\Http\Controllers\InspeksiFencingFgController;
 use App\Http\Controllers\InspeksiFencingWipController;
 use App\Http\Controllers\InspeksiGabionanyamController;
+use App\Http\Controllers\InspeksiGabionanyamFgController;
+use App\Http\Controllers\InspeksiGabionanyamFgHandlingController;
 use App\Http\Controllers\InspeksiGabionanyamWipController;
 use App\Http\Controllers\InspeksiGabionframeController;
 use App\Http\Controllers\InspeksiGabionframeWipController;
@@ -499,6 +501,33 @@ Route::middleware(['auth'])->group(function () {
 
     Route::delete('insepeksi_gabionanyam/wip/{wip}', [InspeksiGabionanyamWipController::class, 'destroy'])
         ->name('inspeksi_gabionanyam_wip.destroy');
+
+    // FG
+    Route::get('/inspeksi_gabionanyam/{inspeksi_gabionanyam}/fg', [InspeksiGabionanyamFgController::class, 'create'])
+        ->name('inspeksi_gabionanyam.fg');
+
+    Route::post('/inspeksi_gabionanyam/fg', [InspeksiGabionanyamFgController::class, 'store'])
+        ->name('inspeksi_gabionanyam_fg.store');
+
+    Route::get('insepeksi_gabionanyam/fg/{fg}/edit', [InspeksiGabionanyamFgController::class, 'edit'])
+        ->name('inspeksi_gabionanyam_fg.edit');
+
+    Route::put('insepeksi_gabionanyam/fg/{fg}', [InspeksiGabionanyamFgController::class, 'update'])
+        ->name('inspeksi_gabionanyam_fg.update');
+
+    Route::delete('insepeksi_gabionanyam/fg/{fg}', [InspeksiGabionanyamFgController::class, 'destroy'])
+        ->name('inspeksi_gabionanyam_fg.destroy');
+
+    // FG QR Code
+    Route::get('inspeksi_gabionanyam/fg/{fg}/qrcode', [InspeksiGabionanyamFgController::class, 'printQrcode'])
+        ->name('inspeksi_gabionanyam_fg.qrcode');
+
+    // FG Handling
+    Route::post('inspeksi_gabionanyam/fg/{fg}/handling', [InspeksiGabionanyamFgHandlingController::class, 'store'])
+        ->name('inspeksi_gabionanyam_fg_handling.store');
+
+    Route::delete('inspeksi_gabionanyam/fg/{fg}/handling/{handling}', [InspeksiGabionanyamFgHandlingController::class, 'destroy'])
+        ->name('inspeksi_gabionanyam_fg_handling.destroy');
 
 
     /*

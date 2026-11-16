@@ -32,6 +32,11 @@ class InspeksiGabionanyam extends Model
         return $this->belongsTo(Mesin::class, 'mesin_id');
     }
 
+    public function approver()
+    {
+        return $this->belongsTo(User::class, 'approved_by');
+    }
+
     public function isApproved()
     {
         return $this->approval_status === 'APPROVED';
@@ -40,5 +45,10 @@ class InspeksiGabionanyam extends Model
     public function inspeksiGabionanyamWip()
     {
         return $this->hasMany(InspeksiGabionanyamWip::class);
+    }
+
+    public function inspeksiGabionanyamFg()
+    {
+        return $this->hasMany(InspeksiGabionanyamFg::class);
     }
 }
