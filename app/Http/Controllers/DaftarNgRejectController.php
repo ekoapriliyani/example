@@ -9,13 +9,14 @@ use App\Models\InspeksiGabionanyamFg;
 use App\Models\InspeksiGabionpackingFg;
 use App\Models\InspeksiKawatDuriFg;
 use App\Models\InspeksiRazorpackingFg;
+use App\Models\InspeksiShearingFg;
 use App\Models\InspeksiWmFg;
 use Illuminate\Http\Request;
 use Illuminate\Pagination\LengthAwarePaginator;
 
 class DaftarNgRejectController extends Controller
 {
-    private const MODULS = ['WM', 'Fencing', 'CTCL', 'Chainlink', 'Kawat Duri', 'Razor Packing', 'Gabion Packing', 'Gabion Anyam'];
+    private const MODULS = ['WM', 'Fencing', 'CTCL', 'Chainlink', 'Kawat Duri', 'Razor Packing', 'Gabion Packing', 'Gabion Anyam', 'Shearing'];
     private const STATUSES = ['NG', 'REJECT'];
 
     public function index(Request $request)
@@ -203,6 +204,27 @@ class DaftarNgRejectController extends Controller
                 ])
             : collect();
 
+        $shearing = ($modul === '' || $modul === 'Shearing')
+            ? InspeksiShearingFg::query()
+                ->with('inspeksiShearing.pro')
+                ->whereIn('status', $statuses)
+                ->when($startDate, fn($q) => $q->whereHas('inspeksiShearing', fn($s) => $s->whereDate('tanggal', '>=', $startDate)))
+                ->when($endDate, fn($q) => $q->whereHas('inspeksiShearing', fn($s) => $s->whereDate('tanggal', '<=', $endDate)))
+                ->get(['id', 'lot_number', 'status', 'qty', 'inspeksi_shearing_id'])
+                ->map(fn($fg) => [
+                    'id' => $fg->id,
+                    'lot_number' => $fg->lot_number,
+                    'status' => $fg->status,
+                    'qty' => $fg->qty,
+                    'tanggal' => $fg->inspeksiShearing->tanggal,
+                    'shift' => $fg->inspeksiShearing->shift,
+                    'nomor_inspeksi' => $fg->inspeksiShearing->nomor_inspeksi,
+                    'pro_number' => $fg->inspeksiShearing->pro->pro_id,
+                    'modul' => 'Shearing',
+                    'qrcode_url' => route('inspeksi_shearing_fg.qrcode', $fg->id),
+                ])
+            : collect();
+
         $items = $wm
             ->concat($fencing)
             ->concat($ct)
@@ -211,6 +233,7 @@ class DaftarNgRejectController extends Controller
             ->concat($razorPacking)
             ->concat($gabionPacking)
             ->concat($gabionAnyam)
+            ->concat($shearing)
             ->filter(fn($item) => !empty($item['lot_number']));
 
         if ($search !== '') {

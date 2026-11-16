@@ -29,6 +29,11 @@ class InspeksiShearing extends Model
         return $this->belongsTo(Mesin::class);
     }
 
+    public function approver()
+    {
+        return $this->belongsTo(User::class, 'approved_by');
+    }
+
     public function inspeksiShearingWip()
     {
         return $this->hasMany(InspeksiShearingWip::class);

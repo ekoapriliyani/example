@@ -36,6 +36,7 @@ use App\Http\Controllers\InspeksiRazorpackingController;
 use App\Http\Controllers\InspeksiRazorpackingFgController;
 use App\Http\Controllers\InspeksiShearingController;
 use App\Http\Controllers\InspeksiShearingFgController;
+use App\Http\Controllers\InspeksiShearingFgHandlingController;
 use App\Http\Controllers\InspeksiShearingWipController;
 use App\Http\Controllers\InspeksiSlittingController;
 use App\Http\Controllers\InspeksiSlittingWipController;
@@ -454,6 +455,17 @@ Route::middleware(['auth'])->group(function () {
 
     Route::delete('insepeksi_shearing/fg/{fg}', [InspeksiShearingFgController::class, 'destroy'])
         ->name('inspeksi_shearing_fg.destroy');
+
+    // FG QR Code
+    Route::get('inspeksi_shearing/fg/{fg}/qrcode', [InspeksiShearingFgController::class, 'printQrcode'])
+        ->name('inspeksi_shearing_fg.qrcode');
+
+    // FG Handling
+    Route::post('inspeksi_shearing/fg/{fg}/handling', [InspeksiShearingFgHandlingController::class, 'store'])
+        ->name('inspeksi_shearing_fg_handling.store');
+
+    Route::delete('inspeksi_shearing/fg/{fg}/handling/{handling}', [InspeksiShearingFgHandlingController::class, 'destroy'])
+        ->name('inspeksi_shearing_fg_handling.destroy');
 
 
     /*

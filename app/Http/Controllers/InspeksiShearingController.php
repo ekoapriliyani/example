@@ -133,7 +133,16 @@ class InspeksiShearingController extends Controller
      */
     public function show(InspeksiShearing $inspeksi_shearing)
     {
-        $inspeksi_shearing->load(['pro', 'mesin', 'inspeksiShearingWip', 'inspeksiShearingFg']);
+        $inspeksi_shearing->load([
+            'pro',
+            'mesin',
+            'approver',
+            'inspeksiShearingWip',
+            'inspeksiShearingFg.details',
+            'inspeksiShearingFg.user',
+            'inspeksiShearingFg.handlings.details',
+            'inspeksiShearingFg.handlings.user',
+        ]);
         return view('inspeksi_shearing.show', ['inspeksi_shearing' => $inspeksi_shearing]);
     }
 
