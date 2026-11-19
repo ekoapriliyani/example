@@ -127,6 +127,9 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/daftar-ng-reject', [DaftarNgRejectController::class, 'index'])
         ->name('daftar_ng_reject.index');
 
+    Route::get('/daftar-ng-reject/export', [DaftarNgRejectController::class, 'export'])
+        ->name('daftar_ng_reject.export');
+
 
     /*
     |--------------------------------------------------------------------------

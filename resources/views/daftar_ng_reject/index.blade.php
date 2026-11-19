@@ -24,7 +24,7 @@
                         </span>
                         <input type="text" name="search" id="search" value="{{ request('search') }}"
                             class="block w-full rounded-md border border-gray-300 bg-white py-2 pl-10 pr-3 leading-5 placeholder-gray-500 focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500 sm:text-sm"
-                            placeholder="Cari lot number...">
+                            placeholder="Cari lot number, no inspeksi, PRO number, kode mesin, description, detail inspeksi...">
                     </div>
 
                     <div>
@@ -83,6 +83,16 @@
                                 Reset
                             </a>
                         @endif
+
+                        <a href="{{ route('daftar_ng_reject.export', request()->query()) }}"
+                            class="inline-flex items-center justify-center gap-2 rounded-md border border-transparent bg-green-600 px-4 py-2 text-xs font-semibold uppercase tracking-widest text-white transition duration-150 ease-in-out hover:bg-green-700">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none"
+                                viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                            </svg>
+                            Export Excel
+                        </a>
                     </div>
                 </form>
             </div>
@@ -101,10 +111,14 @@
                                         <th class="px-4 py-3 text-left font-semibold text-gray-900">Tanggal</th>
                                         <th class="px-4 py-3 text-left font-semibold text-gray-900">Shift</th>
                                         <th class="px-4 py-3 text-left font-semibold text-gray-900">PRO Number</th>
-                                        <th class="px-4 py-3 text-left font-semibold text-gray-900">Nama Mesin</th>
+                                        <th class="px-4 py-3 text-left font-semibold text-gray-900">Kode Mesin</th>
                                         <th class="px-4 py-3 text-left font-semibold text-gray-900">Description (Nama
                                             Produk)</th>
                                         <th class="px-4 py-3 text-right font-semibold text-gray-900">Qty</th>
+                                        <th class="px-4 py-3 text-right font-semibold text-gray-900">Weight</th>
+                                        <th class="px-4 py-3 text-right font-semibold text-gray-900">Total Weight</th>
+                                        <th class="px-4 py-3 text-left font-semibold text-gray-900">Detail Inspeksi 1</th>
+                                        <th class="px-4 py-3 text-left font-semibold text-gray-900">Detail Inspeksi 2</th>
                                         <th class="px-4 py-3 text-left font-semibold text-gray-900">Modul</th>
                                         <th class="px-4 py-3 text-left font-semibold text-gray-900">Lot Number</th>
 
@@ -145,18 +159,26 @@
                                             <td class="px-4 py-3 font-medium text-gray-900">{{ $item['pro_number'] }}
                                             </td>
                                             <td class="px-4 py-3 font-medium text-gray-900">
-                                                {{ $item['nama_mesin'] ?? '-' }}</td>
+                                                {{ $item['kode_mesin'] ?? '-' }}</td>
                                             <td class="px-4 py-3 font-medium text-gray-900">
                                                 {{ $item['description'] ?? '-' }}</td>
                                             <td class="px-4 py-3 text-right font-medium text-gray-900">
                                                 {{ $item['qty'] }}</td>
+                                            <td class="px-4 py-3 text-right font-medium text-gray-900">
+                                                {{ $item['weight'] ?? '-' }}</td>
+                                            <td class="px-4 py-3 text-right font-medium text-gray-900">
+                                                {{ $item['total_weight'] ?? '-' }}</td>
+                                            <td class="px-4 py-3 font-medium text-gray-900">
+                                                {{ $item['detail_inspeksi_1'] ?? '-' }}</td>
+                                            <td class="px-4 py-3 font-medium text-gray-900">
+                                                {{ $item['detail_inspeksi_2'] ?? '-' }}</td>
                                             <td class="px-4 py-3 font-medium text-gray-900">{{ $item['modul'] }}</td>
                                             <td class="px-4 py-3 font-medium text-gray-900">{{ $item['lot_number'] }}
                                             </td>
                                         </tr>
                                     @empty
                                         <tr>
-                                            <td colspan="12" class="px-4 py-8 text-center italic text-gray-500">
+                                            <td colspan="16" class="px-4 py-8 text-center italic text-gray-500">
                                                 Belum ada data NG/REJECT.
                                             </td>
                                         </tr>
