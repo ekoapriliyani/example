@@ -31,6 +31,11 @@ class InspeksiGabionrakit extends Model
         return $this->belongsTo(Mesin::class);
     }
 
+    public function approver()
+    {
+        return $this->belongsTo(User::class, 'approved_by');
+    }
+
     public function isApproved()
     {
         return $this->approval_status === 'APPROVED';
@@ -39,5 +44,10 @@ class InspeksiGabionrakit extends Model
     public function inspeksiGabionrakitWip()
     {
         return $this->hasMany(InspeksiGabionrakitWip::class, 'inspeksi_gabionrakit_id');
+    }
+
+    public function inspeksiGabionrakitFg()
+    {
+        return $this->hasMany(InspeksiGabionrakitFg::class, 'inspeksi_gabionrakit_id');
     }
 }

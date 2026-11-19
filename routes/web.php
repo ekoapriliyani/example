@@ -24,6 +24,8 @@ use App\Http\Controllers\InspeksiGabionframeWipController;
 use App\Http\Controllers\InspeksiGabionpackingController;
 use App\Http\Controllers\InspeksiGabionpackingFgController;
 use App\Http\Controllers\InspeksiGabionrakitController;
+use App\Http\Controllers\InspeksiGabionrakitFgController;
+use App\Http\Controllers\InspeksiGabionrakitFgHandlingController;
 use App\Http\Controllers\InspeksiGabionrakitWipController;
 use App\Http\Controllers\InspeksiKawatDuriController;
 use App\Http\Controllers\InspeksiKawatDuriFgController;
@@ -592,6 +594,33 @@ Route::middleware(['auth'])->group(function () {
 
     Route::delete('insepeksi_gabionrakit/wip/{wip}', [InspeksiGabionrakitWipController::class, 'destroy'])
         ->name('inspeksi_gabionrakit_wip.destroy');
+
+    // FG
+    Route::get('/inspeksi_gabionrakit/{inspeksi_gabionrakit}/fg', [InspeksiGabionrakitFgController::class, 'create'])
+        ->name('inspeksi_gabionrakit.fg');
+
+    Route::post('/inspeksi_gabionrakit/fg', [InspeksiGabionrakitFgController::class, 'store'])
+        ->name('inspeksi_gabionrakit_fg.store');
+
+    Route::get('insepeksi_gabionrakit/fg/{fg}/edit', [InspeksiGabionrakitFgController::class, 'edit'])
+        ->name('inspeksi_gabionrakit_fg.edit');
+
+    Route::put('insepeksi_gabionrakit/fg/{fg}', [InspeksiGabionrakitFgController::class, 'update'])
+        ->name('inspeksi_gabionrakit_fg.update');
+
+    Route::delete('insepeksi_gabionrakit/fg/{fg}', [InspeksiGabionrakitFgController::class, 'destroy'])
+        ->name('inspeksi_gabionrakit_fg.destroy');
+
+    // FG QR Code
+    Route::get('inspeksi_gabionrakit/fg/{fg}/qrcode', [InspeksiGabionrakitFgController::class, 'printQrcode'])
+        ->name('inspeksi_gabionrakit_fg.qrcode');
+
+    // FG Handling
+    Route::post('inspeksi_gabionrakit/fg/{fg}/handling', [InspeksiGabionrakitFgHandlingController::class, 'store'])
+        ->name('inspeksi_gabionrakit_fg_handling.store');
+
+    Route::delete('inspeksi_gabionrakit/fg/{fg}/handling/{handling}', [InspeksiGabionrakitFgHandlingController::class, 'destroy'])
+        ->name('inspeksi_gabionrakit_fg_handling.destroy');
 
 
 

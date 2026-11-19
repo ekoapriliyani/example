@@ -130,7 +130,17 @@ class InspeksiGabionrakitController extends Controller
      */
     public function show(InspeksiGabionrakit $inspeksiGabionrakit)
     {
-        $inspeksiGabionrakit->load(['pro', 'mesin', 'inspeksiGabionrakitWip']);
+        $inspeksiGabionrakit->load([
+            'pro',
+            'mesin',
+            'inspeksiGabionrakitWip.details',
+            'inspeksiGabionrakitWip.user',
+            'inspeksiGabionrakitFg.details',
+            'inspeksiGabionrakitFg.user',
+            'inspeksiGabionrakitFg.handlings.details',
+            'inspeksiGabionrakitFg.handlings.user',
+        ]);
+
         return view('inspeksi_gabionrakit.show', compact('inspeksiGabionrakit'));
     }
 
