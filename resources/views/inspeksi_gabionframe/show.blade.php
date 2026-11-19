@@ -42,6 +42,27 @@
                             Tambah WIP
                         </a>
                     @endif
+
+                    {{-- Tambah FG --}}
+                    @if ($isApproved)
+                        <button type="button" disabled
+                            class="inline-flex cursor-not-allowed items-center gap-2 rounded-md bg-gray-400 px-4 py-2 text-sm font-semibold text-white opacity-60 shadow-sm">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="size-4" fill="none" viewBox="0 0 24 24"
+                                stroke="currentColor" stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+                            </svg>
+                            Tambah FG
+                        </button>
+                    @else
+                        <a href="{{ route('inspeksi_gabionframe.fg', $inspeksiGabionframe->id) }}"
+                            class="inline-flex items-center gap-2 rounded-md bg-green-600 px-4 py-2 text-sm font-semibold text-white shadow-sm transition hover:bg-green-700">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="size-4" fill="none" viewBox="0 0 24 24"
+                                stroke="currentColor" stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+                            </svg>
+                            Tambah FG
+                        </a>
+                    @endif
                 </div>
             </div>
         </div>
@@ -250,6 +271,388 @@
                 </div>
             </div>
 
+            {{-- FG --}}
+            <div class="overflow-hidden border border-gray-200 bg-white shadow-sm sm:rounded-lg">
+                <div class="p-6">
+                    <div class="mb-4 flex items-center gap-2">
+                        <div class="rounded-lg bg-indigo-100 p-2 text-indigo-600">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="size-5" fill="none"
+                                viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" />
+                            </svg>
+                        </div>
+                        <h3 class="text-lg font-bold text-gray-800">Data Finished Goods (FG)</h3>
+                    </div>
+
+                    <div class="overflow-x-auto rounded-lg border border-gray-200">
+                        <table class="min-w-full divide-y divide-gray-200 text-left text-sm">
+                            <thead class="bg-gray-50">
+                                <tr>
+                                    <th class="px-4 py-3 font-semibold text-gray-900">No</th>
+                                    <th class="px-4 py-3 font-semibold text-gray-900">Aksi</th>
+                                    <th class="px-4 py-3 font-semibold text-gray-900">Lot Number</th>
+                                    <th class="px-4 py-3 font-semibold text-gray-900">Inspektor</th>
+                                    <th class="px-4 py-3 font-semibold text-gray-900">Status</th>
+                                    <th class="px-4 py-3 font-semibold text-gray-900">Quantity</th>
+                                    <th class="px-4 py-3 font-semibold text-gray-900">Weight</th>
+                                    <th class="px-4 py-3 font-semibold text-gray-900">Packing</th>
+                                    <th class="px-4 py-3 font-semibold text-gray-900">Label</th>
+                                    <th class="px-4 py-3 font-semibold text-gray-900">Detail</th>
+                                    <th class="px-4 py-3 font-semibold text-gray-900">Gambar</th>
+                                    <th class="px-4 py-3 font-semibold text-gray-900">Created At</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-gray-200">
+                                @forelse ($inspeksiGabionframe->inspeksiGabionframeFg as $fg)
+                                    <tr class="transition-colors hover:bg-gray-50">
+                                        <td class="px-4 py-3">{{ $loop->iteration }}</td>
+                                        <td class="px-4 py-3">
+                                            <div class="flex items-center gap-3">
+                                                @if ($isApproved)
+                                                    <button type="button" disabled
+                                                        class="inline-flex cursor-not-allowed items-center rounded-md bg-gray-200 p-2 text-gray-400 opacity-70"
+                                                        title="Data sudah approved">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5"
+                                                            fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                            <path stroke-linecap="round" stroke-linejoin="round"
+                                                                stroke-width="2"
+                                                                d="M11 5h2m-1-1v2m-6 9l-1 4 4-1 9-9a2.121 2.121 0 00-3-3l-9 9z" />
+                                                        </svg>
+                                                    </button>
+                                                @else
+                                                    <a href="{{ route('inspeksi_gabionframe_fg.edit', $fg->id) }}"
+                                                        class="inline-flex items-center rounded-md bg-yellow-100 p-2 text-yellow-600 transition hover:bg-yellow-200"
+                                                        title="Edit">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5"
+                                                            fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                            <path stroke-linecap="round" stroke-linejoin="round"
+                                                                stroke-width="2"
+                                                                d="M11 5h2m-1-1v2m-6 9l-1 4 4-1 9-9a2.121 2.121 0 00-3-3l-9 9z" />
+                                                        </svg>
+                                                    </a>
+                                                @endif
+
+                                                @if ($isApproved)
+                                                    <button type="button" disabled
+                                                        class="inline-flex cursor-not-allowed items-center rounded-md bg-gray-200 p-2 text-gray-400 opacity-70"
+                                                        title="Data sudah approved">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5"
+                                                            fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                            <path stroke-linecap="round" stroke-linejoin="round"
+                                                                stroke-width="2"
+                                                                d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6M9 7V4a1 1 0 011-1h4a1 1 0 011 1v3m-7 0h8" />
+                                                        </svg>
+                                                    </button>
+                                                @else
+                                                    <form id="delete-fg-form-{{ $fg->id }}"
+                                                        action="{{ route('inspeksi_gabionframe_fg.destroy', $fg->id) }}"
+                                                        method="POST" class="delete-form inline-block">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <button type="button"
+                                                            onclick="confirmDeleteFg('{{ $fg->id }}', '{{ $fg->lot_number ?? $fg->id }}')"
+                                                            class="inline-flex items-center rounded-md bg-red-100 p-2 text-red-600 transition hover:bg-red-200"
+                                                            title="Hapus">
+                                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5"
+                                                                fill="none" viewBox="0 0 24 24"
+                                                                stroke="currentColor">
+                                                                <path stroke-linecap="round" stroke-linejoin="round"
+                                                                    stroke-width="2"
+                                                                    d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6M9 7V4a1 1 0 011-1h4a1 1 0 011 1v3m-7 0h8" />
+                                                            </svg>
+                                                        </button>
+                                                    </form>
+                                                @endif
+
+                                                @if ($fg->lot_number)
+                                                    <a href="{{ route('inspeksi_gabionframe_fg.qrcode', $fg->id) }}"
+                                                        target="_blank"
+                                                        class="inline-flex items-center rounded-md bg-blue-100 p-2 text-blue-600 transition hover:bg-blue-200"
+                                                        title="Print QR">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5"
+                                                            fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                            <path stroke-linecap="round" stroke-linejoin="round"
+                                                                stroke-width="2"
+                                                                d="M12 4v1m6 11h2m-6 0h-2v4m0-11v3m0 0h.01M12 12h4.01M16 20h4M4 12h4m12 0h.01M5 8h2a1 1 0 001-1V5a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1zm12 0h2a1 1 0 001-1V5a1 1 0 00-1-1h-2a1 1 0 00-1 1v2a1 1 0 001 1zM5 20h2a1 1 0 001-1v-2a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1z" />
+                                                        </svg>
+                                                    </a>
+                                                @endif
+
+                                                @if (in_array($fg->status, ['NG', 'REJECT']))
+                                                    <button type="button"
+                                                        onclick="toggleHandling({{ $fg->id }})"
+                                                        class="inline-flex items-center rounded-md bg-orange-100 p-2 text-orange-600 transition hover:bg-orange-200"
+                                                        title="Handling NG/REJECT">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5"
+                                                            fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                            <path stroke-linecap="round" stroke-linejoin="round"
+                                                                stroke-width="2"
+                                                                d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+                                                        </svg>
+                                                    </button>
+                                                @endif
+                                            </div>
+                                        </td>
+                                        <td class="px-4 py-3 font-mono text-xs">{{ $fg->lot_number ?? '-' }}</td>
+                                        <td class="px-4 py-3">{{ $fg->user->name ?? 'N/A' }}</td>
+                                        <td class="px-4 py-3">
+                                            @if ($fg->status === 'OK')
+                                                <span
+                                                    class="rounded-full bg-green-100 px-2 py-1 text-xs font-semibold text-green-700">OK</span>
+                                            @elseif ($fg->status === 'NG')
+                                                <span
+                                                    class="rounded-full bg-yellow-100 px-2 py-1 text-xs font-semibold text-yellow-700">NG</span>
+                                            @elseif ($fg->status === 'REJECT')
+                                                <span
+                                                    class="rounded-full bg-red-100 px-2 py-1 text-xs font-semibold text-red-700">REJECT</span>
+                                            @else
+                                                <span
+                                                    class="rounded-full bg-gray-100 px-2 py-1 text-xs font-semibold text-gray-700">{{ $fg->status }}</span>
+                                            @endif
+                                        </td>
+                                        <td class="px-4 py-3">{{ $fg->qty }}</td>
+                                        <td class="px-4 py-3">{{ $fg->weight ?? '-' }}</td>
+                                        <td class="px-4 py-3">{{ $fg->packing }}</td>
+                                        <td class="px-4 py-3">{{ $fg->label }}</td>
+                                        <td class="px-4 py-3">
+                                            <button type="button" class="text-sm text-indigo-600 hover:underline"
+                                                onclick="toggleDetail({{ $fg->id }})">Lihat Detail</button>
+                                        </td>
+                                        <td class="px-4 py-3">
+                                            <button type="button" class="text-sm text-indigo-600 hover:underline"
+                                                onclick="toggleImage({{ $fg->id }})">Lihat Gambar</button>
+                                        </td>
+                                        <td class="px-4 py-3">{{ $fg->created_at }}</td>
+                                    </tr>
+                                @empty
+                                    <tr>
+                                        <td colspan="12" class="px-4 py-8 text-center italic text-gray-400">Belum
+                                            ada data FG untuk inspeksi ini.</td>
+                                    </tr>
+                                @endforelse
+                            </tbody>
+                        </table>
+                    </div>
+
+                    {{-- modal detail fg --}}
+                    @foreach ($inspeksiGabionframe->inspeksiGabionframeFg as $fg)
+                        <div id="detail-{{ $fg->id }}"
+                            class="fixed inset-0 z-50 flex hidden items-center justify-center bg-gray-900 bg-opacity-50">
+                            <div class="w-1/2 rounded-lg bg-white p-6 shadow-lg">
+                                <h3 class="mb-4 text-lg font-semibold">Detail FG: {{ $fg->lot_number ?? '-' }}</h3>
+                                <table class="min-w-full divide-y divide-gray-200 text-sm">
+                                    <thead class="bg-gray-50">
+                                        <tr>
+                                            <th class="px-4 py-2">No</th>
+                                            <th class="px-4 py-2">Description</th>
+                                            <th class="px-4 py-2">Description 2</th>
+                                            <th class="px-4 py-2">QTY</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="divide-y divide-gray-200">
+                                        @forelse ($fg->details as $detail)
+                                            <tr>
+                                                <td class="px-4 py-2">{{ $loop->iteration }}</td>
+                                                <td class="px-4 py-2">{{ $detail->description }}</td>
+                                                <td class="px-4 py-2">{{ $detail->description2 }}</td>
+                                                <td class="px-4 py-2">{{ $detail->qty }}</td>
+                                            </tr>
+                                        @empty
+                                            <tr>
+                                                <td colspan="4" class="px-4 py-4 text-center italic text-gray-400">
+                                                    Belum ada detail untuk FG ini.</td>
+                                            </tr>
+                                        @endforelse
+                                    </tbody>
+                                </table>
+                                <div class="mt-4 text-right">
+                                    <button onclick="toggleDetail({{ $fg->id }})"
+                                        class="rounded bg-gray-200 px-4 py-2 hover:bg-gray-300">Tutup</button>
+                                </div>
+                            </div>
+                        </div>
+                    @endforeach
+
+                    {{-- modal gambar fg --}}
+                    @foreach ($inspeksiGabionframe->inspeksiGabionframeFg as $fg)
+                        <div id="image-{{ $fg->id }}"
+                            class="fixed inset-0 z-50 flex hidden items-center justify-center bg-gray-900 bg-opacity-50">
+                            <div class="max-h-[80vh] w-3/4 overflow-y-auto rounded-lg bg-white p-6 shadow-lg">
+                                @if ($fg->files)
+                                    <div class="space-y-4">
+                                        @foreach ($fg->files as $file)
+                                            @php $ext = pathinfo($file, PATHINFO_EXTENSION); @endphp
+                                            @if (in_array(strtolower($ext), ['jpg', 'jpeg', 'png']))
+                                                <img src="{{ asset('storage/' . $file) }}" alt="FG Image"
+                                                    class="max-h-64 w-full rounded border object-contain" />
+                                            @else
+                                                <a href="{{ asset('storage/' . $file) }}" target="_blank"
+                                                    class="block text-blue-600 hover:underline">Lihat File
+                                                    ({{ strtoupper($ext) }})
+                                                </a>
+                                            @endif
+                                        @endforeach
+                                    </div>
+                                @else
+                                    <p class="italic text-gray-400">Tidak ada gambar diupload.</p>
+                                @endif
+                                <div class="mt-4 text-right">
+                                    <button onclick="toggleImage({{ $fg->id }})"
+                                        class="rounded bg-gray-200 px-4 py-2 hover:bg-gray-300">Tutup</button>
+                                </div>
+                            </div>
+                        </div>
+                    @endforeach
+
+                    {{-- modal handling fg --}}
+                    @foreach ($inspeksiGabionframe->inspeksiGabionframeFg as $fg)
+                        @if (in_array($fg->status, ['NG', 'REJECT']))
+                            <div id="handling-{{ $fg->id }}"
+                                class="fixed inset-0 z-50 flex hidden items-center justify-center bg-gray-900 bg-opacity-50">
+                                <div
+                                    class="max-h-[90vh] w-full max-w-3xl overflow-y-auto rounded-lg bg-white p-6 shadow-lg">
+                                    <div class="mb-4 flex items-center justify-between">
+                                        <h3 class="text-lg font-semibold">Handling - {{ $fg->lot_number ?? '-' }}</h3>
+                                        <button onclick="toggleHandling({{ $fg->id }})"
+                                            class="rounded bg-gray-200 px-3 py-1 hover:bg-gray-300">Tutup</button>
+                                    </div>
+
+                                    <div class="mb-4 rounded border border-gray-200 bg-gray-50 p-3 text-sm">
+                                        <p><strong>Status:</strong> {{ $fg->status }} | <strong>Qty:</strong>
+                                            {{ $fg->qty }} | <strong>Weight:</strong> {{ $fg->weight ?? '-' }}
+                                        </p>
+                                    </div>
+
+                                    @if ($fg->handlings->isNotEmpty())
+                                        <div class="mb-6">
+                                            <h4 class="mb-2 font-semibold text-gray-700">Riwayat Handling</h4>
+                                            <div class="space-y-3">
+                                                @foreach ($fg->handlings as $handling)
+                                                    <div class="rounded border border-gray-200 p-3">
+                                                        <div class="mb-2 flex items-center justify-between text-sm">
+                                                            <div>
+                                                                <span
+                                                                    class="font-medium">{{ $handling->tanggal }}</span>
+                                                                <span class="text-gray-500">oleh
+                                                                    {{ $handling->user->name ?? '-' }}</span>
+                                                                @if ($handling->catatan)
+                                                                    <span class="text-gray-600">-
+                                                                        {{ $handling->catatan }}</span>
+                                                                @endif
+                                                            </div>
+                                                            <form
+                                                                action="{{ route('inspeksi_gabionframe_fg_handling.destroy', [$fg->id, $handling->id]) }}"
+                                                                method="POST"
+                                                                onsubmit="return confirm('Hapus data handling ini?')">
+                                                                @csrf
+                                                                @method('DELETE')
+                                                                <button type="submit"
+                                                                    class="text-xs text-red-600 hover:underline">Hapus</button>
+                                                            </form>
+                                                        </div>
+                                                        <table class="min-w-full text-sm">
+                                                            <thead class="bg-gray-50">
+                                                                <tr>
+                                                                    <th class="px-2 py-1 text-left">Status</th>
+                                                                    <th class="px-2 py-1 text-left">Qty</th>
+                                                                    <th class="px-2 py-1 text-left">Weight</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                @foreach ($handling->details as $hDetail)
+                                                                    <tr class="border-t">
+                                                                        <td class="px-2 py-1">{{ $hDetail->status }}
+                                                                        </td>
+                                                                        <td class="px-2 py-1">{{ $hDetail->qty }}</td>
+                                                                        <td class="px-2 py-1">{{ $hDetail->weight }}
+                                                                        </td>
+                                                                    </tr>
+                                                                @endforeach
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                @endforeach
+                                            </div>
+                                        </div>
+                                    @endif
+
+                                    <div class="border-t pt-4">
+                                        <h4 class="mb-2 font-semibold text-gray-700">Tambah Handling</h4>
+                                        <form action="{{ route('inspeksi_gabionframe_fg_handling.store', $fg->id) }}"
+                                            method="POST" class="space-y-4">
+                                            @csrf
+                                            <div class="grid grid-cols-1 gap-4 md:grid-cols-2">
+                                                <div>
+                                                    <label
+                                                        class="block text-sm font-medium text-gray-700">Tanggal</label>
+                                                    <input type="date" name="tanggal" value="{{ date('Y-m-d') }}"
+                                                        class="mt-1 block w-full rounded-md border-gray-300 shadow-sm"
+                                                        required>
+                                                </div>
+                                                <div>
+                                                    <label
+                                                        class="block text-sm font-medium text-gray-700">Catatan</label>
+                                                    <input type="text" name="catatan"
+                                                        class="mt-1 block w-full rounded-md border-gray-300 shadow-sm"
+                                                        placeholder="Opsional">
+                                                </div>
+                                            </div>
+
+                                            <div id="handling-details-{{ $fg->id }}" class="space-y-2">
+                                                <div class="grid grid-cols-12 gap-2">
+                                                    <div class="col-span-4">
+                                                        <label
+                                                            class="block text-xs font-medium text-gray-700">Status</label>
+                                                        <select name="details[0][status]"
+                                                            class="mt-1 block w-full rounded-md border-gray-300 text-sm shadow-sm"
+                                                            required>
+                                                            <option value="OK">OK</option>
+                                                            <option value="NG">NG</option>
+                                                            <option value="REJECT">REJECT</option>
+                                                            <option value="REPAIR">REPAIR</option>
+                                                            <option value="SCRAP">SCRAP</option>
+                                                            <option value="DOWNGRADE">DOWNGRADE</option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="col-span-3">
+                                                        <label
+                                                            class="block text-xs font-medium text-gray-700">Qty</label>
+                                                        <input type="number" name="details[0][qty]" min="0"
+                                                            class="mt-1 block w-full rounded-md border-gray-300 text-sm shadow-sm"
+                                                            required>
+                                                    </div>
+                                                    <div class="col-span-3">
+                                                        <label
+                                                            class="block text-xs font-medium text-gray-700">Weight</label>
+                                                        <input type="number" step="0.01"
+                                                            name="details[0][weight]" min="0"
+                                                            class="mt-1 block w-full rounded-md border-gray-300 text-sm shadow-sm"
+                                                            required>
+                                                    </div>
+                                                    <div class="col-span-2 flex items-end">
+                                                        <button type="button"
+                                                            onclick="addHandlingRow({{ $fg->id }})"
+                                                            class="w-full rounded bg-indigo-600 px-2 py-2 text-xs text-white hover:bg-indigo-700">+
+                                                            Row</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="text-right">
+                                                <button type="submit"
+                                                    class="rounded bg-green-600 px-4 py-2 text-sm font-semibold text-white hover:bg-green-700">Simpan
+                                                    Handling</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        @endif
+                    @endforeach
+                </div>
+            </div>
+
             <div class="overflow-hidden border border-gray-200 bg-white shadow-sm sm:rounded-lg">
                 <div class="p-6">
 
@@ -431,6 +834,26 @@
             modal.classList.toggle('hidden');
         }
     </script>
+    <script>
+        function toggleHandling(id) {
+            document.getElementById('handling-' + id)?.classList.toggle('hidden');
+        }
+
+        let handlingRowIndex = 1;
+
+        function addHandlingRow(fgId) {
+            const container = document.getElementById('handling-details-' + fgId);
+            if (!container) return;
+            const idx = handlingRowIndex++;
+            container.insertAdjacentHTML('beforeend', `
+                <div class="grid grid-cols-12 gap-2 handling-row">
+                    <div class="col-span-4"><select name="details[${idx}][status]" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm text-sm" required><option value="OK">OK</option><option value="NG">NG</option><option value="REJECT">REJECT</option><option value="REPAIR">REPAIR</option><option value="SCRAP">SCRAP</option><option value="DOWNGRADE">DOWNGRADE</option></select></div>
+                    <div class="col-span-3"><input type="number" name="details[${idx}][qty]" min="0" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm text-sm" required></div>
+                    <div class="col-span-3"><input type="number" step="0.01" name="details[${idx}][weight]" min="0" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm text-sm" required></div>
+                    <div class="col-span-2 flex items-end"><button type="button" onclick="this.closest('.handling-row').remove()" class="w-full rounded bg-red-500 px-2 py-2 text-xs text-white hover:bg-red-600">Hapus</button></div>
+                </div>`);
+        }
+    </script>
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
@@ -444,6 +867,15 @@
                 showConfirmButton: false,
                 timer: 2000,
                 timerProgressBar: true,
+            });
+        @endif
+
+        // Notifikasi Gagal
+        @if (session('error'))
+            Swal.fire({
+                icon: 'error',
+                title: 'Gagal!',
+                text: "{{ session('error') }}",
             });
         @endif
     </script>
@@ -464,6 +896,24 @@
                 if (result.isConfirmed) {
                     // Menjalankan submit pada form yang ID-nya sesuai dengan parameter
                     document.getElementById('delete-form-' + id).submit();
+                }
+            })
+        }
+
+        function confirmDeleteFg(id, name) {
+            Swal.fire({
+                title: 'Hapus data FG?',
+                text: "Data FG " + name + " akan dihapus secara permanen!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#dc2626',
+                cancelButtonColor: '#4f46e5',
+                confirmButtonText: 'Ya, Hapus!',
+                cancelButtonText: 'Batal',
+                reverseButtons: true
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    document.getElementById('delete-fg-form-' + id).submit();
                 }
             })
         }
@@ -649,6 +1099,56 @@
             </table>
         </div>
 
+        {{-- Tabel FG --}}
+        <div style="margin-bottom: 20px;">
+            <h3 style="font-family: Arial, sans-serif; font-size: 12pt; font-weight: bold; margin-bottom: 8px;">Hasil
+                Inspeksi Finished Goods (FG)</h3>
+            <table width="100%" cellpadding="4" cellspacing="0"
+                style="border-collapse: collapse; font-family: Arial, sans-serif; font-size: 9pt; border: 1px solid #000;">
+                <thead>
+                    <tr style="background-color: #f0f0f0;">
+                        <th style="border: 1px solid #000; padding: 5px; text-align: center;">No</th>
+                        <th style="border: 1px solid #000; padding: 5px; text-align: center;">Lot Number</th>
+                        <th style="border: 1px solid #000; padding: 5px; text-align: center;">Inspektor</th>
+                        <th style="border: 1px solid #000; padding: 5px; text-align: center;">Status</th>
+                        <th style="border: 1px solid #000; padding: 5px; text-align: center;">Quantity</th>
+                        <th style="border: 1px solid #000; padding: 5px; text-align: center;">Weight</th>
+                        <th style="border: 1px solid #000; padding: 5px; text-align: center;">Packing</th>
+                        <th style="border: 1px solid #000; padding: 5px; text-align: center;">Label</th>
+                        <th style="border: 1px solid #000; padding: 5px; text-align: center;">Created At</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @forelse ($inspeksiGabionframe->inspeksiGabionframeFg as $fg)
+                        <tr>
+                            <td style="border: 1px solid #000; padding: 4px; text-align: center;">
+                                {{ $loop->iteration }}</td>
+                            <td style="border: 1px solid #000; padding: 4px;">{{ $fg->lot_number ?? '-' }}</td>
+                            <td style="border: 1px solid #000; padding: 4px;">{{ $fg->user->name ?? 'N/A' }}</td>
+                            <td style="border: 1px solid #000; padding: 4px; text-align: center;">{{ $fg->status }}
+                            </td>
+                            <td style="border: 1px solid #000; padding: 4px; text-align: center;">{{ $fg->qty }}
+                            </td>
+                            <td style="border: 1px solid #000; padding: 4px; text-align: center;">
+                                {{ $fg->weight ?? '-' }}</td>
+                            <td style="border: 1px solid #000; padding: 4px; text-align: center;">{{ $fg->packing }}
+                            </td>
+                            <td style="border: 1px solid #000; padding: 4px; text-align: center;">{{ $fg->label }}
+                            </td>
+                            <td style="border: 1px solid #000; padding: 4px; text-align: center;">
+                                {{ optional($fg->created_at)->format('d/m/Y') }}</td>
+                        </tr>
+                    @empty
+                        <tr>
+                            <td colspan="9"
+                                style="border: 1px solid #000; padding: 8px; text-align: center; font-style: italic;">
+                                Belum ada data FG</td>
+                        </tr>
+                    @endforelse
+                </tbody>
+            </table>
+        </div>
+
         {{-- Tanda Tangan --}}
         <table width="100%" cellpadding="10" cellspacing="0"
             style="border-collapse: collapse; font-family: Arial, sans-serif; font-size: 11pt; margin-top: 40px;">
@@ -657,7 +1157,7 @@
                     <p style="margin: 0 0 5px 0; font-weight: bold;">Dibuat oleh:</p>
                     <br><br><br>
                     <p style="margin: 0; border-top: 1px solid #000; width: 200px; padding-top: 5px;">
-                        {{ $inspeksiGabionframe->inspeksiGabionframeWip->first()->user->name ?? '.................' }}
+                        {{ $inspeksiGabionframe->inspeksiGabionframeWip->first()->user->name ?? ($inspeksiGabionframe->inspeksiGabionframeFg->first()->user->name ?? '.................') }}
                     </p>
                     <p style="margin: 2px 0 0 0; font-style: italic;">Inspektor</p>
                 </td>

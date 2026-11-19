@@ -29,6 +29,11 @@ class InspeksiGabionframe extends Model
         return $this->belongsTo(Mesin::class);
     }
 
+    public function approver()
+    {
+        return $this->belongsTo(User::class, 'approved_by');
+    }
+
     public function isApproved()
     {
         return $this->approval_status === 'APPROVED';
@@ -37,5 +42,10 @@ class InspeksiGabionframe extends Model
     public function inspeksiGabionframeWip()
     {
         return $this->hasMany(InspeksiGabionframeWip::class);
+    }
+
+    public function inspeksiGabionframeFg()
+    {
+        return $this->hasMany(InspeksiGabionframeFg::class);
     }
 }

@@ -128,7 +128,17 @@ class InspeksiGabionframeController extends Controller
      */
     public function show(InspeksiGabionframe $inspeksiGabionframe)
     {
-        $inspeksiGabionframe->load(['pro', 'mesin', 'inspeksiGabionframeWip']);
+        $inspeksiGabionframe->load([
+            'pro',
+            'mesin',
+            'inspeksiGabionframeWip.details',
+            'inspeksiGabionframeWip.user',
+            'inspeksiGabionframeFg.details',
+            'inspeksiGabionframeFg.user',
+            'inspeksiGabionframeFg.handlings.details',
+            'inspeksiGabionframeFg.handlings.user',
+        ]);
+
         return view('inspeksi_gabionframe.show', compact('inspeksiGabionframe'));
     }
 
