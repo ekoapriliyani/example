@@ -38,7 +38,7 @@ class DaftarNgRejectController extends Controller
 
         $wm = ($modul === '' || $modul === 'WM')
             ? InspeksiWmFg::query()
-                ->with('inspeksiWm.pro')
+                ->with('inspeksiWm.pro', 'inspeksiWm.mesin')
                 ->whereIn('status', $statuses)
                 ->when($startDate, fn($q) => $q->whereHas('inspeksiWm', fn($w) => $w->whereDate('tanggal', '>=', $startDate)))
                 ->when($endDate, fn($q) => $q->whereHas('inspeksiWm', fn($w) => $w->whereDate('tanggal', '<=', $endDate)))
@@ -52,6 +52,8 @@ class DaftarNgRejectController extends Controller
                     'shift' => $fg->inspeksiWm->shift,
                     'nomor_inspeksi' => $fg->inspeksiWm->nomor_inspeksi,
                     'pro_number' => $fg->inspeksiWm->pro->pro_id,
+                    'nama_mesin' => $fg->inspeksiWm->mesin?->nama_mesin ?? '-',
+                    'description' => $fg->inspeksiWm->pro->description ?? '-',
                     'modul' => 'WM',
                     'qrcode_url' => route('inspeksi_wm_fg.qrcode', $fg->id),
                 ])
@@ -59,7 +61,7 @@ class DaftarNgRejectController extends Controller
 
         $fencing = ($modul === '' || $modul === 'Fencing')
             ? InspeksiFencingFg::query()
-                ->with('inspeksiFencing.pro')
+                ->with('inspeksiFencing.pro', 'inspeksiFencing.mesin')
                 ->whereIn('status', $statuses)
                 ->when($startDate, fn($q) => $q->whereHas('inspeksiFencing', fn($f) => $f->whereDate('tanggal', '>=', $startDate)))
                 ->when($endDate, fn($q) => $q->whereHas('inspeksiFencing', fn($f) => $f->whereDate('tanggal', '<=', $endDate)))
@@ -73,6 +75,8 @@ class DaftarNgRejectController extends Controller
                     'shift' => $fg->inspeksiFencing->shift,
                     'nomor_inspeksi' => $fg->inspeksiFencing->nomor_inspeksi,
                     'pro_number' => $fg->inspeksiFencing->pro->pro_id,
+                    'nama_mesin' => $fg->inspeksiFencing->mesin?->nama_mesin ?? '-',
+                    'description' => $fg->inspeksiFencing->pro->description ?? '-',
                     'modul' => 'Fencing',
                     'qrcode_url' => route('inspeksi_fencing_fg.qrcode', $fg->id),
                 ])
@@ -80,7 +84,7 @@ class DaftarNgRejectController extends Controller
 
         $ct = ($modul === '' || $modul === 'CTCL')
             ? InspeksiCtFg::query()
-                ->with('inspeksiCt.pro')
+                ->with('inspeksiCt.pro', 'inspeksiCt.mesin')
                 ->whereIn('status', $statuses)
                 ->when($startDate, fn($q) => $q->whereHas('inspeksiCt', fn($c) => $c->whereDate('tanggal', '>=', $startDate)))
                 ->when($endDate, fn($q) => $q->whereHas('inspeksiCt', fn($c) => $c->whereDate('tanggal', '<=', $endDate)))
@@ -94,6 +98,8 @@ class DaftarNgRejectController extends Controller
                     'shift' => $fg->inspeksiCt->shift,
                     'nomor_inspeksi' => $fg->inspeksiCt->nomor_inspeksi,
                     'pro_number' => $fg->inspeksiCt->pro->pro_id,
+                    'nama_mesin' => $fg->inspeksiCt->mesin?->nama_mesin ?? '-',
+                    'description' => $fg->inspeksiCt->pro->description ?? '-',
                     'modul' => 'CTCL',
                     'qrcode_url' => route('inspeksi_ct_fg.qrcode', $fg->id),
                 ])
@@ -101,7 +107,7 @@ class DaftarNgRejectController extends Controller
 
         $chainlink = ($modul === '' || $modul === 'Chainlink')
             ? InspeksiChainlinkFg::query()
-                ->with('inspeksiChainlink.pro')
+                ->with('inspeksiChainlink.pro', 'inspeksiChainlink.mesin')
                 ->whereIn('status', $statuses)
                 ->when($startDate, fn($q) => $q->whereHas('inspeksiChainlink', fn($c) => $c->whereDate('tanggal', '>=', $startDate)))
                 ->when($endDate, fn($q) => $q->whereHas('inspeksiChainlink', fn($c) => $c->whereDate('tanggal', '<=', $endDate)))
@@ -115,6 +121,8 @@ class DaftarNgRejectController extends Controller
                     'shift' => $fg->inspeksiChainlink->shift,
                     'nomor_inspeksi' => $fg->inspeksiChainlink->nomor_inspeksi,
                     'pro_number' => $fg->inspeksiChainlink->pro->pro_id,
+                    'nama_mesin' => $fg->inspeksiChainlink->mesin?->nama_mesin ?? '-',
+                    'description' => $fg->inspeksiChainlink->pro->description ?? '-',
                     'modul' => 'Chainlink',
                     'qrcode_url' => route('inspeksi_chainlink_fg.qrcode', $fg->id),
                 ])
@@ -122,7 +130,7 @@ class DaftarNgRejectController extends Controller
 
         $kawatDuri = ($modul === '' || $modul === 'Kawat Duri')
             ? InspeksiKawatDuriFg::query()
-                ->with('inspeksiKawatDuri.pro')
+                ->with('inspeksiKawatDuri.pro', 'inspeksiKawatDuri.mesin')
                 ->whereIn('status', $statuses)
                 ->when($startDate, fn($q) => $q->whereHas('inspeksiKawatDuri', fn($k) => $k->whereDate('tanggal', '>=', $startDate)))
                 ->when($endDate, fn($q) => $q->whereHas('inspeksiKawatDuri', fn($k) => $k->whereDate('tanggal', '<=', $endDate)))
@@ -136,6 +144,8 @@ class DaftarNgRejectController extends Controller
                     'shift' => $fg->inspeksiKawatDuri->shift,
                     'nomor_inspeksi' => $fg->inspeksiKawatDuri->nomor_inspeksi,
                     'pro_number' => $fg->inspeksiKawatDuri->pro->pro_id,
+                    'nama_mesin' => $fg->inspeksiKawatDuri->mesin?->nama_mesin ?? '-',
+                    'description' => $fg->inspeksiKawatDuri->pro->description ?? '-',
                     'modul' => 'Kawat Duri',
                     'qrcode_url' => route('inspeksi_kawat_duri_fg.qrcode', $fg->id),
                 ])
@@ -157,6 +167,8 @@ class DaftarNgRejectController extends Controller
                     'shift' => $fg->inspeksiRazorpacking->shift,
                     'nomor_inspeksi' => $fg->inspeksiRazorpacking->nomor_inspeksi,
                     'pro_number' => $fg->inspeksiRazorpacking->pro->pro_id,
+                    'nama_mesin' => '-',
+                    'description' => $fg->inspeksiRazorpacking->pro->description ?? '-',
                     'modul' => 'Razor Packing',
                     'qrcode_url' => route('inspeksi_razorpacking_fg.qrcode', $fg->id),
                 ])
@@ -178,6 +190,8 @@ class DaftarNgRejectController extends Controller
                     'shift' => $fg->inspeksiGabionpacking->shift,
                     'nomor_inspeksi' => $fg->inspeksiGabionpacking->nomor_inspeksi,
                     'pro_number' => $fg->inspeksiGabionpacking->pro->pro_id,
+                    'nama_mesin' => '-',
+                    'description' => $fg->inspeksiGabionpacking->pro->description ?? '-',
                     'modul' => 'Gabion Packing',
                     'qrcode_url' => route('inspeksi_gabionpacking_fg.qrcode', $fg->id),
                 ])
@@ -185,7 +199,7 @@ class DaftarNgRejectController extends Controller
 
         $gabionAnyam = ($modul === '' || $modul === 'Gabion Anyam')
             ? InspeksiGabionanyamFg::query()
-                ->with('inspeksiGabionanyam.pro')
+                ->with('inspeksiGabionanyam.pro', 'inspeksiGabionanyam.mesin')
                 ->whereIn('status', $statuses)
                 ->when($startDate, fn($q) => $q->whereHas('inspeksiGabionanyam', fn($g) => $g->whereDate('tanggal', '>=', $startDate)))
                 ->when($endDate, fn($q) => $q->whereHas('inspeksiGabionanyam', fn($g) => $g->whereDate('tanggal', '<=', $endDate)))
@@ -199,6 +213,8 @@ class DaftarNgRejectController extends Controller
                     'shift' => $fg->inspeksiGabionanyam->shift,
                     'nomor_inspeksi' => $fg->inspeksiGabionanyam->nomor_inspeksi,
                     'pro_number' => $fg->inspeksiGabionanyam->pro->pro_id,
+                    'nama_mesin' => $fg->inspeksiGabionanyam->mesin?->nama_mesin ?? '-',
+                    'description' => $fg->inspeksiGabionanyam->pro->description ?? '-',
                     'modul' => 'Gabion Anyam',
                     'qrcode_url' => route('inspeksi_gabionanyam_fg.qrcode', $fg->id),
                 ])
@@ -206,7 +222,7 @@ class DaftarNgRejectController extends Controller
 
         $shearing = ($modul === '' || $modul === 'Shearing')
             ? InspeksiShearingFg::query()
-                ->with('inspeksiShearing.pro')
+                ->with('inspeksiShearing.pro', 'inspeksiShearing.mesin')
                 ->whereIn('status', $statuses)
                 ->when($startDate, fn($q) => $q->whereHas('inspeksiShearing', fn($s) => $s->whereDate('tanggal', '>=', $startDate)))
                 ->when($endDate, fn($q) => $q->whereHas('inspeksiShearing', fn($s) => $s->whereDate('tanggal', '<=', $endDate)))
@@ -220,6 +236,8 @@ class DaftarNgRejectController extends Controller
                     'shift' => $fg->inspeksiShearing->shift,
                     'nomor_inspeksi' => $fg->inspeksiShearing->nomor_inspeksi,
                     'pro_number' => $fg->inspeksiShearing->pro->pro_id,
+                    'nama_mesin' => $fg->inspeksiShearing->mesin?->nama_mesin ?? '-',
+                    'description' => $fg->inspeksiShearing->pro->description ?? '-',
                     'modul' => 'Shearing',
                     'qrcode_url' => route('inspeksi_shearing_fg.qrcode', $fg->id),
                 ])
