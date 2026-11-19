@@ -51,6 +51,7 @@ class DaftarNgRejectExport implements
             'Detail Inspeksi 2',
             'Modul',
             'Lot Number',
+            'Inspector',
         ];
     }
 
@@ -74,6 +75,7 @@ class DaftarNgRejectExport implements
             $row['detail_inspeksi_2'] ?? '-',
             $row['modul'] ?? '',
             $row['lot_number'] ?? '',
+            $row['inspector'] ?? '-',
         ];
     }
 
@@ -95,6 +97,7 @@ class DaftarNgRejectExport implements
             'M' => 28,
             'N' => 15,
             'O' => 22,
+            'P' => 22,
         ];
     }
 

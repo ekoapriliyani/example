@@ -121,6 +121,7 @@
                                         <th class="px-4 py-3 text-left font-semibold text-gray-900">Detail Inspeksi 2</th>
                                         <th class="px-4 py-3 text-left font-semibold text-gray-900">Modul</th>
                                         <th class="px-4 py-3 text-left font-semibold text-gray-900">Lot Number</th>
+                                        <th class="px-4 py-3 text-left font-semibold text-gray-900">Inspector</th>
 
                                     </tr>
                                 </thead>
@@ -175,10 +176,12 @@
                                             <td class="px-4 py-3 font-medium text-gray-900">{{ $item['modul'] }}</td>
                                             <td class="px-4 py-3 font-medium text-gray-900">{{ $item['lot_number'] }}
                                             </td>
+                                            <td class="px-4 py-3 font-medium text-gray-900">
+                                                {{ $item['inspector'] ?? '-' }}</td>
                                         </tr>
                                     @empty
                                         <tr>
-                                            <td colspan="16" class="px-4 py-8 text-center italic text-gray-500">
+                                            <td colspan="17" class="px-4 py-8 text-center italic text-gray-500">
                                                 Belum ada data NG/REJECT.
                                             </td>
                                         </tr>

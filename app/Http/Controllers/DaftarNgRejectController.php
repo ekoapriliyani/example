@@ -91,11 +91,11 @@ class DaftarNgRejectController extends Controller
 
         $wm = ($modul === '' || $modul === 'WM')
             ? InspeksiWmFg::query()
-                ->with('inspeksiWm.pro', 'inspeksiWm.mesin', 'details')
+                ->with('inspeksiWm.pro', 'inspeksiWm.mesin', 'details', 'user')
                 ->whereIn('status', $statuses)
                 ->when($startDate, fn($q) => $q->whereHas('inspeksiWm', fn($w) => $w->whereDate('tanggal', '>=', $startDate)))
                 ->when($endDate, fn($q) => $q->whereHas('inspeksiWm', fn($w) => $w->whereDate('tanggal', '<=', $endDate)))
-                ->get(['id', 'lot_number', 'status', 'qty', 'weight', 'inspeksi_wm_id'])
+                ->get(['id', 'lot_number', 'status', 'qty', 'weight', 'user_id', 'inspeksi_wm_id'])
                 ->map(fn($fg) => [
                     'id' => $fg->id,
                     'lot_number' => $fg->lot_number,
@@ -111,17 +111,18 @@ class DaftarNgRejectController extends Controller
                     'detail_inspeksi_1' => $this->detailValue($fg->details, 'description'),
                     'detail_inspeksi_2' => $this->detailValue($fg->details, 'description2'),
                     'modul' => 'WM',
+                    'inspector' => $fg->user?->name ?? '-',
                     'qrcode_url' => route('inspeksi_wm_fg.qrcode', $fg->id),
                 ])
             : collect();
 
         $fencing = ($modul === '' || $modul === 'Fencing')
             ? InspeksiFencingFg::query()
-                ->with('inspeksiFencing.pro', 'inspeksiFencing.mesin', 'details')
+                ->with('inspeksiFencing.pro', 'inspeksiFencing.mesin', 'details', 'user')
                 ->whereIn('status', $statuses)
                 ->when($startDate, fn($q) => $q->whereHas('inspeksiFencing', fn($f) => $f->whereDate('tanggal', '>=', $startDate)))
                 ->when($endDate, fn($q) => $q->whereHas('inspeksiFencing', fn($f) => $f->whereDate('tanggal', '<=', $endDate)))
-                ->get(['id', 'lot_number', 'status', 'qty', 'weight', 'inspeksi_fencing_id'])
+                ->get(['id', 'lot_number', 'status', 'qty', 'weight', 'user_id', 'inspeksi_fencing_id'])
                 ->map(fn($fg) => [
                     'id' => $fg->id,
                     'lot_number' => $fg->lot_number,
@@ -137,17 +138,18 @@ class DaftarNgRejectController extends Controller
                     'detail_inspeksi_1' => $this->detailValue($fg->details, 'description'),
                     'detail_inspeksi_2' => $this->detailValue($fg->details, 'description2'),
                     'modul' => 'Fencing',
+                    'inspector' => $fg->user?->name ?? '-',
                     'qrcode_url' => route('inspeksi_fencing_fg.qrcode', $fg->id),
                 ])
             : collect();
 
         $ct = ($modul === '' || $modul === 'CTCL')
             ? InspeksiCtFg::query()
-                ->with('inspeksiCt.pro', 'inspeksiCt.mesin', 'details')
+                ->with('inspeksiCt.pro', 'inspeksiCt.mesin', 'details', 'user')
                 ->whereIn('status', $statuses)
                 ->when($startDate, fn($q) => $q->whereHas('inspeksiCt', fn($c) => $c->whereDate('tanggal', '>=', $startDate)))
                 ->when($endDate, fn($q) => $q->whereHas('inspeksiCt', fn($c) => $c->whereDate('tanggal', '<=', $endDate)))
-                ->get(['id', 'lot_number', 'status', 'qty', 'weight', 'inspeksi_ct_id'])
+                ->get(['id', 'lot_number', 'status', 'qty', 'weight', 'user_id', 'inspeksi_ct_id'])
                 ->map(fn($fg) => [
                     'id' => $fg->id,
                     'lot_number' => $fg->lot_number,
@@ -163,17 +165,18 @@ class DaftarNgRejectController extends Controller
                     'detail_inspeksi_1' => $this->detailValue($fg->details, 'description'),
                     'detail_inspeksi_2' => $this->detailValue($fg->details, 'description2'),
                     'modul' => 'CTCL',
+                    'inspector' => $fg->user?->name ?? '-',
                     'qrcode_url' => route('inspeksi_ct_fg.qrcode', $fg->id),
                 ])
             : collect();
 
         $chainlink = ($modul === '' || $modul === 'Chainlink')
             ? InspeksiChainlinkFg::query()
-                ->with('inspeksiChainlink.pro', 'inspeksiChainlink.mesin', 'inspeksiChainlinkFgDetails')
+                ->with('inspeksiChainlink.pro', 'inspeksiChainlink.mesin', 'inspeksiChainlinkFgDetails', 'user')
                 ->whereIn('status', $statuses)
                 ->when($startDate, fn($q) => $q->whereHas('inspeksiChainlink', fn($c) => $c->whereDate('tanggal', '>=', $startDate)))
                 ->when($endDate, fn($q) => $q->whereHas('inspeksiChainlink', fn($c) => $c->whereDate('tanggal', '<=', $endDate)))
-                ->get(['id', 'lot_number', 'status', 'qty', 'weight', 'inspeksi_chainlink_id'])
+                ->get(['id', 'lot_number', 'status', 'qty', 'weight', 'user_id', 'inspeksi_chainlink_id'])
                 ->map(fn($fg) => [
                     'id' => $fg->id,
                     'lot_number' => $fg->lot_number,
@@ -189,17 +192,18 @@ class DaftarNgRejectController extends Controller
                     'detail_inspeksi_1' => $this->detailValue($fg->inspeksiChainlinkFgDetails, 'description'),
                     'detail_inspeksi_2' => $this->detailValue($fg->inspeksiChainlinkFgDetails, 'description2'),
                     'modul' => 'Chainlink',
+                    'inspector' => $fg->user?->name ?? '-',
                     'qrcode_url' => route('inspeksi_chainlink_fg.qrcode', $fg->id),
                 ])
             : collect();
 
         $kawatDuri = ($modul === '' || $modul === 'Kawat Duri')
             ? InspeksiKawatDuriFg::query()
-                ->with('inspeksiKawatDuri.pro', 'inspeksiKawatDuri.mesin', 'inspeksiKdFgDetails')
+                ->with('inspeksiKawatDuri.pro', 'inspeksiKawatDuri.mesin', 'inspeksiKdFgDetails', 'user')
                 ->whereIn('status', $statuses)
                 ->when($startDate, fn($q) => $q->whereHas('inspeksiKawatDuri', fn($k) => $k->whereDate('tanggal', '>=', $startDate)))
                 ->when($endDate, fn($q) => $q->whereHas('inspeksiKawatDuri', fn($k) => $k->whereDate('tanggal', '<=', $endDate)))
-                ->get(['id', 'lot_number', 'status', 'qty', 'weight', 'inspeksi_kawat_duri_id'])
+                ->get(['id', 'lot_number', 'status', 'qty', 'weight', 'user_id', 'inspeksi_kawat_duri_id'])
                 ->map(fn($fg) => [
                     'id' => $fg->id,
                     'lot_number' => $fg->lot_number,
@@ -215,17 +219,18 @@ class DaftarNgRejectController extends Controller
                     'detail_inspeksi_1' => $this->detailValue($fg->inspeksiKdFgDetails, 'description'),
                     'detail_inspeksi_2' => $this->detailValue($fg->inspeksiKdFgDetails, 'description2'),
                     'modul' => 'Kawat Duri',
+                    'inspector' => $fg->user?->name ?? '-',
                     'qrcode_url' => route('inspeksi_kawat_duri_fg.qrcode', $fg->id),
                 ])
             : collect();
 
         $razorPacking = ($modul === '' || $modul === 'Razor Packing')
             ? InspeksiRazorpackingFg::query()
-                ->with('inspeksiRazorpacking.pro', 'details')
+                ->with('inspeksiRazorpacking.pro', 'details', 'user')
                 ->whereIn('status', $statuses)
                 ->when($startDate, fn($q) => $q->whereHas('inspeksiRazorpacking', fn($r) => $r->whereDate('tanggal', '>=', $startDate)))
                 ->when($endDate, fn($q) => $q->whereHas('inspeksiRazorpacking', fn($r) => $r->whereDate('tanggal', '<=', $endDate)))
-                ->get(['id', 'lot_number', 'status', 'qty', 'weight', 'inspeksi_razorpacking_id'])
+                ->get(['id', 'lot_number', 'status', 'qty', 'weight', 'user_id', 'inspeksi_razorpacking_id'])
                 ->map(fn($fg) => [
                     'id' => $fg->id,
                     'lot_number' => $fg->lot_number,
@@ -241,17 +246,18 @@ class DaftarNgRejectController extends Controller
                     'detail_inspeksi_1' => $this->detailValue($fg->details, 'description'),
                     'detail_inspeksi_2' => $this->detailValue($fg->details, 'description2'),
                     'modul' => 'Razor Packing',
+                    'inspector' => $fg->user?->name ?? '-',
                     'qrcode_url' => route('inspeksi_razorpacking_fg.qrcode', $fg->id),
                 ])
             : collect();
 
         $gabionPacking = ($modul === '' || $modul === 'Gabion Packing')
             ? InspeksiGabionpackingFg::query()
-                ->with('inspeksiGabionpacking.pro', 'details')
+                ->with('inspeksiGabionpacking.pro', 'details', 'user')
                 ->whereIn('status', $statuses)
                 ->when($startDate, fn($q) => $q->whereHas('inspeksiGabionpacking', fn($g) => $g->whereDate('tanggal', '>=', $startDate)))
                 ->when($endDate, fn($q) => $q->whereHas('inspeksiGabionpacking', fn($g) => $g->whereDate('tanggal', '<=', $endDate)))
-                ->get(['id', 'lot_number', 'status', 'qty', 'weight', 'inspeksi_gabionpacking_id'])
+                ->get(['id', 'lot_number', 'status', 'qty', 'weight', 'user_id', 'inspeksi_gabionpacking_id'])
                 ->map(fn($fg) => [
                     'id' => $fg->id,
                     'lot_number' => $fg->lot_number,
@@ -267,17 +273,18 @@ class DaftarNgRejectController extends Controller
                     'detail_inspeksi_1' => $this->detailValue($fg->details, 'description'),
                     'detail_inspeksi_2' => $this->detailValue($fg->details, 'description2'),
                     'modul' => 'Gabion Packing',
+                    'inspector' => $fg->user?->name ?? '-',
                     'qrcode_url' => route('inspeksi_gabionpacking_fg.qrcode', $fg->id),
                 ])
             : collect();
 
         $gabionAnyam = ($modul === '' || $modul === 'Gabion Anyam')
             ? InspeksiGabionanyamFg::query()
-                ->with('inspeksiGabionanyam.pro', 'inspeksiGabionanyam.mesin', 'details')
+                ->with('inspeksiGabionanyam.pro', 'inspeksiGabionanyam.mesin', 'details', 'user')
                 ->whereIn('status', $statuses)
                 ->when($startDate, fn($q) => $q->whereHas('inspeksiGabionanyam', fn($g) => $g->whereDate('tanggal', '>=', $startDate)))
                 ->when($endDate, fn($q) => $q->whereHas('inspeksiGabionanyam', fn($g) => $g->whereDate('tanggal', '<=', $endDate)))
-                ->get(['id', 'lot_number', 'status', 'qty', 'weight', 'inspeksi_gabionanyam_id'])
+                ->get(['id', 'lot_number', 'status', 'qty', 'weight', 'user_id', 'inspeksi_gabionanyam_id'])
                 ->map(fn($fg) => [
                     'id' => $fg->id,
                     'lot_number' => $fg->lot_number,
@@ -293,17 +300,18 @@ class DaftarNgRejectController extends Controller
                     'detail_inspeksi_1' => $this->detailValue($fg->details, 'description'),
                     'detail_inspeksi_2' => $this->detailValue($fg->details, 'description2'),
                     'modul' => 'Gabion Anyam',
+                    'inspector' => $fg->user?->name ?? '-',
                     'qrcode_url' => route('inspeksi_gabionanyam_fg.qrcode', $fg->id),
                 ])
             : collect();
 
         $shearing = ($modul === '' || $modul === 'Shearing')
             ? InspeksiShearingFg::query()
-                ->with('inspeksiShearing.pro', 'inspeksiShearing.mesin', 'details')
+                ->with('inspeksiShearing.pro', 'inspeksiShearing.mesin', 'details', 'user')
                 ->whereIn('status', $statuses)
                 ->when($startDate, fn($q) => $q->whereHas('inspeksiShearing', fn($s) => $s->whereDate('tanggal', '>=', $startDate)))
                 ->when($endDate, fn($q) => $q->whereHas('inspeksiShearing', fn($s) => $s->whereDate('tanggal', '<=', $endDate)))
-                ->get(['id', 'lot_number', 'status', 'qty', 'weight', 'inspeksi_shearing_id'])
+                ->get(['id', 'lot_number', 'status', 'qty', 'weight', 'user_id', 'inspeksi_shearing_id'])
                 ->map(fn($fg) => [
                     'id' => $fg->id,
                     'lot_number' => $fg->lot_number,
@@ -319,6 +327,7 @@ class DaftarNgRejectController extends Controller
                     'detail_inspeksi_1' => $this->detailValue($fg->details, 'description'),
                     'detail_inspeksi_2' => $this->detailValue($fg->details, 'description2'),
                     'modul' => 'Shearing',
+                    'inspector' => $fg->user?->name ?? '-',
                     'qrcode_url' => route('inspeksi_shearing_fg.qrcode', $fg->id),
                 ])
             : collect();
