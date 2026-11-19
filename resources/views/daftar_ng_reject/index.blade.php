@@ -95,7 +95,8 @@
                                 <thead class="bg-gray-50">
                                     <tr>
                                         <th class="w-16 px-4 py-3 text-left font-semibold text-gray-900">No</th>
-                                        <th class="px-4 py-3 text-left font-semibold text-gray-900">Lot Number</th>
+                                        <th class="px-4 py-3 text-left font-semibold text-gray-900">Aksi</th>
+                                        <th class="px-4 py-3 text-left font-semibold text-gray-900">Status</th>
                                         <th class="px-4 py-3 text-left font-semibold text-gray-900">No Inspeksi</th>
                                         <th class="px-4 py-3 text-left font-semibold text-gray-900">Tanggal</th>
                                         <th class="px-4 py-3 text-left font-semibold text-gray-900">Shift</th>
@@ -104,9 +105,9 @@
                                         <th class="px-4 py-3 text-left font-semibold text-gray-900">Description (Nama
                                             Produk)</th>
                                         <th class="px-4 py-3 text-right font-semibold text-gray-900">Qty</th>
-                                        <th class="px-4 py-3 text-left font-semibold text-gray-900">Status</th>
                                         <th class="px-4 py-3 text-left font-semibold text-gray-900">Modul</th>
-                                        <th class="px-4 py-3 text-left font-semibold text-gray-900">Aksi</th>
+                                        <th class="px-4 py-3 text-left font-semibold text-gray-900">Lot Number</th>
+
                                     </tr>
                                 </thead>
                                 <tbody class="divide-y divide-gray-200">
@@ -114,30 +115,6 @@
                                         <tr class="transition-colors hover:bg-gray-50">
                                             <td class="px-4 py-3 font-medium text-gray-900">
                                                 {{ $loop->iteration + ($data->firstItem() - 1) }}</td>
-                                            <td class="px-4 py-3 font-medium text-gray-900">{{ $item['lot_number'] }}
-                                            </td>
-                                            <td class="px-4 py-3 font-medium text-gray-900">
-                                                {{ $item['nomor_inspeksi'] }}</td>
-                                            <td class="px-4 py-3 font-medium text-gray-900">{{ $item['tanggal'] }}</td>
-                                            <td class="px-4 py-3 font-medium text-gray-900">{{ $item['shift'] }}</td>
-                                            <td class="px-4 py-3 font-medium text-gray-900">{{ $item['pro_number'] }}
-                                            </td>
-                                            <td class="px-4 py-3 font-medium text-gray-900">
-                                                {{ $item['nama_mesin'] ?? '-' }}</td>
-                                            <td class="px-4 py-3 font-medium text-gray-900">
-                                                {{ $item['description'] ?? '-' }}</td>
-                                            <td class="px-4 py-3 text-right font-medium text-gray-900">
-                                                {{ $item['qty'] }}</td>
-                                            <td class="px-4 py-3">
-                                                @if ($item['status'] === 'NG')
-                                                    <span
-                                                        class="inline-block rounded bg-red-100 px-3 py-1 text-xs font-semibold text-red-700">NG</span>
-                                                @else
-                                                    <span
-                                                        class="inline-block rounded bg-orange-100 px-3 py-1 text-xs font-semibold text-orange-700">REJECT</span>
-                                                @endif
-                                            </td>
-                                            <td class="px-4 py-3 font-medium text-gray-900">{{ $item['modul'] }}</td>
                                             <td class="px-4 py-3">
                                                 <a href="{{ $item['qrcode_url'] }}" target="_blank"
                                                     class="inline-flex items-center gap-1 rounded-md bg-indigo-50 px-3 py-1.5 text-xs font-semibold text-indigo-700 transition hover:bg-indigo-100"
@@ -150,6 +127,31 @@
                                                     </svg>
                                                     Cetak Label
                                                 </a>
+                                            </td>
+                                            <td class="px-4 py-3">
+                                                @if ($item['status'] === 'NG')
+                                                    <span
+                                                        class="inline-block rounded bg-red-100 px-3 py-1 text-xs font-semibold text-red-700">NG</span>
+                                                @else
+                                                    <span
+                                                        class="inline-block rounded bg-orange-100 px-3 py-1 text-xs font-semibold text-orange-700">REJECT</span>
+                                                @endif
+                                            </td>
+                                            <td class="px-4 py-3 font-medium text-gray-900">
+                                                {{ $item['nomor_inspeksi'] }}</td>
+                                            <td class="px-4 py-3 font-medium text-gray-900">{{ $item['tanggal'] }}
+                                            </td>
+                                            <td class="px-4 py-3 font-medium text-gray-900">{{ $item['shift'] }}</td>
+                                            <td class="px-4 py-3 font-medium text-gray-900">{{ $item['pro_number'] }}
+                                            </td>
+                                            <td class="px-4 py-3 font-medium text-gray-900">
+                                                {{ $item['nama_mesin'] ?? '-' }}</td>
+                                            <td class="px-4 py-3 font-medium text-gray-900">
+                                                {{ $item['description'] ?? '-' }}</td>
+                                            <td class="px-4 py-3 text-right font-medium text-gray-900">
+                                                {{ $item['qty'] }}</td>
+                                            <td class="px-4 py-3 font-medium text-gray-900">{{ $item['modul'] }}</td>
+                                            <td class="px-4 py-3 font-medium text-gray-900">{{ $item['lot_number'] }}
                                             </td>
                                         </tr>
                                     @empty
