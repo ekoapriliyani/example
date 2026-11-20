@@ -33,7 +33,7 @@ class InspeksiWmFgController extends Controller
         $validated = $request->validate([
             'inspeksi_wm_id' => 'required|exists:inspeksi_wms,id',
             'status'         => 'required|string',
-            'qty'            => 'required|integer',
+            'qty'            => 'required',
             'weight'         => 'nullable|numeric',
             'packing'        => 'required|string',
             'label'          => 'required|string',
@@ -98,7 +98,7 @@ class InspeksiWmFgController extends Controller
     {
         $validated = $request->validate([
             'status'  => 'required|string',
-            'qty'     => 'required|integer',
+            'qty'     => 'required',
             'weight'  => 'nullable|numeric',
             'packing' => 'required|string',
             'label'   => 'required|string',
