@@ -86,7 +86,7 @@ class InspeksiGabionframeFgController extends Controller
     {
         $validated = $request->validate([
             'status'  => 'required|string',
-            'qty'     => 'required|integer',
+            'qty'     => 'required',
             'weight'  => 'nullable|numeric',
             'packing' => 'required|string',
             'label'   => 'required|string',

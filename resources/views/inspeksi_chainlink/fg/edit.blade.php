@@ -47,8 +47,8 @@
                             </div>
                             <div>
                                 <x-input-label for="qty" :value="__('Quantity')" />
-                                <x-text-input id="qty" name="qty" type="number" class="mt-1 block w-full"
-                                    :value="old('qty', $fg->qty)" required />
+                                <x-text-input id="qty" name="qty" type="number" step="0.01"
+                                    class="mt-1 block w-full" :value="old('qty', $fg->qty)" required />
                                 <x-input-error class="mt-2" :messages="$errors->get('qty')" />
                             </div>
                         </div>
@@ -202,8 +202,8 @@
                                         </div>
                                         <div>
                                             <x-input-label :value="__('QTY')" />
-                                            <x-text-input name="detail_qty[]" type="number" class="mt-1 block w-full"
-                                                placeholder="QTY" />
+                                            <x-text-input name="detail_qty[]" type="number"
+                                                class="mt-1 block w-full" placeholder="QTY" />
                                         </div>
                                     </div>
                                 @endforelse

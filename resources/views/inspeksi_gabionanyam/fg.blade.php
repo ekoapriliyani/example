@@ -1,36 +1,38 @@
 <x-app-layout>
     <x-slot name="header">
         <div>
-            <nav class="flex items-center space-x-2 text-sm text-gray-500 mb-2">
-                <a href="{{ route('inspeksi_gabionanyam.index') }}" class="hover:text-indigo-600 transition-colors">Inspeksi Gabion Anyam</a>
+            <nav class="mb-2 flex items-center space-x-2 text-sm text-gray-500">
+                <a href="{{ route('inspeksi_gabionanyam.index') }}"
+                    class="transition-colors hover:text-indigo-600">Inspeksi Gabion Anyam</a>
                 <span class="text-gray-400">/</span>
                 <a href="{{ route('inspeksi_gabionanyam.show', $inspeksiGabionanyam->id) }}"
-                    class="hover:text-indigo-600 transition-colors">Detail</a>
+                    class="transition-colors hover:text-indigo-600">Detail</a>
                 <span class="text-gray-400">/</span>
-                <span class="text-gray-800 font-medium">Finished Good</span>
+                <span class="font-medium text-gray-800">Finished Good</span>
             </nav>
 
             <div class="flex items-center justify-between">
-                <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+                <h2 class="text-xl font-semibold leading-tight text-gray-800">
                     {{ __('Input Hasil Inspeksi FG') }}
                 </h2>
                 <p class="text-sm text-gray-500">
-                    Ref: <span class="font-mono font-bold text-indigo-600">{{ $inspeksiGabionanyam->nomor_inspeksi }}</span>
+                    Ref: <span
+                        class="font-mono font-bold text-indigo-600">{{ $inspeksiGabionanyam->nomor_inspeksi }}</span>
                 </p>
             </div>
         </div>
     </x-slot>
 
     <div class="py-12">
-        <div class="max-w-4xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg border border-gray-200">
+        <div class="mx-auto max-w-4xl sm:px-6 lg:px-8">
+            <div class="overflow-hidden border border-gray-200 bg-white shadow-sm sm:rounded-lg">
                 <div class="p-8">
-                    <form action="{{ route('inspeksi_gabionanyam_fg.store') }}" method="POST" enctype="multipart/form-data"
-                        class="space-y-6">
+                    <form action="{{ route('inspeksi_gabionanyam_fg.store') }}" method="POST"
+                        enctype="multipart/form-data" class="space-y-6">
                         @csrf
                         <input type="hidden" name="inspeksi_gabionanyam_id" value="{{ $inspeksiGabionanyam->id }}">
 
-                        <div class="grid grid-cols-2 md:grid-cols-2 gap-6">
+                        <div class="grid grid-cols-2 gap-6 md:grid-cols-2">
                             <div class="md:col-span-2">
                                 <x-input-label for="status" :value="__('Status')" />
                                 <select id="status" name="status"
@@ -43,8 +45,8 @@
                             </div>
                             <div>
                                 <x-input-label for="qty" :value="__('Quantity (Unit)')" />
-                                <x-text-input id="qty" name="qty" type="number" class="mt-1 block w-full"
-                                    required placeholder="0" />
+                                <x-text-input id="qty" name="qty" type="number" step="0.01"
+                                    class="mt-1 block w-full" required placeholder="0" />
                                 <x-input-error class="mt-2" :messages="$errors->get('qty')" />
                             </div>
                             <div>
@@ -73,22 +75,26 @@
                             </div>
                         </div>
 
-                        <div class="md:col-span-2 border-t border-gray-200 pt-6">
-                            <h3 class="font-semibold text-gray-700 mb-4">Detail Inspeksi</h3>
+                        <div class="border-t border-gray-200 pt-6 md:col-span-2">
+                            <h3 class="mb-4 font-semibold text-gray-700">Detail Inspeksi</h3>
                             <div id="detail-wrapper" class="space-y-4">
-                                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                                <div class="grid grid-cols-1 gap-4 md:grid-cols-3">
                                     <div>
                                         <x-input-label for="detail_description_0" :value="__('Description')" />
                                         <select id="detail_description_0" name="detail_description[]"
-                                            class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
-                                            @include('inspeksi_gabionanyam.fg.options-detail', ['selected' => null])
+                                            class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
+                                            @include('inspeksi_gabionanyam.fg.options-detail', [
+                                                'selected' => null,
+                                            ])
                                         </select>
                                     </div>
                                     <div>
                                         <x-input-label for="detail_description2_0" :value="__('Description 2')" />
                                         <select id="detail_description2_0" name="detail_description2[]"
-                                            class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
-                                            @include('inspeksi_gabionanyam.fg.options-detail', ['selected' => null])
+                                            class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
+                                            @include('inspeksi_gabionanyam.fg.options-detail', [
+                                                'selected' => null,
+                                            ])
                                         </select>
                                     </div>
                                     <div>
@@ -100,24 +106,24 @@
                             </div>
                             <div class="mt-4">
                                 <button type="button" id="add-detail"
-                                    class="px-3 py-1 bg-indigo-600 text-white rounded-md text-sm hover:bg-indigo-700">
+                                    class="rounded-md bg-indigo-600 px-3 py-1 text-sm text-white hover:bg-indigo-700">
                                     + Tambah Detail
                                 </button>
                             </div>
                             <div class="mt-4">
                                 <x-input-label for="files" :value="__('Upload File')" />
                                 <input id="files" name="files[]" type="file"
-                                    class="mt-1 block w-full border-gray-300 rounded-md shadow-sm" multiple>
+                                    class="mt-1 block w-full rounded-md border-gray-300 shadow-sm" multiple>
                                 @error('files')
-                                    <div class="text-red-500 text-sm mt-2">{{ $message }}</div>
+                                    <div class="mt-2 text-sm text-red-500">{{ $message }}</div>
                                 @enderror
                                 @error('files.*')
-                                    <div class="text-red-500 text-sm mt-2">{{ $message }}</div>
+                                    <div class="mt-2 text-sm text-red-500">{{ $message }}</div>
                                 @enderror
                             </div>
                         </div>
 
-                        <div class="flex items-center justify-end gap-4 pt-6 border-t border-gray-100">
+                        <div class="flex items-center justify-end gap-4 border-t border-gray-100 pt-6">
                             <a href="{{ route('inspeksi_gabionanyam.show', $inspeksiGabionanyam->id) }}"
                                 class="text-sm text-gray-600 hover:underline">{{ __('Batal') }}</a>
                             <x-primary-button class="bg-blue-600 hover:bg-blue-700">
