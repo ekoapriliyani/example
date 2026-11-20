@@ -27,7 +27,7 @@ class InspeksiGabionanyamFgController extends Controller
         $validated = $request->validate([
             'inspeksi_gabionanyam_id' => 'required|exists:inspeksi_gabionanyams,id',
             'status'  => 'required|string',
-            'qty'     => 'required|integer',
+            'qty'     => 'required',
             'weight'  => 'nullable|numeric',
             'packing' => 'required|string',
             'label'   => 'required|string',
@@ -86,7 +86,7 @@ class InspeksiGabionanyamFgController extends Controller
     {
         $validated = $request->validate([
             'status'  => 'required|string',
-            'qty'     => 'required|integer',
+            'qty'     => 'required',
             'weight'  => 'nullable|numeric',
             'packing' => 'required|string',
             'label'   => 'required|string',

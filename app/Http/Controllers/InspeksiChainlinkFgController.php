@@ -121,7 +121,7 @@ class InspeksiChainlinkFgController extends Controller
     {
         $request->validate([
             'status' => 'required|string',
-            'qty' => 'required|integer',
+            'qty' => 'required',
             'weight' => '',
             'packing' => 'required',
             'label' => 'required',

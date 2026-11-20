@@ -27,7 +27,7 @@ class InspeksiShearingFgController extends Controller
         $validated = $request->validate([
             'inspeksi_shearing_id' => 'required|exists:inspeksi_shearings,id',
             'status'  => 'required|string',
-            'qty'     => 'required|integer',
+            'qty'     => 'required',
             'weight'  => 'nullable|numeric',
             'packing' => 'required|string',
             'label'   => 'required|string',
@@ -86,7 +86,7 @@ class InspeksiShearingFgController extends Controller
     {
         $validated = $request->validate([
             'status'  => 'required|string',
-            'qty'     => 'required|integer',
+            'qty'     => 'required',
             'weight'  => 'nullable|numeric',
             'packing' => 'required|string',
             'label'   => 'required|string',

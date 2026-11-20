@@ -27,7 +27,7 @@ class InspeksiGabionframeFgController extends Controller
         $validated = $request->validate([
             'inspeksi_gabionframe_id' => 'required|exists:inspeksi_gabionframes,id',
             'status'  => 'required|string',
-            'qty'     => 'required|integer',
+            'qty'     => 'required',
             'weight'  => 'nullable|numeric',
             'packing' => 'required|string',
             'label'   => 'required|string',

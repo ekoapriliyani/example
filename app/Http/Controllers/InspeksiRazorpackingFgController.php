@@ -117,7 +117,7 @@ class InspeksiRazorpackingFgController extends Controller
     {
         $request->validate([
             'status' => 'required|string',
-            'qty' => 'required|integer',
+            'qty' => 'required',
             'weight' => 'required|numeric',
             'visual' => 'required',
             'label' => 'required',

@@ -122,7 +122,7 @@ class InspeksiCtFgController extends Controller
     {
         $request->validate([
             'status' => 'required|string',
-            'qty' => 'required|integer',
+            'qty' => 'required',
             'weight' => 'required|numeric',
             'files.*' => 'nullable|file|max:5120',
 

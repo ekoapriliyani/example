@@ -121,7 +121,7 @@ class InspeksiKawatDuriFgController extends Controller
     {
         $request->validate([
             'status' => 'required|string',
-            'qty' => 'required|integer',
+            'qty' => 'required',
             'weight' => 'required|numeric',
             'packing' => 'required',
             'label' => 'required',
