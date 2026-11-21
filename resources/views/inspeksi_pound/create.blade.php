@@ -121,6 +121,12 @@
                                     <span class="ml-2">500</span>
                                 </label>
                                 <label class="inline-flex items-center">
+                                    <input type="radio" name="d_razor" value="600"
+                                        class="border-gray-300 text-indigo-600 shadow-sm focus:ring-indigo-500"
+                                        {{ old('d_razor') == 600 ? 'checked' : '' }}>
+                                    <span class="ml-2">600</span>
+                                </label>
+                                <label class="inline-flex items-center">
                                     <input type="radio" name="d_razor" value="730"
                                         class="border-gray-300 text-indigo-600 shadow-sm focus:ring-indigo-500"
                                         {{ old('d_razor') == 730 ? 'checked' : '' }}>
@@ -173,15 +179,15 @@
                         </div>
 
                         <div>
-                            <x-input-label for="total_prod" :value="__('Total Produksi (diisi diakhir shift)')" class="text-red-600 italic" />
-                            <div class="flex items-center space-x-2 mt-1">
+                            <x-input-label for="total_prod" :value="__('Total Produksi (diisi diakhir shift)')" class="italic text-red-600" />
+                            <div class="mt-1 flex items-center space-x-2">
                                 <div class="relative flex-1">
                                     <x-text-input id="total_prod" name="total_prod" type="number" step="0.01"
                                         class="block w-full" value="{{ old('total_prod') }}" placeholder="0.00" />
                                 </div>
                                 <div class="w-32">
                                     <select id="satuan" name="satuan"
-                                        class="block w-full border-gray-300 dark:border-gray-700 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-sm">
+                                        class="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 dark:border-gray-700 dark:focus:border-indigo-600 dark:focus:ring-indigo-600">
                                         <option value="unit" {{ old('satuan') == 'unit' ? 'selected' : '' }}>
                                             unit</option>
                                         <option value="pcs" {{ old('satuan') == 'pcs' ? 'selected' : '' }}>pcs
