@@ -3,12 +3,15 @@
 namespace App\Http\Controllers;
 
 use App\Models\Outgoing;
+use App\Models\OutgoingDefect;
 use App\Models\OutgoingInspeksi;
 use App\Models\Shipment;
 use App\Services\SybaseService;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Validation\Rule;
 
 class OutgoingController extends Controller
 {
@@ -377,6 +380,72 @@ class OutgoingController extends Controller
         // Hapus data inspeksi
         $inspeksi->delete();
         return redirect()->back()->with('success', 'Data inspeksi berhasil dihapus');
+    }
+
+    public function storeDefect(Request $request, $id)
+    {
+        $outgoing = Outgoing::findOrFail($id);
+
+        $request->validate([
+            'defects'                => 'required|array|min:1',
+            'defects.*.jml_ng'       => 'required|integer|min:1',
+            'defects.*.problem1'     => ['required', 'string', Rule::in(OutgoingDefect::PROBLEM_OPTIONS)],
+            'defects.*.problem2'     => ['nullable', 'string', Rule::in(OutgoingDefect::PROBLEM_OPTIONS)],
+            'defects.*.foto'         => 'nullable|array',
+            'defects.*.foto.*'       => 'nullable|image|max:20480',
+        ], [
+            'defects.required'              => 'Minimal satu baris defect harus diisi.',
+            'defects.*.jml_ng.required'     => 'Jumlah NG wajib diisi.',
+            'defects.*.jml_ng.integer'      => 'Jumlah NG harus berupa angka.',
+            'defects.*.jml_ng.min'          => 'Jumlah NG minimal 1.',
+            'defects.*.problem1.required'   => 'Problem 1 wajib dipilih.',
+            'defects.*.problem1.in'         => 'Problem 1 tidak valid.',
+            'defects.*.problem2.in'         => 'Problem 2 tidak valid.',
+            'defects.*.foto.*.image'        => 'File foto harus berupa gambar.',
+            'defects.*.foto.*.max'          => 'Ukuran foto maksimal 20 MB.',
+        ]);
+
+        DB::transaction(function () use ($request, $outgoing) {
+            foreach ($request->input('defects', []) as $index => $row) {
+                $paths = [];
+
+                if ($request->hasFile("defects.{$index}.foto")) {
+                    foreach ($request->file("defects.{$index}.foto") as $file) {
+                        $name = time() . '_' . uniqid() . '.' . $file->getClientOriginalExtension();
+                        $paths[] = $file->storeAs('uploads/outgoing/defects', $name, 'public');
+                    }
+                }
+
+                $outgoing->defects()->create([
+                    'user_id'  => auth()->id(),
+                    'jml_ng'   => $row['jml_ng'],
+                    'problem1' => $row['problem1'],
+                    'problem2' => $row['problem2'] ?? null,
+                    'foto'     => $paths ?: null,
+                ]);
+            }
+        });
+
+        return redirect()->route('outgoing.show', ['outgoing' => $outgoing->id])
+            ->with('success', 'Data defect berhasil disimpan');
+    }
+
+    public function destroyDefect(OutgoingDefect $defect)
+    {
+        $outgoingId = $defect->outgoing_id;
+
+        if (!empty($defect->foto)) {
+            foreach ($defect->foto as $filePath) {
+                if (is_string($filePath) && Storage::disk('public')->exists($filePath)) {
+                    Storage::disk('public')->delete($filePath);
+                }
+            }
+        }
+
+        $defect->delete();
+
+        return redirect()->route('outgoing.show', ['outgoing' => $outgoingId])
+            ->with('success', 'Data defect berhasil dihapus');
     }
 
 

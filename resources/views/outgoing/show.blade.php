@@ -1,12 +1,12 @@
 <x-app-layout>
     <x-slot name="header">
         <div class="flex items-center justify-between">
-            <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+            <h2 class="text-xl font-semibold leading-tight text-gray-800">
                 {{ __('Detail Inspeksi Outgoing') }}
             </h2>
             <div class="flex gap-2">
                 <a href="{{ route('outgoing.index') }}"
-                    class="inline-flex items-center px-4 py-2 bg-white border border-gray-300 rounded-md font-semibold text-xs text-gray-700 uppercase tracking-widest shadow-sm hover:bg-gray-50 transition ease-in-out duration-150">
+                    class="inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-xs font-semibold uppercase tracking-widest text-gray-700 shadow-sm transition duration-150 ease-in-out hover:bg-gray-50">
                     Kembali
                 </a>
                 <button type="button" onclick="printInspeksi()"
@@ -35,7 +35,7 @@
                     </button>
                 @else
                     <a href="{{ route('outgoing.inspeksi', $outgoing->id) }}"
-                        class="inline-flex items-center gap-2 rounded-md bg-blue-600 px-4 py-2 text-sm font-semibold text-white hover:bg-blue-700 transition shadow-sm">
+                        class="inline-flex items-center gap-2 rounded-md bg-blue-600 px-4 py-2 text-sm font-semibold text-white shadow-sm transition hover:bg-blue-700">
                         <svg xmlns="http://www.w3.org/2000/svg" class="size-4" fill="none" viewBox="0 0 24 24"
                             stroke="currentColor" stroke-width="2">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
@@ -43,56 +43,79 @@
                         Tambah Inspeksi
                     </a>
                 @endif
+
+                {{-- Defect --}}
+                @if ($isApproved)
+                    <button type="button" disabled
+                        class="inline-flex cursor-not-allowed items-center gap-2 rounded-md bg-gray-400 px-4 py-2 text-sm font-semibold text-white opacity-60 shadow-sm">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="size-4" fill="none" viewBox="0 0 24 24"
+                            stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126zM12 15.75h.007v.008H12v-.008z" />
+                        </svg>
+                        Defect
+                    </button>
+                @else
+                    <button type="button" onclick="openDefectModal()"
+                        class="inline-flex items-center gap-2 rounded-md bg-red-600 px-4 py-2 text-sm font-semibold text-white shadow-sm transition hover:bg-red-700">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="size-4" fill="none" viewBox="0 0 24 24"
+                            stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126zM12 15.75h.007v.008H12v-.008z" />
+                        </svg>
+                        Defect
+                    </button>
+                @endif
             </div>
 
         </div>
     </x-slot>
 
     <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-8">
+        <div class="mx-auto max-w-7xl space-y-8 sm:px-6 lg:px-8">
 
-            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg border border-gray-200">
+            <div class="overflow-hidden border border-gray-200 bg-white shadow-sm sm:rounded-lg">
                 <div class="p-6 sm:p-8">
-                    <div class="flex justify-between items-start">
+                    <div class="flex items-start justify-between">
                         <dl class="grid grid-cols-3 gap-x-8 gap-y-4 sm:grid-cols-4">
                             <div>
-                                <dt class="text-sm font-medium text-gray-500 italic">Nomor Inspeksi</dt>
+                                <dt class="text-sm font-medium italic text-gray-500">Nomor Inspeksi</dt>
                                 <dd class="text-lg font-bold text-indigo-600">{{ $outgoing->nomor_inspeksi }}</dd>
                             </div>
                             <div>
-                                <dt class="text-sm font-medium text-gray-500 italic">Tanggal</dt>
+                                <dt class="text-sm font-medium italic text-gray-500">Tanggal</dt>
                                 <dd class="text-lg font-semibold text-gray-900">{{ $outgoing->tanggal }}</dd>
                             </div>
                             <div>
-                                <dt class="text-sm font-medium text-gray-500 italic">Shipment ID</dt>
+                                <dt class="text-sm font-medium italic text-gray-500">Shipment ID</dt>
                                 <dd class="text-lg font-semibold text-gray-900">{{ $outgoing->shipment_id ?? '-' }}</dd>
                             </div>
                             <div>
-                                <dt class="text-sm font-medium text-gray-500 italic">Sales Order</dt>
+                                <dt class="text-sm font-medium italic text-gray-500">Sales Order</dt>
                                 <dd class="text-lg font-semibold text-gray-900">{{ $outgoing->so ?? '-' }}</dd>
                             </div>
                             <div>
-                                <dt class="text-sm font-medium text-gray-500 italic">Nomor DO</dt>
+                                <dt class="text-sm font-medium italic text-gray-500">Nomor DO</dt>
                                 <dd class="text-lg font-semibold text-gray-900">{{ $outgoing->no_do }}</dd>
                             </div>
                             <div>
-                                <dt class="text-sm font-medium text-gray-500 italic">Produk</dt>
+                                <dt class="text-sm font-medium italic text-gray-500">Produk</dt>
                                 <dd class="text-lg font-semibold text-gray-900">{{ $outgoing->produk }}</dd>
                             </div>
                             <div>
-                                <dt class="text-sm font-medium text-gray-500 italic">Qty</dt>
+                                <dt class="text-sm font-medium italic text-gray-500">Qty</dt>
                                 <dd class="text-lg font-semibold text-gray-900">{{ $outgoing->qty ?? '-' }}</dd>
                             </div>
                             <div>
-                                <dt class="text-sm font-medium text-gray-500 italic">Lokasi</dt>
+                                <dt class="text-sm font-medium italic text-gray-500">Lokasi</dt>
                                 <dd class="text-lg font-semibold text-gray-900">{{ $outgoing->lokasi }}</dd>
                             </div>
                             <div>
-                                <dt class="text-sm font-medium text-gray-500 italic">No Kendaraan</dt>
+                                <dt class="text-sm font-medium italic text-gray-500">No Kendaraan</dt>
                                 <dd class="text-lg font-semibold text-gray-900">{{ $outgoing->no_kendaraan }}</dd>
                             </div>
                             <div>
-                                <dt class="text-sm font-medium text-gray-500 italic">Keterangan</dt>
+                                <dt class="text-sm font-medium italic text-gray-500">Keterangan</dt>
                                 <dd class="text-lg font-semibold text-gray-900">{{ $outgoing->keterangan }}</dd>
                             </div>
                         </dl>
@@ -100,10 +123,10 @@
                 </div>
             </div>
 
-            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg border border-gray-200">
+            <div class="overflow-hidden border border-gray-200 bg-white shadow-sm sm:rounded-lg">
                 <div class="p-6">
-                    <div class="flex items-center gap-2 mb-4">
-                        <div class="p-2 bg-blue-100 rounded-lg text-blue-600">
+                    <div class="mb-4 flex items-center gap-2">
+                        <div class="rounded-lg bg-blue-100 p-2 text-blue-600">
                             <svg xmlns="http://www.w3.org/2000/svg" class="size-5" fill="none" viewBox="0 0 24 24"
                                 stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -113,11 +136,11 @@
                         <h3 class="text-lg font-bold text-gray-800">Hasil Inspeksi Outgoing</h3>
                     </div>
                     <div class="overflow-x-auto rounded-lg border border-gray-200">
-                        <table class="min-w-full divide-y divide-gray-200 text-sm text-left">
+                        <table class="min-w-full divide-y divide-gray-200 text-left text-sm">
                             <thead class="bg-gray-50">
                                 <tr>
                                     <th class="px-4 py-3 font-semibold text-gray-900">No</th>
-                                    <th class="px-4 py-3 font-semibold text-gray-900 text-center">Aksi</th>
+                                    <th class="px-4 py-3 text-center font-semibold text-gray-900">Aksi</th>
                                     <th class="px-4 py-3 font-semibold text-gray-900">Inspektor</th>
                                     <th class="px-4 py-3 font-semibold text-gray-900">Label</th>
                                     <th class="px-4 py-3 font-semibold text-gray-900">Karat</th>
@@ -130,17 +153,17 @@
                                     <th class="px-4 py-3 font-semibold text-gray-900">Packing</th>
                                     <th class="px-4 py-3 font-semibold text-gray-900">QTY</th>
                                     <th class="px-4 py-3 font-semibold text-gray-900">Gambar</th>
-                                    <th class="px-4 py-3 font-semibold text-gray-900 text-center">Created At</th>
+                                    <th class="px-4 py-3 text-center font-semibold text-gray-900">Created At</th>
                                 </tr>
                             </thead>
                             <tbody class="divide-y divide-gray-200">
                                 @forelse ($outgoing->outgoinginspeksi as $inc)
-                                    <tr class="hover:bg-gray-50 transition-colors">
+                                    <tr class="transition-colors hover:bg-gray-50">
                                         <td class="px-4 py-3">{{ $loop->iteration }}</td>
                                         <td class="px-4 py-3">
                                             <div class="flex items-center justify-center gap-2">
                                                 <a href="{{ route('outgoing.inspeksi.edit', ['outgoing' => $outgoing->id, 'inspeksi' => $inc->id]) }}"
-                                                    class="flex items-center justify-center rounded bg-yellow-50 p-2 text-yellow-700 hover:bg-yellow-100 transition">
+                                                    class="flex items-center justify-center rounded bg-yellow-50 p-2 text-yellow-700 transition hover:bg-yellow-100">
                                                     <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4"
                                                         fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                         <path stroke-linecap="round" stroke-linejoin="round"
@@ -156,7 +179,7 @@
                                                     @csrf
                                                     @method('DELETE')
                                                     <button type="submit"
-                                                        class="flex items-center justify-center rounded bg-red-50 p-2 text-red-700 hover:bg-red-100 transition">
+                                                        class="flex items-center justify-center rounded bg-red-50 p-2 text-red-700 transition hover:bg-red-100">
                                                         <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4"
                                                             fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                             <path stroke-linecap="round" stroke-linejoin="round"
@@ -180,7 +203,7 @@
                                         <td class="px-4 py-3">{{ $inc->qty }}</td>
                                         <td class="px-4 py-3">
                                             <button type="button"
-                                                class="text-sm text-indigo-600 font-semibold hover:underline"
+                                                class="text-sm font-semibold text-indigo-600 hover:underline"
                                                 onclick="toggleImage({{ $inc->id }})">
                                                 Lihat Gambar
                                             </button>
@@ -190,8 +213,87 @@
                                     </tr>
                                 @empty
                                     <tr>
-                                        <td colspan="14" class="px-4 py-8 text-center text-gray-400 italic">Belum
+                                        <td colspan="14" class="px-4 py-8 text-center italic text-gray-400">Belum
                                             ada data Inspeksi Outgoing</td>
+                                    </tr>
+                                @endforelse
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            {{-- Daftar Defect --}}
+            <div class="overflow-hidden border border-gray-200 bg-white shadow-sm sm:rounded-lg">
+                <div class="p-6">
+                    <div class="mb-4 flex items-center gap-2">
+                        <div class="rounded-lg bg-red-100 p-2 text-red-600">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="size-5" fill="none" viewBox="0 0 24 24"
+                                stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126zM12 15.75h.007v.008H12v-.008z" />
+                            </svg>
+                        </div>
+                        <h3 class="text-lg font-bold text-gray-800">Daftar Defect</h3>
+                    </div>
+                    <div class="overflow-x-auto rounded-lg border border-gray-200">
+                        <table class="min-w-full divide-y divide-gray-200 text-left text-sm">
+                            <thead class="bg-gray-50">
+                                <tr>
+                                    <th class="px-4 py-3 font-semibold text-gray-900">No</th>
+                                    <th class="px-4 py-3 font-semibold text-gray-900">Problem 1</th>
+                                    <th class="px-4 py-3 font-semibold text-gray-900">Problem 2</th>
+                                    <th class="px-4 py-3 text-center font-semibold text-gray-900">Jml NG</th>
+                                    <th class="px-4 py-3 font-semibold text-gray-900">Foto</th>
+                                    <th class="px-4 py-3 font-semibold text-gray-900">Inspektor</th>
+                                    <th class="px-4 py-3 text-center font-semibold text-gray-900">Created At</th>
+                                    <th class="px-4 py-3 text-center font-semibold text-gray-900">Aksi</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-gray-200">
+                                @forelse ($outgoing->defects as $defect)
+                                    <tr class="transition-colors hover:bg-gray-50">
+                                        <td class="px-4 py-3">{{ $loop->iteration }}</td>
+                                        <td class="px-4 py-3">{{ $defect->problem1 ?? '-' }}</td>
+                                        <td class="px-4 py-3">{{ $defect->problem2 ?? '-' }}</td>
+                                        <td class="px-4 py-3 text-center font-semibold">{{ $defect->jml_ng }}</td>
+                                        <td class="px-4 py-3">
+                                            @if (!empty($defect->foto))
+                                                <button type="button"
+                                                    class="text-sm font-semibold text-indigo-600 hover:underline"
+                                                    onclick="toggleDefectImage({{ $defect->id }})">
+                                                    Lihat Foto ({{ count($defect->foto) }})
+                                                </button>
+                                            @else
+                                                <span class="italic text-gray-400">Tidak ada</span>
+                                            @endif
+                                        </td>
+                                        <td class="px-4 py-3">{{ $defect->user->name ?? 'N/A' }}</td>
+                                        <td class="px-4 py-3 text-center text-xs text-gray-500">{{ $defect->created_at }}
+                                        </td>
+                                        <td class="px-4 py-3">
+                                            <div class="flex items-center justify-center">
+                                                <form action="{{ route('outgoing.defect.destroy', $defect->id) }}"
+                                                    method="POST" class="form-delete inline">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button type="submit"
+                                                        class="flex items-center justify-center rounded bg-red-50 p-2 text-red-700 transition hover:bg-red-100">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4"
+                                                            fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                            <path stroke-linecap="round" stroke-linejoin="round"
+                                                                stroke-width="2"
+                                                                d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3" />
+                                                        </svg>
+                                                    </button>
+                                                </form>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                @empty
+                                    <tr>
+                                        <td colspan="8" class="px-4 py-8 text-center italic text-gray-400">Belum
+                                            ada data Defect</td>
                                     </tr>
                                 @endforelse
                             </tbody>
@@ -204,35 +306,179 @@
 
     @foreach ($outgoing->outgoinginspeksi as $inc)
         <div id="image-{{ $inc->id }}"
-            class="hidden fixed inset-0 bg-gray-900 bg-opacity-50 flex items-center justify-center z-50">
-            <div class="bg-white rounded-lg shadow-lg w-3/4 p-6 max-h-[80vh] overflow-y-auto">
-                <h3 class="text-lg font-semibold mb-4 text-gray-800">Gambar Incoming No Koil: <span
+            class="fixed inset-0 z-50 flex hidden items-center justify-center bg-gray-900 bg-opacity-50">
+            <div class="max-h-[80vh] w-3/4 overflow-y-auto rounded-lg bg-white p-6 shadow-lg">
+                <h3 class="mb-4 text-lg font-semibold text-gray-800">Gambar Incoming No Koil: <span
                         class="text-indigo-600">{{ $inc->no_koil }}</span></h3>
                 @if ($inc->files)
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div class="grid grid-cols-1 gap-4 md:grid-cols-2">
                         @foreach ($inc->files as $file)
                             @php $ext = pathinfo($file, PATHINFO_EXTENSION); @endphp
                             @if (in_array(strtolower($ext), ['jpg', 'jpeg', 'png', 'webp']))
                                 <img src="{{ asset('storage/' . $file) }}" alt="Incoming Image"
-                                    class="w-full h-64 object-contain rounded border shadow-sm" />
+                                    class="h-64 w-full rounded border object-contain shadow-sm" />
                             @else
                                 <a href="{{ asset('storage/' . $file) }}" target="_blank"
-                                    class="flex items-center justify-center p-4 border rounded bg-gray-50 text-indigo-600 hover:underline font-medium">
+                                    class="flex items-center justify-center rounded border bg-gray-50 p-4 font-medium text-indigo-600 hover:underline">
                                     Lihat File ({{ strtoupper($ext) }})
                                 </a>
                             @endif
                         @endforeach
                     </div>
                 @else
-                    <p class="text-gray-400 italic">Tidak ada file yang diupload.</p>
+                    <p class="italic text-gray-400">Tidak ada file yang diupload.</p>
                 @endif
                 <div class="mt-6 text-right">
                     <button onclick="toggleImage({{ $inc->id }})"
-                        class="px-4 py-2 bg-gray-200 text-gray-700 rounded-md hover:bg-gray-300 font-medium transition">Tutup</button>
+                        class="rounded-md bg-gray-200 px-4 py-2 font-medium text-gray-700 transition hover:bg-gray-300">Tutup</button>
                 </div>
             </div>
         </div>
     @endforeach
+
+    {{-- Modal foto defect --}}
+    @foreach ($outgoing->defects as $defect)
+        <div id="defect-image-{{ $defect->id }}"
+            class="fixed inset-0 z-50 flex hidden items-center justify-center bg-gray-900 bg-opacity-50">
+            <div class="max-h-[80vh] w-3/4 overflow-y-auto rounded-lg bg-white p-6 shadow-lg">
+                <h3 class="mb-4 text-lg font-semibold text-gray-800">Foto Defect: <span
+                        class="text-indigo-600">{{ $defect->problem1 ?? '-' }}</span></h3>
+                @if (!empty($defect->foto))
+                    <div class="grid grid-cols-1 gap-4 md:grid-cols-2">
+                        @foreach ($defect->foto as $file)
+                            @php $ext = pathinfo($file, PATHINFO_EXTENSION); @endphp
+                            @if (in_array(strtolower($ext), ['jpg', 'jpeg', 'png', 'webp']))
+                                <img src="{{ asset('storage/' . $file) }}" alt="Foto Defect"
+                                    class="h-64 w-full rounded border object-contain shadow-sm" />
+                            @else
+                                <a href="{{ asset('storage/' . $file) }}" target="_blank"
+                                    class="flex items-center justify-center rounded border bg-gray-50 p-4 font-medium text-indigo-600 hover:underline">
+                                    Lihat File ({{ strtoupper($ext) }})
+                                </a>
+                            @endif
+                        @endforeach
+                    </div>
+                @else
+                    <p class="italic text-gray-400">Tidak ada foto yang diupload.</p>
+                @endif
+                <div class="mt-6 text-right">
+                    <button onclick="toggleDefectImage({{ $defect->id }})"
+                        class="rounded-md bg-gray-200 px-4 py-2 font-medium text-gray-700 transition hover:bg-gray-300">Tutup</button>
+                </div>
+            </div>
+        </div>
+    @endforeach
+
+    {{-- Modal Input Defect --}}
+    <div id="defect-modal" class="fixed inset-0 z-50 flex hidden items-center justify-center bg-gray-900 bg-opacity-50 p-4">
+        <div class="max-h-[90vh] w-full max-w-5xl overflow-y-auto rounded-lg bg-white p-6 shadow-lg">
+            <div class="mb-4 flex items-start justify-between">
+                <div>
+                    <h3 class="text-lg font-bold text-gray-800">Input Defect</h3>
+                    <p class="text-sm text-gray-500">Tambahkan satu atau lebih baris defect.</p>
+                </div>
+                <button type="button" onclick="closeDefectModal()"
+                    class="rounded-md p-1 text-gray-400 transition hover:bg-gray-100 hover:text-gray-600">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+                        stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                </button>
+            </div>
+
+            @if (isset($errors) && $errors->any())
+                <div class="mb-4 rounded-md border border-red-200 bg-red-50 p-3 text-sm text-red-700">
+                    <ul class="list-inside list-disc space-y-1">
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
+
+            <form action="{{ route('outgoing.defect.store', $outgoing->id) }}" method="POST"
+                enctype="multipart/form-data">
+                @csrf
+                <div class="overflow-x-auto rounded-lg border border-gray-200">
+                    <table class="min-w-full divide-y divide-gray-200 text-left text-sm">
+                        <thead class="bg-gray-50">
+                            <tr>
+                                <th class="px-3 py-3 font-semibold text-gray-900">Problem 1</th>
+                                <th class="px-3 py-3 font-semibold text-gray-900">Problem 2</th>
+                                <th class="w-28 px-3 py-3 font-semibold text-gray-900">Jml NG</th>
+                                <th class="px-3 py-3 font-semibold text-gray-900">Foto</th>
+                                <th class="w-16 px-3 py-3 text-center font-semibold text-gray-900">Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody id="defect-rows" class="divide-y divide-gray-200"></tbody>
+                    </table>
+                </div>
+
+                <template id="defect-row-template">
+                    <tr class="defect-row">
+                        <td class="px-3 py-3">
+                            <select name="defects[__INDEX__][problem1]" required
+                                class="block w-full rounded-md border-gray-300 text-sm shadow-sm focus:border-red-500 focus:ring-red-500">
+                                <option value="">Pilih Defect</option>
+                                @foreach (\App\Models\OutgoingDefect::PROBLEM_OPTIONS as $option)
+                                    <option value="{{ $option }}">{{ $option }}</option>
+                                @endforeach
+                            </select>
+                        </td>
+                        <td class="px-3 py-3">
+                            <select name="defects[__INDEX__][problem2]"
+                                class="block w-full rounded-md border-gray-300 text-sm shadow-sm focus:border-red-500 focus:ring-red-500">
+                                <option value="">-</option>
+                                @foreach (\App\Models\OutgoingDefect::PROBLEM_OPTIONS as $option)
+                                    <option value="{{ $option }}">{{ $option }}</option>
+                                @endforeach
+                            </select>
+                        </td>
+                        <td class="px-3 py-3">
+                            <input type="number" name="defects[__INDEX__][jml_ng]" min="1" required
+                                class="block w-full rounded-md border-gray-300 text-sm shadow-sm focus:border-red-500 focus:ring-red-500"
+                                placeholder="0">
+                        </td>
+                        <td class="px-3 py-3">
+                            <input type="file" name="defects[__INDEX__][foto][]" accept="image/*" multiple
+                                class="block w-full rounded-md border border-gray-300 p-2 text-xs shadow-sm">
+                        </td>
+                        <td class="px-3 py-3 text-center">
+                            <button type="button" onclick="removeDefectRow(this)"
+                                class="defect-remove-btn inline-flex items-center justify-center rounded bg-red-50 p-2 text-red-700 transition hover:bg-red-100">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none"
+                                    viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3" />
+                                </svg>
+                            </button>
+                        </td>
+                    </tr>
+                </template>
+
+                <div class="mt-4 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+                    <button type="button" onclick="addDefectRow()"
+                        class="inline-flex items-center gap-2 rounded-md border border-red-300 bg-red-50 px-4 py-2 text-sm font-semibold text-red-700 transition hover:bg-red-100">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="size-4" fill="none" viewBox="0 0 24 24"
+                            stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+                        </svg>
+                        Tambah Baris
+                    </button>
+                    <div class="flex justify-end gap-2">
+                        <button type="button" onclick="closeDefectModal()"
+                            class="rounded-md bg-gray-100 px-4 py-2 text-sm font-medium text-gray-700 transition hover:bg-gray-200">
+                            Batal
+                        </button>
+                        <button type="submit"
+                            class="rounded-md bg-red-600 px-4 py-2 text-sm font-medium text-white shadow-sm transition hover:bg-red-700">
+                            Simpan Defect
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
 
 
     {{-- section approval --}}
@@ -310,6 +556,76 @@
             const modal = document.getElementById('image2-' + id);
             if (modal) modal.classList.toggle('hidden');
         }
+
+        function toggleDefectImage(id) {
+            const modal = document.getElementById('defect-image-' + id);
+            if (modal) modal.classList.toggle('hidden');
+        }
+
+        let defectRowIndex = 0;
+
+        function addDefectRow() {
+            const template = document.getElementById('defect-row-template');
+            const tbody = document.getElementById('defect-rows');
+
+            if (!template || !tbody) return;
+
+            const markup = template.innerHTML.split('__INDEX__').join(defectRowIndex++);
+            tbody.insertAdjacentHTML('beforeend', markup);
+            updateDefectRemoveButtons();
+        }
+
+        function removeDefectRow(button) {
+            const row = button.closest('tr');
+            const rows = document.querySelectorAll('#defect-rows .defect-row');
+
+            if (!row || rows.length <= 1) return;
+
+            row.remove();
+            updateDefectRemoveButtons();
+        }
+
+        function updateDefectRemoveButtons() {
+            const rows = document.querySelectorAll('#defect-rows .defect-row');
+
+            rows.forEach((row) => {
+                const button = row.querySelector('.defect-remove-btn');
+                if (!button) return;
+
+                const disabled = rows.length <= 1;
+                button.disabled = disabled;
+                button.classList.toggle('opacity-40', disabled);
+                button.classList.toggle('cursor-not-allowed', disabled);
+            });
+        }
+
+        function resetDefectRows() {
+            const tbody = document.getElementById('defect-rows');
+            if (!tbody) return;
+
+            tbody.innerHTML = '';
+            defectRowIndex = 0;
+            addDefectRow();
+        }
+
+        function openDefectModal() {
+            const modal = document.getElementById('defect-modal');
+            if (!modal) return;
+
+            resetDefectRows();
+            modal.classList.remove('hidden');
+        }
+
+        function closeDefectModal() {
+            const modal = document.getElementById('defect-modal');
+            if (modal) modal.classList.add('hidden');
+        }
+
+        @if (isset($errors) && $errors->any())
+            document.addEventListener('DOMContentLoaded', function() {
+                openDefectModal();
+            });
+        @endif
     </script>
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
@@ -417,7 +733,7 @@
                     style="width: 20%; vertical-align: top; text-align: right; font-family: Arial, sans-serif; font-size: 11pt;">
                     <table cellpadding="3" cellspacing="0" style="border: 1px solid #000; margin-left: auto;">
                         <tr>
-                            <td style="font-weight: bold; font-size: 10pt;">BM-F-QC-XX R00</td>
+                            <td style="font-weight: bold; font-size: 10pt;">BM-F-QC-25 R00</td>
                         </tr>
                     </table>
                 </td>
@@ -470,18 +786,21 @@
                 <thead>
                     <tr style="background-color: #f0f0f0;">
                         <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 3%;">No</th>
-                        <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 10%;">Inspektor</th>
+                        <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 10%;">Inspektor
+                        </th>
                         <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 8%;">Label</th>
                         <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 8%;">Karat</th>
                         <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 8%;">Penyok</th>
                         <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 8%;">Kotor</th>
-                        <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 10%;">Galvanized</th>
+                        <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 10%;">Galvanized
+                        </th>
                         <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 8%;">Lasan</th>
                         <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 8%;">Mesh</th>
                         <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 8%;">PVC</th>
                         <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 10%;">Packing</th>
                         <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 8%;">QTY</th>
-                        <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 10%;">Created At</th>
+                        <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 10%;">Created At
+                        </th>
                     </tr>
                 </thead>
                 <tbody>
@@ -499,7 +818,8 @@
                             <td style="border: 1px solid #000; padding: 4px;">{{ $inc->mesh }}</td>
                             <td style="border: 1px solid #000; padding: 4px;">{{ $inc->pvc }}</td>
                             <td style="border: 1px solid #000; padding: 4px;">{{ $inc->packing }}</td>
-                            <td style="border: 1px solid #000; padding: 4px; text-align: center;">{{ $inc->qty }}</td>
+                            <td style="border: 1px solid #000; padding: 4px; text-align: center;">{{ $inc->qty }}
+                            </td>
                             <td style="border: 1px solid #000; padding: 4px; text-align: center;">
                                 {{ \Carbon\Carbon::parse($inc->created_at)->format('d/m/Y') }}</td>
                         </tr>

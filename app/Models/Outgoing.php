@@ -43,6 +43,11 @@ class Outgoing extends Model
         return $this->hasMany(OutgoingInspeksi::class);
     }
 
+    public function defects()
+    {
+        return $this->hasMany(OutgoingDefect::class);
+    }
+
     public function isApproved()
     {
         return $this->approval_status === 'APPROVED';

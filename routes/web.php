@@ -935,6 +935,12 @@ Route::middleware(['auth'])->group(function () {
             'outgoing/inspeksi/{inspeksi}',
             'destroyInspeksi'
         )->name('outgoing.inspeksi.destroy');
+
+        Route::post('outgoing/{id}/defect', 'storeDefect')
+            ->name('outgoing.defect.store');
+
+        Route::delete('outgoing/defect/{defect}', 'destroyDefect')
+            ->name('outgoing.defect.destroy');
     });
 
 
