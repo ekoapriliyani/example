@@ -15,6 +15,7 @@ use App\Models\InspeksiWmFg;
 use Illuminate\Http\Request;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 use Maatwebsite\Excel\Facades\Excel;
 
@@ -418,5 +419,128 @@ class DaftarNgRejectController extends Controller
         }
 
         return $value;
+    }
+
+    public function dashboard()
+    {
+        return view('daftar_ng_reject.dashboard', [
+            'moduls' => self::MODULS,
+            'statuses' => self::STATUSES,
+        ]);
+    }
+
+    public function dashboardData(Request $request)
+    {
+        $filters = $this->dashboardFilters($request);
+        $base = $this->dashboardBaseQuery($filters);
+
+        $kpiRow = (clone $base)->selectRaw(
+            "SUM(CASE WHEN status = 'NG' THEN 1 ELSE 0 END) as total_ng,
+             SUM(CASE WHEN status = 'REJECT' THEN 1 ELSE 0 END) as total_reject,
+             COALESCE(SUM(qty), 0) as total_qty,
+             COALESCE(SUM(total_weight), 0) as total_weight"
+        )->first();
+
+        $trendRows = (clone $base)
+            ->selectRaw(
+                "tanggal,
+                 SUM(CASE WHEN status = 'NG' THEN 1 ELSE 0 END) as ng_count,
+                 SUM(CASE WHEN status = 'REJECT' THEN 1 ELSE 0 END) as reject_count"
+            )
+            ->groupBy('tanggal')
+            ->orderBy('tanggal')
+            ->get();
+
+        $topDefects = $this->topDefects($filters);
+
+        return response()->json([
+            'kpi' => [
+                'total_ng' => (int) ($kpiRow->total_ng ?? 0),
+                'total_reject' => (int) ($kpiRow->total_reject ?? 0),
+                'total_qty' => (float) ($kpiRow->total_qty ?? 0),
+                'total_weight' => round((float) ($kpiRow->total_weight ?? 0), 2),
+            ],
+            'trend' => [
+                'labels' => $trendRows->pluck('tanggal')->map(fn ($d) => (string) $d)->values(),
+                'ng' => $trendRows->pluck('ng_count')->map(fn ($v) => (int) $v)->values(),
+                'reject' => $trendRows->pluck('reject_count')->map(fn ($v) => (int) $v)->values(),
+            ],
+            'top_defects' => [
+                'labels' => $topDefects->pluck('defect')->values(),
+                'values' => $topDefects->pluck('total')->map(fn ($v) => (int) $v)->values(),
+            ],
+            'filters_applied' => $filters,
+        ]);
+    }
+
+    private function dashboardFilters(Request $request): array
+    {
+        return [
+            'start_date' => $this->parseDate($request->query('start_date')),
+            'end_date' => $this->parseDate($request->query('end_date')),
+            'status' => in_array($request->query('status'), self::STATUSES, true)
+                ? $request->query('status')
+                : '',
+            'modul' => in_array($request->query('modul'), self::MODULS, true)
+                ? $request->query('modul')
+                : '',
+            'defect' => trim((string) $request->query('defect', '')),
+        ];
+    }
+
+    private function dashboardBaseQuery(array $filters)
+    {
+        $query = DB::table('vw_daftar_ng_reject');
+
+        if (!empty($filters['start_date'])) {
+            $query->whereDate('tanggal', '>=', $filters['start_date']);
+        }
+
+        if (!empty($filters['end_date'])) {
+            $query->whereDate('tanggal', '<=', $filters['end_date']);
+        }
+
+        if (!empty($filters['status'])) {
+            $query->where('status', $filters['status']);
+        }
+
+        if (!empty($filters['modul'])) {
+            $query->where('source_module', $filters['modul']);
+        }
+
+        if (!empty($filters['defect'])) {
+            $defect = $filters['defect'];
+            $query->where(function ($q) use ($defect) {
+                $q->where('detail_inspeksi_1', $defect)
+                    ->orWhere('detail_inspeksi_2', $defect);
+            });
+        }
+
+        return $query;
+    }
+
+    private function topDefects(array $filters, int $limit = 10)
+    {
+        $base1 = $this->dashboardBaseQuery($filters)
+            ->whereNotNull('detail_inspeksi_1')
+            ->where('detail_inspeksi_1', '<>', '')
+            ->where('detail_inspeksi_1', '<>', '-')
+            ->selectRaw('detail_inspeksi_1 as defect');
+
+        $base2 = $this->dashboardBaseQuery($filters)
+            ->whereNotNull('detail_inspeksi_2')
+            ->where('detail_inspeksi_2', '<>', '')
+            ->where('detail_inspeksi_2', '<>', '-')
+            ->selectRaw('detail_inspeksi_2 as defect');
+
+        $union = $base1->unionAll($base2);
+
+        return DB::query()
+            ->fromSub($union, 'defects')
+            ->selectRaw('defect, COUNT(*) as total')
+            ->groupBy('defect')
+            ->orderByDesc('total')
+            ->limit($limit)
+            ->get();
     }
 }

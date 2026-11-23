@@ -92,7 +92,7 @@
 
                     {{-- Daftar NG/REJECT --}}
                     <a href="{{ route('daftar_ng_reject.index') }}" aria-label="Daftar NG/REJECT"
-                        class="{{ $iconClass($isActive('daftar_ng_reject.index')) }}">
+                        class="{{ $iconClass($isActive('daftar_ng_reject.*')) }}">
                         <x-menu-icon name="reject" />
                         <x-nav-tooltip label="Daftar NG/REJECT" />
                     </a>
@@ -230,6 +230,14 @@
                     <span class="flex items-center gap-3">
                         <x-menu-icon name="reject" class="h-5 w-5 shrink-0" />
                         {{ __('Daftar NG/REJECT') }}
+                    </span>
+                </x-responsive-nav-link>
+
+                <x-responsive-nav-link :href="route('daftar_ng_reject.dashboard')"
+                    :active="request()->routeIs('daftar_ng_reject.dashboard')">
+                    <span class="flex items-center gap-3">
+                        <x-menu-icon name="dashboard" class="h-5 w-5 shrink-0" />
+                        {{ __('Dashboard NG/REJECT') }}
                     </span>
                 </x-responsive-nav-link>
 
