@@ -44,6 +44,9 @@
                                     <option value="BEZILUM" {{ old('type', $fg->type) == 'BEZILUM' ? 'selected' : '' }}>
                                         BEZILUM
                                     </option>
+                                    <option value="BLACK" {{ old('type', $fg->type) == 'BLACK' ? 'selected' : '' }}>
+                                        BLACK
+                                    </option>
                                 </select>
                                 <x-input-error class="mt-2" :messages="$errors->get('type')" />
                             </div>

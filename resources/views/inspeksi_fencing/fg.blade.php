@@ -21,36 +21,42 @@
                         <div class="grid grid-cols-1 gap-6 md:grid-cols-1">
                             <div class="">
                                 <x-input-label :value="__('Type Coating')" class="mb-2" />
-                                <div class="flex items-center space-x-6 mt-2">
-                                    <label for="type_hotdip" class="inline-flex items-center cursor-pointer">
+                                <div class="mt-2 flex items-center space-x-6">
+                                    <label for="type_hotdip" class="inline-flex cursor-pointer items-center">
                                         <input type="radio" id="type_hotdip" name="type" value="HOTDIP"
                                             {{ old('type') == 'HOTDIP' ? 'checked' : '' }}
-                                            class="w-4 h-4 text-indigo-600 border-gray-300 focus:ring-indigo-500">
+                                            class="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-500">
                                         <span class="ml-2 text-sm text-gray-700">HOTDIP</span>
                                     </label>
-                                    <label for="type_powder" class="inline-flex items-center cursor-pointer">
+                                    <label for="type_powder" class="inline-flex cursor-pointer items-center">
                                         <input type="radio" id="type_powder" name="type" value="POWDER COATING"
                                             {{ old('type') == 'POWDER COATING' ? 'checked' : '' }}
-                                            class="w-4 h-4 text-indigo-600 border-gray-300 focus:ring-indigo-500">
+                                            class="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-500">
                                         <span class="ml-2 text-sm text-gray-700">POWDER COATING</span>
                                     </label>
-                                    <label for="type_lg" class="inline-flex items-center cursor-pointer">
+                                    <label for="type_lg" class="inline-flex cursor-pointer items-center">
                                         <input type="radio" id="type_lg" name="type" value="LG"
                                             {{ old('type') == 'LG' ? 'checked' : '' }}
-                                            class="w-4 h-4 text-indigo-600 border-gray-300 focus:ring-indigo-500">
+                                            class="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-500">
                                         <span class="ml-2 text-sm text-gray-700">LG</span>
                                     </label>
-                                    <label for="type_hg" class="inline-flex items-center cursor-pointer">
+                                    <label for="type_hg" class="inline-flex cursor-pointer items-center">
                                         <input type="radio" id="type_hg" name="type" value="HG"
                                             {{ old('type') == 'HG' ? 'checked' : '' }}
-                                            class="w-4 h-4 text-indigo-600 border-gray-300 focus:ring-indigo-500">
+                                            class="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-500">
                                         <span class="ml-2 text-sm text-gray-700">HG</span>
                                     </label>
-                                    <label for="type_bezilum" class="inline-flex items-center cursor-pointer">
+                                    <label for="type_bezilum" class="inline-flex cursor-pointer items-center">
                                         <input type="radio" id="type_bezilum" name="type" value="BEZILUM"
                                             {{ old('type') == 'BEZILUM' ? 'checked' : '' }}
-                                            class="w-4 h-4 text-indigo-600 border-gray-300 focus:ring-indigo-500">
+                                            class="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-500">
                                         <span class="ml-2 text-sm text-gray-700">BEZILUM</span>
+                                    </label>
+                                    <label for="type_black" class="inline-flex cursor-pointer items-center">
+                                        <input type="radio" id="type_black" name="type" value="BLACK"
+                                            {{ old('type') == 'BLACK' ? 'checked' : '' }}
+                                            class="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-500">
+                                        <span class="ml-2 text-sm text-gray-700">BLACK</span>
                                     </label>
                                 </div>
                                 <x-input-error class="mt-2" :messages="$errors->get('type')" />
