@@ -243,7 +243,8 @@
                                     <th class="px-4 py-3 font-semibold text-gray-900">No</th>
                                     <th class="px-4 py-3 font-semibold text-gray-900">Problem 1</th>
                                     <th class="px-4 py-3 font-semibold text-gray-900">Problem 2</th>
-                                    <th class="px-4 py-3 text-center font-semibold text-gray-900">Jml NG</th>
+                                    <th class="px-4 py-3 text-center font-semibold text-gray-900">Qty</th>
+                                    <th class="px-4 py-3 text-center font-semibold text-gray-900">Status</th>
                                     <th class="px-4 py-3 font-semibold text-gray-900">Foto</th>
                                     <th class="px-4 py-3 font-semibold text-gray-900">Inspektor</th>
                                     <th class="px-4 py-3 text-center font-semibold text-gray-900">Created At</th>
@@ -256,7 +257,16 @@
                                         <td class="px-4 py-3">{{ $loop->iteration }}</td>
                                         <td class="px-4 py-3">{{ $defect->problem1 ?? '-' }}</td>
                                         <td class="px-4 py-3">{{ $defect->problem2 ?? '-' }}</td>
-                                        <td class="px-4 py-3 text-center font-semibold">{{ $defect->jml_ng }}</td>
+                                        <td class="px-4 py-3 text-center font-semibold">{{ $defect->qty }}</td>
+                                        <td class="px-4 py-3 text-center">
+                                            @if ($defect->status === 'REJECT')
+                                                <span
+                                                    class="inline-flex rounded-full bg-gray-100 px-2.5 py-0.5 text-xs font-semibold text-gray-700">REJECT</span>
+                                            @else
+                                                <span
+                                                    class="inline-flex rounded-full bg-red-100 px-2.5 py-0.5 text-xs font-semibold text-red-700">NG</span>
+                                            @endif
+                                        </td>
                                         <td class="px-4 py-3">
                                             @if (!empty($defect->foto))
                                                 <button type="button"
@@ -292,7 +302,7 @@
                                     </tr>
                                 @empty
                                     <tr>
-                                        <td colspan="8" class="px-4 py-8 text-center italic text-gray-400">Belum
+                                        <td colspan="9" class="px-4 py-8 text-center italic text-gray-400">Belum
                                             ada data Defect</td>
                                     </tr>
                                 @endforelse
@@ -405,7 +415,8 @@
                             <tr>
                                 <th class="px-3 py-3 font-semibold text-gray-900">Problem 1</th>
                                 <th class="px-3 py-3 font-semibold text-gray-900">Problem 2</th>
-                                <th class="w-28 px-3 py-3 font-semibold text-gray-900">Jml NG</th>
+                                <th class="w-28 px-3 py-3 font-semibold text-gray-900">Qty</th>
+                                <th class="w-32 px-3 py-3 font-semibold text-gray-900">Status</th>
                                 <th class="px-3 py-3 font-semibold text-gray-900">Foto</th>
                                 <th class="w-16 px-3 py-3 text-center font-semibold text-gray-900">Aksi</th>
                             </tr>
@@ -435,9 +446,17 @@
                             </select>
                         </td>
                         <td class="px-3 py-3">
-                            <input type="number" name="defects[__INDEX__][jml_ng]" min="1" required
+                            <input type="number" name="defects[__INDEX__][qty]" min="1" required
                                 class="block w-full rounded-md border-gray-300 text-sm shadow-sm focus:border-red-500 focus:ring-red-500"
                                 placeholder="0">
+                        </td>
+                        <td class="px-3 py-3">
+                            <select name="defects[__INDEX__][status]" required
+                                class="block w-full rounded-md border-gray-300 text-sm shadow-sm focus:border-red-500 focus:ring-red-500">
+                                @foreach (\App\Models\OutgoingDefect::STATUS_OPTIONS as $status)
+                                    <option value="{{ $status }}">{{ $status }}</option>
+                                @endforeach
+                            </select>
                         </td>
                         <td class="px-3 py-3">
                             <input type="file" name="defects[__INDEX__][foto][]" accept="image/*" multiple
@@ -828,6 +847,53 @@
                             <td colspan="13"
                                 style="border: 1px solid #000; padding: 8px; text-align: center; font-style: italic;">
                                 Belum ada data Inspeksi Outgoing</td>
+                        </tr>
+                    @endforelse
+                </tbody>
+            </table>
+        </div>
+
+        {{-- Tabel Daftar Defect --}}
+        <div style="margin-bottom: 20px;">
+            <h3 style="font-family: Arial, sans-serif; font-size: 12pt; font-weight: bold; margin-bottom: 8px;">Daftar
+                Defect</h3>
+            <table width="100%" cellpadding="4" cellspacing="0"
+                style="border-collapse: collapse; font-family: Arial, sans-serif; font-size: 9pt; border: 1px solid #000;">
+                <thead>
+                    <tr style="background-color: #f0f0f0;">
+                        <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 4%;">No</th>
+                        <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 22%;">Problem 1
+                        </th>
+                        <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 22%;">Problem 2
+                        </th>
+                        <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 8%;">Qty</th>
+                        <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 10%;">Status</th>
+                        <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 20%;">Inspektor
+                        </th>
+                        <th style="border: 1px solid #000; padding: 5px; text-align: center; width: 14%;">Tanggal
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @forelse ($outgoing->defects as $defect)
+                        <tr>
+                            <td style="border: 1px solid #000; padding: 4px; text-align: center;">
+                                {{ $loop->iteration }}</td>
+                            <td style="border: 1px solid #000; padding: 4px;">{{ $defect->problem1 ?? '-' }}</td>
+                            <td style="border: 1px solid #000; padding: 4px;">{{ $defect->problem2 ?? '-' }}</td>
+                            <td style="border: 1px solid #000; padding: 4px; text-align: center;">
+                                {{ $defect->qty }}</td>
+                            <td style="border: 1px solid #000; padding: 4px; text-align: center;">
+                                {{ $defect->status }}</td>
+                            <td style="border: 1px solid #000; padding: 4px;">{{ $defect->user->name ?? 'N/A' }}</td>
+                            <td style="border: 1px solid #000; padding: 4px; text-align: center;">
+                                {{ \Carbon\Carbon::parse($defect->created_at)->format('d/m/Y') }}</td>
+                        </tr>
+                    @empty
+                        <tr>
+                            <td colspan="7"
+                                style="border: 1px solid #000; padding: 8px; text-align: center; font-style: italic;">
+                                Belum ada data Defect</td>
                         </tr>
                     @endforelse
                 </tbody>

@@ -26,10 +26,19 @@ class OutgoingDefect extends Model
         'Lainnya',
     ];
 
+    /**
+     * Opsi status hasil defect.
+     */
+    public const STATUS_OPTIONS = [
+        'NG',
+        'REJECT',
+    ];
+
     protected $fillable = [
         'outgoing_id',
         'user_id',
-        'jml_ng',
+        'qty',
+        'status',
         'problem1',
         'problem2',
         'foto',

@@ -388,16 +388,19 @@ class OutgoingController extends Controller
 
         $request->validate([
             'defects'                => 'required|array|min:1',
-            'defects.*.jml_ng'       => 'required|integer|min:1',
+            'defects.*.qty'          => 'required|integer|min:1',
+            'defects.*.status'       => ['required', Rule::in(OutgoingDefect::STATUS_OPTIONS)],
             'defects.*.problem1'     => ['required', 'string', Rule::in(OutgoingDefect::PROBLEM_OPTIONS)],
             'defects.*.problem2'     => ['nullable', 'string', Rule::in(OutgoingDefect::PROBLEM_OPTIONS)],
             'defects.*.foto'         => 'nullable|array',
             'defects.*.foto.*'       => 'nullable|image|max:20480',
         ], [
             'defects.required'              => 'Minimal satu baris defect harus diisi.',
-            'defects.*.jml_ng.required'     => 'Jumlah NG wajib diisi.',
-            'defects.*.jml_ng.integer'      => 'Jumlah NG harus berupa angka.',
-            'defects.*.jml_ng.min'          => 'Jumlah NG minimal 1.',
+            'defects.*.qty.required'        => 'Qty wajib diisi.',
+            'defects.*.qty.integer'         => 'Qty harus berupa angka.',
+            'defects.*.qty.min'             => 'Qty minimal 1.',
+            'defects.*.status.required'     => 'Status wajib dipilih.',
+            'defects.*.status.in'           => 'Status tidak valid.',
             'defects.*.problem1.required'   => 'Problem 1 wajib dipilih.',
             'defects.*.problem1.in'         => 'Problem 1 tidak valid.',
             'defects.*.problem2.in'         => 'Problem 2 tidak valid.',
@@ -418,7 +421,8 @@ class OutgoingController extends Controller
 
                 $outgoing->defects()->create([
                     'user_id'  => auth()->id(),
-                    'jml_ng'   => $row['jml_ng'],
+                    'qty'      => $row['qty'],
+                    'status'   => $row['status'],
                     'problem1' => $row['problem1'],
                     'problem2' => $row['problem2'] ?? null,
                     'foto'     => $paths ?: null,
