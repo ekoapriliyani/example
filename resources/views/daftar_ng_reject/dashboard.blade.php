@@ -147,7 +147,7 @@
     <script>
         function ngRejectDashboard() {
             return {
-                endpoint: @json(route('daftar_ng_reject.dashboard_data')),
+                endpoint: @json(route('daftar_ng_reject.dashboard_data', [], false)),
                 filters: {
                     start_date: '',
                     end_date: '',
