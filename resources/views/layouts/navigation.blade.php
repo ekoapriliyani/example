@@ -38,7 +38,7 @@
                     <x-dropdown align="left" width="48">
                         <x-slot name="trigger">
                             <button type="button" aria-label="Inspeksi Incoming" aria-haspopup="true"
-                                class="{{ $iconClass($isActive('incomingbahanbaku.*', 'sheetgalvanize.*', 'incomingpvchdpe.*', 'incomingproject.*')) }} gap-1">
+                                class="{{ $iconClass($isActive('incomingbahanbaku.*', 'incomingwirerope.*', 'sheetgalvanize.*', 'incomingpvchdpe.*', 'incomingproject.*')) }} gap-1">
                                 <x-menu-icon name="incoming" />
                                 <x-menu-icon name="chevron-down" class="h-3 w-3 opacity-60" />
                                 <x-nav-tooltip label="Inspeksi Incoming" />
@@ -46,6 +46,7 @@
                         </x-slot>
                         <x-slot name="content">
                             <x-dropdown-link :href="route('incomingbahanbaku.index')">Bahan Baku</x-dropdown-link>
+                            <x-dropdown-link :href="route('incomingwirerope.index')">Wire Rope</x-dropdown-link>
                             <x-dropdown-link :href="route('sheetgalvanize.index')">Sheet Galvanized</x-dropdown-link>
                             <x-dropdown-link :href="route('incomingpvchdpe.index')">PVC HDPE</x-dropdown-link>
                             <x-dropdown-link :href="route('incomingproject.index')">Incoming Project</x-dropdown-link>
@@ -250,6 +251,7 @@
                 <div class="border-t border-gray-200 pt-2">
                     <div class="px-4 text-xs font-semibold uppercase text-gray-400">Inspeksi Incoming</div>
                     <x-responsive-nav-link :href="route('incomingbahanbaku.index')">Bahan Baku</x-responsive-nav-link>
+                    <x-responsive-nav-link :href="route('incomingwirerope.index')">Wire Rope</x-responsive-nav-link>
                     <x-responsive-nav-link :href="route('sheetgalvanize.index')">Sheet Galvanize</x-responsive-nav-link>
                     <x-responsive-nav-link :href="route('incomingpvchdpe.index')">PVC HDPE</x-responsive-nav-link>
                     <x-responsive-nav-link :href="route('incomingproject.index')">Incoming Project</x-responsive-nav-link>

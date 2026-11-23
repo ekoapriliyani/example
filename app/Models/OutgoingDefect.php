@@ -13,7 +13,7 @@ class OutgoingDefect extends Model
      * Silakan sesuaikan daftar ini ketika data master defect sudah tersedia.
      */
     public const PROBLEM_OPTIONS = [
-        'Berkarat',
+        'Karat',
         'Penyok',
         'Kotor/Hitam',
         'Galvanized Pecah',

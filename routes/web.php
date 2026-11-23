@@ -3,6 +3,7 @@
 use App\Http\Controllers\IncomingBahanBakuController;
 use App\Http\Controllers\IncomingProjectController;
 use App\Http\Controllers\IncomingPvcHdpeController;
+use App\Http\Controllers\IncomingWireRopeController;
 use App\Http\Controllers\InspeksiBendingController;
 use App\Http\Controllers\InspeksiChainlinkController;
 use App\Http\Controllers\InspeksiChainlinkFgController;
@@ -176,6 +177,7 @@ Route::middleware(['auth'])->group(function () {
         'outgoing'  => OutgoingController::class,
         'incomingpvchdpe'    => IncomingPvcHdpeController::class,
         'incomingproject'    => IncomingProjectController::class,
+        'incomingwirerope'   => IncomingWireRopeController::class,
         'sheetgalvanize'     => SheetGalvanizeController::class,
         'lab'                => LabController::class,
 
@@ -909,6 +911,58 @@ Route::middleware(['auth'])->group(function () {
 
     /*
     |--------------------------------------------------------------------------
+    | Incoming Wire Rope - Inspeksi & Mechanical Test
+    |--------------------------------------------------------------------------
+    */
+
+    Route::controller(IncomingWireRopeController::class)->group(function () {
+
+        Route::get('incomingwirerope/{id}/inspeksi', 'createInspeksi')
+            ->name('incomingwirerope.inspeksi.create');
+
+        Route::post('incomingwirerope/{id}/inspeksi', 'storeInspeksi')
+            ->name('incomingwirerope.inspeksi.store');
+
+        Route::get(
+            'incomingwirerope/{incomingwirerope}/inspeksi/{inspeksi}/edit',
+            'editInspeksi'
+        )->name('incomingwirerope.inspeksi.edit');
+
+        Route::put(
+            'incomingwirerope/{incomingwirerope}/inspeksi/{inspeksi}',
+            'updateInspeksi'
+        )->name('incomingwirerope.inspeksi.update');
+
+        Route::delete(
+            'incomingwirerope/inspeksi/{inspeksi}',
+            'destroyInspeksi'
+        )->name('incomingwirerope.inspeksi.destroy');
+
+        Route::get('incomingwirerope/{id}/mechanicaltest', 'createMechanicalTest')
+            ->name('incomingwirerope.mechanical_test.create');
+
+        Route::post('incomingwirerope/{id}/mechanicaltest', 'storeMechanicalTest')
+            ->name('incomingwirerope.mechanical_test.store');
+
+        Route::get(
+            'incomingwirerope/mechanicaltest/{inspeksi}/edit',
+            'editMechanicalTest'
+        )->name('incomingwirerope.mechanical_test.edit');
+
+        Route::put(
+            'incomingwirerope/mechanicaltest/{inspeksi}',
+            'updateMechanicalTest'
+        )->name('incomingwirerope.mechanical_test.update');
+
+        Route::delete(
+            'incomingwirerope/mechanicaltest/{inspeksi}',
+            'destroyMechanicalTest'
+        )->name('incomingwirerope.mechanical_test.destroy');
+    });
+
+
+    /*
+    |--------------------------------------------------------------------------
     | Outgoing - Inspeksi
     |--------------------------------------------------------------------------
     */
@@ -1137,6 +1191,9 @@ Route::middleware([
 
     Route::patch('/incomingbahanbaku/{id}/toggle-approval', [IncomingBahanBakuController::class, 'toggleApproval'])
         ->name('incomingbahanbaku.toggle');
+
+    Route::patch('/incomingwirerope/{id}/toggle-approval', [IncomingWireRopeController::class, 'toggleApproval'])
+        ->name('incomingwirerope.toggle');
 
     Route::patch('/outgoing/{id}/toggle-approval', [OutgoingController::class, 'toggleApproval'])
         ->name('outgoing.toggle');
