@@ -452,6 +452,8 @@ class DaftarNgRejectController extends Controller
             ->get();
 
         $topDefects = $this->topDefects($filters);
+        $topProducts = $this->topByStatus('product_description', $filters);
+        $topInspectors = $this->topByStatus('inspector', $filters);
 
         return response()->json([
             'kpi' => [
@@ -469,6 +471,8 @@ class DaftarNgRejectController extends Controller
                 'labels' => $topDefects->pluck('defect')->values(),
                 'values' => $topDefects->pluck('total')->map(fn ($v) => (int) $v)->values(),
             ],
+            'top_products' => $this->groupedPayload($topProducts),
+            'top_inspectors' => $this->groupedPayload($topInspectors),
             'filters_applied' => $filters,
         ]);
     }
@@ -485,6 +489,8 @@ class DaftarNgRejectController extends Controller
                 ? $request->query('modul')
                 : '',
             'defect' => trim((string) $request->query('defect', '')),
+            'produk' => trim((string) $request->query('produk', '')),
+            'inspector' => trim((string) $request->query('inspector', '')),
         ];
     }
 
@@ -516,6 +522,14 @@ class DaftarNgRejectController extends Controller
             });
         }
 
+        if (!empty($filters['produk'])) {
+            $query->where('product_description', $filters['produk']);
+        }
+
+        if (!empty($filters['inspector'])) {
+            $query->where('inspector', $filters['inspector']);
+        }
+
         return $query;
     }
 
@@ -542,5 +556,46 @@ class DaftarNgRejectController extends Controller
             ->orderByDesc('total')
             ->limit($limit)
             ->get();
+    }
+
+    /**
+     * Top N berdasarkan kolom tertentu (mis. product_description / inspector)
+     * dengan pemisahan jumlah NG dan REJECT.
+     */
+    private function topByStatus(string $column, array $filters, int $limit = 10)
+    {
+        return $this->dashboardBaseQuery($filters)
+            ->whereNotNull($column)
+            ->where($column, '<>', '')
+            ->where($column, '<>', '-')
+            ->selectRaw(
+                "{$column} as label,
+                 SUM(CASE WHEN status = 'NG' THEN 1 ELSE 0 END) as ng,
+                 SUM(CASE WHEN status = 'REJECT' THEN 1 ELSE 0 END) as reject,
+                 COUNT(*) as total"
+            )
+            ->groupBy($column)
+            ->orderByDesc('total')
+            ->limit($limit)
+            ->get();
+    }
+
+    /**
+     * Ubah hasil query top N menjadi payload chart + tabel.
+     */
+    private function groupedPayload($rows): array
+    {
+        return [
+            'labels' => $rows->pluck('label')->values(),
+            'ng' => $rows->pluck('ng')->map(fn ($v) => (int) $v)->values(),
+            'reject' => $rows->pluck('reject')->map(fn ($v) => (int) $v)->values(),
+            'totals' => $rows->pluck('total')->map(fn ($v) => (int) $v)->values(),
+            'rows' => $rows->map(fn ($row) => [
+                'label' => $row->label,
+                'ng' => (int) $row->ng,
+                'reject' => (int) $row->reject,
+                'total' => (int) $row->total,
+            ])->values(),
+        ];
     }
 }

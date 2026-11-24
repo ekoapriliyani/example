@@ -91,6 +91,18 @@
                             <button type="button" @click="filters.defect=''; applyFilters()" class="text-amber-500 hover:text-amber-800">✕</button>
                         </span>
                     </template>
+                    <template x-if="filters.produk">
+                        <span class="inline-flex items-center gap-1 rounded-full bg-indigo-50 px-3 py-1 text-xs font-medium text-indigo-700">
+                            Produk: <span x-text="filters.produk"></span>
+                            <button type="button" @click="filters.produk=''; applyFilters()" class="text-indigo-500 hover:text-indigo-800">✕</button>
+                        </span>
+                    </template>
+                    <template x-if="filters.inspector">
+                        <span class="inline-flex items-center gap-1 rounded-full bg-indigo-50 px-3 py-1 text-xs font-medium text-indigo-700">
+                            Inspektor: <span x-text="filters.inspector"></span>
+                            <button type="button" @click="filters.inspector=''; applyFilters()" class="text-indigo-500 hover:text-indigo-800">✕</button>
+                        </span>
+                    </template>
                 </div>
             </div>
 
@@ -139,6 +151,106 @@
                 </div>
             </div>
 
+            {{-- Top Produk & Top Inspektor --}}
+            <div class="grid grid-cols-1 gap-6 xl:grid-cols-2">
+                <div class="overflow-hidden rounded-lg border border-gray-200 bg-white p-6 shadow-sm">
+                    <div class="mb-4 flex items-center justify-between">
+                        <div>
+                            <h3 class="text-base font-semibold text-gray-800">Top Produk (NG vs REJECT)</h3>
+                            <p class="text-xs text-gray-500">Produk dengan kejadian terbanyak. Klik bar untuk filter produk.</p>
+                        </div>
+                        <div x-show="loading" class="text-xs text-gray-400">Memuat...</div>
+                    </div>
+                    <div id="productChart" class="min-h-[320px]"></div>
+                </div>
+
+                <div class="overflow-hidden rounded-lg border border-gray-200 bg-white p-6 shadow-sm">
+                    <div class="mb-4 flex items-center justify-between">
+                        <div>
+                            <h3 class="text-base font-semibold text-gray-800">Top Inspektor (NG vs REJECT)</h3>
+                            <p class="text-xs text-gray-500">Inspektor yang paling sering menemukan NG/REJECT. Klik bar untuk filter inspektor.</p>
+                        </div>
+                        <div x-show="loading" class="text-xs text-gray-400">Memuat...</div>
+                    </div>
+                    <div id="inspectorChart" class="min-h-[320px]"></div>
+                </div>
+            </div>
+
+            {{-- Rekap Data Visual --}}
+            <div class="grid grid-cols-1 gap-6 xl:grid-cols-2">
+                <div class="overflow-hidden rounded-lg border border-gray-200 bg-white shadow-sm">
+                    <div class="border-b border-gray-200 px-6 py-4">
+                        <h3 class="text-base font-semibold text-gray-800">Rekap Top Produk</h3>
+                        <p class="text-xs text-gray-500">Daftar produk pada chart Top Produk sesuai filter aktif.</p>
+                    </div>
+                    <div class="overflow-x-auto">
+                        <table class="min-w-full divide-y divide-gray-200 text-sm">
+                            <thead class="bg-gray-50">
+                                <tr>
+                                    <th class="w-12 px-4 py-3 text-left font-semibold text-gray-900">No</th>
+                                    <th class="px-4 py-3 text-left font-semibold text-gray-900">Produk</th>
+                                    <th class="px-4 py-3 text-right font-semibold text-red-600">NG</th>
+                                    <th class="px-4 py-3 text-right font-semibold text-orange-600">REJECT</th>
+                                    <th class="px-4 py-3 text-right font-semibold text-gray-900">Total</th>
+                                    <th class="px-4 py-3 text-right font-semibold text-gray-900">%</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-gray-200">
+                                <template x-for="(row, index) in topProducts" :key="'produk-' + index + '-' + row.label">
+                                    <tr class="transition-colors hover:bg-gray-50">
+                                        <td class="px-4 py-3 text-gray-600" x-text="index + 1"></td>
+                                        <td class="px-4 py-3 font-medium text-gray-900" x-text="row.label"></td>
+                                        <td class="px-4 py-3 text-right font-medium text-red-600" x-text="formatNumber(row.ng)"></td>
+                                        <td class="px-4 py-3 text-right font-medium text-orange-600" x-text="formatNumber(row.reject)"></td>
+                                        <td class="px-4 py-3 text-right font-semibold text-gray-900" x-text="formatNumber(row.total)"></td>
+                                        <td class="px-4 py-3 text-right text-gray-600" x-text="formatPercent(row.total)"></td>
+                                    </tr>
+                                </template>
+                                <tr x-show="topProducts.length === 0">
+                                    <td colspan="6" class="px-4 py-8 text-center italic text-gray-500">Tidak ada data.</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="overflow-hidden rounded-lg border border-gray-200 bg-white shadow-sm">
+                    <div class="border-b border-gray-200 px-6 py-4">
+                        <h3 class="text-base font-semibold text-gray-800">Rekap Top Inspektor</h3>
+                        <p class="text-xs text-gray-500">Daftar inspektor pada chart Top Inspektor sesuai filter aktif.</p>
+                    </div>
+                    <div class="overflow-x-auto">
+                        <table class="min-w-full divide-y divide-gray-200 text-sm">
+                            <thead class="bg-gray-50">
+                                <tr>
+                                    <th class="w-12 px-4 py-3 text-left font-semibold text-gray-900">No</th>
+                                    <th class="px-4 py-3 text-left font-semibold text-gray-900">Inspektor</th>
+                                    <th class="px-4 py-3 text-right font-semibold text-red-600">NG</th>
+                                    <th class="px-4 py-3 text-right font-semibold text-orange-600">REJECT</th>
+                                    <th class="px-4 py-3 text-right font-semibold text-gray-900">Total</th>
+                                    <th class="px-4 py-3 text-right font-semibold text-gray-900">%</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-gray-200">
+                                <template x-for="(row, index) in topInspectors" :key="'inspector-' + index + '-' + row.label">
+                                    <tr class="transition-colors hover:bg-gray-50">
+                                        <td class="px-4 py-3 text-gray-600" x-text="index + 1"></td>
+                                        <td class="px-4 py-3 font-medium text-gray-900" x-text="row.label"></td>
+                                        <td class="px-4 py-3 text-right font-medium text-red-600" x-text="formatNumber(row.ng)"></td>
+                                        <td class="px-4 py-3 text-right font-medium text-orange-600" x-text="formatNumber(row.reject)"></td>
+                                        <td class="px-4 py-3 text-right font-semibold text-gray-900" x-text="formatNumber(row.total)"></td>
+                                        <td class="px-4 py-3 text-right text-gray-600" x-text="formatPercent(row.total)"></td>
+                                    </tr>
+                                </template>
+                                <tr x-show="topInspectors.length === 0">
+                                    <td colspan="6" class="px-4 py-8 text-center italic text-gray-500">Tidak ada data.</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
             <div x-show="error" class="rounded-lg border border-red-200 bg-red-50 p-4 text-sm text-red-700" x-text="error"></div>
         </div>
     </div>
@@ -154,12 +266,20 @@
                     status: '',
                     modul: '',
                     defect: '',
+                    produk: '',
+                    inspector: '',
                 },
                 kpi: { total_ng: 0, total_reject: 0, total_qty: 0, total_weight: 0 },
+                topProducts: [],
+                topInspectors: [],
+                productLabels: [],
+                inspectorLabels: [],
                 loading: false,
                 error: '',
                 trendChart: null,
                 defectChart: null,
+                productChart: null,
+                inspectorChart: null,
 
                 init() {
                     this.renderCharts();
@@ -167,7 +287,7 @@
                 },
 
                 hasActiveFilters() {
-                    return !!(this.filters.start_date || this.filters.end_date || this.filters.status || this.filters.modul || this.filters.defect);
+                    return !!(this.filters.start_date || this.filters.end_date || this.filters.status || this.filters.modul || this.filters.defect || this.filters.produk || this.filters.inspector);
                 },
 
                 applyFilters() {
@@ -175,13 +295,26 @@
                 },
 
                 resetFilters() {
-                    this.filters = { start_date: '', end_date: '', status: '', modul: '', defect: '' };
+                    this.filters = { start_date: '', end_date: '', status: '', modul: '', defect: '', produk: '', inspector: '' };
                     this.fetchData();
                 },
 
                 formatNumber(value) {
                     const num = Number(value || 0);
                     return num.toLocaleString('id-ID');
+                },
+
+                formatPercent(value) {
+                    const total = Number(this.kpi.total_ng || 0) + Number(this.kpi.total_reject || 0);
+                    if (!total) {
+                        return '0%';
+                    }
+                    return ((Number(value || 0) / total) * 100).toFixed(1) + '%';
+                },
+
+                truncateLabel(value, max = 28) {
+                    const text = String(value ?? '');
+                    return text.length > max ? text.slice(0, max - 1) + '…' : text;
                 },
 
                 buildQuery() {
@@ -279,15 +412,81 @@
                         tooltip: { y: { formatter: (val) => `${val} kejadian` } },
                     };
 
+                    const productOptions = {
+                        chart: {
+                            type: 'bar',
+                            height: 320,
+                            stacked: true,
+                            toolbar: { show: false },
+                            events: {
+                                dataPointSelection: (event, chartContext, config) => {
+                                    const label = this.productLabels[config.dataPointIndex];
+                                    if (!label) return;
+                                    this.filters.produk = (this.filters.produk === label) ? '' : label;
+                                    this.fetchData();
+                                }
+                            }
+                        },
+                        series: [
+                            { name: 'NG', data: [] },
+                            { name: 'REJECT', data: [] }
+                        ],
+                        plotOptions: {
+                            bar: { horizontal: true, borderRadius: 4, barHeight: '60%' }
+                        },
+                        xaxis: { categories: [] },
+                        colors: ['#dc2626', '#ea580c'],
+                        dataLabels: { enabled: true },
+                        legend: { position: 'top' },
+                        noData: { text: 'Tidak ada data' },
+                        tooltip: { shared: true, intersect: false },
+                    };
+
+                    const inspectorOptions = {
+                        chart: {
+                            type: 'bar',
+                            height: 320,
+                            stacked: true,
+                            toolbar: { show: false },
+                            events: {
+                                dataPointSelection: (event, chartContext, config) => {
+                                    const label = this.inspectorLabels[config.dataPointIndex];
+                                    if (!label) return;
+                                    this.filters.inspector = (this.filters.inspector === label) ? '' : label;
+                                    this.fetchData();
+                                }
+                            }
+                        },
+                        series: [
+                            { name: 'NG', data: [] },
+                            { name: 'REJECT', data: [] }
+                        ],
+                        plotOptions: {
+                            bar: { horizontal: true, borderRadius: 4, barHeight: '60%' }
+                        },
+                        xaxis: { categories: [] },
+                        colors: ['#dc2626', '#ea580c'],
+                        dataLabels: { enabled: true },
+                        legend: { position: 'top' },
+                        noData: { text: 'Tidak ada data' },
+                        tooltip: { shared: true, intersect: false },
+                    };
+
                     this.trendChart = new ApexCharts(document.querySelector('#trendChart'), trendOptions);
                     this.defectChart = new ApexCharts(document.querySelector('#defectChart'), defectOptions);
+                    this.productChart = new ApexCharts(document.querySelector('#productChart'), productOptions);
+                    this.inspectorChart = new ApexCharts(document.querySelector('#inspectorChart'), inspectorOptions);
                     this.trendChart.render();
                     this.defectChart.render();
+                    this.productChart.render();
+                    this.inspectorChart.render();
                 },
 
                 updateCharts(data) {
                     const trend = data.trend || { labels: [], ng: [], reject: [] };
                     const defects = data.top_defects || { labels: [], values: [] };
+                    const products = data.top_products || { labels: [], ng: [], reject: [], rows: [] };
+                    const inspectors = data.top_inspectors || { labels: [], ng: [], reject: [], rows: [] };
 
                     this.trendChart.updateOptions({
                         xaxis: { categories: trend.labels || [] }
@@ -303,6 +502,28 @@
                     this.defectChart.updateSeries([
                         { name: 'Jumlah', data: defects.values || [] }
                     ], true);
+
+                    this.productLabels = products.labels || [];
+                    this.inspectorLabels = inspectors.labels || [];
+
+                    this.productChart.updateOptions({
+                        xaxis: { categories: this.productLabels.map((label) => this.truncateLabel(label)) }
+                    }, false, true);
+                    this.productChart.updateSeries([
+                        { name: 'NG', data: products.ng || [] },
+                        { name: 'REJECT', data: products.reject || [] }
+                    ], true);
+
+                    this.inspectorChart.updateOptions({
+                        xaxis: { categories: this.inspectorLabels.map((label) => this.truncateLabel(label)) }
+                    }, false, true);
+                    this.inspectorChart.updateSeries([
+                        { name: 'NG', data: inspectors.ng || [] },
+                        { name: 'REJECT', data: inspectors.reject || [] }
+                    ], true);
+
+                    this.topProducts = products.rows || [];
+                    this.topInspectors = inspectors.rows || [];
                 }
             }
         }
